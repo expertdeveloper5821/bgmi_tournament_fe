@@ -1,0 +1,124 @@
+@import "../../styles/mixins";
+@import "../../styles/variable";
+
+.main_container {
+  @include main_container;
+}
+
+.background_container {
+  @include background_container;
+}
+
+.container {
+  @include container;
+  margin-top: 0px;
+
+  @media (max-width: $breakpoint-xs) {
+    margin: 1rem 1rem;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.mailsent_container {
+  width: 100%;
+}
+
+.logo {
+  @include logo;
+
+  @media (max-width: $breakpoint-xs) {
+    margin-top: 4rem;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    margin-top: 2rem;
+  }
+}
+
+.heading {
+  @include heading;
+  margin: 0px;
+  text-align: center;
+}
+
+.input_box {
+  @include input_box;
+}
+
+.girlImg_wrapper {
+  @include girlImg_wrapper;
+
+  @media (max-width: $breakpoint-xs) {
+    display: none;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    margin-top: 0;
+
+    img {
+      width: 70%;
+      height: 70vh;
+    }
+  }
+}
+
+.forgetbutton {
+  @include button_wrapper;
+  background-color: var(--bs-darkblue) !important;
+}
+
+.email_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mail_heading {
+  color: var(--bs-darkblue);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 33px;
+  margin-bottom: 1rem;
+
+  @media (max-width: $breakpoint-xs) {
+    font-size: 23px;
+    font-family: var(--bs-body-font-family);
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.mailsent_logo img {
+  position: relative;
+  width: 235px;
+  height: 130px;
+  margin: 0.5rem 0rem;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0px);
+    animation-timing-function: ease-in-out;
+  }
+
+  40% {
+    transform: translateY(-20px);
+    animation-timing-function: ease-out;
+  }
+
+  60% {
+    transform: translateY(-10px);
+    animation-timing-function: ease-in;
+  }
+}

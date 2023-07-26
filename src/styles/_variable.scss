@@ -8,7 +8,7 @@ $breakpoint-ms: 1024px;
 $breakpoint-lg: 1200px;
 
 // Theme Color
-:root {
+:export {
   --bs-darkblue: rgba(0, 53, 84, 1);
   --bs-orange: rgba(255, 122, 0, 1);
   --bs-green: rgba(28, 95, 17, 1);
