@@ -56,7 +56,7 @@ const Login = () => {
         localStorage.removeItem("rememberMe");
       }
       try {
-        const response = await sendRequest("localhost:5000/v1/login", {
+        const response = await sendRequest("/login", {
           method: "POST",
           data: { email, password },
         });
@@ -98,7 +98,7 @@ const Login = () => {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <img src="./public/assets/technogeticlogo.svg" alt="Tg-logo" />
+            <img src="./assests/technogeticlogo.svg" alt="Tg-logo" />
           </div>
 
           <div>
@@ -182,7 +182,7 @@ const Login = () => {
           </div>
         </div>
         <div className={styles.girlImg_wrapper}>
-          <img src="./assets/bgmiImg.svg" alt="bgmiImg" />
+          <img src="./assests/pubgImg.png" alt="bgmiImg" />
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@ export default function SentMail() {
           <div className={styles.container}>
             <div className={styles.mailsent_container}>
               <div className={styles.logo}>
-                <img src="./assets/technogeticlogo.svg" alt="Tg-logo"></img>
+                <img src="./assests/technogeticlogo.svg" alt="Tg-logo"></img>
               </div>
 
               <div className={styles.email_wrapper}>
@@ -29,7 +29,7 @@ export default function SentMail() {
                 </p>
 
                 <div className={styles.mailsent_logo}>
-                  <img src="./assets/letterBox.svg" alt="mailsent"></img>
+                  <img src="./assests/letterBox.svg" alt="mailsent"></img>
                 </div>
               </div>
 
@@ -46,7 +46,7 @@ export default function SentMail() {
           </div>
 
           <div className={styles.girlImg_wrapper}>
-            <img src="./assets/bgmiImg.svg" alt="bgmiImg"></img>
+            <img src="./assests/pubgImg.png" alt="bgmiImg"></img>
           </div>
         </div>
       </div>
