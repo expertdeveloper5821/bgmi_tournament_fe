@@ -1,0 +1,159 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variable.scss";
+
+.main_container {
+  @include main_container;
+}
+
+.background_container {
+  @include background_container;
+}
+
+.container {
+  @include container;
+
+  @media (max-width: $breakpoint-xs) {
+    margin: 1.5rem 1rem;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    width: 90%;
+    height: 100%;
+    margin: 1rem 1.5rem;
+  }
+}
+
+.logo {
+  @include logo;
+
+  @media (max-width: $breakpoint-xs) {
+    margin-top: 8rem;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    margin-top: 3rem;
+  }
+}
+
+.headDesc {
+  color: var(--bs-orange);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 33px;
+
+  @media (max-width: $breakpoint-xs) {
+    font-size: 28px;
+    line-height: 32px;
+    font-family: var(--bs-body-font-family);
+    margin-top: 3rem;
+  }
+}
+
+.heading {
+  @include heading;
+
+  @media (max-width: $breakpoint-xSmall) {
+    width: 100%;
+  }
+}
+
+.input_box {
+  @include input_box;
+
+  @media (max-width: $breakpoint-xs) {
+    width: 100%;
+  }
+}
+
+.email_wrapper {
+  border: transparent !important;
+  @include email_wrapper;
+
+  input {
+    background-color: var(--bs-grey);
+    color: var(--bs-white);
+  }
+}
+
+.password_wrapper {
+  border: transparent !important;
+  @include password_wrapper;
+
+  input {
+    color: var(--bs-grey) !important;
+
+  }
+}
+.forgotDesc{
+  color: var(--bs-orange)
+}
+
+.girlImg_wrapper {
+  @include girlImg_wrapper;
+
+  @media (max-width: $breakpoint-xs) {
+    display: none;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    margin-top: 0;
+
+    img {
+      width: 500px;
+      height: 430px;
+      margin-left: 0;
+    }
+  }
+}
+
+.checkbox_wrapper {
+  @include checkbox_wrapper;
+}
+
+.error {
+  @include error;
+}
+
+.forgetbutton {
+  @include button_wrapper;
+
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 12px 30px;
+    width: 100%;
+  }
+}
+
+.SignIn_button {
+  @include button_wrapper;
+  background-color: var(--bs-orange) !important;
+
+  @media (max-width: $breakpoint-xs) {
+    width: 100%;
+  }
+}
+
+.signin {
+  @include signin;
+}
+
+.signin a {
+  color: var(--bs-orange);
+  width: -webkit-fill-available;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  @media (max-width: $breakpoint-xs) {
+    margin-right: 0;
+  }
+}
+
+.error {
+  @include error;
+}
+
+.error_message {
+  color: var(--bs-red);
+}
