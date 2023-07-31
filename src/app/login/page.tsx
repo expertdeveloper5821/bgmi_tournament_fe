@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Button, Input } from "technogetic-iron-smart-ui";
 import styles from "./auth.module.scss";
 import sendRequest from "../../services/api/apiServices";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
@@ -55,6 +56,8 @@ const Login = () => {
         localStorage.removeItem("password");
         localStorage.removeItem("rememberMe");
       }
+
+      //manual login
       try {
         const response = await sendRequest("/login", {
           method: "POST",
@@ -73,7 +76,7 @@ const Login = () => {
         } else {
           setError("Invalid email or password");
         }
-       
+
       } catch (error: any) {
         setIsLoading(false);
         setError("Invalid email or password");
@@ -93,6 +96,53 @@ const Login = () => {
   }, [setFieldValue]);
 
 
+  //verify token
+  const handleVerifyToken = async (token: any) => {
+    setIsLoading(true);
+    try {
+      const verifyResponse = await sendRequest("http://localhost:5000/auth/verify", {
+        method: "GET",
+        data: {
+          token: token,
+        },
+      });
+      console.log("verifyResponse", verifyResponse);
+
+      setIsLoading(false);
+
+      if (verifyResponse.status === 200) {
+        router.push("/dashboardPage");
+      } else {
+        setError("Google Sign-In failed");
+      }
+    } catch (error) {
+      setIsLoading(false);
+      setError("Google Sign-In failed");
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setIsLoading(true);
+
+    try {
+      window.location.href = "http://localhost:5000/auth/google/callback";
+      console.log("window.location.href = localhost:5000/auth/google/callback")
+    } catch (error) {
+      setIsLoading(false);
+      setError("Google Sign-In failed");
+    }
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+    console.log("token", token, window.location.href)
+
+    if (token) {
+      handleVerifyToken(token);
+    }
+  }, []);
+
   return (
     <div className={styles.main_container}>
       <div className={styles.background_container}>
@@ -109,7 +159,7 @@ const Login = () => {
           </div>
           <div>
             <form onSubmit={handleSubmit}>
-            {error && <div className={styles.error}>{error}</div>}
+              {error && <div className={styles.error}>{error}</div>}
               <div className={styles.input_box}>
                 <label className={styles.email} htmlFor="email">
                   Email ID
@@ -175,8 +225,21 @@ const Login = () => {
 
               <div className={styles.signin}>
                 <span className={styles.forgotDesc}>
-                  <Link href="/resetpassword">Forget your Password?</Link>
+                  <Link href="/forget-password">Forget your Password?</Link>
                 </span>
+              </div>
+              <div>
+                Sign in
+                <FcGoogle />
+                <Button
+                  disabled={isLoading}
+                  className={styles.googleButton}
+                  variant="contained"
+                  type="button"
+                  onClick={handleGoogleLogin}
+                >
+                  {isLoading ? "Loading..." : "Sign in with Google"}
+                </Button>
               </div>
             </form>
           </div>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styles from "./Navabar.module.scss";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 // @ts-ignore
 import { Avatar, Popover } from "technogetic-iron-smart-ui";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,11 +14,11 @@ export function Navbar() {
     setIsOpen(false);
   }
 
-  const navigate = useNavigate();
+  const navigate = useRouter();
 
   const handleLogout = () => {
     sessionStorage.clear();
-    navigate("/login");
+    navigate.push("/login");
     setIsPopOpen(false);
   };
 
@@ -40,7 +41,7 @@ export function Navbar() {
                       Notification
                       <img
                         className={styles.close}
-                        src="./assets/cross.svg"
+                        src="./assests/cross.svg"
                         alt="close"
                         onClick={handleClosePopover}
                       ></img>
@@ -49,7 +50,7 @@ export function Navbar() {
                       <Avatar
                         onClick={() => { }}
                         size={20}
-                        src="./assets/avatar.png"
+                        src="./assests/avatar.png"
                       />
                       <div className={styles.notify}>
                         John Doe added new task Create navbar with html/css
@@ -60,7 +61,7 @@ export function Navbar() {
                       <Avatar
                         onClick={() => { }}
                         size={20}
-                        src="./assets/avatar.png"
+                        src="./assests/avatar.png"
                       />
                       <div className={styles.notify}>
                         John Doe added new task Create navbar with html/css
@@ -71,7 +72,7 @@ export function Navbar() {
                       <Avatar
                         onClick={() => { }}
                         size={20}
-                        src="./assets/avatar.png"
+                        src="./assests/avatar.png"
                       />
                       <div className={styles.notify}>
                         John Doe added new task Create navbar with html/css
@@ -89,14 +90,14 @@ export function Navbar() {
               >
                 <img
                   className={styles.notification}
-                  src="./assets/notification.svg"
+                  src="./assests/notification.svg"
                   alt="notification"
                   onClick={() => setIsOpen(true)}
                 ></img>
               </Popover>
             </li>
             <li className={styles.navitem}>
-              <Avatar onClick={() => { }} src="./assets/avatar.png" size={20} />
+              <Avatar onClick={() => { }} src="./assests/avatar.png" size={20} />
             </li>
             <li className={styles.navitem}>
               <Popover
@@ -107,7 +108,7 @@ export function Navbar() {
                     <div className={styles.userdetails}>
                       <Avatar
                         onClick={() => { }}
-                        src="./assets/avatar.png"
+                        src="./assests/avatar.png"
                         size={25}
                       />
                       <div className={styles.username_details}>
@@ -122,7 +123,7 @@ export function Navbar() {
                       <div className={styles.flexcol}>
                         <img
                           className={styles.profileicon}
-                          src="./assets/profile.svg"
+                          src="./assests/profile.svg"
                           alt="profile"
                         ></img>
                         <div className={styles.myprofile}>My Account</div>
@@ -130,7 +131,7 @@ export function Navbar() {
                       <div className={styles.flexcol}>
                         <img
                           className={styles.settingicon}
-                          src="./assets/settingicon.svg"
+                          src="./assests/settingicon.svg"
                           alt="setting"
                         ></img>
                         <div className={styles.myprofile}>Settings</div>
@@ -138,7 +139,7 @@ export function Navbar() {
                       <div className={styles.flexcol}>
                         <img
                           className={styles.notification_icon}
-                          src="./assets/notification.svg"
+                          src="./assests/notification.svg"
                           alt="notification"
                         ></img>
                         <div className={styles.myprofile}>Notification</div>
@@ -148,7 +149,7 @@ export function Navbar() {
                       <div>
                         <img
                           className={styles.logoutbuttonicon}
-                          src="./assets/logouticon.svg"
+                          src="./assests/logouticon.svg"
                           alt="logouticon"
                           onClick={handleLogout}
                         ></img>
@@ -163,7 +164,7 @@ export function Navbar() {
               >
                 <img
                   className={styles.dropdown}
-                  src="./assets/dropdown.svg"
+                  src="./assests/dropdown.svg"
                   alt="dropdown"
                   onClick={() => setIsPopOpen(!isPopOpen)}
                 ></img>

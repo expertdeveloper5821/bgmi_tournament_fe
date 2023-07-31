@@ -4,16 +4,14 @@ import styles from "./credential.module.scss";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
 import { ResetPasswordSchema } from "../../schemas/SignupSchemas";
 //@ts-ignore
 import { Button, Input } from "technogetic-iron-smart-ui";
 import sendRequest from "../../services/api/apiServices";
 
 const UpdateCredential = () => {
-  const [token, setToken] = useState(""); // Initialize token state
+  const [token, setToken] = useState("");
 
-  // const navigate = useNavigate();
   const router = useRouter();
 
   useEffect(() => {
@@ -41,16 +39,16 @@ const UpdateCredential = () => {
     validationSchema: ResetPasswordSchema,
     onSubmit: async (values) => {
       const { newPassword, confirmPassword } = values;
-
+      console.log("tokenParam", token)
       try {
         const response = await sendRequest(`reset-password?token=${token}`, {
           method: "POST",
           data: { newPassword, confirmPassword },
         });
         if (response.status === 200) {
-          router.push("/UpdateCredSuccess");
+          router.push("reset-password/updateCredSuccess");;
         } else {
-          // setError("Invalid email or password");
+          console.error("Password update failed");
         }
       } catch (error: any) { }
     },
@@ -59,9 +57,6 @@ const UpdateCredential = () => {
 
   return (
     <div className={styles.main_container}>
-      <button onClick={() => {
-           router.push("userCredential/updateCredSuccess");
-      }}>Change</button>
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
