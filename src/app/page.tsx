@@ -1,10 +1,17 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import Loader from './loader/page'
+import RootLayout from './layout'
+
+
 
 export default function Home() {
   return (
-    <Loader />
+
+    <RootLayout>
+      <Loader />
+    </RootLayout>
+
     // <main className={styles.main}>
     //   <div className={styles.description}>
     //     <p>

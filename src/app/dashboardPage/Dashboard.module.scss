@@ -1,5 +1,5 @@
-@import "../../styles/mixins.scss";
-@import "../../styles/variable.scss";
+@import '../../styles/mixins.scss';
+@import '../../styles/variable.scss';
 
 .main_container {
   width: 100vw;
@@ -22,4 +22,13 @@
 .sidebar_wrapper {
   z-index: 99;
   height: auto;
+}
+.input_desc Input {
+  border-radius: 8px;
+  color: #8a96a5 !important;
+  font-size: 14px;
+}
+.input_desc {
+  display: flex;
+  justify-content: space-around;
 }
