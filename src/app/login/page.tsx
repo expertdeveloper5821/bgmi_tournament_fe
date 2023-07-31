@@ -73,7 +73,7 @@ const Login = () => {
         } else {
           setError("Invalid email or password");
         }
-       
+
       } catch (error: any) {
         setIsLoading(false);
         setError("Invalid email or password");
@@ -109,7 +109,7 @@ const Login = () => {
           </div>
           <div>
             <form onSubmit={handleSubmit}>
-            {error && <div className={styles.error}>{error}</div>}
+              {error && <div className={styles.error}>{error}</div>}
               <div className={styles.input_box}>
                 <label className={styles.email} htmlFor="email">
                   Email ID
@@ -170,6 +170,8 @@ const Login = () => {
                   onClick={handleSubmit}
                 >
                   {isLoading ? "Loading..." : "Sign in"}
+
+
                 </Button>
               </div>
 
