@@ -1,4 +1,6 @@
-import { useState, ReactNode } from "react";
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import styles from "./DashboardSidebar.module.scss";
 import {
   FaTh,
@@ -8,49 +10,38 @@ import {
   FaCommentAlt,
   FaShoppingBag,
 } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
 
 interface MenuItem {
   path: string;
   name: string;
   icon: JSX.Element;
 }
-
-interface SidebarProps {
-  children: ReactNode;
-}
-
-const Sidebar = ({ children }: SidebarProps) => {
+const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const menuItem: MenuItem[] = [
     {
-      path: "/",
-      name: "Book Slots",
+      path: "/dashboardPage/Room",
+      name: "Room",
       icon: <FaTh />,
     },
     {
-      path: "/createServer",
-      name: "Create Server",
+      path: "/dashboardPage/spectator",
+      name: "Specatator",
       icon: <FaUserAlt />,
     },
     {
-      path: "/manageTeam",
-      name: "Manage Team",
+      path: "/dashboardPage/users",
+      name: "Users",
       icon: <FaRegChartBar />,
     },
     {
-      path: "/createTeam",
-      name: "Create Team",
+      path: "/dashboardPage/teams",
+      name: "Teams",
       icon: <FaCommentAlt />,
-    },
-    {
-      path: "/notification",
-      name: "Notification",
-      icon: <FaShoppingBag />,
-    },
-  ];
+    }
 
+  ];
   return (
     <div className={styles.container}>
       <div style={{ width: isOpen ? "220px" : "100px" }} className={styles.sidebar}>
@@ -63,20 +54,21 @@ const Sidebar = ({ children }: SidebarProps) => {
           </div>
         </div>
         {menuItem.map((item, index) => (
-          <NavLink to={item.path} key={index} className={styles.link}>
-            <div className={styles.icon}>{item.icon}</div>
-            <div
-              style={{ display: isOpen ? "block" : "none", fontSize: "18px" }}
-              className={styles.link_text}
-            >
-              {item.name}
+
+          <Link href={item.path} key={index} >
+            <div className={styles.link}>
+              <div className={styles.icon}>{item.icon}</div>
+              <div
+                style={{ display: isOpen ? "block" : "none", fontSize: "18px" }}
+                className={styles.link_text}
+              >
+                {item.name}
+              </div>
             </div>
-          </NavLink>
+          </Link>
         ))}
       </div>
-      <main>{children}</main>
     </div>
   );
 };
-
 export default Sidebar;

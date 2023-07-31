@@ -1,5 +1,5 @@
-@import "../../styles/mixins";
-@import "../../styles/variable";
+@import '../../../styles/mixins';
+@import '../../../styles/variable';
 
 .container {
   border: none !important;
@@ -65,11 +65,11 @@
   }
 }
 
-// h1 {
-//   color: var(--bs-darkblue);
-//   margin: 1px;
-//   font-size: var(--bs-font-size);
-// }
+.adminname {
+  color: var(--bs-darkblue);
+  margin: 1px;
+  font-size: var(--bs-font-size);
+}
 
 .profile {
   font-size: 8px;
@@ -141,10 +141,10 @@
   margin-top: 10px;
 }
 
-// li {
-//   font-size: 10px;
-//   padding: 5px;
-// }
+.navitem {
+  font-size: 10px;
+  padding: 5px;
+}
 
 .flexcol {
   display: flex;
