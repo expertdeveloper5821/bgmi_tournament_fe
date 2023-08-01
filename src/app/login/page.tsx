@@ -59,20 +59,16 @@ const Login = () => {
 
       //manual login
       try {
-        const response = await sendRequest("/login", {
+        const response = await sendRequest("v1/login", {
           method: "POST",
           data: { email, password },
         });
 
-        console.log("email", values.email);
-        console.log("password", values.password);
-
         setIsLoading(false);
-        console.log("response", response);
 
         if (response.status === 200) {
           localStorage.setItem("jwtToken", response.data.token);
-          router.push("/dashboardPage");
+          router.push("/adminDashboard");
         } else {
           setError("Invalid email or password");
         }
@@ -106,12 +102,11 @@ const Login = () => {
           token: token,
         },
       });
-      console.log("verifyResponse", verifyResponse);
 
       setIsLoading(false);
 
       if (verifyResponse.status === 200) {
-        router.push("/dashboardPage");
+        router.push("/adminDashboard");
       } else {
         setError("Google Sign-In failed");
       }
@@ -126,7 +121,6 @@ const Login = () => {
 
     try {
       window.location.href = "http://localhost:5000/auth/google/callback";
-      console.log("window.location.href = localhost:5000/auth/google/callback")
     } catch (error) {
       setIsLoading(false);
       setError("Google Sign-In failed");
@@ -220,6 +214,8 @@ const Login = () => {
                   onClick={handleSubmit}
                 >
                   {isLoading ? "Loading..." : "Sign in"}
+
+
                 </Button>
               </div>
 

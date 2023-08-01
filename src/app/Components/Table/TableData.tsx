@@ -1,16 +1,10 @@
+'use client'
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useRouter, NextRouter } from "next/router";
 import styles from "./TableData.module.scss";
 //@ts-ignore
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell, IconButton, } from "technogetic-iron-smart-ui";
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell, IconButton } from "technogetic-iron-smart-ui";
 
-// interface StudentProfile {
-//     Course: string;
-//     Mobile: string;
-//     Student: string;
-//     StudentName: string;
-//     studentID: string;
-// }
 export interface StudentProfile {
     Course: string;
     Mobile: string;
@@ -20,32 +14,24 @@ export interface StudentProfile {
 }
 
 interface StudentProfilePropsType {
-    studentData: StudentProfile[]
+    studentData: StudentProfile[];
     showAdditionalButton?: boolean;
-    columns: string[]
+    columns: string[];
 }
 
 interface studentData {
-    // StudentName: string;
-    // Student: string;
-    // studentID: string;
-    // Mobile: string;
-    // Course: string;
     [key: string]: string;
 }
 
 const TableData = (props: StudentProfilePropsType) => {
-    // const location = useLocation();
 
-    const [sortedData, setSortedData] = useState(props?.studentData);
+    const [sortedData, setSortedData] = useState(props?.studentData || []);
     const [isDescending, setIsDescending] = useState(false);
     const [sortKey, setSortKey] = useState("");
 
-    const shouldShowAdditionalButton = true;
-
     useEffect(() => {
-        setSortedData(props?.studentData)
-    }, [props?.studentData])
+        setSortedData(props?.studentData);
+    }, [props?.studentData]);
 
     const handleSort = (key: keyof studentData) => {
         let sorted = [];
@@ -65,20 +51,18 @@ const TableData = (props: StudentProfilePropsType) => {
         setSortKey(String(key));
     };
 
-    const handleDelete = (studentData: studentData) => {
+    function handleDelete({ studentData }: { studentData: studentData; }): void {
         const updatedData = sortedData.filter(
             (data: any) => data.studentID !== studentData.studentID
         );
         setSortedData(updatedData);
-        console.log("data", updatedData)
-    };
-
-    const handleEdit = (studentData: studentData) => {
-        const handleEdit = sortedData;
+        console.log("data", updatedData);
     }
 
-    console.log(sortedData)
-    const tableHeads = ["Assignment Name", "Assignment ID", "Student", "Assigned Date", "Deadline", "Actions"]
+    const handleEdit = (studentData: studentData) => {
+        console.log("Edit student data:", studentData);
+    }
+
     return (
         <div>
             <Table className={styles.table_content}>
@@ -89,8 +73,8 @@ const TableData = (props: StudentProfilePropsType) => {
                                 <div className={styles.filter}>
                                     {columnName}
                                     <div>
-                                        <img src="/assets/upArrow.svg" alt="filterup" onClick={() => handleSort(columnName)}></img>
-                                        <img src="/assets/downArrow.svg" alt="filterdown" onClick={() => handleSort(columnName)}></img>
+                                        <img src="/assests/upArrow.svg" alt="filterup" onClick={() => handleSort(columnName)}></img>
+                                        <img src="/assests/downArrow.svg" alt="filterdown" onClick={() => handleSort(columnName)}></img>
                                     </div>
                                 </div>
                             </TableHead>
@@ -103,15 +87,10 @@ const TableData = (props: StudentProfilePropsType) => {
 
                 <TableBody className={styles.table_body}>
                     {sortedData.map((studentData: any, index: number) => {
-                        const shouldRenderAdditionalButton =
-                            location.pathname === "/student";
-                        const additionalImagePath = shouldRenderAdditionalButton
-                            ? "./assets/StudentProfile.svg"
-                            : null;
+                        const additionalImagePath = props.showAdditionalButton ? "./assests/StudentProfile.svg" : null;
 
                         return (
-                            <TableRow className={styles.table_rowdata} key={index}>
-                                {/* {props.columns.map((columnName) => ( */}
+                            <TableRow className={styles.table_rowdata} key={index} >
                                 <TableCell className={styles.table_cell}>
                                     {studentData.StudentName}
                                 </TableCell>
@@ -131,20 +110,17 @@ const TableData = (props: StudentProfilePropsType) => {
                                     {additionalImagePath ? (
                                         <IconButton>
                                             <div className={styles.iconWrapper}>
-                                                <img src="/assets/StudentProfile.svg" alt="studentProfileView" className={styles.table_icon}></img>
+                                                <img src="/assests/studentprofile.svg" alt="studentProfileView" className={styles.table_icon}></img>
                                                 <span>View Profile</span>
                                             </div>
                                         </IconButton>
                                     ) : (
                                         <>
-                                            <IconButton>
-                                                <img src="/assets/TableProfile.svg" alt="studentProfile" className={styles.cell_icon}></img>
-                                            </IconButton>
                                             <IconButton onClick={() => handleEdit(studentData)}>
-                                                <img src="/assets/TableEdit.svg" alt="studentProfileEdit" className={styles.cell_icon}></img>
+                                                <img src="/assests/TableEdit.svg" alt="studentProfileEdit" className={styles.cell_icon}></img>
                                             </IconButton>
-                                            <IconButton onClick={() => handleDelete(studentData)}>
-                                                <img src="/assets/TableDelete.svg" alt="studentProfileDelete" className={styles.cell_icon}></img>
+                                            <IconButton onClick={() => handleDelete({ studentData })}>
+                                                <img src="/assests/Tabledelete.svg" alt="studentProfileDelete" className={styles.cell_icon}></img>
                                             </IconButton>
                                         </>
                                     )}
@@ -159,10 +135,3 @@ const TableData = (props: StudentProfilePropsType) => {
 };
 
 export default TableData;
-
-
-
-
-
-
-

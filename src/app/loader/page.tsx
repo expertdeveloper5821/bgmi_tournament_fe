@@ -1,7 +1,7 @@
 'use client';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import styles from './loader.module.scss';
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import sendRequest from '@/services/auth/auth_All_Api';
 
 type Props = {};
@@ -16,16 +16,16 @@ const Loader = (props: Props) => {
   const handleVerifyToken = async (token: any) => {
     setIsLoading(true);
     try {
-      const verifyResponse = await sendRequest("auth/verify/?" +`token=${token}` , {
+      const verifyResponse = await sendRequest("auth/verify/?" + `token=${token}`, {
         method: "GET",
-       
+
       });
       console.log("verifyResponse", verifyResponse);
 
       setIsLoading(false);
 
       if (verifyResponse.status === 200) {
-        router.push("/dashboardPage");
+        router.push("/adminDashboard");
       } else {
         setError("Google Sign-In failed");
       }
@@ -35,18 +35,17 @@ const Loader = (props: Props) => {
     }
   };
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     router.push('/login');
-  //   }, 2000);
-  // });
-  
+  useEffect(() => {
+    setTimeout(() => {
+      router.push('/login');
+    }, 2000);
+  });
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
-    console.log("token", token,window.location.href)
     handleVerifyToken(token)
-  },[])
+  }, [])
 
   return (
     <>

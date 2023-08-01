@@ -1,11 +1,11 @@
 'use client';
-import React, {useState, ChangeEvent} from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
 import styles from '../login/auth.module.scss';
 import sendRequest from '../../services/auth/auth_All_Api';
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 //@ts-ignore
-import {Button, Input} from 'technogetic-iron-smart-ui';
+import { Button, Input } from 'technogetic-iron-smart-ui';
 
 export default function ResetPassword(): JSX.Element {
   const [email, setEmail] = useState('');
@@ -21,9 +21,9 @@ export default function ResetPassword(): JSX.Element {
 
   const sendEmail = async () => {
     try {
-      const response = await sendRequest('forget-password', {
+      const response = await sendRequest('v1/forget-password', {
         method: 'POST',
-        body: {email},
+        body: { email },
       });
       router.push('/mailpage');
 
@@ -32,7 +32,6 @@ export default function ResetPassword(): JSX.Element {
       console.error('Password recovery error:', error);
     }
   };
-  console.log('email', email);
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -60,9 +59,8 @@ export default function ResetPassword(): JSX.Element {
             <Input
               type="email"
               id="email"
-              className={`${styles.email_wrapper} ${
-                isEmailValid ? '' : styles.invalid
-              }`}
+              className={`${styles.email_wrapper} ${isEmailValid ? '' : styles.invalid
+                }`}
               placeholder="Enter Email"
               value={email}
               onChange={handleEmailChange}
