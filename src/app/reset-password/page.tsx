@@ -39,9 +39,8 @@ const UpdateCredential = () => {
     validationSchema: ResetPasswordSchema,
     onSubmit: async (values) => {
       const { newPassword, confirmPassword } = values;
-      console.log("tokenParam", token)
       try {
-        const response = await sendRequest(`reset-password?token=${token}`, {
+        const response = await sendRequest(`v1/reset-password?token=${token}`, {
           method: "POST",
           data: { newPassword, confirmPassword },
         });

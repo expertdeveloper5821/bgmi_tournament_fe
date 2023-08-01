@@ -1,5 +1,5 @@
-@import "../../styles/mixins.scss";
-@import "../../styles/variable.scss";
+@import '../../styles/mixins.scss';
+@import '../../styles/_variable.scss';
 
 .main_container {
   @include main_container;
@@ -72,7 +72,7 @@
 
   input {
     background-color: var(--bs-grey);
-    color: var(--bs-white);
+    color: black;
   }
 }
 
@@ -82,11 +82,7 @@
 
   input {
     color: var(--bs-grey) !important;
-
   }
-}
-.forgotDesc{
-  color: var(--bs-orange)
 }
 
 .girlImg_wrapper {
@@ -156,4 +152,7 @@
 
 .error_message {
   color: var(--bs-red);
+}
+.signin {
+  color: black;
 }

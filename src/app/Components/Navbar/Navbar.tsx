@@ -1,36 +1,30 @@
 import React, { useState } from "react";
 import styles from "./Navabar.module.scss";
-// import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/navigation";
 // @ts-ignore
 import { Avatar, Popover } from "technogetic-iron-smart-ui";
-// import { Link } from "react-router-dom";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isPopOpen, setIsPopOpen] = useState(false);
-
   function handleClosePopover() {
     setIsOpen(false);
   }
-
   const navigate = useRouter();
 
   const handleLogout = () => {
     sessionStorage.clear();
     navigate.push("/login");
     setIsPopOpen(false);
+    console.log("logout clicked!");
   };
-
   return (
     <header>
       <div className={styles.maincontainer}>
         <nav className={styles.container}>
           <div className={styles.navbarbrand}>
           </div>
-
           <ul className={styles.navbarnav}>
-
             <li className={styles.navitem}>
               <Popover
                 isOpen={isOpen}
@@ -90,7 +84,7 @@ export function Navbar() {
               >
                 <img
                   className={styles.notification}
-                  src="./assests/notification.svg"
+                  src="./assests/notificationImg.svg"
                   alt="notification"
                   onClick={() => setIsOpen(true)}
                 ></img>
@@ -118,7 +112,6 @@ export function Navbar() {
                         </span>
                       </div>
                     </div>
-
                     <div className={styles.profilesection}>
                       <div className={styles.flexcol}>
                         <img
@@ -146,12 +139,12 @@ export function Navbar() {
                       </div>
                     </div>
                     <div className={styles.logoutbutton}>
-                      <div>
+                      <div onClick={handleLogout}>
                         <img
                           className={styles.logoutbuttonicon}
                           src="./assests/logouticon.svg"
                           alt="logouticon"
-                          onClick={handleLogout}
+                          
                         ></img>
                         Logout
                       </div>
@@ -182,3 +175,4 @@ export function Navbar() {
     </header>
   );
 }
+

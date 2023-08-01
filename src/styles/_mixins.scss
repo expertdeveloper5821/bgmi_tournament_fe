@@ -1,5 +1,5 @@
 @mixin main_container {
-  background-image: url("../../public/assests/backgroundimage.svg");
+  background-image: url('../../public/assests/backgroundimage.svg');
   width: auto;
   height: 100vh;
   background-repeat: no-repeat;
@@ -53,7 +53,7 @@
   font-style: var(--bs-font-style);
   font-weight: var(--bs-body-font-weight);
   font-size: var(--bs-body-font-size);
-  color: var(--bs-orange);
+  color: black;
   margin-bottom: 1rem;
   width: 100%;
 }
@@ -80,9 +80,9 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  background: var(--bs-green) !important;
+  background: grey !important;
   border-radius: var(--bs-border-radius);
-  color: var(--bs-white) !important;
+  color: black !important;
   font-size: var(--bs-font-size);
   letter-spacing: 0.05em;
   padding: 12px 40px;
