@@ -1,7 +1,9 @@
+// Sidebar.tsx
 
 import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./DashboardSidebar.module.scss";
+import { FaBars } from "react-icons/fa";
 
 interface MenuItem {
   path: string;
@@ -20,6 +22,14 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }) => {
   return (
     <div className={styles.container}>
       <div style={{ width: isOpen ? "220px" : "100px" }} className={styles.sidebar}>
+        <div className={styles.top_section}>
+          <h1 style={{ display: isOpen ? "block" : "none" }} className={styles.logo}>
+            Logo
+          </h1>
+          <div style={{ marginLeft: isOpen ? "100px" : "0px" }} className={styles.bars}>
+            <FaBars onClick={toggle} />
+          </div>
+        </div>
         {menuItem.map((item, index) => (
           <Link href={item.path} key={index}>
             <div className={styles.link}>
