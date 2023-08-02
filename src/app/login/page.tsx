@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Button, Input } from "technogetic-iron-smart-ui";
 import styles from "./auth.module.scss";
 import sendRequest from "../../services/api/apiServices";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
@@ -55,21 +56,19 @@ const Login = () => {
         localStorage.removeItem("password");
         localStorage.removeItem("rememberMe");
       }
+
+      //manual login
       try {
-        const response = await sendRequest("/login", {
+        const response = await sendRequest("v1/login", {
           method: "POST",
           data: { email, password },
         });
 
-        console.log("email", values.email);
-        console.log("password", values.password);
-
         setIsLoading(false);
-        console.log("response", response);
 
         if (response.status === 200) {
           localStorage.setItem("jwtToken", response.data.token);
-          router.push("/dashboardPage");
+          router.push("/adminDashboard");
         } else {
           setError("Invalid email or password");
         }
@@ -92,6 +91,51 @@ const Login = () => {
     }
   }, [setFieldValue]);
 
+
+  //verify token
+  const handleVerifyToken = async (token: any) => {
+    setIsLoading(true);
+    try {
+      const verifyResponse = await sendRequest("http://localhost:5000/auth/verify", {
+        method: "GET",
+        data: {
+          token: token,
+        },
+      });
+
+      setIsLoading(false);
+
+      if (verifyResponse.status === 200) {
+        router.push("/adminDashboard");
+      } else {
+        setError("Google Sign-In failed");
+      }
+    } catch (error) {
+      setIsLoading(false);
+      setError("Google Sign-In failed");
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setIsLoading(true);
+
+    try {
+      window.location.href = "http://localhost:5000/auth/google/callback";
+    } catch (error) {
+      setIsLoading(false);
+      setError("Google Sign-In failed");
+    }
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+    console.log("token", token, window.location.href)
+
+    if (token) {
+      handleVerifyToken(token);
+    }
+  }, []);
 
   return (
     <div className={styles.main_container}>
@@ -177,8 +221,21 @@ const Login = () => {
 
               <div className={styles.signin}>
                 <span className={styles.forgotDesc}>
-                  <Link href="/resetpassword">Forget your Password?</Link>
+                  <Link href="/forget-password">Forget your Password?</Link>
                 </span>
+              </div>
+              <div>
+                Sign in
+                <FcGoogle />
+                <Button
+                  disabled={isLoading}
+                  className={styles.googleButton}
+                  variant="contained"
+                  type="button"
+                  onClick={handleGoogleLogin}
+                >
+                  {isLoading ? "Loading..." : "Sign in with Google"}
+                </Button>
               </div>
             </form>
           </div>

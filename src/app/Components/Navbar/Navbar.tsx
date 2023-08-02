@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styles from "./Navabar.module.scss";
-// import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/navigation";
 // @ts-ignore
 import { Avatar, Popover } from "technogetic-iron-smart-ui";
-// import { Link } from "react-router-dom";
+
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isPopOpen, setIsPopOpen] = useState(false);
@@ -12,10 +11,12 @@ export function Navbar() {
     setIsOpen(false);
   }
   const navigate = useRouter();
+
   const handleLogout = () => {
     sessionStorage.clear();
     navigate.push("/login");
     setIsPopOpen(false);
+    console.log("logout clicked!");
   };
   return (
     <header>
@@ -138,12 +139,12 @@ export function Navbar() {
                       </div>
                     </div>
                     <div className={styles.logoutbutton}>
-                      <div>
+                      <div onClick={handleLogout}>
                         <img
                           className={styles.logoutbuttonicon}
                           src="./assests/logouticon.svg"
                           alt="logouticon"
-                          onClick={handleLogout}
+                          
                         ></img>
                         Logout
                       </div>

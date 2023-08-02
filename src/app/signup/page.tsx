@@ -21,10 +21,10 @@ const Signup = () => {
         setRememberMe(event.target.checked);
     }
 
-    useEffect(() => {
-        const rememberMeValue = localStorage.getItem("rememberMe") === "true";
-        setRememberMe(rememberMeValue);
-    }, []);
+    // useEffect(() => {
+    //     const rememberMeValue = localStorage.getItem("rememberMe") === "true";
+    //     setRememberMe(rememberMeValue);
+    // }, []);
 
     const initialValues = {
         fullName: "",
@@ -47,36 +47,36 @@ const Signup = () => {
         onSubmit: async (values) => {
             setIsLoading(true);
             const { fullName, userName, email, password } = values;
-            console.log("fullName", fullName);
-            console.log("userName", userName);
-            console.log("email", email);
-            console.log("password", password);
+            // console.log("fullName", fullName);
+            // console.log("userName", userName);
+            // console.log("email", email);
+            // console.log("password", password);
 
 
             if (rememberMe) {
                 const expirationDate = new Date();
                 expirationDate.setDate(expirationDate.getDate() + 30);
-                localStorage.setItem("fullName", fullName);
-                localStorage.setItem("userName", userName);
-                localStorage.setItem("email", email);
-                localStorage.setItem("password", password);
-                localStorage.setItem("rememberMe", "true");
+                // localStorage.setItem("fullName", fullName);
+                // localStorage.setItem("userName", userName);
+                // localStorage.setItem("email", email);
+                // localStorage.setItem("password", password);
+                // localStorage.setItem("rememberMe", "true");
             } else {
-                localStorage.removeItem("fullName");
-                localStorage.removeItem("userName");
-                localStorage.removeItem("email");
-                localStorage.removeItem("password");
-                localStorage.removeItem("rememberMe");
+                // localStorage.removeItem("fullName");
+                // localStorage.removeItem("userName");
+                // localStorage.removeItem("email");
+                // localStorage.removeItem("password");
+                // localStorage.removeItem("rememberMe");
             }
 
             try {
-                const response = await sendRequest("/signup", {
+                const response = await sendRequest("v1/signup", {
                     method: "POST",
                     data: { fullName, userName, email, password },
                 });
-                console.log("Fullname", values.fullName);
-                console.log("UserName", values.userName);
-                console.log("response", response)
+                // console.log("Fullname", values.fullName);
+                // console.log("UserName", values.userName);
+                // console.log("response", response)
 
                 if (response.status === 200) {
                     localStorage.setItem("jwtToken", response.data.token);
