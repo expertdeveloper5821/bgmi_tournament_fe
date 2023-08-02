@@ -1,26 +1,27 @@
 @mixin main_container {
-  background-image: url('../../public/assests/backgroundimage.svg');
+  background-image: url('../../public/assests/background.svg');
   width: auto;
   height: 100vh;
   background-repeat: no-repeat;
   overflow: hidden;
   background-size: cover;
+  // filter: drop-shadow();
 }
 
 @mixin logo {
   display: flex;
-  margin: 2.5rem 0rem;
   justify-content: center;
 }
 
 @mixin container {
   display: flex;
   position: relative;
+  place-content: center;
   flex-direction: column;
-  width: 60vw;
-  justify-content: center;
-  margin-left: 8rem;
-  border: 2px;
+  width: 28vw;
+  padding: 10px;
+
+  // border: 2px solid black;
 }
 
 @mixin background_container {
@@ -42,6 +43,8 @@
 }
 
 @mixin heading {
+  display: flex;
+  justify-content: center;
   color: black;
   font-weight: var(--bs-body-font-weight);
   font-size: var(--bs-body-font-size);
@@ -53,22 +56,27 @@
   font-style: var(--bs-font-style);
   font-weight: var(--bs-body-font-weight);
   font-size: var(--bs-body-font-size);
+  display: flex;
+  align-items: center;
+  gap: 30px;
   color: black;
   margin-bottom: 1rem;
   width: 100%;
 }
 
 @mixin email_wrapper {
-  background-color: var(--bs-black) !important;
-  border-radius: var(--bs-border-radius);
+  color: #003354;
   padding: 12px 20px;
   margin-top: 0.25rem;
   font-style: var(--bs-font-style);
   font-weight: var(--bs-body-font-weight);
-  font-size: var(--bs-body-font-size);
-  border-style: none;
+  // font-size: var(--bs-body-font-size);
+  font-style: Century Gothi;
+  font-weight: 700;
+  font-size: 16px;
+  border-style: none !important;
   border: none !important;
-  outline: none;
+  outline: none !important;
 }
 
 @mixin password_wrapper {
@@ -76,21 +84,24 @@
 }
 
 @mixin button_wrapper {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // position: absolute;
+  // border-radius: var(--bs-border-radius);
+  // color: white !important;
+  // font-size: var(--bs-font-size);
+  // letter-spacing: 0.05em;
+  // padding: 12px 40px;
+  // box-shadow: none;
+  // cursor: var(--bs-cursor);
+  // border: 1px solid transparent;
+  // width: 100%;
+  // margin-top: 2rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  background: grey !important;
-  border-radius: var(--bs-border-radius);
-  color: black !important;
-  font-size: var(--bs-font-size);
-  letter-spacing: 0.05em;
-  padding: 12px 40px;
-  box-shadow: none;
-  cursor: var(--bs-cursor);
-  border: 1px solid transparent;
   width: 100%;
-  margin-top: 2rem;
+  justify-content: center;
+  background-color: #003354 !important;
 }
 
 @mixin checkbox_wrapper {
@@ -99,13 +110,14 @@
   font-size: var(--bs-font-size);
   line-height: var(--bs-line-height);
   color: var(--bs-grey);
-  margin-top: 0.5rem;
+  margin: 1rem 0rem;
+
   position: relative;
 }
 
 @mixin signin {
-  margin-top: 6rem;
-  color: var(--bs-grey);
+  margin-top: 2rem;
+  color: white !important;
   cursor: pointer;
   font-style: var(--bs-font-style);
   font-size: var(--bs-font-size);
@@ -145,6 +157,8 @@
 
 @mixin error {
   color: var(--bs-red);
+  display: flex;
+  flex-direction: column;
 
   p {
     white-space: initial;

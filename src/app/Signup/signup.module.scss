@@ -10,9 +10,17 @@
   @include background_container;
 }
 
+.email_wrapper {
+  @include email_wrapper;
+  border: 0px solid !important;
+}
+.password_wrapper {
+  @include email_wrapper;
+  border: 0px solid !important;
+}
+
 .container {
   @include container;
-  margin-top: 100px;
 
   @media (max-width: $breakpoint-xs) {
     margin: 1.5rem 1rem;
@@ -72,16 +80,7 @@
     width: 100%;
   }
 }
-.email_wrapper {
-  @include email_wrapper;
-  border: 0px solid !important;
-  color: black !important;
-}
-.password_wrapper {
-  @include email_wrapper;
-  border: 0px solid !important;
-  color: black !important;
-}
+
 .email_wrapper ::placeholder {
   @include email_wrapper;
   width: 100%;
@@ -179,7 +178,6 @@
   border-radius: 8px;
   gap: 10px;
 }
-
 .input_box input {
   color: black;
 }

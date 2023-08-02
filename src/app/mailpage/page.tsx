@@ -7,7 +7,7 @@ import { Button } from "technogetic-iron-smart-ui";
 export interface IAppProps { }
 
 export default function SentMail() {
-  
+
   const handleClick = () => {
     window.open("https://mail.google.com/mail/u/0/#inbox", "_blank");
   };
@@ -19,7 +19,7 @@ export default function SentMail() {
           <div className={styles.container}>
             <div className={styles.mailsent_container}>
               <div className={styles.logo}>
-                <img src="./assests/technogeticlogo.svg" alt="Tg-logo"></img>
+                <img src="./assests/logo.svg" alt="Tg-logo"></img>
               </div>
 
               <div className={styles.email_wrapper}>
@@ -43,10 +43,6 @@ export default function SentMail() {
                 </Button>
               </div>
             </div>
-          </div>
-
-          <div className={styles.girlImg_wrapper}>
-            <img src="./assests/pubgImg.png" alt="bgmiImg"></img>
           </div>
         </div>
       </div>
