@@ -98,7 +98,7 @@
   font-weight: var(--bs-body-font-weight);
   font-size: var(--bs-font-size);
   line-height: var(--bs-line-height);
-  color: var(--bs-grey);
+  color: black;
   margin-top: 0.5rem;
   position: relative;
 }
@@ -144,7 +144,7 @@
 }
 
 @mixin error {
-  color: var(--bs-red);
+  color: red;
 
   p {
     white-space: initial;
