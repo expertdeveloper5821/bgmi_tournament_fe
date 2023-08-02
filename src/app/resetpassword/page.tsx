@@ -56,7 +56,7 @@ export default function ResetPassword(): JSX.Element {
           </div>
           <div className={styles.input_box}>
             <label className={styles.email} htmlFor="email">
-              Email
+              <img src="./assests/fullnameicon.svg" alt="fullname" />
             </label>
             <Input
               type="email"
@@ -74,7 +74,7 @@ export default function ResetPassword(): JSX.Element {
           <div className={styles.button_wrapper}>
             <Button
               variant="contained"
-              className={styles.SignIn_button} 
+              className={styles.SignIn_button}
               onClick={sendEmail}
             >
               Recover Password
@@ -85,9 +85,6 @@ export default function ResetPassword(): JSX.Element {
               <Link href="/">Remember it?&nbsp;Sign in here</Link>
             </span>
           </div>
-        </div>
-        <div className={styles.girlImg_wrapper}>
-          <img src="./assests/pubgImg.png" alt="girl-img" />
         </div>
       </div>
     </div>

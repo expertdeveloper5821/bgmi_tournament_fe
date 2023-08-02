@@ -13,7 +13,7 @@ const Loader = (props: Props) => {
 
     useEffect(() => {
         setTimeout(() => {
-            router.push("/login");
+            router.push("/Signup");
         }, 2000)
     })
     return (

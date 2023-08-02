@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 //@ts-ignore
 import { Button, Input } from "technogetic-iron-smart-ui";
-import styles from "../login/auth.module.scss";
+import styles from "./signup.module.scss";
 import sendRequest from "../../services/api/apiServices";
 import { FcGoogle } from "react-icons/fc";
 
@@ -118,10 +118,10 @@ const Signup = () => {
             <div className={styles.background_container}>
                 <div className={styles.container}>
                     <div className={styles.logo}>
-                        {/* <img src="./assests/technogeticlogo.svg" alt="Tg-logo" /> */}
+                        <img src="./assests/logo.svg" alt="Tg-logo" />
                     </div>
                     <div>
-                        {/* <h2 className={styles.headDesc}>Hello Admin !</h2> */}
+                        <h2 className={styles.headDesc}>Welcome back</h2>
                         <p className={styles.heading}>Welcome back! Please enter your details</p>
                     </div>
                     <div>
@@ -129,15 +129,17 @@ const Signup = () => {
                             {error && <div className={styles.error}>{error}</div>}
                             <div className={styles.input_box}>
                                 <label className={styles.email} htmlFor="Fullname">
-                                    Full name
+                                    {/* Full name */}
+                                    <img src="./assests/fullnameicon.svg" alt="fullname" />
                                 </label>
                                 <Input
+
                                     id="fullName"
                                     className={styles.email_wrapper}
                                     type="text"
                                     name="fullName"
                                     autoComplete="off"
-                                    placeholder="Enter fullname"
+                                    placeholder="Full Name"
                                     value={values.fullName}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -148,7 +150,7 @@ const Signup = () => {
                             </div>
                             <div className={styles.input_box}>
                                 <label className={styles.email} htmlFor="UserName">
-                                    Player Id / Username
+                                    <img src="./assests/fullnameicon.svg" alt="fullname" />
                                 </label>
                                 <Input
                                     id="userName"
@@ -156,7 +158,7 @@ const Signup = () => {
                                     type="text"
                                     name="userName"
                                     autoComplete="off"
-                                    placeholder="Player Id"
+                                    placeholder="Player ID / Username"
                                     value={values.userName}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -167,7 +169,7 @@ const Signup = () => {
                             </div>
                             <div className={styles.input_box}>
                                 <label className={styles.email} htmlFor="email">
-                                    Email ID
+                                    <img src="./assests/maillogo.svg" alt="mailogo" />
                                 </label>
                                 <Input
                                     id="email"
@@ -175,7 +177,7 @@ const Signup = () => {
                                     type="email"
                                     name="email"
                                     autoComplete="off"
-                                    placeholder="Enter email"
+                                    placeholder="Email ID"
                                     value={values.email}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -186,7 +188,7 @@ const Signup = () => {
                             </div>
                             <div className={styles.input_box}>
                                 <label className={styles.password} htmlFor="password">
-                                    Password
+                                    <img src="./assests/passwordlogo.svg" alt="passwordlogo" />
                                 </label>
                                 <Input
                                     id="password"
@@ -194,7 +196,7 @@ const Signup = () => {
                                     type="password"
                                     name="password"
                                     autoComplete="off"
-                                    placeholder="Enter password"
+                                    placeholder="Your Password"
                                     value={values.password}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -203,15 +205,8 @@ const Signup = () => {
                                     <div className={styles.error}>{errors.password}</div>
                                 )}
                             </div>
-                            <div className={styles.checkbox_wrapper}>
-                                <input
-                                    type="checkbox"
-                                    id="rememberMe"
-                                    name="rememberMe"
-                                    checked={rememberMe}
-                                    onChange={handleRememberMe}
-                                />
-                                <label htmlFor="rememberMe">Already a Member ? Log In</label>
+                            <div className={styles.signin_withgoogle}>
+                                <FcGoogle /> Sign in with Google
                             </div>
                             <div className={styles.button_wrapper}>
                                 <Button
@@ -228,18 +223,16 @@ const Signup = () => {
                             </div>
                             <div className={styles.signin}>
                                 <span className={styles.forgotDesc}>
-                                    Already a Member  ? <Link href="/login">Log In</Link>
+                                    <Link href="/login"> Already have a account ? </Link>
                                 </span>
                             </div>
-                            <div>
-                                Sign in <FcGoogle />
-                            </div>
+
                         </form>
                     </div>
                 </div>
-                <div className={styles.girlImg_wrapper}>
+                {/* <div className={styles.girlImg_wrapper}>
                     <img src="./assests/pubgImg.png" alt="bgmiImg" />
-                </div>
+                </div> */}
             </div>
         </div>
     );

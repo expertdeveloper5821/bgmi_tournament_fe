@@ -98,7 +98,7 @@ const Login = () => {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <img src="./assests/technogeticlogo.svg" alt="Tg-logo" />
+            <img src="./assests/logo.svg" alt="Tg-logo" />
           </div>
 
           <div>
@@ -111,8 +111,8 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
               {error && <div className={styles.error}>{error}</div>}
               <div className={styles.input_box}>
-                <label className={styles.email} htmlFor="email">
-                  Email ID
+                <label className={`${styles.email_wrapper} ${styles.input}`} htmlFor="email">
+                  <img src="./assests/fullnameicon.svg" alt="fullname" />
                 </label>
                 <Input
                   id="email"
@@ -132,7 +132,7 @@ const Login = () => {
 
               <div className={styles.input_box}>
                 <label className={styles.password} htmlFor="password">
-                  Password
+                  <img src="./assests/passwordlogo.svg" alt="passwordlogo" />
                 </label>
                 <Input
                   id="password"
@@ -183,9 +183,9 @@ const Login = () => {
             </form>
           </div>
         </div>
-        <div className={styles.girlImg_wrapper}>
+        {/* <div className={styles.girlImg_wrapper}>
           <img src="./assests/pubgImg.png" alt="bgmiImg" />
-        </div>
+        </div> */}
       </div>
     </div>
   );
