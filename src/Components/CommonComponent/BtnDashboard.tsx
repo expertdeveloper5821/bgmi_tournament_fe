@@ -1,4 +1,4 @@
-import styles from "../../adminDashboard/Dashboard.module.scss";
+import styles from "../../app/adminDashboard/Dashboard.module.scss";
 //@ts-ignore
 import { Button, Input } from "technogetic-iron-smart-ui";
 

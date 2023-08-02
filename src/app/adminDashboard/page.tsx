@@ -1,13 +1,13 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import styles from './Dashboard.module.scss';
-import Sidebar from '../Components/SideBar/Sidebar';
-import { Navbar } from '../Components/Navbar/Navbar';
-import TableData, { StudentProfile } from '../Components/Table/TableData';
+import Sidebar from '../../Components/SideBar/Sidebar';
+import { Navbar } from '../../Components/Navbar/Navbar';
+import TableData, { StudentProfile } from '../../Components/Table/TableData';
 import assignmentData from '../../utils/CreateAssignment.json';
 //@ts-ignore
 import { Pagination } from 'technogetic-iron-smart-ui';
-import { BtnDashboard } from '../Components/CommonComponent/BtnDashboard';
+import { BtnDashboard } from '../../Components/CommonComponent/BtnDashboard';
 import RequireAuthentication from "../../utils/requireAuthentication"
 import {
   FaTh,
@@ -35,7 +35,7 @@ export default function Dashboard() {
 
   const dynamicMenuItems = [
       {
-        path: "/adminDashboard/room",
+        path: "/room",
         name: "Room",
         icon: <FaTh />,
       },
