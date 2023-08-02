@@ -9,6 +9,13 @@ import assignmentData from '../../utils/CreateAssignment.json';
 import { Pagination } from 'technogetic-iron-smart-ui';
 import { BtnDashboard } from '../Components/CommonComponent/BtnDashboard';
 import RequireAuthentication from "../../utils/requireAuthentication"
+import {
+  FaTh,
+  FaUserAlt,
+  FaRegChartBar,
+  FaCommentAlt,
+} from "react-icons/fa";
+
 export interface IAppProps { }
 
 export default function Dashboard() {
@@ -25,6 +32,34 @@ export default function Dashboard() {
       Course: item.Course,
     }),
   );
+
+  const dynamicMenuItems = [
+    {
+      path: "/adminDashboard/tournament",
+      name: "Tournament",
+      icon: <FaTh />,
+    },
+    {
+      path: "/adminDashboard/transcation",
+      name: "Transcation",
+      icon: <FaUserAlt />,
+    },
+    {
+      path: "/adminDashboard/friends",
+      name: "Friends",
+      icon: <FaRegChartBar />,
+    },
+    {
+      path: "/adminDashboard/vedios",
+      name: "Vedios",
+      icon: <FaCommentAlt />,
+    },
+    {
+      path: "/adminDashboard/kys",
+      name: "KYC",
+      icon: <FaCommentAlt />,
+    }
+  ];
 
   useEffect(() => {
     const startIndex = (currentPage - 1) * rowPerPage;
@@ -49,7 +84,7 @@ export default function Dashboard() {
     <>
       <RequireAuthentication>
         <div className={styles.main_container}>
-          <Sidebar />
+          <Sidebar menuItem={dynamicMenuItems} />
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
               <Navbar />
