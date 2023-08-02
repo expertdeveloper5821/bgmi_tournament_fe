@@ -17,7 +17,6 @@ interface StudentProfilePropsType {
     studentData: StudentProfile[];
     showAdditionalButton?: boolean;
     columns: string[];
-    router: NextRouter;
 }
 
 interface studentData {
@@ -25,7 +24,6 @@ interface studentData {
 }
 
 const TableData = (props: StudentProfilePropsType) => {
-    const router = props.router;
 
     const [sortedData, setSortedData] = useState(props?.studentData || []);
     const [isDescending, setIsDescending] = useState(false);
@@ -62,7 +60,6 @@ const TableData = (props: StudentProfilePropsType) => {
     }
 
     const handleEdit = (studentData: studentData) => {
-        // Add your edit logic here
         console.log("Edit student data:", studentData);
     }
 
@@ -93,7 +90,7 @@ const TableData = (props: StudentProfilePropsType) => {
                         const additionalImagePath = props.showAdditionalButton ? "./assests/StudentProfile.svg" : null;
 
                         return (
-                            <TableRow className={styles.table_rowdata} key={index} onClick={() => { router.push("/student"); }}>
+                            <TableRow className={styles.table_rowdata} key={index} >
                                 <TableCell className={styles.table_cell}>
                                     {studentData.StudentName}
                                 </TableCell>
