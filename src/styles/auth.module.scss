@@ -1,5 +1,5 @@
-@import '../../styles/mixins.scss';
-@import '../../styles/_variable.scss';
+@import './mixins.scss';
+@import './variable.scss';
 
 .main_container {
   @include main_container;

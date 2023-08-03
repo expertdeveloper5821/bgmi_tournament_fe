@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
-import styles from '../login/auth.module.scss';
+import styles from '../../styles/auth.module.scss';
 import sendRequest from '../../services/auth/auth_All_Api';
 import { useRouter } from 'next/navigation';
 //@ts-ignore

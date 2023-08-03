@@ -1,23 +1,43 @@
 import React, { useState } from "react";
-import styles from "./Navabar.module.scss";
+import styles from "../../styles/Navabar.module.scss";
 import { useRouter } from "next/navigation";
+import sendRequest from "../../services/api/apiServices";
 // @ts-ignore
 import { Avatar, Popover } from "technogetic-iron-smart-ui";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isPopOpen, setIsPopOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
   function handleClosePopover() {
     setIsOpen(false);
   }
-  const navigate = useRouter();
+  const router = useRouter();
 
-  const handleLogout = () => {
-    sessionStorage.clear();
-    navigate.push("/login");
-    setIsPopOpen(false);
-    console.log("logout clicked!");
+   //logout
+   const handleLogout = async () => {
+    setIsLoading(true);
+    try {
+      const response = await sendRequest("auth/logout", {
+        method: "POST",
+      });
+  
+      setIsLoading(false);
+  
+      if (response.status === 200) {
+        localStorage.removeItem("jwtToken");
+        router.push("/login");
+      } else {
+        setError("Logout failed");
+      }
+    } catch (error) {
+      setIsLoading(false);
+      setError("Logout failed");
+    }
   };
+
   return (
     <header>
       <div className={styles.maincontainer}>
@@ -139,12 +159,12 @@ export function Navbar() {
                       </div>
                     </div>
                     <div className={styles.logoutbutton}>
-                      <div onClick={handleLogout}>
+                      <div>
                         <img
                           className={styles.logoutbuttonicon}
                           src="./assests/logouticon.svg"
                           alt="logouticon"
-                          
+                          onClick={handleLogout}
                         ></img>
                         Logout
                       </div>

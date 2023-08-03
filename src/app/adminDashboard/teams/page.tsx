@@ -1,12 +1,11 @@
 import React from 'react'
 
-const page = () => {
+function page() {
     return (
         <div>
-            <h2>scdd</h2>
+            TEAMS
         </div>
     )
 }
 
 export default page
-
