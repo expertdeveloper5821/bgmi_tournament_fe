@@ -1,5 +1,5 @@
-@import '../../../styles/mixins';
-@import '../../../styles/variable';
+@import '../../styles/mixins';
+@import '../../styles/variable';
 
 // * {
 //   margin: 0;
@@ -37,6 +37,10 @@
     display: flex;
     font-size: 25px;
     margin-left: 50px;
+  }
+
+  .name{
+    color: white;
   }
 
   .link {

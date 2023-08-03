@@ -1,21 +1,23 @@
+"use client"
 import React, { useState, useEffect } from "react";
-import styles from "../../../Pages/DashboardPage/Dashboard.module.scss";
-import Sidebar from "../../Sidebar";
-import { Navbar } from "../../../Navbar/Navbar";
-import TableData, { StudentProfile } from "../../../Table/TableData";
-import assignmentData from "../../../../../utils/CreateAssignment.json";
+import styles from "../adminDashboard/Dashboard.module.scss";
+import Sidebar from "../../Components/SideBar/Sidebar";
+import { Navbar } from "../../Components/Navbar/Navbar";
+import TableData, { StudentProfile } from "../../Components/Table/TableData";
+import assignmentData from "../../utils/CreateAssignment.json";
 // @ts-ignore
 import { Pagination } from "technogetic-iron-smart-ui";
-import { BtnDashboard } from "../../../CommonComponent/BtnDashboard";
+import { BtnDashboard } from "../../Components/CommonComponent/BtnDashboard";
 import { useRouter, NextRouter } from "next/router";
+import { FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt } from 'react-icons/fa';
 
 export interface IAppProps { }
 
-export function Spectator() {
+export default function Teams() {
     const [currentPage, setCurrentPage] = useState(1);
     const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
-    const router: NextRouter = useRouter();
     const rowPerPage = 8;
+    // const router: NextRouter = useRouter();
 
     const transformedStudentData = assignmentData.studentData.map(
         (item: StudentProfile) => ({
@@ -26,6 +28,29 @@ export function Spectator() {
             Course: item.Course,
         })
     );
+
+    const dynamicMenuItems = [
+        {
+            path: '/room',
+            name: 'Room',
+            icon: <FaTh />,
+        },
+        {
+            path: '/adminDashboard/spectator',
+            name: 'Specatator',
+            icon: <FaUserAlt />,
+        },
+        {
+            path: '/adminDashboard/users',
+            name: 'Users',
+            icon: <FaRegChartBar />,
+        },
+        {
+            path: '/adminDashboard/teams',
+            name: 'Teams',
+            icon: <FaCommentAlt />,
+        },
+    ];
 
     useEffect(() => {
         const startIndex = (currentPage - 1) * rowPerPage;
@@ -39,15 +64,13 @@ export function Spectator() {
     };
 
     const columns: string[] = [
-
-        "Room Id",
-        "List of Room",
+        "Registered Teams",
     ];
 
     return (
         <>
             <div className={styles.main_container}>
-                <Sidebar />
+                <Sidebar menuItem={dynamicMenuItems} />
                 <div className={styles.abcd}>
                     <div className={styles.sidebar_wrapper}>
                         <Navbar />
@@ -56,7 +79,6 @@ export function Spectator() {
                             studentData={paginatedData}
                             columns={columns}
                             showAdditionalButton={true}
-                            router={router}
                         />
                         <Pagination
                             currentPage={currentPage}
