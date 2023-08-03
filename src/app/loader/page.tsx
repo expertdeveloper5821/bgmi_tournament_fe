@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import styles from './loader.module.scss';
+import styles from '../../styles/loader.module.scss';
 import { useRouter } from 'next/navigation';
 import sendRequest from '@/services/auth/auth_All_Api';
 
