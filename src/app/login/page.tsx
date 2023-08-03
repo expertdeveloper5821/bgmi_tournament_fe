@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 //@ts-ignore
 import { Button, Input } from "technogetic-iron-smart-ui";
-import styles from "./auth.module.scss";
+import styles from "../../styles/auth.module.scss";
 import sendRequest from "../../services/api/apiServices";
 import { FcGoogle } from "react-icons/fc";
 

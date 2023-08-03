@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-import styles from "./mail.module.scss";
+import styles from "../../styles/mail.module.scss";
 // @ts-ignore
 import { Button } from "technogetic-iron-smart-ui";
 
