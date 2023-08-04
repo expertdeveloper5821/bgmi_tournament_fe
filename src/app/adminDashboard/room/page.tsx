@@ -9,9 +9,10 @@ import { Pagination, Button, Input } from 'technogetic-iron-smart-ui';
 import { BtnDashboard } from '../../../Components/CommonComponent/BtnDashboard';
 import sendRequest from '@/services/auth/auth_All_Api';
 
-export interface IAppProps { }
+interface RoomPageProps {
+}
 
-export function RoomPage() {
+function RoomPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
   const [formValues, setFormValues] = useState({

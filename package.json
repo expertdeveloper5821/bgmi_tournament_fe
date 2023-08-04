@@ -4,12 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build:dev": "set NODE_ENV=development && next build",
+    "build": "next build",
+    "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write .",
-    "debug": "cross-env NODE_OPTIONS='--inspect' next dev",
-    "build:prod": "set NODE_ENV=production && next build",
-    "start": "node server.js"
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
