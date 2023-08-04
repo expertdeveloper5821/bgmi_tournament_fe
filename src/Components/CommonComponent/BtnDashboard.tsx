@@ -1,3 +1,4 @@
+"use client"
 import styles from "../../styles/Dashboard.module.scss";
 //@ts-ignore
 import { Button, Input } from "technogetic-iron-smart-ui";

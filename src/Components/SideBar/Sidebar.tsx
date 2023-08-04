@@ -1,5 +1,5 @@
 // Sidebar.tsx
-
+'use client'
 import React, { useState } from "react";
 import Link from "next/link";
 import styles from "../../styles/DashboardSidebar.module.scss";
@@ -18,7 +18,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ menuItem }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-console.log(menuItem)
+  
   return (
     <div className={styles.container}>
       <div style={{ width: isOpen ? "220px" : "100px" }} className={styles.sidebar}>
@@ -30,8 +30,10 @@ console.log(menuItem)
             <FaBars onClick={toggle} />
           </div>
         </div>
+        <div>
         {menuItem.map((item, index) => (
-          <Link href={item.path} key={index}>
+          <Link href={item.path} key={index} legacyBehavior> 
+            <a>
             <div className={styles.link}>
               <div className={styles.icon}>{item.icon}</div>
               <div
@@ -41,8 +43,11 @@ console.log(menuItem)
                 {item.name}
               </div>
             </div>
+            </a>
           </Link>
         ))}
+        </div>
+        
       </div>
     </div>
   );
