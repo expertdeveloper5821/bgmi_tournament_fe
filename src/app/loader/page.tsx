@@ -50,7 +50,7 @@ const Loader = (props: Props) => {
         <div className={styles.background_container}>
           <div className={styles.container}>
             <div className={styles.logo}>
-              <img src="./assests/technogeticlogo.svg" alt="Tg-logo"></img>
+              <img src="../assests/technogeticlogo.svg" alt="Tg-logo"></img>
             </div>
           </div>
         </div>

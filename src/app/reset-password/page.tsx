@@ -60,7 +60,7 @@ const UpdateCredential = () => {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <img src="./assests/technogeticlogo.svg" alt="Tg-logo"></img>
+            <img src="../assests/technogeticlogo.svg" alt="Tg-logo"></img>
           </div>
 
           <div>
@@ -131,7 +131,7 @@ const UpdateCredential = () => {
           </div>
         </div>
         <div className={styles.girlImg_wrapper}>
-          <img src="./assests/pubgImg.png" alt="bgmiImg"></img>
+          <img src="../assests/pubgImg.png" alt="bgmiImg"></img>
         </div>
       </div>
     </div>
