@@ -7,6 +7,7 @@
 
 .background_container {
   @include background_container;
+  margin-top: 3rem;
 }
 
 .email_wrapper {
@@ -20,7 +21,7 @@
 
 .container {
   @include container;
-  // margin-top: 100px;
+  padding: 2rem;
 
   @media (max-width: $breakpoint-xs) {
     margin: 1rem 1rem;
@@ -36,8 +37,10 @@
   width: 100%;
 }
 
-.logo {
+.logo img {
   @include logo;
+  display: flex;
+  margin: 0px auto;
 
   @media (max-width: $breakpoint-xs) {
     margin-top: 4rem;
@@ -58,23 +61,6 @@
   @include input_box;
 }
 
-.girlImg_wrapper {
-  @include girlImg_wrapper;
-
-  @media (max-width: $breakpoint-xs) {
-    display: none;
-  }
-
-  @media (max-width: $breakpoint-sm) {
-    margin-top: 0;
-
-    img {
-      width: 70%;
-      height: 70vh;
-    }
-  }
-}
-
 .forgetbutton {
   @include button_wrapper;
   background-color: #003456 !important;
@@ -84,6 +70,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0.5rem;
 }
 
 .mail_heading {
@@ -92,8 +79,6 @@
   font-weight: 500;
   font-size: 28px;
   line-height: 33px;
-  margin-bottom: 1rem;
-
   @media (max-width: $breakpoint-xs) {
     font-size: 23px;
     font-family: var(--bs-body-font-family);
@@ -106,7 +91,7 @@
   position: relative;
   width: 235px;
   height: 130px;
-  margin: 0.5rem 0rem;
+  margin: 2rem 0rem;
   animation: bounce 1s infinite;
 }
 

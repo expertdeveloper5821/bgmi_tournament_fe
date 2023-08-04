@@ -21,10 +21,10 @@ const Signup = () => {
         setRememberMe(event.target.checked);
     }
 
-    useEffect(() => {
-        const rememberMeValue = localStorage.getItem("rememberMe") === "true";
-        setRememberMe(rememberMeValue);
-    }, []);
+    // useEffect(() => {
+    //     const rememberMeValue = localStorage.getItem("rememberMe") === "true";
+    //     setRememberMe(rememberMeValue);
+    // }, []);
 
     const initialValues = {
         fullName: "",
@@ -47,36 +47,36 @@ const Signup = () => {
         onSubmit: async (values) => {
             setIsLoading(true);
             const { fullName, userName, email, password } = values;
-            console.log("fullName", fullName);
-            console.log("userName", userName);
-            console.log("email", email);
-            console.log("password", password);
+            // console.log("fullName", fullName);
+            // console.log("userName", userName);
+            // console.log("email", email);
+            // console.log("password", password);
 
 
             if (rememberMe) {
                 const expirationDate = new Date();
                 expirationDate.setDate(expirationDate.getDate() + 30);
-                localStorage.setItem("fullName", fullName);
-                localStorage.setItem("userName", userName);
-                localStorage.setItem("email", email);
-                localStorage.setItem("password", password);
-                localStorage.setItem("rememberMe", "true");
+                // localStorage.setItem("fullName", fullName);
+                // localStorage.setItem("userName", userName);
+                // localStorage.setItem("email", email);
+                // localStorage.setItem("password", password);
+                // localStorage.setItem("rememberMe", "true");
             } else {
-                localStorage.removeItem("fullName");
-                localStorage.removeItem("userName");
-                localStorage.removeItem("email");
-                localStorage.removeItem("password");
-                localStorage.removeItem("rememberMe");
+                // localStorage.removeItem("fullName");
+                // localStorage.removeItem("userName");
+                // localStorage.removeItem("email");
+                // localStorage.removeItem("password");
+                // localStorage.removeItem("rememberMe");
             }
 
             try {
-                const response = await sendRequest("/signup", {
+                const response = await sendRequest("v1/signup", {
                     method: "POST",
                     data: { fullName, userName, email, password },
                 });
-                console.log("Fullname", values.fullName);
-                console.log("UserName", values.userName);
-                console.log("response", response)
+                // console.log("Fullname", values.fullName);
+                // console.log("UserName", values.userName);
+                // console.log("response", response)
 
                 if (response.status === 200) {
                     localStorage.setItem("jwtToken", response.data.token);
@@ -118,7 +118,7 @@ const Signup = () => {
             <div className={styles.background_container}>
                 <div className={styles.container}>
                     <div className={styles.logo}>
-                        <img src="./assests/logo.svg" alt="Tg-logo" />
+                        <img src="./assests/logobgmi.svg" alt="Tg-logo" />
                     </div>
                     <div>
                         <h2 className={styles.headDesc}>Welcome back</h2>
@@ -129,7 +129,6 @@ const Signup = () => {
                             {error && <div className={styles.error}>{error}</div>}
                             <div className={styles.input_box}>
                                 <label className={styles.email} htmlFor="Fullname">
-                                    {/* Full name */}
                                     <img src="./assests/fullnameicon.svg" alt="fullname" />
                                 </label>
                                 <Input
@@ -144,10 +143,11 @@ const Signup = () => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {errors.fullName && touched.fullName && (
-                                    <div className={styles.error}>{errors.fullName}</div>
-                                )}
+
                             </div>
+                            {errors.fullName && touched.fullName && (
+                                <div className={styles.error}>{errors.fullName}</div>
+                            )}
                             <div className={styles.input_box}>
                                 <label className={styles.email} htmlFor="UserName">
                                     <img src="./assests/fullnameicon.svg" alt="fullname" />
@@ -163,10 +163,11 @@ const Signup = () => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {errors.userName && touched.userName && (
-                                    <div className={styles.error}>{errors.userName}</div>
-                                )}
+
                             </div>
+                            {errors.userName && touched.userName && (
+                                <div className={styles.error}>{errors.userName}</div>
+                            )}
                             <div className={styles.input_box}>
                                 <label className={styles.email} htmlFor="email">
                                     <img src="./assests/maillogo.svg" alt="mailogo" />
@@ -182,10 +183,11 @@ const Signup = () => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {errors.email && touched.email && (
-                                    <div className={styles.error}>{errors.email}</div>
-                                )}
+
                             </div>
+                            {errors.email && touched.email && (
+                                <div className={styles.error}>{errors.email}</div>
+                            )}
                             <div className={styles.input_box}>
                                 <label className={styles.password} htmlFor="password">
                                     <img src="./assests/passwordlogo.svg" alt="passwordlogo" />
@@ -201,10 +203,11 @@ const Signup = () => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {errors.password && touched.password && (
-                                    <div className={styles.error}>{errors.password}</div>
-                                )}
                             </div>
+                            {errors.password && touched.password && (
+                                <div className={styles.error}>{errors.password}</div>
+                            )}
+
                             <div className={styles.signin_withgoogle}>
                                 <FcGoogle /> Sign in with Google
                             </div>
@@ -223,16 +226,13 @@ const Signup = () => {
                             </div>
                             <div className={styles.signin}>
                                 <span className={styles.forgotDesc}>
-                                    <Link href="/login"> Already have a account ? </Link>
+                                    <Link href="/login"> Already have a account ? &nbsp; <b>Login</b></Link>
                                 </span>
                             </div>
 
                         </form>
                     </div>
                 </div>
-                {/* <div className={styles.girlImg_wrapper}>
-                    <img src="./assests/pubgImg.png" alt="bgmiImg" />
-                </div> */}
             </div>
         </div>
     );

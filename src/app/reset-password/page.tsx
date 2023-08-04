@@ -1,21 +1,16 @@
 "use client"
 import React from "react";
-import styles from "./credential.module.scss";
+import styles from "../reset-password/credential.module.scss";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
 import { ResetPasswordSchema } from "../../schemas/SignupSchemas";
 //@ts-ignore
 import { Button, Input } from "technogetic-iron-smart-ui";
 import sendRequest from "../../services/api/apiServices";
-
 const UpdateCredential = () => {
-  const [token, setToken] = useState(""); // Initialize token state
-
-  // const navigate = useNavigate();
+  const [token, setToken] = useState("");
   const router = useRouter();
-
   useEffect(() => {
     if (typeof window !== "undefined") {
       const searchParams = new URLSearchParams(window.location.search);
@@ -23,12 +18,10 @@ const UpdateCredential = () => {
       setToken(tokenParam || "");
     }
   }, []);
-
   const initialValues = {
     newPassword: "",
     confirmPassword: "",
   };
-
   const {
     values,
     touched,
@@ -41,48 +34,40 @@ const UpdateCredential = () => {
     validationSchema: ResetPasswordSchema,
     onSubmit: async (values) => {
       const { newPassword, confirmPassword } = values;
-
       try {
-        const response = await sendRequest(`reset-password?token=${token}`, {
+        const response = await sendRequest(`v1/reset-password?token=${token}`, {
           method: "POST",
           data: { newPassword, confirmPassword },
         });
         if (response.status === 200) {
-          router.push("/UpdateCredSuccess");
+          router.push("reset-password/updateCredSuccess");;
         } else {
-          // setError("Invalid email or password");
+          console.error("Password update failed");
         }
       } catch (error: any) { }
     },
   });
-
-
   return (
     <div className={styles.main_container}>
-      <button onClick={() => {
-           router.push("userCredential/updateCredSuccess");
-      }}>Change</button>
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <img src="./assests/technogeticlogo.svg" alt="Tg-logo"></img>
+            <img src="./assests/logobgmi.svg" alt="bgmilogo"></img>
           </div>
-
           <div>
-            <h2>Reset Password</h2>
+            <h2 className={styles.headDesc}>Reset Password</h2>
             <p className={styles.heading}>
               Please enter your password and confirm the password
             </p>
           </div>
-
           <div>
             <form onSubmit={handleSubmit}>
               <div className={styles.input_box}>
                 <label htmlFor="newPassword" className={styles.password}>
-                  New password
+                  <img src="./assests/passwordlogo.svg" alt="passwordlogo" />
                 </label>
-
                 <Input
+                  type="password"
                   id="newPassword"
                   className={styles.password_wrapper}
                   name="newPassword"
@@ -92,21 +77,22 @@ const UpdateCredential = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                 ></Input>
-                <div className={styles.error}>
-                  {errors.newPassword && touched.newPassword ? (
-                    <p>{(errors.newPassword = "Password must be at least 6 characters")}</p>
-                  ) : null}
-                </div>
-              </div>
 
+              </div>
+              <div className={styles.error}>
+                {errors.newPassword && touched.newPassword ? (
+                  <p>{(errors.newPassword = "Password must be at least 6 characters")}</p>
+                ) : null}
+              </div>
               <div className={styles.input_box}>
                 <label
                   htmlFor="confirmPassword"
                   className={styles.password}
                 >
-                  Confirm New Password
+                  <img src="./assests/passwordlogo.svg" alt="passwordlogo" />
                 </label>
                 <Input
+                  type="password"
                   id="confirmPassword"
                   className={styles.password_wrapper}
                   name="confirmPassword"
@@ -116,13 +102,13 @@ const UpdateCredential = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                 ></Input>
-                <div className={styles.error}>
-                  {errors.confirmPassword && touched.confirmPassword ? (
-                    <p>{(errors.confirmPassword = "Both passwords must match")}</p>
-                  ) : null}
-                </div>
-              </div>
 
+              </div>
+              <div className={styles.error}>
+                {errors.confirmPassword && touched.confirmPassword ? (
+                  <p>{(errors.confirmPassword = "Both passwords must match")}</p>
+                ) : null}
+              </div>
               <div className={styles.button_wrapper}>
                 <Button
                   varient="contained"
@@ -135,12 +121,8 @@ const UpdateCredential = () => {
             </form>
           </div>
         </div>
-        <div className={styles.girlImg_wrapper}>
-          <img src="./assests/pubgImg.png" alt="bgmiImg"></img>
-        </div>
       </div>
     </div>
   );
 };
-
 export default UpdateCredential;

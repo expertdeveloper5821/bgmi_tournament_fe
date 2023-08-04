@@ -19,7 +19,7 @@ export default function SentMail() {
           <div className={styles.container}>
             <div className={styles.mailsent_container}>
               <div className={styles.logo}>
-                <img src="./assests/logo.svg" alt="Tg-logo"></img>
+                <img src="./assests/logobgmi.svg" alt="Tg-logo"></img>
               </div>
 
               <div className={styles.email_wrapper}>
