@@ -13,7 +13,7 @@ import {FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt} from 'react-icons/fa';
 
 export interface IAppProps {}
 
-export default function Dashboard() {
+function Userdashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
   const rowPerPage = 8;
@@ -27,34 +27,6 @@ export default function Dashboard() {
       Course: item.Course,
     }),
   );
-
-  // const dynamicMenuItems = [
-  //   {
-  //     path: '/userDashboard/tournament',
-  //     name: 'Tournament',
-  //     icon: <FaTh />,
-  //   },
-  //   {
-  //     path: '/userDashboard/transcation',
-  //     name: 'Transcation',
-  //     icon: <FaUserAlt />,
-  //   },
-  //   {
-  //     path: '/userDashboard/friends',
-  //     name: 'Friends',
-  //     icon: <FaRegChartBar />,
-  //   },
-  //   {
-  //     path: '/userDashboard/vedios',
-  //     name: 'Vedios',
-  //     icon: <FaCommentAlt />,
-  //   },
-  //   {
-  //     path: '/userDashboard/kys',
-  //     name: 'KYC',
-  //     icon: <FaCommentAlt />,
-  //   },
-  // ];
 
   useEffect(() => {
     const startIndex = (currentPage - 1) * rowPerPage;
@@ -104,12 +76,4 @@ export default function Dashboard() {
   );
 }
 
-  // import React from 'react'
-
-  // const Friend = () => {
-  //   return (
-  //     <div>Default</div>
-  //   )
-  // }
-
-  // export default Friend
+export default Userdashboard;

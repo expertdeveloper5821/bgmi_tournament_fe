@@ -44,7 +44,6 @@ export default function RootLayout({
 }) {
   return (
     <div className={styles.main_container}>
-
       <Sidebar menuItem={dynamicMenuItems} />
       {children}
     </div>
