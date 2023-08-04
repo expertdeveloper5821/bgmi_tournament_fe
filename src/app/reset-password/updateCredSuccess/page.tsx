@@ -20,7 +20,7 @@ const UpdateCredSuccess = (props: Props) => {
         <div className={styles.background_container}>
           <div className={styles.container}>
             <div className={styles.logo}>
-              <img src="./assests/technogeticlogo.svg" alt="Tg-logo"></img>
+              <img src="../assests/technogeticlogo.svg" alt="Tg-logo"></img>
             </div>
             <div className={styles.heading_wrapper}>
               <h2>Congratulations!!</h2>
@@ -30,7 +30,7 @@ const UpdateCredSuccess = (props: Props) => {
             </div>
             <div>
               <div className={styles.mail_success}>
-                <img src="./assests/MailVerifiedBg.gif" alt="gifImg"></img>
+                <img src="../assests/MailVerifiedBg.gif" alt="gifImg"></img>
               </div>
               <div className={styles.button_wrapper}>
                 <Button
@@ -44,7 +44,7 @@ const UpdateCredSuccess = (props: Props) => {
             </div>
           </div>
           <div className={styles.girlImg_wrapper}>
-            <img src="./assests/pubgImg.png" alt="bgmiImg"></img>
+            <img src="../assests/pubgImg.png" alt="bgmiImg"></img>
           </div>
         </div>
       </div>

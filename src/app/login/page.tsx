@@ -95,7 +95,7 @@ const Login = () => {
   const handleVerifyToken = async (token: any) => {
     setIsLoading(true);
     try {
-      const verifyResponse = await sendRequest("http://localhost:5000/auth/verify", {
+      const verifyResponse = await sendRequest("/auth/verify", {
         method: "GET",
         data: {
           token: token,
