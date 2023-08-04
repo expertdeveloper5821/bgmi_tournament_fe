@@ -1,95 +1,36 @@
-// 'use client';
-// import React, {useState, useEffect} from 'react';
-// import styles from '../adminDashboard/Dashboard.module.scss';
-// import Sidebar from '../../Components/SideBar/Sidebar';
-// import {Navbar} from '../../Components/Navbar/Navbar';
-// import TableData, {StudentProfile} from '../../Components/Table/TableData';
-// import {useRouter, NextRouter} from 'next/router';
-// import assignmentData from '../../utils/CreateAssignment.json';
+// 'use client'
+// import React, { useState, useEffect } from 'react';
+// import styles from '../../../styles/Dashboard.module.scss';
+// import { Navbar } from '../../../Components/Navbar/Navbar';
+// import TableData, { StudentProfile } from '../../../Components/Table/TableData';
+// import assignmentData from '../../../utils/CreateAssignment.json';
 // // @ts-ignore
-// import {Pagination} from 'technogetic-iron-smart-ui';
-// import {BtnDashboard} from '../../Components/CommonComponent/BtnDashboard';
-// import {FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt} from 'react-icons/fa';
+// import { Pagination, Button, Input } from 'technogetic-iron-smart-ui';
+// import { BtnDashboard } from '../../../Components/CommonComponent/BtnDashboard';
+// import sendRequest from '@/services/auth/auth_All_Api';
 
-// export interface IAppProps {}
+// export interface IAppProps { }
 
-// export function Room() {
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
-//   // const router: NextRouter = useRouter();
-//   const rowPerPage = 8;
-
-//   const transformedStudentData = assignmentData.studentData.map(
-//     (item: StudentProfile) => ({
-//       StudentName: item.StudentName,
-//       Student: item.Student,
-//       studentID: item.studentID,
-//       Mobile: item.Mobile,
-//       Course: item.Course,
-//     }),
-//   );
-
-//   const dynamicMenuItems = [
-//     {
-//       path: '/room',
-//       name: 'Room',
-//       icon: <FaTh />,
-//     },
-//     {
-//       path: '/adminDashboard/spectator',
-//       name: 'Specatator',
-//       icon: <FaUserAlt />,
-//     },
-//     {
-//       path: '/adminDashboard/users',
-//       name: 'Users',
-//       icon: <FaRegChartBar />,
-//     },
-//     {
-//       path: '/adminDashboard/teams',
-//       name: 'Teams',
-//       icon: <FaCommentAlt />,
-//     },
-//   ];
-
-//   useEffect(() => {
-//     const startIndex = (currentPage - 1) * rowPerPage;
-//     const endIndex = startIndex + rowPerPage;
-//     const paginatedData = transformedStudentData.slice(startIndex, endIndex);
-//     setPaginatedData(paginatedData);
-//   }, [currentPage, transformedStudentData]);
-
-//   const onPageChange = (page: number) => {
-//     setCurrentPage(page);
-//   };
-
-//   const columns: string[] = [
-//     'Squad',
-//     'Room Id',
-//     'Spectator Id',
-//     'Date and Time',
-//     'Map',
-//   ];
+// export function Tournament() {
 
 //   return (
 //     <>
-//     <h2>Tournament Page</h2>
 //       <div className={styles.main_container}>
-//         <Sidebar menuItem={dynamicMenuItems} />
 //         <div className={styles.abcd}>
 //           <div className={styles.sidebar_wrapper}>
 //             <Navbar />
-//             <BtnDashboard />
-//             <TableData
-//               studentData={paginatedData}
-//               columns={columns}
-//               showAdditionalButton={true}
-//             />
-//             <Pagination
-//               currentPage={currentPage}
-//               totalPages={Math.ceil(transformedStudentData.length / rowPerPage)}
-//               onPageChange={onPageChange}
-//             />
+//             <div>
+//               <h1>Upcoming Matches</h1>
+//               <h6>Dashboard/Upcoming Matches</h6>
+//             </div>
+//           </div>
+//           <div>
+//             <div>
+//               <div>
+//                 {/* <img src='./assests/userdashboardbg.svg' alt='userdashboardbg'></img> */}
+//                 <img src="./assests/technogeticlogo.svg" alt="Tg-logo"></img>
+//               </div>
+//             </div>
 //           </div>
 //         </div>
 //       </div>
@@ -97,14 +38,14 @@
 //   );
 // }
 
-// export default Room;
+// export default Tournament;
 
 import React from 'react'
 
-const Tournament = () => {
+const page = () => {
   return (
-    <div>Tournament</div>
+    <div>page</div>
   )
 }
 
-export default Tournament
+export default page

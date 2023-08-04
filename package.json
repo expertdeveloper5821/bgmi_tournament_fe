@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build:dev": "set NODE_ENV=development && next build",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "debug": "cross-env NODE_OPTIONS='--inspect' next dev",
+    "build:prod": "set NODE_ENV=production && next build",
+    "start": "node server.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -35,5 +37,8 @@
     "technogetic-iron-smart-ui": "^1.0.18",
     "typescript": "5.1.6",
     "yup": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.3"
   }
 }

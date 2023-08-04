@@ -9,6 +9,7 @@
 
 .container {
   display: flex;
+  border: 2px solid;
 }
 
 // main {
@@ -17,11 +18,12 @@
 // }
 
 .sidebar {
-  background: #000;
+  background: rgba(0, 53, 84, 1);
   color: #fff;
   height: 100vh;
   width: 200px;
   transition: all 0.5s;
+  margin-top: 10px;
 
   .top_section {
     display: flex;
