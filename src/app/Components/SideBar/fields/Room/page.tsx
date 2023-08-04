@@ -1,25 +1,28 @@
 
-import React, { useState, useEffect } from "react";
-import styles from "../../../Pages/DashboardPage/Dashboard.module.scss";
-import Sidebar from "../../Sidebar";
-import { Navbar } from "../../../Navbar/Navbar";
-import TableData, { StudentProfile } from "../../../Table/TableData";
-import { useRouter, NextRouter } from "next/router";
-import assignmentData from "../../../../../Utils/CreateAssignment.json";
+'use client';
+import React, { useState, useEffect } from 'react';
+import styles from '../../../styles/Dashboard.module.scss';
+import { Navbar } from '../../../Navbar/Navbar';
+import TableData, { StudentProfile } from '../../../Table/TableData';
+import assignmentData from '../../../../../utils/CreateAssignment.json';
 // @ts-ignore
-import { Pagination } from "technogetic-iron-smart-ui";
-import { BtnDashboard } from "../../../CommonComponent/BtnDashboard";
-
-export interface IAppProps { }
-
-export function Room() {
-
+import { Pagination, Button, Input } from 'technogetic-iron-smart-ui';
+import { BtnDashboard } from '../../../CommonComponent/BtnDashboard';
+import sendRequest from '@/services/auth/auth_All_Api';
+interface RoomPageProps {
+}
+function RoomPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
-    const router: NextRouter = useRouter();
+    const [formValues, setFormValues] = useState({
+        roomId: '',
+        gameName: '',
+        gameType: '',
+        gameMapName: '',
+    });
+    const [apiData, setApiData] = useState<StudentProfile[]>([]);
+    // const router: NextRouter = useRouter();
     const rowPerPage = 8;
-
-
     const transformedStudentData = assignmentData.studentData.map(
         (item: StudentProfile) => ({
             StudentName: item.StudentName,
@@ -27,64 +30,140 @@ export function Room() {
             studentID: item.studentID,
             Mobile: item.Mobile,
             Course: item.Course,
-        })
+        }),
     );
-
-
-    useEffect(() => {
-        const startIndex = (currentPage - 1) * rowPerPage;
-        const endIndex = startIndex + rowPerPage;
-        const paginatedData = transformedStudentData.slice(startIndex, endIndex);
-        setPaginatedData(paginatedData);
-    }, [currentPage, transformedStudentData]);
-
-
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        fetchDataFromAPI();
+    };
+    const handleChange = (e: any) => {
+        const { name, value } = e.target;
+        setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
+        console.log("setFormValues", setFormValues)
+    };
+    const fetchDataFromAPI = async () => {
+        try {
+            const response = await sendRequest('v3/rooms', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formValues),
+            });
+            if (!response) {
+                throw new Error('API request failed');
+            }
+            console.log("response", response)
+            const data = await response.data();
+            setApiData(data);
+        } catch (error) {
+            console.error('Error fetching data from API:', error);
+        }
+    };
+    // useEffect(() => {
+    //   const startIndex = (currentPage - 1) * rowPerPage;
+    //   const endIndex = startIndex + rowPerPage;
+    //   const paginatedData = transformedStudentData.slice(startIndex, endIndex);
+    //   setPaginatedData(paginatedData);
+    // }, [currentPage, transformedStudentData]);
     const onPageChange = (page: number) => {
         setCurrentPage(page);
     };
-
-
     const columns: string[] = [
-        "Squad",
-        "Room Id",
-        "Spectator Id",
-        "Date and Time",
-        "Map",
+        'Squad',
+        'Room Id',
+        'Spectator Id',
+        'Date and Time',
+        'Map',
     ];
-
     return (
         <>
             <div className={styles.main_container}>
-
-                <Sidebar />
                 <div className={styles.abcd}>
+                    <h1>Welcome to tournament</h1>
                     <div className={styles.sidebar_wrapper}>
-
                         <Navbar />
                         <BtnDashboard />
-
-
-                        <TableData
-                            studentData={paginatedData}
-                            columns={columns}
-                            showAdditionalButton={true}
-                            router={router}
-
-                        />
-
-
-                        <Pagination
-                            currentPage={currentPage}
-                            totalPages={Math.ceil(transformedStudentData.length / rowPerPage)}
-                            onPageChange={onPageChange}
-                        />
                     </div>
+                    <form>
+                        <div className={styles.input_box}>
+                            <label className={styles.email} htmlFor="email">
+                                Room ID
+                            </label>
+                            <Input
+                                id="roomId"
+                                className={styles.email_wrapper}
+                                type="number"
+                                name="roomId"
+                                placeholder="Enter Room ID from BGMI"
+                                value={formValues.roomId}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className={styles.input_box}>
+                            <label className={styles.password} htmlFor="password">
+                                Game Name
+                            </label>
+                            <Input
+                                id="gameName"
+                                className={styles.password_wrapper}
+                                type="text"
+                                name="gameName"
+                                placeholder="Enter Game Name BGMI"
+                                value={formValues.gameName}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className={styles.input_box}>
+                            <label className={styles.password} htmlFor="password">
+                                Game Type (No of players)
+                            </label>
+                            <Input
+                                id="gameType"
+                                className={styles.password_wrapper}
+                                type="number"
+                                name="gameType"
+                                placeholder="Enter no of players"
+                                value={formValues.gameType}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className={styles.input_box}>
+                            <label className={styles.password} htmlFor="password">
+                                Game Map Name
+                            </label>
+                            <Input
+                                id="gameMapName"
+                                className={styles.password_wrapper}
+                                type="text"
+                                name="gameMapName"
+                                placeholder="Enter bgmi map"
+                                value={formValues.gameMapName}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className={styles.button_wrapper}>
+                            <Button
+                                className={styles.forgetbutton}
+                                variant="contained"
+                                type="submit"
+                                onClick={handleSubmit}
+                            >
+                            </Button>
+                        </div>
+                    </form>
+                    <TableData
+                        studentData={apiData}
+                        columns={columns}
+                        showAdditionalButton={true} />
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={Math.ceil(transformedStudentData.length / rowPerPage)}
+                        onPageChange={onPageChange}
+                    />
                 </div>
             </div>
         </>
     );
 }
-
-
-export default Room;
-
+export default RoomPage;

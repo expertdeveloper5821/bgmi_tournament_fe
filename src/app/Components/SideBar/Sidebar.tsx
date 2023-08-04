@@ -1,47 +1,32 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import styles from "./DashboardSidebar.module.scss";
-import {
-  FaTh,
-  FaBars,
-  FaUserAlt,
-  FaRegChartBar,
-  FaCommentAlt,
-  FaShoppingBag,
-} from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 
 interface MenuItem {
   path: string;
   name: string;
   icon: JSX.Element;
+  active: boolean;
 }
-const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-  const menuItem: MenuItem[] = [
-    {
-      path: "/dashboardPage/Room",
-      name: "Room",
-      icon: <FaTh />,
-    },
-    {
-      path: "/dashboardPage/spectator",
-      name: "Specatator",
-      icon: <FaUserAlt />,
-    },
-    {
-      path: "/dashboardPage/users",
-      name: "Users",
-      icon: <FaRegChartBar />,
-    },
-    {
-      path: "/dashboardPage/teams",
-      name: "Teams",
-      icon: <FaCommentAlt />,
-    }
 
-  ];
+interface SidebarProps {
+  menuItem: MenuItem[];
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ menuItem }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>(menuItem);
+  const toggle = () => setIsOpen(!isOpen);
+
+  const handleMenuItemClick = (index: number) => {
+    const updatedMenuItems = menuItem.map((item, i) => ({
+      ...item,
+      active: i === index,
+    }));
+    setMenuItems(updatedMenuItems);
+  };
+
   return (
     <div className={styles.container}>
       <div style={{ width: isOpen ? "220px" : "100px" }} className={styles.sidebar}>
@@ -54,21 +39,19 @@ const Sidebar = () => {
           </div>
         </div>
         {menuItem.map((item, index) => (
-
-          <Link href={item.path} key={index} >
-            <div className={styles.link}>
+          <Link href={item.path} key={index}>
+            <div
+              className={`${styles.link} ${item.active ? styles.active : ""}`}
+              onClick={() => handleMenuItemClick(index)}
+            >
               <div className={styles.icon}>{item.icon}</div>
-              <div
-                style={{ display: isOpen ? "block" : "none", fontSize: "18px" }}
-                className={styles.link_text}
-              >
-                {item.name}
-              </div>
+              <div className={styles.link_text}>{item.name}</div>
             </div>
           </Link>
         ))}
       </div>
-    </div>
+    </div >
   );
 };
+
 export default Sidebar;

@@ -3,7 +3,7 @@ import styles from "../../../Pages/DashboardPage/Dashboard.module.scss";
 import Sidebar from "../../Sidebar";
 import { Navbar } from "../../../Navbar/Navbar";
 import TableData, { StudentProfile } from "../../../Table/TableData";
-import assignmentData from "../../../../../Utils/CreateAssignment.json";
+import assignmentData from "../../../../../utils/CreateAssignment.json";
 import { useRouter, NextRouter } from "next/router";
 //@ts-ignore
 import { Pagination } from "technogetic-iron-smart-ui";

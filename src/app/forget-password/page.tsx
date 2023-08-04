@@ -1,19 +1,16 @@
-"use client"
-import React, { useState, ChangeEvent } from "react";
-// import { Link, useNavigate } from "react-router-dom";
-import Link from "next/link";
-import styles from "../login/auth.module.scss";
-import sendRequest from "../../services/auth/auth_All_Api";
-import { useRouter } from "next/navigation";
+'use client';
+import React, { useState, ChangeEvent } from 'react';
+import Link from 'next/link';
+import styles from '../login/auth.module.scss';
+import sendRequest from '../../services/auth/auth_All_Api';
+import { useRouter } from 'next/navigation';
 //@ts-ignore
-import { Button, Input } from "technogetic-iron-smart-ui";
+import { Button, Input } from 'technogetic-iron-smart-ui';
 
 export default function ResetPassword(): JSX.Element {
-
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(true);
 
-  // const navigate = useNavigate();
   const router = useRouter();
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -24,14 +21,15 @@ export default function ResetPassword(): JSX.Element {
 
   const sendEmail = async () => {
     try {
-      const response = await sendRequest("localhost:5000/v1/forget-password", {
-        method: "POST",
-        data: { email },
+      const response = await sendRequest('v1/forget-password', {
+        method: 'POST',
+        body: { email },
       });
-      router.push("/sentmail")
-      console.log("Password recovery success:", response);
+      router.push('/mailpage');
+
+      console.log('Password recovery success:', response);
     } catch (error) {
-      console.error("Password recovery error:", error);
+      console.error('Password recovery error:', error);
     }
   };
 
@@ -45,10 +43,10 @@ export default function ResetPassword(): JSX.Element {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <img src="./assests/logo.svg" alt="logo" />
+            <img src="./assests/logobgmi.svg" alt="logo" />
           </div>
           <div>
-            <h2>Forgot Password</h2>
+            <h2 className={styles.headDesc}>Forgot Password</h2>
             <p className={styles.heading}>
               Please enter your registered email id or mobile to reset your
               password
@@ -61,7 +59,7 @@ export default function ResetPassword(): JSX.Element {
             <Input
               type="email"
               id="email"
-              className={`${styles.email_wrapper} ${isEmailValid ? "" : styles.invalid
+              className={`${styles.email_wrapper} ${isEmailValid ? '' : styles.invalid
                 }`}
               placeholder="Enter Email"
               value={email}

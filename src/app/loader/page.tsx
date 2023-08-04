@@ -1,21 +1,52 @@
-'use client'
-import { useEffect } from "react";
-import styles from "./loader.module.scss";
-import { useRouter } from "next/navigation";
-// import { useNavigate } from "react-router-dom";
+'use client';
+import { useState, useEffect } from 'react';
+import styles from './loader.module.scss';
+import { useRouter } from 'next/navigation';
+import sendRequest from '@/services/auth/auth_All_Api';
 
 type Props = {};
 
 const Loader = (props: Props) => {
 
-    // const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
+
     const router = useRouter();
+
+    const handleVerifyToken = async (token: any) => {
+        setIsLoading(true);
+        try {
+            const verifyResponse = await sendRequest("auth/verify/?" + `token=${token}`, {
+                method: "GET",
+
+            });
+            console.log("verifyResponse", verifyResponse);
+
+            setIsLoading(false);
+
+            if (verifyResponse.status === 200) {
+                router.push("/signup");
+            } else {
+                setError("Google Sign-In failed");
+            }
+        } catch (error) {
+            setIsLoading(false);
+            setError("Google Sign-In failed");
+        }
+    };
 
     useEffect(() => {
         setTimeout(() => {
-            router.push("/Signup");
-        }, 2000)
-    })
+            router.push('/signup');
+        }, 2000);
+    });
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get("token");
+        handleVerifyToken(token)
+    }, [])
+
     return (
         <>
             <div className={styles.main_container}>
