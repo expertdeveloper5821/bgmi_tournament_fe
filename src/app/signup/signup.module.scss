@@ -30,7 +30,6 @@
 .container {
   @include container;
   border: 1px solid;
-  // height: 580px;
   margin: 1rem;
 
   @media (max-width: $breakpoint-sm) {
@@ -51,6 +50,7 @@
   @include logo;
   display: flex;
   margin: 0px auto;
+  width: 25%;
 
   @media (max-width: $breakpoint-xs) {
     margin-top: 2rem;
