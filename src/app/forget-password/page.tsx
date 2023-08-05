@@ -43,7 +43,7 @@ export default function ResetPassword(): JSX.Element {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <img src="./assests/logo.svg" alt="logo" />
+            <img src="../assests/logo.svg" alt="logo" />
           </div>
           <div>
             <h2>Forgot Password</h2>
@@ -85,7 +85,7 @@ export default function ResetPassword(): JSX.Element {
           </div>
         </div>
         <div className={styles.girlImg_wrapper}>
-          <img src="./assests/pubgImg.png" alt="girl-img" />
+          <img src="../assests/pubgImg.png" alt="girl-img" />
         </div>
       </div>
     </div>

@@ -65,14 +65,13 @@ const Login = () => {
         });
 
         setIsLoading(false);
-
+        
         if (response.status === 200) {
           localStorage.setItem("jwtToken", response.data.token);
           router.push("/adminDashboard");
         } else {
           setError("Invalid email or password");
         }
-
       } catch (error: any) {
         setIsLoading(false);
         setError("Invalid email or password");
@@ -96,7 +95,7 @@ const Login = () => {
   const handleVerifyToken = async (token: any) => {
     setIsLoading(true);
     try {
-      const verifyResponse = await sendRequest("http://localhost:5000/auth/verify", {
+      const verifyResponse = await sendRequest("/auth/verify", {
         method: "GET",
         data: {
           token: token,
@@ -116,26 +115,29 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    setIsLoading(true);
+ const handleGoogleLogin = () => {
+  setIsLoading(true);
 
-    try {
-      window.location.href = "http://localhost:5000/auth/google/callback";
-    } catch (error) {
-      setIsLoading(false);
-      setError("Google Sign-In failed");
-    }
-  };
+  try {
+    window.location.href = "http://localhost:5000/auth/google/callback";
+  } catch (error) {
+    setIsLoading(false);
+    setError("Google Sign-In failed");
+    console.error("Error during Google Sign-In:", error);
+  }
+};
 
-  useEffect(() => {
+useEffect(() => {
+  if (typeof window !== 'undefined') {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
-    console.log("token", token, window.location.href)
+    console.log("token", token, window.location.href);
 
     if (token) {
       handleVerifyToken(token);
     }
-  }, []);
+  }
+}, []);
 
   return (
     <div className={styles.main_container}>
