@@ -36,15 +36,12 @@ const Loader = (props: Props) => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      router.push('/login');
-    }, 2000);
-  });
-
-  useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
-    handleVerifyToken(token)
+    if(token){
+      localStorage.setItem("jwtToken",token);
+      handleVerifyToken(token)
+    }
   }, [])
 
   return (
@@ -53,12 +50,11 @@ const Loader = (props: Props) => {
         <div className={styles.background_container}>
           <div className={styles.container}>
             <div className={styles.logo}>
-              <img src="./assests/technogeticlogo.svg" alt="Tg-logo"></img>
+              <img src="../assests/technogeticlogo.svg" alt="Tg-logo"></img>
             </div>
           </div>
         </div>
       </div>
-      <h2>Loader</h2>
     </>
   );
 };

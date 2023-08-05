@@ -1,19 +1,19 @@
 // 'use client';
 // import React, {useState, useEffect} from 'react';
-// import styles from '../adminDashboard/Dashboard.module.scss';
-// import Sidebar from '../../Components/SideBar/Sidebar';
-// import {Navbar} from '../../Components/Navbar/Navbar';
-// import TableData, {StudentProfile} from '../../Components/Table/TableData';
+// import styles from '../../../styles/Dashboard.module.scss';
+// import Sidebar from '../../../Components/SideBar/Sidebar';
+// import {Navbar} from '../../../Components/Navbar/Navbar';
+// import TableData, {StudentProfile} from '../../../Components/Table/TableData';
 // import {useRouter, NextRouter} from 'next/router';
-// import assignmentData from '../../utils/CreateAssignment.json';
+// import assignmentData from '../../../utils/CreateAssignment.json';
 // // @ts-ignore
 // import {Pagination} from 'technogetic-iron-smart-ui';
-// import {BtnDashboard} from '../../Components/CommonComponent/BtnDashboard';
+// import {BtnDashboard} from '../../../Components/CommonComponent/BtnDashboard';
 // import {FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt} from 'react-icons/fa';
 
 // export interface IAppProps {}
 
-// export function Room() {
+// function Transactions() {
 //   const [currentPage, setCurrentPage] = useState(1);
 //   const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
 //   // const router: NextRouter = useRouter();
@@ -29,28 +29,28 @@
 //     }),
 //   );
 
-//   const dynamicMenuItems = [
-//     {
-//       path: '/room',
-//       name: 'Room',
-//       icon: <FaTh />,
-//     },
-//     {
-//       path: '/adminDashboard/spectator',
-//       name: 'Specatator',
-//       icon: <FaUserAlt />,
-//     },
-//     {
-//       path: '/adminDashboard/users',
-//       name: 'Users',
-//       icon: <FaRegChartBar />,
-//     },
-//     {
-//       path: '/adminDashboard/teams',
-//       name: 'Teams',
-//       icon: <FaCommentAlt />,
-//     },
-//   ];
+//   // const dynamicMenuItems = [
+//   //   {
+//   //     path: '/room',
+//   //     name: 'Room',
+//   //     icon: <FaTh />,
+//   //   },
+//   //   {
+//   //     path: '/adminDashboard/spectator',
+//   //     name: 'Specatator',
+//   //     icon: <FaUserAlt />,
+//   //   },
+//   //   {
+//   //     path: '/adminDashboard/users',
+//   //     name: 'Users',
+//   //     icon: <FaRegChartBar />,
+//   //   },
+//   //   {
+//   //     path: '/adminDashboard/teams',
+//   //     name: 'Teams',
+//   //     icon: <FaCommentAlt />,
+//   //   },
+//   // ];
 
 //   useEffect(() => {
 //     const startIndex = (currentPage - 1) * rowPerPage;
@@ -74,7 +74,7 @@
 //   return (
 //     <>
 //       <div className={styles.main_container}>
-//         <Sidebar menuItem={dynamicMenuItems} />
+//         {/* <Sidebar menuItem={dynamicMenuItems} /> */}
 //         <div className={styles.abcd}>
 //           <div className={styles.sidebar_wrapper}>
 //             <Navbar />
@@ -96,7 +96,7 @@
 //   );
 // }
 
-// export default Room;
+// export default Transactions;
 
 
 import React from 'react'

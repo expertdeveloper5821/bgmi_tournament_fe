@@ -4,7 +4,6 @@ const nextConfig = {
   reactStrictMode: true,
   env: {
     REACT_APP_BASE_URL: "http://localhost:5000/",
-    REACT_APP_GOOGLE_AUTH_URL: "http://localhost:5000/auth/google"
   }
 };
 
