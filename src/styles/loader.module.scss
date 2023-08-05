@@ -1,0 +1,13 @@
+@import './mixins.scss';
+@import './variable.scss';
+
+.container {
+  margin: 0;
+}
+
+.main_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}

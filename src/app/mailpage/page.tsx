@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-import styles from "./mail.module.scss";
+import styles from "../../styles/mail.module.scss";
 // @ts-ignore
 import { Button } from "technogetic-iron-smart-ui";
 
@@ -29,7 +29,7 @@ export default function SentMail() {
                 </p>
 
                 <div className={styles.mailsent_logo}>
-                  <img src="./assests/letterBox.svg" alt="mailsent"></img>
+                  <img src="../assests/letterBox.svg" alt="mailsent"></img>
                 </div>
               </div>
 
@@ -44,8 +44,8 @@ export default function SentMail() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div >
+      </div >
     </>
   );
 }

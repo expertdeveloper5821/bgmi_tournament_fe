@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import styles from '../credential.module.scss';
+import styles from '../../../styles/credential.module.scss';
 //@ts-ignore
 import { Button } from 'technogetic-iron-smart-ui';
 import React from 'react';
@@ -46,10 +46,3 @@ const UpdateCredSuccess = (props: Props) => {
   );
 };
 export default UpdateCredSuccess;
-
-
-
-
-
-
-
