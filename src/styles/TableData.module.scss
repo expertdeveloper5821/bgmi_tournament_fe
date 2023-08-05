@@ -1,0 +1,75 @@
+@import './mixins.scss';
+@import './variable.scss';
+
+.table_content {
+  font-size: 10px;
+  color: #003554;
+  text-align: center;
+
+  // position: relative;
+}
+
+.filter {
+  display: flex;
+  align-items: flex-start;
+  width: auto;
+}
+
+.tableHeader {
+  background-color: transparent;
+}
+
+.table_head {
+  padding: 0.8rem;
+  background-color: none;
+}
+
+.table_body {
+  margin: 2px 2px;
+}
+
+.tableRow {
+  background: transparent;
+}
+
+.table_rowdata {
+  background-color: #f5f5f5;
+}
+
+.table_icon {
+  margin-right: 0.5rem;
+  height: 1rem;
+  align-items: center;
+}
+
+.iconWrapper {
+  :hover {
+    color: #003554;
+  }
+
+  display: flex;
+  align-items: center;
+}
+
+.table_cell {
+  padding: 1rem;
+  text-align: start;
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 12px;
+  }
+}
+
+.cell_icon {
+  margin-right: 0.5rem;
+
+  @media (max-width: $breakpoint-sm) {
+    img {
+      size: 15px;
+    }
+  }
+}
+
+.table_Studenticon img {
+  size: 20px;
+}

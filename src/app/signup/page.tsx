@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 //@ts-ignore
 import { Button, Input } from "technogetic-iron-smart-ui";
-import styles from "./signup.module.scss";
+import styles from "../../styles/auth.module.scss";
 import sendRequest from "../../services/api/apiServices";
 import { FcGoogle } from "react-icons/fc";
 
@@ -15,16 +15,6 @@ const Signup = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
     const router = useRouter();
-
-
-    function handleRememberMe(event: React.ChangeEvent<HTMLInputElement>) {
-        setRememberMe(event.target.checked);
-    }
-
-    // useEffect(() => {
-    //     const rememberMeValue = localStorage.getItem("rememberMe") === "true";
-    //     setRememberMe(rememberMeValue);
-    // }, []);
 
     const initialValues = {
         fullName: "",
@@ -47,26 +37,9 @@ const Signup = () => {
         onSubmit: async (values) => {
             setIsLoading(true);
             const { fullName, userName, email, password } = values;
-            // console.log("fullName", fullName);
-            // console.log("userName", userName);
-            // console.log("email", email);
-            // console.log("password", password);
-
-
             if (rememberMe) {
                 const expirationDate = new Date();
                 expirationDate.setDate(expirationDate.getDate() + 30);
-                // localStorage.setItem("fullName", fullName);
-                // localStorage.setItem("userName", userName);
-                // localStorage.setItem("email", email);
-                // localStorage.setItem("password", password);
-                // localStorage.setItem("rememberMe", "true");
-            } else {
-                // localStorage.removeItem("fullName");
-                // localStorage.removeItem("userName");
-                // localStorage.removeItem("email");
-                // localStorage.removeItem("password");
-                // localStorage.removeItem("rememberMe");
             }
 
             try {
@@ -74,10 +47,6 @@ const Signup = () => {
                     method: "POST",
                     data: { fullName, userName, email, password },
                 });
-                // console.log("Fullname", values.fullName);
-                // console.log("UserName", values.userName);
-                // console.log("response", response)
-
                 if (response.status === 200) {
                     localStorage.setItem("jwtToken", response.data.token);
                     router.push("/login");
@@ -93,7 +62,6 @@ const Signup = () => {
 
     useEffect(() => {
         const storedFullname = localStorage.getItem("fullName");
-        console.log("check ==>", storedFullname);
         const storedPlayerId = localStorage.getItem("userName");
         const storedEmail = localStorage.getItem("email");
         const storedPassword = localStorage.getItem("password");

@@ -14,13 +14,20 @@ const RequireAuthentication = (props: any) => {
   const { children } = props;
   const router = useRouter();
 
-  const isAuthenticated = checkIfUserIsAuthenticated();
+  useEffect(() => {
+    const isAuthenticated = checkIfUserIsAuthenticated();
 
-  if (!isAuthenticated) {
-    router.push('/login');
-  }
+    if (!isAuthenticated) {
+      const redirectToLogin = async () => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        router.push('/login');
+      };
 
-  return isAuthenticated ? <>{children}</> : null;
+      redirectToLogin();
+    }
+  }, [router]);
+
+  return <>{children}</>;
 };
 
 export default RequireAuthentication;

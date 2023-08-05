@@ -1,6 +1,7 @@
 "use client"
 import React from "react";
-import styles from "../reset-password/credential.module.scss";
+
+import styles from "../../styles/credential.module.scss";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";

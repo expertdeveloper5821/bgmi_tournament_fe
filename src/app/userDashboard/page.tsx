@@ -1,24 +1,19 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import styles from './Dashboard.module.scss';
-import Sidebar from '../Components/SideBar/Sidebar';
-import { Navbar } from '../Components/Navbar/Navbar';
-import TableData, { StudentProfile } from '../Components/Table/TableData';
+import styles from '../../styles/Dashboard.module.scss';
+import Sidebar from '../../Components/SideBar/Sidebar';
+import { Navbar } from '../../Components/Navbar/Navbar';
+import TableData, { StudentProfile } from '../../Components/Table/TableData';
 import assignmentData from '../../utils/CreateAssignment.json';
 //@ts-ignore
 import { Pagination } from 'technogetic-iron-smart-ui';
-import { BtnDashboard } from '../Components/CommonComponent/BtnDashboard';
-import RequireAuthentication from "../../utils/requireAuthentication"
-import {
-  FaTh,
-  FaUserAlt,
-  FaRegChartBar,
-  FaCommentAlt,
-} from "react-icons/fa";
+import { BtnDashboard } from '../../Components/CommonComponent/BtnDashboard';
+import RequireAuthentication from '../../utils/requireAuthentication';
+import { FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt } from 'react-icons/fa';
 
 export interface IAppProps { }
 
-export default function Dashboard() {
+function Userdashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
   const rowPerPage = 8;
@@ -32,34 +27,6 @@ export default function Dashboard() {
       Course: item.Course,
     }),
   );
-
-  const dynamicMenuItems = [
-    {
-      path: "/adminDashboard/tournament",
-      name: "Tournament",
-      icon: <FaTh />,
-    },
-    {
-      path: "/adminDashboard/transcation",
-      name: "Transcation",
-      icon: <FaUserAlt />,
-    },
-    {
-      path: "/adminDashboard/friends",
-      name: "Friends",
-      icon: <FaRegChartBar />,
-    },
-    {
-      path: "/adminDashboard/vedios",
-      name: "Vedios",
-      icon: <FaCommentAlt />,
-    },
-    {
-      path: "/adminDashboard/kys",
-      name: "KYC",
-      icon: <FaCommentAlt />,
-    }
-  ];
 
   useEffect(() => {
     const startIndex = (currentPage - 1) * rowPerPage;
@@ -84,7 +51,6 @@ export default function Dashboard() {
     <>
       <RequireAuthentication>
         <div className={styles.main_container}>
-          {/* <Sidebar /> */}
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
               <Navbar />
@@ -97,7 +63,9 @@ export default function Dashboard() {
               />
               <Pagination
                 currentPage={currentPage}
-                totalPages={Math.ceil(transformedStudentData.length / rowPerPage)}
+                totalPages={Math.ceil(
+                  transformedStudentData.length / rowPerPage,
+                )}
                 onPageChange={onPageChange}
               />
             </div>
@@ -107,3 +75,5 @@ export default function Dashboard() {
     </>
   );
 }
+
+export default Userdashboard;

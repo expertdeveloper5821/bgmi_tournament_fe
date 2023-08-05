@@ -1,24 +1,19 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import styles from './Dashboard.module.scss';
-import Sidebar from '../Components/SideBar/Sidebar';
-import { Navbar } from '../Components/Navbar/Navbar';
-import TableData, { StudentProfile } from '../Components/Table/TableData';
+import React, {useState, useEffect} from 'react';
+import styles from '../../styles/Dashboard.module.scss';
+import Sidebar from '../../Components/SideBar/Sidebar';
+import {Navbar} from '../../Components/Navbar/Navbar';
+import TableData, {StudentProfile} from '../../Components/Table/TableData';
 import assignmentData from '../../utils/CreateAssignment.json';
 //@ts-ignore
-import { Pagination } from 'technogetic-iron-smart-ui';
-import { BtnDashboard } from '../Components/CommonComponent/BtnDashboard';
-import RequireAuthentication from "../../utils/requireAuthentication"
-import {
-  FaTh,
-  FaUserAlt,
-  FaRegChartBar,
-  FaCommentAlt,
-} from "react-icons/fa";
+import {Pagination} from 'technogetic-iron-smart-ui';
+import {BtnDashboard} from '../../Components/CommonComponent/BtnDashboard';
+import RequireAuthentication from '../../utils/requireAuthentication';
+import {FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt} from 'react-icons/fa';
 
-export interface IAppProps { }
+export interface IAppProps {}
 
-export default function Dashboard() {
+function AdminDashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
   const rowPerPage = 8;
@@ -32,29 +27,6 @@ export default function Dashboard() {
       Course: item.Course,
     }),
   );
-
-  const dynamicMenuItems = [
-      {
-        path: "/adminDashboard/room",
-        name: "Room",
-        icon: <FaTh />,
-      },
-      {
-        path: "/adminDashboard/spectator",
-        name: "Specatator",
-        icon: <FaUserAlt />,
-      },
-      {
-        path: "/adminDashboard/users",
-        name: "Users",
-        icon: <FaRegChartBar />,
-      },
-      {
-        path: "/adminDashboard/teams",
-        name: "Teams",
-        icon: <FaCommentAlt />,
-      }
-  ];
 
   useEffect(() => {
     const startIndex = (currentPage - 1) * rowPerPage;
@@ -79,10 +51,10 @@ export default function Dashboard() {
     <>
       <RequireAuthentication>
         <div className={styles.main_container}>
-        <Sidebar menuItem={dynamicMenuItems} />
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
               <Navbar />
+              <h1>Welcome to Admin Dashboard</h1>
               <BtnDashboard />
               <TableData
                 studentData={paginatedData}
@@ -91,7 +63,9 @@ export default function Dashboard() {
               />
               <Pagination
                 currentPage={currentPage}
-                totalPages={Math.ceil(transformedStudentData.length / rowPerPage)}
+                totalPages={Math.ceil(
+                  transformedStudentData.length / rowPerPage,
+                )}
                 onPageChange={onPageChange}
               />
             </div>
@@ -101,3 +75,5 @@ export default function Dashboard() {
     </>
   );
 }
+
+export default AdminDashboard;

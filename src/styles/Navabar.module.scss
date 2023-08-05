@@ -1,0 +1,179 @@
+@import './mixins.scss';
+@import './variable.scss';
+
+.container {
+  border: none !important;
+  width: auto;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+
+  @media (max-width: $breakpoint-xs) {
+    padding: 0 0 0 10px;
+  }
+}
+
+.navbarnav {
+  list-style: none;
+  display: flex;
+
+  @media (max-width: $breakpoint-xSmall) {
+    padding-left: 4rem;
+  }
+}
+
+.navitem {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.setting {
+  -webkit-animation: spin 4s linear infinite;
+  -moz-animation: spin 4s linear infinite;
+  animation: spin 4s linear infinite;
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.username_details {
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: $breakpoint-xs) {
+    display: none;
+  }
+}
+
+.adminname {
+  color: var(--bs-darkblue);
+  margin: 1px;
+  font-size: var(--bs-font-size);
+}
+
+.profile {
+  font-size: 8px;
+  color: var(--bs-grey);
+  text-align: center;
+}
+
+.dropdown {
+  cursor: pointer;
+}
+
+.notification {
+  cursor: pointer;
+}
+
+.dropdown {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 8px;
+}
+
+.notify {
+  margin: 0px 4px;
+  font-size: 14px;
+  color: var(--bs-darkblue);
+}
+
+.time {
+  color: var(--bs-grey);
+  font-size: 10px;
+}
+
+.allnotification {
+  text-align: center;
+  color: var(--bs-darkblue);
+  margin: 25px 0px;
+}
+
+.notification {
+  display: flex;
+  justify-content: space-between;
+}
+
+.close {
+  height: 10px;
+  width: 10px;
+}
+
+.myprofilesection {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 2px;
+}
+
+.gmail {
+  font-size: 10px;
+  color: var(--bs-grey);
+}
+
+.userdetails {
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 1px solid #dcdcdc;
+  padding-bottom: 12px;
+}
+
+.profilesection {
+  color: var(--bs-grey);
+  margin-top: 10px;
+}
+
+.navitem {
+  font-size: 10px;
+  padding: 5px;
+}
+
+.flexcol {
+  display: flex;
+}
+
+.logoutbutton {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 12px;
+  border-top: 1px solid #dcdcdc;
+  padding-top: 10px;
+  color: #003554;
+}
+
+.logoutbuttonicon {
+  height: 10px;
+  padding: 0px 10px;
+}
+
+.profileicon,
+.settingicon,
+.notification_icon {
+  margin: 5px 12px;
+  height: 18px;
+  color: #003554;
+}
+
+.myprofile {
+  margin: 5px 10px;
+  font-family: var(--bs-body-font-family);
+  font-size: 11px;
+}
