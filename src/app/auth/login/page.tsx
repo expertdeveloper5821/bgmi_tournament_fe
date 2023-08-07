@@ -1,16 +1,17 @@
 'use client'
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import { SignupSchema } from "../../schemas/SignupSchemas";
+import { SignupSchema } from "../../../schemas/SignupSchemas";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 //@ts-ignore
 import { Button, Input } from "technogetic-iron-smart-ui";
-import styles from "../../styles/auth.module.scss";
-import sendRequest from "../../services/api/apiServices";
+import styles from "../../../styles/auth.module.scss";
+import sendRequest from "../../../services/api/apiServices";
 import { FcGoogle } from "react-icons/fc";
+import Image from "next/image";
 
-const Login = () => {
+function Login(): React.JSX.Element {
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -32,13 +33,7 @@ const Login = () => {
   };
 
   const {
-    values,
-    touched,
-    errors,
-    handleSubmit,
-    handleChange,
-    handleBlur,
-    setFieldValue,
+    values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue,
   } = useFormik({
     initialValues,
     validationSchema: SignupSchema,
@@ -65,7 +60,7 @@ const Login = () => {
         });
 
         setIsLoading(false);
-        
+
         if (response.status === 200) {
           localStorage.setItem("jwtToken", response.data.token);
           router.push("/adminDashboard");
@@ -91,7 +86,7 @@ const Login = () => {
   }, [setFieldValue]);
 
 
-  //verify token
+  //verify tokloginen
   const handleVerifyToken = async (token: any) => {
     setIsLoading(true);
     try {
@@ -115,36 +110,73 @@ const Login = () => {
     }
   };
 
- const handleGoogleLogin = () => {
-  setIsLoading(true);
+  const handleGoogleLogin = () => {
+    setIsLoading(true);
 
-  try {
-    window.location.href = "http://localhost:5000/auth/google/callback";
-  } catch (error) {
-    setIsLoading(false);
-    setError("Google Sign-In failed");
-    console.error("Error during Google Sign-In:", error);
-  }
-};
+    try {
+      window.location.href = "http://localhost:5000/auth/google/callback";
+    } catch (error) {
+      setIsLoading(false);
+      setError("Google Sign-In failed");
+      console.error("Error during Google Sign-In:", error);
+    }
+  };
 
-useEffect(() => {
-  if (typeof window !== 'undefined') {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get("token");
+      console.log("token", token, window.location.href);
+
+      if (token) {
+        handleVerifyToken(token);
+      }
+    }
+  }, []);
+
+  //loader
+
+  const [isLoadingData, setLoadingData] = useState(false);
+  const [errorData, showErrorData] = useState("");
+
+  const handleVerifyTokenInLogin = async (token: any) => {
+    setLoadingData(true);
+    try {
+      const verifyResponse = await sendRequest("auth/verify/?" + `token=${token}`, {
+        method: "GET",
+
+      });
+      console.log("verifyResponse", verifyResponse);
+
+      setLoadingData(false);
+
+      if (verifyResponse.status === 200) {
+        router.push("/adminDashboard");
+      } else {
+        showErrorData("Google Sign-In failed");
+      }
+    } catch (errorData) {
+      setLoadingData(false);
+      showErrorData("Google Sign-In failed");
+    }
+  };
+
+  useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
-    console.log("token", token, window.location.href);
-
     if (token) {
-      handleVerifyToken(token);
+      localStorage.setItem("jwtToken", token);
+      handleVerifyTokenInLogin(token)
     }
-  }
-}, []);
+  }, [])
+
 
   return (
     <div className={styles.main_container}>
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <img src="./assests/logobgmi.svg" alt="Tg-logo" />
+            <Image src="../assests/logobgmi.svg" alt="Tg-logo" width={100} height={100} />
           </div>
 
           <div>
@@ -158,7 +190,7 @@ useEffect(() => {
               {error && <div className={styles.error}>{error}</div>}
               <div className={styles.input_box}>
                 <label className={styles.email} htmlFor="email">
-                  <img src="./assests/fullnameicon.svg" alt="fullname" />
+                  <Image src="../assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
                 </label>
                 <Input
                   id="email"
@@ -169,8 +201,7 @@ useEffect(() => {
                   placeholder="Enter email"
                   value={values.email}
                   onChange={handleChange}
-                  onBlur={handleBlur}
-                />
+                  onBlur={handleBlur} />
 
               </div>
               {errors.email && touched.email && (
@@ -179,7 +210,7 @@ useEffect(() => {
 
               <div className={styles.input_box}>
                 <label className={styles.password} htmlFor="password">
-                  <img src="./assests/passwordlogo.svg" alt="passwordlogo" />
+                  <Image src="../assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
                 </label>
                 <Input
                   id="password"
@@ -190,8 +221,7 @@ useEffect(() => {
                   placeholder="Enter password"
                   value={values.password}
                   onChange={handleChange}
-                  onBlur={handleBlur}
-                />
+                  onBlur={handleBlur} />
 
               </div>
               {errors.password && touched.password && (
@@ -204,8 +234,7 @@ useEffect(() => {
                   id="rememberMe"
                   name="rememberMe"
                   checked={rememberMe}
-                  onChange={handleRememberMe}
-                />
+                  onChange={handleRememberMe} />
                 <label htmlFor="rememberMe" className={styles.rememberMe}>Remember Me</label>
               </div>
 
@@ -238,16 +267,16 @@ useEffect(() => {
 
               <div className={styles.signin}>
                 <span className={styles.forgotDesc}>
-                  <Link href="/forget-password">Forget your Password?</Link>
+                  <Link href="/auth/forget-password">Forget your Password?</Link>
                 </span>
               </div>
 
             </form>
           </div>
         </div>
-      </div>
-    </div>
+    //   </div>
+    // </div>
   );
-};
+}
 
 export default Login;

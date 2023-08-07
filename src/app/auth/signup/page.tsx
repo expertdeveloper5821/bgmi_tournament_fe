@@ -1,22 +1,30 @@
-'use client'
+"use client"
 import React, { useState, useEffect } from "react";
-import { useFormik } from "formik";
-import { SignupSchema } from "../../schemas/SignupSchemas";
+import { useFormik, FormikValues, FormikHelpers } from "formik";
+import { SignupSchema } from "../../../schemas/SignupSchemas";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 //@ts-ignore
 import { Button, Input } from "technogetic-iron-smart-ui";
-import styles from "../../styles/auth.module.scss";
-import sendRequest from "../../services/api/apiServices";
+import styles from "../../../styles/auth.module.scss";
+import sendRequest from "../../../services/api/apiServices";
 import { FcGoogle } from "react-icons/fc";
+import Image from "next/image";
+
+interface FormValues {
+    fullName: string;
+    userName: string;
+    email: string;
+    password: string;
+}
 
 const Signup = () => {
-    const [rememberMe, setRememberMe] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
+    const [rememberMe, setRememberMe] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>("");
     const router = useRouter();
 
-    const initialValues = {
+    const initialValues: FormValues = {
         fullName: "",
         userName: "",
         email: "",
@@ -34,7 +42,7 @@ const Signup = () => {
     } = useFormik({
         initialValues,
         validationSchema: SignupSchema,
-        onSubmit: async (values) => {
+        onSubmit: async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
             setIsLoading(true);
             const { fullName, userName, email, password } = values;
             if (rememberMe) {
@@ -49,13 +57,15 @@ const Signup = () => {
                 });
                 if (response.status === 200) {
                     localStorage.setItem("jwtToken", response.data.token);
-                    router.push("/login");
+                    router.push("/auth/login");
                 } else {
                     setError("Failed to sign up. Please try again.");
                 }
             } catch (error: any) {
                 setIsLoading(false);
                 setError("Failed to sign up. Please try again.");
+            } finally {
+                setSubmitting(false);
             }
         },
     });
@@ -86,7 +96,7 @@ const Signup = () => {
             <div className={styles.background_container}>
                 <div className={styles.container}>
                     <div className={styles.logo}>
-                        <img src="./assests/logobgmi.svg" alt="Tg-logo" />
+                        <Image src="/assests/logobgmi.svg" alt="Tg-logo" width={100} height={100} />
                     </div>
                     <div>
                         <h2 className={styles.headDesc}>Welcome back</h2>
@@ -97,10 +107,9 @@ const Signup = () => {
                             {error && <div className={styles.error}>{error}</div>}
                             <div className={styles.input_box}>
                                 <label className={styles.email} htmlFor="Fullname">
-                                    <img src="./assests/fullnameicon.svg" alt="fullname" />
+                                    <Image src="/assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
                                 </label>
                                 <Input
-
                                     id="fullName"
                                     className={styles.email_wrapper}
                                     type="text"
@@ -111,14 +120,13 @@ const Signup = () => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-
                             </div>
                             {errors.fullName && touched.fullName && (
                                 <div className={styles.error}>{errors.fullName}</div>
                             )}
                             <div className={styles.input_box}>
                                 <label className={styles.email} htmlFor="UserName">
-                                    <img src="./assests/fullnameicon.svg" alt="fullname" />
+                                    <Image src="/assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
                                 </label>
                                 <Input
                                     id="userName"
@@ -131,14 +139,13 @@ const Signup = () => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-
                             </div>
                             {errors.userName && touched.userName && (
                                 <div className={styles.error}>{errors.userName}</div>
                             )}
                             <div className={styles.input_box}>
                                 <label className={styles.email} htmlFor="email">
-                                    <img src="./assests/maillogo.svg" alt="mailogo" />
+                                    <Image src="/assests/maillogo.svg" alt="mailogo" width={30} height={20} />
                                 </label>
                                 <Input
                                     id="email"
@@ -151,14 +158,13 @@ const Signup = () => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-
                             </div>
                             {errors.email && touched.email && (
                                 <div className={styles.error}>{errors.email}</div>
                             )}
                             <div className={styles.input_box}>
                                 <label className={styles.password} htmlFor="password">
-                                    <img src="./assests/passwordlogo.svg" alt="passwordlogo" />
+                                    <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
                                 </label>
                                 <Input
                                     id="password"
@@ -186,18 +192,15 @@ const Signup = () => {
                                     variant="contained"
                                     type="submit"
                                     onClick={handleSubmit}
-
                                 >
                                     {isLoading ? "Loading..." : "Sign up"}
-
                                 </Button>
                             </div>
                             <div className={styles.signin}>
                                 <span className={styles.forgotDesc}>
-                                    <Link href="/login"> Already have a account ? &nbsp; <b>Login</b></Link>
+                                    <Link href="/auth/login"> Already have an account ? &nbsp; <b>Login</b></Link>
                                 </span>
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -207,6 +210,7 @@ const Signup = () => {
 };
 
 export default Signup;
+
 
 
 

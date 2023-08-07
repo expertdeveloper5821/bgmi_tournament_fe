@@ -1,8 +1,9 @@
 "use client"
 import React from "react";
-import styles from "../../styles/mail.module.scss";
+import styles from "../../../styles/mail.module.scss";
 // @ts-ignore
 import { Button } from "technogetic-iron-smart-ui";
+import Image from "next/image";
 
 export interface IAppProps { }
 
@@ -19,7 +20,7 @@ export default function SentMail() {
           <div className={styles.container}>
             <div className={styles.mailsent_container}>
               <div className={styles.logo}>
-                <img src="./assests/logobgmi.svg" alt="Tg-logo"></img>
+                <Image src="../assests/logobgmi.svg" alt="Tg-logo" width={100} height={100} />
               </div>
 
               <div className={styles.email_wrapper}>
@@ -29,7 +30,7 @@ export default function SentMail() {
                 </p>
 
                 <div className={styles.mailsent_logo}>
-                  <img src="../assests/letterBox.svg" alt="mailsent"></img>
+                  <Image src="../assests/letterBox.svg" alt="mailsent" width={100} height={100} />
                 </div>
               </div>
 

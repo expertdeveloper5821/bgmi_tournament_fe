@@ -1,14 +1,16 @@
 "use client"
 import React from "react";
 
-import styles from "../../styles/credential.module.scss";
+import styles from "../../../styles/credential.module.scss";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
-import { ResetPasswordSchema } from "../../schemas/SignupSchemas";
+import { ResetPasswordSchema } from "../../../schemas/SignupSchemas";
 //@ts-ignore
 import { Button, Input } from "technogetic-iron-smart-ui";
-import sendRequest from "../../services/api/apiServices";
+import sendRequest from "../../../services/api/apiServices";
+import Image from "next/image";
+
 const UpdateCredential = () => {
   const [token, setToken] = useState("");
   const router = useRouter();
@@ -41,7 +43,7 @@ const UpdateCredential = () => {
           data: { newPassword, confirmPassword },
         });
         if (response.status === 200) {
-          router.push("reset-password/updateCredSuccess");;
+          router.push("/auth/reset-password/updateCredSuccess");;
         } else {
           console.error("Password update failed");
         }
@@ -53,7 +55,7 @@ const UpdateCredential = () => {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <img src="./assests/logobgmi.svg" alt="bgmilogo"></img>
+            <Image src="/assests/logobgmi.svg" alt="bgmilogo" width={100} height={100} />
           </div>
           <div>
             <h2 className={styles.headDesc}>Reset Password</h2>
@@ -65,7 +67,7 @@ const UpdateCredential = () => {
             <form onSubmit={handleSubmit}>
               <div className={styles.input_box}>
                 <label htmlFor="newPassword" className={styles.password}>
-                  <img src="./assests/passwordlogo.svg" alt="passwordlogo" />
+                  <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
                 </label>
                 <Input
                   type="password"
@@ -90,7 +92,7 @@ const UpdateCredential = () => {
                   htmlFor="confirmPassword"
                   className={styles.password}
                 >
-                  <img src="./assests/passwordlogo.svg" alt="passwordlogo" />
+                  <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
                 </label>
                 <Input
                   type="password"

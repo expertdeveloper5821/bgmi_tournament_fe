@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
 import { Navbar } from '../../../Components/Navbar/Navbar';
-import TableData, { StudentProfile } from '../../../Components/Table/TableData';
+import TableData, { UserProfile } from '../../../Components/Table/TableData';
 import assignmentData from '../../../utils/CreateAssignment.json';
 // @ts-ignore
 import { Pagination, Button, Input } from 'technogetic-iron-smart-ui';
@@ -14,7 +14,7 @@ interface RoomPageProps {
 
 function RoomPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
+  const [paginatedData, setPaginatedData] = useState<UserProfile[]>([]);
   const [formValues, setFormValues] = useState({
     roomId: '',
     gameName: '',
@@ -22,12 +22,13 @@ function RoomPage() {
     gameMapName: '',
     password: ''
   });
-  const [apiData, setApiData] = useState<StudentProfile[]>([]);
+  const [apiData, setApiData] = useState<UserProfile[]>([]);
+  console.log("apiData", apiData)
   // const router: NextRouter = useRouter();
   const rowPerPage = 8;
 
   const transformedStudentData = assignmentData.studentData.map(
-    (item: StudentProfile) => ({
+    (item: Userprofile) => ({
       StudentName: item.StudentName,
       Student: item.Student,
       studentID: item.studentID,
