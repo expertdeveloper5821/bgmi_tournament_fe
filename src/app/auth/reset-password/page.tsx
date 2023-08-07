@@ -1,30 +1,36 @@
-"use client"
-import React from "react";
-
+'use client';
+import React, { useState, useEffect } from 'react';
 import styles from "../../../styles/credential.module.scss";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useFormik } from "formik";
-import { ResetPasswordSchema } from "../../../schemas/SignupSchemas";
+import { useRouter } from 'next/navigation';
+import { useFormik } from 'formik';
+import { ResetPasswordSchema } from '../../../schemas/SignupSchemas';
 //@ts-ignore
-import { Button, Input } from "technogetic-iron-smart-ui";
-import sendRequest from "../../../services/api/apiServices";
-import Image from "next/image";
+import { Button, Input } from 'technogetic-iron-smart-ui';
+import sendRequest from '../../../services/api/apiServices';
+import Image from 'next/image';
 
-const UpdateCredential = () => {
-  const [token, setToken] = useState("");
+interface FormValues {
+  newPassword: string;
+  confirmPassword: string;
+}
+
+const UpdateCredential: React.FC = () => {
+  const [token, setToken] = useState<string>('');
   const router = useRouter();
+
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const searchParams = new URLSearchParams(window.location.search);
-      const tokenParam = searchParams.get("token");
-      setToken(tokenParam || "");
+      const tokenParam = searchParams.get('token');
+      setToken(tokenParam || '');
     }
   }, []);
-  const initialValues = {
-    newPassword: "",
-    confirmPassword: "",
+
+  const initialValues: FormValues = {
+    newPassword: '',
+    confirmPassword: '',
   };
+
   const {
     values,
     touched,
@@ -35,41 +41,45 @@ const UpdateCredential = () => {
   } = useFormik({
     initialValues,
     validationSchema: ResetPasswordSchema,
-    onSubmit: async (values) => {
+    onSubmit: async (values: FormValues) => {
       const { newPassword, confirmPassword } = values;
       try {
         const response = await sendRequest(`v1/reset-password?token=${token}`, {
-          method: "POST",
+          method: 'POST',
           data: { newPassword, confirmPassword },
         });
+
         if (response.status === 200) {
-          router.push("/auth/reset-password/updateCredSuccess");;
+          router.push('/auth/reset-password/updateCredSuccess');
         } else {
-          console.error("Password update failed");
+          console.error('Password update failed');
         }
-      } catch (error: any) { }
+      } catch (error: any) {
+        console.error('Password update error:', error);
+      }
     },
   });
+
   return (
     <div className={styles.main_container}>
-      <div className={styles.background_container}>
-        <div className={styles.container}>
-          <div className={styles.logo}>
-            <Image src="/assests/logobgmi.svg" alt="bgmilogo" width={100} height={100} />
-          </div>
-          <div>
-            <h2 className={styles.headDesc}>Reset Password</h2>
-            <p className={styles.heading}>
-              Please enter your password and confirm the password
-            </p>
-          </div>
-          <div>
-            <form onSubmit={handleSubmit}>
-              <div className={styles.input_box}>
-                <label htmlFor="newPassword" className={styles.password}>
-                  <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
-                </label>
-                <Input
+//       <div className={styles.background_container}>
+//         <div className={styles.container}>
+//           <div className={styles.logo}>
+//             <Image src="/assests/logobgmi.svg" alt="bgmilogo" width={100} height={100} />
+//           </div>
+//           <div>
+//             <h2 className={styles.headDesc}>Reset Password</h2>
+//             <p className={styles.heading}>
+//               Please enter your password and confirm the password
+//             </p>
+//           </div>
+//           <div>
+//             <form onSubmit={handleSubmit}>
+//               <div className={styles.input_box}>
+//                 <label htmlFor="newPassword" className={styles.password}>
+//                   <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
+//                 </label>
+//                 <Input
                   type="password"
                   id="newPassword"
                   className={styles.password_wrapper}
@@ -128,4 +138,5 @@ const UpdateCredential = () => {
     </div>
   );
 };
+
 export default UpdateCredential;
