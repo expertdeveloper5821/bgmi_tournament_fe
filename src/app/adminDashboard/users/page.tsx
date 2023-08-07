@@ -11,11 +11,13 @@ import { useRouter, NextRouter } from 'next/router';
 
 export default function Users() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState<boolean>(false)
   const [paginatedData, setPaginatedData] = useState<UserProfile[]>([]);
   const rowPerPage = 8;
   const totalPages = 10;
 
   const fetchDataFromAPI = async () => {
+    setLoading(true)
     try {
       const response = await sendRequest('v1/getalluser', {
         method: 'GET',
@@ -28,17 +30,20 @@ export default function Users() {
         throw new Error('API response is not valid');
       }
 
-      const data: UserProfile[] = response.data;
+      const data: UserProfile[] = response.data.data;
       console.log("response", data);
 
       setPaginatedData(data);
     } catch (error) {
       console.error('Error fetching data from API:', error);
       setPaginatedData([]);
+    } finally {
+      setLoading(false)
     }
   };
 
   useEffect(() => {
+    console.log("FUN")
     fetchDataFromAPI();
   }, []);
 
@@ -46,13 +51,11 @@ export default function Users() {
     setCurrentPage(page);
   };
 
-  const columns: string[] = [
-    'FullName',
-    'UserName',
-    'Email',
-  ];
 
-  if (!Array.isArray(paginatedData)) {
+  const columns: string[] = ['fullName', 'userName', 'email', 'role'];
+
+
+  if (loading) {
     return <div>Loading...</div>;
   }
 
@@ -63,14 +66,14 @@ export default function Users() {
           <div className={styles.sidebar_wrapper}>
             <Navbar />
             <BtnDashboard />
-            <TableComponent
+            {/* <TableComponent
               userData={paginatedData}
               columns={columns}
               showAdditionalButton={true}
-            />
+            /> */}
             <Pagination
               currentPage={currentPage}
-              totalPages={totalPages}
+              totalPages={Math.ceil(columns.length / rowPerPage)}
               onPageChange={onPageChange}
             />
           </div>

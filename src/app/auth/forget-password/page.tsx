@@ -1,11 +1,12 @@
 'use client';
 import React, { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
-import styles from '../../styles/auth.module.scss'
-import sendRequest from '../../services/auth/auth_All_Api';
+import styles from '../../../styles/auth.module.scss';
+import sendRequest from '../../../services/auth/auth_All_Api';
 import { useRouter } from 'next/navigation';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
+import Image from 'next/image';
 
 export default function ResetPassword(): JSX.Element {
   const [email, setEmail] = useState('');
@@ -25,7 +26,7 @@ export default function ResetPassword(): JSX.Element {
         method: 'POST',
         body: { email },
       });
-      router.push('/mailpage');
+      router.push('/auth/mailpage');
 
       console.log('Password recovery success:', response);
     } catch (error) {
@@ -43,7 +44,7 @@ export default function ResetPassword(): JSX.Element {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <img src="../assests/logobgmi.svg" alt="logo" />
+            <Image src="/assests/logobgmi.svg" alt="logo" width={100} height={100} />
           </div>
           <div>
             <h2 className={styles.headDesc}>Forgot Password</h2>
@@ -54,7 +55,7 @@ export default function ResetPassword(): JSX.Element {
           </div>
           <div className={styles.input_box}>
             <label className={styles.email} htmlFor="email">
-              <img src="./assests/fullnameicon.svg" alt="fullname" />
+              <Image src="../assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
             </label>
             <Input
               type="email"

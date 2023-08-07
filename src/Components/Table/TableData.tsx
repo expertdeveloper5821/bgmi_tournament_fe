@@ -6,13 +6,25 @@ import styles from "../../styles/TableData.module.scss";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell, IconButton } from "technogetic-iron-smart-ui";
 
 export interface UserProfile {
-    FullName: string;
-    UserName: string;
-    Email: string;
+    fullName: string;
+    userName: string;
+    email: string;
+    role: string;
+    // emails: string;
+    // leadPlayer: string;
+    // id: string;
 }
+export interface TeamsProfile {
+    emails: string;
+    leadPlayer: string;
+    id: string;
+}
+
+
 
 interface UserProfilePropsType {
     userData: UserProfile[];
+    teamsData: TeamsProfile[];
     showAdditionalButton?: boolean;
     columns: string[];
 }
@@ -20,9 +32,10 @@ interface userData {
     [key: string]: string;
 }
 
+
 const TableData = (props: UserProfilePropsType) => {
 
-    const [sortedData, setSortedData] = useState(props?.userData);
+    const [sortedData, setSortedData] = useState(props?.userData || []);
     const [isDescending, setIsDescending] = useState(false);
     const [sortKey, setSortKey] = useState("");
 
@@ -50,19 +63,19 @@ const TableData = (props: UserProfilePropsType) => {
         setSortKey(String(key));
     };
 
-    function handleDelete({ userData }: { userData: userData; }): void {
-        const updatedData = sortedData.filter(
-            (data: any) => data.studentID !== userData.studentID
-        );
-        setSortedData(updatedData);
-        console.log("data", updatedData);
+    function handleDelete({ userData }: { userData: UserProfile; }): void {
+        // const updatedData = sortedData.filter(
+        //     (data: any) => data.studentID !== userData.studentID
+        // );
+        // setSortedData(updatedData);
+        // console.log("data", updatedData);
     }
     // console.log("sortedData", sortedData)
 
-    const handleEdit = (userData: userData) => {
+    const handleEdit = (userData: UserProfile) => {
         console.log("Edit student data:", userData);
     }
-
+    console.log("NEW DATA", sortedData)
     return (
 
         <div>
@@ -87,22 +100,40 @@ const TableData = (props: UserProfilePropsType) => {
                 </TableHeader>
 
                 <TableBody className={styles.table_body}>
-                    {sortedData.map((userData: any, index: number) => {
-                        console.log("userData", userData)
+                    {sortedData.map((userData: UserProfile, index: number) => {
+                        // const teamData = props.userData.find((team: TeamsProfile) => team.id === userData.id);
+                        //console.log("userData", userData)
+
+
                         const additionalImagePath = props.showAdditionalButton ? "./assests/UserProfile.svg" : null;
 
 
                         return (
                             <TableRow className={styles.table_rowdata} key={index} >
                                 <TableCell className={styles.table_cell}>
-                                    {userData.FullName}
+                                    {userData.fullName}
                                 </TableCell>
                                 <TableCell className={styles.table_cell}>
-                                    {userData.UserName}
+                                    {userData.userName}
+                                </TableCell>
+                                <TableCell className={styles.table_cell} >
+
+                                    {userData.email}
+                                </TableCell>
+
+                                <TableCell className={styles.table_cell}>
+                                    {userData.role}
+                                </TableCell>
+                                {/* <TableCell className={styles.table_cell}>
+                                    {userData.emails}
                                 </TableCell>
                                 <TableCell className={styles.table_cell}>
-                                    {userData.Email}
+                                    {userData.leadPlayer}
                                 </TableCell>
+                                <TableCell className={styles.table_cell}>
+                                    {userData.id}
+                                </TableCell> */}
+
                                 <TableCell className={styles.table_cell}>
                                     {additionalImagePath ? (
                                         <IconButton>
@@ -132,3 +163,4 @@ const TableData = (props: UserProfilePropsType) => {
 };
 
 export default TableData;
+
