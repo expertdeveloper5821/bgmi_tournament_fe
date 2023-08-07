@@ -10,6 +10,9 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.3",
     "@reduxjs/toolkit": "^1.9.5",
     "@remix-run/react": "^1.19.1",
     "@types/node": "20.4.4",

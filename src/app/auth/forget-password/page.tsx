@@ -1,8 +1,8 @@
 'use client';
 import React, { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
-import styles from '../../styles/auth.module.scss';
-import sendRequest from '../../services/auth/auth_All_Api';
+import styles from '../../../styles/auth.module.scss';
+import sendRequest from '../../../services/auth/auth_All_Api';
 import { useRouter } from 'next/navigation';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
@@ -25,7 +25,7 @@ export default function ResetPassword(): JSX.Element {
         method: 'POST',
         body: { email },
       });
-      router.push('/mailpage');
+      router.push('/auth/mailpage');
 
       console.log('Password recovery success:', response);
     } catch (error) {

@@ -13,7 +13,7 @@ const Loader = (props: Props) => {
 
   const router = useRouter();
 
-  const handleVerifyToken = async (token: any) => {
+  const handleVerifyTokenInLogin = async (token: any) => {
     setIsLoading(true);
     try {
       const verifyResponse = await sendRequest("auth/verify/?" + `token=${token}`, {
@@ -40,7 +40,7 @@ const Loader = (props: Props) => {
     const token = urlParams.get("token");
     if(token){
       localStorage.setItem("jwtToken",token);
-      handleVerifyToken(token)
+      handleVerifyTokenInLogin(token)
     }
   }, [])
 

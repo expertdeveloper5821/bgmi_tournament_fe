@@ -1,13 +1,13 @@
 'use client'
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import { SignupSchema } from "../../schemas/SignupSchemas";
+import { SignupSchema } from "../../../schemas/SignupSchemas";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 //@ts-ignore
 import { Button, Input } from "technogetic-iron-smart-ui";
 import styles from "../../styles/auth.module.scss";
-import sendRequest from "../../services/api/apiServices";
+import sendRequest from "../../../services/api/apiServices";
 import { FcGoogle } from "react-icons/fc";
 
 const Signup = () => {
@@ -80,7 +80,7 @@ const Signup = () => {
 
                 if (response.status === 200) {
                     localStorage.setItem("jwtToken", response.data.token);
-                    router.push("/login");
+                    router.push("/auth/login");
                 } else {
                     setError("Failed to sign up. Please try again.");
                 }

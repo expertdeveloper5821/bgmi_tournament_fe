@@ -1,13 +1,13 @@
 'use client'
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import { SignupSchema } from "../../schemas/SignupSchemas";
+import { SignupSchema } from "../../../schemas/SignupSchemas";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 //@ts-ignore
 import { Button, Input } from "technogetic-iron-smart-ui";
-import styles from "../../styles/auth.module.scss";
-import sendRequest from "../../services/api/apiServices";
+import styles from "../../../styles/auth.module.scss";
+import sendRequest from "../../../services/api/apiServices";
 import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
@@ -18,7 +18,7 @@ const Login = () => {
   const router = useRouter();
 
   function handleRememberMe(event: any) {
-    setRememberMe(event.target.checked);
+    setRememberMe(event.target.checked);  
   }
 
   useEffect(() => {
@@ -139,6 +139,7 @@ useEffect(() => {
   }
 }, []);
 
+
   return (
     <div className={styles.main_container}>
       <div className={styles.background_container}>
@@ -223,7 +224,7 @@ useEffect(() => {
 
               <div className={styles.signin}>
                 <span className={styles.forgotDesc}>
-                  <Link href="/forget-password">Forget your Password?</Link>
+                  <Link href="/auth/forget-password">Forget your Password?</Link>
                 </span>
               </div>
               <div>

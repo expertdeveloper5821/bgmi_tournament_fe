@@ -1,14 +1,13 @@
 "use client"
 import React from "react";
-
-import styles from "../../styles/credential.module.scss";
+import styles from "../../../styles/credential.module.scss";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
-import { ResetPasswordSchema } from "../../schemas/SignupSchemas";
+import { ResetPasswordSchema } from "../../../schemas/SignupSchemas";
 //@ts-ignore
 import { Button, Input } from "technogetic-iron-smart-ui";
-import sendRequest from "../../services/api/apiServices";
+import sendRequest from "../../../services/api/apiServices";
 
 const UpdateCredential = () => {
   const [token, setToken] = useState("");
@@ -46,7 +45,7 @@ const UpdateCredential = () => {
           data: { newPassword, confirmPassword },
         });
         if (response.status === 200) {
-          router.push("reset-password/updateCredSuccess");;
+          router.push("/auth/reset-password/updateCredSuccess");;
         } else {
           console.error("Password update failed");
         }
