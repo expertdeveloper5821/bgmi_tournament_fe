@@ -1,97 +1,109 @@
-'use client'
-import React, { useState, useEffect } from "react";
-import { useFormik } from "formik";
-import { SignupSchema } from "../../../schemas/SignupSchemas";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+'use client';
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import { useFormik, FormikErrors, FormikTouched, FormikValues, FormikHelpers } from 'formik';
+import { SignupSchema } from '../../../schemas/SignupSchemas';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 //@ts-ignore
-import { Button, Input } from "technogetic-iron-smart-ui";
-import styles from "../../../styles/auth.module.scss";
-import sendRequest from "../../../services/api/apiServices";
-import { FcGoogle } from "react-icons/fc";
-import Image from "next/image";
+import { Button, Input } from 'technogetic-iron-smart-ui';
+import styles from '../../../styles/auth.module.scss';
+import sendRequest from '../../../services/api/apiServices';
+import { FcGoogle } from 'react-icons/fc';
+import Image from 'next/image';
+
+interface LoginProps { }
+
+interface FormValues {
+  email: string;
+  password: string;
+}
 
 function Login(): React.JSX.Element {
-  const [rememberMe, setRememberMe] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
 
   const router = useRouter();
 
-  function handleRememberMe(event: any) {
+  function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
     setRememberMe(event.target.checked);
   }
 
   useEffect(() => {
-    const rememberMeValue = localStorage.getItem("rememberMe") === "true";
+    const rememberMeValue = localStorage.getItem('rememberMe') === 'true';
     setRememberMe(rememberMeValue);
   }, []);
 
-  const initialValues = {
-    email: "",
-    password: "",
+  const initialValues: FormValues = {
+    email: '',
+    password: '',
   };
 
   const {
-    values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue,
+    values,
+    touched,
+    errors,
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    setFieldValue,
   } = useFormik({
     initialValues,
     validationSchema: SignupSchema,
-    onSubmit: async (values) => {
+    onSubmit: async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
       setIsLoading(true);
       const { email, password } = values;
       if (rememberMe) {
         const expirationDate = new Date();
         expirationDate.setDate(expirationDate.getDate() + 30);
-        localStorage.setItem("email", email);
-        localStorage.setItem("password", password);
-        localStorage.setItem("rememberMe", "true");
+        localStorage.setItem('email', email);
+        localStorage.setItem('password', password);
+        localStorage.setItem('rememberMe', 'true');
       } else {
-        localStorage.removeItem("email");
-        localStorage.removeItem("password");
-        localStorage.removeItem("rememberMe");
+        localStorage.removeItem('email');
+        localStorage.removeItem('password');
+        localStorage.removeItem('rememberMe');
       }
 
-      //manual login
+      // manual login
       try {
-        const response = await sendRequest("v1/login", {
-          method: "POST",
+        const response = await sendRequest('v1/login', {
+          method: 'POST',
           data: { email, password },
         });
 
         setIsLoading(false);
 
         if (response.status === 200) {
-          localStorage.setItem("jwtToken", response.data.token);
-          router.push("/adminDashboard");
+          localStorage.setItem('jwtToken', response.data.token);
+          router.push('/adminDashboard');
         } else {
-          setError("Invalid email or password");
+          setError('Invalid email or password');
         }
       } catch (error: any) {
         setIsLoading(false);
-        setError("Invalid email or password");
+        setError('Invalid email or password');
       }
     },
   });
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem("email");
-    const storedPassword = localStorage.getItem("password");
+    const storedEmail = localStorage.getItem('email');
+    const storedPassword = localStorage.getItem('password');
     if (storedEmail) {
-      setFieldValue("email", storedEmail);
+      setFieldValue('email', storedEmail);
     }
     if (storedPassword) {
-      setFieldValue("password", storedPassword);
+      setFieldValue('password', storedPassword);
     }
   }, [setFieldValue]);
 
-
-  //verify tokloginen
-  const handleVerifyToken = async (token: any) => {
+  // verify token
+  const handleVerifyToken = async (token: string) => {
     setIsLoading(true);
     try {
-      const verifyResponse = await sendRequest("/auth/verify", {
-        method: "GET",
+      const verifyResponse = await sendRequest('/auth/verify', {
+        method: 'GET',
         data: {
           token: token,
         },
@@ -100,13 +112,13 @@ function Login(): React.JSX.Element {
       setIsLoading(false);
 
       if (verifyResponse.status === 200) {
-        router.push("/adminDashboard");
+        router.push('/adminDashboard');
       } else {
-        setError("Google Sign-In failed");
+        setError('Google Sign-In failed');
       }
     } catch (error) {
       setIsLoading(false);
-      setError("Google Sign-In failed");
+      setError('Google Sign-In failed');
     }
   };
 
@@ -114,19 +126,19 @@ function Login(): React.JSX.Element {
     setIsLoading(true);
 
     try {
-      window.location.href = "http://localhost:5000/auth/google/callback";
+      window.location.href = 'http://localhost:5000/auth/google/callback';
     } catch (error) {
       setIsLoading(false);
-      setError("Google Sign-In failed");
-      console.error("Error during Google Sign-In:", error);
+      setError('Google Sign-In failed');
+      console.error('Error during Google Sign-In:', error);
     }
   };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
-      const token = urlParams.get("token");
-      console.log("token", token, window.location.href);
+      const token = urlParams.get('token');
+      console.log('token', token, window.location.href);
 
       if (token) {
         handleVerifyToken(token);
@@ -134,42 +146,40 @@ function Login(): React.JSX.Element {
     }
   }, []);
 
-  //loader
+  // loader
 
-  const [isLoadingData, setLoadingData] = useState(false);
-  const [errorData, showErrorData] = useState("");
+  const [isLoadingData, setLoadingData] = useState<boolean>(false);
+  const [errorData, showErrorData] = useState<string>('');
 
-  const handleVerifyTokenInLogin = async (token: any) => {
+  const handleVerifyTokenInLogin = async (token: string) => {
     setLoadingData(true);
     try {
-      const verifyResponse = await sendRequest("auth/verify/?" + `token=${token}`, {
-        method: "GET",
-
+      const verifyResponse = await sendRequest(`auth/verify/?token=${token}`, {
+        method: 'GET',
       });
-      console.log("verifyResponse", verifyResponse);
+      console.log('verifyResponse', verifyResponse);
 
       setLoadingData(false);
 
       if (verifyResponse.status === 200) {
-        router.push("/adminDashboard");
+        router.push('/adminDashboard');
       } else {
-        showErrorData("Google Sign-In failed");
+        showErrorData('Google Sign-In failed');
       }
     } catch (errorData) {
       setLoadingData(false);
-      showErrorData("Google Sign-In failed");
+      showErrorData('Google Sign-In failed');
     }
   };
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
+    const token = urlParams.get('token');
     if (token) {
-      localStorage.setItem("jwtToken", token);
-      handleVerifyTokenInLogin(token)
+      localStorage.setItem('jwtToken', token);
+      handleVerifyTokenInLogin(token);
     }
-  }, [])
-
+  }, []);
 
   return (
     <div className={styles.main_container}>
@@ -180,10 +190,8 @@ function Login(): React.JSX.Element {
           </div>
 
           <div>
-            <h2 className={styles.headDesc}>Hello Admin !</h2>
-            <p className={styles.heading}>
-              Welcome back! Please enter your details
-            </p>
+            <h2 className={styles.headDesc}>Hello Admin!</h2>
+            <p className={styles.heading}>Welcome back! Please enter your details</p>
           </div>
           <div>
             <form onSubmit={handleSubmit}>
@@ -201,8 +209,8 @@ function Login(): React.JSX.Element {
                   placeholder="Enter email"
                   value={values.email}
                   onChange={handleChange}
-                  onBlur={handleBlur} />
-
+                  onBlur={handleBlur}
+                />
               </div>
               {errors.email && touched.email && (
                 <div className={styles.error}>{errors.email}</div>
@@ -221,8 +229,8 @@ function Login(): React.JSX.Element {
                   placeholder="Enter password"
                   value={values.password}
                   onChange={handleChange}
-                  onBlur={handleBlur} />
-
+                  onBlur={handleBlur}
+                />
               </div>
               {errors.password && touched.password && (
                 <div className={styles.error}>{errors.password}</div>
@@ -234,8 +242,11 @@ function Login(): React.JSX.Element {
                   id="rememberMe"
                   name="rememberMe"
                   checked={rememberMe}
-                  onChange={handleRememberMe} />
-                <label htmlFor="rememberMe" className={styles.rememberMe}>Remember Me</label>
+                  onChange={handleRememberMe}
+                />
+                <label htmlFor="rememberMe" className={styles.rememberMe}>
+                  Remember Me
+                </label>
               </div>
 
               <div className={styles.signin_withgoogle}>
@@ -247,7 +258,7 @@ function Login(): React.JSX.Element {
                   type="button"
                   onClick={handleGoogleLogin}
                 >
-                  {isLoading ? "Loading..." : "Sign in with Google"}
+                  {isLoading ? 'Loading...' : 'Sign in with Google'}
                 </Button>
               </div>
 
@@ -259,9 +270,7 @@ function Login(): React.JSX.Element {
                   type="submit"
                   onClick={handleSubmit}
                 >
-                  {isLoading ? "Loading..." : "Sign in"}
-
-
+                  {isLoading ? 'Loading...' : 'Sign in'}
                 </Button>
               </div>
 
@@ -270,12 +279,11 @@ function Login(): React.JSX.Element {
                   <Link href="/auth/forget-password">Forget your Password?</Link>
                 </span>
               </div>
-
             </form>
           </div>
         </div>
-    //   </div>
-    // </div>
+      </div>
+    </div>
   );
 }
 

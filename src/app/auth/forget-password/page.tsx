@@ -8,9 +8,11 @@ import { useRouter } from 'next/navigation';
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 
+interface ResetPasswordProps { }
+
 export default function ResetPassword(): JSX.Element {
-  const [email, setEmail] = useState('');
-  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [email, setEmail] = useState<string>('');
+  const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
 
   const router = useRouter();
 
@@ -60,8 +62,7 @@ export default function ResetPassword(): JSX.Element {
             <Input
               type="email"
               id="email"
-              className={`${styles.email_wrapper} ${isEmailValid ? '' : styles.invalid
-                }`}
+              className={`${styles.email_wrapper} ${isEmailValid ? '' : styles.invalid}`}
               placeholder="Enter Email"
               value={email}
               onChange={handleEmailChange}

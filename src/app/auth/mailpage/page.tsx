@@ -1,16 +1,15 @@
-"use client"
-import React from "react";
-import styles from "../../../styles/mail.module.scss";
+'use client';
+import React from 'react';
+import styles from '../../../styles/mail.module.scss';
 // @ts-ignore
-import { Button } from "technogetic-iron-smart-ui";
-import Image from "next/image";
+import { Button } from 'technogetic-iron-smart-ui';
+import Image from 'next/image';
 
-export interface IAppProps { }
+export interface SentMailProps { }
 
-export default function SentMail() {
-
+export default function SentMail(props: SentMailProps): JSX.Element {
   const handleClick = () => {
-    window.open("https://mail.google.com/mail/u/0/#inbox", "_blank");
+    window.open('https://mail.google.com/mail/u/0/#inbox', '_blank');
   };
 
   return (
@@ -45,8 +44,8 @@ export default function SentMail() {
               </div>
             </div>
           </div>
-        </div >
-      </div >
+        </div>
+      </div>
     </>
   );
 }

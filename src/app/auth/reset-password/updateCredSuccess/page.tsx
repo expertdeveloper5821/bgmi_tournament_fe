@@ -4,15 +4,16 @@ import styles from '../../../../styles/credential.module.scss';
 //@ts-ignore
 import { Button } from 'technogetic-iron-smart-ui';
 import React from 'react';
-import Image from 'next/image'
+import Image from 'next/image';
 
-type Props = {};
+interface Props { }
 
-const UpdateCredSuccess = (props: Props) => {
+const UpdateCredSuccess: React.FC<Props> = (props) => {
   const router = useRouter();
   const handleClick = () => {
     router.push('/auth/login');
   };
+
   return (
     <>
       <div className={styles.main_container}>
@@ -23,20 +24,14 @@ const UpdateCredSuccess = (props: Props) => {
             </div>
             <div className={styles.heading_wrapper}>
               <h2 className={styles.headDesc}>Congratulations!!</h2>
-              <p className={styles.heading}>
-                Hurrah! You have successfully updated your password
-              </p>
+              <p className={styles.heading}>Hurrah! You have successfully updated your password</p>
             </div>
             <div>
               <div className={styles.mail_success}>
                 <Image src="/assests/mailverification.svg" alt="mail-verified" width={300} height={200} />
               </div>
               <div className={styles.button_wrapper}>
-                <Button
-                  varient="contained"
-                  className={styles.forgetbutton}
-                  onClick={handleClick}
-                >
+                <Button variant="contained" className={styles.forgetbutton} onClick={handleClick}>
                   Sign in
                 </Button>
               </div>
@@ -47,4 +42,5 @@ const UpdateCredSuccess = (props: Props) => {
     </>
   );
 };
+
 export default UpdateCredSuccess;
