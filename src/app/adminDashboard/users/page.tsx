@@ -66,11 +66,6 @@ export default function Users() {
           <div className={styles.sidebar_wrapper}>
             <Navbar />
             <BtnDashboard />
-            {/* <TableComponent
-              userData={paginatedData}
-              columns={columns}
-              showAdditionalButton={true}
-            /> */}
             <Pagination
               currentPage={currentPage}
               totalPages={Math.ceil(columns.length / rowPerPage)}

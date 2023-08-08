@@ -31,9 +31,8 @@ const UpdateCredSuccess: React.FC<Props> = (props) => {
                 <Image src="/assests/mailverification.svg" alt="mail-verified" width={300} height={200} />
               </div>
               <div className={styles.button_wrapper}>
-                <Button variant="contained" className={styles.forgetbutton} onClick={handleClick}>
-                  Sign in
-                </Button>
+                <Button variant="contained" className={styles.forgetbutton} onClick={handleClick} />
+                Sign in
               </div>
             </div>
           </div>

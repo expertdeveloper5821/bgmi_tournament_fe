@@ -269,9 +269,9 @@ function Login(): React.JSX.Element {
                   variant="contained"
                   type="submit"
                   onClick={handleSubmit}
-                >
-                  {isLoading ? 'Loading...' : 'Sign in'}
-                </Button>
+                />
+                {isLoading ? 'Loading...' : 'Sign in'}
+
               </div>
 
               <div className={styles.signin}>
