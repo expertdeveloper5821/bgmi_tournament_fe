@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../../styles/Dashboard.module.scss';
 import Sidebar from '../../Components/SideBar/Sidebar';
 import { Navbar } from '../../Components/Navbar/Navbar';
-import TableData, { UserProfile, USER_DATA } from '../../Components/Table/TableData';
+import TableData, { UserProfile, USER_DATA } from '../../Components/Table/Table';
 import assignmentData from '../../utils/CreateAssignment.json';
 //@ts-ignore
 import { Pagination } from 'technogetic-iron-smart-ui';
@@ -17,15 +17,16 @@ function AdminDashboard() {
   const [paginatedData, setPaginatedData] = useState<USER_DATA[]>([]);;
   const rowPerPage = 8;
 
-  const transformedStudentData = assignmentData.StudentData.map(
-    (item: USER_DATA) => ({
-      StudentName: item.StudentName,
-      Student: item.Student,
-      studentID: item.studentID,
-      Mobile: item.Mobile,
-      Course: item.Course,
-    }),
-  );
+  const transformedStudentData =
+    assignmentData?.StudentData?.length > 0
+      ? assignmentData.StudentData.map((item: USER_DATA) => ({
+        StudentName: item.StudentName,
+        Student: item.Student,
+        studentID: item.studentID,
+        Mobile: item.Mobile,
+        Course: item.Course,
+      }))
+      : [];
 
   useEffect(() => {
     const startIndex = (currentPage - 1) * rowPerPage;

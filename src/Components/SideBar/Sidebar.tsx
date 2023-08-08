@@ -37,15 +37,19 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
           </div>
         </div>
         <div>
+          {menuItem?.length > 0 ? (
+            menuItem.map((item: MenuItem, index: number) => (
+              <Link href={item.path} key={index} passHref>
+                <div className={styles.link}>
+                  <div className={styles.icon}>{item.icon}</div>
+                  <div className={styles.link_text}>{item.name}</div>
+                </div>
+              </Link>
+            ))
+          ) : (
+            <div>No Data Found</div>
+          )}
 
-          {menuItem.map((item: MenuItem, index: number) => (
-            <Link href={item.path} key={index} passHref>
-              <div className={styles.link}>
-                <div className={styles.icon}>{item.icon}</div>
-                <div className={styles.link_text}>{item.name}</div>
-              </div>
-            </Link>
-          ))}
         </div>
       </div>
     </div>

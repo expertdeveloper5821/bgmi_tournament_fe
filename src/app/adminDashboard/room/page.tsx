@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
 import { Navbar } from '../../../Components/Navbar/Navbar';
-import TableData, { UserProfile, USER_DATA } from '../../../Components/Table/TableData';
+import TableData, { UserProfile, USER_DATA } from '../../../Components/Table/Table';
 import assignmentData from '../../../utils/CreateAssignment.json';
 // @ts-ignore
 import { Pagination, Button, Input } from 'technogetic-iron-smart-ui';

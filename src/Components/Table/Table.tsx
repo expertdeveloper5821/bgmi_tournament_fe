@@ -69,7 +69,7 @@ const TableData: React.FC<UserProfilePropsType> = (props) => {
 
     }
 
-    const handleEdit = (userData: USER_DATA) => {
+    const handleEdit = ({ userData }: { userData: USER_DATA }) => {
         console.log("Edit student data:", userData);
     };
 
@@ -77,29 +77,34 @@ const TableData: React.FC<UserProfilePropsType> = (props) => {
         <Table className={styles.table_content}>
             <TableHeader className={styles.tableHeader}>
                 <TableRow className={styles.tableRow}>
-                    {props.columns?.map((columnName) => (
-                        <TableHead className={styles.table_head} key={columnName}>
-                            <div className={styles.filter}>
-                                {columnName}
-                                <div>
-                                    <Image
-                                        src="/assests/upArrow.svg"
-                                        alt="filterup"
-                                        width={20}
-                                        height={20}
-                                        onClick={() => handleSort(columnName)}
-                                    />
-                                    <Image
-                                        src="/assests/downArrow.svg"
-                                        alt="filterdown"
-                                        width={20}
-                                        height={20}
-                                        onClick={() => handleSort(columnName)}
-                                    />
+
+                    {props.columns ? (
+                        props.columns.map((columnName) => (
+                            <TableHead className={styles.table_head} key={columnName}>
+                                <div className={styles.filter}>
+                                    {columnName}
+                                    <div>
+                                        <Image
+                                            src="/assests/upArrow.svg"
+                                            alt="filterup"
+                                            width={20}
+                                            height={20}
+                                            onClick={() => handleSort(columnName)}
+                                        />
+                                        <Image
+                                            src="/assests/downArrow.svg"
+                                            alt="filterdown"
+                                            width={20}
+                                            height={20}
+                                            onClick={() => handleSort(columnName)}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        </TableHead>
-                    ))}
+                            </TableHead>
+                        ))
+                    ) : (
+                        <div>No Data Found</div>
+                    )}
                     <TableHead className={styles.table_head}>
                         <div className={styles.filter}>Actions</div>
                     </TableHead>
@@ -107,53 +112,32 @@ const TableData: React.FC<UserProfilePropsType> = (props) => {
             </TableHeader>
 
             <TableBody className={styles.table_body}>
-                {sortedData?.map((userData: USER_DATA, index: number) => {
-
-                    const additionalImagePath = props.showAdditionalButton
-                        ? "./assests/UserProfile.svg"
-                        : null;
-
-                    return (
-                        <TableRow className={styles.table_rowdata} key={index} >
+                {sortedData?.length > 0 ? (
+                    // Render table rows when sortedData has items
+                    sortedData.map((userData, index) => (
+                        <TableRow className={styles.table_rowdata} key={index}>
                             <TableCell className={styles.table_cell}>
                                 {userData.Course}
                             </TableCell>
                             <TableCell className={styles.table_cell}>
                                 {userData.Mobile}
                             </TableCell>
-                            <TableCell className={styles.table_cell} >
-
+                            <TableCell className={styles.table_cell}>
                                 {userData.Student}
                             </TableCell>
-
                             <TableCell className={styles.table_cell}>
                                 {userData.StudentName}
                             </TableCell>
                             <TableCell className={styles.table_cell}>
                                 {userData.studentID}
                             </TableCell>
-                            <TableCell className={styles.table_cell}>
-                                {additionalImagePath ? (
-                                    <IconButton>
-                                        <div className={styles.iconWrapper}>
-                                            <Image src="/assests/UserProfile.svg" alt="UserProfileView" className={styles.table_icon} width={20} height={20} />
-                                            <span>View Profile</span>
-                                        </div>
-                                    </IconButton>
-                                ) : (
-                                    <>
-                                        <IconButton onClick={() => handleEdit(userData)}>
-                                            <Image src="/assests/TableEdit.svg" alt="UserProfileEdit" className={styles.cell_icon} width={20} height={20} />
-                                        </IconButton>
-                                        <IconButton onClick={() => handleDelete({ userData })}>
-                                            <Image src="/assests/Tabledelete.svg" alt="UserProfileDelete" className={styles.cell_icon} width={20} height={20} />
-                                        </IconButton>
-                                    </>
-                                )}
-                            </TableCell>
                         </TableRow>
-                    );
-                })}
+                    ))
+                ) : (
+                    <TableRow className={styles.table_rowdata}>
+                        <TableCell>No data found</TableCell>
+                    </TableRow>
+                )}
             </TableBody>
         </Table>
 
