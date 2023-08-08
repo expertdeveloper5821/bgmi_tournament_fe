@@ -20,11 +20,6 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
 
   const toggle = () => setIsOpen(!isOpen);
 
-  if (menuItems.length === 0) {
-    return <div>No menu items to display.</div>;
-  }
-
-
   return (
     <div className={styles.container}>
       <div style={{ width: isOpen ? "220px" : "100px" }} className={styles.sidebar}>
