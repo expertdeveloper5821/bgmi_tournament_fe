@@ -10,11 +10,11 @@ import sendRequest from '@/services/auth/auth_All_Api';
 import { useRouter, NextRouter } from 'next/router';
 
 export default function Teams() {
-    const [currentPage, setCurrentPage] = useState(1);
-    const [loading, setLoading] = useState<boolean>(false)
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [loading, setLoading] = useState<boolean>(false);
     const [paginatedData, setPaginatedData] = useState<TeamsProfile[]>([]);
-    const rowPerPage = 8;
-    const totalPages = 10;
+    const rowPerPage: number = 8;
+    const totalPages: number = 10;
 
     const fetchDataFromAPI = async () => {
         setLoading(true)
@@ -47,7 +47,7 @@ export default function Teams() {
         fetchDataFromAPI();
     }, []);
 
-    const onPageChange = (page: number) => {
+    const onPageChange = (page: number): void => {
         setCurrentPage(page);
     };
 
@@ -82,4 +82,7 @@ export default function Teams() {
         </>
     );
 }
+
+
+
 

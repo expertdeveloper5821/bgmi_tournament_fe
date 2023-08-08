@@ -34,12 +34,12 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
         <div>
           {menuItems.map((item: MenuItem, index: number) => (
             <Link href={item.path} key={index} passHref>
-              <a>
-                <div className={styles.link}>
-                  <div className={styles.icon}>{item.icon}</div>
-                  <div className={styles.link_text}>{item.name}</div>
-                </div>
-              </a>
+              {/* <a> */}
+              <div className={styles.link}>
+                <div className={styles.icon}>{item.icon}</div>
+                <div className={styles.link_text}>{item.name}</div>
+              </div>
+              {/* </a> */}
             </Link>
           ))}
         </div>
