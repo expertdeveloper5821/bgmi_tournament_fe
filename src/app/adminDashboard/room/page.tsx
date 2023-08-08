@@ -174,8 +174,7 @@ function RoomPage() {
                   variant="contained"
                   type="submit"
                   onClick={handleSubmit}
-                >
-                </Button>
+                />
               </div>
             </form>
             <TableData

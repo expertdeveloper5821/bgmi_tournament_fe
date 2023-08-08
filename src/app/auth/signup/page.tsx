@@ -192,9 +192,8 @@ const Signup = () => {
                                     variant="contained"
                                     type="submit"
                                     onClick={handleSubmit}
-                                >
-                                    {isLoading ? "Loading..." : "Sign up"}
-                                </Button>
+                                />
+                                {isLoading ? "Loading..." : "Sign up"}
                             </div>
                             <div className={styles.signin}>
                                 <span className={styles.forgotDesc}>

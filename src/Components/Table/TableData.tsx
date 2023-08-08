@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useRouter, NextRouter } from "next/router";
 import styles from "../../styles/TableData.module.scss";
@@ -83,16 +82,20 @@ const TableData: React.FC<UserProfilePropsType> = (props) => {
                             <div className={styles.filter}>
                                 {columnName}
                                 <div>
-                                    <img
+                                    <Image
                                         src="/assests/upArrow.svg"
                                         alt="filterup"
+                                        width={20}
+                                        height={20}
                                         onClick={() => handleSort(columnName)}
-                                    ></img>
-                                    <img
+                                    />
+                                    <Image
                                         src="/assests/downArrow.svg"
                                         alt="filterdown"
+                                        width={20}
+                                        height={20}
                                         onClick={() => handleSort(columnName)}
-                                    ></img>
+                                    />
                                 </div>
                             </div>
                         </TableHead>
@@ -133,17 +136,17 @@ const TableData: React.FC<UserProfilePropsType> = (props) => {
                                 {additionalImagePath ? (
                                     <IconButton>
                                         <div className={styles.iconWrapper}>
-                                            <img src="/assests/UserProfile.svg" alt="UserProfileView" className={styles.table_icon}></img>
+                                            <Image src="/assests/UserProfile.svg" alt="UserProfileView" className={styles.table_icon} width={20} height={20} />
                                             <span>View Profile</span>
                                         </div>
                                     </IconButton>
                                 ) : (
                                     <>
                                         <IconButton onClick={() => handleEdit(userData)}>
-                                            <img src="/assests/TableEdit.svg" alt="UserProfileEdit" className={styles.cell_icon}></img>
+                                            <Image src="/assests/TableEdit.svg" alt="UserProfileEdit" className={styles.cell_icon} width={20} height={20} />
                                         </IconButton>
                                         <IconButton onClick={() => handleDelete({ userData })}>
-                                            <img src="/assests/Tabledelete.svg" alt="UserProfileDelete" className={styles.cell_icon}></img>
+                                            <Image src="/assests/Tabledelete.svg" alt="UserProfileDelete" className={styles.cell_icon} width={20} height={20} />
                                         </IconButton>
                                     </>
                                 )}
