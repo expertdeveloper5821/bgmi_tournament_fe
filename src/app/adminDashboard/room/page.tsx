@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
 import { Navbar } from '../../../Components/Navbar/Navbar';
-import TableData, { UserProfile } from '../../../Components/Table/TableData';
+import TableData, { UserProfile, USER_DATA } from '../../../Components/Table/TableData';
 import assignmentData from '../../../utils/CreateAssignment.json';
 // @ts-ignore
 import { Pagination, Button, Input } from 'technogetic-iron-smart-ui';
@@ -13,7 +13,7 @@ interface RoomPageProps {
 }
 
 function RoomPage() {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [paginatedData, setPaginatedData] = useState<UserProfile[]>([]);
   const [formValues, setFormValues] = useState({
     roomId: '',
@@ -22,13 +22,13 @@ function RoomPage() {
     gameMapName: '',
     password: ''
   });
-  const [apiData, setApiData] = useState<UserProfile[]>([]);
+  const [apiData, setApiData] = useState<USER_DATA[] | []>([]);
   console.log("apiData", apiData)
   // const router: NextRouter = useRouter();
   const rowPerPage = 8;
 
   const transformedStudentData = assignmentData.studentData.map(
-    (item: Userprofile) => ({
+    (item: USER_DATA) => ({
       StudentName: item.StudentName,
       Student: item.Student,
       studentID: item.studentID,
@@ -70,12 +70,6 @@ function RoomPage() {
     }
   };
 
-  // useEffect(() => {
-  //   const startIndex = (currentPage - 1) * rowPerPage;
-  //   const endIndex = startIndex + rowPerPage;
-  //   const paginatedData = transformedStudentData.slice(startIndex, endIndex);
-  //   setPaginatedData(paginatedData);
-  // }, [currentPage, transformedStudentData]);
 
   const onPageChange = (page: number) => {
     setCurrentPage(page);
@@ -185,7 +179,7 @@ function RoomPage() {
             </div>
           </form>
           <TableData
-            studentData={apiData}
+            userData={apiData}
             columns={columns}
             showAdditionalButton={true} />
           <Pagination
@@ -200,3 +194,4 @@ function RoomPage() {
 }
 
 export default RoomPage;
+
