@@ -4,6 +4,7 @@ import { useRouter, NextRouter } from "next/router";
 import styles from "../../styles/TableData.module.scss";
 //@ts-ignore
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell, IconButton } from "technogetic-iron-smart-ui";
+import Image from "next/image";
 
 export interface UserProfile {
     fullName: string;
@@ -110,50 +111,39 @@ const TableData: React.FC<UserProfilePropsType> = (props) => {
                         : null;
 
                     return (
-                        <TableRow className={styles.table_rowdata} key={index}>
+                        <TableRow className={styles.table_rowdata} key={index} >
                             <TableCell className={styles.table_cell}>
-                                {userData?.Course}
+                                {userData.Course}
                             </TableCell>
                             <TableCell className={styles.table_cell}>
-                                {userData?.Mobile}
+                                {userData.Mobile}
                             </TableCell>
-                            <TableCell className={styles.table_cell}>
-                                {userData?.Student}
+                            <TableCell className={styles.table_cell} >
+
+                                {userData.Student}
                             </TableCell>
+
                             <TableCell className={styles.table_cell}>
                                 {userData.StudentName}
                             </TableCell>
                             <TableCell className={styles.table_cell}>
                                 {userData.studentID}
                             </TableCell>
-
                             <TableCell className={styles.table_cell}>
                                 {additionalImagePath ? (
                                     <IconButton>
                                         <div className={styles.iconWrapper}>
-                                            <img
-                                                src="/assests/UserProfile.svg"
-                                                alt="UserProfileView"
-                                                className={styles.table_icon}
-                                            ></img>
+                                            <img src="/assests/UserProfile.svg" alt="UserProfileView" className={styles.table_icon}></img>
                                             <span>View Profile</span>
                                         </div>
                                     </IconButton>
                                 ) : (
                                     <>
                                         <IconButton onClick={() => handleEdit(userData)}>
-                                            <img
-                                                src="/assests/TableEdit.svg"
-                                                alt="UserProfileEdit"
-                                                className={styles.cell_icon}
-                                            ></img>
+                                            <img src="/assests/TableEdit.svg" alt="UserProfileEdit" className={styles.cell_icon}></img>
                                         </IconButton>
                                         <IconButton onClick={() => handleDelete({ userData })}>
-                                            <img
-                                                src="/assests/Tabledelete.svg"
-                                                alt="UserProfileDelete"
-                                                className={styles.cell_icon}
-                                            ></img>
+                                            <img src="/assests/Tabledelete.svg" alt="UserProfileDelete" className={styles.cell_icon}></img>
                                         </IconButton>
                                     </>
                                 )}
@@ -163,6 +153,7 @@ const TableData: React.FC<UserProfilePropsType> = (props) => {
                 })}
             </TableBody>
         </Table>
+
     );
 };
 
