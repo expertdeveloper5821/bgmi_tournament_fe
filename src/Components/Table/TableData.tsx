@@ -45,7 +45,7 @@ const TableData: React.FC<UserProfilePropsType> = (props) => {
 
     useEffect(() => {
         setSortedData(props.userData);
-    }, [props.userData]);
+    }, []);
 
     const handleSort = (key: keyof UserData) => {
         let sorted: USER_DATA[] = [];
@@ -66,11 +66,7 @@ const TableData: React.FC<UserProfilePropsType> = (props) => {
     };
 
     function handleDelete({ userData }: { userData: USER_DATA }): void {
-        // const updatedData = sortedData.filter(
-        //     (data: any) => data.studentID !== userData.studentID
-        // );
-        // setSortedData(updatedData);
-        // console.log("data", updatedData);
+
     }
 
     const handleEdit = (userData: USER_DATA) => {
@@ -108,8 +104,6 @@ const TableData: React.FC<UserProfilePropsType> = (props) => {
 
             <TableBody className={styles.table_body}>
                 {sortedData?.map((userData: USER_DATA, index: number) => {
-                    // const teamData = props.userData.find((team: TeamsProfile) => team.id === userData.id);
-                    //console.log("userData", userData)
 
                     const additionalImagePath = props.showAdditionalButton
                         ? "./assests/UserProfile.svg"
@@ -132,15 +126,7 @@ const TableData: React.FC<UserProfilePropsType> = (props) => {
                             <TableCell className={styles.table_cell}>
                                 {userData.studentID}
                             </TableCell>
-                            {/* <TableCell className={styles.table_cell}>
-                    {userData.emails}
-                  </TableCell>
-                  <TableCell className={styles.table_cell}>
-                    {userData.leadPlayer}
-                  </TableCell>
-                  <TableCell className={styles.table_cell}>
-                    {userData.id}
-                  </TableCell> */}
+
                             <TableCell className={styles.table_cell}>
                                 {additionalImagePath ? (
                                     <IconButton>
