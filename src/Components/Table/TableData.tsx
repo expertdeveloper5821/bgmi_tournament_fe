@@ -4,6 +4,7 @@ import { useRouter, NextRouter } from "next/router";
 import styles from "../../styles/TableData.module.scss";
 //@ts-ignore
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell, IconButton } from "technogetic-iron-smart-ui";
+import Image from "next/image";
 
 export interface UserProfile {
     fullName: string;
@@ -124,31 +125,21 @@ const TableData = (props: UserProfilePropsType) => {
                                 <TableCell className={styles.table_cell}>
                                     {userData.role}
                                 </TableCell>
-                                {/* <TableCell className={styles.table_cell}>
-                                    {userData.emails}
-                                </TableCell>
-                                <TableCell className={styles.table_cell}>
-                                    {userData.leadPlayer}
-                                </TableCell>
-                                <TableCell className={styles.table_cell}>
-                                    {userData.id}
-                                </TableCell> */}
-
                                 <TableCell className={styles.table_cell}>
                                     {additionalImagePath ? (
                                         <IconButton>
                                             <div className={styles.iconWrapper}>
-                                                <img src="/assests/UserProfile.svg" alt="UserProfileView" className={styles.table_icon}></img>
+                                                <Image src="/assests/UserProfile.svg" alt="UserProfileView" className={styles.table_icon} width={20} height={20} />
                                                 <span>View Profile</span>
                                             </div>
                                         </IconButton>
                                     ) : (
                                         <>
                                             <IconButton onClick={() => handleEdit(userData)}>
-                                                <img src="/assests/TableEdit.svg" alt="UserProfileEdit" className={styles.cell_icon}></img>
+                                                <Image src="/assests/TableEdit.svg" alt="UserProfileEdit" className={styles.cell_icon} width={20} height={20} />
                                             </IconButton>
                                             <IconButton onClick={() => handleDelete({ userData })}>
-                                                <img src="/assests/Tabledelete.svg" alt="UserProfileDelete" className={styles.cell_icon}></img>
+                                                <Image src="/assests/Tabledelete.svg" alt="UserProfileDelete" className={styles.cell_icon} width={20} height={20} />
                                             </IconButton>
                                         </>
                                     )}

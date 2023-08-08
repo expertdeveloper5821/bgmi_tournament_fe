@@ -5,9 +5,10 @@ import { Navbar } from '../../../Components/Navbar/Navbar';
 import TableData, { UserProfile } from '../../../Components/Table/TableData';
 import assignmentData from '../../../utils/CreateAssignment.json';
 // @ts-ignore
-import { Pagination, Button, Input } from 'technogetic-iron-smart-ui';
+import { Button, Input } from 'technogetic-iron-smart-ui';
 import { BtnDashboard } from '../../../Components/CommonComponent/BtnDashboard';
 import sendRequest from '@/services/auth/auth_All_Api';
+import Pagination from "../../../Components/Pagination/Pagination"
 
 interface RoomPageProps {
 }
@@ -69,13 +70,6 @@ function RoomPage() {
       console.error('Error fetching data from API:', error);
     }
   };
-
-  // useEffect(() => {
-  //   const startIndex = (currentPage - 1) * rowPerPage;
-  //   const endIndex = startIndex + rowPerPage;
-  //   const paginatedData = transformedStudentData.slice(startIndex, endIndex);
-  //   setPaginatedData(paginatedData);
-  // }, [currentPage, transformedStudentData]);
 
   const onPageChange = (page: number) => {
     setCurrentPage(page);
@@ -180,19 +174,14 @@ function RoomPage() {
                 variant="contained"
                 type="submit"
                 onClick={handleSubmit}
-              >
-              </Button>
+              />
             </div>
           </form>
-          <TableData
-            studentData={apiData}
+          {/* <TableData
+            // studentData={apiData}
             columns={columns}
-            showAdditionalButton={true} />
-          <Pagination
-            currentPage={currentPage}
-            totalPages={Math.ceil(transformedStudentData.length / rowPerPage)}
-            onPageChange={onPageChange}
-          />
+            showAdditionalButton={true} /> */}
+          <Pagination/>
         </div>
       </div>
     </>

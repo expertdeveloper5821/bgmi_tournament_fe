@@ -3,11 +3,10 @@ import React, { useState, useEffect } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
 import { Navbar } from '../../../Components/Navbar/Navbar';
 import TableComponent, { TeamsProfile } from "../../../Components/Table/TableData";
-//@ts-ignore
-import { Pagination } from 'technogetic-iron-smart-ui';
 import { BtnDashboard } from '../../../Components/CommonComponent/BtnDashboard';
 import sendRequest from '@/services/auth/auth_All_Api';
 import { useRouter, NextRouter } from 'next/router';
+import Pagination from "../../../Components/Pagination/Pagination"
 
 export default function Teams() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -30,7 +29,7 @@ export default function Teams() {
                 throw new Error('API response is not valid');
             }
 
-            const data: TeamsProfile[] = response.data.data;
+            const data: TeamsProfile[] = response?.data?.data;
             console.log("response", data);
 
             setPaginatedData(data);
@@ -66,16 +65,7 @@ export default function Teams() {
                     <div className={styles.sidebar_wrapper}>
                         <Navbar />
                         <BtnDashboard />
-                        {/* <TableComponent
-                            userData={paginatedData}
-                            columns={columns}
-                            showAdditionalButton={true}
-                        /> */}
-                        <Pagination
-                            currentPage={currentPage}
-                            totalPages={Math.ceil(columns.length / rowPerPage)}
-                            onPageChange={onPageChange}
-                        />
+                        <Pagination/>
                     </div>
                 </div>
             </div>
