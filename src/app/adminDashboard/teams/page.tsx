@@ -30,7 +30,7 @@ export default function Teams() {
                 throw new Error('API response is not valid');
             }
 
-            const data: TeamsProfile[] = response.data.data;
+            const data: TeamsProfile[] = response?.data?.data;
             console.log("response", data);
 
             setPaginatedData(data);

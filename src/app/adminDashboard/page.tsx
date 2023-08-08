@@ -17,7 +17,7 @@ function AdminDashboard() {
   const [paginatedData, setPaginatedData] = useState<USER_DATA[]>([]);;
   const rowPerPage = 8;
 
-  const transformedStudentData = assignmentData.studentData.map(
+  const transformedStudentData = assignmentData.StudentData.map(
     (item: USER_DATA) => ({
       StudentName: item.StudentName,
       Student: item.Student,
