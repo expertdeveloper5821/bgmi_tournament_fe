@@ -9,9 +9,9 @@ import Image from "next/image";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isPopOpen, setIsPopOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   function handleClosePopover() {
     setIsOpen(false);

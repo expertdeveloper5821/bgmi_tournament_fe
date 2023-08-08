@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
 import { Navbar } from '../../../Components/Navbar/Navbar';
-import TableComponent, { TeamsProfile } from "../../../Components/Table/TableData";
+import TableComponent, { TeamsProfile } from "../../../Components/Table/Table";
 import { BtnDashboard } from '../../../Components/CommonComponent/BtnDashboard';
 import sendRequest from '@/services/auth/auth_All_Api';
 import { useRouter, NextRouter } from 'next/router';
@@ -65,7 +65,7 @@ export default function Teams() {
                     <div className={styles.sidebar_wrapper}>
                         <Navbar />
                         <BtnDashboard />
-                        <Pagination/>
+                        <Pagination />
                     </div>
                 </div>
             </div>

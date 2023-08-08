@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Pagination } from 'technogetic-iron-smart-ui';
 
 const CustomPagination = () => {
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState<number>(1);
 
     const onPageChange = (page: number) => {
         setCurrentPage(page);
