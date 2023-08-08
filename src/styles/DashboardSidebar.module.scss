@@ -9,7 +9,6 @@
 
 .container {
   display: flex;
-  border: 2px solid;
 }
 
 // main {
@@ -18,12 +17,11 @@
 // }
 
 .sidebar {
-  background: rgba(0, 53, 84, 1);
+  background: #000;
   color: #fff;
   height: 100vh;
   width: 200px;
   transition: all 0.5s;
-  margin-top: 10px;
 
   .top_section {
     display: flex;
@@ -39,10 +37,6 @@
     display: flex;
     font-size: 25px;
     margin-left: 50px;
-  }
-
-  .name{
-    color: white;
   }
 
   .link {
