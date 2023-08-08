@@ -1,5 +1,5 @@
-@import './mixins.scss';
-@import './variable.scss';
+@import '../../../styles/mixins';
+@import '../../../styles/variable';
 
 .main_container {
   @include main_container;
@@ -117,4 +117,8 @@
 }
 .input_box input {
   color: black;
+}
+
+.mail_success {
+  border: 1px solid;
 }

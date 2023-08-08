@@ -1,15 +1,18 @@
 'use client';
 import React, { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
-import styles from '../../styles/auth.module.scss';
-import sendRequest from '../../services/auth/auth_All_Api';
+import styles from '../../../styles/auth.module.scss';
+import sendRequest from '../../../services/auth/auth_All_Api';
 import { useRouter } from 'next/navigation';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
+import Image from 'next/image';
+
+interface ResetPasswordProps { }
 
 export default function ResetPassword(): JSX.Element {
-  const [email, setEmail] = useState('');
-  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [email, setEmail] = useState<string>('');
+  const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
 
   const router = useRouter();
 
@@ -25,7 +28,7 @@ export default function ResetPassword(): JSX.Element {
         method: 'POST',
         body: { email },
       });
-      router.push('/mailpage');
+      router.push('/auth/mailpage');
 
       console.log('Password recovery success:', response);
     } catch (error) {
@@ -43,10 +46,10 @@ export default function ResetPassword(): JSX.Element {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <img src="../assests/logo.svg" alt="logo" />
+            <Image src="/assests/logobgmi.svg" alt="logo" width={100} height={100} />
           </div>
           <div>
-            <h2>Forgot Password</h2>
+            <h2 className={styles.headDesc}>Forgot Password</h2>
             <p className={styles.heading}>
               Please enter your registered email id or mobile to reset your
               password
@@ -54,13 +57,12 @@ export default function ResetPassword(): JSX.Element {
           </div>
           <div className={styles.input_box}>
             <label className={styles.email} htmlFor="email">
-              Email
+              <Image src="../assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
             </label>
             <Input
               type="email"
               id="email"
-              className={`${styles.email_wrapper} ${isEmailValid ? '' : styles.invalid
-                }`}
+              className={`${styles.email_wrapper} ${isEmailValid ? '' : styles.invalid}`}
               placeholder="Enter Email"
               value={email}
               onChange={handleEmailChange}
@@ -74,18 +76,15 @@ export default function ResetPassword(): JSX.Element {
               variant="contained"
               className={styles.SignIn_button}
               onClick={sendEmail}
-            >
-              Recover Password
-            </Button>
+            />
+            Recover Password
+
           </div>
           <div className={styles.signin}>
             <span>
               <Link href="/">Remember it?&nbsp;Sign in here</Link>
             </span>
           </div>
-        </div>
-        <div className={styles.girlImg_wrapper}>
-          <img src="../assests/pubgImg.png" alt="girl-img" />
         </div>
       </div>
     </div>

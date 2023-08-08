@@ -1,32 +1,30 @@
-'use client'
+"use client"
 import React, { useState, useEffect } from "react";
-import { useFormik } from "formik";
-import { SignupSchema } from "../../schemas/SignupSchemas";
+import { useFormik, FormikValues, FormikHelpers } from "formik";
+import { SignupSchema } from "../../../schemas/SignupSchemas";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 //@ts-ignore
 import { Button, Input } from "technogetic-iron-smart-ui";
-import styles from "../../styles/auth.module.scss";
-import sendRequest from "../../services/api/apiServices";
+import styles from "../../../styles/auth.module.scss";
+import sendRequest from "../../../services/api/apiServices";
 import { FcGoogle } from "react-icons/fc";
+import Image from "next/image";
+
+interface FormValues {
+    fullName: string;
+    userName: string;
+    email: string;
+    password: string;
+}
 
 const Signup = () => {
-    const [rememberMe, setRememberMe] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
+    const [rememberMe, setRememberMe] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>("");
     const router = useRouter();
 
-
-    function handleRememberMe(event: React.ChangeEvent<HTMLInputElement>) {
-        setRememberMe(event.target.checked);
-    }
-
-    // useEffect(() => {
-    //     const rememberMeValue = localStorage.getItem("rememberMe") === "true";
-    //     setRememberMe(rememberMeValue);
-    // }, []);
-
-    const initialValues = {
+    const initialValues: FormValues = {
         fullName: "",
         userName: "",
         email: "",
@@ -44,29 +42,12 @@ const Signup = () => {
     } = useFormik({
         initialValues,
         validationSchema: SignupSchema,
-        onSubmit: async (values) => {
+        onSubmit: async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
             setIsLoading(true);
             const { fullName, userName, email, password } = values;
-            // console.log("fullName", fullName);
-            // console.log("userName", userName);
-            // console.log("email", email);
-            // console.log("password", password);
-
-
             if (rememberMe) {
                 const expirationDate = new Date();
                 expirationDate.setDate(expirationDate.getDate() + 30);
-                // localStorage.setItem("fullName", fullName);
-                // localStorage.setItem("userName", userName);
-                // localStorage.setItem("email", email);
-                // localStorage.setItem("password", password);
-                // localStorage.setItem("rememberMe", "true");
-            } else {
-                // localStorage.removeItem("fullName");
-                // localStorage.removeItem("userName");
-                // localStorage.removeItem("email");
-                // localStorage.removeItem("password");
-                // localStorage.removeItem("rememberMe");
             }
 
             try {
@@ -74,26 +55,23 @@ const Signup = () => {
                     method: "POST",
                     data: { fullName, userName, email, password },
                 });
-                // console.log("Fullname", values.fullName);
-                // console.log("UserName", values.userName);
-                // console.log("response", response)
-
                 if (response.status === 200) {
                     localStorage.setItem("jwtToken", response.data.token);
-                    router.push("/login");
+                    router.push("/auth/login");
                 } else {
                     setError("Failed to sign up. Please try again.");
                 }
             } catch (error: any) {
                 setIsLoading(false);
                 setError("Failed to sign up. Please try again.");
+            } finally {
+                setSubmitting(false);
             }
         },
     });
 
     useEffect(() => {
         const storedFullname = localStorage.getItem("fullName");
-        console.log("check ==>", storedFullname);
         const storedPlayerId = localStorage.getItem("userName");
         const storedEmail = localStorage.getItem("email");
         const storedPassword = localStorage.getItem("password");
@@ -118,10 +96,10 @@ const Signup = () => {
             <div className={styles.background_container}>
                 <div className={styles.container}>
                     <div className={styles.logo}>
-                        {/* <img src="./assests/technogeticlogo.svg" alt="Tg-logo" /> */}
+                        <Image src="/assests/logobgmi.svg" alt="Tg-logo" width={100} height={100} />
                     </div>
                     <div>
-                        {/* <h2 className={styles.headDesc}>Hello Admin !</h2> */}
+                        <h2 className={styles.headDesc}>Welcome back</h2>
                         <p className={styles.heading}>Welcome back! Please enter your details</p>
                     </div>
                     <div>
@@ -129,7 +107,7 @@ const Signup = () => {
                             {error && <div className={styles.error}>{error}</div>}
                             <div className={styles.input_box}>
                                 <label className={styles.email} htmlFor="Fullname">
-                                    Full name
+                                    <Image src="/assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
                                 </label>
                                 <Input
                                     id="fullName"
@@ -137,18 +115,18 @@ const Signup = () => {
                                     type="text"
                                     name="fullName"
                                     autoComplete="off"
-                                    placeholder="Enter fullname"
+                                    placeholder="Full Name"
                                     value={values.fullName}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {errors.fullName && touched.fullName && (
-                                    <div className={styles.error}>{errors.fullName}</div>
-                                )}
                             </div>
+                            {errors.fullName && touched.fullName && (
+                                <div className={styles.error}>{errors.fullName}</div>
+                            )}
                             <div className={styles.input_box}>
                                 <label className={styles.email} htmlFor="UserName">
-                                    Player Id / Username
+                                    <Image src="/assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
                                 </label>
                                 <Input
                                     id="userName"
@@ -156,18 +134,18 @@ const Signup = () => {
                                     type="text"
                                     name="userName"
                                     autoComplete="off"
-                                    placeholder="Player Id"
+                                    placeholder="Player ID / Username"
                                     value={values.userName}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {errors.userName && touched.userName && (
-                                    <div className={styles.error}>{errors.userName}</div>
-                                )}
                             </div>
+                            {errors.userName && touched.userName && (
+                                <div className={styles.error}>{errors.userName}</div>
+                            )}
                             <div className={styles.input_box}>
                                 <label className={styles.email} htmlFor="email">
-                                    Email ID
+                                    <Image src="/assests/maillogo.svg" alt="mailogo" width={30} height={20} />
                                 </label>
                                 <Input
                                     id="email"
@@ -175,18 +153,18 @@ const Signup = () => {
                                     type="email"
                                     name="email"
                                     autoComplete="off"
-                                    placeholder="Enter email"
+                                    placeholder="Email ID"
                                     value={values.email}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {errors.email && touched.email && (
-                                    <div className={styles.error}>{errors.email}</div>
-                                )}
                             </div>
+                            {errors.email && touched.email && (
+                                <div className={styles.error}>{errors.email}</div>
+                            )}
                             <div className={styles.input_box}>
                                 <label className={styles.password} htmlFor="password">
-                                    Password
+                                    <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
                                 </label>
                                 <Input
                                     id="password"
@@ -194,24 +172,18 @@ const Signup = () => {
                                     type="password"
                                     name="password"
                                     autoComplete="off"
-                                    placeholder="Enter password"
+                                    placeholder="Your Password"
                                     value={values.password}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {errors.password && touched.password && (
-                                    <div className={styles.error}>{errors.password}</div>
-                                )}
                             </div>
-                            <div className={styles.checkbox_wrapper}>
-                                <input
-                                    type="checkbox"
-                                    id="rememberMe"
-                                    name="rememberMe"
-                                    checked={rememberMe}
-                                    onChange={handleRememberMe}
-                                />
-                                <label htmlFor="rememberMe">Already a Member ? Log In</label>
+                            {errors.password && touched.password && (
+                                <div className={styles.error}>{errors.password}</div>
+                            )}
+
+                            <div className={styles.signin_withgoogle}>
+                                <FcGoogle /> Sign in with Google
                             </div>
                             <div className={styles.button_wrapper}>
                                 <Button
@@ -220,25 +192,16 @@ const Signup = () => {
                                     variant="contained"
                                     type="submit"
                                     onClick={handleSubmit}
-
-                                >
-                                    {isLoading ? "Loading..." : "Sign up"}
-
-                                </Button>
+                                />
+                                {isLoading ? "Loading..." : "Sign up"}
                             </div>
                             <div className={styles.signin}>
                                 <span className={styles.forgotDesc}>
-                                    Already a Member  ? <Link href="/login">Log In</Link>
+                                    <Link href="/auth/login"> Already have an account ? &nbsp; <b>Login</b></Link>
                                 </span>
-                            </div>
-                            <div>
-                                Sign in <FcGoogle />
                             </div>
                         </form>
                     </div>
-                </div>
-                <div className={styles.girlImg_wrapper}>
-                    <img src="./assests/pubgImg.png" alt="bgmiImg" />
                 </div>
             </div>
         </div>
@@ -246,6 +209,7 @@ const Signup = () => {
 };
 
 export default Signup;
+
 
 
 

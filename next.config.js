@@ -2,9 +2,15 @@
 const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
-  env: {
-    REACT_APP_BASE_URL: "http://localhost:5000/",
-  }
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/auth/login',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
