@@ -4,9 +4,7 @@ import styles from '../../../styles/Dashboard.module.scss';
 import { Navbar } from '../../../Components/Navbar/Navbar';
 // @ts-ignore
 import { Pagination, Button, Input } from 'technogetic-iron-smart-ui';
-
 export interface IAppProps { }
-
 function Tournament() {
 
   return (

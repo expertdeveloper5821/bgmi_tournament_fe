@@ -1,0 +1,97 @@
+@import './mixins.scss';
+@import './variable.scss';
+
+.main_container {
+  width: 100%;
+  background-image: url('/assests/videobanner.svg');
+  background-repeat: no-repeat;
+  // overflow: hidden;
+  background-size: cover;
+}
+.loader {
+  display: flex;
+  justify-content: center;
+  font-size: xx-large;
+  color: white;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.sub_container {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: white;
+  margin-top: 30px;
+  padding-left: 2%;
+  padding-right: 3%;
+}
+.header h2 {
+  font-size: x-large;
+  font-weight: 800;
+}
+.header span {
+  font-size: 15px;
+  font-weight: 400;
+}
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #ff7a00;
+  padding: 10px;
+  width: 120px;
+  height: 44px;
+  border-radius: 4px;
+  font-size: 15px;
+  background-color: rgb(0, 53, 84);
+  color: #ff7a00;
+  font-size: 14px;
+  font-weight: bold;
+}
+.selectContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 3%;
+  padding-right: 3%;
+  @media (max-width: $breakpoint-md) {
+    flex-direction: column;
+  }
+  @media (max-width: $breakpoint-xs) {
+    min-width: 200px;
+  }
+}
+.videoCard {
+  margin-left: 2%;
+  display: flex;
+  width: 30%;
+}
+.centerText {
+  margin-top: 28%;
+  width: 30%;
+}
+.selectContainer {
+  position: relative;
+}
+.sortIcon{
+  position: absolute;
+  left: 13px;
+  top: 16px;
+}
+.arrowicon{
+  position: absolute;
+  right: 10px;
+  top: 13px;
+}
+.reviewSection{
+  width: 30%;
+}
+
