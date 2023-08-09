@@ -1,5 +1,4 @@
 // Sidebar.tsx
-'use client'
 import React, { useState } from "react";
 import Link from "next/link";
 import styles from "../../styles/DashboardSidebar.module.scss";
@@ -15,10 +14,12 @@ interface SidebarProps {
   menuItem: MenuItem[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ menuItem }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>(menuItem);
+
   const toggle = () => setIsOpen(!isOpen);
-  
+
   return (
     <div className={styles.container}>
       <div style={{ width: isOpen ? "220px" : "100px" }} className={styles.sidebar}>
@@ -31,26 +32,24 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }) => {
           </div>
         </div>
         <div>
-        {menuItem.map((item, index) => (
-          <Link href={item.path} key={index} legacyBehavior> 
-            <a>
-            <div className={styles.link}>
-              <div className={styles.icon}>{item.icon}</div>
-              <div
-                style={{ display: isOpen ? "block" : "none", fontSize: "18px" }}
-                className={styles.link_text}
-              >
-                {item.name}
-              </div>
-            </div>
-            </a>
-          </Link>
-        ))}
+          {menuItem?.length > 0 ? (
+            menuItem.map((item: MenuItem, index: number) => (
+              <Link href={item.path} key={index} passHref>
+                <div className={styles.link}>
+                  <div className={styles.icon}>{item.icon}</div>
+                  <div className={styles.link_text}>{item.name}</div>
+                </div>
+              </Link>
+            ))
+          ) : (
+            <div>No Data Found</div>
+          )}
+
         </div>
-        
       </div>
     </div>
   );
 };
 
 export default Sidebar;
+
