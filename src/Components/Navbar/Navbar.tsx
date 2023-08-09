@@ -5,28 +5,29 @@ import { useRouter } from "next/navigation";
 import sendRequest from "../../services/api/apiServices";
 // @ts-ignore
 import { Avatar, Popover } from "technogetic-iron-smart-ui";
+import Image from "next/image";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isPopOpen, setIsPopOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   function handleClosePopover() {
     setIsOpen(false);
   }
   const router = useRouter();
 
-   //logout
-   const handleLogout = async () => {
+  //logout
+  const handleLogout = async () => {
     setIsLoading(true);
     try {
       const response = await sendRequest("auth/logout", {
         method: "POST",
       });
-  
+
       setIsLoading(false);
-  
+
       if (response.status === 200) {
         localStorage.removeItem("jwtToken");
         router.push("/login");
@@ -54,12 +55,14 @@ export function Navbar() {
                   <div>
                     <div className={styles.notification}>
                       Notification
-                      <img
+                      <Image
                         className={styles.close}
                         src="../assests/cross.svg"
                         alt="close"
+                        width={20}
+                        height={20}
                         onClick={handleClosePopover}
-                      ></img>
+                      />
                     </div>
                     <div className={styles.dropdown}>
                       <Avatar
@@ -103,12 +106,14 @@ export function Navbar() {
                 width="300px"
                 height="350px"
               >
-                <img
+                <Image
                   className={styles.notification}
                   src="../assests/notificationImg.svg"
                   alt="notification"
                   onClick={() => setIsOpen(true)}
-                ></img>
+                  width={20}
+                  height={20}
+                />
               </Popover>
             </li>
             <li className={styles.navitem}>
@@ -135,38 +140,46 @@ export function Navbar() {
                     </div>
                     <div className={styles.profilesection}>
                       <div className={styles.flexcol}>
-                        <img
+                        <Image
                           className={styles.profileicon}
                           src="../assests/profile.svg"
                           alt="profile"
-                        ></img>
+                          width={20}
+                          height={20}
+                        />
                         <div className={styles.myprofile}>My Account</div>
                       </div>
                       <div className={styles.flexcol}>
-                        <img
+                        <Image
                           className={styles.settingicon}
                           src="../assests/settingicon.svg"
                           alt="setting"
-                        ></img>
+                          width={20}
+                          height={20}
+                        />
                         <div className={styles.myprofile}>Settings</div>
                       </div>
                       <div className={styles.flexcol}>
-                        <img
+                        <Image
                           className={styles.notification_icon}
                           src="../assests/notification.svg"
                           alt="notification"
-                        ></img>
+                          width={20}
+                          height={20}
+                        />
                         <div className={styles.myprofile}>Notification</div>
                       </div>
                     </div>
                     <div className={styles.logoutbutton}>
                       <div>
-                        <img
+                        <Image
                           className={styles.logoutbuttonicon}
                           src="../assests/logouticon.svg"
                           alt="logouticon"
                           onClick={handleLogout}
-                        ></img>
+                          width={20}
+                          height={20}
+                        />
                         Logout
                       </div>
                     </div>
@@ -176,12 +189,14 @@ export function Navbar() {
                 placement="bottom"
                 width="224px"
               >
-                <img
+                <Image
                   className={styles.dropdown}
                   src="../assests/dropdown.svg"
                   alt="dropdown"
                   onClick={() => setIsPopOpen(!isPopOpen)}
-                ></img>
+                  width={20}
+                  height={20}
+                />
               </Popover>
             </li>
             <li className={styles.navitem}>

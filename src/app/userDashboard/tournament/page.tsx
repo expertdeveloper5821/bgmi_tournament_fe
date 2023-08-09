@@ -17,12 +17,12 @@ function Tournament() {
               Upcoming Matches
               <h1>Dashboard/Upcoming Matches</h1>
               <div className={styles.input_desc}>
-              <Input
-              placeholder="Search by fees"
-              ></Input>
+                <Input
+                  placeholder="Search by fees"
+                ></Input>
+              </div>
             </div>
-            </div>
-            
+
           </div>
           <div className={styles.room_wrapper}>
             <div className={styles.room_container}>

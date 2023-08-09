@@ -1,15 +1,15 @@
-"use client"
-import React from "react";
-import styles from "../../styles/mail.module.scss";
+'use client';
+import React from 'react';
+import styles from '../../../styles/mail.module.scss';
 // @ts-ignore
-import { Button } from "technogetic-iron-smart-ui";
+import { Button } from 'technogetic-iron-smart-ui';
+import Image from 'next/image';
 
-export interface IAppProps { }
+export interface SentMailProps { }
 
-export default function SentMail() {
-  
+export default function SentMail(props: SentMailProps): JSX.Element {
   const handleClick = () => {
-    window.open("https://mail.google.com/mail/u/0/#inbox", "_blank");
+    window.open('https://mail.google.com/mail/u/0/#inbox', '_blank');
   };
 
   return (
@@ -19,7 +19,7 @@ export default function SentMail() {
           <div className={styles.container}>
             <div className={styles.mailsent_container}>
               <div className={styles.logo}>
-                <img src="../assests/technogeticlogo.svg" alt="Tg-logo"></img>
+                <Image src="../assests/logobgmi.svg" alt="Tg-logo" width={100} height={100} />
               </div>
 
               <div className={styles.email_wrapper}>
@@ -29,7 +29,7 @@ export default function SentMail() {
                 </p>
 
                 <div className={styles.mailsent_logo}>
-                  <img src="../assests/letterBox.svg" alt="mailsent"></img>
+                  <Image src="../assests/letterBox.svg" alt="mailsent" width={100} height={100} />
                 </div>
               </div>
 
@@ -38,15 +38,10 @@ export default function SentMail() {
                   variant="contained"
                   onClick={handleClick}
                   className={styles.forgetbutton}
-                >
-                  Go to Link
-                </Button>
+                />
+                Go to Link
               </div>
             </div>
-          </div>
-
-          <div className={styles.girlImg_wrapper}>
-            <img src="../assests/pubgImg.png" alt="bgmiImg"></img>
           </div>
         </div>
       </div>

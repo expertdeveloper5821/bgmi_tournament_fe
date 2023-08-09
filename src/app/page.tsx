@@ -1,4 +1,4 @@
-import Loader from './loader/page'
+import Loader from './auth/login/page'
 import RootLayout from './layout'
 
 export default function Home() {
