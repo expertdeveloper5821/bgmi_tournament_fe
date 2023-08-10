@@ -3,7 +3,7 @@ import axios, { AxiosInstance } from "axios";
 
 
 const apiServices: AxiosInstance = axios.create({
-    baseURL: `${configData.api.baseURL}/api/${configData.api.ver}/`,
+    baseURL: `https://gaming-portal-be.vercel.app/api/v1/`,
     headers: {
         'Content-Type': 'application/json; charset=UTF-8',
     },
