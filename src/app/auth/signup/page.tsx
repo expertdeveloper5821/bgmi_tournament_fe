@@ -51,7 +51,7 @@ const Signup = () => {
             }
 
             try {
-                const response = await sendRequest("v1/signup", {
+                const response = await sendRequest("user/signup", {
                     method: "POST",
                     data: { fullName, userName, email, password },
                 });
@@ -189,11 +189,13 @@ const Signup = () => {
                                 <Button
                                     disabled={isLoading}
                                     className={styles.forgetbutton}
-                                    variant="contained"
+                                    // variant="contained"
                                     type="submit"
                                     onClick={handleSubmit}
-                                />
-                                {isLoading ? "Loading..." : "Sign up"}
+                                >
+                                    {isLoading ? "Loading..." : "Sign up"}
+                                </Button>
+
                             </div>
                             <div className={styles.signin}>
                                 <span className={styles.forgotDesc}>
