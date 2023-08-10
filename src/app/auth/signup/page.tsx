@@ -96,11 +96,10 @@ const Signup = () => {
             <div className={styles.background_container}>
                 <div className={styles.container}>
                     <div className={styles.logo}>
-                        <Image src="/assests/logobgmi.svg" alt="Tg-logo" width={100} height={100} />
+                        <Image src="/assests/logoWithBg.svg" alt="Tg-logo" width={100} height={100} />
                     </div>
                     <div>
-                        <h2 className={styles.headDesc}>Welcome back</h2>
-                        <p className={styles.heading}>Welcome back! Please enter your details</p>
+                        <p className={styles.heading}>Welcome! Please enter your details</p>
                     </div>
                     <div>
                         <form onSubmit={handleSubmit}>
