@@ -12,6 +12,7 @@ import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
 import { loginSchema } from '../../../schemas/SignupSchemas';
 import { decodeJWt } from '@/utils/globalfunctions';
+import { configData } from '@/utils/config';
 
 
 interface LoginProps { }
@@ -27,15 +28,6 @@ function Login(): React.JSX.Element {
   const [role, setRole] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [getToken, setGetToken] = useState<any>("")
-  const token = localStorage.getItem("jwtToken") || "";
-
-  useEffect(() => {
-    if (token) {
-      setGetToken(decodeJWt(token))
-    }
-  }, [])
-
-
 
   const router = useRouter();
 
@@ -45,11 +37,13 @@ function Login(): React.JSX.Element {
 
   useEffect(() => {
     const rememberMeValue = localStorage.getItem('rememberMe') === 'true';
-    if (getToken) {
-      handleRedirect()
-    }
     setRememberMe(rememberMeValue);
-  }, [getToken]);
+    
+    const token = localStorage.getItem("jwtToken");
+    if (token) {
+      handleRedirect(token)
+    }
+  });
 
 
   const initialValues: FormValues = {
@@ -95,33 +89,12 @@ function Login(): React.JSX.Element {
 
         if (response.status === 200) {
           localStorage.setItem('jwtToken', response?.data?.userData?.token);
-          router.push('/adminDashboard')
-          // const decodedToken: any = decodeJWt(response?.data?.userData?.token)
-          // console.log("decodedToken", decodedToken)
-          // console.log("response", response)
-
-          // if (decodedToken.role.length > 0) {
-          //   if (decodedToken.role.find(({ role, name }: any) => role.includes('admin') || name === 'admin')) {
-
-          //     router.push('/adminDashboard')
-
-          //   } else {
-
-          //     router.push('/userDashboard')
-
-          //   }
-
-          // }
-          // else {
-          //   router.push("/auth/401")
-          // }
-
-
-
+          handleRedirect(response?.data?.userData?.token)
         } else {
           setError('Invalid email or password');
         }
       } catch (error: any) {
+        console.log("Error in Login API => ", error)
         setIsLoading(false);
         setError('Invalid email or password');
       } finally {
@@ -130,35 +103,19 @@ function Login(): React.JSX.Element {
     },
   });
 
-
-  console.log(" check token ", getToken)
-
-  useEffect(() => {
-
-
-
-  }, [])
-
-
-  const handleRedirect = () => {
-    if (getToken) {
-      getToken.role[0].role.map((r: any) => {
-        console.log("get role", r)
-        if (r.includes('admin')) {
-          // router.push('/adminDashboard')
-        } else {
-          // router.push('https://www.pattseheadshot.com/commingsoon.html')
-        }
-      })
-      // if (getToken.role.find(({ role, name }: any) => role.includes('admin') || name === 'admin')) {
-      //   router.push('/adminDashboard')
-      // } else {
-      //   router.push('https://www.pattseheadshot.com/commingsoon.html')
-      // }
+  const handleRedirect = (token: any) => {
+    console.log("token", token)
+    if (token) {
+      const decodedToken: any = decodeJWt(token)
+      if (decodedToken.role.find(({ role, name }: any) => role.includes('admin') || name === 'admin')) {
+        router.push('/adminDashboard')
+      } else {
+        // router.push('/userDashboard')
+        router.push(configData.web.cominSoonUrl)
+      }
+    } else {
+      router.push("/auth/401")
     }
-    // else {
-    //   router.push("/auth/401")
-    // }
   }
 
   useEffect(() => {
@@ -267,11 +224,11 @@ function Login(): React.JSX.Element {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <Image src="../assests/logobgmi.svg" alt="Tg-logo" width={100} height={100} />
+            <Image src="../assests/logoWithBg.svg" alt="Tg-logo" width={250} height={100} />
           </div>
 
           <div>
-            <h2 className={styles.headDesc}>Hello Admin!</h2>
+            {/* <h2 className={styles.headDesc}>Hello Warriors!</h2> */}
             <p className={styles.heading}>Welcome back! Please enter your details</p>
           </div>
           <div>
@@ -330,18 +287,7 @@ function Login(): React.JSX.Element {
                 </label>
               </div>
 
-              <div className={styles.signin_withgoogle}>
-                <FcGoogle />
-                <Button
-                  disabled={isLoading}
-                  className={styles.googleButton}
-                  variant="primary"
-                  type="button"
-                  onClick={handleGoogleLogin}
-                >
-                  {isLoading ? 'Loading...' : 'Sign in with Google'}
-                </Button>
-              </div>
+            
 
               <div className={styles.button_wrapper}>
                 <Button
@@ -355,9 +301,24 @@ function Login(): React.JSX.Element {
                 </Button>
 
               </div>
+              {/* <div className={styles.signin_withgoogle}>
+                <FcGoogle />
+                <Button
+                  disabled={isLoading}
+                  className={styles.googleButton}
+                  variant="primary"
+                  type="button"
+                  onClick={handleGoogleLogin}
+                >
+                  {isLoading ? 'Loading...' : 'Sign in with Google'}
+                </Button>
+              </div> */}
               <div className={styles.signin}>
                 <span className={styles.forgotDesc}>
                   <Link href="/auth/forget-password">Forget your Password?</Link>
+                </span>
+                <span className={styles.forgotDesc}>
+                  <Link href="/auth/signup">Signup</Link>
                 </span>
               </div>
             </form>

@@ -56,8 +56,8 @@ const Signup = () => {
                     data: { fullName, userName, email, password },
                 });
                 if (response.status === 200) {
-                    localStorage.setItem("jwtToken", response.data.token);
-                    router.push("/auth/login");
+                    // localStorage.setItem("jwtToken", response.data.token);
+                    router.push(`/auth/login`);
                 } else {
                     setError("Failed to sign up. Please try again.");
                 }
@@ -181,11 +181,7 @@ const Signup = () => {
                             {errors.password && touched.password && (
                                 <div className={styles.error}>{errors.password}</div>
                             )}
-
-                            <div className={styles.signin_withgoogle}>
-                                <FcGoogle /> Sign in with Google
-                            </div>
-                            <div className={styles.button_wrapper}>
+                             <div className={styles.button_wrapper}>
                                 <Button
                                     disabled={isLoading}
                                     className={styles.forgetbutton}
@@ -197,6 +193,11 @@ const Signup = () => {
                                 </Button>
 
                             </div>
+
+                            {/* <div className={styles.signin_withgoogle}>
+                                <FcGoogle /> Sign up with Google
+                            </div> */}
+                           
                             <div className={styles.signin}>
                                 <span className={styles.forgotDesc}>
                                     <Link href="/auth/login"> Already have an account ? &nbsp; <b>Login</b></Link>

@@ -9,6 +9,7 @@ import assignmentData from '../../utils/CreateAssignment.json';
 import { Pagination } from 'technogetic-iron-smart-ui';
 import { BtnDashboard } from '../../Components/CommonComponent/BtnDashboard';
 import RequireAuthentication from '../../utils/requireAuthentication';
+import withAuth from '@/Components/HOC/WithAuthHoc';
 
 
 export interface IAppProps { }
@@ -33,7 +34,7 @@ function AdminDashboard() {
     const endIndex = startIndex + rowPerPage;
     const paginatedData = transformedStudentData.slice(startIndex, endIndex);
     setPaginatedData(paginatedData);
-  }, [currentPage, transformedStudentData]);
+  }, [currentPage]);
 
   const onPageChange = (page: number) => {
     setCurrentPage(page);
@@ -76,4 +77,4 @@ function AdminDashboard() {
   );
 }
 
-export default AdminDashboard;
+export default withAuth(AdminDashboard);
