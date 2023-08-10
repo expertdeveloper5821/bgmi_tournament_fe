@@ -96,7 +96,7 @@ function Login(): React.JSX.Element {
       } catch (error: any) {
         console.log("Error in Login API => ", error)
         setIsLoading(false);
-        setError('Invalid email or password');
+        setError('Login Failed, Please try again later');
       } finally {
         setSubmitting(false);
       }
