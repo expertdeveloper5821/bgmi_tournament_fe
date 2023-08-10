@@ -9,9 +9,10 @@ import { Pagination } from 'technogetic-iron-smart-ui';
 import { BtnDashboard } from '../../Components/CommonComponent/BtnDashboard';
 import RequireAuthentication from '../../utils/requireAuthentication';
 import { FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt } from 'react-icons/fa'
+import withAuth from '@/Components/HOC/WithAuthHoc';
 export interface IAppProps { }
 
-function userDashboard() {
+function UserDashboard() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const rowPerPage = 8;
 
@@ -33,4 +34,4 @@ function userDashboard() {
   );
 }
 
-export default userDashboard;
+export default withAuth(UserDashboard);
