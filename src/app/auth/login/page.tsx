@@ -10,6 +10,9 @@ import styles from '../../../styles/auth.module.scss';
 import sendRequest from '../../../services/api/apiServices';
 import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
+import { loginSchema } from '../../../schemas/SignupSchemas';
+import { decodeJWt } from '@/utils/globalfunctions';
+
 
 interface LoginProps { }
 
@@ -21,7 +24,18 @@ interface FormValues {
 function Login(): React.JSX.Element {
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [role, setRole] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const [getToken, setGetToken] = useState<any>("")
+  const token = localStorage.getItem("jwtToken") || "";
+
+  useEffect(() => {
+    if (token) {
+      setGetToken(decodeJWt(token))
+    }
+  }, [])
+
+
 
   const router = useRouter();
 
@@ -31,8 +45,12 @@ function Login(): React.JSX.Element {
 
   useEffect(() => {
     const rememberMeValue = localStorage.getItem('rememberMe') === 'true';
+    if (getToken) {
+      handleRedirect()
+    }
     setRememberMe(rememberMeValue);
-  }, []);
+  }, [getToken]);
+
 
   const initialValues: FormValues = {
     email: '',
@@ -49,8 +67,9 @@ function Login(): React.JSX.Element {
     setFieldValue,
   } = useFormik({
     initialValues,
-    validationSchema: SignupSchema,
+    validationSchema: loginSchema,
     onSubmit: async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
+      console.log("values", values)
       setIsLoading(true);
       const { email, password } = values;
       if (rememberMe) {
@@ -67,7 +86,7 @@ function Login(): React.JSX.Element {
 
       // manual login
       try {
-        const response = await sendRequest('v1/login', {
+        const response = await sendRequest('user/login', {
           method: 'POST',
           data: { email, password },
         });
@@ -75,17 +94,72 @@ function Login(): React.JSX.Element {
         setIsLoading(false);
 
         if (response.status === 200) {
-          localStorage.setItem('jwtToken', response.data.token);
-          router.push('/adminDashboard');
+          localStorage.setItem('jwtToken', response?.data?.userData?.token);
+          router.push('/adminDashboard')
+          // const decodedToken: any = decodeJWt(response?.data?.userData?.token)
+          // console.log("decodedToken", decodedToken)
+          // console.log("response", response)
+
+          // if (decodedToken.role.length > 0) {
+          //   if (decodedToken.role.find(({ role, name }: any) => role.includes('admin') || name === 'admin')) {
+
+          //     router.push('/adminDashboard')
+
+          //   } else {
+
+          //     router.push('/userDashboard')
+
+          //   }
+
+          // }
+          // else {
+          //   router.push("/auth/401")
+          // }
+
+
+
         } else {
           setError('Invalid email or password');
         }
       } catch (error: any) {
         setIsLoading(false);
         setError('Invalid email or password');
+      } finally {
+        setSubmitting(false);
       }
     },
   });
+
+
+  console.log(" check token ", getToken)
+
+  useEffect(() => {
+
+
+
+  }, [])
+
+
+  const handleRedirect = () => {
+    if (getToken) {
+      getToken.role[0].role.map((r: any) => {
+        console.log("get role", r)
+        if (r.includes('admin')) {
+          // router.push('/adminDashboard')
+        } else {
+          // router.push('https://www.pattseheadshot.com/commingsoon.html')
+        }
+      })
+      // if (getToken.role.find(({ role, name }: any) => role.includes('admin') || name === 'admin')) {
+      //   router.push('/adminDashboard')
+      // } else {
+      //   router.push('https://www.pattseheadshot.com/commingsoon.html')
+      // }
+    }
+    // else {
+    //   router.push("/auth/401")
+    // }
+  }
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
@@ -116,6 +190,11 @@ function Login(): React.JSX.Element {
       } else {
         setError('Google Sign-In failed');
       }
+      if (verifyResponse.status === 200) {
+        router.push('/userDashboard');
+      } else {
+        setError('Google Sign-In failed');
+      }
     } catch (error) {
       setIsLoading(false);
       setError('Google Sign-In failed');
@@ -138,13 +217,15 @@ function Login(): React.JSX.Element {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get('token');
-      console.log('token', token, window.location.href);
+      // console.log('token', token, window.location.href);
 
       if (token) {
         handleVerifyToken(token);
       }
     }
   }, []);
+
+
 
   // loader
 
@@ -267,13 +348,13 @@ function Login(): React.JSX.Element {
                   disabled={isLoading}
                   className={styles.forgetbutton}
                   variant="contained"
-                  type="submit"
+
                   onClick={handleSubmit}
-                />
-                {isLoading ? 'Loading...' : 'Sign in'}
+                >
+                  {isLoading ? 'Loading...' : 'Sign in'}
+                </Button>
 
               </div>
-
               <div className={styles.signin}>
                 <span className={styles.forgotDesc}>
                   <Link href="/auth/forget-password">Forget your Password?</Link>

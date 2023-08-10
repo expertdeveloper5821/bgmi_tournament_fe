@@ -13,6 +13,16 @@ export const SignupSchema = Yup.object().shape({
 });
 
 
+export const loginSchema = Yup.object().shape({
+
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Please enter your email")
+    .matches(emailRegex, "Invalid email"),
+  password: Yup.string().required("Please enter your password"),
+});
+
+
 export const ResetPasswordSchema = Yup.object().shape({
   newPassword: Yup.string()
     .required("New password is required")
