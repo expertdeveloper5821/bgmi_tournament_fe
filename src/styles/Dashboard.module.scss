@@ -9,6 +9,12 @@
   height: 100vh;
 }
 
+.squad_match {
+  display: flex;
+  flex-direction: column;
+  margin: 12px;
+}
+
 .abcd {
   width: 100%;
   height: 100%;
@@ -24,45 +30,198 @@
   height: auto;
 }
 
-.content{
+.content {
+  display: flex;
+  justify-content: space-between;
   line-height: 48px;
   font-size: 40px;
-  padding: 5px;
- 
+  padding: 0px 20px;
 }
 
-.room_wrapper{
+
+.desc_container {
   display: flex;
-  border: 2px solid white;
+  flex-direction: column;
 }
 
-.imgSection{
-  border: 1px solid
-}
-
-.room_container{
+.room_wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.wrapperimg{
-  height: 450px;
-  width: 600px;
-  margin: 2px;
-  border-radius: 20px;
+.imgSection img {
+  height: 365px;
+  width: 630px;
+  border-radius: 30px;
+
 }
 
-.input_desc Input {
-  border-radius: 8px;
-  color: #8a96a5 !important;
+.room_container {
+  display: flex;
+  border-bottom: 1px solid grey;
+  margin: 10px;
+
+  width: 100%;
+}
+
+.heading h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.winnings {
+  display: flex;
+  gap: 150px;
+  margin: 10px 3px;
+}
+
+.tournament_slider {
+  display: flex;
+  gap: 70px;
+  margin: 10px 3px;
+}
+
+.winning_prize {
+  display: flex;
+  flex-direction: column;
   font-size: 14px;
+  font-family: Century Gothic;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.02em;
 }
-.input_desc {
+
+.winning_prize span, .id_password span, .image_text span{
+  font-size: 14px;
+  font-family: Century Gothic;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+}
+
+.spot_line {
+  border-top: 5px solid white;
+
   display: flex;
-  justify-content:flex-end;
+  gap: 100px;
+
 }
 
-// .content_body{
+.join_button {
+  background-color: rgba(255, 122, 0, 1) !important;
+  color: white !important;
+  // border: 1px solid black;
+  display: flex;
+  gap: 40px;
+  width: 20%;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+}
 
-// }
+.registeredmatches {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.container2 {
+  display: flex;
+  padding: 4px 10px;
+}
+
+.Tournaments {
+  padding: 0px 15px;
+  font-family: Century Gothic;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.content .dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.room_create {
+  display: flex;
+  gap: 50px;
+  padding: 8px 0px;
+  border-bottom: 2px solid white;
+}
+
+.id_password {
+  display: flex;
+  gap: 50px;
+  margin-top: 5px;
+}
+
+.slidebar img {
+  border-radius: 4px;
+}
+
+.register_match {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 34px;
+  font-family: Century Gothic;
+  letter-spacing: 0.02em;
+}
+
+.head_desc{
+  font-size: 27px;
+  font-weight: 600;
+  line-height: 40px;
+  font-family: Century Gothic;
+}
+
+.subhead_desc{
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Century Gothic;
+}
+
+.survival_content{
+  font-family: Century Gothic;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0.02em;
+  text-align: left;
+}
+
+.bar_font{
+  font-size: 14px;
+  font-family: Century Gothic;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  margin-top: 5px;
+}
+
+.content_wrapper{
+  display: flex;
+  width: 50%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.tvm_font{
+  font-size: 14px;
+  font-family: Century Gothic;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+}
+
+.image_text{
+  position: absolute;
+  padding-left: 5px;
+  bottom: 8px;
+}
+
+.view_more{
+  margin-left: 70px;
+}
+
+.sort_btn{
+  margin-right: 10px;
+}
