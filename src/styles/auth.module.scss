@@ -47,7 +47,14 @@
 .logo img {
   @include logo;
   display: flex;
-  margin: 0px auto;
+  margin: 0px 46px;
+}
+.signin {
+  display: flex;
+  justify-content: center;
+}
+.forgotDescsec {
+  padding-left: 8px;
 }
 
 .headDesc {
@@ -106,7 +113,8 @@
 
 .forgetbutton {
   @include button_wrapper;
-
+  margin-top: 18px;
+  color: white !important;
   @media (max-width: $breakpoint-xSmall) {
     padding: 12px 30px;
     width: 100%;

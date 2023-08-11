@@ -347,7 +347,7 @@ function Login(): React.JSX.Element {
                     Forget your Password?
                   </Link>
                 </span>
-                <span className={styles.forgotDesc}>
+                <span className={styles.forgotDescsec}>
                   <Link href="/auth/signup">Signup</Link>
                 </span>
               </div>
