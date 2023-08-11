@@ -44,7 +44,7 @@ const UpdateCredential: React.FC = () => {
     onSubmit: async (values: FormValues) => {
       const { newPassword, confirmPassword } = values;
       try {
-        const response = await sendRequest(`v1/reset-password?token=${token}`, {
+        const response = await sendRequest(`user/reset-password?token=${token}`, {
           method: 'POST',
           data: { newPassword, confirmPassword },
         });
@@ -62,24 +62,24 @@ const UpdateCredential: React.FC = () => {
 
   return (
     <div className={styles.main_container}>
-//       <div className={styles.background_container}>
-//         <div className={styles.container}>
-//           <div className={styles.logo}>
-//             <Image src="/assests/logobgmi.svg" alt="bgmilogo" width={100} height={100} />
-//           </div>
-//           <div>
-//             <h2 className={styles.headDesc}>Reset Password</h2>
-//             <p className={styles.heading}>
-//               Please enter your password and confirm the password
-//             </p>
-//           </div>
-//           <div>
-//             <form onSubmit={handleSubmit}>
-//               <div className={styles.input_box}>
-//                 <label htmlFor="newPassword" className={styles.password}>
-//                   <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
-//                 </label>
-//                 <Input
+      <div className={styles.background_container}>
+        <div className={styles.container}>
+          <div className={styles.logo}>
+            <Image src="/assests/logobgmi.svg" alt="bgmilogo" width={100} height={100} />
+          </div>
+          <div>
+            <h2 className={styles.headDesc}>Reset Password</h2>
+            <p className={styles.heading}>
+              Please enter your password and confirm the password
+            </p>
+          </div>
+          <div>
+            <form onSubmit={handleSubmit}>
+              <div className={styles.input_box}>
+                <label htmlFor="newPassword" className={styles.password}>
+                  <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
+                </label>
+                <Input
                   type="password"
                   id="newPassword"
                   className={styles.password_wrapper}

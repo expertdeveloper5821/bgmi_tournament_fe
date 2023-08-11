@@ -27,9 +27,13 @@
 .check_model {
   background: white;
   height: auto;
-  width: 50%;
+  width: 30%;
   border-radius: 15px;
+
   //padding: 18px;
+  @media (max-width: $breakpoint-xs) {
+    width: 100%;
+  }
 }
 .main_pop_cls {
   position: absolute;
@@ -56,6 +60,9 @@
   border: none;
   background: white;
   font-size: 16px;
+  @media (max-width: $breakpoint-xs) {
+    width: 30% !important;
+  }
 }
 .pop_heading {
   background: #ff7a00;
@@ -65,6 +72,8 @@
   font-size: 23px;
   font-family: Century Gothic;
   font-weight: 700;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
 }
 .form_spectator_cls {
   padding: 18px;
@@ -76,15 +85,24 @@ button#btn_cls_st {
   background: #ff7a00 !important;
   width: 48%;
   margin-right: 12px;
+  @media (max-width: $breakpoint-xs) {
+    width: 30%;
+  }
 }
 .room_field_wrapper {
   border: 1px solid #ff7a00 !important;
   margin: 12px 0px;
+  @media (max-width: $breakpoint-xs) {
+    margin: 8px 0px;
+  }
 }
 .room_id {
   color: #ff7a00 !important;
   font-weight: 600;
   font-size: 18px;
+  @media (max-width: $breakpoint-xs) {
+    font-size: 13px;
+  }
 }
 .btn_form_wrapper {
   padding: 16px 0px 0px 0px;
@@ -93,9 +111,12 @@ button#btn_cls_st {
   width: 48%;
   border: 1px solid #ff7a00 !important;
   color: #ff7a00 !important;
-  margin-left: 20px;
+  margin-left: 6px;
 }
 .cancel_btn:hover {
   background: #ff7a00 !important;
   color: white !important;
+}
+.error {
+  color: red;
 }
