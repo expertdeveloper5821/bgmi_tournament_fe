@@ -70,7 +70,7 @@ const Form = () => {
         className={styles.main_form_btn}
         onClick={() => setShowModal(true)}
       >
-        Open Modal
+        CREATE ROOM ID
       </button>
       {showModal ? (
         <div className={styles.main_pop_cls}>
