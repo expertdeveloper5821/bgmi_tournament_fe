@@ -24,7 +24,7 @@ export default function ResetPassword(): JSX.Element {
 
   const sendEmail = async () => {
     try {
-      const response = await sendRequest('v1/forget-password', {
+      const response = await sendRequest('api/v1/user/forget-password', {
         method: 'POST',
         body: { email },
       });
@@ -76,8 +76,9 @@ export default function ResetPassword(): JSX.Element {
               variant="contained"
               className={styles.SignIn_button}
               onClick={sendEmail}
-            />
-            Recover Password
+            >
+              Recover Password
+            </Button>
 
           </div>
           <div className={styles.signin}>
