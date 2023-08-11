@@ -1,0 +1,101 @@
+@import './mixins.scss';
+@import './variable.scss';
+
+.main_container {
+  width: 100vw;
+  display: flex;
+  background-color: rgba(0, 53, 84, 1);
+  // position: static;
+  height: 100vh;
+}
+.inner_main_container {
+  width: 100%;
+  height: 100%;
+}
+.sidebar_wrapper {
+  z-index: 99;
+  height: auto;
+}
+
+.r_main_title {
+  color: aliceblue;
+  font-size: 30px;
+  font-weight: 700;
+  font-family: Century Gothic;
+  line-height: 36.78px;
+}
+.check_model {
+  background: white;
+  height: auto;
+  width: 50%;
+  border-radius: 15px;
+  //padding: 18px;
+}
+.main_pop_cls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.inner_specter_cls {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 26px;
+}
+.main_form_btn {
+  background: #ff7a00;
+  border: none;
+  color: white;
+}
+.cancel_btn {
+  border: none;
+  background: white;
+  font-size: 16px;
+}
+.pop_heading {
+  background: #ff7a00;
+  text-align: center;
+  padding: 12px;
+  color: white;
+  font-size: 23px;
+  font-family: Century Gothic;
+  font-weight: 700;
+}
+.form_spectator_cls {
+  padding: 18px;
+}
+button#btn_cls_st {
+  background: #ff7a00;
+}
+.roombutton {
+  background: #ff7a00 !important;
+  width: 48%;
+  margin-right: 12px;
+}
+.room_field_wrapper {
+  border: 1px solid #ff7a00 !important;
+  margin: 12px 0px;
+}
+.room_id {
+  color: #ff7a00 !important;
+  font-weight: 600;
+  font-size: 18px;
+}
+.btn_form_wrapper {
+  padding: 16px 0px 0px 0px;
+}
+.cancel_btn {
+  width: 48%;
+  border: 1px solid #ff7a00 !important;
+  color: #ff7a00 !important;
+  margin-left: 20px;
+}
+.cancel_btn:hover {
+  background: #ff7a00 !important;
+  color: white !important;
+}
