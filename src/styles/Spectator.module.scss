@@ -69,7 +69,7 @@
 .pop_heading {
   background: #ff7a00;
   text-align: center;
-  padding: 12px;
+  padding: 26px;
   color: white;
   font-size: 23px;
   font-family: Century Gothic;
@@ -78,15 +78,17 @@
   border-top-left-radius: 8px;
 }
 .form_spectator_cls {
-  padding: 18px;
+  padding: 28px 48px;
+  height: 500px;
+  overflow-y: scroll;
 }
 button#btn_cls_st {
   background: #ff7a00;
 }
 .roombutton {
   background: #ff7a00 !important;
-  width: 48%;
-  margin-right: 12px;
+  width: 100%;
+  margin-top: 12px;
   @media (max-width: $breakpoint-xs) {
     width: 30%;
   }
@@ -115,18 +117,17 @@ button#btn_cls_st {
   padding: 16px 0px 0px 0px;
 }
 .cancel_btn {
-  width: 48%;
+  width: 100%;
   border: 1px solid #ff7a00 !important;
   color: #ff7a00 !important;
-  margin-left: 6px;
 }
 .cancel_btn:hover {
   background: #ff7a00 !important;
   color: white !important;
 }
 .error {
-  color: red;
+  @include error;
 }
-input#gameType {
-  font-size: 12px;
+#gameName {
+  color: #ff7a00;
 }

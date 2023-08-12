@@ -10,6 +10,10 @@ interface FormCreate {
   gameType: string;
   mapType: string;
   password: string;
+  version: string;
+  time: any;
+  date: any;
+  mapImg: string;
 }
 
 const Form = () => {
@@ -23,6 +27,10 @@ const Form = () => {
     gameType: '',
     mapType: '',
     password: '',
+    version: '',
+    time: '',
+    date: '',
+    mapImg: '',
   };
   const {
     values,
@@ -40,7 +48,17 @@ const Form = () => {
       {setSubmitting}: FormikHelpers<FormCreate>,
     ) => {
       setIsLoading(true);
-      const {roomId, gameName, gameType, mapType, password} = values;
+      const {
+        roomId,
+        gameName,
+        gameType,
+        mapType,
+        password,
+        version,
+        time,
+        date,
+        mapImg,
+      } = values;
 
       try {
         const token = localStorage.getItem('jwtToken');
@@ -48,7 +66,16 @@ const Form = () => {
         const response = await sendRequest('room/rooms', {
           method: 'POST',
           headers: {Authorization: `Bearer ${token}`},
-          data: {roomId, gameName, gameType, mapType, password},
+          data: {
+            roomId,
+            gameName,
+            gameType,
+            mapType,
+            password,
+            version,
+            time,
+            date,
+          },
         });
         //console.log('check response ==> ', response);
 
@@ -76,7 +103,7 @@ const Form = () => {
         <div className={styles.main_pop_cls}>
           <div className={styles.check_model}>
             <div className="class_check">
-              <h1 className={styles.pop_heading}>Add Room</h1>
+              <h1 className={styles.pop_heading}>Create new room</h1>
             </div>
             <div className="check">
               <form
@@ -174,7 +201,84 @@ const Form = () => {
                 {errors.password && touched.password && (
                   <div className={styles.error}>{errors.password}</div>
                 )}
+                <div className={styles.input_box}>
+                  <label className={styles.room_id} htmlFor="password">
+                    Version
+                  </label>
+                  <Input
+                    id="version"
+                    className={styles.room_field_wrapper}
+                    type="text"
+                    name="version"
+                    placeholder="Enter version"
+                    value={values.version}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                {errors.version && touched.version && (
+                  <div className={styles.error}>{errors.version}</div>
+                )}
+                <div className={styles.input_box}>
+                  <label className={styles.room_id} htmlFor="password">
+                    Time
+                  </label>
+                  <Input
+                    id="time"
+                    className={styles.room_field_wrapper}
+                    type="time"
+                    name="time"
+                    placeholder="Enter time"
+                    value={values.time}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                {errors.time && touched.time && (
+                  <div className={styles.error}>{errors.time}</div>
+                )}
+                <div className={styles.input_box}>
+                  <label className={styles.room_id} htmlFor="password">
+                    Date
+                  </label>
+                  <Input
+                    id=" date"
+                    className={styles.room_field_wrapper}
+                    type="date"
+                    name=" date"
+                    placeholder="Enter date"
+                    value={values.date}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                {errors.date && touched.date && (
+                  <div className={styles.error}>{errors.date}</div>
+                )}
+                <div className={styles.input_box}>
+                  <label className={styles.room_id} htmlFor="password">
+                    Image
+                  </label>
+                  <input
+                    type="file"
+                    id="myFile"
+                    name="filename"
+                    placeholder="Enter date"
+                    value={values.date}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                {errors.date && touched.date && (
+                  <div className={styles.error}>{errors.date}</div>
+                )}
                 <div className={styles.btn_form_wrapper}>
+                  <Button
+                    className={styles.cancel_btn}
+                    onClick={() => setShowModal(false)}
+                  >
+                    Cancel
+                  </Button>
                   <Button
                     id="check"
                     className={styles.roombutton}
@@ -184,12 +288,6 @@ const Form = () => {
                   >
                     {' '}
                     {isLoading ? 'Loading...' : 'Add Room'}
-                  </Button>
-                  <Button
-                    className={styles.cancel_btn}
-                    onClick={() => setShowModal(false)}
-                  >
-                    Cancel
                   </Button>
                 </div>
               </form>
