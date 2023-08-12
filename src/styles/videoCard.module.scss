@@ -1,0 +1,134 @@
+@import './mixins.scss';
+@import './variable.scss';
+
+.main_container {
+  color: white;
+  display: flex;
+  margin-top: 30px;
+  @media (max-width: $breakpoint-md) {
+    flex-direction: column;
+    margin-left: 5%;
+  }
+}
+.heading {
+  color: yellow;
+  font-size: 20px;
+  font-weight: bold;
+}
+.time {
+  font-size: 15px;
+  margin-top: 7px;
+  font-weight: 400;
+}
+.gameInfo {
+  margin-left: 7%;
+  @media (max-width: $breakpoint-md) {
+    margin: 0;
+  }
+ 
+}
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ff7a00;
+  border-radius: 4px;
+  font-size: x-small;
+  background-color: rgb(0, 53, 84);
+  color: #ff7a00;
+  margin-right: 10px;
+  max-height: 30px;
+  width: 135px;
+}
+.button_maincontainer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.copyimg {
+  padding-right: 6px;
+  font-size: small;
+}
+.btn {
+  background: none;
+  border: none;
+  color: #ff7a00;
+  align-items: center;
+  font-size: small;
+}
+// center text css
+.yellowtext {
+  color: yellow;
+  font-size: 55px;
+  font-weight: bolder;
+  margin: 10px;
+  @media (max-width: $breakpoint-md) {
+    font-size: 40px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    font-size: 25px;
+    font-weight: bold;
+  }
+  @media (max-width: $breakpoint-lg) and (min-width: $breakpoint-ms) {
+    font-size: 40px;
+    font-weight: bold;
+}
+}
+.whitetext {
+  color: white;
+  font-size: 55px;
+  font-weight: bolder;
+  margin: 10px;
+  @media (max-width: $breakpoint-xs) {
+    font-size: 25px;
+    font-weight: bold;
+  }
+  @media (max-width: $breakpoint-lg) and (min-width: $breakpoint-ms) {
+    font-size: 40px;
+    font-weight: bold;
+}
+  
+}
+.hollowtext {
+  font-size: 55px;
+  font-weight: bolder;
+  -webkit-text-stroke: 2px white;
+  margin: 10px;
+  @media (max-width: $breakpoint-xs) {
+    font-size: 25px;
+    font-weight: bold;
+    -webkit-text-stroke: 1px white;
+  }
+  @media (max-width: $breakpoint-lg) and (min-width: $breakpoint-ms) {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+}
+.textContainer {
+  display: flex;
+  top: 5%;
+  transform: rotate(-90deg);
+  @media (max-width: $breakpoint-md) {
+    transform: rotate(0);
+    padding-bottom: 80px;
+    top: 2%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    top: 2%;
+    width: 100%;
+  }
+}
+.bannercontainer {
+  min-width: 250px;
+  @media (max-width: $breakpoint-xs) {
+    width: 320px;
+   }
+}
+.ytbanner {
+  width: 100%;
+
+}

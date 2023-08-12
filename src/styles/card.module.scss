@@ -1,0 +1,64 @@
+.reviewsContainer {
+  margin-top: 30px;
+  padding-left: 2%;
+}
+.reviewCard {
+  margin-top: 40px;
+  color: white;
+  border: 1px solid #ff7a00;
+  border-radius: 5px;
+  padding: 10px;
+  width: 330px;
+}
+.profile {
+  margin-left: 5px;
+  border-radius: 10px;
+  height: 70%;
+}
+.reviews {
+  display: flex;
+}
+.reviewer {
+  padding-left: 15px;
+}
+.name h2 {
+  color: #ff7a00;
+  font-size: 20px;
+  font-weight: bold;
+}
+.name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.reviewer p {
+  font-weight: 300;
+  font-size: 15px;
+  margin-top: 5px;
+}
+.reviewer span {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+.sendinvite {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.sendinvite span {
+  color: #ffc700;
+  font-weight: 600;
+}
+.sendinvite img {
+  height: 10px;
+  width: 10px;
+  margin-right: 5px;
+}
+.greenCircle {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background: green;
+}
+// delete modal
