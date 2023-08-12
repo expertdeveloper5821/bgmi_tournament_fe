@@ -1,17 +1,26 @@
 'use client';
-import React, { useState, useEffect, ChangeEvent } from 'react';
-import { useFormik, FormikErrors, FormikTouched, FormikValues, FormikHelpers } from 'formik';
-import { SignupSchema } from '../../../schemas/SignupSchemas';
-import { useRouter } from 'next/navigation';
+import React, {useState, useEffect, ChangeEvent} from 'react';
+import {
+  useFormik,
+  FormikErrors,
+  FormikTouched,
+  FormikValues,
+  FormikHelpers,
+} from 'formik';
+import {SignupSchema} from '../../../schemas/SignupSchemas';
+import {useRouter} from 'next/navigation';
 import Link from 'next/link';
 //@ts-ignore
-import { Button, Input } from 'technogetic-iron-smart-ui';
+import {Button, Input} from 'technogetic-iron-smart-ui';
 import styles from '../../../styles/auth.module.scss';
 import sendRequest from '../../../services/api/apiServices';
-import { FcGoogle } from 'react-icons/fc';
+import {FcGoogle} from 'react-icons/fc';
 import Image from 'next/image';
+import {loginSchema} from '../../../schemas/SignupSchemas';
+import {decodeJWt} from '@/utils/globalfunctions';
+import {configData} from '@/utils/config';
 
-interface LoginProps { }
+interface LoginProps {}
 
 interface FormValues {
   email: string;
@@ -21,7 +30,9 @@ interface FormValues {
 function Login(): React.JSX.Element {
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [role, setRole] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const [getToken, setGetToken] = useState<any>('');
 
   const router = useRouter();
 
@@ -32,7 +43,12 @@ function Login(): React.JSX.Element {
   useEffect(() => {
     const rememberMeValue = localStorage.getItem('rememberMe') === 'true';
     setRememberMe(rememberMeValue);
-  }, []);
+
+    const token = localStorage.getItem('jwtToken');
+    if (token) {
+      handleRedirect(token);
+    }
+  });
 
   const initialValues: FormValues = {
     email: '',
@@ -49,10 +65,14 @@ function Login(): React.JSX.Element {
     setFieldValue,
   } = useFormik({
     initialValues,
-    validationSchema: SignupSchema,
-    onSubmit: async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
+    validationSchema: loginSchema,
+    onSubmit: async (
+      values: FormValues,
+      {setSubmitting}: FormikHelpers<FormValues>,
+    ) => {
+      console.log('values', values);
       setIsLoading(true);
-      const { email, password } = values;
+      const {email, password} = values;
       if (rememberMe) {
         const expirationDate = new Date();
         expirationDate.setDate(expirationDate.getDate() + 30);
@@ -67,25 +87,53 @@ function Login(): React.JSX.Element {
 
       // manual login
       try {
-        const response = await sendRequest('v1/login', {
+        const response = await sendRequest('user/login', {
           method: 'POST',
-          data: { email, password },
+          data: {email, password},
         });
 
         setIsLoading(false);
 
         if (response.status === 200) {
-          localStorage.setItem('jwtToken', response.data.token);
-          router.push('/adminDashboard');
+          localStorage.setItem('jwtToken', response?.data?.userData?.token);
+          handleRedirect(response?.data?.userData?.token);
         } else {
           setError('Invalid email or password');
         }
       } catch (error: any) {
+        console.log('Error in Login API => ', error);
         setIsLoading(false);
-        setError('Invalid email or password');
+        setError('Login Failed, Please try again later');
+      } finally {
+        setSubmitting(false);
       }
     },
   });
+
+  const handleRedirect = (token: any) => {
+    console.log('token', token);
+    if (token) {
+      const decodedToken: any = decodeJWt(token);
+      if (
+        decodedToken.role.find(
+          ({role, name}: any) => role.includes('admin') || name === 'admin',
+        )
+      ) {
+        router.push('/adminDashboard');
+      } else if (
+        decodedToken.role.find(
+          ({role, name}: any) => role.includes('user') || name === 'user',
+        )
+      ) {
+        // router.push('/userDashboard');
+        router.push(configData.web.cominSoonUrl);
+      } else {
+        router.push('/spectatorDashboard');
+      }
+    } else {
+      router.push('/auth/401');
+    }
+  };
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
@@ -116,6 +164,11 @@ function Login(): React.JSX.Element {
       } else {
         setError('Google Sign-In failed');
       }
+      if (verifyResponse.status === 200) {
+        router.push('/userDashboard');
+      } else {
+        setError('Google Sign-In failed');
+      }
     } catch (error) {
       setIsLoading(false);
       setError('Google Sign-In failed');
@@ -138,7 +191,7 @@ function Login(): React.JSX.Element {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get('token');
-      console.log('token', token, window.location.href);
+      // console.log('token', token, window.location.href);
 
       if (token) {
         handleVerifyToken(token);
@@ -186,19 +239,31 @@ function Login(): React.JSX.Element {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <Image src="../assests/logobgmi.svg" alt="Tg-logo" width={100} height={100} />
+            <Image
+              src="../assests/logoWithBg.svg"
+              alt="Tg-logo"
+              width={250}
+              height={100}
+            />
           </div>
 
           <div>
-            <h2 className={styles.headDesc}>Hello Admin!</h2>
-            <p className={styles.heading}>Welcome back! Please enter your details</p>
+            {/* <h2 className={styles.headDesc}>Hello Warriors!</h2> */}
+            <p className={styles.heading}>
+              Welcome back! Please enter your details
+            </p>
           </div>
           <div>
             <form onSubmit={handleSubmit}>
               {error && <div className={styles.error}>{error}</div>}
               <div className={styles.input_box}>
                 <label className={styles.email} htmlFor="email">
-                  <Image src="../assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
+                  <Image
+                    src="../assests/fullnameicon.svg"
+                    alt="fullname"
+                    width={30}
+                    height={20}
+                  />
                 </label>
                 <Input
                   id="email"
@@ -218,7 +283,12 @@ function Login(): React.JSX.Element {
 
               <div className={styles.input_box}>
                 <label className={styles.password} htmlFor="password">
-                  <Image src="../assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
+                  <Image
+                    src="../assests/passwordlogo.svg"
+                    alt="passwordlogo"
+                    width={30}
+                    height={20}
+                  />
                 </label>
                 <Input
                   id="password"
@@ -249,7 +319,17 @@ function Login(): React.JSX.Element {
                 </label>
               </div>
 
-              <div className={styles.signin_withgoogle}>
+              <div className={styles.button_wrapper}>
+                <Button
+                  disabled={isLoading}
+                  className={styles.forgetbutton}
+                  variant="contained"
+                  onClick={handleSubmit}
+                >
+                  {isLoading ? 'Loading...' : 'Sign in'}
+                </Button>
+              </div>
+              {/* <div className={styles.signin_withgoogle}>
                 <FcGoogle />
                 <Button
                   disabled={isLoading}
@@ -260,23 +340,23 @@ function Login(): React.JSX.Element {
                 >
                   {isLoading ? 'Loading...' : 'Sign in with Google'}
                 </Button>
-              </div>
-
-              <div className={styles.button_wrapper}>
-                <Button
-                  disabled={isLoading}
-                  className={styles.forgetbutton}
-                  variant="contained"
-                  onClick={handleSubmit}
-                />
-                {isLoading ? 'Loading...' : 'Sign in'}
-
-              </div>
-
+              </div> */}
               <div className={styles.signin}>
                 <span className={styles.forgotDesc}>
-                  <Link href="/auth/forget-password">Forget your Password?</Link>
+                  <Link href="/auth/forget-password">
+                    Forget your Password?
+                  </Link>
                 </span>
+                <div className={styles.sign_accout}>
+                  <span className={styles.accout_in}>
+                    Don't have an accout?
+                  </span>
+                  <span className={styles.forgotDescsec}>
+                    <Link className={styles.link_sign} href="/auth/signup">
+                      Signup
+                    </Link>
+                  </span>
+                </div>
               </div>
             </form>
           </div>

@@ -27,29 +27,28 @@
   height: auto;
 }
 
-.content{
+.content {
   line-height: 48px;
   font-size: 40px;
   padding: 5px;
- 
 }
 
-.room_wrapper{
+.room_wrapper {
   display: flex;
   border: 2px solid white;
 }
 
-.imgSection{
-  border: 1px solid
+.imgSection {
+  border: 1px solid;
 }
 
-.room_container{
+.room_container {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.wrapperimg{
+.wrapperimg {
   height: 450px;
   width: 600px;
   margin: 2px;
@@ -63,7 +62,7 @@
 }
 .input_desc {
   display: flex;
-  justify-content:flex-end;
+  justify-content: flex-end;
 }
 
 // .content_body{
