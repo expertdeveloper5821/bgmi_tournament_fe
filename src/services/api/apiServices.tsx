@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from "axios";
-
 console.log("object check base url ", process.env.NEXT_PUBLIC_API_BASE_URL)
 
 const apiServices: AxiosInstance = axios.create({

@@ -20,20 +20,21 @@ export function Navbar() {
 
   //logout
   const handleLogout = async () => {
-    setIsLoading(true);
+    console.log("logout clicked")
+    // setIsLoading(true);
     try {
-      const response = await sendRequest("auth/logout", {
-        method: "POST",
-      });
+      // const response = await sendRequest("auth/logout", {
+      //   method: "GET",
+      // });
 
-      setIsLoading(false);
+      // setIsLoading(false);
 
-      if (response.status === 200) {
-        localStorage.removeItem("jwtToken");
-        router.push("/login");
-      } else {
-        setError("Logout failed");
-      }
+      // if (response.status === 200) {
+        localStorage.clear();
+        router.push("/");
+      // } else {
+      //   setError("Logout failed");
+      // }
     } catch (error) {
       setIsLoading(false);
       setError("Logout failed");
@@ -171,7 +172,9 @@ export function Navbar() {
                       </div>
                     </div>
                     <div className={styles.logoutbutton}>
-                      <div>
+                      <div 
+                          onClick={handleLogout}
+                          >
                         <Image
                           className={styles.logoutbuttonicon}
                           src="../assests/logouticon.svg"

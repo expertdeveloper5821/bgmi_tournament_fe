@@ -156,6 +156,7 @@
 
 .slidebar img {
   border-radius: 4px;
+  margin-right: 10px;
 }
 
 .register_match {
@@ -224,4 +225,43 @@
 
 .sort_btn{
   margin-right: 10px;
+}
+
+//Slider CSS
+
+.carusol {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  overflow: hidden;
+}
+
+.imagegroup {
+  display: flex;
+  gap: 3rem;
+  width: 350px;
+  height: 170px;
+  margin-bottom: 20px;
+}
+ 
+.imagegroup img {
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.imagegroup {
+  animation: travel 1s ease-in-out infinite;
+}
+
+@keyframes travel {
+  0%,
+  100% {
+    transform: translate3d(10, 20, 0);
+  }
+ 
+  100% {
+    transform: translate3d(-200%, 0, 0);
+  }
 }

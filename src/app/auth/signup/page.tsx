@@ -51,13 +51,13 @@ const Signup = () => {
             }
 
             try {
-                const response = await sendRequest("v1/signup", {
+                const response = await sendRequest("user/signup", {
                     method: "POST",
                     data: { fullName, userName, email, password },
                 });
                 if (response.status === 200) {
-                    localStorage.setItem("jwtToken", response.data.token);
-                    router.push("/auth/login");
+                    // localStorage.setItem("jwtToken", response.data.token);
+                    router.push(`/auth/login`);
                 } else {
                     setError("Failed to sign up. Please try again.");
                 }
@@ -96,11 +96,10 @@ const Signup = () => {
             <div className={styles.background_container}>
                 <div className={styles.container}>
                     <div className={styles.logo}>
-                        <Image src="/assests/logobgmi.svg" alt="Tg-logo" width={100} height={100} />
+                        <Image src="/assests/logoWithBg.svg" alt="Tg-logo" width={250} height={100} />
                     </div>
                     <div>
-                        <h2 className={styles.headDesc}>Welcome back</h2>
-                        <p className={styles.heading}>Welcome back! Please enter your details</p>
+                        <p className={styles.heading}>Welcome! Please enter your details</p>
                     </div>
                     <div>
                         <form onSubmit={handleSubmit}>
@@ -181,20 +180,23 @@ const Signup = () => {
                             {errors.password && touched.password && (
                                 <div className={styles.error}>{errors.password}</div>
                             )}
-
-                            <div className={styles.signin_withgoogle}>
-                                <FcGoogle /> Sign in with Google
-                            </div>
-                            <div className={styles.button_wrapper}>
+                             <div className={styles.button_wrapper}>
                                 <Button
                                     disabled={isLoading}
                                     className={styles.forgetbutton}
-                                    variant="contained"
+                                    // variant="contained"
                                     type="submit"
                                     onClick={handleSubmit}
-                                />
-                                {isLoading ? "Loading..." : "Sign up"}
+                                >
+                                    {isLoading ? "Loading..." : "Sign up"}
+                                </Button>
+
                             </div>
+
+                            {/* <div className={styles.signin_withgoogle}>
+                                <FcGoogle /> Sign up with Google
+                            </div> */}
+                           
                             <div className={styles.signin}>
                                 <span className={styles.forgotDesc}>
                                     <Link href="/auth/login"> Already have an account ? &nbsp; <b>Login</b></Link>

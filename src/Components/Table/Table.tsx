@@ -1,18 +1,11 @@
+'use client'
 import { useState, useEffect } from "react";
 import { useRouter, NextRouter } from "next/router";
 import styles from "../../styles/TableData.module.scss";
 //@ts-ignore
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell, IconButton } from "technogetic-iron-smart-ui";
-import Image from "next/image";
 
-export interface UserProfile {
-    fullName: string;
-    userName: string;
-    email: string;
-    role: string;
-}
-
-export interface USER_DATA {
+export interface StudentProfile {
     Course: string;
     Mobile: string;
     Student: string;
@@ -20,35 +13,28 @@ export interface USER_DATA {
     studentID: string;
 }
 
-export interface TeamsProfile {
-    emails: string;
-    leadPlayer: string;
-    id: string;
-}
-
-interface UserProfilePropsType {
-    userData: USER_DATA[] | [];
-    teamsData?: TeamsProfile[];
+interface StudentProfilePropsType {
+    studentData: StudentProfile[];
     showAdditionalButton?: boolean;
-    columns?: string[];
-    studentData?: USER_DATA[] | [];
+    columns: string[];
 }
 
-interface UserData {
+interface studentData {
     [key: string]: string;
 }
 
-const TableData: React.FC<UserProfilePropsType> = (props) => {
-    const [sortedData, setSortedData] = useState<USER_DATA[] | []>([]);
+const TableData = (props: StudentProfilePropsType) => {
+
+    const [sortedData, setSortedData] = useState(props?.studentData || []);
     const [isDescending, setIsDescending] = useState(false);
-    const [sortKey, setSortKey] = useState<string>("");
+    const [sortKey, setSortKey] = useState("");
 
     useEffect(() => {
-        setSortedData(props.userData);
-    }, []);
+        setSortedData(props?.studentData);
+    }, [props?.studentData]);
 
-    const handleSort = (key: keyof UserData) => {
-        let sorted: USER_DATA[] = [];
+    const handleSort = (key: keyof studentData) => {
+        let sorted = [];
 
         if (sortKey === key) {
             sorted = [...sortedData].reverse();
@@ -65,85 +51,88 @@ const TableData: React.FC<UserProfilePropsType> = (props) => {
         setSortKey(String(key));
     };
 
-    function handleDelete({ userData }: { userData: USER_DATA }): void {
-
+    function handleDelete({ studentData }: { studentData: studentData; }): void {
+        const updatedData = sortedData.filter(
+            (data: any) => data.studentID !== studentData.studentID
+        );
+        setSortedData(updatedData);
+        console.log("data", updatedData);
     }
 
-    const handleEdit = ({ userData }: { userData: USER_DATA }) => {
-        console.log("Edit student data:", userData);
-    };
+    const handleEdit = (studentData: studentData) => {
+        console.log("Edit student data:", studentData);
+    }
 
     return (
-        <Table className={styles.table_content}>
-            <TableHeader className={styles.tableHeader}>
-                <TableRow className={styles.tableRow}>
-
-                    {props.columns ? (
-                        props.columns.map((columnName) => (
+        <div>
+            <Table className={styles.table_content}>
+                <TableHeader className={styles.tableHeader}>
+                    <TableRow className={styles.tableRow}>
+                        {props.columns.map((columnName) => (
                             <TableHead className={styles.table_head} key={columnName}>
                                 <div className={styles.filter}>
                                     {columnName}
                                     <div>
-                                        <Image
-                                            src="/assests/upArrow.svg"
-                                            alt="filterup"
-                                            width={20}
-                                            height={20}
-                                            onClick={() => handleSort(columnName)}
-                                        />
-                                        <Image
-                                            src="/assests/downArrow.svg"
-                                            alt="filterdown"
-                                            width={20}
-                                            height={20}
-                                            onClick={() => handleSort(columnName)}
-                                        />
+                                        <img src="/assests/upArrow.svg" alt="filterup" onClick={() => handleSort(columnName)}></img>
+                                        <img src="/assests/downArrow.svg" alt="filterdown" onClick={() => handleSort(columnName)}></img>
                                     </div>
                                 </div>
                             </TableHead>
-                        ))
-                    ) : (
-                        <div>No Data Found</div>
-                    )}
-                    <TableHead className={styles.table_head}>
-                        <div className={styles.filter}>Actions</div>
-                    </TableHead>
-                </TableRow>
-            </TableHeader>
-
-            <TableBody className={styles.table_body}>
-                {sortedData?.length > 0 ? (
-                    // Render table rows when sortedData has items
-                    sortedData.map((userData, index) => (
-                        <TableRow className={styles.table_rowdata} key={index}>
-                            <TableCell className={styles.table_cell}>
-                                {userData.Course}
-                            </TableCell>
-                            <TableCell className={styles.table_cell}>
-                                {userData.Mobile}
-                            </TableCell>
-                            <TableCell className={styles.table_cell}>
-                                {userData.Student}
-                            </TableCell>
-                            <TableCell className={styles.table_cell}>
-                                {userData.StudentName}
-                            </TableCell>
-                            <TableCell className={styles.table_cell}>
-                                {userData.studentID}
-                            </TableCell>
-                        </TableRow>
-                    ))
-                ) : (
-                    <TableRow className={styles.table_rowdata}>
-                        <TableCell>No data found</TableCell>
+                        ))}
+                        <TableHead className={styles.table_head}>
+                            <div className={styles.filter}>Actions</div>
+                        </TableHead>
                     </TableRow>
-                )}
-            </TableBody>
-        </Table>
+                </TableHeader>
 
+                <TableBody className={styles.table_body}>
+                    {sortedData.map((studentData: any, index: number) => {
+                        const additionalImagePath = props.showAdditionalButton ? "./assests/StudentProfile.svg" : null;
+
+                        return (
+                            <TableRow className={styles.table_rowdata} key={index} >
+                                <TableCell className={styles.table_cell}>
+                                    {studentData.StudentName}
+                                </TableCell>
+
+                                <TableCell className={styles.table_cell}>
+                                    {studentData.Student}
+                                </TableCell>
+                                <TableCell className={styles.table_cell}>
+                                    {studentData.studentID}
+                                </TableCell>
+                                <TableCell className={styles.table_cell}>
+                                    {studentData.Mobile}
+                                </TableCell>
+                                <TableCell className={styles.table_cell}>
+                                    {studentData.Course}
+                                </TableCell>
+                                <TableCell className={styles.table_cell}>
+                                    {additionalImagePath ? (
+                                        <IconButton>
+                                            <div className={styles.iconWrapper}>
+                                                <img src="/assests/studentprofile.svg" alt="studentProfileView" className={styles.table_icon}></img>
+                                                <span>View Profile</span>
+                                            </div>
+                                        </IconButton>
+                                    ) : (
+                                        <>
+                                            <IconButton onClick={() => handleEdit(studentData)}>
+                                                <img src="/assests/TableEdit.svg" alt="studentProfileEdit" className={styles.cell_icon}></img>
+                                            </IconButton>
+                                            <IconButton onClick={() => handleDelete({ studentData })}>
+                                                <img src="/assests/Tabledelete.svg" alt="studentProfileDelete" className={styles.cell_icon}></img>
+                                            </IconButton>
+                                        </>
+                                    )}
+                                </TableCell>
+                            </TableRow>
+                        );
+                    })}
+                </TableBody>
+            </Table>
+        </div>
     );
 };
 
 export default TableData;
-
-

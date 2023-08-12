@@ -1,46 +1,67 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
 import { Navbar } from '../../../Components/Navbar/Navbar';
-// @ts-ignore
-import { Pagination, Button, Input } from 'technogetic-iron-smart-ui';
+import {Button} from 'technogetic-iron-smart-ui'
+import { decodeJWt } from '@/utils/globalfunctions';
 import Image from 'next/image';
 import sendRequest from '@/services/auth/auth_All_Api';
-import { useRouter } from 'next/navigation';
-import apiServices from '@/services/api/apiServices';
 
 export interface IAppProps { }
 
 function Tournament() {
 
-  const router = useRouter();
+  const [alldata,setData] = useState<any>([]);
+  const [lastTournament, setLastTournament] = useState<any>(null);
+  const [allTournaments, setAllTournaments] = useState<any>(null);
+  const [gameName, setMatchName] = useState<any>('');
+  const [gameType, setGameType] = useState<any>('');
+  const [mapType, setMapType] = useState<any>('');
+  const [version, setVersion] = useState<any>('');
+  const [regMatches, setRegMatches] = useState<any>('');
 
-  const handleVerifyTokenInLogin = async (token: any) => {
-    try {
-      const verifyResponse = await sendRequest("auth/verify/?" + `token=${token}`, {
-        method: "GET",
-      });
-      console.log("verifyResponse", verifyResponse);
-      if (verifyResponse.status === 200) {
-        router.push("/adminDashboard");
-      } else {
+  const getAllTournaments = async () => {
+    const token:any = localStorage.getItem('jwtToken');
+    const decodedToken: any = decodeJWt(token)
+    const tournamentResponse = await sendRequest('api/v1/room/rooms', {
+      method: 'GET',
+      headers: {'Authorization': `Bearer ${token}`  }
+    });
+    setData(tournamentResponse.data[0].rooms);  
 
-      }
-    } catch (error) {
+    const registeredMatches = await sendRequest('api/v1/team/register-room/'+decodedToken.userId, {
+      method: 'GET',
+      headers: {'Authorization': `Bearer ${token}`  }
+    });
+    setRegMatches(registeredMatches.data.rooms);
+  } 
 
-    }
-  };
+  console.log('setRegMatches_________',regMatches)
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGQzM2JmZDBkMGVkNGZlNmZhNTIzYmUiLCJyb2xlIjpbeyJfaWQiOiI2NGM3ODU5MjI2ZmM2NWJjMGYzY2NiMmIiLCJyb2xlIjpbInNwZWN0YXRvciJdfV0sImlhdCI6MTY5MTY2NTU0MCwiZXhwIjoxNjkxNjY5MTQwfQ.llaU04_-NEFYld0TQGxMIcozrH1o_4YtgpPZTs-_RPU';
-    console.log('NOTWorking______________________');
-    if(token){
-      localStorage.setItem("jwtToken",token);
-      handleVerifyTokenInLogin(token)
-      console.log('Working______________________');
-    }
-  }, [])
+  useEffect(()=>{
+    getAllTournaments(); 
+  },[])
+
+  useEffect(()=>{
+    setLastTournament(alldata[alldata.length - 1]);
+    setAllTournaments(alldata?.slice(0,3));
+  },[alldata])
+
+  useEffect(()=>{
+    setMatchName(lastTournament?.gameName);
+    setGameType(lastTournament?.gameType);
+    setMapType(lastTournament?.mapType);
+    setVersion(lastTournament?.version);
+  },[lastTournament])
+
+  const updateMainData = (gname:any, gType:any, mType:any, vType:any) =>{
+    setMatchName(gname);
+    setGameType(gType);
+    setMapType(mType);
+    setVersion(vType);
+  }
+
+  console.log('allTournaments_________',allTournaments);
   
   return (
     <>
@@ -48,12 +69,13 @@ function Tournament() {
         <div className={styles.abcd}>
           <div className={styles.sidebar_wrapper}>
             <Navbar />
-
+            
             <div className={styles.content}>
 
               <div className={styles.dashboard}>
                 <span className={styles.head_desc}>Upcoming Matches</span>
                 <h1 className={styles.subhead_desc}>Dashboard/Upcoming Matches</h1>
+
               </div>
               {/* <div className={styles.sort_btn}>
                 <Image src='../assests/sort_button.svg' alt='sortButton' className={styles.wrapperimg} width={100} height={100}/>
@@ -71,7 +93,7 @@ function Tournament() {
                 <span className={styles.register_match}>Registered  Matches</span>
               </div>
               <div className={styles.squad_match}>
-                <span className={styles.register_match}>BGMI  SQUAD MATCH</span>
+                <span className={styles.register_match}>{gameName}</span>
                 <span className={styles.winning_prize}>Time : 02/08/2023 at 06:00pm</span>
 
                 <div className={styles.winnings}>
@@ -92,17 +114,17 @@ function Tournament() {
 
                   <div>
                     <span className={styles.winning_prize}>TYPE</span>
-                    <span className={styles.tvm_font} style={{ color: 'rgba(255, 214, 0, 1)' }}>Tournaments</span>
+                    <span className={styles.tvm_font} style={{ color: 'rgba(255, 214, 0, 1)' }}>{gameType}</span>
                   </div>
 
                   <div>
                     <span className={styles.winning_prize}>VERSION</span>
-                    <span className={styles.tvm_font} style={{ color: 'rgba(255, 214, 0, 1)' }}>TPP</span>
+                    <span className={styles.tvm_font} style={{ color: 'rgba(255, 214, 0, 1)' }}>{version}</span>
                   </div>
 
                   <div>
                     <span className={styles.winning_prize}>MAP</span>
-                    <span className={styles.tvm_font} style={{ color: 'rgba(255, 122, 0, 1)' }}>Erangel</span>
+                    <span className={styles.tvm_font} style={{ color: 'rgba(255, 122, 0, 1)' }}>{mapType}</span>
                   </div>
                 </div>
 
@@ -117,10 +139,26 @@ function Tournament() {
 
                 <div className={styles.winnings}>
                   <div className={styles.slidebar}>
-                    <img src='../assests/cards.svg' alt='slides'></img>
-                    <img src='../assests/cards3.svg' alt='slides'></img>
-                    <img src='../assests/cards.svg' alt='slides'></img>
+                    {
+                      allTournaments &&  allTournaments.map((e:any)=><img src='../assests/cards.svg' alt='slides'  onClick={() => updateMainData(e.gameName, e.gameType, e.mapType, e.version)}></img>)
+                    }
                   </div>
+
+                  {/* <div className={styles.slidebar}>
+                    <div className={styles.carusol}>
+                      <div className={styles.row && styles.small}>
+                        <div className={styles.imagegroup} style={{ animationDelay: '1s' }}>
+                          <img src='../assests/cards.svg' alt='slides' />
+                          <img src='../assests/cards.svg' alt='slides' />
+                          <img src='../assests/cards.svg' alt='slides' />
+                          <img src='../assests/cards.svg' alt='slides' />
+                          <img src='../assests/cards.svg' alt='slides' />
+                        </div>
+                      </div>
+                    </div>
+                  </div> */}
+
+
                 </div>
               </div>
             </div>
