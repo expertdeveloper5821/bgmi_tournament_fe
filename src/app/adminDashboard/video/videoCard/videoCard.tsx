@@ -2,21 +2,32 @@
 import React, {useEffect, useState} from 'react';
 import styles from '../../../../styles/videoCard.module.scss';
 import sendRequest from '@/services/auth/auth_All_Api';
-const VideoCard: React.FC = () => {
+
+interface CustomPaginationProps {
+  onDataUpdate: (data: any) => void;
+}
+
+
+const VideoCard:React.FC<CustomPaginationProps>= ({onDataUpdate}) => {
+
   const [data, setData] = useState<any>();
+  // will use spectator login token here 
+  console.log(data);
+  
   const accessToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGQyM2NmZmYyZGU4ZDVhODM2OTVlOWYiLCJyb2xlIjpbeyJfaWQiOiI2NGM3ODE1M2QyYzhhODQzMWNjMzZiZjIiLCJyb2xlIjpbImFkbWluIl19XSwiaWF0IjoxNjkxNDk5Nzg2LCJleHAiOjE2OTE2NzI1ODZ9.cqEU_VKAnUDCBj6GgNTqLHemqZSrkeFBZblLXxP5hhM';
-  useEffect(() => {
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGQyM2NmZmYyZGU4ZDVhODM2OTVlOWYiLCJyb2xlIjpbeyJfaWQiOiI2NGM3ODE1M2QyYzhhODQzMWNjMzZiZjIiLCJyb2xlIjpbImFkbWluIl19XSwiaWF0IjoxNjkxNzM2MzcwLCJleHAiOjE2OTE5MDkxNzB9.GGAIOjgZs9q82XdLZNvR-TQ4JwALiIev8lfLBtajhE4'   
+    useEffect(() => {
     const fetchData = async () => {
       try {
+        // const accessToken = localStorage.getItem('jwttoken')
         const response = await sendRequest('api/v1/role/allvideolink', {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        // console.log(response);
         setData(response?.data?.data);
+        onDataUpdate(response?.data?.data);
       } catch (error) {
         console.log(error);
       }

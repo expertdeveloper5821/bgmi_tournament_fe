@@ -8,7 +8,7 @@ const reviewSection = () => {
         <div className={styles.container}>
         <img src='/assests/trophy.svg' alt='trophy' className={styles.cornerone}/>
         <img src='/assests/trophy.svg' alt='trophy' className={styles.middleone}/>
-        <img src='/assests/trophy.svg' alt='trophy' className={styles.middleone}/>
+        <img src='/assests/trophy.svg' alt='trophy' className={styles.middletwo}/>
         <img src='/assests/trophy.svg' alt='trophy' className={styles.cornerone}/>
         </div>
         <div className={styles.reviewsContainer}>

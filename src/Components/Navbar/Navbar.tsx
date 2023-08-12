@@ -152,7 +152,7 @@ export function Navbar() {
                       <div className={styles.flexcol}>
                         <Image
                           className={styles.settingicon}
-                          src="../assests/settingicon.svg"
+                          src="../assests/settings.svg"
                           alt="setting"
                           width={20}
                           height={20}
@@ -160,7 +160,7 @@ export function Navbar() {
                         <div className={styles.myprofile}>Settings</div>
                       </div>
                       <div className={styles.flexcol}>
-                        <Image
+                        <img
                           className={styles.notification_icon}
                           src="../assests/notification.svg"
                           alt="notification"

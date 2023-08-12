@@ -1,0 +1,26 @@
+@import './mixins.scss';
+@import './variable.scss';
+
+.main_container{
+    display: flex;
+    width: 30%;
+    justify-content: space-evenly;
+
+}
+.main_container ul{
+    display: flex;
+    // width: 300px;
+    justify-content: space-evenly;
+    list-style-type: none
+
+    
+}
+.main_container ul li{
+   text-decoration: none;
+    
+}
+.main_container ul li a{
+    font-size: 20px;
+
+    
+}
