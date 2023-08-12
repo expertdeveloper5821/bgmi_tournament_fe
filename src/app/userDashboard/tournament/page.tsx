@@ -10,15 +10,18 @@ import sendRequest from '@/services/auth/auth_All_Api';
 export interface IAppProps { }
 
 function Tournament() {
-
+  const [showModal, setShowModal] = useState(false);
   const [alldata,setData] = useState<any>([]);
   const [lastTournament, setLastTournament] = useState<any>(null);
   const [allTournaments, setAllTournaments] = useState<any>(null);
+  const [regMatches, setRegMatches] = useState<any>('');
   const [gameName, setMatchName] = useState<any>('');
   const [gameType, setGameType] = useState<any>('');
   const [mapType, setMapType] = useState<any>('');
   const [version, setVersion] = useState<any>('');
-  const [regMatches, setRegMatches] = useState<any>('');
+  const [date, setDate] = useState<any>('');
+  const [time, setTime] = useState<any>('');
+  const [lastServival, setLastServival] = useState<any>('');
 
   const getAllTournaments = async () => {
     const token:any = localStorage.getItem('jwtToken');
@@ -52,13 +55,19 @@ function Tournament() {
     setGameType(lastTournament?.gameType);
     setMapType(lastTournament?.mapType);
     setVersion(lastTournament?.version);
+    setVersion(lastTournament?.date);
+    setTime(lastTournament?.time);
+    setLastServival(lastTournament?.lastServival);
   },[lastTournament])
 
-  const updateMainData = (gname:any, gType:any, mType:any, vType:any) =>{
+  const updateMainData = (gname:any, gType:any, mType:any, vType:any, mdate:any, mtime:any, lastServival:any) =>{
     setMatchName(gname);
     setGameType(gType);
     setMapType(mType);
     setVersion(vType);
+    setDate(mdate);
+    setTime(mtime);
+    setLastServival(lastServival);
   }
 
   console.log('allTournaments_________',allTournaments);
@@ -94,13 +103,13 @@ function Tournament() {
               </div>
               <div className={styles.squad_match}>
                 <span className={styles.register_match}>{gameName}</span>
-                <span className={styles.winning_prize}>Time : 02/08/2023 at 06:00pm</span>
+                <span className={styles.winning_prize}>Time : {time} at {date}</span>
 
                 <div className={styles.winnings}>
 
                   <div>
                     <span className={styles.winning_prize}>WINNING PRIZE</span>
-                    <span className={styles.survival_content}> Last Survival: 60</span>
+                    <span className={styles.survival_content}> Last Survival: {lastServival}</span>
                   </div>
 
                   <div>
@@ -133,113 +142,60 @@ function Tournament() {
                     <span className={styles.bar_font}> Only 30 spots Left</span>
                     <span className={styles.bar_font}>20/50</span>
                   </div>
-                  <Button className={styles.join_button}> Join</Button>
+                  <Button className={styles.join_button}   onClick={() => setShowModal(true)}> Join</Button>
                 </div>
-
-
                 <div className={styles.winnings}>
                   <div className={styles.slidebar}>
                     {
-                      allTournaments &&  allTournaments.map((e:any)=><img src='../assests/cards.svg' alt='slides'  onClick={() => updateMainData(e.gameName, e.gameType, e.mapType, e.version)}></img>)
+                      allTournaments &&  allTournaments.map((e:any)=><img src='../assests/cards.svg' alt='slides'  onClick={() => updateMainData(e.gameName, e.gameType, e.mapType, e.version, e.date, e.time, e.lastServival)}></img>)
                     }
                   </div>
-
-                  {/* <div className={styles.slidebar}>
-                    <div className={styles.carusol}>
-                      <div className={styles.row && styles.small}>
-                        <div className={styles.imagegroup} style={{ animationDelay: '1s' }}>
-                          <img src='../assests/cards.svg' alt='slides' />
-                          <img src='../assests/cards.svg' alt='slides' />
-                          <img src='../assests/cards.svg' alt='slides' />
-                          <img src='../assests/cards.svg' alt='slides' />
-                          <img src='../assests/cards.svg' alt='slides' />
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
-
-
                 </div>
               </div>
             </div>
           </div>
           <div className={styles.container2}>
-            <img src='../assests/registeredmatches.svg' alt='slides'></img>
-            {/* <div className={styles.image_text}>
-              <span>30/100</span>
-              <div>
-                <span>BGMI Squad Match</span>
-                <span className={styles.view_more} style={{ color: 'rgba(255, 122, 0, 1)' }}>view more</span>
-              </div>
-            </div> */}
-            <div className={styles.Tournaments}>
-              <div className={styles.tournament_slider}>
-                <div className={styles.winning_prize}>
-                  <span> TYPE</span>
-                  <span className={styles.tvm_font} style={{ color: 'rgba(255, 214, 0, 1)' }}> Tournaments</span>
-                </div>
-                <div className={styles.winning_prize}>
-                  <span>Version</span>
-                  <span className={styles.tvm_font} style={{ color: 'rgba(255, 214, 0, 1)' }}>TPP</span>
-                </div>
-                <div className={styles.winning_prize}>
-                  <span>MAP</span>
-                  <span className={styles.tvm_font} style={{ color: 'rgba(255, 122, 0, 1)' }}>Erangel</span>
-                </div>
-              </div>
-              <div className={styles.room_create}>
-                <div className={styles.winning_prize}>
-                  <span> Match start within </span>
-                  <span>10 minutes</span>
-                </div>
-                <div className={styles.winning_prize}>
-                  <span>0</span>
-                  <span>Minutes</span>
-                </div>
+
+            {
+              regMatches && regMatches.map((match:any)=>{
+                return <>
+                <img src='../assests/registeredmatches.svg' alt='slides'></img>
+                  <div className={styles.Tournaments}>
+                    <div className={styles.tournament_slider}>
+                      <div className={styles.winning_prize}>
+                        <span> TYPE</span>
+                        <span className={styles.tvm_font} style={{ color: 'rgba(255, 214, 0, 1)' }}>{match.gameType}</span>
+                      </div>
+                      <div className={styles.winning_prize}>
+                        <span>Version</span>
+                        <span className={styles.tvm_font} style={{ color: 'rgba(255, 214, 0, 1)' }}>{match.version}</span>
+                      </div>
+                      <div className={styles.winning_prize}>
+                        <span>MAP</span>
+                        <span className={styles.tvm_font} style={{ color: 'rgba(255, 122, 0, 1)' }}>{match.mapType}</span>
+                      </div>
+                    </div>
+                    <div className={styles.room_create}>
+                      <div className={styles.winning_prize}>
+                        <span> Match start</span>
+                        <span>{match.date}</span>
+                      </div>
+                      <div className={styles.winning_prize}>
+                        <span>Time</span>
+                        <span>{match.time}</span>
+                      </div>
+                    </div>
+                    <div className={styles.id_password}>
+                      <span>Room Id: {match.roomId}</span>
+                      <span>Room password: {match.password}</span>
+                    </div>
+                  </div>
+                </>
+              })
+            }
+            
 
 
-
-              </div>
-              <div className={styles.id_password}>
-                <span>Room Id: 5263487</span>
-                <span>Room password: 263</span>
-              </div>
-            </div>
-            <img src='../assests/registeredmatches.svg' alt='slides'></img>
-
-            <div className={styles.Tournaments}>
-              <div className={styles.tournament_slider}>
-                <div className={styles.winning_prize}>
-                  <span> TYPE</span>
-                  <span className={styles.tvm_font} style={{ color: 'rgba(255, 214, 0, 1)' }}> Tournaments</span>
-                </div>
-                <div className={styles.winning_prize}>
-                  <span>Version</span>
-                  <span className={styles.tvm_font} style={{ color: 'rgba(255, 214, 0, 1)' }}>TPP</span>
-                </div>
-                <div className={styles.winning_prize}>
-                  <span>MAP</span>
-                  <span className={styles.tvm_font} style={{ color: 'rgba(255, 122, 0, 1)' }}>Erangel</span>
-                </div>
-              </div>
-              <div className={styles.room_create}>
-                <div className={styles.winning_prize}>
-                  <span> Match start within </span>
-                  <span>10 minutes</span>
-                </div>
-                <div className={styles.winning_prize}>
-                  <span>0</span>
-                  <span>Minutes</span>
-                </div>
-
-
-
-              </div>
-              <div className={styles.id_password}>
-                <span>Room Id: 5263487</span>
-                <span>Room password: 263</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
