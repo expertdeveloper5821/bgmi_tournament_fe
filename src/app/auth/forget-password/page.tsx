@@ -76,8 +76,9 @@ export default function ResetPassword(): JSX.Element {
               variant="contained"
               className={styles.SignIn_button}
               onClick={sendEmail}
-            />
-            Recover Password
+            >
+              Recover Password
+            </Button>
 
           </div>
           <div className={styles.signin}>
