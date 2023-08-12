@@ -151,6 +151,7 @@
   @media (max-width: $breakpoint-md) {
    display: flex;
    justify-content: center;
+   flex-direction: column-reverse;
   }
   @media (max-width: $breakpoint-xs) {
     display: flex;
@@ -163,8 +164,10 @@
   justify-content: flex-end;
   align-items: center;
   @media (max-width: $breakpoint-md) {
-    display: none;
-  }
+    width: 80%;
+    display: flex;
+    justify-content: center;
+   }
 }
 .cardbannerimg {
   margin-top: 19px;
