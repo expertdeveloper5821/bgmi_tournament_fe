@@ -5,16 +5,15 @@ interface CustomPaginationProps {
 }
 
 const CustomPagination: React.FC<CustomPaginationProps> = ({data}) => {
-    console.log("data is this", data);
+
     
   const [currentPage, setCurrentPage] = useState<number>(1);
   const recordsPerPage = 6;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = data.slice(firstIndex, lastIndex);
-  console.log(records);
+  const records = data?.slice(firstIndex, lastIndex);
   
-  const nPage = Math.ceil(data.length / recordsPerPage);
+  const nPage = Math.ceil(data?.length / recordsPerPage);
   const numbers: number[] = [];
 
   for (let i = 1; i <= nPage; i++) {
@@ -42,19 +41,19 @@ const CustomPagination: React.FC<CustomPaginationProps> = ({data}) => {
       <ul className={styles.un_list}>
         <li>
           <a href="#" onClick={handlePrePage}>
-            prev
+           {`<`} Previous
           </a>
         </li>
-        {numbers.map((n, i) => (
-          <li key={i} className={currentPage === n ? 'active' : 'inactive'}>
+        {/* {numbers.map((n, i) => (
+          <li key={i} className<={currentPage === n ? 'active' : 'inactive'}>
             <a href="#" onClick={() => changePage(n)}>
               {n}
             </a>
           </li>
-        ))}
+        ))} */}
         <li>
           <a href="#" onClick={handleNextPage}>
-            next
+            Next {`>`}
           </a>
         </li>
       </ul>
