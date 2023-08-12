@@ -7,6 +7,9 @@ import {
   FaUserAlt,
   FaRegChartBar,
   FaCommentAlt,
+  FaUserFriends,
+  FaVideo,
+  FaUserShield
 } from "react-icons/fa";
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,12 +32,17 @@ const dynamicMenuItems = [
   {
     path: "/userDashboard/videos",
     name: "Videos",
-    icon: <FaCommentAlt />,
+    icon: <FaVideo />,
   },
   {
     path: "/userDashboard/kyc",
     name: "KYC",
-    icon: <FaCommentAlt />,
+    icon: <FaUserShield />,
+  },
+  {
+    path: "/userDashboard/friends",
+    name: "friends",
+    icon: <FaUserFriends />,
   }
 ];
 export default function RootLayout({

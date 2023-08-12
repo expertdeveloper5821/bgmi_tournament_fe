@@ -267,7 +267,6 @@ function Login(): React.JSX.Element {
                   disabled={isLoading}
                   className={styles.forgetbutton}
                   variant="contained"
-                  type="submit"
                   onClick={handleSubmit}
                 />
                 {isLoading ? 'Loading...' : 'Sign in'}

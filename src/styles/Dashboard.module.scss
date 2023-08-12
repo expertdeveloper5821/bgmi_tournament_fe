@@ -6,7 +6,10 @@
   display: flex;
   background-color: rgba(0, 53, 84, 1);
   // position: static;
-  height: 100vh;
+ 
+  @media (max-width: $breakpoint-md) {
+//  height: 100vh;
+ }
 }
 
 .abcd {

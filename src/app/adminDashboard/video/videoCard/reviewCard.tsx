@@ -14,15 +14,11 @@ const reviewCard = () => {
           <h2>jaspreeet singh</h2>
           <p>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex,
-            accusantium eveniet. Architecto eum deleniti amet autem eaque quae,
-            labore similique minima, laboriosam harum sint voluptatum
-            perferendis qui facilis vitae ab.
+            accusantium eveniet.
           </p>
         </div>
       </div>
     </div>
-
-
     <div className={styles.reviewCard}>
       <div className={styles.reviews}>
         <img
@@ -34,9 +30,7 @@ const reviewCard = () => {
           <h2>jaspreeet singh</h2>
           <p>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex,
-            accusantium eveniet. Architecto eum deleniti amet autem eaque quae,
-            labore similique minima, laboriosam harum sint voluptatum
-            perferendis qui facilis vitae ab.
+            accusantium eveniet.
           </p>
         </div>
       </div>
@@ -53,9 +47,7 @@ const reviewCard = () => {
           <h2>jaspreeet singh</h2>
           <p>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex,
-            accusantium eveniet. Architecto eum deleniti amet autem eaque quae,
-            labore similique minima, laboriosam harum sint voluptatum
-            perferendis qui facilis vitae ab.
+            accusantium eveniet.
           </p>
         </div>
       </div>

@@ -5,8 +5,9 @@
   width: 100%;
   background-image: url('/assests/videobanner.svg');
   background-repeat: no-repeat;
-  // overflow: hidden;
   background-size: cover;
+  display: flex;
+  flex-direction: column;
 }
 .loader {
   display: flex;
@@ -58,15 +59,20 @@
 
 .container {
   display: flex;
-  width: 100%;
+  // width: 100%;
   justify-content: space-between;
   margin-top: 3%;
   padding-right: 3%;
   @media (max-width: $breakpoint-md) {
     flex-direction: column;
+    padding-left: 3%;
+    display: flex;
+    justify-content: center;
   }
   @media (max-width: $breakpoint-xs) {
-    min-width: 200px;
+    display: flex;
+    justify-content: center;
+    padding-left: 3%;
   }
 }
 .videoCard {
@@ -75,8 +81,19 @@
   width: 30%;
 }
 .centerText {
-  margin-top: 28%;
+  margin-top: 15%;
   width: 30%;
+  @media (min-width: $breakpoint-md) {
+    position: absolute;
+    left: 600px;
+    top: 37%;
+  }
+  @media (max-width: $breakpoint-lg) and (min-width: $breakpoint-ms) {
+    position: absolute;
+    left: 580px;
+    top: 42%;
+}
+ 
 }
 .selectContainer {
   position: relative;
@@ -94,4 +111,12 @@
 .reviewSection{
   width: 30%;
 }
-
+.pagination{
+  display: flex;
+  justify-content:flex-end !important;
+  margin-top:6%;
+  color: #ff7a00;
+  @media (max-width: $breakpoint-xs) {
+    justify-content: center !important;
+  }
+}
