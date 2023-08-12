@@ -5,23 +5,20 @@ import Card from '@/Components/CommonComponent/Card';
 import {Navbar} from '@/Components/Navbar/Navbar';
 import sendRequest from '@/services/auth/auth_All_Api';
 import {toast} from 'react-toastify';
-// import CustomPagination from '@/Components/Pagination/Pagination'
+import CustomPagination from '@/Components/Pagination/Pagination';
 const Friend = () => {
   const [open, setOpen] = useState(false);
   const [forwardModal, setForwardModal] = useState(false);
   const [teamData, setTeamData] = useState<any[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
-  const [message,setMessage] = useState<string>('')
+  const [message, setMessage] = useState<string>('');
   const [emailList, setEmailList] = useState<string[]>([]);
   const [fwdId, setFwdId] = useState<any>();
-  console.log('thisis hte fwd is', fwdId);
 
   const handleModal = (value: boolean) => {
     setOpen(value);
   };
-  const sendInviteByEmail = () => {
-    setForwardModal(true);
-  };
+
   const handleCloseModal = () => {
     setOpen(false);
   };
@@ -44,68 +41,109 @@ const Friend = () => {
   const handleForwardIndex = (value: any) => {
     setFwdId(value);
   };
+  const handleOpenFwdModal = () => {
+    setForwardModal(true);
+  };
   const handleForwardModal = (value: boolean) => {
     setForwardModal(value);
   };
-const handleDelete = async() =>{
-  try {
-    const data = teamData[fwdId];
-    const id = data.id
-    const accessToken = localStorage.getItem('jwttoken');
-    const response = await sendRequest(`api/v1/team/deleteteam/${id}`, {
-      method: 'Delete',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    if (response.data.code === 200) {
-      window.location.reload()
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-  // send email
-  const sendEmail = async () => {
-    console.log(teamData[fwdId]);
+  const handleDelete = async () => {
     try {
       const data = teamData[fwdId];
+      const id = data.id;
+      const accessToken = localStorage.getItem('jwttoken');
+      const response = await sendRequest(`/api/v1/team/deleteteam/${id}`, {
+        method: 'Delete',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (response.data.code === 200) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // send email
+  // const sendEmail = async () => {
+  //   console.log(teamData[fwdId]);
+  //   try {
+  //     const data = teamData[fwdId];
+  //     const userData = {
+  //       leadPlayer: data.leadPlayer,
+  //       id: data.uuid,
+  //       emails: emailList,
+  //     };
+  //     console.log(userData);
+
+  //     const accessToken = localStorage.getItem('jwttoken');
+  //     const response = await sendRequest('/api/v1/team/addteam', {
+  //       method: 'POST',
+  //       headers: {
+  //         Authorization: `Bearer ${accessToken}`,
+  //       },
+  //       body: userData,
+  //     });
+  //     if (response.data.code === 200) {
+  //       setMessage(response.data.message)
+  //       setEmailList([]);
+  //       toast(response.data.message, {
+  //         position: 'top-center',
+  //       });
+  //       setTimeout(() => {
+  //         window.location.reload()
+  //       }, 2000);
+  //     }
+  //         } catch (error: any) {
+  //     setEmailList([]);
+  //     setMessage(error.response.data.message)
+  //     toast.error(error.response.data.message, {
+  //       position: 'top-center',
+  //     });
+  //     setTimeout(() => {
+  //       window.location.reload()
+  //     }, 2000);
+  //   }
+  // };
+  const sendInviteByEmail = async () => {
+    try {
+      setForwardModal(true);
       const userData = {
-        leadPlayer: data.leadPlayer,
-        id: data.uuid,
         emails: emailList,
       };
-      console.log(userData);
 
       const accessToken = localStorage.getItem('jwttoken');
-      const response = await sendRequest('api/v1/team/addteam', {
+      const response = await sendRequest('/api/v1/team/send-invite', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
         body: userData,
       });
-      if (response.data.code === 200) {
-        setMessage(response.data.message)
+      console.log("response",response);
+      
+      if (response.data.code) {
+        setMessage('Friends added Successfully');
         setEmailList([]);
-        toast(response.data.message, {
-          position: 'top-center',
-        });
         setTimeout(() => {
-          window.location.reload()
+          window.location.reload();
         }, 2000);
       }
-          } catch (error: any) {
+    } catch (error: any) {
       setEmailList([]);
-      setMessage(error.response.data.message)
-      toast.error(error.response.data.message, {
-        position: 'top-center',
-      });
+      setMessage(error.response.data.message);
       setTimeout(() => {
-        window.location.reload()
+        window.location.reload();
       }, 2000);
     }
+  };
+  const handleDeleteEmail = (indexToDelete: number) => {
+    const updatedEmailList = emailList.filter(
+      (_, index) => index !== indexToDelete,
+    );
+    setEmailList(updatedEmailList);
   };
   return (
     <>
@@ -140,7 +178,10 @@ const handleDelete = async() =>{
               </select>
             </div>
             <div>
-              <button className={styles.sendMailBtn} onClick={sendInviteByEmail}>
+              <button
+                className={styles.sendMailBtn}
+                onClick={handleOpenFwdModal}
+              >
                 SEND INVITE BY EMAIL
               </button>
             </div>
@@ -163,9 +204,9 @@ const handleDelete = async() =>{
             />
           </div>
         </div>
-        {/* <div className={styles.pagination}>
-          <CustomPagination  data={receivedData} />
-        </div> */}
+        <div className={styles.pagination}>
+          <CustomPagination data={teamData} />
+        </div>
       </div>
       {/* deleteModal here */}
       {open ? (
@@ -181,7 +222,9 @@ const handleDelete = async() =>{
               <p>Are you sure want to delete this?</p>
             </div>
             <div className={styles.footer}>
-              <button className={styles.deletebtn} onClick={handleDelete} >Delete</button>
+              <button className={styles.deletebtn} onClick={handleDelete}>
+                Delete
+              </button>
               <button className={styles.cancelbtn} onClick={handleCloseModal}>
                 Cancel
               </button>
@@ -205,13 +248,14 @@ const handleDelete = async() =>{
                 id="search"
                 name="search"
                 value={inputValue}
-                // placeholder="Enter email and press enter"
+                placeholder="Enter email press enter and send invitation"
                 onChange={handleInputChange}
                 onKeyDown={handleKeyPress}
               />
               {emailList.length > 0 &&
                 emailList.map((email, index) => {
-                  const truncatedEmail = email.length > 15 ? email.substring(0, 15) + '...' : email;
+                  const truncatedEmail =
+                    email.length > 15 ? email.substring(0, 15) + '...' : email;
                   return (
                     <div key={index} className={styles.inputemail_container}>
                       <div className={styles.inputemail}>
@@ -219,14 +263,13 @@ const handleDelete = async() =>{
                         <img
                           src="/assests/orangecross.svg"
                           className={styles.cancelsvg}
+                          onClick={() => handleDeleteEmail(index)}
                         />
                       </div>
                     </div>
                   );
                 })}
-          <div className={styles.resMsg}>
-            {message}
-          </div>
+              <div className={styles.resMsg}>{message}</div>
             </div>
             <div className={styles.forwardcheckbox}>
               <input type="checkbox" />
@@ -239,7 +282,7 @@ const handleDelete = async() =>{
               >
                 Cancel
               </button>
-              <button className={styles.sendbtn} onClick={sendEmail}>
+              <button className={styles.sendbtn} onClick={sendInviteByEmail}>
                 Send
               </button>
             </div>

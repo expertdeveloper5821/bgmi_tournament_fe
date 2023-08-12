@@ -30,14 +30,16 @@ const Card: React.FC<CardProps> = ({fwdindex,toOpen, forwardModalOpen, teamData}
     const fetchData = async () => {
       try {
         const accessToken = localStorage.getItem('jwttoken');
-        const response = await sendRequest('api/v1/team/getallteam', {
+        const response = await sendRequest('/api/v1/team/get-team', {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        setRes(response?.data?.data);
-        teamData(response?.data?.data);
+        console.log(response);
+        
+        setRes(response?.data);
+        teamData(response?.data);
       } catch (error) {
         console.log(error);
       }
@@ -48,7 +50,7 @@ const Card: React.FC<CardProps> = ({fwdindex,toOpen, forwardModalOpen, teamData}
     <>
       {res &&
         res.map((data: any, index: any) => {
-          const shortEmail = data.leadPlayer.slice(0, 20);
+          const shortEmail = data.email.slice(0, 20);
           return (
             <div className={styles.reviewsContainer} key={index}>
               {' '}
