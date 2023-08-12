@@ -92,16 +92,21 @@ button#btn_cls_st {
   }
 }
 .room_field_wrapper {
-  border: 1px solid #ff7a00 !important;
+  border: none !important;
+  border-bottom: 1px solid #9e9e9e !important;
+  border-radius: 0px !important;
   margin: 12px 0px;
+  padding: 2px !important;
   @media (max-width: $breakpoint-xs) {
     margin: 8px 0px;
   }
 }
 .room_id {
-  color: #ff7a00 !important;
-  font-weight: 600;
-  font-size: 18px;
+  color: #003554 !important;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17.17px;
+  font-family: Century Gothic;
   @media (max-width: $breakpoint-xs) {
     font-size: 13px;
   }
@@ -121,4 +126,7 @@ button#btn_cls_st {
 }
 .error {
   color: red;
+}
+input#gameType {
+  font-size: 12px;
 }
