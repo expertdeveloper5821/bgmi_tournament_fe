@@ -68,6 +68,7 @@
   @media (max-width: $breakpoint-xs) {
     font-size: 25px;
     font-weight: bold;
+    margin: 0px;
   }
   @media (max-width: $breakpoint-lg) and (min-width: $breakpoint-ms) {
     font-size: 40px;
