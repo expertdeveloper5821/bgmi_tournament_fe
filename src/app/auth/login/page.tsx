@@ -119,7 +119,7 @@ function Login(): React.JSX.Element {
       } else if (decodedToken.role.role === 'user') {
         // router.push('/userDashboard');
         // router.push(configData.web.cominSoonUrl.token);
-        router.push(`${configData.web.cominSoonUrl}?token${token}`);
+        router.push(`${configData.web.cominSoonUrl}?token=${token}`);
       } else {
         router.push('/spectatorDashboard');
       }
