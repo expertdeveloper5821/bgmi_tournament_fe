@@ -114,22 +114,11 @@ function Login(): React.JSX.Element {
     console.log('token', token);
     if (token) {
       const decodedToken: any = decodeJWt(token);
-      console.log('tokennnn', decodedToken.role.role);
-      if (
-        decodedToken.role.role === 'admin'
-        // (
-        //   ({role, name}: any) => role.includes('admin') || name === 'admin',
-        // )
-      ) {
+      if (decodedToken.role.role === 'admin') {
         router.push('/adminDashboard');
-      } else if (
-        decodedToken.role.role === 'user'
-        // decodedToken.role.role.find(
-        //   ({role, name}: any) => role.includes('user') || name === 'user',
-        // )
-      ) {
-        router.push('/userDashboard');
-        // router.push(configData.web.cominSoonUrl)
+      } else if (decodedToken.role.role === 'user') {
+        // router.push('/userDashboard');
+        router.push(configData.web.cominSoonUrl);
       } else {
         router.push('/spectatorDashboard');
       }
@@ -350,9 +339,16 @@ function Login(): React.JSX.Element {
                     Forget your Password?
                   </Link>
                 </span>
-                <span className={styles.forgotDescsec}>
-                  <Link href="/auth/signup">Signup</Link>
-                </span>
+                <div className={styles.sign_accout}>
+                  <span className={styles.accout_in}>
+                    Don't have an accout?
+                  </span>
+                  <span className={styles.forgotDescsec}>
+                    <Link className={styles.link_sign} href="/auth/signup">
+                      Signup
+                    </Link>
+                  </span>
+                </div>
               </div>
             </form>
           </div>
