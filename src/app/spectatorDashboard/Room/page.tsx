@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {Navbar} from '../../../Components/Navbar/Navbar';
 //import styles from '../../../styles/Dashboard.module.scss';
 import styles from '../../../styles/Spectator.module.scss';
+// @ts-ignore
 import {Pagination} from 'technogetic-iron-smart-ui';
 import Form from '../Form/page';
 //import RequireAuthentication from '../../../utils/requireAuthentication';
