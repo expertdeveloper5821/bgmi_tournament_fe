@@ -21,7 +21,7 @@ interface FormCreate {
   secondWin: string;
 }
 
-const Form = () => {
+const Form = ({getAllSpectator}: any) => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -92,6 +92,7 @@ const Form = () => {
             secondWin,
           },
         });
+        getAllSpectator();
 
         if (response.status === 200) {
         } else {

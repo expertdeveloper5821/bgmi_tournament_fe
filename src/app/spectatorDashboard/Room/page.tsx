@@ -48,16 +48,15 @@ const Room = () => {
   const onPageChange = (page: number) => {
     setCurrentPage(page);
   };
+  const getAllSpectator = async () => {
+    const token = localStorage.getItem('jwtToken');
+    const spectatorResponse = await sendRequest('room/user-rooms', {
+      method: 'GET',
+      headers: {Authorization: `Bearer ${token}`},
+    });
+    setSpect(spectatorResponse.data);
+  };
   useEffect(() => {
-    const getAllSpectator = async () => {
-      const token = localStorage.getItem('jwtToken');
-      const spectatorResponse = await sendRequest('room/user-rooms', {
-        method: 'GET',
-        headers: {Authorization: `Bearer ${token}`},
-      });
-      setSpect(spectatorResponse.data);
-    };
-
     getAllSpectator();
   }, []);
 
@@ -80,7 +79,7 @@ const Room = () => {
             <Navbar />
             <div className={styles.inner_specter_cls}>
               <h1 className={styles.r_main_title}>Room </h1>
-              <Form />
+              <Form getAllSpectator={getAllSpectator} />
             </div>
             {/* <SpectatorData
             roomData={roomData}
@@ -146,10 +145,16 @@ const Room = () => {
                     <TableCell> {spec.uuid}</TableCell>
                     <TableCell>{spec.createdBy}</TableCell>
                     <TableCell>
-                      <Deletespec Id={spec._id} />
+                      <Deletespec
+                        Id={spec._id}
+                        getAllSpectator={getAllSpectator}
+                      />
                     </TableCell>
                     <TableCell>
-                      <UpdateRoom roomData={spec} />
+                      <UpdateRoom
+                        roomData={spec}
+                        getAllSpectator={getAllSpectator}
+                      />
                     </TableCell>
                   </TableBody>
                 ))}
