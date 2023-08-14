@@ -38,8 +38,9 @@ export default function SentMail(props: SentMailProps): JSX.Element {
                   variant="contained"
                   onClick={handleClick}
                   className={styles.forgetbutton}
-                />
-                Go to Link
+                >
+                  Go to Link
+                </Button>
               </div>
             </div>
           </div>

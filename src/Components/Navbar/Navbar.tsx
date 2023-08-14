@@ -30,8 +30,8 @@ export function Navbar() {
       // setIsLoading(false);
 
       // if (response.status === 200) {
-        localStorage.clear();
-        router.push("/");
+      localStorage.clear();
+      router.push("/");
       // } else {
       //   setError("Logout failed");
       // }
@@ -118,7 +118,7 @@ export function Navbar() {
               </Popover>
             </li>
             <li className={styles.navitem}>
-              <Avatar onClick={() => { }} src="./assests/avatar.png" size={20} />
+              <Avatar onClick={() => { }} src="../assests/avatar.png" size={20} />
             </li>
             <li className={styles.navitem}>
               <Popover
@@ -172,9 +172,9 @@ export function Navbar() {
                       </div>
                     </div>
                     <div className={styles.logoutbutton}>
-                      <div 
-                          onClick={handleLogout}
-                          >
+                      <div
+                        onClick={handleLogout}
+                      >
                         <Image
                           className={styles.logoutbuttonicon}
                           src="../assests/logouticon.svg"
@@ -193,8 +193,7 @@ export function Navbar() {
                 width="224px"
               >
                 <Image
-                  className={styles.dropdown}
-                  src="../assests/dropdown.svg"
+                  src="../assests/imagedropdown.svg"
                   alt="dropdown"
                   onClick={() => setIsPopOpen(!isPopOpen)}
                   width={20}

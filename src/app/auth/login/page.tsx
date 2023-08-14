@@ -38,7 +38,7 @@ function Login(): React.JSX.Element {
   useEffect(() => {
     const rememberMeValue = localStorage.getItem('rememberMe') === 'true';
     setRememberMe(rememberMeValue);
-    
+
     const token = localStorage.getItem("jwtToken");
     if (token) {
       handleRedirect(token)
@@ -103,20 +103,42 @@ function Login(): React.JSX.Element {
     },
   });
 
+  // const handleRedirect = (token: any) => {
+  //   console.log("token", token)
+  //   if (token) {
+  //     const decodedToken: any = decodeJWt(token)
+  //     if (decodedToken.role.find(({ role, name }: any) => role.includes('admin') || name === 'admin')) {
+  //       router.push('/adminDashboard')
+  //     } else {
+  //       // router.push('/userDashboard')
+  //       router.push(configData.web.cominSoonUrl)
+  //     }
+  //   } else {
+  //     router.push("/auth/401")
+  //   }
+  // }
+
   const handleRedirect = (token: any) => {
-    console.log("token", token)
+    console.log('token', token);
     if (token) {
-      const decodedToken: any = decodeJWt(token)
-      if (decodedToken.role.find(({ role, name }: any) => role.includes('admin') || name === 'admin')) {
-        router.push('/adminDashboard')
+      const decodedToken: any = decodeJWt(token);
+      console.log('tokennnn', decodedToken.role.role);
+      if (
+        decodedToken.role.role === 'admin'
+      ) {
+        router.push('/adminDashboard/room');
+      } else if (
+        decodedToken.role.role === 'user'
+      ) {
+        router.push('/userDashboard');
       } else {
-        // router.push('/userDashboard')
-        router.push(configData.web.cominSoonUrl)
+        router.push('/spectatorDashboard');
       }
     } else {
-      router.push("/auth/401")
+      router.push('/auth/401');
     }
-  }
+
+  };
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
@@ -143,7 +165,7 @@ function Login(): React.JSX.Element {
       setIsLoading(false);
 
       if (verifyResponse.status === 200) {
-        router.push('/adminDashboard');
+        router.push('/adminDashboard/room');
       } else {
         setError('Google Sign-In failed');
       }
@@ -200,7 +222,7 @@ function Login(): React.JSX.Element {
       setLoadingData(false);
 
       if (verifyResponse.status === 200) {
-        router.push('/adminDashboard');
+        router.push('/adminDashboard/room');
       } else {
         showErrorData('Google Sign-In failed');
       }
@@ -287,7 +309,7 @@ function Login(): React.JSX.Element {
                 </label>
               </div>
 
-            
+
 
               <div className={styles.button_wrapper}>
                 <Button

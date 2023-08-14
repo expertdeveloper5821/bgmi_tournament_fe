@@ -18,6 +18,9 @@ interface FormValues {
     password: string;
 }
 
+
+
+
 const Signup = () => {
     const [rememberMe, setRememberMe] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -181,7 +184,7 @@ const Signup = () => {
                             {errors.password && touched.password && (
                                 <div className={styles.error}>{errors.password}</div>
                             )}
-                             <div className={styles.button_wrapper}>
+                            <div className={styles.button_wrapper}>
                                 <Button
                                     disabled={isLoading}
                                     className={styles.forgetbutton}
@@ -197,7 +200,7 @@ const Signup = () => {
                             {/* <div className={styles.signin_withgoogle}>
                                 <FcGoogle /> Sign up with Google
                             </div> */}
-                           
+
                             <div className={styles.signin}>
                                 <span className={styles.forgotDesc}>
                                     <Link href="/auth/login"> Already have an account ? &nbsp; <b>Login</b></Link>
