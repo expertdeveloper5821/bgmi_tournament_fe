@@ -227,11 +227,13 @@ const Signup = () => {
                                 <FcGoogle /> Sign up with Google
                             </div> */}
 
-              <div className={styles.signin}>
+              <div className={styles.log_acc_cls}>
                 <span className={styles.forgotDesc}>
-                  <Link href="/auth/login">
-                    {' '}
-                    Already have an account ? &nbsp; <b>Login</b>
+                  Already have an account ?
+                </span>
+                <span className={styles.forgotDescsec}>
+                  <Link className={styles.link_sign} href="/auth/login">
+                    Login
                   </Link>
                 </span>
               </div>
