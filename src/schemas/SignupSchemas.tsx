@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
 
 const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-const upiIdRegex = /^[\w.-]+@[\w.-]+$/;
 
 export const SignupSchema = Yup.object().shape({
   fullName: Yup.string().required('Please enter your Full Name'),
