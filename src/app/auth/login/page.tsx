@@ -114,17 +114,9 @@ function Login(): React.JSX.Element {
     console.log('token', token);
     if (token) {
       const decodedToken: any = decodeJWt(token);
-      if (
-        decodedToken.role.find(
-          ({role, name}: any) => role.includes('admin') || name === 'admin',
-        )
-      ) {
+      if (decodedToken.role.role === 'admin') {
         router.push('/adminDashboard');
-      } else if (
-        decodedToken.role.find(
-          ({role, name}: any) => role.includes('user') || name === 'user',
-        )
-      ) {
+      } else if (decodedToken.role.role === 'user') {
         // router.push('/userDashboard');
         router.push(configData.web.cominSoonUrl);
       } else {
