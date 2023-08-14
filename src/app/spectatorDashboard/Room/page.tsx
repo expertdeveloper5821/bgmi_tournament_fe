@@ -5,11 +5,13 @@ import styles from '../../../styles/Spectator.module.scss';
 //import SpectatorData, {RoomData} from '../spectatorData/page';
 import Form from '../Form/page';
 import sendRequest from '../../../services/api/apiServices';
+import RequireAuthentication from '../../../utils/requireAuthentication';
 //@ts-ignore
 import {Table, TableBody, TableCell} from 'technogetic-iron-smart-ui';
 //@ts-ignore
 import {TableHeader, TableHead, TableRow} from 'technogetic-iron-smart-ui';
-//import Deletespec from '../Deletespec/page';
+import Deletespec from '../Deletespec/page';
+import UpdateRoom from '../Updatespec/page';
 export interface RoomData {
   roomId: string;
   _id: string;
@@ -49,109 +51,120 @@ const Room = () => {
   useEffect(() => {
     const getAllSpectator = async () => {
       const token = localStorage.getItem('jwtToken');
-      console.log('check ==>', token);
       const spectatorResponse = await sendRequest('room/user-rooms', {
         method: 'GET',
         headers: {Authorization: `Bearer ${token}`},
       });
       setSpect(spectatorResponse.data);
-
-      console.log('check data ==> ', spectatorResponse.data);
     };
 
     getAllSpectator();
   }, []);
 
+  // const handleUpdate = (updatedRoom: any) => {
+  //   // Update the Spect state with the updated room data
+  //   const updatedSpect = Spect.map((spec) => {
+  //     if (spec._id === updatedRoom._id) {
+  //       return updatedRoom;
+  //     }
+  //     return spec;
+  //   });
+
+  //   setSpect(updatedSpect);
+  // };
   return (
-    <div className={styles.main_container}>
-      <div className={styles.inner_main_container}>
-        <div className={styles.sidebar_wrapper}>
-          <Navbar />
-          <div className={styles.inner_specter_cls}>
-            <h1 className={styles.r_main_title}>Room </h1>
-            <Form />
-          </div>
-          {/* <SpectatorData
+    <RequireAuthentication>
+      <div className={styles.main_container}>
+        <div className={styles.inner_main_container}>
+          <div className={styles.sidebar_wrapper}>
+            <Navbar />
+            <div className={styles.inner_specter_cls}>
+              <h1 className={styles.r_main_title}>Room </h1>
+              <Form />
+            </div>
+            {/* <SpectatorData
             roomData={roomData}
             columns={columns}
             showAdditionalButton={true}
           /> */}
 
-          <div>
-            <Table className={styles.table_content}>
-              <TableHeader className={styles.tableHeader}>
-                <TableRow className={styles.tableRow}>
-                  <TableHead className={styles.table_head}>
-                    <div className={styles.filter}>RoomId</div>
-                  </TableHead>
-                  <TableHead className={styles.table_head}>
-                    <div className={styles.filter}>gameName</div>
-                  </TableHead>
-                  <TableHead className={styles.table_head}>
-                    <div className={styles.filter}>gameType</div>
-                  </TableHead>
-                  <TableHead className={styles.table_head}>
-                    <div className={styles.filter}>mapType</div>
-                  </TableHead>
-                  <TableHead className={styles.table_head}>
-                    <div className={styles.filter}>version</div>
-                  </TableHead>
-                  <TableHead className={styles.table_head}>
-                    <div className={styles.filter}>highestKill</div>
-                  </TableHead>
-                  <TableHead className={styles.table_head}>
-                    <div className={styles.filter}>lastServival</div>
-                  </TableHead>
-                  <TableHead className={styles.table_head}>
-                    <div className={styles.filter}>thirdWin</div>
-                  </TableHead>
-                  <TableHead className={styles.table_head}>
-                    <div className={styles.filter}>secondWin</div>
-                  </TableHead>
-                  <TableHead className={styles.table_head}>
-                    <div className={styles.filter}>time</div>
-                  </TableHead>
-                  <TableHead className={styles.table_head}>
-                    <div className={styles.filter}> createdBy</div>
-                  </TableHead>
+            <div>
+              <Table className={styles.table_content}>
+                <TableHeader className={styles.tableHeader}>
+                  <TableRow className={styles.tableRow}>
+                    <TableHead className={styles.table_head}>
+                      <div className={styles.filter}>RoomId</div>
+                    </TableHead>
+                    <TableHead className={styles.table_head}>
+                      <div className={styles.filter}>gameName</div>
+                    </TableHead>
+                    <TableHead className={styles.table_head}>
+                      <div className={styles.filter}>gameType</div>
+                    </TableHead>
+                    <TableHead className={styles.table_head}>
+                      <div className={styles.filter}>mapType</div>
+                    </TableHead>
+                    <TableHead className={styles.table_head}>
+                      <div className={styles.filter}>version</div>
+                    </TableHead>
+                    <TableHead className={styles.table_head}>
+                      <div className={styles.filter}>highestKill</div>
+                    </TableHead>
+                    <TableHead className={styles.table_head}>
+                      <div className={styles.filter}>lastServival</div>
+                    </TableHead>
+                    <TableHead className={styles.table_head}>
+                      <div className={styles.filter}>thirdWin</div>
+                    </TableHead>
+                    <TableHead className={styles.table_head}>
+                      <div className={styles.filter}>secondWin</div>
+                    </TableHead>
+                    <TableHead className={styles.table_head}>
+                      <div className={styles.filter}>time</div>
+                    </TableHead>
+                    <TableHead className={styles.table_head}>
+                      <div className={styles.filter}> createdBy</div>
+                    </TableHead>
 
-                  <TableHead className={styles.table_head}>
-                    <div className={styles.filter}>action</div>
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              {Spect?.map((spec: any, index: number) => (
-                <TableBody className={styles.table_body} key={index}>
-                  <TableCell> {spec.roomId}</TableCell>
-                  <TableCell> {spec.gameName}</TableCell>
-                  <TableCell> {spec.gameType}</TableCell>
-                  <TableCell> {spec.mapType}</TableCell>
-                  <TableCell> {spec.version}</TableCell>
-                  <TableCell> {spec.highestKill}</TableCell>
-                  <TableCell> {spec.lastServival}</TableCell>
-                  <TableCell> {spec.thirdWin}</TableCell>
-                  <TableCell>{spec.secondWin}</TableCell>
-                  <TableCell> {spec.time}</TableCell>
-                  <TableCell> {spec.uuid}</TableCell>
-                  <TableCell>{spec.createdBy}</TableCell>
-                  <TableCell>
-                    {/* <Deletespec deletedata="DELETE" Id={spec._id} /> */}
-                    <TableCell>delete</TableCell>
-                  </TableCell>
-                  <TableCell>upadte</TableCell>
-                </TableBody>
-              ))}
-            </Table>
-          </div>
-          {/* <TableData
+                    <TableHead className={styles.table_head}>
+                      <div className={styles.filter}>action</div>
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                {Spect?.map((spec: any, index: number) => (
+                  <TableBody className={styles.table_body} key={index}>
+                    <TableCell> {spec.roomId}</TableCell>
+                    <TableCell> {spec.gameName}</TableCell>
+                    <TableCell> {spec.gameType}</TableCell>
+                    <TableCell> {spec.mapType}</TableCell>
+                    <TableCell> {spec.version}</TableCell>
+                    <TableCell> {spec.highestKill}</TableCell>
+                    <TableCell> {spec.lastServival}</TableCell>
+                    <TableCell> {spec.thirdWin}</TableCell>
+                    <TableCell>{spec.secondWin}</TableCell>
+                    <TableCell> {spec.time}</TableCell>
+                    <TableCell> {spec.uuid}</TableCell>
+                    <TableCell>{spec.createdBy}</TableCell>
+                    <TableCell>
+                      <Deletespec Id={spec._id} />
+                    </TableCell>
+                    <TableCell>
+                      <UpdateRoom roomData={spec} />
+                    </TableCell>
+                  </TableBody>
+                ))}
+              </Table>
+            </div>
+            {/* <TableData
           userData={paginatedData}
           columns={columns}
           showAdditionalButton={true}
         />*/}
-          {/* <Pagination currentPage={currentPage} onPageChange={onPageChange} /> */}
+            {/* <Pagination currentPage={currentPage} onPageChange={onPageChange} /> */}
+          </div>
         </div>
       </div>
-    </div>
+    </RequireAuthentication>
   );
 };
 
