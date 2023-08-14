@@ -2,11 +2,15 @@
 import React, {useEffect, useState} from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
 import {Navbar} from '../../../Components/Navbar/Navbar';
+// @ts-ignore
 import {Button} from 'technogetic-iron-smart-ui';
 import {decodeJWt} from '@/utils/globalfunctions';
 import Image from 'next/image';
 import sendRequest from '@/services/auth/auth_All_Api';
 import jwtDecode from 'jwt-decode';
+import Carousel from 'react-elastic-carousel'
+import useWindowSize from '@/services/hook/useWindowSize';
+
 
 
 export interface IAppProps {}
@@ -20,6 +24,7 @@ function Tournament() {
   const [mapType, setMapType] = useState<any>('');
   const [version, setVersion] = useState<any>('');
   const [regMatches, setRegMatches] = useState<any>('');
+  const width  = useWindowSize()
 
   const getAllTournaments = async () => {
     const token: any = localStorage.getItem('jwttoken');
@@ -56,28 +61,27 @@ function Tournament() {
     setVersion(lastTournament?.version);
   }, [lastTournament]);
 
-  useEffect(()=>{
-     const fetchData = async()=>{
-        try {
-            const accessToken :any = localStorage.getItem('jwttoken');
-            const decodedToken:any = jwtDecode(accessToken)
-            const id = decodedToken.role._id
-            const response = await sendRequest(`api/v1/team/register-room/${id}`, {
-              method: 'GET',
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-              },
-            });
-            if (response.data.code === 200) {
-              window.location.reload();
-            }
-          } catch (error) {
-            console.log(error);
-          }
-     }
-     fetchData()
-   
-  },[])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const accessToken: any = localStorage.getItem('jwttoken');
+        const decodedToken: any = jwtDecode(accessToken);
+        const id = decodedToken.role._id;
+        const response = await sendRequest(`api/v1/team/register-room/${id}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        if (response.data.code === 200) {
+          window.location.reload();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const updateMainData = (gname: any, gType: any, mType: any, vType: any) => {
     setMatchName(gname);
@@ -96,17 +100,17 @@ function Tournament() {
               <div className={styles.dashboard}>
                 <span className={styles.head_desc}>Registered Matches</span>
                 <h1 className={styles.subhead_desc}>
-                Dashboard /registered matches
+                  Dashboard /registered matches
                 </h1>
               </div>
               <div className={styles.sendmailbtnContainer}>
-              <button
-                className={styles.sendMailBtn}
-                // onClick={handleOpenFwdModal}
-              >
-                SEND INVITE BY EMAIL
-              </button>
-            </div>
+                <button
+                  className={styles.sendMailBtn}
+                  // onClick={handleOpenFwdModal}
+                >
+                  SEND INVITE BY EMAIL
+                </button>
+              </div>
             </div>
             <div className={styles.room_wrapper}>
               <div className={styles.room_container}>
@@ -202,129 +206,152 @@ function Tournament() {
                   </div>
 
                   <div className={styles.winnings}>
-                    <div className={styles.slidebar_container}>
-                        <div className={styles.slidebar}> 
-                        <div>
-                    <span>Match starts Within</span>
-                    <h2>10 minutes</h2>
-                     </div>
-                     <div className={styles.zeromin}>
-                        <h1>0</h1>
-                        <span>Minutes</span>
-                     </div>
+                    <div className={styles.roomdetails_container}>
+                      <div className={styles.roomdetails}>
+                        <div className={styles.countdown}>
+                          <span>Match starts Within</span>
+                          <h2>10 minutes</h2>
+                          <span className={styles.roomId}>Room Id : 123456787</span>
                         </div>
-                        
-                        <div className={styles.slidebar}> 
-                        <div className={styles.roomId}>
-                      <span>Room Id : 123456787</span>
-                     </div>
-                     <div className={styles.roomPwd}>
-                       <span> Room Password : 263</span>
-                        
-                     </div>
+                      </div>
+
+                      <div className={styles.roomcreds}>
+                        <div className={styles.zeromin}>
+                          <h1>0</h1>
+                          <span>Minutes</span>
+                          <span className={styles.roomId}> Room Password : 263</span>
                         </div>
+                      </div>
                     </div>
-                    
                   </div>
                 </div>
               </div>
             </div>
+            <div className={styles.Teammembers}>
+              Your Team Members
+            </div>
             <div className={styles.container2}>
-              <img src="../assests/registeredmatches.svg" alt="slides"></img>
-              <div className={styles.Tournaments}>
-                <div className={styles.tournament_slider}>
-                  <div className={styles.winning_prize}>
-                    <span> TYPE</span>
-                    <span
-                      className={styles.tvm_font}
-                      style={{color: 'rgba(255, 214, 0, 1)'}}
-                    >
-                      {' '}
-                      Tournaments
-                    </span>
+              {
+                width <= 768 ?   <Carousel>
+                <div className={styles.reviewsContainer}>
+                {' '}
+                <div className={styles.reviewCard}>
+                  <div className={styles.reviews}>
+                    <img
+                      src="/assests/reviewman.svg"
+                      alt="image"
+                      className={styles.profile}
+                    />
+                    <div className={styles.reviewer}>
+                      <div className={styles.name}>
+                        <h2>JOhn doe</h2>
+                        <div className={styles.greenCircle}></div>
+                      </div>
+                      <p>akshay@gmail.com</p>
+                    </div>
                   </div>
-                  <div className={styles.winning_prize}>
-                    <span>Version</span>
-                    <span
-                      className={styles.tvm_font}
-                      style={{color: 'rgba(255, 214, 0, 1)'}}
-                    >
-                      TPP
-                    </span>
-                  </div>
-                  <div className={styles.winning_prize}>
-                    <span>MAP</span>
-                    <span
-                      className={styles.tvm_font}
-                      style={{color: 'rgba(255, 122, 0, 1)'}}
-                    >
-                      Erangel
-                    </span>
-                  </div>
-                </div>
-                <div className={styles.room_create}>
-                  <div className={styles.winning_prize}>
-                    <span> Match start within </span>
-                    <span>10 minutes</span>
-                  </div>
-                  <div className={styles.winning_prize}>
-                    <span>0</span>
-                    <span>Minutes</span>
-                  </div>
-                </div>
-                <div className={styles.id_password}>
-                  <span>Room Id: 5263487</span>
-                  <span>Room password: 263</span>
                 </div>
               </div>
-              <img src="../assests/registeredmatches.svg" alt="slides"></img>
-
-              <div className={styles.Tournaments}>
-                <div className={styles.tournament_slider}>
-                  <div className={styles.winning_prize}>
-                    <span> TYPE</span>
-                    <span
-                      className={styles.tvm_font}
-                      style={{color: 'rgba(255, 214, 0, 1)'}}
-                    >
-                      {' '}
-                      Tournaments
-                    </span>
+              <div className={styles.reviewsContainer}>
+                {' '}
+                <div className={styles.reviewCard}>
+                  <div className={styles.reviews}>
+                    <img
+                      src="/assests/reviewman.svg"
+                      alt="image"
+                      className={styles.profile}
+                    />
+                    <div className={styles.reviewer}>
+                      <div className={styles.name}>
+                        <h2>JOhn doe</h2>
+                        <div className={styles.greenCircle}></div>
+                      </div>
+                      <p>akshay@gmail.com</p>
+                    </div>
                   </div>
-                  <div className={styles.winning_prize}>
-                    <span>Version</span>
-                    <span
-                      className={styles.tvm_font}
-                      style={{color: 'rgba(255, 214, 0, 1)'}}
-                    >
-                      TPP
-                    </span>
-                  </div>
-                  <div className={styles.winning_prize}>
-                    <span>MAP</span>
-                    <span
-                      className={styles.tvm_font}
-                      style={{color: 'rgba(255, 122, 0, 1)'}}
-                    >
-                      Erangel
-                    </span>
-                  </div>
-                </div>
-                <div className={styles.room_create}>
-                  <div className={styles.winning_prize}>
-                    <span> Match start within </span>
-                    <span>10 minutes</span>
-                  </div>
-                  <div className={styles.winning_prize}>
-                    <span>0</span>
-                    <span>Minutes</span>
-                  </div>
-                </div>
-                <div className={styles.id_password}>
-                  <span>Room Id: 5263487</span>
-                  <span>Room password: 263</span>
                 </div>
               </div>
+              <div className={styles.reviewsContainer}>
+                {' '}
+                <div className={styles.reviewCard}>
+                  <div className={styles.reviews}>
+                    <img
+                      src="/assests/reviewman.svg"
+                      alt="image"
+                      className={styles.profile}
+                    />
+                    <div className={styles.reviewer}>
+                      <div className={styles.name}>
+                        <h2>JOhn doe</h2>
+                        <div className={styles.greenCircle}></div>
+                      </div>
+                      <p>akshay@gmail.com</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                </Carousel> :  
+                <>
+              <div className={styles.reviewsContainer}>
+              {' '}
+              <div className={styles.reviewCard}>
+                <div className={styles.reviews}>
+                  <img
+                    src="/assests/reviewman.svg"
+                    alt="image"
+                    className={styles.profile}
+                  />
+                  <div className={styles.reviewer}>
+                    <div className={styles.name}>
+                      <h2>JOhn doe</h2>
+                      <div className={styles.greenCircle}></div>
+                    </div>
+                    <p>akshay@gmail.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.reviewsContainer}>
+              {' '}
+              <div className={styles.reviewCard}>
+                <div className={styles.reviews}>
+                  <img
+                    src="/assests/reviewman.svg"
+                    alt="image"
+                    className={styles.profile}
+                  />
+                  <div className={styles.reviewer}>
+                    <div className={styles.name}>
+                      <h2>JOhn doe</h2>
+                      <div className={styles.greenCircle}></div>
+                    </div>
+                    <p>akshay@gmail.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.reviewsContainer}>
+              {' '}
+              <div className={styles.reviewCard}>
+                <div className={styles.reviews}>
+                  <img
+                    src="/assests/reviewman.svg"
+                    alt="image"
+                    className={styles.profile}
+                  />
+                  <div className={styles.reviewer}>
+                    <div className={styles.name}>
+                      <h2>JOhn doe</h2>
+                      <div className={styles.greenCircle}></div>
+                    </div>
+                    <p>akshay@gmail.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </>
+              }
+             
             </div>
           </div>
         </div>
