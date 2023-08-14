@@ -30,6 +30,11 @@ const dynamicMenuItems = [
     path: "/adminDashboard/teams",
     name: "Teams",
     icon: <FaCommentAlt />,
+  },
+  {
+    path: "/adminDashboard/video",
+    name: "video",
+    icon: <FaCommentAlt />,
   }
 ];
 

@@ -1,6 +1,6 @@
-"use client"
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+'use client';
+import {useRouter} from 'next/navigation';
+import {useEffect} from 'react';
 
 const checkIfUserIsAuthenticated = () => {
   if (typeof window !== 'undefined') {
@@ -11,7 +11,7 @@ const checkIfUserIsAuthenticated = () => {
 };
 
 const RequireAuthentication = (props: any) => {
-  const { children } = props;
+  const {children} = props;
   const router = useRouter();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const RequireAuthentication = (props: any) => {
     if (!isAuthenticated) {
       const redirectToLogin = async () => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        router.push('/login');
+        router.push('/auth/login');
       };
 
       redirectToLogin();
