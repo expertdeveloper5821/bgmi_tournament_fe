@@ -229,7 +229,7 @@ const Signup = () => {
                   type="text"
                   name="upiId"
                   autoComplete="off"
-                  placeholder="Your upiId"
+                  placeholder="Your UPI-ID"
                   value={values.upiId}
                   onChange={handleChange}
                   onBlur={handleBlur}
