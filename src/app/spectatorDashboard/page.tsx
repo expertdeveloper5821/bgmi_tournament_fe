@@ -20,8 +20,6 @@ function spectatorDashboard() {
         <div className={styles.main_container}>
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
-              <Navbar />
-              <h1>Welcome to Admin Dashboard</h1>
               <Room />
             </div>
           </div>
