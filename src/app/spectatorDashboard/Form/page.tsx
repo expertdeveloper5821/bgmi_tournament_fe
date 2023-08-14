@@ -7,7 +7,7 @@ import {useFormik, FormikHelpers} from 'formik';
 import {createspectater} from '@/schemas/SignupSchemas';
 import sendRequest from '../../../services/api/apiServices';
 interface FormCreate {
-  roomId: any;
+  roomId: string;
   gameName: string;
   gameType: string;
   mapType: string;
