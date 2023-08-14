@@ -1,5 +1,5 @@
 'use client';
-import React, {useState} from 'react';
+import React from 'react';
 import {Navbar} from '@/Components/Navbar/Navbar';
 //import styles from '../../styles/Spectator.module.scss';
 

@@ -1,11 +1,13 @@
+'use client';
 import React, {useEffect, useState} from 'react';
 import styles from '../../../styles/Spectator.module.scss';
+// @ts-ignore
 import {Button, Input} from 'technogetic-iron-smart-ui';
 import {useFormik, FormikHelpers} from 'formik';
 import {createspectater} from '@/schemas/SignupSchemas';
 import sendRequest from '../../../services/api/apiServices';
 interface FormCreate {
-  roomId: any;
+  roomId: string;
   gameName: string;
   gameType: string;
   mapType: string;

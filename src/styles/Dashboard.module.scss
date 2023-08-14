@@ -6,7 +6,15 @@
   display: flex;
   background-color: rgba(0, 53, 84, 1);
   // position: static;
+  // color: white;
+  min-height: 100vh;
+}
 
+.squad_match {
+  display: flex;
+  flex-direction: column;
+  margin: 12px;
+  margin-right:30px
 }
 
 .abcd {
@@ -25,43 +33,298 @@
 }
 
 .content {
+  display: flex;
+  justify-content: space-between;
   line-height: 48px;
   font-size: 40px;
-  padding: 5px;
+  padding: 0px 20px;
+  flex-wrap: wrap;
 }
 
-.room_wrapper {
+
+.desc_container {
   display: flex;
-  border: 2px solid white;
+  flex-direction: column;
 }
 
-.imgSection {
-  border: 1px solid;
-}
+// .room_wrapper {
+//   display: flex;
+//   justify-content: space-between;
+// }
 
+.imgSection img {
+  height: 365px;
+  border-radius: 30px;
+  width: 100%;
+
+}
 .room_container {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  border-bottom: 1px solid grey;
+  margin: 10px;
+flex-wrap: wrap;
+  width: 100%;
 }
 
-.wrapperimg {
-  height: 450px;
-  width: 600px;
-  margin: 2px;
-  border-radius: 20px;
+.heading h1 {
+  font-size: 28px;
+  font-weight: 700;
 }
 
-.input_desc Input {
-  border-radius: 8px;
-  color: #8a96a5 !important;
-  font-size: 14px;
-}
-.input_desc {
+.winnings {
   display: flex;
-  justify-content: flex-end;
+justify-content: space-between;
+margin: 10px;
+flex-wrap: wrap;
 }
 
-// .content_body{
+.tournament_slider {
+  display: flex;
+//  flex-wrap: wrap;
+  margin: 10px 3px;
+}
 
-// }
+.winning_prize {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-family: Century Gothic;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  margin: 15px;
+}
+
+.winning_prize span, .id_password span, .image_text span{
+  font-size: 14px;
+  font-family: Century Gothic;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+}
+
+.spot_line {
+  border-top: 5px solid white;
+
+  display: flex;
+  gap: 100px;
+
+}
+
+.join_button {
+  background-color: rgba(255, 122, 0, 1) !important;
+  color: white !important;
+  // border: 1px solid black;
+  display: flex;
+  gap: 40px;
+  width: 20%;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+}
+
+.registeredmatches {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.container2 {
+  display: flex;
+  padding: 4px 10px;
+  flex-wrap: wrap;
+}
+.container2 img{
+ margin-left: 3%;
+}
+
+.Tournaments {
+  padding: 0px 15px;
+  font-family: Century Gothic;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.content .dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.room_create {
+  display: flex;
+  gap: 50px;
+  padding: 8px 0px;
+  border-bottom: 2px solid white;
+}
+
+.id_password {
+  display: flex;
+  gap: 50px;
+  margin-top: 5px;
+}
+
+.slidebar img {
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.register_match {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 34px;
+  font-family: Century Gothic;
+  letter-spacing: 0.02em;
+  margin: 10px;
+}
+
+.head_desc{
+  font-size: 27px;
+  font-weight: 600;
+  line-height: 40px;
+  font-family: Century Gothic;
+}
+
+.subhead_desc{
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Century Gothic;
+}
+
+.survival_content{
+  font-family: Century Gothic;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0.02em;
+  text-align: left;
+}
+
+.bar_font{
+  font-size: 14px;
+  font-family: Century Gothic;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  margin-top: 5px;
+}
+
+.content_wrapper{
+  display: flex;
+  width: 50%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.tvm_font{
+  font-size: 14px;
+  font-family: Century Gothic;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+}
+
+.image_text{
+  position: absolute;
+  padding-left: 5px;
+  bottom: 8px;
+}
+
+.view_more{
+  margin-left: 70px;
+}
+
+.sort_btn{
+  margin-right: 10px;
+}
+
+//Slider CSS
+
+.carusol {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  overflow: hidden;
+}
+
+.imagegroup {
+  display: flex;
+  gap: 3rem;
+  width: 350px;
+  height: 170px;
+  margin-bottom: 20px;
+}
+ 
+.imagegroup img {
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.imagegroup {
+  animation: travel 1s ease-in-out infinite;
+}
+
+@keyframes travel {
+  0%,
+  100% {
+    transform: translate3d(10, 20, 0);
+  }
+ 
+  100% {
+    transform: translate3d(-200%, 0, 0);
+  }
+}
+
+// regitered match component 
+.slidebar {
+  display: flex;
+  text-align: center;
+  margin-top: 20px;
+  
+ }
+ .slidebar h2 {
+   font-weight: bold;
+   
+  }
+ .zeromin{
+   margin-left: 20px;
+   text-align: center;
+ }
+ .zeromin h1{
+   font-weight: bold;
+ }
+ .roomId span{
+  font-size: 14px;
+  margin-right: 18px;
+ }
+ .roomPwd span{
+  font-size: 14px;
+  margin-right: 10px;
+ }
+ .sendMailBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #ff7a00;
+  padding: 10px;
+  margin-left: 20px;
+  width: 100%;
+  height: 44px;
+  border-radius: 4px;
+  font-size: 15px;
+  background-color: #ff7a00;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  @media (max-width: $breakpoint-md) {
+   margin:20px 10px 0px 0px
+  }
+}
+.sendmailbtnContainer{
+  @media (max-width: $breakpoint-md) {
+    margin:20px 10px 0px 0px
+   }
+}
