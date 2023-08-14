@@ -1,5 +1,7 @@
-import React, {useEffect, useState} from 'react';
+'use client';
+import React, {useState} from 'react';
 import styles from '../../../styles/Spectator.module.scss';
+//@ts-ignore
 import {Button, Input} from 'technogetic-iron-smart-ui';
 import {useFormik, FormikHelpers} from 'formik';
 import {createspectater} from '@/schemas/SignupSchemas';
@@ -138,9 +140,9 @@ const Form = () => {
                     onBlur={handleBlur}
                   />
                 </div>
-                {errors.roomId && touched.roomId && (
+                {/* {errors.roomId && touched.roomId && (
                   <div className={styles.error}>{errors.roomId}</div>
-                )}
+                )} */}
                 <div className={styles.input_box}>
                   <label className={styles.room_id} htmlFor="password">
                     Game Name
@@ -347,6 +349,7 @@ const Form = () => {
                   </Button>
                   <Button
                     id="check"
+                    disabled={isLoading}
                     className={styles.roombutton}
                     variant="contained"
                     type="submit"

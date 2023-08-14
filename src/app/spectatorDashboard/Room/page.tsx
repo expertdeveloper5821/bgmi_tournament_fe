@@ -1,24 +1,15 @@
 'use client';
-//import TableData from '@/Components/Table/Table';
 import React, {useEffect, useState} from 'react';
 import {Navbar} from '../../../Components/Navbar/Navbar';
-//import styles from '../../../styles/Dashboard.module.scss';
 import styles from '../../../styles/Spectator.module.scss';
-import {Pagination} from 'technogetic-iron-smart-ui';
-import SpectatorData, {RoomData} from '../spectatorData/page';
+//import SpectatorData, {RoomData} from '../spectatorData/page';
 import Form from '../Form/page';
-//import RequireAuthentication from '../../../utils/requireAuthentication';
 import sendRequest from '../../../services/api/apiServices';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableHead,
-  TableRow,
-  IconButton,
-} from 'technogetic-iron-smart-ui';
-import Deletespec from '../Deletespec/page';
+//@ts-ignore
+import {Table, TableBody, TableCell} from 'technogetic-iron-smart-ui';
+//@ts-ignore
+import {TableHeader, TableHead, TableRow} from 'technogetic-iron-smart-ui';
+//import Deletespec from '../Deletespec/page';
 export interface RoomData {
   roomId: string;
   _id: string;
@@ -103,6 +94,28 @@ const Room = () => {
                     <div className={styles.filter}>mapType</div>
                   </TableHead>
                   <TableHead className={styles.table_head}>
+                    <div className={styles.filter}>version</div>
+                  </TableHead>
+                  <TableHead className={styles.table_head}>
+                    <div className={styles.filter}>highestKill</div>
+                  </TableHead>
+                  <TableHead className={styles.table_head}>
+                    <div className={styles.filter}>lastServival</div>
+                  </TableHead>
+                  <TableHead className={styles.table_head}>
+                    <div className={styles.filter}>thirdWin</div>
+                  </TableHead>
+                  <TableHead className={styles.table_head}>
+                    <div className={styles.filter}>secondWin</div>
+                  </TableHead>
+                  <TableHead className={styles.table_head}>
+                    <div className={styles.filter}>time</div>
+                  </TableHead>
+                  <TableHead className={styles.table_head}>
+                    <div className={styles.filter}> createdBy</div>
+                  </TableHead>
+
+                  <TableHead className={styles.table_head}>
                     <div className={styles.filter}>action</div>
                   </TableHead>
                 </TableRow>
@@ -122,7 +135,8 @@ const Room = () => {
                   <TableCell> {spec.uuid}</TableCell>
                   <TableCell>{spec.createdBy}</TableCell>
                   <TableCell>
-                    <Deletespec delete="DELETE" Id={spec._id} />
+                    {/* <Deletespec deletedata="DELETE" Id={spec._id} /> */}
+                    <TableCell>delete</TableCell>
                   </TableCell>
                   <TableCell>upadte</TableCell>
                 </TableBody>
@@ -134,7 +148,7 @@ const Room = () => {
           columns={columns}
           showAdditionalButton={true}
         />*/}
-          <Pagination currentPage={currentPage} onPageChange={onPageChange} />
+          {/* <Pagination currentPage={currentPage} onPageChange={onPageChange} /> */}
         </div>
       </div>
     </div>
