@@ -118,7 +118,8 @@ function Login(): React.JSX.Element {
         router.push('/adminDashboard');
       } else if (decodedToken.role.role === 'user') {
         // router.push('/userDashboard');
-        router.push(configData.web.cominSoonUrl);
+        // router.push(configData.web.cominSoonUrl.token);
+        router.push(`${configData.web.cominSoonUrl}?token${token}`);
       } else {
         router.push('/spectatorDashboard');
       }
@@ -303,7 +304,6 @@ function Login(): React.JSX.Element {
                   type="checkbox"
                   id="rememberMe"
                   name="rememberMe"
-                  checked={rememberMe}
                   onChange={handleRememberMe}
                 />
                 <label htmlFor="rememberMe" className={styles.rememberMe}>
