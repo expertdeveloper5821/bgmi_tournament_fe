@@ -57,7 +57,6 @@ const Room = () => {
       });
       setSpect(spectatorResponse.data);
     };
-
     getAllSpectator();
   }, []);
 
