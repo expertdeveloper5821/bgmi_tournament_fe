@@ -35,6 +35,11 @@ const dynamicMenuItems = [
     path: "/userDashboard/kyc",
     name: "KYC",
     icon: <FaCommentAlt />,
+  },
+  {
+    path: "/userDashboard/registerMatches",
+    name: "register",
+    icon: <FaCommentAlt />,
   }
 ];
 export default function RootLayout({

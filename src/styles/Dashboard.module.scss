@@ -38,6 +38,7 @@
   line-height: 48px;
   font-size: 40px;
   padding: 0px 20px;
+  flex-wrap: wrap;
 }
 
 
@@ -274,4 +275,56 @@ flex-wrap: wrap;
   100% {
     transform: translate3d(-200%, 0, 0);
   }
+}
+
+// regitered match component 
+.slidebar {
+  display: flex;
+  text-align: center;
+  margin-top: 20px;
+  
+ }
+ .slidebar h2 {
+   font-weight: bold;
+   
+  }
+ .zeromin{
+   margin-left: 20px;
+   text-align: center;
+ }
+ .zeromin h1{
+   font-weight: bold;
+ }
+ .roomId span{
+  font-size: 14px;
+  margin-right: 18px;
+ }
+ .roomPwd span{
+  font-size: 14px;
+  margin-right: 10px;
+ }
+ .sendMailBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #ff7a00;
+  padding: 10px;
+  margin-left: 20px;
+  width: 100%;
+  height: 44px;
+  border-radius: 4px;
+  font-size: 15px;
+  background-color: #ff7a00;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  @media (max-width: $breakpoint-md) {
+   margin:20px 10px 0px 0px
+  }
+}
+.sendmailbtnContainer{
+  @media (max-width: $breakpoint-md) {
+    margin:20px 10px 0px 0px
+   }
 }
