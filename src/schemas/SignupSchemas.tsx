@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 
 const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+const upiIdRegex = /^[\w.-]+@[\w.-]+$/;
 
 export const SignupSchema = Yup.object().shape({
   fullName: Yup.string().required('Please enter your Full Name'),
@@ -15,6 +16,8 @@ export const SignupSchema = Yup.object().shape({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
       'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
     ),
+
+  //upiId: Yup.matches(/^[\w.-]+@[\w.-]+$/, 'Enter valid upi Id'),
 });
 
 export const loginSchema = Yup.object().shape({
