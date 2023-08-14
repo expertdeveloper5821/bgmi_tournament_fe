@@ -13,7 +13,10 @@ interface FormCreate {
   version: string;
   time: any;
   date: any;
-  mapImg: string;
+  lastServival: string;
+  thirdWin: string;
+  highestKill: string;
+  secondWin: string;
 }
 
 const Form = () => {
@@ -30,7 +33,10 @@ const Form = () => {
     version: '',
     time: '',
     date: '',
-    mapImg: '',
+    lastServival: '',
+    thirdWin: '',
+    highestKill: '',
+    secondWin: '',
   };
   const {
     values,
@@ -57,7 +63,10 @@ const Form = () => {
         version,
         time,
         date,
-        mapImg,
+        lastServival,
+        thirdWin,
+        highestKill,
+        secondWin,
       } = values;
 
       try {
@@ -75,9 +84,12 @@ const Form = () => {
             version,
             time,
             date,
+            lastServival,
+            thirdWin,
+            highestKill,
+            secondWin,
           },
         });
-        //console.log('check response ==> ', response);
 
         if (response.status === 200) {
         } else {
@@ -234,44 +246,98 @@ const Form = () => {
                     onBlur={handleBlur}
                   />
                 </div>
-                {errors.time && touched.time && (
+                {/* {errors.time && touched.time && (
                   <div className={styles.error}>{errors.time}</div>
-                )}
+                )} */}
                 <div className={styles.input_box}>
                   <label className={styles.room_id} htmlFor="password">
                     Date
                   </label>
-                  <Input
-                    id=" date"
-                    className={styles.room_field_wrapper}
-                    type="date"
-                    name=" date"
-                    placeholder="Enter date"
-                    value={values.date}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-                {errors.date && touched.date && (
-                  <div className={styles.error}>{errors.date}</div>
-                )}
-                <div className={styles.input_box}>
-                  <label className={styles.room_id} htmlFor="password">
-                    Image
-                  </label>
                   <input
-                    type="file"
-                    id="myFile"
-                    name="filename"
-                    placeholder="Enter date"
+                    type="date"
+                    className={styles.room_field_wrapper}
+                    id="gameid"
+                    name="date"
                     value={values.date}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
                 </div>
-                {errors.date && touched.date && (
+                {/* {errors.date && touched.date && (
                   <div className={styles.error}>{errors.date}</div>
-                )}
+                )} */}
+                <div className={styles.input_box}>
+                  <label className={styles.room_id} htmlFor="secondWin">
+                    Last Servival
+                  </label>
+                  <Input
+                    id="lastServival"
+                    className={styles.room_field_wrapper}
+                    type="text"
+                    name="lastServival"
+                    placeholder="Enter last Servival"
+                    value={values.lastServival}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                {/* {errors.password && touched.password && (
+                  <div className={styles.error}>{errors.password}</div>
+                )} */}
+                <div className={styles.input_box}>
+                  <label className={styles.room_id} htmlFor="highestKill">
+                    Highest Kill
+                  </label>
+                  <Input
+                    id="highestKill"
+                    className={styles.room_field_wrapper}
+                    type="text"
+                    name="highestKill"
+                    placeholder="Enter highest Kill"
+                    value={values.highestKill}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                {/* {errors.password && touched.password && (
+                  <div className={styles.error}>{errors.password}</div>
+                )} */}
+                <div className={styles.input_box}>
+                  <label className={styles.room_id} htmlFor="secondWin">
+                    Second Win
+                  </label>
+                  <Input
+                    id="secondWin"
+                    className={styles.room_field_wrapper}
+                    type="text"
+                    name="secondWin"
+                    placeholder="Enter second Win"
+                    value={values.secondWin}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                {/* {errors.password && touched.password && (
+                  <div className={styles.error}>{errors.password}</div>
+                )} */}
+                <div className={styles.input_box}>
+                  <label className={styles.room_id} htmlFor="secondWin">
+                    Third Win
+                  </label>
+                  <Input
+                    id="thirdWin"
+                    className={styles.room_field_wrapper}
+                    type="text"
+                    name="thirdWin"
+                    placeholder="Enter third Win"
+                    value={values.thirdWin}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                {/* {errors.password && touched.password && (
+                  <div className={styles.error}>{errors.password}</div>
+                )} */}
                 <div className={styles.btn_form_wrapper}>
                   <Button
                     className={styles.cancel_btn}
