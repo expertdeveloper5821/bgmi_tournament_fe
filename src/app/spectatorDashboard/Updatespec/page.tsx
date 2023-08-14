@@ -1,28 +1,38 @@
 'use client';
 import React, {useState} from 'react';
 import sendRequest from '../../../services/api/apiServices';
+//@ts-ignore
+import {Button, Input} from 'technogetic-iron-smart-ui';
 import {AiOutlineDelete} from 'react-icons/ai';
+import styles from '../../../styles/Spectator.module.scss';
 
-const Updatespec = ({roomData, onUpdate}: any) => {
+const Updatespec = ({roomData, getAllSpectator}: any) => {
   const [deletModal, setDeleteModal] = useState(false);
   const [updateFormData, setUpdateFormData] = useState({...roomData});
 
-  const updateRoom = async () => {
+  const updateRoom = async (e: any) => {
+    e.preventDefault();
     const token = localStorage.getItem('jwtToken');
-
+    const bodyData = {
+      roomId: updateFormData.roomId,
+      gameName: updateFormData.gameName,
+      gameType: updateFormData.gameType,
+      mapType: updateFormData.mapType,
+      userId: updateFormData.userId,
+    };
+    console.log('bodyData', bodyData);
     try {
       const updateResponse = await sendRequest(`room/rooms/${roomData._id}`, {
         method: 'PUT',
         headers: {Authorization: `Bearer ${token}`},
+        data: bodyData,
       });
+      getAllSpectator();
 
-      console.log('update ==>', updateResponse.data);
-      //   onUpdate(updateResponse.data);
-
-      //   setUpdateFormData({...roomData});
-    } catch (error) {
-      // Handle errors
-    }
+      if (updateResponse) {
+        console.log('update ==>', updateResponse);
+      }
+    } catch (error: any) {}
   };
 
   return (
@@ -31,18 +41,61 @@ const Updatespec = ({roomData, onUpdate}: any) => {
         <AiOutlineDelete style={{color: '#ff7800', size: '18'}} />
       </p>
       {deletModal ? (
-        <form onSubmit={updateRoom}>
-          <input
-            type="text"
-            value={updateFormData.roomId}
-            onChange={(e) =>
-              setUpdateFormData({...updateFormData, roomId: e.target.value})
-            }
-            placeholder="Room ID"
-          />
-          {/* Add more input fields for other attributes */}
-          <button type="submit">Update Room</button>
-        </form>
+        <div className={styles.main_pop_cls}>
+          <div className={styles.check_model}>
+            <form className={styles.update_form} onSubmit={updateRoom}>
+              <Input
+                type="text"
+                value={updateFormData.roomId}
+                onChange={(e: any) =>
+                  setUpdateFormData({...updateFormData, roomId: e.target.value})
+                }
+                placeholder="Room ID"
+              />
+              <Input
+                type="text"
+                value={updateFormData.gameName}
+                onChange={(e: any) =>
+                  setUpdateFormData({
+                    ...updateFormData,
+                    gameName: e.target.value,
+                  })
+                }
+                placeholder=" Game Name"
+              />
+              <Input
+                type="text"
+                value={updateFormData.gameType}
+                onChange={(e: any) =>
+                  setUpdateFormData({
+                    ...updateFormData,
+                    gameType: e.target.value,
+                  })
+                }
+                placeholder="Game Type"
+              />
+              <Input
+                type="text"
+                value={updateFormData.mapType}
+                onChange={(e: any) =>
+                  setUpdateFormData({
+                    ...updateFormData,
+                    mapType: e.target.value,
+                  })
+                }
+                placeholder="Map Type"
+              />
+
+              <Button type="submit">Update Room</Button>
+              <Button
+                className={styles.canc_btn}
+                onClick={() => setDeleteModal(false)}
+              >
+                cancel
+              </Button>
+            </form>
+          </div>
+        </div>
       ) : (
         ''
       )}
