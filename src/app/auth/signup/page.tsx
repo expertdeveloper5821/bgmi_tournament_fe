@@ -235,9 +235,7 @@ const Signup = () => {
                   onBlur={handleBlur}
                 />
               </div>
-              {errors.upiId && touched.upiId && (
-                <div className={styles.error}>{errors.upiId}</div>
-              )}
+
               <div className={styles.button_wrapper}>
                 <Button
                   disabled={isLoading}
