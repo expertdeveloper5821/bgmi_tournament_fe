@@ -36,6 +36,9 @@
 .header h2 {
   font-size: xx-large;
   font-weight: 800;
+  @media (max-width: $breakpoint-md) {
+    font-size: x-large;
+   }
 }
 .header span {
   margin-top: 20px;
@@ -99,6 +102,10 @@
   color: white;
   font-size: 14px;
   font-weight: bold;
+  @media (max-width: $breakpoint-xs) {
+
+    margin-left: 4px;
+      }
 }
 .select {
   appearance: none;
@@ -166,7 +173,7 @@
   @media (max-width: $breakpoint-md) {
     width: 80%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
    }
 }
 .cardbannerimg {
