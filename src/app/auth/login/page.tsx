@@ -222,14 +222,12 @@ function Login(): React.JSX.Element {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     const isLogin = urlParams.get('isLogin');
-    if (token) {
-      localStorage.setItem('jwtToken', token);
-      handleVerifyTokenInLogin(token);
-    } else {
-      if(isLogin == 'deny') {
-        localStorage.clear()
-        router.push('/')
-      }
+    if(isLogin == 'deny') {
+      localStorage.clear()
+      router.push('/')
+    } else if(token){
+        localStorage.setItem('jwtToken', token);
+        handleVerifyTokenInLogin(token);
     }
   }, []);
 
