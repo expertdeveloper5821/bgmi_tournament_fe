@@ -225,16 +225,9 @@ function Login(): React.JSX.Element {
     if(isLogin == 'deny') {
       localStorage.clear()
       router.push('/')
-    } else {
-      if (token) {
+    } else if(token){
         localStorage.setItem('jwtToken', token);
         handleVerifyTokenInLogin(token);
-      } else {
-        if(isLogin == 'deny') {
-          localStorage.clear()
-          router.push('/')
-        }
-      }
     }
   }, []);
 
