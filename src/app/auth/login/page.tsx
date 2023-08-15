@@ -119,7 +119,7 @@ function Login(): React.JSX.Element {
       } else if (decodedToken.role.role === 'user') {
         // router.push('/userDashboard');
         // router.push(configData.web.cominSoonUrl.token);
-        router.push(`${configData.web.cominSoonUrl}?token=${token}`);
+        window.location.href = `${configData.web.cominSoonUrl}?token=${token}`;
       } else {
         router.push('/spectatorDashboard');
       }
@@ -221,9 +221,15 @@ function Login(): React.JSX.Element {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
+    const isLogin = urlParams.get('isLogin');
     if (token) {
       localStorage.setItem('jwtToken', token);
       handleVerifyTokenInLogin(token);
+    } else {
+      if(isLogin == 'deny') {
+        localStorage.clear()
+        router.push('/')
+      }
     }
   }, []);
 
