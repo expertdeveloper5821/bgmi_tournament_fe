@@ -8,10 +8,10 @@ import { UserProvider } from '@/utils/contextProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Pattseheadshot',
-  description: 'Immerse yourself in the world of competitive gaming with our dedicated esports platform for BGMI players. Join thrilling tournaments, enhance your skills with personalized team-building, and access insightful game analytics. Connect, compete, and conquer as you rise through the ranks in the ultimate battleground for mobile gaming enthusiasts. Elevate your gaming journey and be a part of the future of esports!',
-}
+// export const metadata: Metadata = {
+//   title: 'Pattseheadshot',
+//   description: 'Immerse yourself in the world of competitive gaming with our dedicated esports platform for BGMI players. Join thrilling tournaments, enhance your skills with personalized team-building, and access insightful game analytics. Connect, compete, and conquer as you rise through the ranks in the ultimate battleground for mobile gaming enthusiasts. Elevate your gaming journey and be a part of the future of esports!',
+// }
 
 export default function RootLayout({
   children,
