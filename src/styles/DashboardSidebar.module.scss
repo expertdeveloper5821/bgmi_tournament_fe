@@ -38,6 +38,8 @@
 
   .link {
     display: flex;
+    align-items: center;
+    margin-top: 30px;
     color: #fff;
     padding: 10px 15px;
     gap: 15px;
@@ -57,6 +59,7 @@
     .icon,
     .link_text {
       font-size: 20px;
+      font-weight: bold;
     }
   }
   .icon{
@@ -96,19 +99,25 @@
   position: absolute;
   color: white;
   margin-top: 70px;
-  margin-left: 10px;
+  padding-left: 10px;
   background: #003554;
   padding-bottom: 3px;
-  width:150px
+  width:150px;
+  z-index: 1;
+  height: 90vh;
 }
 .mob_link_text{
+  display: flex;
+    align-items: center;
   font-size: 16px;
   font-weight: 800;
   padding-bottom: 3px;
-  display: flex;
+  margin-top: 30px;
 }
 .itemname{
   min-width: 105px;
+  font-size: 16px;
+    font-weight: bold;
 }
 .bars{
   margin-left: 30px;
@@ -120,7 +129,8 @@
 }
 .sidebar_cancel{
   position: absolute;
-    top: 0;
+    top: 9px;
+    font-weight: bold
 }
 .lap_sidebar_cancel{
 color: white;
