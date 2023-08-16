@@ -225,9 +225,13 @@ function Login(): React.JSX.Element {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
-    if (token) {
-      localStorage.setItem('jwtToken', token);
-      handleVerifyTokenInLogin(token);
+    const isLogin = urlParams.get('isLogin');
+    if(isLogin == 'deny') {
+      localStorage.clear()
+      router.push('/')
+    } else if(token){
+        localStorage.setItem('jwtToken', token);
+        handleVerifyTokenInLogin(token);
     }
   }, []);
 
@@ -308,7 +312,6 @@ function Login(): React.JSX.Element {
                   type="checkbox"
                   id="rememberMe"
                   name="rememberMe"
-                  checked={rememberMe}
                   onChange={handleRememberMe}
                 />
                 <label htmlFor="rememberMe" className={styles.rememberMe}>

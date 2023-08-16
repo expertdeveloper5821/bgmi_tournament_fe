@@ -16,6 +16,7 @@ interface FormValues {
   userName: string;
   email: string;
   password: string;
+  upiId: any;
 }
 
 const Signup = () => {
@@ -29,6 +30,7 @@ const Signup = () => {
     userName: '',
     email: '',
     password: '',
+    upiId: '',
   };
 
   const {
@@ -47,7 +49,7 @@ const Signup = () => {
       {setSubmitting}: FormikHelpers<FormValues>,
     ) => {
       setIsLoading(true);
-      const {fullName, userName, email, password} = values;
+      const {fullName, userName, email, password, upiId} = values;
       if (rememberMe) {
         const expirationDate = new Date();
         expirationDate.setDate(expirationDate.getDate() + 30);
@@ -56,7 +58,7 @@ const Signup = () => {
       try {
         const response = await sendRequest('user/signup', {
           method: 'POST',
-          data: {fullName, userName, email, password},
+          data: {fullName, userName, email, password, upiId},
         });
 
         // console.log('sdvdsv', response.message);
@@ -211,6 +213,29 @@ const Signup = () => {
               {errors.password && touched.password && (
                 <div className={styles.error}>{errors.password}</div>
               )}
+
+              <div className={styles.input_box}>
+                <label className={styles.email} htmlFor="UserName">
+                  <Image
+                    src="/assests/fullnameicon.svg"
+                    alt="fullname"
+                    width={30}
+                    height={20}
+                  />
+                </label>
+                <Input
+                  id="upiId"
+                  className={styles.password_wrapper}
+                  type="text"
+                  name="upiId"
+                  autoComplete="off"
+                  placeholder="Your UPI-ID"
+                  value={values.upiId}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+
               <div className={styles.button_wrapper}>
                 <Button
                   disabled={isLoading}
