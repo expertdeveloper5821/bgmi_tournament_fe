@@ -6,13 +6,15 @@
   display: flex;
   background-color: rgba(0, 53, 84, 1);
   // position: static;
-  height: 100vh;
+  // height: 100vh;
+  color: white;
 }
 
 .squad_match {
   display: flex;
   flex-direction: column;
   margin: 12px;
+  margin-right:30px
 }
 
 .abcd {
@@ -44,22 +46,23 @@
   flex-direction: column;
 }
 
-.room_wrapper {
-  display: flex;
-}
+// .room_wrapper {
+//   display: flex;
+//   justify-content: space-between;
+// }
 
 .imgSection img {
   height: 365px;
-  width: 630px;
   border-radius: 30px;
+  width: 100%;
 
 }
-
 .room_container {
   display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid grey;
   margin: 10px;
-
+flex-wrap: wrap;
   width: 100%;
 }
 
@@ -70,13 +73,14 @@
 
 .winnings {
   display: flex;
-  gap: 150px;
-  margin: 10px 3px;
+justify-content: space-between;
+margin: 10px;
+flex-wrap: wrap;
 }
 
 .tournament_slider {
   display: flex;
-  gap: 70px;
+//  flex-wrap: wrap;
   margin: 10px 3px;
 }
 
@@ -88,6 +92,7 @@
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.02em;
+  margin: 15px;
 }
 
 .winning_prize span, .id_password span, .image_text span{
@@ -127,6 +132,10 @@
 .container2 {
   display: flex;
   padding: 4px 10px;
+  flex-wrap: wrap;
+}
+.container2 img{
+ margin-left: 3%;
 }
 
 .Tournaments {
@@ -165,6 +174,7 @@
   line-height: 34px;
   font-family: Century Gothic;
   letter-spacing: 0.02em;
+  margin: 10px;
 }
 
 .head_desc{
@@ -229,39 +239,4 @@
 
 //Slider CSS
 
-.carusol {
-  width: 100%;
-}
 
-.row {
-  display: flex;
-  overflow: hidden;
-}
-
-.imagegroup {
-  display: flex;
-  gap: 3rem;
-  width: 350px;
-  height: 170px;
-  margin-bottom: 20px;
-}
- 
-.imagegroup img {
-  flex-shrink: 0;
-  object-fit: cover;
-}
-
-.imagegroup {
-  animation: travel 1s ease-in-out infinite;
-}
-
-@keyframes travel {
-  0%,
-  100% {
-    transform: translate3d(10, 20, 0);
-  }
- 
-  100% {
-    transform: translate3d(-200%, 0, 0);
-  }
-}
