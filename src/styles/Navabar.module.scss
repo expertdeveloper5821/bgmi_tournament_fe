@@ -64,15 +64,26 @@
     display: none;
   }
 }
-.username_details h1 {
+.username_details .user_name_title {
   color: white;
   font-weight: 900;
 }
-.username_details span {
+.username_details .user_name_title {
   color: white;
   font-size: smal;
   font-weight: 500;
 }
+.user_name_heading {
+  color: #003554;
+  font-size: 16px;
+  font-family: Century Gothic;
+  font-weight: 800;
+}
+.user_name_title {
+  color: #003554;
+  font-weight: 500;
+}
+
 .adminname {
   color: var(--bs-darkblue);
   margin: 1px;
@@ -159,7 +170,7 @@
 
 .logoutbutton {
   text-align: center;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   font-size: 12px;
   border-top: 1px solid #dcdcdc;
   padding-top: 10px;
@@ -180,13 +191,18 @@
 }
 
 .myprofile {
-  margin: 5px 10px;
+  margin: 3px 10px;
   font-family: var(--bs-body-font-family);
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 400;
 }
 h1 .user_name_heading {
   color: white;
   font-size: 16px;
   font-weight: 700;
   line-height: 19.62px;
+}
+
+.inner_logout {
+  cursor: pointer;
 }
