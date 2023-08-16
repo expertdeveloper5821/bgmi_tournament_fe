@@ -9,7 +9,14 @@ export const SignupSchema = Yup.object().shape({
     .email('Invalid email')
     .required('Please enter your email')
     .matches(emailRegex, 'Invalid email'),
-  password: Yup.string().required('Please enter your password'),
+  password: Yup.string()
+    .required('Please enter your password')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
+    ),
+
+  //upiId: Yup.matches(/^[\w.-]+@[\w.-]+$/, 'Enter valid upi Id'),
 });
 
 export const loginSchema = Yup.object().shape({

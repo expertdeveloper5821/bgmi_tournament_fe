@@ -19,7 +19,8 @@ export default function SentMail(props: SentMailProps): JSX.Element {
           <div className={styles.container}>
             <div className={styles.mailsent_container}>
               <div className={styles.logo}>
-                <Image src="../assests/logobgmi.svg" alt="Tg-logo" width={100} height={100} />
+                <Image src="../assests/logoWithBg.svg" alt="Tg-logo" width={210}
+                  height={80} />
               </div>
 
               <div className={styles.email_wrapper}>
@@ -38,8 +39,10 @@ export default function SentMail(props: SentMailProps): JSX.Element {
                   variant="contained"
                   onClick={handleClick}
                   className={styles.forgetbutton}
-                />
-                Go to Link
+                >
+                  Go to Link
+                </Button>
+
               </div>
             </div>
           </div>
