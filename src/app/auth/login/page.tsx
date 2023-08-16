@@ -121,7 +121,7 @@ function Login(): React.JSX.Element {
           //   ({role, name}: any) => role.includes('user') || name === 'user',
           // )
         ) {
-          router.push('/userDashboard');
+          router.push('/userDashboard/tournament');
           // router.push(configData.web.cominSoonUrl)
         } else {
           router.push('/spectatorDashboard');
