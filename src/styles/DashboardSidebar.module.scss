@@ -41,19 +41,21 @@
     align-items: center;
     margin-top: 30px;
     color: #fff;
-    padding: 10px 15px;
-    gap: 15px;
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 4px;
     transition: all 0.5s;
 
     &:hover {
-      background: lightskyblue;
-      color: #000;
+      background: #FF7A00;
+      color: white;
       transition: all 0.5s;
     }
 
     &.active {
-      background: lightskyblue;
-      color: #000;
+      background: #FF7A00;
+      color: white;
     }
 
     .icon,
@@ -66,6 +68,7 @@
     display: flex;
     flex-direction: column;
     margin-left: 7px;
+    padding-right: 20px;
     justify-self: center;
   }
 
@@ -108,11 +111,25 @@
 }
 .mob_link_text{
   display: flex;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+  border-radius: 4px;
   font-size: 16px;
   font-weight: 800;
   padding-bottom: 3px;
   margin-top: 30px;
+  padding-top: 3px;
+  &:hover {
+    background: #FF7A00;
+    color: white;
+    transition: all 0.5s;
+  }
+
+  &.active {
+    background: #FF7A00;
+    color: white;
+  }
 }
 .itemname{
   min-width: 105px;
@@ -141,3 +158,4 @@ left: 195px;
 top: 30px;
 
 }
+
