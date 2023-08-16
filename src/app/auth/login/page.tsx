@@ -70,7 +70,6 @@ function Login(): React.JSX.Element {
       values: FormValues,
       {setSubmitting}: FormikHelpers<FormValues>,
     ) => {
-      console.log('values', values);
       setIsLoading(true);
       const {email, password} = values;
       if (rememberMe) {
@@ -96,6 +95,7 @@ function Login(): React.JSX.Element {
 
         if (response.status === 200) {
           localStorage.setItem('jwtToken', response?.data?.userData?.token);
+
           handleRedirect(response?.data?.userData?.token);
         } else {
           setError('Invalid email or password');
@@ -111,15 +111,14 @@ function Login(): React.JSX.Element {
   });
 
   const handleRedirect = (token: any) => {
-    console.log('token', token);
     if (token) {
       const decodedToken: any = decodeJWt(token);
       if (decodedToken.role.role === 'admin') {
         router.push('/adminDashboard');
       } else if (decodedToken.role.role === 'user') {
-        // router.push('/userDashboard');
+        router.push('/userDashboard');
         // router.push(configData.web.cominSoonUrl.token);
-        router.push(`${configData.web.cominSoonUrl}?token=${token}`);
+        // router.push(`${configData.web.cominSoonUrl}?token=${token}`);
       } else {
         router.push('/spectatorDashboard');
       }
@@ -184,8 +183,6 @@ function Login(): React.JSX.Element {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get('token');
-      // console.log('token', token, window.location.href);
-
       if (token) {
         handleVerifyToken(token);
       }
@@ -203,7 +200,6 @@ function Login(): React.JSX.Element {
       const verifyResponse = await sendRequest(`auth/verify/?token=${token}`, {
         method: 'GET',
       });
-      console.log('verifyResponse', verifyResponse);
 
       setLoadingData(false);
 
