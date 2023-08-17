@@ -7,14 +7,17 @@ import { Button } from 'technogetic-iron-smart-ui';
 import { decodeJWt } from '@/utils/globalfunctions';
 import Image from 'next/image';
 import sendRequest from '@/services/auth/auth_All_Api';
-import Carousel from 'react-elastic-carousel';
-
+// import  Carousel from 'react-elastic-carousel';
+import { AiOutlineDown , AiOutlineClose} from "react-icons/ai";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 // import DemoCarousel from "../../../Components/Carousel/Carousel"
 // import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export interface IAppProps { }
 
 function Tournament() {
+  const [poolModal , setPoolModal] = useState(false);
   const [alldata, setData] = useState<any>([]);
   const [lastTournament, setLastTournament] = useState<any>(null);
   const [allTournaments, setAllTournaments] = useState<any>(null);
@@ -42,12 +45,13 @@ function Tournament() {
     const token: any = localStorage.getItem('jwtToken');
     const decodedToken: any = decodeJWt(token);
     const registeredMatches = await sendRequest(
-      'api/v1/team/register-room/' + decodedToken.userId,
+      'api/v1/team/register-room' ,
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },
       },
     );
+   
     setRegMatches(registeredMatches.data.rooms);
   }
 
@@ -110,10 +114,28 @@ function Tournament() {
   }
 
   const breakPoints = [
-    { width: 1, itemsToShow: 1 },  // Adjust the number of items based on your design
+    { width: 1, itemsToShow: 2 },  // Adjust the number of items based on your design
     { width: 600, itemsToShow: 2 },  // Show 2 items on wider screens
     { width: 1000, itemsToShow: 3 }   // Show 3 items on even wider screens
   ];
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 2,
+      slidesToSlide: 1 // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 1 // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 2,
+      slidesToSlide: 1, // optional, default to 1.
+      partialVisibilityGutter: 30
+    }
+  };
 
   return (
     <>
@@ -156,8 +178,63 @@ function Tournament() {
                     <div className={styles.winnings}>
 
                       <div>
-                        <span className={styles.winning_prize}>WINNING PRIZE</span>
-                        <span className={styles.survival_content}> Last Survival: {lastServival}</span>
+                        <span className={styles.winning_prize}>WINNING PRIZE <span><AiOutlineDown onClick={() => setPoolModal(true)} /></span> </span>
+                        {poolModal ? <div className={styles.main_winning_pool}>
+                          <div className={styles.inner_winning_pool}>
+                            <div className={styles.text_pool_cls}>
+                            <h1 className={styles.pool_heading}>WINNING PRIZE POOL</h1>
+                            <p className={styles.pool_para}>BGMI Squad match</p>
+                            </div>
+                            <div className={styles.pool_cancel_p}>
+                              <p className={styles.pool_text_p}>Last Survival: 200<span className={styles.rs_pool_logo}>
+                            <Image
+                              src="../assests/rupee-icon.svg"
+                              alt="rupeeIcon"
+                              width={12}
+                              height={12}
+                            />
+                          </span></p>
+                              <p className={styles.pool_text_p}>Highest kill: 200<span className={styles.rs_pool_logo}>
+                            <Image
+                              src="../assests/rupee-icon.svg"
+                              alt="rupeeIcon"
+                              width={12}
+                              height={12}
+                            />
+                          </span></p>
+                              <p className={styles.pool_text_p}>2nd Winner: 100 <span className={styles.rs_pool_logo}>
+                            <Image
+                              src="../assests/rupee-icon.svg"
+                              alt="rupeeIcon"
+                              width={12}
+                              height={12}
+                            />
+                          </span></p>
+                              <p className={styles.pool_text_p}>3nd Winner: 60 <span className={styles.rs_pool_logo}>
+                            <Image
+                              src="../assests/rupee-icon.svg"
+                              alt="rupeeIcon"
+                              width={12}
+                              height={12}
+                            />
+                          </span></p>
+                              </div>
+                            <p
+                    className={styles.pool_cancel_p}
+                    onClick={() => setPoolModal(false)}
+                  >
+                  < AiOutlineClose className={styles.cancel_icon}/>
+                  </p>
+                          </div></div>: ''}
+                        <span className={styles.survival_content}> Last Survival: {lastServival}
+                        <span className="rs_logo">
+                            <Image
+                              src="../assests/rupee-icon.svg"
+                              alt="rupeeIcon"
+                              width={12}
+                              height={12}
+                            />
+                          </span></span>
                       </div>
 
                       <div>
@@ -202,7 +279,7 @@ function Tournament() {
                         </span>
                       </div>
                     </div>
-                    <div className={styles.winnings}>
+                    <div className={styles.winnings_sec_secton}>
                       <div className={styles.spot_line}>
                         <span className={styles.bar_font}>
                           Only 30 spots Left
@@ -211,8 +288,20 @@ function Tournament() {
                       </div>
                       <Button className={styles.join_button} onClick={() => addRegMatch(roomId)}> Join</Button>
                     </div>       
-                    <div className={styles.winnings}>
-                      <Carousel breakPoints={breakPoints}>  
+                    <div className={styles.winnings_sec_secton}>
+                    <Carousel  swipeable={false}
+                    arrows={false}
+  draggable={false}
+  showDots={true}
+  responsive={responsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}
+  autoPlay={false}
+  autoPlaySpeed={2200}
+  keyBoardControl={true}
+  dotListClass="custom-dot-list-style"
+  itemClass="carousel_text">
+                      {/* <Carousel breakPoints={breakPoints} >   */}
                         {allTournaments &&
                           allTournaments.map((e: any) => (
                             <img
@@ -242,7 +331,8 @@ function Tournament() {
             </span>
             {!regMatches.length ? <div className={styles.register_match}> There is no Registered Match till now</div> : <>
               <div className={styles.container2}>
-                <Carousel breakPoints={breakPoints}>
+                <Carousel responsive={responsive}>
+                {/* <Carousel breakPoints={breakPoints}> */}
                 {
                   regMatches && regMatches.map((match: any) => {
                     return <>
