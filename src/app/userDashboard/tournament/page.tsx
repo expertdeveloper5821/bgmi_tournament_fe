@@ -7,13 +7,10 @@ import { Button } from 'technogetic-iron-smart-ui';
 import { decodeJWt } from '@/utils/globalfunctions';
 import Image from 'next/image';
 import sendRequest from '@/services/auth/auth_All_Api';
-// import  Carousel from 'react-elastic-carousel';
 import { AiOutlineDown , AiOutlineClose} from "react-icons/ai";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-// import DemoCarousel from "../../../Components/Carousel/Carousel"
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import { useRouter } from 'next/navigation';
 export interface IAppProps { }
 
 function Tournament() {
@@ -26,6 +23,10 @@ function Tournament() {
   const [gameType, setGameType] = useState<any>('');
   const [mapType, setMapType] = useState<any>('');
   const [version, setVersion] = useState<any>('');
+  const [lastServivalRecord, setLastServivalRecord] = useState<any>('');
+  const [highestKill, setHighestKill] = useState<any>('');
+  const [secondWin, setSecondWin] = useState<any>('');
+  const [thirdWin, setThirdWin] = useState<any>('');
   const [date, setDate] = useState<any>('');
   const [time, setTime] = useState<any>('');
   const [lastServival, setLastServival] = useState<any>('');
@@ -43,15 +44,13 @@ function Tournament() {
 
   const getRegisteredMatches = async () => {
     const token: any = localStorage.getItem('jwtToken');
-    const decodedToken: any = decodeJWt(token);
     const registeredMatches = await sendRequest(
-      'api/v1/team/register-room' ,
+      'api/v1/team/register-room',
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },
       },
     );
-   
     setRegMatches(registeredMatches.data.rooms);
   }
 
@@ -70,13 +69,17 @@ function Tournament() {
     setGameType(lastTournament?.gameType);
     setMapType(lastTournament?.mapType);
     setVersion(lastTournament?.version);
+    setLastServivalRecord(lastTournament?.lastServival);
+    setHighestKill(lastTournament?.highestKill);
+    setSecondWin(lastTournament?.secondWin);
+    setThirdWin(lastTournament?.thirdWin);
     setDate(lastTournament?.date);
     setTime(lastTournament?.time);
     setLastServival(lastTournament?.lastServival);
     setRoomId(lastTournament?.roomUuid);
   }, [lastTournament])
 
-  const updateMainData = (gname: any, gType: any, mType: any, vType: any, mdate: any, mtime: any, lastServival: any, roomid: any) => {
+  const updateMainData = (gname: any, gType: any, mType: any, vType: any, mdate: any, mtime: any, lastServival: any, roomid: any, highestKill:any, secondWin:any, thirdWin:any) => {
     setMatchName(gname);
     setGameType(gType);
     setMapType(mType);
@@ -85,20 +88,24 @@ function Tournament() {
     setTime(mtime);
     setLastServival(lastServival);
     setRoomId(roomid);
+    setLastServivalRecord(lastServival);
+    setHighestKill(highestKill);
+    setSecondWin(secondWin);
+    setThirdWin(thirdWin);
   }
 
   const addRegMatch = async (roomId: any) => {
     try {
       const token: any = localStorage.getItem('jwtToken');
       const decodedToken: any = decodeJWt(token);
-      const response = await sendRequest("api/v1/payment/create-payment", {
+      const response = await sendRequest("api/v1/ /create-payment", {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: {
           "upiId": "success@payment",
-          "matchAmount": 100,
-          "name": "rajesh",
-          "id": '7d5f9741-264c-4a59-8ec9-67985f235d19',
+          "matchAmount": 60,
+          "name": "robin",
+          "id": '3dafaba5-a73d-4874-b138-bbc2abbef89d',
           "roomid": roomId
         },
       });
@@ -111,6 +118,13 @@ function Tournament() {
     } catch (error: any) {
       console.log("Failed to sign up. Please try again.");
     }
+  }
+
+  const router = useRouter();
+
+  const regMatchRedirect = (matchID:any) => {
+    console.log('regMatchRedirect')
+    router.push(`/userDashboard/registerMatches?id=${matchID}`);
   }
 
   const breakPoints = [
@@ -176,7 +190,6 @@ function Tournament() {
                     </span>
 
                     <div className={styles.winnings}>
-
                       <div>
                         <span className={styles.winning_prize}>WINNING PRIZE <span><AiOutlineDown onClick={() => setPoolModal(true)} /></span> </span>
                         {poolModal ? <div className={styles.main_winning_pool}>
@@ -186,7 +199,7 @@ function Tournament() {
                             <p className={styles.pool_para}>BGMI Squad match</p>
                             </div>
                             <div className={styles.pool_cancel_p}>
-                              <p className={styles.pool_text_p}>Last Survival: 200<span className={styles.rs_pool_logo}>
+                              <p className={styles.pool_text_p}>Last Survival: {lastServivalRecord}<span className={styles.rs_pool_logo}>
                             <Image
                               src="../assests/rupee-icon.svg"
                               alt="rupeeIcon"
@@ -194,7 +207,7 @@ function Tournament() {
                               height={12}
                             />
                           </span></p>
-                              <p className={styles.pool_text_p}>Highest kill: 200<span className={styles.rs_pool_logo}>
+                              <p className={styles.pool_text_p}>Highest kill: {highestKill}<span className={styles.rs_pool_logo}>
                             <Image
                               src="../assests/rupee-icon.svg"
                               alt="rupeeIcon"
@@ -202,7 +215,7 @@ function Tournament() {
                               height={12}
                             />
                           </span></p>
-                              <p className={styles.pool_text_p}>2nd Winner: 100 <span className={styles.rs_pool_logo}>
+                              <p className={styles.pool_text_p}>2nd Winner: {secondWin} <span className={styles.rs_pool_logo}>
                             <Image
                               src="../assests/rupee-icon.svg"
                               alt="rupeeIcon"
@@ -210,7 +223,7 @@ function Tournament() {
                               height={12}
                             />
                           </span></p>
-                              <p className={styles.pool_text_p}>3nd Winner: 60 <span className={styles.rs_pool_logo}>
+                              <p className={styles.pool_text_p}>3nd Winner: {thirdWin} <span className={styles.rs_pool_logo}>
                             <Image
                               src="../assests/rupee-icon.svg"
                               alt="rupeeIcon"
@@ -290,17 +303,17 @@ function Tournament() {
                     </div>       
                     <div className={styles.winnings_sec_secton}>
                     <Carousel  swipeable={false}
-                    arrows={false}
-  draggable={false}
-  showDots={true}
-  responsive={responsive}
-  ssr={true} // means to render carousel on server-side.
-  infinite={true}
-  autoPlay={false}
-  autoPlaySpeed={2200}
-  keyBoardControl={true}
-  dotListClass="custom-dot-list-style"
-  itemClass="carousel_text">
+                      arrows={false}
+                      draggable={false}
+                      showDots={true}
+                      responsive={responsive}
+                      ssr={true} // means to render carousel on server-side.
+                      infinite={true}
+                      autoPlay={true}
+                      autoPlaySpeed={2200}
+                      keyBoardControl={true}
+                      dotListClass="custom-dot-list-style"
+                      itemClass="carousel_text">
                       {/* <Carousel breakPoints={breakPoints} >   */}
                         {allTournaments &&
                           allTournaments.map((e: any) => (
@@ -316,7 +329,10 @@ function Tournament() {
                                   e.date,
                                   e.time,
                                   e.lastServival,
-                                  e.roomUuid
+                                  e.roomUuid,
+                                  e.highestKill,
+                                  e.secondWin,
+                                  e.thirdWin
                                 )
                               }
                             ></img>
@@ -331,12 +347,10 @@ function Tournament() {
             </span>
             {!regMatches.length ? <div className={styles.register_match}> There is no Registered Match till now</div> : <>
               <div className={styles.container2}>
-                <Carousel responsive={responsive}>
-                {/* <Carousel breakPoints={breakPoints}> */}
                 {
                   regMatches && regMatches.map((match: any) => {
                     return <>
-                      <img src="../assests/registeredmatches.svg" alt="slides"></img>
+                      <img src="../assests/registeredmatches.svg" alt="slides" onClick={()=>regMatchRedirect(match?._id)}></img>
                       <div className={styles.Tournaments}>
                         <div className={styles.tournament_slider}>
                           <div className={styles.winning_prize}>
@@ -376,7 +390,6 @@ function Tournament() {
                     </>
                   })
                 }
-                </Carousel>
               </div>
             </>}
           </div>
