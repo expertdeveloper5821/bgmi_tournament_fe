@@ -19,7 +19,8 @@ import Image from 'next/image';
 import {loginSchema} from '../../../schemas/SignupSchemas';
 import {decodeJWt} from '@/utils/globalfunctions';
 import {configData} from '@/utils/config';
- import { useUserContext } from '@/utils/contextProvider';
+import {useUserContext} from '@/utils/contextProvider';
+
 interface LoginProps {}
 
 interface FormValues {
@@ -33,13 +34,24 @@ function Login(): React.JSX.Element {
   const [role, setRole] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [getToken, setGetToken] = useState<any>('');
-  const { userInfo, updateUserInfo } = useUserContext();
-
+  const {userInfo, updateUserInfo} = useUserContext();
+  const playBulletFireSound = () => {
+    const audio = new Audio('../assests/gunsound.mp3');
+    audio.currentTime = 0;
+    audio.play();
+  };
   const router = useRouter();
 
   function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
     setRememberMe(event.target.checked);
   }
+  useEffect(() => {
+    window.addEventListener('click', playBulletFireSound);
+
+    return () => {
+      window.removeEventListener('click', playBulletFireSound);
+    };
+  }, []);
 
   useEffect(() => {
     const rememberMeValue = localStorage.getItem('rememberMe') === 'true';
@@ -94,13 +106,12 @@ function Login(): React.JSX.Element {
         });
 
         setIsLoading(false);
-        
-
         if (response.status === 200) {
-          const userDetails  = {name :response.data.userData.fullName, email:response.data.userData.email }
-          console.log('response.data.userData.fullName',response.data.userData.fullName,'email:response.data.userData.email',response.data.userData.email);
-          
-          updateUserInfo(userDetails)
+          const userDetails = {
+            name: response.data.userData.fullName,
+            email: response.data.userData.email,
+          };
+          updateUserInfo(userDetails);
           localStorage.setItem('jwtToken', response?.data?.userData?.token);
           handleRedirect(response?.data?.userData?.token);
         } else {
@@ -116,7 +127,7 @@ function Login(): React.JSX.Element {
     },
   });
 
-  const handleRedirect = (token: any) => {;
+  const handleRedirect = (token: any) => {
     if (token) {
       const decodedToken: any = decodeJWt(token);
       if (decodedToken.role.role === 'admin') {
@@ -226,12 +237,12 @@ function Login(): React.JSX.Element {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     const isLogin = urlParams.get('isLogin');
-    if(isLogin == 'deny') {
-      localStorage.clear()
-      router.push('/')
-    } else if(token){
-        localStorage.setItem('jwtToken', token);
-        handleVerifyTokenInLogin(token);
+    if (isLogin == 'deny') {
+      localStorage.clear();
+      router.push('/');
+    } else if (token) {
+      localStorage.setItem('jwtToken', token);
+      handleVerifyTokenInLogin(token);
     }
   }, []);
 
@@ -246,6 +257,14 @@ function Login(): React.JSX.Element {
               width={250}
               height={100}
             />
+          </div>
+
+          {/* dummy animations */}
+          <div className={styles.parashootGuy}>
+            <img src="../assests/parashoot.png" alt="parashoot guy" />
+          </div>
+          <div className={styles.animationhelicopter}>
+          <img src="../assests/heli.gif" alt="helicopter" />
           </div>
 
           <div>
