@@ -98,8 +98,8 @@ function Login(): React.JSX.Element {
         setIsLoading(false);
         if (response.status === 200) {
           const userDetails = {
-            name: response.data.userData.fullName,
-            email: response.data.userData.email,
+            name: response?.data?.userData?.fullName,
+            email: response?.data?.userData?.email,
           };
           updateUserInfo(userDetails);
           localStorage.setItem('jwtToken', response?.data?.userData?.token);
