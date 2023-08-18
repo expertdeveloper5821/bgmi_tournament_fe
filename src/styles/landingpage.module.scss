@@ -127,12 +127,12 @@
   letter-spacing: 29px;
   margin-top: 100px;
 }
-.rn_text{
+.rn_text {
   font-size: 20px;
   color: white;
   padding-top: 40px;
   letter-spacing: 10px;
-  animation:textmove 16s linear infinite;
+  animation: textmove 16s linear infinite;
 }
 @keyframes textmove {
   0% {
@@ -143,23 +143,22 @@
   }
 }
 
-.upcoming_mathces_container{
+.upcoming_mathces_container {
   background: black;
 }
-.upcoming_mathces{
+.upcoming_mathces {
   display: flex;
   justify-content: 'center';
   flex-direction: column;
   align-items: center;
   margin-top: 6%;
-  
 }
-.upComingHeading{
+.upComingHeading {
   font-weight: 700;
   font-size: 30px;
   margin-top: 20px;
   margin-bottom: 20px;
-  color: #FF7A00;
+  color: #ff7a00;
 }
 .upComingPara {
   font-weight: 100;
@@ -168,24 +167,24 @@
   text-align: center;
   width: 50%;
 }
-.upcoming_mathces_sub_container{
+.upcoming_mathces_sub_container {
   display: flex;
   color: white;
   align-items: center;
   margin-top: 10%;
-  //  justify-content: space-around;
+  column-gap: 7%;
 }
-.banner_bgmi_img{
+.banner_bgmi_img {
   width: 50%;
 }
-.banner_image{
+.banner_image {
   width: 100%;
 }
-.rn_images_container{
+.rn_images_container {
   display: flex;
   width: 60%;
   padding: 2% 10% 5% 2%;
-  animation:imagemove 6s linear infinite;
+  animation: imagemove 6s linear infinite;
 }
 @keyframes imagemove {
   0% {
@@ -195,6 +194,119 @@
     transform: translateX(-30%);
   }
 }
-.rn_images{
+.rn_images {
   height: 150px;
 }
+.time_container {
+  display: flex;
+  flex-direction: column;
+}
+.prizepool {
+  display: flex;
+  column-gap: 5%;
+  width: 100%;
+  margin-top: 5%;
+  column-gap: 20%;
+}
+.time_container {
+  width: 50%;
+}
+.prize_container h2 {
+  padding-top: 10px;
+}
+.fee_container h2 {
+  margin-top: 10px;
+}
+.gameInfo {
+  display: flex;
+  column-gap: 20%;
+  margin-top: 8%;
+}
+.game{
+  display: flex;
+  flex-direction: column;
+}
+.game span{
+  margin-top: 10px;
+}
+.range_container{
+  display: flex;
+  margin-top: 8%;
+  column-gap: 12%;
+}
+.range{
+  display: flex;
+  flex-direction: column;
+}
+.range span{
+  margin-top: 5%;
+}
+.range input{
+  width: 300px;
+  border-radius: 8px;
+  accent-color:#ff7a00;
+}
+.joinbtn{
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  align-items: center;
+  width: 14%;
+  font-size: 16px;
+  color: white;
+  font-weight: 100;
+  background: #ff7a00;
+}
+.stone{
+  color: white;
+  position: relative;
+  display: flex;
+  column-gap: 20%;
+  opacity: 0.2;
+}
+.welcome_Container{
+  display: flex;
+  // justify-content: space-around;
+  
+ }
+.welcome_subcontainer{
+   width: 40%;
+   position: absolute;
+   left: 46%;
+
+  //  top: 20px;
+
+  }
+.welcome_Container h2{
+color: rgb(196, 186, 186);
+margin-top: 10px;
+margin-bottom: 10px;
+}
+.welcome_Container p{
+  color: grey;
+  margin-top:35px;
+  }
+  .choseSection{
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    color: white;
+    margin-top: 10%;
+  }
+  .choseSection p{
+   margin-top: 1%;
+   width: 50%;
+   text-align: center;
+   color: grey
+
+  }
+  .choseSection img{
+    margin-top: 8%;
+  
+ 
+   }
+   .scopeSection{
+    height: 50vh;
+    background:url('/public/assests/scopesectionbanner.svg');
+   }
