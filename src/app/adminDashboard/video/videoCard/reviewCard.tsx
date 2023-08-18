@@ -1,13 +1,17 @@
 import React from 'react';
 import styles from '../../../../styles/winner_review.module.scss';
-const reviewCard = () => {
+import Image from 'next/image';
+
+const reviewCard: React.FC = () => {
   return (
     <>
     <div className={styles.reviewCard}>
       <div className={styles.reviews}>
-        <img
+        <Image
           src="/assests/reviewer.svg"
           alt="trophy"
+          height={100}
+          width={100}
           className={styles.profile}
         />
         <div className={styles.reviewer}>
@@ -21,9 +25,11 @@ const reviewCard = () => {
     </div>
     <div className={styles.reviewCard}>
       <div className={styles.reviews}>
-        <img
+        <Image
           src="/assests/reviewer.svg"
           alt="trophy"
+          height={100}
+          width={100}
           className={styles.profile}
         />
         <div className={styles.reviewer}>
@@ -38,7 +44,9 @@ const reviewCard = () => {
 
     <div className={styles.reviewCard}>
       <div className={styles.reviews}>
-        <img
+        <Image
+         height={100}
+         width={100}
           src="/assests/reviewer.svg"
           alt="trophy"
           className={styles.profile}

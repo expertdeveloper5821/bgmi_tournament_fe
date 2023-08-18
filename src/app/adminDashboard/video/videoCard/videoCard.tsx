@@ -2,14 +2,21 @@
 import React, {useEffect, useState} from 'react';
 import styles from '../../../../styles/videoCard.module.scss';
 import sendRequest from '@/services/auth/auth_All_Api';
+import Image from 'next/image';
 
+
+interface VideoInfo {
+  date: string;
+  time: string;
+  videoLink: string;
+}
 interface CustomPaginationProps {
   onDataUpdate: (data: any) => void;
 }
 
 const VideoCard: React.FC<CustomPaginationProps> = ({onDataUpdate}) => {
-  const [data, setData] = useState<any>();
-  // will use spectator login token here
+  const [data, setData] = useState<VideoInfo[]>([]);
+   // will use spectator login token here
   console.log(data);
   //   const accessToken =
   // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGQyM2NmZmYyZGU4ZDVhODM2OTVlOWYiLCJyb2xlIjpbeyJfaWQiOiI2NGM3ODE1M2QyYzhhODQzMWNjMzZiZjIiLCJyb2xlIjpbImFkbWluIl19XSwiaWF0IjoxNjkxNzM2MzcwLCJleHAiOjE2OTE5MDkxNzB9.GGAIOjgZs9q82XdLZNvR-TQ4JwALiIev8lfLBtajhE4'
@@ -23,8 +30,9 @@ const VideoCard: React.FC<CustomPaginationProps> = ({onDataUpdate}) => {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        setData(response?.data?.data);
-        onDataUpdate(response?.data?.data);
+        const responseData = response?.data?.data as VideoInfo[];
+        setData(responseData);
+        onDataUpdate(responseData);
       } catch (error) {
         console.log(error);
       }
@@ -33,13 +41,12 @@ const VideoCard: React.FC<CustomPaginationProps> = ({onDataUpdate}) => {
   }, []);
   return (
     <div>
-      {' '}
-      {data &&
-        data.map((info: any, index: any) => {
+      {data.length > 0 &&
+        data.map((info: VideoInfo, index: number) => {
           return (
             <div className={styles.main_container} key={index}>
               <div className={styles.bannercontainer}>
-                <img src="/assests/ytbanner.svg" className={styles.ytbanner} />
+                <Image src="/assests/ytbanner.svg" alt='ytbanner' height={100} width={100} className={styles.ytbanner} />
               </div>
               <div className={styles.gameInfo}>
                 <h1 className={styles.heading}>BGMI SQUAD MATCH</h1>
@@ -50,12 +57,12 @@ const VideoCard: React.FC<CustomPaginationProps> = ({onDataUpdate}) => {
                 <div className={styles.button_maincontainer}>
                   <div className={styles.btnContainer}>
                     <span className={styles.copyimg}>
-                      <img src="/assests/copy.svg" alt="copy" />
+                      <Image src="/assests/copy.svg" alt="copy" height={100} width={100} />
                     </span>
-                    <button className={styles.btn}> copy link</button>
+                    <button className={styles.btn}> Copy link</button>
                   </div>
                   <div className={styles.btnContainer}>
-                    <button className={styles.btn}> watch video</button>
+                    <button className={styles.btn}> Watch video</button>
                   </div>
                 </div>
               </div>
