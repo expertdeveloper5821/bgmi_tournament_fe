@@ -35,23 +35,13 @@ function Login(): React.JSX.Element {
   const [error, setError] = useState<string>('');
   const [getToken, setGetToken] = useState<any>('');
   const {userInfo, updateUserInfo} = useUserContext();
-  const playBulletFireSound = () => {
-    const audio = new Audio('../assests/gunsound.mp3');
-    audio.currentTime = 0;
-    audio.play();
-  };
+
   const router = useRouter();
 
   function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
     setRememberMe(event.target.checked);
   }
-  useEffect(() => {
-    window.addEventListener('click', playBulletFireSound);
 
-    return () => {
-      window.removeEventListener('click', playBulletFireSound);
-    };
-  }, []);
 
   useEffect(() => {
     const rememberMeValue = localStorage.getItem('rememberMe') === 'true';
