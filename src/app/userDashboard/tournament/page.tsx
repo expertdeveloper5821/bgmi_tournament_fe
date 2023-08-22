@@ -29,9 +29,9 @@ export interface tournament {
 
 function Tournament() {
   const [poolModal, setPoolModal] = useState(false);
-  const [alldata, setData] = useState<[]>([]);
+  const [alldata, setData] = useState<any>([]);
   const [lastTournament, setLastTournament] = useState<tournament>();
-  const [allTournaments, setAllTournaments] = useState<tournament[]>();
+  const [allTournaments, setAllTournaments] = useState<[]>();
   const [regMatches, setRegMatches] = useState<any>('');
   const [gameName, setMatchName] = useState<String>('');
   const [gameType, setGameType] = useState<String>('');
@@ -68,8 +68,9 @@ function Tournament() {
     getAllTournaments();
     getRegisteredMatches();
   }, []);
+
   useEffect(() => {
-    if (alldata.length > 0) {
+    if (alldata) {
       setLastTournament(alldata[alldata.length - 1]);
       setAllTournaments(alldata.slice(0, 2));
     }
@@ -201,7 +202,7 @@ function Tournament() {
                     />
                   </div>
                 </div>
-                {!alldata.length ? (
+                {alldata && alldata.length === 0 ? (
                   <div className={styles.register_match}>
                     There is no room created till now
                   </div>
@@ -379,7 +380,6 @@ function Tournament() {
 
                       <div className={styles.winnings_sec_slider}>
                         <div className={styles.game_imgsection}>
-                          {/* <Slider {...settings}> */}
                           {allTournaments &&
                             allTournaments.map((e: any, index: any) => (
                               <Image
@@ -404,7 +404,6 @@ function Tournament() {
                                 }
                               />
                             ))}
-                          {/* </Slider> */}
                         </div>
                       </div>
                     </div>
@@ -415,7 +414,6 @@ function Tournament() {
             <span className={styles.register_match}>Registered Matches</span>
             {!regMatches.length ? (
               <div className={styles.register_match}>
-                {' '}
                 There is no Registered Match till now
               </div>
             ) : (
