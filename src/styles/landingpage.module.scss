@@ -13,6 +13,118 @@
   align-items: center;
   padding: 1rem 2rem;
 }
+.parashoot {
+  transform: scale(1);
+  top: -30%;
+  position: absolute;
+  left: 20%;
+  width: 130px;
+  height: 130px;
+  animation: parshoot1move 20s linear infinite;
+  opacity: 0.6;
+}
+.person_Img {
+  width: 200px;
+  height: auto;
+}
+
+@keyframes parshoot1move {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+    top: 100%;
+  }
+}
+.parashoot2 {
+  transform: scale(1);
+  top: 0%;
+  position: absolute;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  animation: parshoot2move 20s linear infinite;
+  opacity: 0.6;
+}
+@keyframes parshoot2move {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+    top: 90%;
+  }
+}
+
+.parashoot5 {
+  transform: scale(1);
+  top: -30%;
+  position: absolute;
+  right: 15%;
+  width: 140px;
+  height: 140px;
+  animation: parshoot5move 20s linear infinite;
+  opacity: 0.6;
+}
+
+.parashoot4 {
+  transform: scale(1);
+  top: 0%;
+  position: absolute;
+  right: 0%;
+  width: 250px;
+  height: 250px;
+  animation: parshoot4move 25s linear infinite;
+  opacity: 0.4;
+}
+
+.parashoot3 {
+  transform: scale(1);
+  top: 10%;
+  position: absolute;
+  right: 20%;
+  width: 250px;
+  height: 250px;
+  animation: parshoot3move 25s linear infinite;
+  opacity: 0.4;
+}
+
+/* key frames */
+@keyframes parshoot5move {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+    top: 100%;
+  }
+}
+
+@keyframes parshoot4move {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+    right: 120%;
+  }
+}
+
+@keyframes parshoot3move {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+    right: 120%;
+  }
+}
 
 .logo {
   font-size: 1.5rem;
@@ -195,7 +307,10 @@
   }
 }
 .rn_images {
+  width: 200px;
   height: 150px;
+  color: white;
+  margin-left: 20px;
 }
 .time_container {
   display: flex;
@@ -208,6 +323,7 @@
   margin-top: 5%;
   column-gap: 20%;
 }
+
 .time_container {
   width: 50%;
 }
@@ -216,6 +332,9 @@
 }
 .fee_container h2 {
   margin-top: 10px;
+}
+.rsSign {
+  margin-left: 5px;
 }
 .gameInfo {
   display: flex;
@@ -307,4 +426,257 @@
   background: url('../../public/assests/scopesectionbanner.svg');
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.newscope {
+  height: auto;
+  width: 18%;
+  position: absolute;
+  top: 42%;
+  left: 41%;
+}
+.bg_img_static {
+  animation: scaleImg 5s infinite;
+  height: auto;
+  width: 14.5%;
+  position: absolute;
+  top: 46.2%;
+  left: 43%;
+}
+@keyframes scaleImg {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.8);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+.scope_line {
+  height: auto;
+  width: 242px;
+  position: absolute;
+  top: 46%;
+  left: 43.5%;
+}
+.scope_line_red_dot {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 58.9%;
+  left: 49.8%;
+  background-color: rgba(255, 0, 0, 0.688);
+  border-radius: 50%;
+}
+.scope_target_text {
+  width: 70px;
+  position: absolute;
+  top: 69%;
+  text-align: center;
+  left: 48.2%;
+  color: red;
+  font-size: 14px;
+  font-weight: 700;
+}
+.bulletcontainer {
+  border: 2px solid white;
+  border-radius: 50%;
+  padding: 26px 18px 10px 10px;
+  width: 120px;
+  height: 120px;
+  background-color: #ffffff3d;
+  z-index: 1000;
+  top: 32%;
+  left: 39%;
+  position: absolute;
+}
+.bullet {
+  height: auto;
+  width: 100px;
+}
+.seamlesstxn {
+  top: 34%;
+  right: 32%;
+  position: absolute;
+  border: 2px solid white;
+  border-radius: 50px;
+  padding: 18px;
+  width: 80px;
+  height: 80px;
+  background-color: #ffffff52;
+}
+
+.seamimg {
+  height: auto;
+  width: 40px;
+}
+.clock_maincontainer {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 52%;
+  left: 33%;
+  gap: 15px;
+  align-items: center;
+}
+.clock {
+  border: 2px solid white;
+  border-radius: 50px;
+  padding: 16px;
+  width: 70px;
+  height: 70px;
+  background-color: #ffffff52;
+}
+.clock_img {
+  height: auto;
+  width: 100%;
+}
+.short_heading {
+  color: white;
+}
+.skills_maincontainer {
+  position: absolute;
+  bottom: 37%;
+  right: 34%;
+  width: 100px;
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.skillman {
+  border-radius: 50px;
+  padding: 12px;
+  width: 60px;
+  height: 60px;
+  background-color: #ffffff52;
+}
+.tournament_maincontainer {
+  position: absolute;
+  bottom: 1%;
+  left: 35%;
+  gap: 12px;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+  text-align: center;
+}
+.trophy_container {
+  border: 2px solid white;
+  border-radius: 50px;
+  padding: 16px;
+  width: 70px;
+  height: 70px;
+  background-color: #ffffff52;
+}
+.prize_maincontainer {
+  position: absolute;
+  bottom: 1%;
+  right: 32%;
+  width: 100px;
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+}
+.money_container {
+  border: 2px solid white;
+  border-radius: 50px;
+  padding: 16px;
+  width: 70px;
+  height: 70px;
+  background-color: #ffffff52;
+}
+.scope_text {
+  font-weight: 100;
+  display: flex;
+  color: white;
+  text-align: center;
+  max-width: 600px;
+  font-size: 19px;
+  margin: 0 auto;
+  padding-top: 80px;
+}
+.guns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 50px;
+}
+.gun {
+  height: auto;
+  width: 15%;
+}
+.gun1 {
+  height: auto;
+  width: 15%;
+  margin-top: 25px;
+}
+// modal css
+
+.main_winning_pool {
+  position: absolute;
+  top: 1210px;
+  left: 0;
+  width: 100%;
+  min-width: 300px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.inner_winning_pool {
+  background: linear-gradient(
+    131.26deg,
+    #ffffff 26.63%,
+    rgb(255 122 0 / 74%) 450.26%
+  );
+  padding: 0px;
+  width: 36%;
+  border-radius: 16px;
+}
+.cancel_btn {
+  padding: 10px;
+  background: #ff7a00;
+  color: white;
+  margin: 10px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.text_pool_cls {
+  padding: 18px;
+  background: #ff7a00;
+  text-align: center;
+  border-top-right-radius: 16px;
+  border-top-left-radius: 16px;
+}
+.pool_cancel_p {
+  text-align: center;
+}
+
+.cancel_icon {
+  background-color: #ff7a00;
+  border-radius: 24px;
+  margin: 12px 0px;
+  font-size: 26px;
+  padding: 3px;
+}
+
+.pool_text_p {
+  color: #003554;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22.07px;
+  padding-top: 16px;
 }
