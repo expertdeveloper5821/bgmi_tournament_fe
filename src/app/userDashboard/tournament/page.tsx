@@ -7,31 +7,31 @@ import {Button} from 'technogetic-iron-smart-ui';
 import {decodeJWt} from '@/utils/globalfunctions';
 import Image from 'next/image';
 import sendRequest from '@/services/auth/auth_All_Api';
-//import {Carousel} from 'react-elastic-carousel';
+//@ts-ignore
+import {Input} from 'technogetic-iron-smart-ui';
 import {AiOutlineDown, AiOutlineClose} from 'react-icons/ai';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick';
-// import DemoCarousel from "../../../Components/Carousel/Carousel"
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export interface IAppProps {}
 
 function Tournament() {
   const [poolModal, setPoolModal] = useState(false);
-  const [alldata, setData] = useState<any>([]);
-  const [lastTournament, setLastTournament] = useState<any>(null);
+  const [alldata, setData] = useState<[]>([]);
+  const [lastTournament, setLastTournament] = useState(null);
   const [allTournaments, setAllTournaments] = useState<any>(null);
   const [regMatches, setRegMatches] = useState<any>('');
-  const [gameName, setMatchName] = useState<string>('');
-  const [gameType, setGameType] = useState<any>('');
-  const [mapType, setMapType] = useState<any>('');
-  const [version, setVersion] = useState<any>('');
-  const [date, setDate] = useState<any>('');
-  const [time, setTime] = useState<any>('');
-  const [lastServival, setLastServival] = useState<any>('');
-  const [roomId, setRoomId] = useState<any>('');
+  const [gameName, setMatchName] = useState<any>('');
+  const [gameType, setGameType] = useState<string>('');
+  const [mapType, setMapType] = useState<string>('');
+  const [version, setVersion] = useState<string>('');
+  const [date, setDate] = useState<string>('');
+  const [time, setTime] = useState<string>('');
+  const [lastServival, setLastServival] = useState<string>('');
+  const [roomId, setRoomId] = useState<string>('');
+  const [mapImg, setMapImg] = useState<string>('');
 
   const getAllTournaments = async () => {
     const token: any = localStorage.getItem('jwtToken');
@@ -61,7 +61,7 @@ function Tournament() {
 
   useEffect(() => {
     setLastTournament(alldata[alldata.length - 1]);
-    setAllTournaments(alldata?.slice(0, 3));
+    setAllTournaments(alldata?.slice(0, 2));
   }, [alldata]);
 
   useEffect(() => {
@@ -73,6 +73,7 @@ function Tournament() {
     setTime(lastTournament?.time);
     setLastServival(lastTournament?.lastServival);
     setRoomId(lastTournament?.roomUuid);
+    setMapImg(lastTournament?.mapImg);
   }, [lastTournament]);
 
   const updateMainData = (
@@ -84,6 +85,7 @@ function Tournament() {
     mtime: any,
     lastServival: any,
     roomid: any,
+    mapImg: string,
   ) => {
     setMatchName(gname);
     setGameType(gType);
@@ -93,6 +95,7 @@ function Tournament() {
     setTime(mtime);
     setLastServival(lastServival);
     setRoomId(roomid);
+    setMapImg(mapImg);
   };
 
   const addRegMatch = async (roomId: any) => {
@@ -121,7 +124,7 @@ function Tournament() {
     }
   };
 
-  const settings = {
+  const settings: any = {
     dots: true,
     infinite: true,
     speed: 500,
@@ -129,8 +132,7 @@ function Tournament() {
     slidesToScroll: 1,
     autoplay: false,
     autoplaySpeed: 2000,
-    prevArrow: window.innerWidth <= 768 ? null : '>',
-    nextArrow: window.innerWidth <= 768 ? null : '<',
+
     responsive: [
       {
         breakpoint: 1024,
@@ -142,7 +144,7 @@ function Tournament() {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
           slidesToScroll: 1,
           prevArrow: null,
           nextArrow: null,
@@ -172,9 +174,6 @@ function Tournament() {
                   Dashboard/Upcoming Matches
                 </h1>
               </div>
-              {/* <div className={styles.sort_btn}>
-                <Image src='../assests/sort_button.svg' alt='sortButton' className={styles.wrapperimg} width={100} height={100}/>
-              </div> */}
             </div>
             <div className={styles.room_wrapper}>
               <div className={styles.room_container}>
@@ -342,6 +341,14 @@ function Tournament() {
                           </span>
                         </div>
                       </div>
+                      <div className={styles.spot_line_sec}>
+                        <progress
+                          className={styles.progress_cls}
+                          id="file"
+                          value="40"
+                          max="100"
+                        />
+                      </div>
                       <div className={styles.winnings_sec_secton}>
                         <div className={styles.spot_line}>
                           <span className={styles.bar_font}>
@@ -356,50 +363,36 @@ function Tournament() {
                           Join
                         </Button>
                       </div>
+
                       <div className={styles.winnings_sec_slider}>
-                        {/* <Carousel
-                          swipeable={false}
-                          arrows={false}
-                          draggable={false}
-                          showDots={true}
-                          responsive={responsive}
-                          ssr={true}
-                          infinite={true}
-                          autoPlay={true}
-                          autoPlaySpeed={2200}
-                          keyBoardControl={true}
-                          dotListClass="custom-dot-list-style"
-                          itemClass="carousel_text"
-                        > */}
-                        {/* <Carousel breakPoints={breakPoints}> */}
-                        <div className={styles['slider-container']}>
-                          <Slider {...settings}>
-                            {allTournaments &&
-                              allTournaments.map((e: any, index: any) => (
-                                <Image
-                                  key={index}
-                                  width={100}
-                                  height={100}
-                                  className={styles.img_slider_one}
-                                  src="../assests/cards.svg"
-                                  alt="slides"
-                                  onClick={() =>
-                                    updateMainData(
-                                      e.gameName,
-                                      e.gameType,
-                                      e.mapType,
-                                      e.version,
-                                      e.date,
-                                      e.time,
-                                      e.lastServival,
-                                      e.roomUuid,
-                                    )
-                                  }
-                                ></Image>
-                              ))}
-                          </Slider>
+                        <div className={styles.game_imgsection}>
+                          {/* <Slider {...settings}> */}
+                          {allTournaments &&
+                            allTournaments.map((e: any, index: any) => (
+                              <Image
+                                key={index}
+                                width={100}
+                                height={100}
+                                className={styles.img_slider_one}
+                                src="../assests/cards.svg"
+                                alt="slides"
+                                onClick={() =>
+                                  updateMainData(
+                                    e.gameName,
+                                    e.gameType,
+                                    e.mapType,
+                                    e.version,
+                                    e.date,
+                                    e.time,
+                                    e.lastServival,
+                                    e.roomUuid,
+                                    e.mapImg,
+                                  )
+                                }
+                              />
+                            ))}
+                          {/* </Slider> */}
                         </div>
-                        {/* </Carousel> */}
                       </div>
                     </div>
                   </>
@@ -415,15 +408,17 @@ function Tournament() {
             ) : (
               <>
                 <div className={styles.container2}>
-                  {/* <Carousel breakPoints={breakPoints}> */}
-                  {regMatches &&
-                    regMatches.map((match: any) => {
-                      return (
-                        <>
-                          <img
+                  <Slider {...settings}>
+                    {regMatches &&
+                      regMatches.map((match: any, index: any) => (
+                        <div className={styles.container3} key={index}>
+                          <Image
                             src="../assests/registeredmatches.svg"
                             alt="slides"
-                          ></img>
+                            className={styles.container3_img}
+                            width={100}
+                            height={100}
+                          />
                           <div className={styles.Tournaments}>
                             <div className={styles.tournament_slider}>
                               <div className={styles.winning_prize}>
@@ -469,10 +464,9 @@ function Tournament() {
                               <span>Room password: {match?.password}</span>
                             </div>
                           </div>
-                        </>
-                      );
-                    })}
-                  {/* </Carousel> */}
+                        </div>
+                      ))}
+                  </Slider>
                 </div>
               </>
             )}
