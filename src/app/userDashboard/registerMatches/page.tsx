@@ -8,23 +8,28 @@ import {decodeJWt} from '@/utils/globalfunctions';
 import Image from 'next/image';
 import sendRequest from '@/services/auth/auth_All_Api';
 import jwtDecode from 'jwt-decode';
-import Carousel from 'react-elastic-carousel'
-import useWindowSize from '@/services/hook/useWindowSize';
-
-
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick';
 
 export interface IAppProps {}
+export interface RegMatch {
+  gameName: string;
+  gameType: string;
+  mapType: string;
+  version: string;
+}
 
 function Tournament() {
   const [alldata, setData] = useState<any>([]);
-  const [lastTournament, setLastTournament] = useState<any>(null);
-  const [allTournaments, setAllTournaments] = useState<any>(null);
-  const [gameName, setMatchName] = useState<any>('');
-  const [gameType, setGameType] = useState<any>('');
-  const [mapType, setMapType] = useState<any>('');
-  const [version, setVersion] = useState<any>('');
+  const [lastTournament, setLastTournament] = useState<RegMatch>();
+  const [allTournaments, setAllTournaments] = useState<RegMatch[]>();
+  const [gameName, setMatchName] = useState<String>();
+  const [gameType, setGameType] = useState<String>();
+  const [mapType, setMapType] = useState<String>();
+  const [version, setVersion] = useState<String>();
   const [regMatches, setRegMatches] = useState<any>('');
-  const width  = useWindowSize()
 
   const getAllTournaments = async () => {
     const token: any = localStorage.getItem('jwttoken');
@@ -83,11 +88,51 @@ function Tournament() {
     fetchData();
   }, []);
 
-  const updateMainData = (gname: any, gType: any, mType: any, vType: any) => {
+  const updateMainData = (
+    gname: string,
+    gType: string,
+    mType: string,
+    vType: string,
+  ) => {
     setMatchName(gname);
     setGameType(gType);
     setMapType(mType);
     setVersion(vType);
+  };
+  const settings: any = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 2000,
+
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          prevArrow: null,
+          nextArrow: null,
+        },
+      },
+      {
+        breakpoint: 375,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
   return (
     <>
@@ -211,7 +256,9 @@ function Tournament() {
                         <div className={styles.countdown}>
                           <span>Match starts Within</span>
                           <h2>10 minutes</h2>
-                          <span className={styles.roomId}>Room Id : 123456787</span>
+                          <span className={styles.roomId}>
+                            Room Id : 123456787
+                          </span>
                         </div>
                       </div>
 
@@ -219,7 +266,10 @@ function Tournament() {
                         <div className={styles.zeromin}>
                           <h1>0</h1>
                           <span>Minutes</span>
-                          <span className={styles.roomId}> Room Password : 263</span>
+                          <span className={styles.roomId}>
+                            {' '}
+                            Room Password : 263
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -227,131 +277,128 @@ function Tournament() {
                 </div>
               </div>
             </div>
-            <div className={styles.Teammembers}>
-              Your Team Members
-            </div>
+            <div className={styles.Teammembers}>Your Team Members</div>
             <div className={styles.container2}>
-              {
-                width <= 768 ?   <Carousel>
+              {/* {
+                (settings.breakpoint = 790 ? ( */}
+              <Slider {...settings}>
                 <div className={styles.reviewsContainer}>
-                {' '}
-                <div className={styles.reviewCard}>
-                  <div className={styles.reviews}>
-                    <img
-                      src="/assests/reviewman.svg"
-                      alt="image"
-                      className={styles.profile}
-                    />
-                    <div className={styles.reviewer}>
-                      <div className={styles.name}>
-                        <h2>JOhn doe</h2>
-                        <div className={styles.greenCircle}></div>
+                  <div className={styles.reviewCard}>
+                    <div className={styles.reviews}>
+                      <img
+                        src="/assests/reviewman.svg"
+                        alt="image"
+                        className={styles.profile}
+                      />
+                      <div className={styles.reviewer}>
+                        <div className={styles.name}>
+                          <h2>JOhn doe</h2>
+                          <div className={styles.greenCircle}></div>
+                        </div>
+                        <p>akshay@gmail.com</p>
                       </div>
-                      <p>akshay@gmail.com</p>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className={styles.reviewsContainer}>
-                {' '}
-                <div className={styles.reviewCard}>
-                  <div className={styles.reviews}>
-                    <img
-                      src="/assests/reviewman.svg"
-                      alt="image"
-                      className={styles.profile}
-                    />
-                    <div className={styles.reviewer}>
-                      <div className={styles.name}>
-                        <h2>JOhn doe</h2>
-                        <div className={styles.greenCircle}></div>
+                <div className={styles.reviewsContainer}>
+                  <div className={styles.reviewCard}>
+                    <div className={styles.reviews}>
+                      <img
+                        src="/assests/reviewman.svg"
+                        alt="image"
+                        className={styles.profile}
+                      />
+                      <div className={styles.reviewer}>
+                        <div className={styles.name}>
+                          <h2>JOhn doe</h2>
+                          <div className={styles.greenCircle}></div>
+                        </div>
+                        <p>akshay@gmail.com</p>
                       </div>
-                      <p>akshay@gmail.com</p>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className={styles.reviewsContainer}>
-                {' '}
-                <div className={styles.reviewCard}>
-                  <div className={styles.reviews}>
-                    <img
-                      src="/assests/reviewman.svg"
-                      alt="image"
-                      className={styles.profile}
-                    />
-                    <div className={styles.reviewer}>
-                      <div className={styles.name}>
-                        <h2>JOhn doe</h2>
-                        <div className={styles.greenCircle}></div>
+                <div className={styles.reviewsContainer}>
+                  <div className={styles.reviewCard}>
+                    <div className={styles.reviews}>
+                      <img
+                        src="/assests/reviewman.svg"
+                        alt="image"
+                        className={styles.profile}
+                      />
+                      <div className={styles.reviewer}>
+                        <div className={styles.name}>
+                          <h2>JOhn doe</h2>
+                          <div className={styles.greenCircle}></div>
+                        </div>
+                        <p>akshay@gmail.com</p>
                       </div>
-                      <p>akshay@gmail.com</p>
                     </div>
                   </div>
                 </div>
-              </div>
-                </Carousel> :  
-                <>
-              <div className={styles.reviewsContainer}>
-              {' '}
-              <div className={styles.reviewCard}>
-                <div className={styles.reviews}>
-                  <img
-                    src="/assests/reviewman.svg"
-                    alt="image"
-                    className={styles.profile}
-                  />
-                  <div className={styles.reviewer}>
-                    <div className={styles.name}>
-                      <h2>JOhn doe</h2>
-                      <div className={styles.greenCircle}></div>
+              </Slider>
+              {/* ) : (
+                  <>
+                    <div className={styles.reviewsContainer}>
+                      {' '}
+                      <div className={styles.reviewCard}>
+                        <div className={styles.reviews}>
+                          <img
+                            src="/assests/reviewman.svg"
+                            alt="image"
+                            className={styles.profile}
+                          />
+                          <div className={styles.reviewer}>
+                            <div className={styles.name}>
+                              <h2>JOhn doe</h2>
+                              <div className={styles.greenCircle}></div>
+                            </div>
+                            <p>akshay@gmail.com</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <p>akshay@gmail.com</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={styles.reviewsContainer}>
-              {' '}
-              <div className={styles.reviewCard}>
-                <div className={styles.reviews}>
-                  <img
-                    src="/assests/reviewman.svg"
-                    alt="image"
-                    className={styles.profile}
-                  />
-                  <div className={styles.reviewer}>
-                    <div className={styles.name}>
-                      <h2>JOhn doe</h2>
-                      <div className={styles.greenCircle}></div>
+                    <div className={styles.reviewsContainer}>
+                      {' '}
+                      <div className={styles.reviewCard}>
+                        <div className={styles.reviews}>
+                          <img
+                            src="/assests/reviewman.svg"
+                            alt="image"
+                            className={styles.profile}
+                          />
+                          <div className={styles.reviewer}>
+                            <div className={styles.name}>
+                              <h2>JOhn doe</h2>
+                              <div className={styles.greenCircle}></div>
+                            </div>
+                            <p>akshay@gmail.com</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <p>akshay@gmail.com</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={styles.reviewsContainer}>
-              {' '}
-              <div className={styles.reviewCard}>
-                <div className={styles.reviews}>
-                  <img
-                    src="/assests/reviewman.svg"
-                    alt="image"
-                    className={styles.profile}
-                  />
-                  <div className={styles.reviewer}>
-                    <div className={styles.name}>
-                      <h2>JOhn doe</h2>
-                      <div className={styles.greenCircle}></div>
+                    <div className={styles.reviewsContainer}>
+                      {' '}
+                      <div className={styles.reviewCard}>
+                        <div className={styles.reviews}>
+                          <img
+                            src="/assests/reviewman.svg"
+                            alt="image"
+                            className={styles.profile}
+                          />
+                          <div className={styles.reviewer}>
+                            <div className={styles.name}>
+                              <h2>JOhn doe</h2>
+                              <div className={styles.greenCircle}></div>
+                            </div>
+                            <p>akshay@gmail.com</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <p>akshay@gmail.com</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </>
-              }
-             
+                  </>
+                ))
+              } */}
             </div>
           </div>
         </div>
