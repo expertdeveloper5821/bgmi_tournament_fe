@@ -56,7 +56,7 @@
 }
 
 .room_wrapper {
-  display: flex;
+  // display: flex;
   // justify-content: space-between;
 }
 
@@ -70,6 +70,9 @@
   @media (max-width: $breakpoint-xSmall) {
     height: 280px !important;
   }
+  @media (max-width: $breakpoint-xs) {
+    height: auto;
+  }
   @media (max-width: $breakpoint-ms) {
     height: 250px;
   }
@@ -77,13 +80,20 @@
 .room_container {
   display: flex;
   margin: 10px 10px;
-  flex-wrap: wrap;
   column-gap: 18px;
   @media (max-width: $breakpoint-xSmall) {
     margin: 10px 0px;
+    flex-direction: column;
   }
   @media (max-width: $breakpoint-xs) {
     margin: 10px 0px;
+    flex-direction: column;
+  }
+  @media (max-width: $breakpoint-sm) {
+    margin: 10px 0px;
+    flex-direction: column;
+  }
+  @media (max-width: $breakpoint-md) {
   }
 }
 
@@ -132,10 +142,13 @@
     visibility: hidden;
   }
 }
-
+.container3_img {
+  width: auto;
+  height: 148px;
+}
 .tournament_slider {
   display: flex;
-  //  flex-wrap: wrap;
+  justify-content: space-between;
   margin: 10px 3px;
 }
 .rs_logo {
@@ -163,8 +176,7 @@
 }
 
 .spot_line {
-  border-top: 5px solid white;
-
+  // border-top: 5px solid white;
   display: flex;
   gap: 100px;
 }
@@ -194,6 +206,12 @@
   @media (max-width: $breakpoint-xs) {
     justify-content: flex-start;
   }
+  @media (max-width: $breakpoint-sm) {
+    justify-content: flex-start;
+  }
+  @media (max-width: $breakpoint-md) {
+    justify-content: space-between;
+  }
 }
 .registeredmatches {
   display: flex;
@@ -215,20 +233,41 @@ img.slides_image {
     width: 170px;
   }
 }
-.winnings_sec_slider {
-  // display: flex;
-  // gap: 12px;
-}
 
 .container2 {
-  display: flex;
+  // display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 4px 10px;
+  padding: 28px 10px;
   flex-wrap: wrap;
+  width: 90%;
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 28px 1px;
+    width: 100%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    padding: 28px 3px;
+    width: 100%;
+  }
+}
+
+.container3 {
+  display: flex !important;
+  @media (max-width: $breakpoint-xSmall) {
+    display: inline-block !important;
+  }
+  @media (max-width: $breakpoint-xs) {
+    display: inline-block !important;
+  }
 }
 .container2 img {
   margin-left: 3%;
+  @media (max-width: $breakpoint-xSmall) {
+    margin-left: 13%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    margin-left: 13%;
+  }
 }
 
 .Tournaments {
@@ -586,7 +625,29 @@ img.slides_image {
 .slick-slide {
   width: 100px !important;
 }
-.slider-container {
-  width: 80%;
-  margin: 0 auto;
+// .slider-container {
+//   width: 80%;
+//   margin: 0 auto;
+// }
+.img_slider_one {
+  width: auto;
+  height: 138px;
+  margin-top: 12px;
+  @media (max-width: $breakpoint-xSmall) {
+    height: 86px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    height: 86px;
+  }
+  @media (max-width: $breakpoint-sm) {
+  }
+}
+.game_imgsection {
+  display: flex;
+  column-gap: 18px;
+  //width: 80%;
+}
+.progress_cls {
+  accent-color: #ff7a00;
+  width: 50%;
 }
