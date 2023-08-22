@@ -15,23 +15,33 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick';
 
-export interface IAppProps {}
+export interface tournament {
+  gameName: string;
+  gameType: string;
+  mapType: string;
+  version: string;
+  date: string;
+  time: string;
+  lastServival: string;
+  roomUuid: string;
+  mapImg: string;
+}
 
 function Tournament() {
   const [poolModal, setPoolModal] = useState(false);
   const [alldata, setData] = useState<[]>([]);
-  const [lastTournament, setLastTournament] = useState(null);
-  const [allTournaments, setAllTournaments] = useState<any>(null);
+  const [lastTournament, setLastTournament] = useState<tournament>();
+  const [allTournaments, setAllTournaments] = useState<tournament[]>();
   const [regMatches, setRegMatches] = useState<any>('');
-  const [gameName, setMatchName] = useState<any>('');
-  const [gameType, setGameType] = useState<string>('');
-  const [mapType, setMapType] = useState<string>('');
-  const [version, setVersion] = useState<string>('');
-  const [date, setDate] = useState<string>('');
-  const [time, setTime] = useState<string>('');
-  const [lastServival, setLastServival] = useState<string>('');
-  const [roomId, setRoomId] = useState<string>('');
-  const [mapImg, setMapImg] = useState<string>('');
+  const [gameName, setMatchName] = useState<String>('');
+  const [gameType, setGameType] = useState<String>('');
+  const [mapType, setMapType] = useState<String>('');
+  const [version, setVersion] = useState<String>('');
+  const [date, setDate] = useState<String>('');
+  const [time, setTime] = useState<String>('');
+  const [lastServival, setLastServival] = useState<String>('');
+  const [roomId, setRoomId] = useState<String>('');
+  const [mapImg, setMapImg] = useState<String>('');
 
   const getAllTournaments = async () => {
     const token: any = localStorage.getItem('jwtToken');
@@ -58,33 +68,36 @@ function Tournament() {
     getAllTournaments();
     getRegisteredMatches();
   }, []);
-
   useEffect(() => {
-    setLastTournament(alldata[alldata.length - 1]);
-    setAllTournaments(alldata?.slice(0, 2));
+    if (alldata.length > 0) {
+      setLastTournament(alldata[alldata.length - 1]);
+      setAllTournaments(alldata.slice(0, 2));
+    }
   }, [alldata]);
 
   useEffect(() => {
-    setMatchName(lastTournament?.gameName);
-    setGameType(lastTournament?.gameType);
-    setMapType(lastTournament?.mapType);
-    setVersion(lastTournament?.version);
-    setDate(lastTournament?.date);
-    setTime(lastTournament?.time);
-    setLastServival(lastTournament?.lastServival);
-    setRoomId(lastTournament?.roomUuid);
-    setMapImg(lastTournament?.mapImg);
+    if (lastTournament) {
+      setMatchName(lastTournament?.gameName);
+      setGameType(lastTournament?.gameType);
+      setMapType(lastTournament?.mapType);
+      setVersion(lastTournament?.version);
+      setDate(lastTournament?.date);
+      setTime(lastTournament?.time);
+      setLastServival(lastTournament?.lastServival);
+      setRoomId(lastTournament?.roomUuid);
+      setMapImg(lastTournament?.mapImg);
+    }
   }, [lastTournament]);
 
   const updateMainData = (
     gname: string,
-    gType: any,
-    mType: any,
-    vType: any,
-    mdate: any,
-    mtime: any,
-    lastServival: any,
-    roomid: any,
+    gType: string,
+    mType: string,
+    vType: string,
+    mdate: string,
+    mtime: string,
+    lastServival: string,
+    roomid: string,
     mapImg: string,
   ) => {
     setMatchName(gname);
