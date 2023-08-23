@@ -20,11 +20,37 @@ const page = () => {
         </span>
         </div>
       </Link>
-        <div className={styles.menuToggle} onClick={toggleMenu}>
-        ☰
+      {
+        width >=969 ? <ul className={`${styles.menu}`}>
+        <li>
+          <Link href="/">
+            Home
+          </Link>
+        </li>                                                                   
+        <li>
+          <Link href="/about">
+            About Us
+          </Link>
+        </li>
+        <li>
+          <Link href="/about">
+            Upcoming Matches
+          </Link>
+        </li>
+        <li>
+          <Link href="/contact">
+            Contact Us
+          </Link>
+        </li>
+        <Link href='/auth/login'>
+      <button className={styles.loginBtn}>Login</button>
+        </Link>
+      </ul>  : <div>
+        {
+          isMenuOpen ?<> <div className={styles.menuToggle} onClick={toggleMenu}>
+          X
       </div>
-      
-      <ul className={`${styles.menu} ${ (isMenuOpen ) ? styles.active : ''}`}>
+      <ul className={`${styles.menu}`}>
         <li>
           <Link href="/">
             Home
@@ -46,7 +72,17 @@ const page = () => {
           </Link>
         </li>
       <button className={styles.loginBtn}>Login</button>
-      </ul>
+      </ul> 
+      
+      </> : <div className={styles.menuToggle} onClick={toggleMenu}>
+          ☰
+        </div>
+        }
+      </div>
+      
+      
+}
+      
     </nav>
 
    </div>
