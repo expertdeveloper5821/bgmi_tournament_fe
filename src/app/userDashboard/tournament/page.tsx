@@ -1,5 +1,5 @@
 'use client';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
 import {Navbar} from '../../../Components/Navbar/Navbar';
 //@ts-ignore
@@ -7,8 +7,6 @@ import {Button} from 'technogetic-iron-smart-ui';
 import {decodeJWt} from '@/utils/globalfunctions';
 import Image from 'next/image';
 import sendRequest from '@/services/auth/auth_All_Api';
-//@ts-ignore
-import {Input} from 'technogetic-iron-smart-ui';
 import {AiOutlineDown, AiOutlineClose} from 'react-icons/ai';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -144,7 +142,7 @@ function Tournament() {
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 2000,
 
     responsive: [
