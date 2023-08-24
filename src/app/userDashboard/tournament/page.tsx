@@ -14,6 +14,8 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick';
+import CountdownComponent from './CountdownComponent';
+import {toast} from 'react-toastify';
 
 export interface IAppProps {}
 
@@ -32,15 +34,29 @@ function Tournament() {
   const [lastServival, setLastServival] = useState<string>('');
   const [roomId, setRoomId] = useState<string>('');
   const [mapImg, setMapImg] = useState<string>('');
+  // const [matchRoomid, setmatchRoomid] = useState<string>('*******');
+  // const [matchPassword, setmatchPassword] = useState<string>('*******');
+  // const [timediff, seTimediff] = useState<number>();
+  const [matchIndex, setMatchIndex] = useState<any>();
+  const [showRoomPwd, setRoomPwd] = useState<boolean>(false);
+
+  console.log('matchIndex', matchIndex);
 
   const getAllTournaments = async () => {
     const token: any = localStorage.getItem('jwtToken');
+    const roomids = localStorage.getItem('roomIds');
     const decodedToken: any = decodeJWt(token);
     const tournamentResponse = await sendRequest('api/v1/room/rooms', {
       method: 'GET',
       headers: {Authorization: `Bearer ${token}`},
     });
-    setData(tournamentResponse.data[0].rooms);
+
+    const filteredDataArray = tournamentResponse.data.filter(
+      (item: {roomUuid: string; roomid: string}) =>
+        !roomids?.includes(item.roomUuid),
+    );
+
+    setData(filteredDataArray);
   };
 
   const getRegisteredMatches = async () => {
@@ -50,8 +66,33 @@ function Tournament() {
       method: 'GET',
       headers: {Authorization: `Bearer ${token}`},
     });
-
     setRegMatches(registeredMatches.data.rooms);
+  };
+
+  const getRoomidPwd = async () => {
+    console.log(regMatches);
+
+    regMatches.map((match: any, index: any) => {
+      const currentTime = new Date();
+      const dbTime = `${match?.date}T${match?.time}`;
+      //const currentTime = new Date(`2023-08-24T12:36`);
+      //const dbTime = `2023-08-23T15:50`;
+      const matchTime = new Date(dbTime);
+      const timeDifference = Number(matchTime) - Number(currentTime);
+      for (let i = 0; i < regMatches.length; i++) {
+        const dbTime = `${regMatches[i]?.date}T${regMatches[i]?.time}`;
+        const matchTime = new Date(dbTime);
+        const timeDifference = Number(matchTime) - Number(currentTime);
+        if (timeDifference >= 900000) {
+          setMatchIndex(i);
+          setRoomPwd(true);
+        }
+      }
+      if (timeDifference <= 900000) {
+        setmatchRoomid(match?.roomId);
+        setmatchPassword(match?.password);
+      }
+    });
   };
 
   useEffect(() => {
@@ -62,6 +103,8 @@ function Tournament() {
   useEffect(() => {
     setLastTournament(alldata[alldata.length - 1]);
     setAllTournaments(alldata?.slice(0, 2));
+    getRegisteredMatches();
+    getRoomidPwd();
   }, [alldata]);
 
   useEffect(() => {
@@ -102,6 +145,16 @@ function Tournament() {
     try {
       const token: any = localStorage.getItem('jwtToken');
       const decodedToken: any = decodeJWt(token);
+      const userId = decodedToken.userId;
+
+      var addRoom = localStorage.getItem('roomIds');
+      var obj = [];
+      if (addRoom) {
+        obj = JSON.parse(addRoom);
+      }
+      obj.push(roomId);
+      localStorage.setItem('roomIds', JSON.stringify(obj));
+
       const response = await sendRequest('api/v1/payment/create-payment', {
         method: 'POST',
         headers: {Authorization: `Bearer ${token}`},
@@ -115,7 +168,13 @@ function Tournament() {
       });
       if (response.status === 200) {
         console.log('Joined Successfully');
-        getRegisteredMatches();
+        getAllTournaments();
+        //getRegisteredMatches();
+        toast.success('Contest Joined Successfully', {
+          position: 'top-right',
+          autoClose: 2000, // Automatically close after 2 seconds
+          hideProgressBar: false, // Show the progress bar
+        });
       } else {
         console.log('Payment Failed');
       }
@@ -130,7 +189,7 @@ function Tournament() {
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 2000,
 
     responsive: [
@@ -459,10 +518,24 @@ function Tournament() {
                                 <span>{match?.time}</span>
                               </div>
                             </div>
-                            <div className={styles.id_password}>
-                              <span>Room Id: {match?.roomId}</span>
-                              <span>Room password: {match?.password}</span>
-                            </div>
+                            {showRoomPwd ? (
+                              <div className={styles.id_password}>
+                                <span>Room Id: {regMatches[matchIndex].roomId}</span>
+                                <span>Room password: {regMatches[matchIndex].matchPassword}</span>
+                              </div>
+                            ) : (
+                              <div className={styles.id_password}>
+                                <span>Room Id:***** </span>
+                                <span>Room password:*****</span>
+                              </div>
+                            )}
+
+                            {/* <CountdownComponent
+                              roomidd={match?.roomId}
+                              password={match?.password}
+                              time={match?.time}
+                              date={match?.date}
+                            /> */}
                           </div>
                         </div>
                       ))}
