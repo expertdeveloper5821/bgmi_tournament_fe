@@ -6,6 +6,9 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+.bodycolor{
+  background-color: black;
+}
 .navbar {
   background-color: #333;
   display: flex;
@@ -223,7 +226,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 55px;
+  font-size: 42px;
   letter-spacing: 36px;
   color: #003554;
   font-weight: 600;
@@ -376,33 +379,24 @@
   font-weight: 100;
   background: #ff7a00;
 }
-.stone {
-  color: white;
-  position: relative;
-  display: flex;
-  column-gap: 20%;
-  opacity: 0.2;
-}
+
 .welcome_Container {
   display: flex;
-  // justify-content: space-around;
 }
-.welcome_subcontainer {
-  width: 40%;
-  position: absolute;
-  left: 46%;
+.stone {
+  flex: 0 1 49%;
+}
 
-  //  top: 20px;
+.welcome_subcontainer {
+  color: #fdfafa;
+  opacity: 0.4;
+  background: url('../../public/assests/Group20.svg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  flex: 0 1 45%;
 }
-.welcome_Container h2 {
-  color: rgb(196, 186, 186);
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.welcome_Container p {
-  color: grey;
-  margin-top: 35px;
-}
+
 .choseSection {
   display: flex;
   flex-direction: column;
@@ -679,4 +673,561 @@
   font-size: 18px;
   line-height: 22.07px;
   padding-top: 16px;
+}
+
+// map sec
+
+.map {
+  background-color: black;
+}
+.mapSecDescription {
+  text-align: center;
+  padding: 30px;
+  background-color: black;
+  margin: 0 auto;
+  color: #fdfafa;
+  width: 900px;
+}
+
+.mapSecHead {
+  padding: 20px;
+}
+
+.mapBg {
+  color: #fdfafa;
+  background: url('../../public/assests/BGMAP.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  position: relative;
+}
+
+.mapBgPara {
+  display: flex;
+  justify-content: center;
+  height: 85vh;
+  align-items: end;
+  color: #fdfafa;
+}
+
+.mapP{
+  z-index: 999;
+text-align: center;
+}
+
+.signUpDiv {
+  position: absolute;
+  top: 11rem;
+  left: 18rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100px;
+  height: 100px;
+}
+
+.singUp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #fdfafa;
+  border: 1px solid red;
+}
+
+.rewardDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 23rem;
+  left: 27.3rem;
+}
+.rewards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid white;
+}
+
+.playDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 20rem;
+  right: 22.5rem;
+}
+.play {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid white;
+}
+.mapLine{
+position: absolute;
+  top: 10rem;
+  left: 21rem;
+ 
+}
+.whiteLocationMark{
+  position: absolute;
+  top: 15rem;
+  right: 29rem;
+
+}
+.whiteLocationMark2{
+  position: absolute;
+top: 25rem;
+left: 50rem;
+}
+
+.whiteLocationMark3{
+  position: absolute;
+  top: 15rem;
+  left: 40rem;
+}
+
+
+
+
+
+.buggiSec {
+  width: 100%;
+  height: 100vh;
+  background: url('../../public/assests/bglastsection.svg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+.buggiDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.buggyHeading {
+  line-height: 6;
+}
+
+.buggiSec_heading {
+  font-size: 4rem;
+}
+
+.buggiSec_para {
+  font-size: 22px;
+}
+.btnSingup {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  max-width: 200px;
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid white;
+  background-color: transparent;
+  color: white;
+  border-radius: 10px;
+}
+
+.footer {
+  width: 100%;
+  height: 100vh;
+  color: white;
+  background: url('../../public/assests/sunriseimg.svg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.footerDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.anchorTags {
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  font-size: 1.5rem;
+}
+
+.footer_para {
+  padding: 10px;
+}
+.support {
+  text-align: center;
+}
+
+.footer_text {
+  padding: 10px;
+  text-align: center;
+}
+
+.social_I {
+  display: flex;
+  gap: 20px;
+}
+.gradient {
+  width: 100%;
+  position: absolute;
+  background-image: radial-gradient(transparent, black 70%, black);
+  height: 100%;
+}
+
+.redBlurCircle{
+  position: absolute;
+  bottom: 25rem;
+  left: 50rem;
+
+}
+
+
+
+
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .whiteLocationMark{
+    top: 15rem;
+    left: 20rem;
+  }
+  .whiteLocationMark2{
+    top: 20rem;
+    left: 35rem;
+  }
+  .mapLine{
+    display: none;
+  }
+  .signUpDiv {
+   
+    top: 10rem;
+    left: 11rem;
+
+  }
+ 
+  .rewardDiv {
+    top: 20rem;
+    left: 20rem;
+  }
+  .playDiv {
+    top: 10rem;
+    right: 15rem;
+  }
+  .buggiSec_heading {
+    font-size: 42px;
+    margin-bottom: 10px;
+  }
+  .footer_para {
+    font-size: 22px;
+  }
+  .social_I {
+    margin: 15px 0px;
+  }
+  .support {
+    margin-bottom: 12px;
+    font-size: 22px;
+  }
+  .footer_text {
+    font-size: 22px;
+  }
+  .buggyHeading {
+    font-size: 20px;
+    padding: 10px 30px;
+    font-weight: 400;
+  }
+  .redBlurCircle{
+    top: 15rem;
+    left: 20rem;
+  }
+ 
+}
+
+
+@media only screen and (min-width: 569px) and (max-width: 768px){
+  
+  .mapLine{
+    display: none;
+  }
+  .signUpDiv{
+    top: 14rem;
+    left: 6rem;
+  }
+  .playDiv{
+    top: 22rem;
+    right: 20rem;
+  }
+  .rewardDiv{
+    top: 15rem;
+    left: 25rem;
+  }
+  .buggyHeading{
+    line-height: 2;
+    font-size: 20px;
+    letter-spacing: 2px;
+    padding: 0px 20px;
+    font-weight: 400;
+  }
+  .buggiSec_heading{
+    font-size: 40px;
+    font-weight: 300;
+    letter-spacing: 9px;
+  }
+  .buggiSec_para{
+    margin: 12px 0px;
+    font-size: 21px;
+  }
+  .btnSingup{
+    font-size: 20px;
+  }
+  .footer_para{
+    font-size: 20px;
+  }
+  .social_I{
+    margin: 15px 0px;
+  }
+  .support{
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .footer_text{
+    font-size: 20px;
+  }
+  .mapSecDescription{
+    width: 100%;
+  }
+  .whiteLocationMark{
+    top: 15rem;
+    left: 20rem;
+  }
+  .whiteLocationMark2{
+    top: 20rem;
+    left: 15rem;
+  }
+  .whiteLocationMark3{
+    position: absolute;
+   top: 20rem;
+    left: 20rem;
+  }
+  .redBlurCircle{
+    top: 15rem;
+    left: 18rem;
+  }
+  
+  
+}
+
+@media only screen and (min-width: 320px) and (max-width: 568px) {
+  .parashoot {
+    display: none;
+  }
+  .parashoot2 {
+    display: none;
+  }
+  .parashoot4 {
+    display: none;
+  }
+  .mapLine{
+    display: none;
+  }
+  .main_container {
+    background: url('../../public//assests/Banner\ for\ mobile\ 1.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .banner_center_text .banner_heading {
+    font-size: 18px;
+    letter-spacing: 20px;
+  }
+  .banner_center_text .banner_subheading {
+    font-size: 18px;
+    letter-spacing: 9px;
+  }
+  .upcoming_mathces_container .rn_text {
+    width: 500px;
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+  .upcoming_mathces .upComingPara {
+    text-align: justify;
+    width: 80%;
+  }
+
+  .upcoming_mathces_sub_container {
+    flex-direction: column;
+  }
+  .upcoming_mathces_sub_container .banner_bgmi_img {
+    min-width: 300px;
+    padding: 10px;
+  }
+
+  .time_container {
+    padding: 20px;
+    width: 100%;
+  }
+  .time_container h2 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  .time_container span {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+ 
+  .range_container {
+    
+    column-gap: 10%;
+  }
+
+  .welcome_Container {
+    padding: 10px;
+    flex-direction: column-reverse;
+  }
+
+  .stone img {
+    width: 320px;
+  }
+  .welcome_subcontainer p {
+    text-align: justify;
+  }
+
+  .choseSection h2 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .choseSection p {
+    padding: 10px;
+    width: 100%;
+    text-align: justify;
+  }
+ 
+ 
+  .playDiv {
+    top: 10rem;
+    left: 7rem;
+  }
+  .scope_text {
+    padding: 0px 21px;
+    font-size: 13px;
+  }
+  .signUpDiv,
+  .rewardDiv {
+    display: none;
+  }
+
+  .mapSecDescription{
+    width: 100%;
+  }
+.mapP{
+  padding: 10px;
+}
+
+.whiteLocationMark{
+  left: 15rem;
+}
+.whiteLocationMark2{
+  top: 15rem;
+  left: 5rem;
+}
+.whiteLocationMark3{
+  position: absolute;
+ top: 20rem;
+  left: 10rem;
+}
+
+.playDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 23rem;
+  right: 22.5rem;
+}
+.play {
+ 
+  background-color: red;
+  border: 1px solid white;
+}
+
+
+
+  .footerLogo {
+    width: 150px;
+  }
+  .anchorTags {
+    flex-direction: column;
+    font-size: 20px;
+    margin-top: 0px;
+  }
+  .buggyHeading {
+    line-height: 2;
+    padding: 26px 45px;
+    letter-spacing: 5px;
+    font-weight: 300;
+  }
+  .buggiImg {
+    width: 300px;
+    height: auto;
+  }
+  .buggiSec_heading {
+    font-size: 28px;
+    letter-spacing: 4px;
+    font-weight: 500;
+  }
+  .social_I {
+    margin: 12px 0px;
+  }
+  .support {
+    margin-bottom: 8px;
+  }
+  .buggiSec_para {
+    margin: 14px 0px;
+    font-size: 14px;
+  }
+  .btnSingup {
+    width: 150px;
+  }
+  .redBlurCircle{
+    top: 15rem;
+    left: 7rem;
+  }
 }

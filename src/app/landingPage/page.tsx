@@ -15,7 +15,7 @@ const page = () => {
   const [poolModal, setPoolModal] = useState<boolean>(false);
   const [id, setId] = useState<any>();
   console.log(id);
-  
+
   const playBulletFireSound = () => {
     const audio = new Audio('../assests/gunsound.mp3');
     audio.currentTime = 0;
@@ -57,7 +57,7 @@ const page = () => {
   }, []);
 
   return (
-    <>
+    <div className={styles.bodycolor}>
       <div className={styles.main_container}>
         <div>
           <NavBar />
@@ -111,6 +111,7 @@ const page = () => {
           <p className={styles.banner_subheading}>Warriors Wanted</p>
         </div>
       </div>
+
       <div className={styles.upcoming_mathces_container}>
         <div className={styles.rn_text}>
           <h2>EARN CASH REWARDS FOR CONQUERING</h2>
@@ -125,6 +126,7 @@ const page = () => {
             their gaming passion.
           </p>
         </div>
+
         <div className={styles.upcoming_mathces_sub_container}>
           <div className={styles.banner_bgmi_img}>
             <img
@@ -192,7 +194,7 @@ const page = () => {
                           />
                         </span>
                       </p>
-                    </div>{' '}
+                    </div>
                     <p
                       className={styles.pool_cancel_p}
                       onClick={() => setPoolModal(false)}
@@ -281,7 +283,7 @@ const page = () => {
                     height={100}
                     width={100}
                     alt="image"
-                    onClick={()=>handleData(index)}
+                    onClick={() => handleData(index)}
                   />
                 </>
               );
@@ -292,7 +294,6 @@ const page = () => {
         <div className={styles.welcome_Container}>
           <div className={styles.stone}>
             <img src="../assests/stone.svg" />
-            <img src="../assests/Group20.svg" />
           </div>
           <div className={styles.welcome_subcontainer}>
             <h2>WELCOME TO PATT SE HEADSHOT</h2>
@@ -414,7 +415,6 @@ const page = () => {
               </div>
               <p className={styles.short_heading}>Cash Prizes</p>
             </div>
-            {/* </div> */}
           </div>
           <div>
             <p className={styles.scope_text} id="changing-text">
@@ -440,7 +440,219 @@ const page = () => {
           </div>
         </div>
       </div>
-    </>
+      <section className={styles.map}>
+        <div className={styles.mapSecDescription}>
+          <h3 className={styles.mapSecHead}>How It Works</h3>
+          <p>
+            It is a long established fact that a reader will be distracted by
+            the readable content of a page when looking at its layout. The point
+            of using Lorem Ipsum is that it has a more-or-less normal
+            distribution of letters,
+          </p>
+        </div>
+      </section>
+
+      <section className={styles.mapBg}>
+        <div className={styles.gradient}></div>
+        <div className={styles.signUpDiv}>
+          <div className={styles.singUp}>
+            <Image
+              src="../assests/redLoction.svg"
+              height={20}
+              width={20}
+              alt="red_loction"
+            />
+          </div>
+
+          <p>Sing Up</p>
+        </div>
+
+        <div className={styles.rewardDiv}>
+          <div className={styles.rewards}>
+            <Image
+              src="../assests/whiteLocationIcon.svg"
+              height={20}
+              width={20}
+              alt="whiteLocation"
+            />
+          </div>
+
+          <p>Rewards</p>
+        </div>
+
+        <div className={styles.playDiv}>
+          <div className={styles.play}>
+            <Image
+              src="../assests/whiteLocationIcon.svg"
+              height={20}
+              width={20}
+              alt="whiteLocation"
+            />
+          </div>
+
+          <p className="mapSignUpText">Play & Win</p>
+        </div>
+        <div className={styles.mapLine}>
+          <Image
+            className={styles.mapLines}
+            src="../assests/mapline.svg"
+            width={900}
+            height={400}
+            alt="mapLine"
+          />
+        </div>
+
+        <div className={styles.whiteLocationMark}>
+          <Image
+            src="../assests/whiteLocationIcon.svg"
+            height={50}
+            width={20}
+            alt="whiteLocation"
+          />
+        </div>
+
+        <div className={styles.whiteLocationMark2}>
+          <Image
+            src="../assests/whiteLocationIcon.svg"
+            height={50}
+            width={20}
+            alt="whiteLocation"
+          />
+        </div>
+
+        <div className={styles.whiteLocationMark3}>
+          <Image
+            src="../assests/whiteLocationIcon.svg"
+            height={50}
+            width={20}
+            alt="whiteLocation"
+          />
+        </div>
+
+        <div className={styles.redBlurCircle}>
+          <Image
+            src="../assests/redBlurCircle.svg"
+            height={70}
+            width={70}
+            alt="resBlur"
+          />
+        </div>
+
+
+
+        <div className={styles.mapBgPara}>
+          <p className={styles.mapP}>
+            Create your free account in just a few simple steps and join our
+            ever-growing gaming community.
+          </p>
+        </div>
+        <div className={styles.gradient}></div>
+      </section>
+
+      <section className={styles.buggiSec}>
+        <h4 className={styles.buggyHeading}>
+          Now your wait is over!! Play with us & win a lot of money
+        </h4>
+        <div className={styles.buggiDiv}>
+          <Image
+            className={styles.buggiImg}
+            src="../assests/car_image_buggy.svg"
+            width={500}
+            height={300}
+            alt="Picture of the author"
+          />
+
+          <div className={styles.text_div}>
+            <h3 className={styles.buggiSec_heading}>Play First time free</h3>
+            <p className={styles.buggiSec_para}>
+              Don’t waste your time Hurry up! Signup now
+            </p>
+            <button className={styles.btnSingup}>Sign up</button>
+          </div>
+        </div>
+      </section>
+
+      <footer className={styles.footer} id="contact">
+        <div className={styles.footerDiv}>
+          <Image
+            className={styles.footerLogo}
+            src="../assests/Asset 2@33 4.svg"
+            width={200}
+            height={150}
+            alt="footerLogo"
+          />
+
+          <div className={styles.anchorTags}>
+            <Link className={styles.ancor} href="policy.html" target="_blank">
+              Privacy Policy
+            </Link>
+            <Link className={styles.ancor} href="terms.html" target="_blank">
+              Terms & conditions
+            </Link>
+            <Link className={styles.ancor} href="">
+              Contact Us
+            </Link>
+          </div>
+
+          <p className={styles.footer_para}>
+            Let's connect for more information
+          </p>
+
+          <div className={styles.social_I}>
+            <Link href="">
+              <Image
+                className={styles.footerSocialIcon}
+                src="../assests/facebook (2).svg"
+                width={30}
+                height={30}
+                alt="facebook"
+              />
+            </Link>
+
+            <Link href="">
+              <Image
+                className={styles.footerSocialIcon}
+                src="../assests/instagram (2).svg"
+                width={30}
+                height={30}
+                alt="insta"
+              />
+            </Link>
+
+            <Link href="">
+              <Image
+                className={styles.footerSocialIcon}
+                src="../assests/youtube.svg"
+                width={30}
+                height={30}
+                alt="youtube"
+              />
+            </Link>
+
+            <Link href="">
+              <Image
+                className={styles.footerSocialIcon}
+                src="../assests/telegram.svg"
+                width={30}
+                height={30}
+                alt="telegram"
+              />
+            </Link>
+          </div>
+
+          <Link
+            href="mailto:support@pattseheadshot.com"
+            className={styles.support}
+          >
+            Mail us: support@pattseheadshot.com
+          </Link>
+
+          <p className={styles.footer_text}>
+            &#169; Technogetic Pvt Ltd All Rights Reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
   );
 };
 
