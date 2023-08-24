@@ -6,6 +6,7 @@ import {Button, Input} from 'technogetic-iron-smart-ui';
 import {useFormik, FormikHelpers} from 'formik';
 import {createspectater} from '@/schemas/SignupSchemas';
 import sendRequest from '../../../services/api/apiServices';
+import {ChangeEvent} from 'react';
 interface FormCreate {
   roomId: string;
   gameName: string;
@@ -19,12 +20,14 @@ interface FormCreate {
   thirdWin: string;
   highestKill: string;
   secondWin: string;
+  mapImg: string;
 }
 
 const Form = ({getAllSpectator}: any) => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const [image, setImage] = useState<any | null>();
 
   const initialValues: FormCreate = {
     roomId: '',
@@ -39,7 +42,28 @@ const Form = ({getAllSpectator}: any) => {
     thirdWin: '',
     highestKill: '',
     secondWin: '',
+    mapImg: '',
   };
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files && e.target.files.length > 0) {
+  //     setFieldValue('mapImg', e.target.files[0]);
+  //     setFileset(e.target.files[0]);
+  //   }
+  // };
+  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (event.target.files && event.target.files.length > 0) {
+  //     setFieldValue('mapImg', event.target.files[0]);
+  //     setImage(event.target.files[0]);
+  //   }
+  // };
+  // console.log('check data==>', fileset);
+  // console.log('check', fileset);
+  // if (fileset) {
+  //   const formData = new FormData();
+  //   console.log('check fileset ==>', fileset);
+  //   formData.append('file', fileset);
+  // }
+
   const {
     values,
     touched,
@@ -51,61 +75,26 @@ const Form = ({getAllSpectator}: any) => {
   } = useFormik({
     initialValues,
     validationSchema: createspectater,
-    onSubmit: async (
-      values: FormCreate,
-      {setSubmitting}: FormikHelpers<FormCreate>,
-    ) => {
-      setIsLoading(true);
-      const {
-        roomId,
-        gameName,
-        gameType,
-        mapType,
-        password,
-        version,
-        time,
-        date,
-        lastServival,
-        thirdWin,
-        highestKill,
-        secondWin,
-      } = values;
-
-      try {
-        const token = localStorage.getItem('jwtToken');
-
-        const response = await sendRequest('room/rooms', {
-          method: 'POST',
-          headers: {Authorization: `Bearer ${token}`},
-          data: {
-            roomId,
-            gameName,
-            gameType,
-            mapType,
-            password,
-            version,
-            time,
-            date,
-            lastServival,
-            thirdWin,
-            highestKill,
-            secondWin,
-          },
-        });
-        getAllSpectator();
-
-        if (response.status === 200) {
-        } else {
-          setError('Failed to Add room. Please try again.');
-        }
-      } catch (error: any) {
-        setIsLoading(false);
-        setError('Failed to Add room. Please try again.');
-      } finally {
-        setSubmitting(false);
+    onSubmit: async (values: any) => {
+      const form = new FormData();
+      form.append('mapImg', image);
+      for (const key in values) {
+        form.append(key, values[key]);
       }
+      console.log(image);
+
+      const token = localStorage.getItem('jwtToken');
+      const response = await sendRequest('room/rooms', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+        data: form,
+      });
     },
   });
+
   return (
     <div>
       <button
@@ -338,9 +327,34 @@ const Form = ({getAllSpectator}: any) => {
                     onBlur={handleBlur}
                   />
                 </div>
+
                 {/* {errors.password && touched.password && (
                   <div className={styles.error}>{errors.password}</div>
                 )} */}
+                <div className={styles.input_box}>
+                  <label className={styles.room_id} htmlFor="secondWin">
+                    image upload
+                  </label>
+
+                  <Input
+                    id="file"
+                    className={styles.room_field_wrapper}
+                    type="file"
+                    name="mapImg"
+                    accept="image/*"
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        setImage(e?.target?.files[0]);
+                      }
+                    }}
+                    onBlur={handleBlur}
+                  />
+                  {/* {image && (
+                    <p>
+                      <img src={image} alt="fdvfdbv" />
+                    </p>
+                  )} */}
+                </div>
                 <div className={styles.btn_form_wrapper}>
                   <Button
                     className={styles.cancel_btn}
@@ -372,3 +386,86 @@ const Form = ({getAllSpectator}: any) => {
 };
 
 export default Form;
+
+// async (
+//   values: FormCreate,
+//   {setSubmitting}: FormikHelpers<FormCreate>,
+//   e: any,
+// ) => {
+//   // setIsLoading(true);
+//   console.log('VAAA');
+//   const {
+//     roomId,
+//     gameName,
+//     gameType,
+//     mapType,
+//     password,
+//     version,
+//     time,
+//     date,
+//     lastServival,
+//     thirdWin,
+//     highestKill,
+//     secondWin,
+//     mapImg,
+//   } = values;
+
+//   // console.log(values);
+//   e.preventDefault();
+//   const formData = new FormData();
+//   for (const key in values) {
+//     formData.append(key, values[key as keyof typeof values]);
+//   }
+
+//   // formData.append('dataField', e.target.gameName.value);
+//   formData.append('mapImg', image);
+//   console.log(formData);
+
+//   // formData.append('data', JSON.stringify(values));
+//   // formData.append('mapImg', values.mapImg);
+
+//   // const mapImgFile = formData.get('mapImg');
+//   // if (mapImgFile instanceof File) {
+//   //   const imageName = mapImgFile.name;
+//   //   console.log('console img', imageName);
+//   // } else {
+//   //   console.log('Image not found in FormData.');
+//   // }
+
+//   try {
+//     const token = localStorage.getItem('jwtToken');
+
+//     const response = await sendRequest('room/rooms', {
+//       method: 'POST',
+//       headers: {Authorization: `Bearer ${token}`},
+//       // data: {
+//       //   roomId,
+//       //   gameName,
+//       //   gameType,
+//       //   mapType,
+//       //   password,
+//       //   version,
+//       //   time,
+//       //   date,
+//       //   lastServival,
+//       //   thirdWin,
+//       //   highestKill,
+//       //   secondWin,
+//       //   mapImg,
+//       // },
+//       data: formData,
+//     });
+
+//     getAllSpectator();
+
+//     if (response.status === 200) {
+//     } else {
+//       setError('Failed to Add room. Please try again.');
+//     }
+//   } catch (error: any) {
+//     setIsLoading(false);
+//     setError('Failed to Add room. Please try again.');
+//   } finally {
+//     setSubmitting(false);
+//   }
+// },
