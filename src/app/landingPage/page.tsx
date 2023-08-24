@@ -4,10 +4,10 @@ import styles from '../../styles/landingpage.module.scss';
 import useWindowSize from '@/hooks/useWindowSize';
 import NavBar from './navBar/page';
 import Image from 'next/image';
-import sendRequest from '@/services/auth/auth_All_Api';
+import {sendRequest} from '@/services/auth/auth_All_Api';
 import {toast} from 'react-toastify';
 import CustomCursor from './customCursor/page';
-
+import GlassCrack from './glassCrack/page';
 const page = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [data, setData] = useState<any>();
@@ -61,8 +61,9 @@ const page = () => {
   }, []);
 
   return (
-    <>
+    <div className={styles.bodycolor}>
     <CustomCursor/>
+    <GlassCrack/>
       <div className={styles.main_container}>
         <div>
           <NavBar />
@@ -115,9 +116,13 @@ const page = () => {
           <h1 className={styles.banner_heading}>PATT SE</h1>
           <p className={styles.banner_subheading}>Warriors Wanted</p>
         </div>
+      <div className={styles.gradient}></div>
       </div>
+      
       <div className={styles.upcoming_mathces_container}>
+     
         <div className={styles.rn_text}>
+          
           <h2>EARN CASH REWARDS FOR CONQUERING</h2>
         </div>
         <div className={styles.upcoming_mathces}>
@@ -185,7 +190,7 @@ const page = () => {
                   </p>
 
                   <p className={styles.pool_text_p}>
-                    3nd Winner: {data[id].thirdWin}
+                    3rd Winner: {data[id].thirdWin}
                     <span className={styles.rs_pool_logo}>
                       <Image
                         src="../assests/rupeeimg.svg"
@@ -339,18 +344,18 @@ const page = () => {
           <div className={styles.scopeSection}>
             <div className={styles.centerscope}>
               <Image
-                src="../assests/newscope.svg"
-                alt="center scope"
-                height={100}
-                width={100}
-                className={styles.newscope}
-              />
-              <Image
                 src="../assests/zoominimage.svg"
                 className={styles.bg_img_static}
                 height={100}
                 width={100}
                 alt="zoom in image"
+              />
+              <Image
+                src="../assests/newscope.svg"
+                alt="center scope"
+                height={100}
+                width={100}
+                className={styles.newscope}
               />
               <Image
                 className={styles.scope_line}
@@ -362,6 +367,7 @@ const page = () => {
               <div className={styles.scope_target_text}>150 meters</div>
               <div className={styles.scope_line_red_dot}></div>
             </div>
+           
             <div className={styles.bulletcontainer}>
               <Image
                 src="../assests/bullet2.svg"
@@ -454,7 +460,7 @@ const page = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

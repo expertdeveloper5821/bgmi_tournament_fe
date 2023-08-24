@@ -1,0 +1,38 @@
+/* styles/GlassCrack.module.scss */
+
+.glassContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Add this line */
+  z-index: 1; /* Add this line */
+}
+  .glass {
+    width: 100px;
+    height: 100px;
+    background-color: #b3d4e1;
+    border-radius: 50%;
+    position: relative; /* Add this line */
+    cursor: pointer;
+    z-index: 2;
+  }
+  
+  .crack {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: url('../../public/assests/glasscrackfinal.png') center center no-repeat;
+    background-size: 100%;
+    animation: crackAnimation 2s forwards;
+    z-index: 3
+    }
+  
+  @keyframes crackAnimation {
+    0% {
+      background-size: 100%;
+    }
+    100% {
+      background-size: 120%;
+    }
+  }
+  
