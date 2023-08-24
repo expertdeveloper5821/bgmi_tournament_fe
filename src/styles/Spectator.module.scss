@@ -29,10 +29,17 @@
   height: auto;
   width: 30%;
   border-radius: 15px;
-
-  //padding: 18px;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 90% !important;
+  }
   @media (max-width: $breakpoint-xs) {
-    width: 100%;
+    width: 90% !important;
+  }
+  @media (max-width: $breakpoint-sm) {
+    width: 50%;
+  }
+  @media (max-width: $breakpoint-md) {
+    width: 50%;
   }
 }
 .main_pop_cls,
@@ -63,9 +70,6 @@
   border: none;
   background: white;
   font-size: 16px;
-  @media (max-width: $breakpoint-xs) {
-    width: 30% !important;
-  }
 }
 .pop_heading {
   background: #ff7a00;
@@ -90,9 +94,7 @@ button#btn_cls_st {
   background: #ff7a00 !important;
   width: 100%;
   margin-top: 12px;
-  @media (max-width: $breakpoint-xs) {
-    width: 30%;
-  }
+  color: white !important;
 }
 .room_field_wrapper {
   border: none !important;
@@ -138,6 +140,18 @@ button#btn_cls_st {
   width: 30%;
   border-radius: 15px;
   padding: 16px;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 90% !important;
+  }
+  @media (max-width: $breakpoint-xs) {
+    width: 90% !important;
+  }
+  @media (max-width: $breakpoint-sm) {
+    width: 90%;
+  }
+  @media (max-width: $breakpoint-md) {
+    width: 50%;
+  }
 }
 .sec_heading {
   color: #6c757d;
@@ -178,16 +192,68 @@ button#btn_cls_st {
 }
 .update_form {
   padding: 18px 30px;
-  text-align: center;
 }
 // new style
-.updatebtn {
-  background: #ff7a00 !important;
-  width: 100%;
-  margin-top: 12px;
-  color: white;
-}
+
 input#time {
   border: none !important;
   width: 100%;
+}
+//new tabel code
+.table_content {
+  border: none;
+  overflow: hidden;
+  padding-top: 26px;
+  @media (max-width: $breakpoint-xSmall) {
+    overflow: scroll;
+  }
+  @media (max-width: $breakpoint-xs) {
+    overflow: scroll;
+  }
+  @media (max-width: $breakpoint-sm) {
+    overflow: scroll;
+  }
+  @media (max-width: $breakpoint-md) {
+    overflow: scroll;
+  }
+}
+.table_head_sectat {
+  @include tableheader;
+}
+
+.table_row_cell {
+  @include tdbody;
+}
+.tb_cell_body {
+  color: #ff7a00 !important;
+  text-align: center;
+  padding: 3px 3px;
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 7px 38px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    padding: 7px 38px;
+  }
+  @media (max-width: $breakpoint-sm) {
+    padding: 7px 38px;
+  }
+}
+.el_tb_cell {
+  color: #fff;
+  text-align: center;
+  padding: 3px 6px;
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 8px 36px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    padding: 8px 36px;
+  }
+  @media (max-width: $breakpoint-sm) {
+    padding: 8px 36px;
+  }
+}
+.tb_cell_action {
+  display: flex !important;
+  justify-content: space-around;
+  padding: 8px;
 }
