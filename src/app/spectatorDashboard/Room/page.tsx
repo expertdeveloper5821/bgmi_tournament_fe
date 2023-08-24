@@ -10,14 +10,16 @@ import RequireAuthentication from '../../../utils/requireAuthentication';
 import {Table, TableBody, TableCell} from 'technogetic-iron-smart-ui';
 //@ts-ignore
 import {TableHeader, TableHead, TableRow} from 'technogetic-iron-smart-ui';
+import Image from 'next/image';
 import Deletespec from '../Deletespec/page';
-import UpdateRoom from '../Updatespec/page';
+import Updatespec from '../Updatespec/page';
+import CustomPagination from '@/Components/Pagination/Pagination';
 export interface RoomData {
   roomId: string;
   _id: string;
   password: string;
   gameName: string;
-  gameType: number;
+  gameType: string;
   mapType: string;
   version: number;
   highestKill: number;
@@ -25,29 +27,25 @@ export interface RoomData {
   thirdWin: number;
   secondWin: number;
   time: string;
+  date: string;
   uuid: number;
   createdBy: number;
   updatedAt: number;
   createdAt: number;
+  mapImg: string;
 }
 
 const Room = () => {
-  const [roomData, setRoomData] = useState<RoomData[]>([]);
+  const [Spect, setSpect] = useState<RoomData[]>([]);
+
   const columns: string[] = [
-    'roomId',
-    'password',
-    'gameName',
-    'gameType',
+    'Room Id',
+    'Game Name',
+    'Game Type',
+    'Map Type',
     'mapType',
-    'createdBy',
     'createdAt',
   ];
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [Spect, setSpect] = useState<RoomData[]>([]);
-  const rowPerPage = 8;
-  const onPageChange = (page: number) => {
-    setCurrentPage(page);
-  };
   const getAllSpectator = async () => {
     const token = localStorage.getItem('jwtToken');
     const spectatorResponse = await sendRequest('room/user-rooms', {
@@ -56,6 +54,7 @@ const Room = () => {
     });
     setSpect(spectatorResponse.data);
   };
+
   useEffect(() => {
     getAllSpectator();
   }, []);
@@ -130,7 +129,7 @@ const Room = () => {
                     </TableHead>
                   </TableRow>
                 </TableHeader>
-                {Spect?.map((spec: any, index: number) => (
+                {Spect?.map((spec, index) => (
                   <TableBody className={styles.table_body} key={index}>
                     <TableCell> {spec.roomId}</TableCell>
                     <TableCell> {spec.gameName}</TableCell>
@@ -142,8 +141,10 @@ const Room = () => {
                     <TableCell> {spec.thirdWin}</TableCell>
                     <TableCell>{spec.secondWin}</TableCell>
                     <TableCell> {spec.time}</TableCell>
-                    <TableCell> {spec.uuid}</TableCell>
-                    <TableCell>{spec.createdBy}</TableCell>
+                    <TableCell> {spec.date}</TableCell>
+                    <TableCell>
+                      <Image src={spec.mapImg} alt="" width={50} height={50} />
+                    </TableCell>
                     <TableCell>
                       <Deletespec
                         Id={spec._id}
@@ -151,7 +152,8 @@ const Room = () => {
                       />
                     </TableCell>
                     <TableCell>
-                      <UpdateRoom
+                      <Updatespec
+                        updateRoom={Room}
                         roomData={spec}
                         getAllSpectator={getAllSpectator}
                       />
@@ -159,6 +161,7 @@ const Room = () => {
                   </TableBody>
                 ))}
               </Table>
+              <CustomPagination data={Spect} />
             </div>
             {/* <TableData
           userData={paginatedData}
