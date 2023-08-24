@@ -1,10 +1,18 @@
 @import './mixins.scss';
 @import './variable.scss';
 
+
+
+
+
+.bodycolor{
+  background: black;
+}
 .main_container {
   background-image: url('../../public/assests/banner.svg');
   background-size: cover;
   background-repeat: no-repeat;
+
 }
 .navbar {
   background-color: #333;
@@ -261,6 +269,13 @@
 
 .upcoming_mathces_container {
   background: black;
+  
+}
+.gradient {
+  width: 100%;
+  position: absolute;
+  background: linear-gradient(to bottom, rgb(0, 27, 33) ,black );
+    height: 8%;
 }
 .upcoming_mathces {
   display: flex;
@@ -432,6 +447,7 @@
   background: url('../../public/assests/scopesectionbanner.svg');
   background-size: cover;
   background-repeat: no-repeat;
+ 
 }
 
 .newscope {
@@ -440,15 +456,33 @@
   position: absolute;
   top: 42%;
   left: 41%;
+  min-width: 250px;
+  @media (max-width: $breakpoint-xs) {
+    left: 25%;
+}
+@media (max-width: $breakpoint-xs) {
+  left: 18%;
+}
 }
 .bg_img_static {
   animation: scaleImg 5s infinite;
+  width: 18%;
+  min-width: 250px;
   height: auto;
-  width: 14.5%;
+  top: 43%;
   position: absolute;
-  top: 46.2%;
-  left: 43%;
+  left: 41%;
+  @media (max-width: $breakpoint-lg) {
+      top:42.5%
+  }
+  @media (max-width: $breakpoint-xs) {
+    left: 25%;
 }
+@media (max-width: $breakpoint-xs) {
+  left: 18%;
+}
+}
+
 @keyframes scaleImg {
   0% {
     transform: scale(1);
@@ -464,29 +498,79 @@
 }
 .scope_line {
   height: auto;
-  width: 242px;
+  width: 12%;
   position: absolute;
-  top: 46%;
-  left: 43.5%;
+  top: 46.5%;
+  left: 44%;
+  min-width:160px;
+  @media (max-width: $breakpoint-lg) {
+    left: 45%;
+}
+@media (max-width: $breakpoint-lg) {
+  left: 46%;
+}
+@media (max-width: $breakpoint-xs) {
+  left: 47%;
+}
+@media (max-width: $breakpoint-xs) {
+  left: 28%;
+}
+@media (max-width: $breakpoint-xSmall) {
+  left: 28.5%;
+}
 }
 .scope_line_red_dot {
   width: 10px;
   height: 10px;
   position: absolute;
-  top: 58.9%;
-  left: 49.8%;
+  top: 56%;
+  left: 49.7%;
   background-color: rgba(255, 0, 0, 0.688);
   border-radius: 50%;
+  @media (max-width: $breakpoint-lg) {
+    left: 51.5%;
+    top: 54.8%;
+}
+@media (max-width: $breakpoint-lg) {
+  left: 54.5%;
+  top: 54.8%;
+}
+@media (max-width: $breakpoint-lg) {
+  left: 56%;
+  top: 54.8%;
+}
+@media (max-width: $breakpoint-xs) {
+  left: 58.4%;
+  top: 54.8%;
+  display: none;
+}
+
 }
 .scope_target_text {
   width: 70px;
   position: absolute;
-  top: 69%;
+  top: 65%;
   text-align: center;
-  left: 48.2%;
+  left: 47.8%;
   color: red;
   font-size: 14px;
   font-weight: 700;
+  @media (max-width: $breakpoint-lg) {
+    top: 61.5%;
+    left: 48.8%;
+}
+@media (max-width: $breakpoint-lg) {
+  top: 61.5%;
+  left: 51%;
+}
+@media (max-width: $breakpoint-tab) {
+  top: 61.5%;
+  left: 52%;
+}
+@media (max-width: $breakpoint-xs) {
+  display: none;
+}
+
 }
 .bulletcontainer {
   border: 2px solid white;
@@ -497,8 +581,23 @@
   background-color: #ffffff3d;
   z-index: 1000;
   top: 32%;
-  left: 39%;
+  left: 35%;
   position: absolute;
+  @media (max-width: $breakpoint-lg) {
+    top: 30%;
+    left: 33%;
+}
+@media (max-width: $breakpoint-md) {
+  top: 29%;
+  left: 30%;
+}
+@media (max-width: $breakpoint-tab) {
+  top: 29%;
+  left: 25%;
+}
+@media (max-width: $breakpoint-xs) {
+display: none;
+}
 }
 .bullet {
   height: auto;
@@ -514,6 +613,22 @@
   width: 80px;
   height: 80px;
   background-color: #ffffff52;
+  @media (max-width: $breakpoint-lg) {
+    top: 32%;
+  right: 29%;
+}
+@media (max-width: $breakpoint-md) {
+  top: 31%;
+right: 21%;
+}
+@media (max-width: $breakpoint-tab) {
+  top: 31%;
+right: 16%;
+}
+@media (max-width: $breakpoint-xs) {
+  top: 10%;
+left: 42%;
+}
 }
 
 .seamimg {
@@ -528,6 +643,21 @@
   left: 33%;
   gap: 15px;
   align-items: center;
+  @media (max-width: $breakpoint-lg) {
+    top: 51%;
+    left: 30%;
+}
+@media (max-width: $breakpoint-md) {
+  top: 51%;
+  left: 24%;
+}
+@media (max-width: $breakpoint-xs) {
+  top: 22%;
+  left: 11%;
+}
+@media (max-width: $breakpoint-xSmall) {
+  left: 3%;
+}
 }
 .clock {
   border: 2px solid white;
@@ -553,6 +683,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (max-width: $breakpoint-lg) {
+    bottom: 38%;
+    right: 24%
+}
+@media (max-width: $breakpoint-md) {
+  bottom: 38%;
+  right: 16%
+}
+@media (max-width: $breakpoint-tab) {
+  bottom: 38%;
+  right: 9%
+}
+@media (max-width: $breakpoint-xs) {
+  top: 24%;
+  right: 17%;
+  display: none;
+}
 }
 .skillman {
   border-radius: 50px;
@@ -572,6 +719,13 @@
   align-items: center;
   z-index: 1000;
   text-align: center;
+  @media (max-width: $breakpoint-md) {
+    left: 25%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    left: 37%;
+  }
+
 }
 .trophy_container {
   border: 2px solid white;
@@ -580,6 +734,7 @@
   width: 70px;
   height: 70px;
   background-color: #ffffff52;
+
 }
 .prize_maincontainer {
   position: absolute;
@@ -591,6 +746,17 @@
   flex-direction: column;
   align-items: center;
   z-index: 1000;
+  @media (max-width: $breakpoint-md) {
+    right: 20%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    right: 17%;
+    top:23%
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    right: 3%;
+    
+  }
 }
 .money_container {
   border: 2px solid white;
@@ -599,6 +765,7 @@
   width: 70px;
   height: 70px;
   background-color: #ffffff52;
+  
 }
 .scope_text {
   font-weight: 100;
