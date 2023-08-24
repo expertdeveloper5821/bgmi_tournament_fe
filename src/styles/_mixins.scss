@@ -154,3 +154,15 @@
     white-space: initial;
   }
 }
+
+@mixin tableheader {
+  background: #003354;
+  color: #ffff;
+  font-family: Century Gothic;
+  font-size: 16px;
+  font-weight: 700;
+}
+@mixin tdbody {
+  background-color: #002d47;
+  border: 8px solid #003554;
+}

@@ -1,7 +1,8 @@
+import {RoomData} from '@/app/spectatorDashboard/Room/page';
 import React, {useState} from 'react';
 import styles from '../../styles/pagination.module.scss';
 interface CustomPaginationProps {
-  data: any[]; // Replace 'any' with the actual type of your data
+  data: RoomData[]; // Replace 'any' with the actual type of your data
 }
 
 const CustomPagination: React.FC<CustomPaginationProps> = ({data}) => {

@@ -82,16 +82,26 @@ const Form = ({getAllSpectator}: any) => {
         form.append(key, values[key]);
       }
       console.log(image);
-
-      const token = localStorage.getItem('jwtToken');
-      const response = await sendRequest('room/rooms', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-        data: form,
-      });
+      try {
+        const token = localStorage.getItem('jwtToken');
+        const response = await sendRequest('room/rooms', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+          data: form,
+        });
+        getAllSpectator();
+        if (response.status === 200) {
+          setShowModal(false);
+        } else {
+          setError('Failed to Add room. Please try again.');
+        }
+      } catch (error: any) {
+        setIsLoading(false);
+        setError('Failed to Add room. Please try again.');
+      }
     },
   });
 
@@ -349,11 +359,6 @@ const Form = ({getAllSpectator}: any) => {
                     }}
                     onBlur={handleBlur}
                   />
-                  {/* {image && (
-                    <p>
-                      <img src={image} alt="fdvfdbv" />
-                    </p>
-                  )} */}
                 </div>
                 <div className={styles.btn_form_wrapper}>
                   <Button
@@ -370,7 +375,6 @@ const Form = ({getAllSpectator}: any) => {
                     type="submit"
                     onClick={handleSubmit}
                   >
-                    {' '}
                     {isLoading ? 'Loading...' : 'Add Room'}
                   </Button>
                 </div>
