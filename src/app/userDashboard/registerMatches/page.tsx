@@ -84,7 +84,13 @@ const regMatches = () => {
           slidesToScroll: 1,
         },
       },
-
+      {
+        breakpoint: 912,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
       {
         breakpoint: 375,
         settings: {
@@ -249,7 +255,7 @@ const regMatches = () => {
             </div>
             <div className={styles.Teammembers}>Your Team Members</div>
 
-            <div className={styles.container_team}>
+            <div className={styles.container2}>
               <Slider {...settings}>
                 <div className={styles.reviewsContainer}>
                   <div className={styles.reviewCard}>

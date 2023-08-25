@@ -511,6 +511,7 @@ img.slides_image {
   @media (max-width: $breakpoint-md) {
     display: flex;
     justify-content: center;
+    margin-top: 1px;
   }
 }
 .reviewCard {
@@ -519,6 +520,15 @@ img.slides_image {
   border-radius: 5px;
   padding: 10px;
   width: 330px;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 330px !important;
+  }
+  @media (max-width: $breakpoint-xs) {
+    width: 330px;
+  }
+  @media (max-width: $breakpoint-sm) {
+    width: 298px !important;
+  }
 }
 .profile {
   margin-left: 5px;
