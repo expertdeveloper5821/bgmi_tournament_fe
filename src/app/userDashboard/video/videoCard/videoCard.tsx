@@ -24,7 +24,7 @@ const VideoCard: React.FC<CustomPaginationProps> = ({onDataUpdate}) => {
     const fetchData = async () => {
       try {
         const accessToken = localStorage.getItem('jwttoken');
-        const response = await sendRequest('api/v1/role/allvideolink', {
+        const response = await sendRequest('/role/allvideolink', {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${accessToken}`,
