@@ -12,6 +12,9 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick';
+import CountdownComponent from './CountdownComponent';
+import {toast} from 'react-toastify';
+import {useRouter} from 'next/navigation';
 
 export interface tournament {
   gameName: string;
@@ -40,15 +43,28 @@ function Tournament() {
   const [lastServival, setLastServival] = useState<String>('');
   const [roomId, setRoomId] = useState<String>('');
   const [mapImg, setMapImg] = useState<String>('');
+  const [matchIndex, setMatchIndex] = useState<number[]>([]);
 
+  const router = useRouter();
+  const regMatchRedirect = (matchID: string) => {
+    console.log('regMatchRedirect');
+    router.push(`/userDashboard/registerMatches?id=${matchID}`);
+  };
   const getAllTournaments = async () => {
     const token: any = localStorage.getItem('jwtToken');
+    const roomids = localStorage.getItem('roomIds');
     const decodedToken: any = decodeJWt(token);
     const tournamentResponse = await sendRequest('api/v1/room/rooms', {
       method: 'GET',
       headers: {Authorization: `Bearer ${token}`},
     });
-    setData(tournamentResponse.data[0].rooms);
+
+    const filteredDataArray = tournamentResponse.data.filter(
+      (item: {roomUuid: string; roomid: string}) =>
+        !roomids?.includes(item.roomUuid),
+    );
+
+    setData(filteredDataArray);
   };
 
   const getRegisteredMatches = async () => {
@@ -58,8 +74,22 @@ function Tournament() {
       method: 'GET',
       headers: {Authorization: `Bearer ${token}`},
     });
-
     setRegMatches(registeredMatches.data.rooms);
+  };
+
+  const getRoomidPwd = () => {
+    var selectedMatchIndexes: number[] = [];
+    for (let i = 0; i < regMatches.length; i++) {
+      const currentTime = new Date();
+      const dbTime = `${regMatches[i]?.date}T${regMatches[i]?.time}`;
+      const matchTime = new Date(dbTime);
+      const timeDifference = Number(matchTime) - Number(currentTime);
+      if (timeDifference <= 900000) {
+        console.log('timeDifference_', timeDifference);
+        selectedMatchIndexes.push(i);
+      }
+    }
+    setMatchIndex(selectedMatchIndexes);
   };
 
   useEffect(() => {
@@ -68,10 +98,10 @@ function Tournament() {
   }, []);
 
   useEffect(() => {
-    if (alldata) {
-      setLastTournament(alldata[alldata.length - 1]);
-      setAllTournaments(alldata.slice(0, 2));
-    }
+    setLastTournament(alldata[alldata.length - 1]);
+    setAllTournaments(alldata?.slice(0, 2));
+    getRegisteredMatches();
+    getRoomidPwd();
   }, [alldata]);
 
   useEffect(() => {
@@ -114,6 +144,16 @@ function Tournament() {
     try {
       const token: any = localStorage.getItem('jwtToken');
       const decodedToken: any = decodeJWt(token);
+      const userId = decodedToken.userId;
+
+      var addRoom = localStorage.getItem('roomIds');
+      var obj = [];
+      if (addRoom) {
+        obj = JSON.parse(addRoom);
+      }
+      obj.push(roomId);
+      localStorage.setItem('roomIds', JSON.stringify(obj));
+
       const response = await sendRequest('api/v1/payment/create-payment', {
         method: 'POST',
         headers: {Authorization: `Bearer ${token}`},
@@ -126,8 +166,13 @@ function Tournament() {
         },
       });
       if (response.status === 200) {
-        console.log('Joined Successfully');
-        getRegisteredMatches();
+        getAllTournaments();
+        //getRegisteredMatches();
+        toast.success('Contest Joined Successfully', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+        });
       } else {
         console.log('Payment Failed');
       }
@@ -178,7 +223,6 @@ function Tournament() {
         <div className={styles.abcd}>
           <div className={styles.sidebar_wrapper}>
             <Navbar />
-
             <div className={styles.content}>
               <div className={styles.dashboard}>
                 <span className={styles.head_desc}>Upcoming Matches</span>
@@ -211,7 +255,6 @@ function Tournament() {
                       <span className={styles.winning_prize}>
                         Time : {date} at {time}
                       </span>
-
                       <div className={styles.winnings}>
                         <div>
                           <span className={styles.winning_prize}>
@@ -257,7 +300,7 @@ function Tournament() {
                                     </span>
                                   </p>
                                   <p className={styles.pool_text_p}>
-                                    2nd Winner: 100{' '}
+                                    2nd Winner: 100
                                     <span className={styles.rs_pool_logo}>
                                       <Image
                                         src="../assests/rupee-icon.svg"
@@ -304,7 +347,6 @@ function Tournament() {
                             </span>
                           </span>
                         </div>
-
                         <div>
                           <span className={styles.winning_prize}>
                             Entry FEES
@@ -322,7 +364,6 @@ function Tournament() {
                           </span>
                         </div>
                       </div>
-
                       <div className={styles.winnings}>
                         <div>
                           <span className={styles.winning_prize}>TYPE</span>
@@ -333,7 +374,6 @@ function Tournament() {
                             {gameType}
                           </span>
                         </div>
-
                         <div>
                           <span className={styles.winning_prize}>VERSION</span>
                           <span
@@ -427,6 +467,7 @@ function Tournament() {
                             className={styles.container3_img}
                             width={100}
                             height={100}
+                            onClick={() => regMatchRedirect(match?._id)}
                           />
                           <div className={styles.Tournaments}>
                             <div className={styles.tournament_slider}>
@@ -468,10 +509,18 @@ function Tournament() {
                                 <span>{match?.time}</span>
                               </div>
                             </div>
-                            <div className={styles.id_password}>
-                              <span>Room Id: {match?.roomId}</span>
-                              <span>Room password: {match?.password}</span>
-                            </div>
+                            {matchIndex.length != 0 &&
+                            matchIndex.includes(index) ? (
+                              <div className={styles.id_password}>
+                                <span>Room Id: {match.roomId}</span>
+                                <span>Room password: {match.password}</span>
+                              </div>
+                            ) : (
+                              <div className={styles.id_password}>
+                                <span>Room Id: *******</span>
+                                <span>Room password: *******</span>
+                              </div>
+                            )}
                           </div>
                         </div>
                       ))}
