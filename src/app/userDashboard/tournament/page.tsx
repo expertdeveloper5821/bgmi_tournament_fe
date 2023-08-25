@@ -203,8 +203,20 @@ function Tournament() {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          prevArrow: null,
-          nextArrow: null,
+        },
+      },
+      {
+        breakpoint: 820,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 912,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
         },
       },
       {
