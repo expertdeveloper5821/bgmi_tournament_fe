@@ -16,6 +16,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick';
 import CountdownComponent from './CountdownComponent';
 import {toast} from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 export interface IAppProps {}
 
@@ -34,13 +35,18 @@ function Tournament() {
   const [lastServival, setLastServival] = useState<string>('');
   const [roomId, setRoomId] = useState<string>('');
   const [mapImg, setMapImg] = useState<string>('');
-  // const [matchRoomid, setmatchRoomid] = useState<string>('*******');
-  // const [matchPassword, setmatchPassword] = useState<string>('*******');
+  const [matchRoomid, setmatchRoomid] = useState<string>('*******');
+  const [matchPassword, setmatchPassword] = useState<string>('*******');
   // const [timediff, seTimediff] = useState<number>();
-  const [matchIndex, setMatchIndex] = useState<any>();
+  const [matchIndex, setMatchIndex] = useState<number[]>([]);
   const [showRoomPwd, setRoomPwd] = useState<boolean>(false);
 
-  console.log('matchIndex', matchIndex);
+  const router = useRouter();
+
+  const regMatchRedirect = (matchID:any) => {
+    console.log('regMatchRedirect')
+    router.push(`/userDashboard/registerMatches?id=${matchID}`);
+  }
 
   const getAllTournaments = async () => {
     const token: any = localStorage.getItem('jwtToken');
@@ -69,30 +75,19 @@ function Tournament() {
     setRegMatches(registeredMatches.data.rooms);
   };
 
-  const getRoomidPwd = async () => {
-    console.log(regMatches);
-
-    regMatches.map((match: any, index: any) => {
+  const getRoomidPwd = () => {
+    var selectedMatchIndexes: number[] = [];
+    for (let i = 0; i < regMatches.length; i++) {
       const currentTime = new Date();
-      const dbTime = `${match?.date}T${match?.time}`;
-      //const currentTime = new Date(`2023-08-24T12:36`);
-      //const dbTime = `2023-08-23T15:50`;
+      const dbTime = `${regMatches[i]?.date}T${regMatches[i]?.time}`;
       const matchTime = new Date(dbTime);
       const timeDifference = Number(matchTime) - Number(currentTime);
-      for (let i = 0; i < regMatches.length; i++) {
-        const dbTime = `${regMatches[i]?.date}T${regMatches[i]?.time}`;
-        const matchTime = new Date(dbTime);
-        const timeDifference = Number(matchTime) - Number(currentTime);
-        if (timeDifference >= 900000) {
-          setMatchIndex(i);
-          setRoomPwd(true);
-        }
-      }
       if (timeDifference <= 900000) {
-        setmatchRoomid(match?.roomId);
-        setmatchPassword(match?.password);
+        console.log('timeDifference_', timeDifference);
+        selectedMatchIndexes.push(i);
       }
-    });
+    }
+    setMatchIndex(selectedMatchIndexes);
   };
 
   useEffect(() => {
@@ -167,7 +162,6 @@ function Tournament() {
         },
       });
       if (response.status === 200) {
-        console.log('Joined Successfully');
         getAllTournaments();
         //getRegisteredMatches();
         toast.success('Contest Joined Successfully', {
@@ -461,7 +455,6 @@ function Tournament() {
             <span className={styles.register_match}>Registered Matches</span>
             {!regMatches.length ? (
               <div className={styles.register_match}>
-                {' '}
                 There is no Registered Match till now
               </div>
             ) : (
@@ -470,6 +463,7 @@ function Tournament() {
                   <Slider {...settings}>
                     {regMatches &&
                       regMatches.map((match: any, index: any) => (
+                        
                         <div className={styles.container3} key={index}>
                           <Image
                             src="../assests/registeredmatches.svg"
@@ -477,6 +471,7 @@ function Tournament() {
                             className={styles.container3_img}
                             width={100}
                             height={100}
+                            onClick={()=>regMatchRedirect(match?._id)}
                           />
                           <div className={styles.Tournaments}>
                             <div className={styles.tournament_slider}>
@@ -518,24 +513,17 @@ function Tournament() {
                                 <span>{match?.time}</span>
                               </div>
                             </div>
-                            {showRoomPwd ? (
+                            {matchIndex.length != 0 && matchIndex.includes(index)? (
                               <div className={styles.id_password}>
-                                <span>Room Id: {regMatches[matchIndex].roomId}</span>
-                                <span>Room password: {regMatches[matchIndex].matchPassword}</span>
+                                <span>Room Id: {match.roomId}</span>
+                                <span>Room password: {match.password}</span>
                               </div>
                             ) : (
                               <div className={styles.id_password}>
-                                <span>Room Id:***** </span>
-                                <span>Room password:*****</span>
+                                <span>Room Id: *******</span>
+                                <span>Room password: *******</span>
                               </div>
                             )}
-
-                            {/* <CountdownComponent
-                              roomidd={match?.roomId}
-                              password={match?.password}
-                              time={match?.time}
-                              date={match?.date}
-                            /> */}
                           </div>
                         </div>
                       ))}
