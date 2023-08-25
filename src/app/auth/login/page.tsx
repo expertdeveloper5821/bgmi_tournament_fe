@@ -248,15 +248,6 @@ function Login(): React.JSX.Element {
               height={100}
             />
           </div>
-
-          {/* dummy animations */}
-          <div className={styles.parashootGuy}>
-            <img src="../assests/parashoot.png" alt="parashoot guy" />
-          </div>
-          <div className={styles.animationhelicopter}>
-          <img src="../assests/heli.gif" alt="helicopter" />
-          </div>
-
           <div>
             {/* <h2 className={styles.headDesc}>Hello Warriors!</h2> */}
             <p className={styles.heading}>
