@@ -238,19 +238,26 @@ img.slides_image {
 }
 
 .container2 {
-  // display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 28px 10px;
   flex-wrap: wrap;
   width: 90%;
   @media (max-width: $breakpoint-xSmall) {
-    padding: 28px 1px;
-    width: 100%;
+    padding: 28px 1px !important;
+    width: 100% !important;
   }
   @media (max-width: $breakpoint-xs) {
-    padding: 28px 3px;
+    padding: 28px 3px !important;
     width: 100%;
+  }
+  @media (max-width: $breakpoint-sm) {
+    padding: 28px 43px;
+    width: 96%;
+  }
+  @media (max-width: $breakpoint-md) {
+    padding: 28px 75px;
+    width: 96%;
   }
 }
 

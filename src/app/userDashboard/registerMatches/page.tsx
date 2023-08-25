@@ -53,17 +53,6 @@ const regMatches = () => {
     getRoomidPwd();
   }, [matchData]);
 
-  // const updateMainData = (
-  //   gname: string,
-  //   gType: string,
-  //   mType: string,
-  //   vType: string,
-  // ) => {
-  //   setMatchName(gname);
-  //   setGameType(gType);
-  //   setMapType(mType);
-  //   setVersion(vType);
-  // };
   const settings: any = {
     dots: true,
     infinite: true,
@@ -77,19 +66,25 @@ const regMatches = () => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
           slidesToScroll: 1,
-          prevArrow: null,
-          nextArrow: null,
         },
       },
+      {
+        breakpoint: 820,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+
       {
         breakpoint: 375,
         settings: {
@@ -253,11 +248,8 @@ const regMatches = () => {
               </div>
             </div>
             <div className={styles.Teammembers}>Your Team Members</div>
-            <div className={styles.Teammembers}>Your Team Members</div>
-            <div className={styles.container2}>
-              {/* {
-                (settings.breakpoint = 790 ? ( */}
 
+            <div className={styles.container_team}>
               <Slider {...settings}>
                 <div className={styles.reviewsContainer}>
                   <div className={styles.reviewCard}>
@@ -315,63 +307,6 @@ const regMatches = () => {
                 </div>
               </Slider>
             </div>
-
-            {/*  <>
-              <div className={styles.reviewsContainer}>
-              <div className={styles.reviewCard}>
-                <div className={styles.reviews}>
-                  <img
-                    src="/assests/reviewman.svg"
-                    alt="image"
-                    className={styles.profile}
-                  />
-                  <div className={styles.reviewer}>
-                    <div className={styles.name}>
-                      <h2>JOhn doe</h2>
-                      <div className={styles.greenCircle}></div>
-                    </div>
-                    <p>akshay@gmail.com</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={styles.reviewsContainer}>
-              <div className={styles.reviewCard}>
-                <div className={styles.reviews}>
-                  <img
-                    src="/assests/reviewman.svg"
-                    alt="image"
-                    className={styles.profile}
-                  />
-                  <div className={styles.reviewer}>
-                    <div className={styles.name}>
-                      <h2>JOhn doe</h2>
-                      <div className={styles.greenCircle}></div>
-                    </div>
-                    <p>akshay@gmail.com</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={styles.reviewsContainer}>
-              <div className={styles.reviewCard}>
-                <div className={styles.reviews}>
-                  <img
-                    src="/assests/reviewman.svg"
-                    alt="image"
-                    className={styles.profile}
-                  />
-                  <div className={styles.reviewer}>
-                    <div className={styles.name}>
-                      <h2>JOhn doe</h2>
-                      <div className={styles.greenCircle}></div>
-                    </div>
-                    <p>akshay@gmail.com</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </> */}
           </div>
         </div>
       </div>
