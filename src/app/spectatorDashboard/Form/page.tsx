@@ -140,9 +140,9 @@ const Form = ({getAllSpectator}: any) => {
                     onBlur={handleBlur}
                   />
                 </div>
-                {/* {errors.roomId && touched.roomId && (
+                {errors.roomId && touched.roomId && (
                   <div className={styles.error}>{errors.roomId}</div>
-                )} */}
+                )}
                 <div className={styles.input_box}>
                   <label className={styles.room_id} htmlFor="password">
                     Game Name
