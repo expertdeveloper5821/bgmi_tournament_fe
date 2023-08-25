@@ -14,6 +14,7 @@ import Image from 'next/image';
 import Deletespec from '../Deletespec/page';
 import Updatespec from '../Updatespec/page';
 import CustomPagination from '@/Components/Pagination/Pagination';
+import withAuth from '@/Components/HOC/WithAuthHoc';
 export interface RoomData {
   roomId: string;
   _id: string;
@@ -172,4 +173,4 @@ const Room = () => {
   );
 };
 
-export default Room;
+export default withAuth(Room);
