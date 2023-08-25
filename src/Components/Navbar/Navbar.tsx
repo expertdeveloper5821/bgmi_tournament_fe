@@ -48,13 +48,13 @@ export function Navbar() {
           <div className={styles.navbarbrand}>
           </div>
           <ul className={styles.navbarnav}>
-            <li className={styles.navitem}>
+            <li className={styles.navitem} style={{ color: "black" }}>
               <Popover
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
                 content={
                   <div>
-                    <div className={styles.notification}>
+                    <div className={styles.notification} >
                       Notification
                       <Image
                         className={styles.close}
@@ -82,7 +82,7 @@ export function Navbar() {
                         size={20}
                         src="../assests/avatar.png"
                       />
-                      <div className={styles.notify}>
+                      <div className={styles.notify} >
                         John Doe added new task Create navbar with html/css
                         <div className={styles.time}>4 mins ago</div>
                       </div>
@@ -120,12 +120,12 @@ export function Navbar() {
             <li className={styles.navitem}>
               <Avatar onClick={() => { }} src="../assests/avatar.png" size={20} />
             </li>
-            <li className={styles.navitem}>
+            <li className={styles.navitem} >
               <Popover
                 isOpen={isPopOpen}
                 setIsOpen={setIsPopOpen}
                 content={
-                  <div className={styles.myprofilesection}>
+                  <div className={styles.myprofilesection} style={{ color: "black" }}>
                     <div className={styles.userdetails}>
                       <Avatar
                         onClick={() => { }}

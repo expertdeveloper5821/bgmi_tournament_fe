@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import styles from "../../styles/DashboardSidebar.module.scss";
 import { FaBars } from "react-icons/fa";
+import Image from 'next/image';
 
 interface MenuItem {
   path: string;
@@ -24,8 +25,9 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
     <div className={styles.container}>
       <div style={{ width: isOpen ? "220px" : "100px" }} className={styles.sidebar}>
         <div className={styles.top_section}>
-          <h1 style={{ display: isOpen ? "block" : "none" }} className={styles.logo}>
+          <h1 style={{ display: isOpen ? "block" : "none" }} className={styles.Logo}>
             Logo
+            {/* <Image src="../assests/logoWithBg.svg" alt="Tg-logo" width={150} height={100} /> */}
           </h1>
           <div style={{ marginLeft: isOpen ? "100px" : "0px" }} className={styles.bars}>
             <FaBars onClick={toggle} />

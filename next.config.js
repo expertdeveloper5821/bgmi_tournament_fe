@@ -11,6 +11,9 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    domains: ['example.com', 'images.example.com', 'res.cloudinary.com'],
+  },
 };
 
 module.exports = nextConfig;

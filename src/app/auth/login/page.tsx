@@ -103,20 +103,6 @@ function Login(): React.JSX.Element {
     },
   });
 
-  // const handleRedirect = (token: any) => {
-  //   console.log("token", token)
-  //   if (token) {
-  //     const decodedToken: any = decodeJWt(token)
-  //     if (decodedToken.role.find(({ role, name }: any) => role.includes('admin') || name === 'admin')) {
-  //       router.push('/adminDashboard')
-  //     } else {
-  //       // router.push('/userDashboard')
-  //       router.push(configData.web.cominSoonUrl)
-  //     }
-  //   } else {
-  //     router.push("/auth/401")
-  //   }
-  // }
 
   const handleRedirect = (token: any) => {
     console.log('token', token);
@@ -151,7 +137,7 @@ function Login(): React.JSX.Element {
     }
   }, [setFieldValue]);
 
-  // verify token
+
   const handleVerifyToken = async (token: string) => {
     setIsLoading(true);
     try {
@@ -196,7 +182,7 @@ function Login(): React.JSX.Element {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get('token');
-      // console.log('token', token, window.location.href);
+
 
       if (token) {
         handleVerifyToken(token);
@@ -204,9 +190,6 @@ function Login(): React.JSX.Element {
     }
   }, []);
 
-
-
-  // loader
 
   const [isLoadingData, setLoadingData] = useState<boolean>(false);
   const [errorData, showErrorData] = useState<string>('');
@@ -323,18 +306,6 @@ function Login(): React.JSX.Element {
                 </Button>
 
               </div>
-              {/* <div className={styles.signin_withgoogle}>
-                <FcGoogle />
-                <Button
-                  disabled={isLoading}
-                  className={styles.googleButton}
-                  variant="primary"
-                  type="button"
-                  onClick={handleGoogleLogin}
-                >
-                  {isLoading ? 'Loading...' : 'Sign in with Google'}
-                </Button>
-              </div> */}
               <div className={styles.signin}>
                 <span className={styles.forgotDesc}>
                   <Link href="/auth/forget-password">Forget your Password?</Link>

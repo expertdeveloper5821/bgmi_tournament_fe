@@ -18,9 +18,6 @@ interface FormValues {
     password: string;
 }
 
-
-
-
 const Signup = () => {
     const [rememberMe, setRememberMe] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -188,7 +185,6 @@ const Signup = () => {
                                 <Button
                                     disabled={isLoading}
                                     className={styles.forgetbutton}
-                                    // variant="contained"
                                     type="submit"
                                     onClick={handleSubmit}
                                 >
@@ -197,9 +193,7 @@ const Signup = () => {
 
                             </div>
 
-                            {/* <div className={styles.signin_withgoogle}>
-                                <FcGoogle /> Sign up with Google
-                            </div> */}
+
 
                             <div className={styles.signin}>
                                 <span className={styles.forgotDesc}>
