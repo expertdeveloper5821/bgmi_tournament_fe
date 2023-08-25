@@ -921,29 +921,34 @@ left: 50rem;
 
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   .whiteLocationMark{
-    top: 15rem;
+    top: 20rem;
     left: 20rem;
   }
   .whiteLocationMark2{
-    top: 20rem;
+    top: 30rem;
     left: 35rem;
+  }
+  .whiteLocationMark3{
+    position: absolute;
+   top: 30rem;
+    left: 20rem;
   }
   .mapLine{
     display: none;
   }
   .signUpDiv {
    
-    top: 10rem;
+    top: 25rem;
     left: 11rem;
 
   }
  
   .rewardDiv {
-    top: 20rem;
+    top: 40rem;
     left: 20rem;
   }
   .playDiv {
-    top: 10rem;
+    top: 30rem;
     right: 15rem;
   }
   .buggiSec_heading {
@@ -969,7 +974,7 @@ left: 50rem;
     font-weight: 400;
   }
   .redBlurCircle{
-    top: 15rem;
+    top: 25rem;
     left: 20rem;
   }
  
@@ -982,15 +987,15 @@ left: 50rem;
     display: none;
   }
   .signUpDiv{
-    top: 14rem;
+    top: 24rem;
     left: 6rem;
   }
   .playDiv{
-    top: 22rem;
+    top: 30rem;
     right: 20rem;
   }
   .rewardDiv{
-    top: 15rem;
+    top: 25rem;
     left: 25rem;
   }
   .buggyHeading{
@@ -1029,20 +1034,20 @@ left: 50rem;
     width: 100%;
   }
   .whiteLocationMark{
-    top: 15rem;
+    top: 25rem;
     left: 20rem;
   }
   .whiteLocationMark2{
-    top: 20rem;
+    top: 25rem;
     left: 15rem;
   }
   .whiteLocationMark3{
     position: absolute;
-   top: 20rem;
+   top: 40rem;
     left: 20rem;
   }
   .redBlurCircle{
-    top: 15rem;
+    top: 25rem;
     left: 18rem;
   }
   

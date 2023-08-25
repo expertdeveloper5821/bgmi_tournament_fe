@@ -490,7 +490,7 @@ const page = () => {
             />
           </div>
 
-          <p className="mapSignUpText">Play & Win</p>
+          <p>Play & Win</p>
         </div>
         <div className={styles.mapLine}>
           <Image
