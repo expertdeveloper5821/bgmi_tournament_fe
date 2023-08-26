@@ -1,0 +1,60 @@
+@import './mixins.scss';
+@import './variable.scss';
+
+.cornerone {
+  height: 100px;
+}
+.container {
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: $breakpoint-xs) {
+    // margin-left: 9%;
+  }
+
+}
+.middletwo{
+  @media (max-width: $breakpoint-xs) {
+    display: none;
+  }
+}
+.reviewsContainer {
+  margin-top: 30px;
+}
+.reviewCard {
+  min-width: 400px;
+  margin-top: 40px;
+  color: white;
+  border: 1px solid #ff7a00;
+  border-radius: 5px;
+  padding: 10px;
+  flex-wrap: wrap;
+  @media (max-width: $breakpoint-xs) {
+    min-width: 300px;
+  }
+}
+.profile{
+    margin-left: 5px;
+    border-radius: 10px;
+    height: 70%;
+}
+.reviews{
+    display: flex;
+
+}
+.reviewer{
+    padding-left: 15px;
+}
+.reviewer h2{
+   color: #ff7a00;
+   font-size: 20px;
+   font-weight: bold;
+}
+.reviewer p{
+   font-weight: 400;
+   font-size: 13px;
+ }
+ .reviewer span{
+    display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+  }

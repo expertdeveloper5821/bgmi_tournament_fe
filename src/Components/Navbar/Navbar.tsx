@@ -1,17 +1,17 @@
-"use client"
-import React, { useState } from "react";
-import styles from "../../styles/Navabar.module.scss";
-import { useRouter } from "next/navigation";
-import sendRequest from "../../services/api/apiServices";
+'use client';
+import React, {useState} from 'react';
+import styles from '../../styles/Navabar.module.scss';
+import {useRouter} from 'next/navigation';
+import sendRequest from '../../services/api/apiServices';
 // @ts-ignore
-import { Avatar, Popover } from "technogetic-iron-smart-ui";
-import Image from "next/image";
+import {Avatar, Popover} from 'technogetic-iron-smart-ui';
+import Image from 'next/image';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string>('');
 
   function handleClosePopover() {
     setIsOpen(false);
@@ -20,24 +20,29 @@ export function Navbar() {
 
   //logout
   const handleLogout = async () => {
-    console.log("logout clicked")
+    console.log('logout clicked');
     // setIsLoading(true);
     try {
-      // const response = await sendRequest("auth/logout", {
-      //   method: "GET",
-      // });
+      const response = await sendRequest('auth/logout', {
+        method: 'POST',
+      });
 
-      // setIsLoading(false);
+      if (response.status === 200) {
+        localStorage.removeItem('jwtToken');
+        router.push('/login');
+      } else {
+        setError('Logout failed');
+      }
 
       // if (response.status === 200) {
-        localStorage.clear();
-        router.push("/");
+      localStorage.clear();
+      router.push('/');
       // } else {
       //   setError("Logout failed");
       // }
     } catch (error) {
       setIsLoading(false);
-      setError("Logout failed");
+      setError('Logout failed');
     }
   };
 
@@ -45,8 +50,7 @@ export function Navbar() {
     <header>
       <div className={styles.maincontainer}>
         <nav className={styles.container}>
-          <div className={styles.navbarbrand}>
-          </div>
+          <div className={styles.navbarbrand}></div>
           <ul className={styles.navbarnav}>
             <li className={styles.navitem}>
               <Popover
@@ -67,7 +71,7 @@ export function Navbar() {
                     </div>
                     <div className={styles.dropdown}>
                       <Avatar
-                        onClick={() => { }}
+                        onClick={() => {}}
                         size={20}
                         src="../assests/avatar.png"
                       />
@@ -78,7 +82,7 @@ export function Navbar() {
                     </div>
                     <div className={styles.dropdown}>
                       <Avatar
-                        onClick={() => { }}
+                        onClick={() => {}}
                         size={20}
                         src="../assests/avatar.png"
                       />
@@ -89,7 +93,7 @@ export function Navbar() {
                     </div>
                     <div className={styles.dropdown}>
                       <Avatar
-                        onClick={() => { }}
+                        onClick={() => {}}
                         size={20}
                         src="../assests/avatar.png"
                       />
@@ -118,7 +122,7 @@ export function Navbar() {
               </Popover>
             </li>
             <li className={styles.navitem}>
-              <Avatar onClick={() => { }} src="./assests/avatar.png" size={20} />
+              <Avatar onClick={() => {}} src="./assests/avatar.png" size={20} />
             </li>
             <li className={styles.navitem}>
               <Popover
@@ -128,12 +132,14 @@ export function Navbar() {
                   <div className={styles.myprofilesection}>
                     <div className={styles.userdetails}>
                       <Avatar
-                        onClick={() => { }}
+                        onClick={() => {}}
                         src="../assests/avatar.png"
                         size={25}
                       />
                       <div className={styles.username_details}>
-                        <h1>Harry Verma</h1>
+                        <h1 className={styles.user_name_heading}>
+                          Harry Verma
+                        </h1>
                         <span className={styles.gmail}>
                           harry@technogetic.com
                         </span>
@@ -153,7 +159,7 @@ export function Navbar() {
                       <div className={styles.flexcol}>
                         <Image
                           className={styles.settingicon}
-                          src="../assests/settingicon.svg"
+                          src="../assests/settings.svg"
                           alt="setting"
                           width={20}
                           height={20}
@@ -161,7 +167,7 @@ export function Navbar() {
                         <div className={styles.myprofile}>Settings</div>
                       </div>
                       <div className={styles.flexcol}>
-                        <Image
+                        <img
                           className={styles.notification_icon}
                           src="../assests/notification.svg"
                           alt="notification"
@@ -172,9 +178,7 @@ export function Navbar() {
                       </div>
                     </div>
                     <div className={styles.logoutbutton}>
-                      <div 
-                          onClick={handleLogout}
-                          >
+                      <div onClick={handleLogout}>
                         <Image
                           className={styles.logoutbuttonicon}
                           src="../assests/logouticon.svg"
@@ -214,4 +218,3 @@ export function Navbar() {
     </header>
   );
 }
-
