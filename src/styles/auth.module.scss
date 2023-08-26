@@ -47,7 +47,13 @@
 .logo img {
   @include logo;
   display: flex;
-  margin: 0px auto;
+  margin: 0px 46px;
+}
+
+.forgotDescsec {
+  padding-left: 8px;
+  color: #124260;
+  letter-spacing: 1px;
 }
 
 .headDesc {
@@ -106,7 +112,8 @@
 
 .forgetbutton {
   @include button_wrapper;
-
+  margin-top: 18px;
+  color: white !important;
   @media (max-width: $breakpoint-xSmall) {
     padding: 12px 30px;
     width: 100%;
@@ -121,12 +128,33 @@
     width: 100%;
   }
 }
-
-.signin {
+.sign_accout {
+  display: flex;
+  justify-content: center;
+  margin: 16px;
+}
+.log_acc_cls {
+  display: flex;
+  justify-content: center;
+  margin: 16px !important;
   @include signin;
+  text-decoration-line: none;
   color: #003556 !important;
 }
-
+.link_sign {
+  font-weight: 900;
+  text-decoration-line: underline;
+}
+.signin {
+  @include signin;
+  text-decoration-line: none;
+  color: #003556 !important;
+  margin: 16px;
+}
+.link_sign {
+  font-weight: 900;
+  text-decoration-line: underline;
+}
 .signin a {
   color: var(--bs-orange);
   width: -webkit-fill-available;

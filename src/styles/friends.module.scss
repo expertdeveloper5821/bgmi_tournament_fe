@@ -1,0 +1,381 @@
+@import './mixins.scss';
+@import './variable.scss';
+
+.main_container {
+  width: 100%;
+  background-image: url('/assests/videobanner.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+.loader {
+  display: flex;
+  justify-content: center;
+  font-size: xx-large;
+  color: white;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.sub_container {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: white;
+  margin-top: 30px;
+  padding-left: 2%;
+  padding-right: 3%;
+  flex-wrap: wrap;
+}
+.header {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.header h2 {
+  font-size: xx-large;
+  font-weight: 800;
+  @media (max-width: $breakpoint-md) {
+    font-size: x-large;
+   }
+}
+.header span {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 400;
+  @media (max-width: $breakpoint-md) {
+    margin-bottom: 20px;
+   }
+  
+}
+.inputContainer {
+  width: 22%;
+  height: 44px;
+  border-radius: 8px;
+  background-color: white;
+  @media (max-width: $breakpoint-md) {
+    width: 200px;
+    margin-bottom: 10px;
+   }
+}
+.inputContainer input {
+  width: 100%;
+  height: 44px;
+  border-radius: 4px;
+  font-size: 15px;
+  background-color: white;
+  padding-left: 10px;
+  outline: none;
+  
+}
+.searchIcon {
+  position: absolute;
+  top: 93px;
+  left: 58%;
+  @media (max-width: $breakpoint-md) {
+
+  display: none;
+   }
+}
+.btnContainer {
+  display: flex;
+  top: 47px;
+  @media (max-width: $breakpoint-xs) {
+
+   margin-top: 30px;
+     }
+}
+.sendMailBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #ff7a00;
+  padding: 10px;
+  margin-left: 20px;
+  width: 100%;
+  height: 44px;
+  border-radius: 4px;
+  font-size: 15px;
+  background-color: #ff7a00;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  @media (max-width: $breakpoint-xs) {
+
+    margin-left: 4px;
+      }
+}
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #ff7a00;
+  padding: 10px;
+  width: 120px;
+  height: 44px;
+  border-radius: 4px;
+  font-size: 15px;
+  background-color: rgb(0, 53, 84);
+  color: #ff7a00;
+  font-size: 14px;
+  font-weight: bold;
+}
+.selectContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.selectContainer {
+  position: relative;
+}
+.sortIcon {
+  position: absolute;
+  left: 13px;
+  top: 16px;
+}
+.arrowicon {
+  position: absolute;
+  right: 10px;
+  top: 13px;
+}
+.card {
+  max-width: 700px;
+  display: flex;
+  flex-wrap: wrap;
+  
+  @media (max-width: $breakpoint-xs) {
+    display: flex;
+    margin-left: 2%;
+   }
+}
+.cardContainer {
+  display: flex;
+  margin-top: 2%;
+  @media (max-width: $breakpoint-md) {
+   display: flex;
+   justify-content: center;
+   flex-direction: column-reverse;
+  }
+  @media (max-width: $breakpoint-xs) {
+    display: flex;
+    justify-content: center;
+   }
+}
+.bannerContainer {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  @media (max-width: $breakpoint-md) {
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+   }
+}
+.cardbannerimg {
+  margin-top: 19px;
+  width: 65%;
+}
+.pagination {
+  display: flex;
+  justify-content: flex-end !important;
+  margin-top: 6%;
+  color: #ff7a00;
+  @media (max-width: $breakpoint-xs) {
+    justify-content: center !important;
+  }
+}
+
+// deleteModal
+
+.modalBackground {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  display: flex;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContainer {
+  border-radius: 12px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 400px;
+}
+
+.modalContainer .title {
+  display: inline-block;
+  text-align: center;
+  margin-top: 10px;
+}
+.title h1 {
+  color: #ff7a00;
+  font-size: large;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+.body p {
+  color: #6c757d;
+  font-weight: 400;
+  font-size: 16px;
+}
+.titleCloseBtn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.titleCloseBtn button {
+  background-color: transparent;
+  border: none;
+  // font-size: 25px;
+  cursor: pointer;
+}
+
+.modalContainer .body {
+  flex: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.7rem;
+  text-align: center;
+}
+
+.modalContainer .footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContainer .footer button {
+  width: 102px;
+  height: 36px;
+  margin: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+.cancelbtn{
+    background-color: white;
+    color: #ff7a00;
+    border: 1px solid #ff7a00;
+}
+.deletebtn{
+    background-color: #ff7a00;
+    color: white;
+    border: 1px solid #ff7a00;
+}
+
+
+// forward Modal
+.forwardmodalContainer {
+  border-radius: 12px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 400px;
+}
+.forwardModalbody {
+  display: flex;
+  justify-content: start;
+  position: relative;
+  flex-direction: column;
+  
+}
+.forwardModalbody input{
+    border: 1px solid #ff7a00;
+    border-radius: 6px;
+    height: 32px;
+    margin-left: 10px;
+    margin-top: 5px;
+    outline: none;
+    padding-left: 10px;
+    font-size: 12px;
+    width: 80%;
+}
+.forwardModalfooter {
+  display: flex;
+  justify-content: space-between;
+}
+.forwardModalfooter button {
+  width: 95px;
+  height: 33px;
+  margin: 10px;
+  border: none;
+  border: 1px solid #ff7a00;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 800;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+.cancelbtn {
+  color: #ff7a00;
+  background: white;
+  
+}
+.sendbtn {
+  background: #ff7a00;
+  color: white;
+}
+.forwardModaltitle h1 {
+    color: #ff7a00;
+    font-size: large;
+    font-weight: 900;
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
+  .forwardcheckbox{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  .forwardcheckbox span{
+    font-size: 12px;
+    font-weight: 400;
+    color: #777070;
+    margin-left: 5px;
+  }
+  .inputemail{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: #D9D9D9;
+    font-size: smaller;
+    padding-left: 15px;
+    height: 25px;
+    width: 40%;
+    margin-left: 14px;
+
+  align-items: center;
+    
+  }
+ .inputemail_container{
+  margin-top: 10px;
+  height: 20px;
+ }
+ .cancelsvg{
+  margin-right: 10px;
+  height: 12px;
+ }
+ .resMsg{
+  font-size: 14px;
+  margin-left: 10px;
+  color: #6c757d;
+ }

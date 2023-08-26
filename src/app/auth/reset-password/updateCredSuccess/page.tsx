@@ -20,7 +20,8 @@ const UpdateCredSuccess: React.FC<Props> = (props) => {
         <div className={styles.background_container}>
           <div className={styles.container}>
             <div className={styles.logo}>
-              <Image src="/assests/logobgmi.svg" alt="bgmilogo" width={100} height={100} />
+              <Image src="/assests/logoWithBg.svg" alt="bgmilogo" width={250}
+                height={100} />
             </div>
             <div className={styles.heading_wrapper}>
               <h2 className={styles.headDesc}>Congratulations!!</h2>
@@ -31,8 +32,8 @@ const UpdateCredSuccess: React.FC<Props> = (props) => {
                 <Image src="/assests/mailverification.svg" alt="mail-verified" width={300} height={200} />
               </div>
               <div className={styles.button_wrapper}>
-                <Button variant="contained" className={styles.forgetbutton} onClick={handleClick} />
-                Sign in
+                <Button variant="contained" className={styles.forgetbutton} onClick={handleClick} >
+                  Sign in</Button>
               </div>
             </div>
           </div>

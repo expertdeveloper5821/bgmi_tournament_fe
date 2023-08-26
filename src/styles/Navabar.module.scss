@@ -64,7 +64,15 @@
     display: none;
   }
 }
-
+.username_details h1 {
+  color: white;
+  font-weight: 900;
+}
+.username_details span {
+  color: white;
+  font-size: smal;
+  font-weight: 500;
+}
 .adminname {
   color: var(--bs-darkblue);
   margin: 1px;
@@ -88,7 +96,6 @@
 .dropdown {
   display: flex;
   justify-content: space-between;
-  padding: 12px 8px;
 }
 
 .notify {
@@ -176,4 +183,10 @@
   margin: 5px 10px;
   font-family: var(--bs-body-font-family);
   font-size: 11px;
+}
+h1 .user_name_heading {
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19.62px;
 }
