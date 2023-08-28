@@ -5,7 +5,7 @@ import styles from '../../../styles/Spectator.module.scss';
 import {Button, Input} from 'technogetic-iron-smart-ui';
 import {useFormik, FormikHelpers} from 'formik';
 import {createspectater} from '@/schemas/SignupSchemas';
-import sendRequest from '../../../services/api/apiServices';
+import {sendRequest} from '../../../services/auth/auth_All_Api';
 interface FormCreate {
   roomId: string;
   gameName: string;
