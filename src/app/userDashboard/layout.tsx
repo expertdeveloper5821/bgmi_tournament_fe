@@ -7,9 +7,7 @@ import {
   FaUserAlt,
   FaRegChartBar,
   FaCommentAlt,
-  FaUserFriends,
   FaVideo,
-  FaUserShield,
 } from 'react-icons/fa';
 const inter = Inter({subsets: ['latin']});
 
