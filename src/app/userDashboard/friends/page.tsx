@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import styles from '../../../styles/friends.module.scss';
 import Card from '@/Components/CommonComponent/Card';
 import {Navbar} from '@/Components/Navbar/Navbar';
-import sendRequest from '@/services/auth/auth_All_Api';
+import {sendRequest} from '@/services/auth/auth_All_Api';
 import {toast} from 'react-toastify';
 import CustomPagination from '@/Components/Pagination/Pagination';
 import Image from 'next/image';
@@ -124,7 +124,6 @@ const Friend = () => {
         },
         body: userData,
       });
-      console.log("response",response);
       
       if (response.data.code) {
         setMessage('Friends added Successfully');
