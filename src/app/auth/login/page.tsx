@@ -2,9 +2,9 @@
 import React, {useState, useEffect, ChangeEvent, useContext} from 'react';
 import {
   useFormik,
-  FormikErrors,
+ FormikErrors,
   FormikTouched,
-  FormikValues,
+  FormikValues, 
   FormikHelpers,
 } from 'formik';
 import {SignupSchema} from '../../../schemas/SignupSchemas';
@@ -13,7 +13,7 @@ import Link from 'next/link';
 //@ts-ignore
 import {Button, Input} from 'technogetic-iron-smart-ui';
 import styles from '../../../styles/auth.module.scss';
-import sendRequest from '../../../services/api/apiServices';
+import {sendRequest} from '../../../services/auth/auth_All_Api';
 import {FcGoogle} from 'react-icons/fc';
 import Image from 'next/image';
 import {loginSchema} from '../../../schemas/SignupSchemas';
