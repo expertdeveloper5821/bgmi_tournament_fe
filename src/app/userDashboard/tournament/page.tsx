@@ -458,7 +458,6 @@ function Tournament() {
             ) : (
               <>
                 <div className={styles.container2}>
-                  {/* <Slider {...settings}> */}
                   <div className={styles.inner_cont}>
                     <button
                       onClick={goToPrevSlide}
@@ -470,7 +469,6 @@ function Tournament() {
                     <div className={styles.slideContainer}>
                       {regMatches &&
                         regMatches
-                          //.slice(currentIndex, currentIndex + 2)
                           .slice(currentIndex, currentIndex + numItemsToShow)
                           .map((match: any, index: any) => (
                             <div key={index} className={`${styles.slide}`}>
@@ -552,73 +550,6 @@ function Tournament() {
                       <AiOutlineRight className={styles.outline_icon} />
                     </button>
                   </div>
-                  {/* {regMatches &&
-                    regMatches.map((match: any, index: any) => (
-                      <div className={styles.container3} key={index}>
-                        <Image
-                          src="../assests/registeredmatches.svg"
-                          alt="slides"
-                          className={styles.container3_img}
-                          width={100}
-                          height={100}
-                          onClick={() => regMatchRedirect(match?._id)}
-                        />
-                        <div className={styles.Tournaments}>
-                          <div className={styles.tournament_slider}>
-                            <div className={styles.winning_prize}>
-                              <span> TYPE</span>
-                              <span
-                                className={styles.tvm_font}
-                                style={{color: 'rgba(255, 214, 0, 1)'}}
-                              >
-                                {match?.gameType}
-                              </span>
-                            </div>
-                            <div className={styles.winning_prize}>
-                              <span>Version</span>
-                              <span
-                                className={styles.tvm_font}
-                                style={{color: 'rgba(255, 214, 0, 1)'}}
-                              >
-                                {match?.version}
-                              </span>
-                            </div>
-                            <div className={styles.winning_prize}>
-                              <span>MAP</span>
-                              <span
-                                className={styles.tvm_font}
-                                style={{color: 'rgba(255, 122, 0, 1)'}}
-                              >
-                                {match?.mapType}
-                              </span>
-                            </div>
-                          </div>
-                          <div className={styles.room_create}>
-                            <div className={styles.winning_prize}>
-                              <span> Match start Date </span>
-                              <span>{match?.date}</span>
-                            </div>
-                            <div className={styles.winning_prize}>
-                              <span>Time</span>
-                              <span>{match?.time}</span>
-                            </div>
-                          </div>
-                          {matchIndex.length != 0 &&
-                          matchIndex.includes(index) ? (
-                            <div className={styles.id_password}>
-                              <span>Room Id: {match.roomId}</span>
-                              <span>Room password: {match.password}</span>
-                            </div>
-                          ) : (
-                            <div className={styles.id_password}>
-                              <span>Room Id: *******</span>
-                              <span>Room password: *******</span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ))} */}
-                  {/* </Slider> */}
                 </div>
               </>
             )}

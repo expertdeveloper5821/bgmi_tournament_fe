@@ -5,8 +5,6 @@ import {Navbar} from '../../../Components/Navbar/Navbar';
 import Image from 'next/image';
 import sendRequest from '@/services/auth/auth_All_Api';
 import {useSearchParams} from 'next/navigation';
-import {AiOutlineLeft, AiOutlineRight} from 'react-icons/ai';
-import Slider from '@/Components/Slider/Slider';
 
 export interface RegMatch {
   gameName: string;
@@ -21,12 +19,6 @@ export interface RegMatch {
 }
 
 const regMatches = () => {
-  const sliderContent = [
-    {name: 'JOhn doe', email: 'john @technogetic.com'},
-    {name: 'JOhn doe', email: 'john12@technogetic.com'},
-    {name: 'JOhn', email: 'john314@technogetic.com'},
-    {name: 'robin', email: 'robin@technogetic.com'},
-  ];
   const searchParams = useSearchParams();
   const matchID = searchParams.get('id');
   const [matchData, setMatchData] = useState<RegMatch>();

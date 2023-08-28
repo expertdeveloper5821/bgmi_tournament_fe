@@ -194,8 +194,6 @@ function Login(): React.JSX.Element {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get('token');
-      // console.log('token', token, window.location.href);
-
       if (token) {
         handleVerifyToken(token);
       }
@@ -255,7 +253,6 @@ function Login(): React.JSX.Element {
           </div>
 
           <div>
-            {/* <h2 className={styles.headDesc}>Hello Warriors!</h2> */}
             <p className={styles.heading}>
               Welcome back! Please enter your details
             </p>
@@ -332,7 +329,7 @@ function Login(): React.JSX.Element {
                   variant="contained"
                   onClick={handleSubmit}
                 >
-                  {isLoading ? 'Loading...' : 'Sign in'}
+                  {isLoading ? 'Loading...' : 'Log in'}
                 </Button>
               </div>
               {/* <div className={styles.signin_withgoogle}>
