@@ -259,7 +259,7 @@ img.slides_image {
     padding: 28px 6px !important;
   }
   @media (max-width: $breakpoint-sm) {
-    padding: 28px 56px;
+    padding: 28px 96px;
     width: 100%;
   }
 }
@@ -276,12 +276,6 @@ img.slides_image {
 
 .container2 img {
   margin-left: 3%;
-  @media (max-width: $breakpoint-xSmall) {
-    margin-left: 13%;
-  }
-  @media (max-width: $breakpoint-xs) {
-    margin-left: 13%;
-  }
 }
 
 .Tournaments {
@@ -569,7 +563,7 @@ img.slides_image {
 .reviewsContainer {
   margin-top: 30px;
   padding-left: 2%;
-
+  // align-items: flex-start;
   @media (max-width: $breakpoint-md) {
     display: flex;
 
@@ -792,17 +786,48 @@ img.slides_image {
   @media (max-width: $breakpoint-sm) {
   }
 }
-
 .game_imgsection {
   display: flex;
-
   column-gap: 18px;
-
-  //width: 80%;
 }
-
 .progress_cls {
   accent-color: #ff7a00;
-
   width: 50%;
+}
+
+/* Slider.module.css */
+.sliderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide {
+  display: flex;
+  overflow: hidden;
+}
+.slideItem {
+  flex: 0 0 100%;
+  transition: transform 0.3s ease-in-out;
+  opacity: 0.5;
+}
+.slideItem.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.inner_cont,
+.slideContainer {
+  display: flex;
+}
+.prevButton,
+.nextButton {
+  background: none;
+  border: none;
+  color: white;
+}
+.outline_icon {
+  font-size: 18px;
+  background: #ff7a00;
+  border-radius: 18px;
 }
