@@ -1,4 +1,4 @@
-import sendRequest from "../auth_All_Api"
+import {sendRequest} from "../auth_All_Api"
 
 
 export const UserLogin = (data: any) => {
