@@ -43,7 +43,7 @@ const page = () => {
           </Link>
         </li>
         <Link href='/auth/login'>
-      <button className={styles.loginBtn}>Login</button>
+        <button className={styles.loginBtn}>Login</button>
         </Link>
       </ul>  : <div>
         {
@@ -71,7 +71,9 @@ const page = () => {
             Contact Us
           </Link>
         </li>
-      <button className={styles.loginBtn}>Login</button>
+        <Link href='/auth/login'>
+      <button className={styles.loginBtnMob}>Login</button>
+        </Link>
       </ul> 
       
       </> : <div className={styles.menuToggle} onClick={toggleMenu}>

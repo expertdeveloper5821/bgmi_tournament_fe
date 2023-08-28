@@ -1,24 +1,26 @@
 // components/GlassCrack.tsx
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styles from '../../../styles/glassCrack.module.scss';
 
 const GlassCrack: React.FC = () => {
-  const [cracks, setCracks] = useState<{x: number; y: number}[]>([]);
+  const [cracks, setCracks] = useState<{ x: number; y: number }[]>([]);
 
   const handleDocumentClick = (e: MouseEvent) => {
-    const {clientX, clientY} = e;
-    // Create a new crack div and append it to the body
+    e.stopImmediatePropagation();
+    const { clientX, clientY } = e;
+
+    // Create a new crack div and append it to the .glassContainer
     const crackDiv = document.createElement('div');
-    crackDiv.className = `${styles.glass} ${styles.crack}`;
+    crackDiv.className = `${styles.crack}`;
     crackDiv.style.left = `${clientX}px`;
     crackDiv.style.top = `${clientY}px`;
-    document.body.appendChild(crackDiv);
+    document.querySelector(`.${styles.glassContainer}`)?.appendChild(crackDiv);
 
     // Remove the crack div after a delay (adjust as needed)
     setTimeout(() => {
-      document.body.removeChild(crackDiv);
-    }, 2000);
+      document.querySelector(`.${styles.glassContainer}`)?.removeChild(crackDiv);
+    }, 2000); // Change the timeout duration to 2 seconds
   };
 
   React.useEffect(() => {
@@ -34,7 +36,7 @@ const GlassCrack: React.FC = () => {
         <div
           key={index}
           className={`${styles.glass} ${styles.crack}`}
-          style={{left: `${crack.x}px`, top: `${crack.y}px`}}
+          style={{ left: `${crack.x}px`, top: `${crack.y}px` }}
         ></div>
       ))}
     </div>
