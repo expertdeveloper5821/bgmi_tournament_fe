@@ -1,38 +1,43 @@
 /* styles/GlassCrack.module.scss */
 
 .glassContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative; /* Add this line */
-  z-index: 1; /* Add this line */
+  z-index: 1;
 }
-  .glass {
-    width: 100px;
-    height: 100px;
-    background-color: #b3d4e1;
-    border-radius: 50%;
-    position: relative; /* Add this line */
-    cursor: pointer;
-    z-index: 2;
+
+.glass {
+  width: 100px;
+  height: 100px;
+  background-color: #b3d4e1;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.crack {
+  position: absolute;
+  background: url('../../public/assests/glasscrackfinal.png') center center no-repeat;
+  background-size: 100%;
+  animation: crackAnimation 2s forwards;
+  width: 100px; /* Adjust the width and height to match the glass size */
+  height: 100px;
+  transform: translate(-50%, -50%); /* Center the crack element */
+  z-index: 1; /* Lower z-index than the glass elements */
+}
+
+@keyframes crackAnimation {
+  0% {
+    background-size: 80%;
   }
-  
-  .crack {
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: url('../../public/assests/glasscrackfinal.png') center center no-repeat;
-    background-size: 100%;
-    animation: crackAnimation 2s forwards;
-    z-index: 3
-    }
-  
-  @keyframes crackAnimation {
-    0% {
-      background-size: 100%;
-    }
-    100% {
-      background-size: 120%;
-    }
+  100% {
+    background-size: 10%;
   }
-  
+}

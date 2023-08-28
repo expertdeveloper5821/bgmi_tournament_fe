@@ -40,7 +40,10 @@ const page = () => {
   const handleData = (id: number) => {
     setId(id);
   };
-
+const handleClick=()=>{
+  console.log("thisis the timer ");
+  
+}
   const [width] = useWindowSize();
   useEffect(() => {
     window.addEventListener('click', playBulletFireSound);
@@ -117,7 +120,7 @@ const page = () => {
           <h1 className={styles.banner_heading}>PATT SE</h1>
           <p className={styles.banner_subheading}>Warriors Wanted</p>
         </div>
-        <div className={styles.gradient}></div>
+        {/* <div className={styles.gradient}></div> */}
       </div>
 
       <div className={styles.upcoming_mathces_container}>
@@ -314,15 +317,15 @@ const page = () => {
           </div>
 
           <div className={styles.welcome_subcontainer}>
-            <div className={styles.welcome_RightImg}>
+            <div className={styles.welcome_RightImg_container}>
               <Image
+              className={styles.welcome_RightImg}
                 src="../assests/Group20.svg"
                 height={700}
                 width={700}
                 alt="zoom in image"
               />
             </div>
-
             <div className={styles.welcome_alingnment}>
               <h2>Welcome to BGMI Rewards</h2>
 
@@ -335,9 +338,9 @@ const page = () => {
               </p>
             </div>
 
-            <div className={styles.gradient4}></div>
+            {/* <div className={styles.gradient4}></div> */}
           </div>
-          <div className={styles.gradient3}></div>
+          {/* <div className={styles.gradient3}></div> */}
         </div>
         <div>
           <div className={styles.choseSection}>
@@ -480,7 +483,7 @@ const page = () => {
       </section>
 
       <section className={styles.mapBg}>
-        <div className={styles.gradient}></div>
+      
         <div className={styles.signUpDiv}>
           <div className={styles.singUp}>
             <Image
@@ -571,7 +574,7 @@ const page = () => {
             ever-growing gaming community.
           </p>
         </div>
-        <div className={styles.gradient}></div>
+    
       </section>
 
       <section className={styles.buggiSec}>
