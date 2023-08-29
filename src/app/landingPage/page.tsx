@@ -28,31 +28,14 @@ const page = () => {
       hideProgressBar: false, // Show the progress bar
     });
   };
-
-  const playBulletFireSound = () => {
-    const audio = new Audio('../assests/gunsound.mp3');
-    audio.currentTime = 0;
-    audio.play();
-  };
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   const handleData = (id: number) => {
     setId(id);
   };
-const handleClick=()=>{
-  console.log("thisis the timer ");
-  
-}
+
   const [width] = useWindowSize();
-  useEffect(() => {
-    window.addEventListener('click', playBulletFireSound);
-
-    return () => {
-      window.removeEventListener('click', playBulletFireSound);
-    };
-  }, []);
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await sendRequest(`room/rooms`, {
