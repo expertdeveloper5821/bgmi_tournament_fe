@@ -126,9 +126,9 @@ const Form = ({getAllSpectator}: any) => {
                     />
                   </div>
 
-                  {errors.roomId && touched.roomId && (
-                    <div className={styles.error}>{errors.roomId}</div>
-                  )}
+                  {/* {errors.roomId && touched.roomId && (
+                    <div className={styles.error}>{errors?.roomId}</div>
+                  )} */}
                   <div className={styles.input_box}>
                     <label className={styles.room_id} htmlFor="password">
                       Game Name
@@ -144,9 +144,9 @@ const Form = ({getAllSpectator}: any) => {
                       onBlur={handleBlur}
                     />
                   </div>
-                  {errors.gameName && touched.gameName && (
+                  {/* {errors.gameName && touched.gameName && (
                     <div className={styles.error}>{errors.gameName}</div>
-                  )}
+                  )} */}
                   <div className={styles.input_box}>
                     <label className={styles.room_id} htmlFor="password">
                       Game Type (No of players)
@@ -162,9 +162,9 @@ const Form = ({getAllSpectator}: any) => {
                       onBlur={handleBlur}
                     />
                   </div>
-                  {errors.gameType && touched.gameType && (
+                  {/* {errors.gameType && touched.gameType && (
                     <div className={styles.error}>{errors.gameType}</div>
-                  )}
+                  )} */}
                   <div className={styles.input_box}>
                     <label className={styles.room_id} htmlFor="password">
                       Game Map Name
@@ -180,9 +180,9 @@ const Form = ({getAllSpectator}: any) => {
                       onBlur={handleBlur}
                     />
                   </div>
-                  {errors.mapType && touched.mapType && (
+                  {/* {errors.mapType && touched.mapType && (
                     <div className={styles.error}>{errors.mapType}</div>
-                  )}
+                  )} */}
                   <div className={styles.input_box}>
                     <label className={styles.room_id} htmlFor="password">
                       Password
@@ -198,9 +198,9 @@ const Form = ({getAllSpectator}: any) => {
                       onBlur={handleBlur}
                     />
                   </div>
-                  {errors.password && touched.password && (
+                  {/* {errors.password && touched.password && (
                     <div className={styles.error}>{errors.password}</div>
-                  )}
+                  )} */}
                   <div className={styles.input_box}>
                     <label className={styles.room_id} htmlFor="password">
                       Version
@@ -216,9 +216,9 @@ const Form = ({getAllSpectator}: any) => {
                       onBlur={handleBlur}
                     />
                   </div>
-                  {errors.version && touched.version && (
+                  {/* {errors.version && touched.version && (
                     <div className={styles.error}>{errors.version}</div>
-                  )}
+                  )} */}
                   <div className={styles.input_box}>
                     <label className={styles.room_id} htmlFor="password">
                       Time
@@ -234,9 +234,9 @@ const Form = ({getAllSpectator}: any) => {
                       onBlur={handleBlur}
                     />
                   </div>
-                  {errors.time && touched.time && (
+                  {/* {errors.time && touched.time && (
                     <div className={styles.error}>{errors.time}</div>
-                  )}
+                  )} */}
                   <div className={styles.input_box}>
                     <div>
                       <label className={styles.room_id} htmlFor="Date">
@@ -253,9 +253,9 @@ const Form = ({getAllSpectator}: any) => {
                       onBlur={handleBlur}
                     />
                   </div>
-                  {errors.date && touched.date && (
+                  {/* {errors.date && touched.date && (
                     <div className={styles.error}>{errors.date}</div>
-                  )}
+                  )} */}
                   <div className={styles.input_box}>
                     <label className={styles.room_id} htmlFor="secondWin">
                       Last Servival
@@ -271,9 +271,9 @@ const Form = ({getAllSpectator}: any) => {
                       onBlur={handleBlur}
                     />
                   </div>
-                  {errors.lastServival && touched.lastServival && (
+                  {/* {errors.lastServival && touched.lastServival && (
                     <div className={styles.error}>{errors.lastServival}</div>
-                  )}
+                  )} */}
                   <div className={styles.input_box}>
                     <label className={styles.room_id} htmlFor="highestKill">
                       Highest Kill
@@ -289,9 +289,9 @@ const Form = ({getAllSpectator}: any) => {
                       onBlur={handleBlur}
                     />
                   </div>
-                  {errors.highestKill && touched.highestKill && (
+                  {/* {errors.highestKill && touched.highestKill && (
                     <div className={styles.error}>{errors.highestKill}</div>
-                  )}
+                  )} */}
                   <div className={styles.input_box}>
                     <label className={styles.room_id} htmlFor="secondWin">
                       Second Win
@@ -307,9 +307,9 @@ const Form = ({getAllSpectator}: any) => {
                       onBlur={handleBlur}
                     />
                   </div>
-                  {errors.secondWin && touched.secondWin && (
+                  {/* {errors.secondWin && touched.secondWin && (
                     <div className={styles.error}>{errors.secondWin}</div>
-                  )}
+                  )} */}
                   <div className={styles.input_box}>
                     <label className={styles.room_id} htmlFor="secondWin">
                       Third Win
@@ -326,9 +326,9 @@ const Form = ({getAllSpectator}: any) => {
                     />
                   </div>
 
-                  {errors.thirdWin && touched.thirdWin && (
+                  {/* {errors.thirdWin && touched.thirdWin && (
                     <div className={styles.error}>{errors.thirdWin}</div>
-                  )}
+                  )} */}
                   <div className={styles.input_box}>
                     <label className={styles.room_id} htmlFor="secondWin">
                       image upload
