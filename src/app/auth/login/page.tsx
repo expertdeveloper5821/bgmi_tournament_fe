@@ -35,14 +35,13 @@ function Login(): React.JSX.Element {
   const [error, setError] = useState<string>('');
   const [getToken, setGetToken] = useState<any>('');
   const {userInfo, updateUserInfo} = useUserContext();
-
+  console.log('usering=', userInfo);
   const router = useRouter();
 
 
   function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
     setRememberMe(event.target.checked);
   }
-
 
   useEffect(() => {
     const rememberMeValue = localStorage.getItem('rememberMe') === 'true';
@@ -121,11 +120,12 @@ function Login(): React.JSX.Element {
   const handleRedirect = (token: any) => {
     if (token) {
       const decodedToken: any = decodeJWt(token);
+      console.log('tokennnn', decodedToken.role.role);
       if (decodedToken.role.role === 'admin') {
         router.push('/adminDashboard');
       } else if (decodedToken.role.role === 'user') {
-        router.push('/userDashboard');
-        // router.push(configData.web.cominSoonUrl);
+        router.push('/userDashboard/tournament');
+        // router.push(configData.web.cominSoonUrl)
       } else {
         router.push('/spectatorDashboard');
       }
@@ -190,8 +190,6 @@ function Login(): React.JSX.Element {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get('token');
-      // console.log('token', token, window.location.href);
-
       if (token) {
         handleVerifyToken(token);
       }
@@ -250,7 +248,6 @@ function Login(): React.JSX.Element {
             />
           </div>
           <div>
-            {/* <h2 className={styles.headDesc}>Hello Warriors!</h2> */}
             <p className={styles.heading}>
               Welcome back! Please enter your details
             </p>
@@ -327,7 +324,7 @@ function Login(): React.JSX.Element {
                   variant="contained"
                   onClick={handleSubmit}
                 >
-                  {isLoading ? 'Loading...' : 'Sign in'}
+                  {isLoading ? 'Loading...' : 'Log in'}
                 </Button>
               </div>
               {/* <div className={styles.signin_withgoogle}>
