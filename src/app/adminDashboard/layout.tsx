@@ -6,7 +6,8 @@ import {
   FaTh,
   FaUserAlt,
   FaRegChartBar,
-  FaCommentAlt,
+  FaUserFriends,
+  FaVideo
 } from "react-icons/fa";
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,12 +30,12 @@ const dynamicMenuItems = [
   {
     path: "/adminDashboard/teams",
     name: "Teams",
-    icon: <FaCommentAlt />,
+    icon: <FaUserFriends />,
   },
   {
     path: "/adminDashboard/video",
     name: "video",
-    icon: <FaCommentAlt />,
+    icon: <FaVideo />,
   }
 ];
 

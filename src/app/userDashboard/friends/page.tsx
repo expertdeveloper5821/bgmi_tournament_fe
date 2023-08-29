@@ -3,9 +3,11 @@ import React, {useState} from 'react';
 import styles from '../../../styles/friends.module.scss';
 import Card from '@/Components/CommonComponent/Card';
 import {Navbar} from '@/Components/Navbar/Navbar';
-import sendRequest from '@/services/auth/auth_All_Api';
+import {sendRequest} from '@/services/auth/auth_All_Api';
 import {toast} from 'react-toastify';
 import CustomPagination from '@/Components/Pagination/Pagination';
+import Image from 'next/image';
+
 const Friend = () => {
   const [open, setOpen] = useState(false);
   const [forwardModal, setForwardModal] = useState(false);
@@ -52,7 +54,7 @@ const Friend = () => {
       const data = teamData[fwdId];
       const id = data.id;
       const accessToken = localStorage.getItem('jwttoken');
-      const response = await sendRequest(`/api/v1/team/deleteteam/${id}`, {
+      const response = await sendRequest(`/team/deleteteam/${id}`, {
         method: 'Delete',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -115,14 +117,13 @@ const Friend = () => {
       };
 
       const accessToken = localStorage.getItem('jwttoken');
-      const response = await sendRequest('/api/v1/team/send-invite', {
+      const response = await sendRequest('/team/send-invite', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
         body: userData,
       });
-      console.log("response",response);
       
       if (response.data.code) {
         setMessage('Friends added Successfully');
@@ -164,12 +165,12 @@ const Friend = () => {
               placeholder="Search by Name"
             />
 
-            <img src="/assests/search.svg" className={styles.searchIcon} />
+            <Image  src="/assests/search.svg" alt='search' height={20} width={20} className={styles.searchIcon} />
           </div>
           <div className={styles.btnContainer}>
             <div className={styles.selectContainer}>
-              <img src="/assests/sort.svg" className={styles.sortIcon} />
-              <img src="/assests/downarrow.svg" className={styles.arrowicon} />
+              <Image  src="/assests/sort.svg"  alt='sort' height={10} width={10}className={styles.sortIcon} />
+              <Image  src="/assests/downarrow.svg" alt='arrow' height={20} width={20} className={styles.arrowicon} />
               <select className={styles.select}>
                 <option className={styles.sortByOption}> Sort By</option>
                 <option>1</option>
@@ -197,10 +198,11 @@ const Friend = () => {
             />
           </div>
           <div className={styles.bannerContainer}>
-            <img
+            <Image
               src="/assests/friendsherobanner.svg"
               alt="banner"
               className={styles.cardbannerimg}
+               height={100} width={100}
             />
           </div>
         </div>
@@ -213,7 +215,7 @@ const Friend = () => {
         <div className={styles.modalBackground}>
           <div className={styles.modalContainer}>
             <div className={styles.titleCloseBtn}>
-              <img src="/assests/delcancel.svg" onClick={handleCloseModal} />
+              <Image  src="/assests/delcancel.svg"  alt='delete' height={100} width={100}onClick={handleCloseModal} />
             </div>
             <div className={styles.title}>
               <h1>Delete</h1>
@@ -260,8 +262,9 @@ const Friend = () => {
                     <div key={index} className={styles.inputemail_container}>
                       <div className={styles.inputemail}>
                         {truncatedEmail}
-                        <img
+                        <Image
                           src="/assests/orangecross.svg"
+                          alt='search' height={10} width={10}
                           className={styles.cancelsvg}
                           onClick={() => handleDeleteEmail(index)}
                         />
@@ -296,3 +299,4 @@ const Friend = () => {
 };
 
 export default Friend;
+                                                                  
