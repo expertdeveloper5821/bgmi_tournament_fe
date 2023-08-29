@@ -17,6 +17,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({menuItem}: SidebarProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [menuItems, setMenuItems] = useState<MenuItem[]>(menuItem);
+  const [selectedItemIndex, setSelectedItemIndex] = useState<number>(-1); // Initialize as -1, no item selected
   const [width] = useWindowSize();
   const toggle = () => setIsOpen(!isOpen);
 
@@ -48,12 +49,15 @@ const Sidebar: React.FC<SidebarProps> = ({menuItem}: SidebarProps) => {
               {menuItem?.length > 0 ? (
                 menuItem.map((item: MenuItem, index: number) => (
                   <Link href={item.path} key={index} passHref>
-                    <div className={styles.link}>
+                    <div className={`${styles.link} ${selectedItemIndex === index ? styles.selected : ''}`} 
+                     onClick={() => setSelectedItemIndex(index)}>
+                    
                       <div className={styles.icon}>{item.icon}</div>
                       {isOpen && (
                         <div className={styles.link_text}>{item.name}</div>
                       )}
-                    </div>
+                      </div>
+                    
                   </Link>
                 ))
               ) : (

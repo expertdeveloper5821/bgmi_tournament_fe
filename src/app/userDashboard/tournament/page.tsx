@@ -6,7 +6,7 @@ import {Navbar} from '../../../Components/Navbar/Navbar';
 import {Button} from 'technogetic-iron-smart-ui';
 import {decodeJWt} from '@/utils/globalfunctions';
 import Image from 'next/image';
-import sendRequest from '@/services/auth/auth_All_Api';
+import {sendRequest} from '@/services/auth/auth_All_Api';
 import {
   AiOutlineDown,
   AiOutlineClose,
@@ -55,7 +55,7 @@ function Tournament() {
     const token: any = localStorage.getItem('jwtToken');
     const roomids = localStorage.getItem('roomIds');
     const decodedToken: any = decodeJWt(token);
-    const tournamentResponse = await sendRequest('api/v1/room/rooms', {
+    const tournamentResponse = await sendRequest('room/rooms', {
       method: 'GET',
       headers: {Authorization: `Bearer ${token}`},
     });
@@ -71,7 +71,7 @@ function Tournament() {
   const getRegisteredMatches = async () => {
     const token: any = localStorage.getItem('jwtToken');
     const decodedToken: any = decodeJWt(token);
-    const registeredMatches = await sendRequest('api/v1/team/register-room ', {
+    const registeredMatches = await sendRequest('team/register-room ', {
       method: 'GET',
       headers: {Authorization: `Bearer ${token}`},
     });
@@ -155,10 +155,10 @@ function Tournament() {
       obj.push(roomId);
       localStorage.setItem('roomIds', JSON.stringify(obj));
 
-      const response = await sendRequest('api/v1/payment/create-payment', {
+      const response = await sendRequest('payment/create-payment', {
         method: 'POST',
         headers: {Authorization: `Bearer ${token}`},
-        body: {
+        data: {
           upiId: 'success@payment',
           matchAmount: 60,
           name: 'robin',
