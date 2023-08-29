@@ -7,7 +7,7 @@ import Image from 'next/image';
 import {sendRequest} from '@/services/auth/auth_All_Api';
 import {toast} from 'react-toastify';
 import CustomCursor from './customCursor/page';
-import GlassCrack from './glassCrack/page';
+// import GlassCrack from './glassCrack/page';
 import Link from 'next/link';
 const page = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -21,12 +21,13 @@ const page = () => {
       setId(id);
     } else {
       setId(id + 1);
-    }
-    toast.success('Contest Joined Successfully', {
-      position: 'top-right',
-      autoClose: 2000, // Automatically close after 2 seconds
-      hideProgressBar: false, // Show the progress bar
-    });
+    }   
+
+    // toast.success('Contest Joined Successfully', {
+    //   position: 'top-right',
+    //   autoClose: 2000, // Automatically close after 2 seconds
+    //   hideProgressBar: false, // Show the progress bar
+    // });
   };
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -50,7 +51,6 @@ const page = () => {
   return (
     <div className={styles.bodycolor}>
       <CustomCursor />
-      <GlassCrack />
       <div className={styles.main_container}>
         <div>
           <NavBar />
@@ -241,7 +241,7 @@ const page = () => {
                         className={styles.rsSign}
                       />
                     </h2>
-                  </div>
+                  </div>  
                 </div>
                 <div className={styles.gameInfo}>
                   <div className={styles.game}>
@@ -262,13 +262,15 @@ const page = () => {
                     <input type="range" value={50} />
                     <span>Only 30 spots left 20/50</span>
                   </div>
+                  <Link href='/auth/login'>
                   <button
                     className={styles.joinbtn}
-                    onClick={handleIncrement}
                     disabled={disable}
                   >
                     JOIN
                   </button>
+                  </Link>
+                  
                 </div>
               </>
             ) : (

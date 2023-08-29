@@ -16,7 +16,7 @@ const page = () => {
       <Link href="/">
         <div>
         <span className={styles.logo}>
-            <img src='../assests/logo.svg'/>
+            <img src='../assests/logo.svg' className={styles.logoimg}/>
         </span>
         </div>
       </Link>
@@ -42,9 +42,12 @@ const page = () => {
             Contact Us
           </Link>
         </li>
+        <li>
         <Link href='/auth/login'>
         <button className={styles.loginBtn}>Login</button>
         </Link>
+        </li>
+       
       </ul>  : <div>
         {
           isMenuOpen ?<> <div className={styles.menuToggle} onClick={toggleMenu}>

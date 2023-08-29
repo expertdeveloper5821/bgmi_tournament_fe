@@ -23,7 +23,7 @@
   transform: scale(1);
   top: -30%;
   position: absolute;
-  left: 20%;
+  left: 25%;
   width: 130px;
   height: 130px;
   animation: parshoot1move 20s linear infinite;
@@ -46,7 +46,7 @@
 }
 .parashoot2 {
   transform: scale(1);
-  top: 0%;
+  top: 18%;
   position: absolute;
   left: 50%;
   width: 180px;
@@ -81,7 +81,7 @@
 
 .parashoot4 {
   transform: scale(1);
-  top: 0%;
+  top: 18%;
   position: absolute;
   right: 0%;
   width: 250px;
@@ -92,9 +92,9 @@
 
 .parashoot3 {
   transform: scale(1);
-  top: 10%;
+  top:28%;
   position: absolute;
-  right: 20%;
+  right: 28%;
   width: 250px;
   height: 250px;
   animation: parshoot3move 25s linear infinite;
@@ -146,7 +146,7 @@
   }
 }
 .logo img {
-  height: 100px;
+  height: 70px;
   @media (max-width: $breakpoint-md) {
     height: 50px;
   }
@@ -207,7 +207,7 @@
 .loginBtn {
   position: absolute;
   right: 20px;
-  top: 52px;
+  top: 39px;
   z-index: 10;
   color: white !important;
   font-size: 18px;
