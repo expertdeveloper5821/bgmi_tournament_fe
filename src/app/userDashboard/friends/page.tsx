@@ -124,7 +124,6 @@ const Friend = () => {
         },
         body: userData,
       });
-      console.log("response",response);
       
       if (response.data.code) {
         setMessage('Friends added Successfully');

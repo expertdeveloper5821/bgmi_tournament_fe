@@ -1,5 +1,5 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';''
 import styles from '../../../../styles/videoCard.module.scss';
 import {sendRequest} from '@/services/auth/auth_All_Api';
 import Image from 'next/image';
