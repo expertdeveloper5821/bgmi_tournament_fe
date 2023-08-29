@@ -1,30 +1,27 @@
 @import './mixins.scss';
 @import './variable.scss';
 
-
-
 .container {
   display: flex;
   position: relative;
 }
 
 .sidebar {
-  color:white;
-  background: #003554;;
+  color: white;
+  background: #003554;
   height: 100vh;
   width: 200px;
   transition: all 0.5s;
   @media (max-width: $breakpoint-md) {
     width: auto;
     position: absolute;
- }
+  }
 
   .top_section {
     display: flex;
     align-items: center;
     padding: 20px 15px;
   }
-
 
   .logo {
     font-size: 30px;
@@ -59,7 +56,7 @@
       font-size: 20px;
     }
   }
-  .icon{
+  .icon {
     display: flex;
     flex-direction: column;
     margin-left: 7px;
@@ -92,42 +89,39 @@
   margin-top: 20px;
   margin-left: 10px;
 }
-.listitems{
+.listitems {
   position: absolute;
   color: white;
   margin-top: 70px;
   margin-left: 10px;
   background: #003554;
   padding-bottom: 3px;
-  width:150px
+  width: 150px;
 }
-.mob_link_text{
+.mob_link_text {
   font-size: 16px;
   font-weight: 800;
   padding-bottom: 3px;
   display: flex;
 }
-.itemname{
+.itemname {
   min-width: 105px;
 }
-.bars{
+.bars {
   margin-left: 30px;
-
 }
-.mob_bars{
+.mob_bars {
   margin-left: 0px;
-  
 }
-.sidebar_cancel{
+.sidebar_cancel {
   position: absolute;
-    top: 0;
+  top: 0;
 }
-.lap_sidebar_cancel{
-color: white;
-font-size: x-large;
-font-weight: bold;
-position: absolute;
-left: 195px;
-top: 30px;
-
+.lap_sidebar_cancel {
+  color: white;
+  font-size: x-large;
+  font-weight: bold;
+  position: absolute;
+  left: 195px;
+  top: 30px;
 }

@@ -4,9 +4,7 @@
 .main_container {
   width: 100vw;
   display: flex;
-
   background-color: rgba(0, 53, 84, 1);
-  // position: static;
   height: 100vh;
 }
 .inner_main_container {
@@ -45,15 +43,7 @@
 }
 .main_pop_cls,
 .main_del_sec {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  @include spectator_model;
 }
 .inner_specter_cls {
   display: flex;
@@ -73,15 +63,7 @@
   font-size: 16px;
 }
 .pop_heading {
-  background: #ff7a00;
-  text-align: center;
-  padding: 26px;
-  color: white;
-  font-size: 23px;
-  font-family: Century Gothic;
-  font-weight: 700;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
+  @include spectator_model_heading;
 }
 .form_spectator_cls {
   padding: 28px 48px;
@@ -98,11 +80,7 @@ button#btn_cls_st {
   color: white !important;
 }
 .room_field_wrapper {
-  border: none !important;
-  border-bottom: 1px solid #9e9e9e !important;
-  border-radius: 0px !important;
-  margin: 12px 0px;
-  padding: 2px !important;
+  @include spectator_modelfield;
   @media (max-width: $breakpoint-xs) {
     margin: 8px 0px;
   }
@@ -187,17 +165,11 @@ button#btn_cls_st {
   width: 102px;
   margin-left: 6px;
 }
-.sucess_msg {
-  text-align: center;
-  color: green;
-}
+
 .update_form {
   padding: 18px 30px;
 }
-// new style
-
-input#time {
-  border: none !important;
+.room_field_cls2 {
   width: 100%;
 }
 //new tabel code

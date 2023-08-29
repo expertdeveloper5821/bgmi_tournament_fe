@@ -1,5 +1,5 @@
 'use client';
-import React, {ChangeEvent, FormEvent, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import sendRequest from '../../../services/api/apiServices';
 //@ts-ignore
 import {Button, Input} from 'technogetic-iron-smart-ui';
@@ -7,6 +7,7 @@ import {AiOutlineDelete} from 'react-icons/ai';
 import styles from '../../../styles/Spectator.module.scss';
 import {RoomData} from '../Room/page';
 import Image from 'next/image';
+import {toast} from 'react-toastify';
 
 interface UpdatespecProps {
   roomData: RoomData;
@@ -48,12 +49,12 @@ const Updatespec = ({roomData, getAllSpectator}: UpdatespecProps) => {
       getAllSpectator();
       console.log('updateResponse', updateResponse);
       if (updateResponse) {
-        setError(updateResponse.data.message);
+        toast.success(updateResponse.data.message);
         setDeleteModal(false);
-        console.log('update ==>', updateResponse);
       }
     } catch (error: any) {
       setError(error.message);
+      setError('room not update');
     }
   };
 

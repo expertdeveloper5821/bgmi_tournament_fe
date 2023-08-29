@@ -2,7 +2,6 @@
 import React, {useEffect, useState} from 'react';
 import {Navbar} from '../../../Components/Navbar/Navbar';
 import styles from '../../../styles/Spectator.module.scss';
-//import SpectatorData, {RoomData} from '../spectatorData/page';
 import Form from '../Form/page';
 import sendRequest from '../../../services/api/apiServices';
 import RequireAuthentication from '../../../utils/requireAuthentication';
