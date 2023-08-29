@@ -22,11 +22,11 @@ const dynamicMenuItems = [
   //   name: 'Transactions',
   //   icon: <FaUserAlt />,
   // },
-  {
-    path: '/userDashboard/friends',
-    name: 'Friends',
-    icon: <FaRegChartBar />,
-  },
+  // {
+  //   path: '/userDashboard/friends',
+  //   name: 'Friends',
+  //   icon: <FaRegChartBar />,
+  // },
   // {
   //   path: '/userDashboard/videos',
   //   name: 'Videos',
