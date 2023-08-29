@@ -1,5 +1,5 @@
 'use client';
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import sendRequest from '../../../services/api/apiServices';
 //@ts-ignore
 import {Button, Input} from 'technogetic-iron-smart-ui';
@@ -9,12 +9,12 @@ import {RoomData} from '../Room/page';
 import Image from 'next/image';
 import {toast} from 'react-toastify';
 
-interface UpdatespecProps {
-  roomData: RoomData;
-  getAllSpectator: () => void;
-  updateRoom: (updatedRoom: RoomData) => void;
-}
-const Updatespec = ({roomData, getAllSpectator}: UpdatespecProps) => {
+// interface UpdatespecProps {
+//   roomData: RoomData;
+//   getAllSpectator: () => void;
+//   updateRoom: (updatedRoom: RoomData) => void;
+// }
+const Updatespec = ({roomData, getAllSpectator}: any) => {
   const [error, setError] = useState<string>('');
   const [deletModal, setDeleteModal] = useState(false);
   const [updateFormData, setUpdateFormData] = useState<RoomData>(roomData);
@@ -22,7 +22,6 @@ const Updatespec = ({roomData, getAllSpectator}: UpdatespecProps) => {
   const updateRoom = async (e: any) => {
     e.preventDefault();
     const token = localStorage.getItem('jwtToken');
-    console.log('check ==>', token);
 
     const bodyData = {
       roomId: updateFormData.roomId,
@@ -33,7 +32,6 @@ const Updatespec = ({roomData, getAllSpectator}: UpdatespecProps) => {
       version: updateFormData.version,
       time: updateFormData.time,
       date: updateFormData.date,
-      mapImg: updateFormData.mapImg,
     };
 
     try {
@@ -46,9 +44,8 @@ const Updatespec = ({roomData, getAllSpectator}: UpdatespecProps) => {
         data: bodyData,
       });
 
-      getAllSpectator();
-      console.log('updateResponse', updateResponse);
       if (updateResponse) {
+        getAllSpectator();
         toast.success(updateResponse.data.message);
         setDeleteModal(false);
       }
