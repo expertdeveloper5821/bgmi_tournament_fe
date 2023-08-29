@@ -1,7 +1,7 @@
 'use client';
 import React, {useEffect, useState} from 'react';
 import styles from '../../styles/card.module.scss';
-import sendRequest from '@/services/auth/auth_All_Api';
+import {sendRequest} from '@/services/auth/auth_All_Api';
 
 interface CardProps {
   toOpen: (value: boolean) => void;
@@ -30,7 +30,7 @@ const Card: React.FC<CardProps> = ({fwdindex,toOpen, forwardModalOpen, teamData}
     const fetchData = async () => {
       try {
         const accessToken = localStorage.getItem('jwttoken');
-        const response = await sendRequest('/api/v1/team/get-team', {
+        const response = await sendRequest('/team/get-team', {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${accessToken}`,

@@ -1,10 +1,7 @@
-
-import React from 'react'
+import React from 'react';
 
 const KYC = () => {
-  return (
-    <div>KYC</div>
-  )
-}
+  return <div></div>;
+};
 
-export default KYC
+export default KYC;

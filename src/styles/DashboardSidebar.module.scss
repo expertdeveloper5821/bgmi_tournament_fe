@@ -1,30 +1,28 @@
 @import './mixins.scss';
 @import './variable.scss';
 
-
-
 .container {
   display: flex;
   position: relative;
 }
 
 .sidebar {
-  color:white;
-  background: #003554;;
+  color: white;
+  background: #003554;
   height: 100vh;
   width: 200px;
   transition: all 0.5s;
   @media (max-width: $breakpoint-md) {
     width: auto;
     position: absolute;
- }
+  }
 
   .top_section {
     display: flex;
     align-items: center;
-    padding: 20px 15px;
+    padding-top: 20px;
+    padding-left: 8px;
   }
-
 
   .logo {
     font-size: 30px;
@@ -38,31 +36,37 @@
 
   .link {
     display: flex;
+    align-items: center;
+    margin-top: 30px;
     color: #fff;
-    padding: 10px 15px;
-    gap: 15px;
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 4px;
     transition: all 0.5s;
 
     &:hover {
-      background: lightskyblue;
-      color: #000;
+      background: #ff7a00;
+      color: white;
       transition: all 0.5s;
     }
 
     &.active {
-      background: lightskyblue;
-      color: #000;
+      background: #ff7a00;
+      color: white;
     }
 
     .icon,
     .link_text {
       font-size: 20px;
+      font-weight: bold;
     }
   }
-  .icon{
+  .icon {
     display: flex;
     flex-direction: column;
     margin-left: 7px;
+    padding-right: 20px;
     justify-self: center;
   }
 
@@ -92,42 +96,60 @@
   margin-top: 20px;
   margin-left: 10px;
 }
-.listitems{
+.listitems {
   position: absolute;
   color: white;
   margin-top: 70px;
-  margin-left: 10px;
+  padding-left: 10px;
   background: #003554;
   padding-bottom: 3px;
-  width:150px
+  width: 150px;
+  z-index: 1;
+  height: 90vh;
 }
-.mob_link_text{
+.mob_link_text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+  border-radius: 4px;
   font-size: 16px;
   font-weight: 800;
   padding-bottom: 3px;
-  display: flex;
+  margin-top: 30px;
+  padding-top: 3px;
+  &:hover {
+    background: #ff7a00;
+    color: white;
+    transition: all 0.5s;
+  }
+
+  &.active {
+    background: #ff7a00;
+    color: white;
+  }
 }
-.itemname{
+.itemname {
   min-width: 105px;
+  font-size: 16px;
+  font-weight: bold;
 }
-.bars{
+.bars {
   margin-left: 30px;
-
 }
-.mob_bars{
+.mob_bars {
   margin-left: 0px;
-  
 }
-.sidebar_cancel{
+.sidebar_cancel {
   position: absolute;
-    top: 0;
+  top: 9px;
+  font-weight: bold;
 }
-.lap_sidebar_cancel{
-color: white;
-font-size: x-large;
-font-weight: bold;
-position: absolute;
-left: 195px;
-top: 30px;
-
+.lap_sidebar_cancel {
+  color: white;
+  font-size: x-large;
+  font-weight: bold;
+  position: absolute;
+  left: 195px;
+  top: 30px;
 }

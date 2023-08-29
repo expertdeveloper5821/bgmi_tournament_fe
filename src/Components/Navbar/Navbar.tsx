@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import styles from '../../styles/Navabar.module.scss';
 import {useRouter} from 'next/navigation';
-import sendRequest from '../../services/api/apiServices';
+import {sendRequest} from '../../services/auth/auth_All_Api';
 // @ts-ignore
 import {Avatar, Popover} from 'technogetic-iron-smart-ui';
 import Image from 'next/image';

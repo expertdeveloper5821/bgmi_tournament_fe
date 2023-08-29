@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
 import {Navbar} from '../../../Components/Navbar/Navbar';
 import Image from 'next/image';
-import sendRequest from '@/services/auth/auth_All_Api';
+import {sendRequest} from '@/services/auth/auth_All_Api';
 import {useSearchParams} from 'next/navigation';
 
 export interface RegMatch {
@@ -25,7 +25,7 @@ const regMatches = () => {
   const [showRoomPwd, setRoomPwd] = useState<boolean>(false);
   const getRegisterMatchWithId = async () => {
     const token: any = localStorage.getItem('jwtToken');
-    const regMAtch = await sendRequest(`api/v1/room/rooms/${matchID}`, {
+    const regMAtch = await sendRequest(`room/rooms/${matchID}`, {
       method: 'GET',
       headers: {Authorization: `Bearer ${token}`},
     });

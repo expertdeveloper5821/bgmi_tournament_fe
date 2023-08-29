@@ -1,11 +1,11 @@
-import axios, { AxiosInstance } from "axios";
-console.log("object check base url ", process.env.NEXT_PUBLIC_API_BASE_URL)
+// import { configData } from "@/utils/config";
+// import axios, { AxiosInstance } from "axios";
 
-const apiServices: AxiosInstance = axios.create({
-    baseURL: `${process.env.NEXT_PUBLIC_API_BASE_URL}${process.env.NEXT_PUBLIC_API_BASE_VER}`,
-    headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-    },
-});
+// const apiServices: AxiosInstance = axios.create({
+//     baseURL: `https://bgmi-game.onrender.com/api/v1/`,
+//     headers: {
+//         'Content-Type': 'application/json; charset=UTF-8',
+//     },
+// });
 
-export default apiServices;
+// export default apiServices;

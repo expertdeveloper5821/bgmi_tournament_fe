@@ -1,5 +1,5 @@
 'use client';
-import React, {useState, useEffect, ChangeEvent} from 'react';
+import React, {useState, useEffect, ChangeEvent, useContext} from 'react';
 import {
   useFormik,
   FormikErrors,
@@ -13,12 +13,13 @@ import Link from 'next/link';
 //@ts-ignore
 import {Button, Input} from 'technogetic-iron-smart-ui';
 import styles from '../../../styles/auth.module.scss';
-import sendRequest from '../../../services/api/apiServices';
+import {sendRequest} from '../../../services/auth/auth_All_Api';
 import {FcGoogle} from 'react-icons/fc';
 import Image from 'next/image';
 import {loginSchema} from '../../../schemas/SignupSchemas';
 import {decodeJWt} from '@/utils/globalfunctions';
 import {configData} from '@/utils/config';
+import {useUserContext} from '@/utils/contextProvider';
 
 interface LoginProps {}
 
@@ -33,7 +34,8 @@ function Login(): React.JSX.Element {
   const [role, setRole] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [getToken, setGetToken] = useState<any>('');
-
+  const {userInfo, updateUserInfo} = useUserContext();
+  console.log('usering=', userInfo);
   const router = useRouter();
 
   function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
@@ -93,8 +95,12 @@ function Login(): React.JSX.Element {
         });
 
         setIsLoading(false);
-
         if (response.status === 200) {
+          const userDetails = {
+            name: response?.data?.userData?.fullName,
+            email: response?.data?.userData?.email,
+          };
+          updateUserInfo(userDetails);
           localStorage.setItem('jwtToken', response?.data?.userData?.token);
           handleRedirect(response?.data?.userData?.token);
         } else {
@@ -111,23 +117,12 @@ function Login(): React.JSX.Element {
   });
 
   const handleRedirect = (token: any) => {
-    console.log('token', token);
     if (token) {
       const decodedToken: any = decodeJWt(token);
       console.log('tokennnn', decodedToken.role.role);
-      if (
-        decodedToken.role.role === 'admin'
-        // (
-        //   ({role, name}: any) => role.includes('admin') || name === 'admin',
-        // )
-      ) {
+      if (decodedToken.role.role === 'admin') {
         router.push('/adminDashboard');
-      } else if (
-        decodedToken.role.role === 'user'
-        // decodedToken.role.role.find(
-        //   ({role, name}: any) => role.includes('user') || name === 'user',
-        // )
-      ) {
+      } else if (decodedToken.role.role === 'user') {
         router.push('/userDashboard/tournament');
         // router.push(configData.web.cominSoonUrl)
       } else {
@@ -251,7 +246,6 @@ function Login(): React.JSX.Element {
               height={100}
             />
           </div>
-
           <div>
             <p className={styles.heading}>
               Welcome back! Please enter your details

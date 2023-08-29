@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { ResetPasswordSchema } from '../../../schemas/SignupSchemas';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
-import sendRequest from '../../../services/api/apiServices';
+import {sendRequest} from '../../../services/auth/auth_All_Api';
 import Image from 'next/image';
 
 interface FormValues {
