@@ -1,18 +1,17 @@
+import {RoomData} from '@/app/spectatorDashboard/Room/page';
 import React, {useState} from 'react';
-import styles from '../../styles/pagination.module.scss'
+import styles from '../../styles/pagination.module.scss';
 interface CustomPaginationProps {
-  data: any[]; // Replace 'any' with the actual type of your data
+  data: RoomData[]; // Replace 'any' with the actual type of your data
 }
 
 const CustomPagination: React.FC<CustomPaginationProps> = ({data}) => {
-
-    
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const recordsPerPage = 6;
+  const recordsPerPage = 3;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = data?.slice(firstIndex, lastIndex);
-  
+
   const nPage = Math.ceil(data?.length / recordsPerPage);
   const numbers: number[] = [];
 
@@ -37,20 +36,20 @@ const CustomPagination: React.FC<CustomPaginationProps> = ({data}) => {
   };
 
   return (
-    <div className={styles.main_container} >
+    <div className={styles.main_container}>
       <ul className={styles.un_list}>
         <li>
           <a href="#" onClick={handlePrePage}>
-           {`<`} Previous
+            {`<`} Previous
           </a>
         </li>
-        {/* {numbers.map((n, i) => (
-          <li key={i} className<={currentPage === n ? 'active' : 'inactive'}>
+        {numbers.map((n, i) => (
+          <li key={i} className={currentPage === n ? 'active' : 'inactive'}>
             <a href="#" onClick={() => changePage(n)}>
               {n}
             </a>
           </li>
-        ))} */}
+        ))}
         <li>
           <a href="#" onClick={handleNextPage}>
             Next {`>`}

@@ -1,17 +1,16 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
-import { Navbar } from '../../../Components/Navbar/Navbar';
-import TableData, { StudentProfile } from '../../../Components/Table/Table'
+import {Navbar} from '../../../Components/Navbar/Navbar';
+import TableData, {StudentProfile} from '../../../Components/Table/Table';
 import assignmentData from '../../../utils/CreateAssignment.json';
 //@ts-ignore
-import { Pagination } from 'technogetic-iron-smart-ui';
-import { BtnDashboard } from '../../../Components/CommonComponent/BtnDashboard';
+import {Pagination} from 'technogetic-iron-smart-ui';
+import {BtnDashboard} from '../../../Components/CommonComponent/BtnDashboard';
 import RequireAuthentication from '../../../utils/requireAuthentication';
 import {sendRequest} from '@/services/auth/auth_All_Api';
 
-
-export interface IAppProps { }
+export interface IAppProps {}
 
 function page() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,7 +46,6 @@ function page() {
     'mapType',
     'createdBy',
     'createdAt',
-
   ];
 
   return (

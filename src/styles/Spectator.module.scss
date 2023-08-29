@@ -5,7 +5,6 @@
   width: 100vw;
   display: flex;
   background-color: rgba(0, 53, 84, 1);
-  // position: static;
   height: 100vh;
 }
 .inner_main_container {
@@ -29,23 +28,22 @@
   height: auto;
   width: 30%;
   border-radius: 15px;
-
-  //padding: 18px;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 90% !important;
+  }
   @media (max-width: $breakpoint-xs) {
-    width: 100%;
+    width: 90% !important;
+  }
+  @media (max-width: $breakpoint-sm) {
+    width: 50%;
+  }
+  @media (max-width: $breakpoint-md) {
+    width: 50%;
   }
 }
 .main_pop_cls,
 .main_del_sec {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  @include spectator_model;
 }
 .inner_specter_cls {
   display: flex;
@@ -63,20 +61,9 @@
   border: none;
   background: white;
   font-size: 16px;
-  @media (max-width: $breakpoint-xs) {
-    width: 30% !important;
-  }
 }
 .pop_heading {
-  background: #ff7a00;
-  text-align: center;
-  padding: 26px;
-  color: white;
-  font-size: 23px;
-  font-family: Century Gothic;
-  font-weight: 700;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
+  @include spectator_model_heading;
 }
 .form_spectator_cls {
   padding: 28px 48px;
@@ -90,16 +77,10 @@ button#btn_cls_st {
   background: #ff7a00 !important;
   width: 100%;
   margin-top: 12px;
-  @media (max-width: $breakpoint-xs) {
-    width: 30%;
-  }
+  color: white !important;
 }
 .room_field_wrapper {
-  border: none !important;
-  border-bottom: 1px solid #9e9e9e !important;
-  border-radius: 0px !important;
-  margin: 12px 0px;
-  padding: 2px !important;
+  @include spectator_modelfield;
   @media (max-width: $breakpoint-xs) {
     margin: 8px 0px;
   }
@@ -138,6 +119,18 @@ button#btn_cls_st {
   width: 30%;
   border-radius: 15px;
   padding: 16px;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 90% !important;
+  }
+  @media (max-width: $breakpoint-xs) {
+    width: 90% !important;
+  }
+  @media (max-width: $breakpoint-sm) {
+    width: 90%;
+  }
+  @media (max-width: $breakpoint-md) {
+    width: 50%;
+  }
 }
 .sec_heading {
   color: #6c757d;
@@ -172,11 +165,68 @@ button#btn_cls_st {
   width: 102px;
   margin-left: 6px;
 }
-.sucess_msg {
-  text-align: center;
-  color: green;
-}
+
 .update_form {
   padding: 18px 30px;
+}
+.room_field_cls2 {
+  width: 100%;
+}
+//new tabel code
+.table_content {
+  border: none;
+  overflow: hidden;
+  padding-top: 26px;
+  @media (max-width: $breakpoint-xSmall) {
+    overflow: scroll;
+  }
+  @media (max-width: $breakpoint-xs) {
+    overflow: scroll;
+  }
+  @media (max-width: $breakpoint-sm) {
+    overflow: scroll;
+  }
+  @media (max-width: $breakpoint-md) {
+    overflow: scroll;
+  }
+}
+.table_head_sectat {
+  @include tableheader;
+}
+
+.table_row_cell {
+  @include tdbody;
+}
+.tb_cell_body {
+  color: #ff7a00 !important;
   text-align: center;
+  padding: 3px 3px;
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 7px 38px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    padding: 7px 38px;
+  }
+  @media (max-width: $breakpoint-sm) {
+    padding: 7px 38px;
+  }
+}
+.el_tb_cell {
+  color: #fff;
+  text-align: center;
+  padding: 3px 6px;
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 8px 36px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    padding: 8px 36px;
+  }
+  @media (max-width: $breakpoint-sm) {
+    padding: 8px 36px;
+  }
+}
+.tb_cell_action {
+  display: flex !important;
+  justify-content: space-around;
+  padding: 8px;
 }

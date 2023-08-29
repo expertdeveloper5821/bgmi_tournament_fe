@@ -1,50 +1,49 @@
 'use client';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from '../../styles/Navabar.module.scss';
 import {useRouter} from 'next/navigation';
-import {sendRequest} from '../../services/auth/auth_All_Api';
 // @ts-ignore
 import {Avatar, Popover} from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
+import {sendRequest} from '@/services/auth/auth_All_Api';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const [useData, setUseData] = useState<string>('');
+  const [namData, setNamData] = useState<string>('');
 
   function handleClosePopover() {
     setIsOpen(false);
   }
   const router = useRouter();
 
-  //logout
   const handleLogout = async () => {
-    console.log('logout clicked');
-    // setIsLoading(true);
     try {
-      const response = await sendRequest('auth/logout', {
-        method: 'POST',
-      });
-
-      if (response.status === 200) {
-        localStorage.removeItem('jwtToken');
-        router.push('/login');
-      } else {
-        setError('Logout failed');
-      }
-
-      // if (response.status === 200) {
       localStorage.clear();
       router.push('/');
-      // } else {
-      //   setError("Logout failed");
-      // }
     } catch (error) {
       setIsLoading(false);
       setError('Logout failed');
     }
   };
+
+  const getAlldata = async () => {
+    const token = localStorage.getItem('jwtToken');
+    const Response = await sendRequest('user/getuser', {
+      method: 'GET',
+      headers: {Authorization: `Bearer ${token}`},
+    });
+
+    setUseData(Response.data.data.email);
+    setNamData(Response.data.data.userName);
+  };
+
+  useEffect(() => {
+    getAlldata();
+  }, []);
 
   return (
     <header>
@@ -136,15 +135,13 @@ export function Navbar() {
                         src="../assests/avatar.png"
                         size={25}
                       />
+
                       <div className={styles.username_details}>
-                        <h1 className={styles.user_name_heading}>
-                          Harry Verma
-                        </h1>
-                        <span className={styles.gmail}>
-                          harry@technogetic.com
-                        </span>
+                        <h1 className={styles.user_name_heading}>{namData}</h1>
+                        <span className={styles.gmail}>{useData}</span>
                       </div>
                     </div>
+
                     <div className={styles.profilesection}>
                       <div className={styles.flexcol}>
                         <Image
@@ -178,7 +175,10 @@ export function Navbar() {
                       </div>
                     </div>
                     <div className={styles.logoutbutton}>
-                      <div onClick={handleLogout}>
+                      <div
+                        className={styles.inner_logout}
+                        onClick={handleLogout}
+                      >
                         <Image
                           className={styles.logoutbuttonicon}
                           src="../assests/logouticon.svg"
@@ -208,8 +208,8 @@ export function Navbar() {
             </li>
             <li className={styles.navitem}>
               <div className={styles.username_details}>
-                <h1>Harry Verma</h1>
-                <span className={styles.profile}>Web Developer</span>
+                <h1 className={styles.user_name_title}>{namData}</h1>
+                {/* <span className={styles.profile}>Web Developer</span> */}
               </div>
             </li>
           </ul>

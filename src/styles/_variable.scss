@@ -7,9 +7,11 @@ $breakpoint-tab: 768px;
 $breakpoint-md: 968px;
 $breakpoint-ms: 1024px;
 $breakpoint-lg: 1200px;
+$primary-color: rgba(0, 53, 84, 1);
 
 // Theme Color
 :export {
+  primaryColor: $primary-color;
   --darkblue: rgba(0, 53, 84, 1);
   --bs-orange: rgba(255, 122, 0, 1);
   --bs-green: rgba(28, 95, 17, 1);
