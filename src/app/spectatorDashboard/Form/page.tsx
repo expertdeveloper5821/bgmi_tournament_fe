@@ -7,6 +7,7 @@ import {useFormik, FormikHelpers} from 'formik';
 import {createspectater} from '@/schemas/SignupSchemas';
 import sendRequest from '../../../services/api/apiServices';
 import {ChangeEvent} from 'react';
+import {toast} from 'react-toastify';
 interface FormCreate {
   roomId: string;
   gameName: string;
@@ -81,7 +82,6 @@ const Form = ({getAllSpectator}: any) => {
       for (const key in values) {
         form.append(key, values[key]);
       }
-      console.log(image);
       try {
         const token = localStorage.getItem('jwtToken');
         const response = await sendRequest('room/rooms', {
@@ -94,6 +94,7 @@ const Form = ({getAllSpectator}: any) => {
         });
         getAllSpectator();
         if (response.status === 200) {
+          toast.success(response.data.message);
           setShowModal(false);
         } else {
           setError('Failed to Add room. Please try again.');
@@ -239,7 +240,7 @@ const Form = ({getAllSpectator}: any) => {
                   </label>
                   <Input
                     id="time"
-                    className={styles.room_field_wrapper}
+                    className={`${styles.room_field_wrapper} ${styles.room_field_cls2}`}
                     type="time"
                     name="time"
                     placeholder="Enter time"
@@ -252,12 +253,14 @@ const Form = ({getAllSpectator}: any) => {
                   <div className={styles.error}>{errors.time}</div>
                 )} */}
                 <div className={styles.input_box}>
-                  <label className={styles.room_id} htmlFor="password">
-                    Date
-                  </label>
+                  <div>
+                    <label className={styles.room_id} htmlFor="Date">
+                      Date
+                    </label>
+                  </div>
                   <input
                     type="date"
-                    className={styles.room_field_wrapper}
+                    className={`${styles.room_field_wrapper} ${styles.room_field_cls2}`}
                     id="gameid"
                     name="date"
                     value={values.date}

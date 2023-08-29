@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import sendRequest from '../../../services/api/apiServices';
 import {AiOutlineDelete} from 'react-icons/ai';
 import styles from '../../../styles/Spectator.module.scss';
+import {toast} from 'react-toastify';
 
 const Deletespec = ({Id, getAllSpectator}: any) => {
   const [deletModal, setDeleteModal] = useState(false);
@@ -17,10 +18,11 @@ const Deletespec = ({Id, getAllSpectator}: any) => {
       });
       getAllSpectator();
       if (deleteResponse) {
-        setMessage('Room deleted successfully');
+        const success = deleteResponse.data.message;
+        toast.success(success);
       }
     } catch (error: any) {
-      console.log('not work api');
+      setMessage('data is not deleted');
     }
   };
 
