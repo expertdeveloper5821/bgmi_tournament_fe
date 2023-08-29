@@ -9,12 +9,12 @@ import {RoomData} from '../Room/page';
 import Image from 'next/image';
 import {toast} from 'react-toastify';
 
-interface UpdatespecProps {
-  roomData: RoomData;
-  getAllSpectator: () => void;
-  updateRoom: (updatedRoom: RoomData) => void;
-}
-const Updatespec = ({roomData, getAllSpectator}: UpdatespecProps) => {
+// interface UpdatespecProps {
+//   roomData: RoomData;
+//   getAllSpectator: () => void;
+//   updateRoom: (updatedRoom: RoomData) => void;
+// }
+const Updatespec = ({roomData, getAllSpectator}: any) => {
   const [error, setError] = useState<string>('');
   const [deletModal, setDeleteModal] = useState(false);
   const [updateFormData, setUpdateFormData] = useState<RoomData>(roomData);
