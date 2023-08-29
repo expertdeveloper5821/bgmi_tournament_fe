@@ -28,7 +28,7 @@ export interface RoomData {
   secondWin: number;
   time: string;
   date: string;
-  uuid: number;
+  // uuid: number; //Not Available in response
   createdBy: number;
   updatedAt: number;
   createdAt: number;
@@ -50,16 +50,19 @@ const Room = () => {
     'SecondWin',
     'Time',
     'Date',
-    'Map Image',
+    // 'Map Image',
     'Action',
   ];
   const getAllSpectator = async () => {
-    const token = localStorage.getItem('jwtToken');
-    const spectatorResponse = await sendRequest('room/user-rooms', {
-      method: 'GET',
-      headers: {Authorization: `Bearer ${token}`},
-    });
-    setSpect(spectatorResponse.data);
+    try {
+      const spectatorResponse = await sendRequest('room/user-rooms', {
+        method: 'GET',
+      });
+      console.log('check user ==>', spectatorResponse);
+      setSpect(spectatorResponse.data);
+    } catch (error: any) {
+      console.log('check error', error);
+    }
   };
 
   useEffect(() => {
@@ -67,96 +70,98 @@ const Room = () => {
   }, []);
 
   return (
-    <RequireAuthentication>
-      <div className={styles.main_container}>
-        <div className={styles.inner_main_container}>
-          <div className={styles.sidebar_wrapper}>
-            <Navbar />
-            <div className={styles.inner_specter_cls}>
-              <h1 className={styles.r_main_title}>Room </h1>
-              <Form getAllSpectator={getAllSpectator} />
-            </div>
+    <>
+      <RequireAuthentication>
+        <div className={styles.main_container}>
+          <div className={styles.inner_main_container}>
+            <div className={styles.sidebar_wrapper}>
+              <Navbar />
+              <div className={styles.inner_specter_cls}>
+                <h1 className={styles.r_main_title}>Room </h1>
+                <Form getAllSpectator={getAllSpectator} />
+              </div>
 
-            <div>
-              <Table className={styles.table_content}>
-                <TableHeader className={styles.tableHeader}>
-                  <TableRow className={styles.tableRow}>
-                    {columns?.map((column, index) => (
-                      <TableHead
-                        className={styles.table_head_sectat}
-                        key={index}
-                      >
-                        <div className={styles.filter}>{column}</div>
-                      </TableHead>
-                    ))}
-                  </TableRow>
-                </TableHeader>
-
-                {Spect?.map((spec, index) => (
-                  <TableBody key={index}>
-                    <TableRow className={styles.table_row_cell}>
-                      <TableCell className={styles.el_tb_cell}>
-                        {spec.roomId}
-                      </TableCell>
-
-                      <TableCell className={styles.tb_cell_body}>
-                        {spec.gameName}
-                      </TableCell>
-                      <TableCell className={styles.el_tb_cell}>
-                        {spec.gameType}
-                      </TableCell>
-                      <TableCell className={styles.el_tb_cell}>
-                        {spec.mapType}
-                      </TableCell>
-                      <TableCell className={styles.el_tb_cell}>
-                        {spec.version}
-                      </TableCell>
-                      <TableCell className={styles.tb_cell_body}>
-                        {spec.highestKill}
-                      </TableCell>
-                      <TableCell className={styles.el_tb_cell}>
-                        {spec.lastServival}
-                      </TableCell>
-                      <TableCell className={styles.el_tb_cell}>
-                        {spec.thirdWin}
-                      </TableCell>
-                      <TableCell className={styles.el_tb_cell}>
-                        {spec.secondWin}
-                      </TableCell>
-                      <TableCell className={styles.el_tb_cell}>
-                        {spec.time}
-                      </TableCell>
-                      <TableCell className={styles.tb_cell_body}>
-                        {spec.date}
-                      </TableCell>
-                      <TableCell className={styles.tb_cell_body}>
-                        <Image
-                          src={spec.mapImg}
-                          alt=""
-                          width={30}
-                          height={30}
-                        />
-                      </TableCell>
-                      <TableCell className={styles.tb_cell_action}>
-                        <Deletespec
-                          Id={spec._id}
-                          getAllSpectator={getAllSpectator}
-                        />
-                        <Updatespec
-                          updateRoom={Room}
-                          roomData={spec}
-                          getAllSpectator={getAllSpectator}
-                        />
-                      </TableCell>
+              <div>
+                <Table className={styles.table_content}>
+                  <TableHeader className={styles.tableHeader}>
+                    <TableRow className={styles.tableRow}>
+                      {columns?.map((column, index) => (
+                        <TableHead
+                          className={styles.table_head_sectat}
+                          key={index}
+                        >
+                          <div className={styles.filter}>{column}</div>
+                        </TableHead>
+                      ))}
                     </TableRow>
+                  </TableHeader>
+
+                  <TableBody>
+                    {Spect?.map((spec: any, index) => (
+                      <TableRow key={index} className={styles.table_row_cell}>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.roomId ?? '--'}
+                        </TableCell>
+
+                        <TableCell className={styles.tb_cell_body}>
+                          {spec?.gameName ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.gameType ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.mapType ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.version ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.tb_cell_body}>
+                          {spec?.highestKill ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.lastServival ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.thirdWin ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.secondWin ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.time ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.tb_cell_body}>
+                          {spec?.date ?? '--'}
+                        </TableCell>
+                        {/* <TableCell className={styles.tb_cell_body}>
+                          <Image
+                            src={spec?.mapImg}
+                            alt="mapImage"
+                            width={30}
+                            height={30}
+                          />
+                        </TableCell> */}
+                        <TableCell className={styles.tb_cell_action}>
+                          <Deletespec
+                            Id={spec._id}
+                            getAllSpectator={getAllSpectator}
+                          />
+                          <Updatespec
+                            updateRoom={Room}
+                            roomData={spec}
+                            getAllSpectator={getAllSpectator}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
-                ))}
-              </Table>
+                </Table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </RequireAuthentication>
+      </RequireAuthentication>
+    </>
   );
 };
 

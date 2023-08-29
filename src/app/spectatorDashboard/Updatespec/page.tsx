@@ -1,5 +1,5 @@
 'use client';
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import sendRequest from '../../../services/api/apiServices';
 //@ts-ignore
 import {Button, Input} from 'technogetic-iron-smart-ui';
@@ -9,12 +9,12 @@ import {RoomData} from '../Room/page';
 import Image from 'next/image';
 import {toast} from 'react-toastify';
 
-// interface UpdatespecProps {
-//   roomData: RoomData;
-//   getAllSpectator: () => void;
-//   updateRoom: (updatedRoom: RoomData) => void;
-// }
-const Updatespec = ({roomData, getAllSpectator}: any) => {
+interface UpdatespecProps {
+  roomData: RoomData;
+  getAllSpectator: () => void;
+  updateRoom: (updatedRoom: RoomData) => void;
+}
+const Updatespec = ({roomData, getAllSpectator}: UpdatespecProps) => {
   const [error, setError] = useState<string>('');
   const [deletModal, setDeleteModal] = useState(false);
   const [updateFormData, setUpdateFormData] = useState<RoomData>(roomData);
@@ -56,119 +56,121 @@ const Updatespec = ({roomData, getAllSpectator}: any) => {
   };
 
   return (
-    <div>
-      <p onClick={() => setDeleteModal(true)}>
-        <Image src="/assests/update.svg" alt="" width={10} height={10} />
-      </p>
-      {deletModal ? (
-        <div className={styles.main_pop_cls}>
-          <div className={styles.check_model}>
-            <form className={styles.update_form} onSubmit={updateRoom}>
-              {error && <div className={styles.error}>{error}</div>}
-              <div className={styles.input_box}>
-                <label className={styles.room_id} htmlFor="secondWin">
-                  Room id
-                </label>
-                <Input
-                  type="text"
-                  className={styles.room_field_wrapper}
-                  value={updateFormData.roomId}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setUpdateFormData({
-                      ...updateFormData,
-                      roomId: e.target.value,
-                    })
-                  }
-                  placeholder="Room ID"
-                />
-              </div>
-              <div className={styles.input_box}>
-                <label className={styles.room_id} htmlFor="secondWin">
-                  Game Name
-                </label>
-                <Input
-                  type="text"
-                  className={styles.room_field_wrapper}
-                  value={updateFormData.gameName}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setUpdateFormData({
-                      ...updateFormData,
-                      gameName: e.target.value,
-                    })
-                  }
-                  placeholder=" Game Name"
-                />
-              </div>
-              <div className={styles.input_box}>
-                <label className={styles.room_id} htmlFor="secondWin">
-                  Game Type
-                </label>
-                <Input
-                  type="text"
-                  className={styles.room_field_wrapper}
-                  value={updateFormData.gameType}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setUpdateFormData({
-                      ...updateFormData,
-                      gameType: e.target.value,
-                    })
-                  }
-                  placeholder="Game Type"
-                />
-              </div>
-              <div className={styles.input_box}>
-                <label className={styles.room_id} htmlFor="secondWin">
-                  Time
-                </label>
-                <Input
-                  type="text"
-                  className={styles.room_field_wrapper}
-                  value={updateFormData.time}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setUpdateFormData({
-                      ...updateFormData,
-                      time: e.target.value,
-                    })
-                  }
-                  placeholder="Game Type"
-                />
-              </div>
+    <>
+      <div>
+        <p onClick={() => setDeleteModal(true)}>
+          <Image src="/assests/update.svg" alt="" width={10} height={10} />
+        </p>
+        {deletModal ? (
+          <div className={styles.main_pop_cls}>
+            <div className={styles.check_model}>
+              <form className={styles.update_form} onSubmit={updateRoom}>
+                {error && <div className={styles.error}>{error}</div>}
+                <div className={styles.input_box}>
+                  <label className={styles.room_id} htmlFor="secondWin">
+                    Room id
+                  </label>
+                  <Input
+                    type="text"
+                    className={styles.room_field_wrapper}
+                    value={updateFormData.roomId}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setUpdateFormData({
+                        ...updateFormData,
+                        roomId: e.target.value,
+                      })
+                    }
+                    placeholder="Room ID"
+                  />
+                </div>
+                <div className={styles.input_box}>
+                  <label className={styles.room_id} htmlFor="secondWin">
+                    Game Name
+                  </label>
+                  <Input
+                    type="text"
+                    className={styles.room_field_wrapper}
+                    value={updateFormData.gameName}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setUpdateFormData({
+                        ...updateFormData,
+                        gameName: e.target.value,
+                      })
+                    }
+                    placeholder=" Game Name"
+                  />
+                </div>
+                <div className={styles.input_box}>
+                  <label className={styles.room_id} htmlFor="secondWin">
+                    Game Type
+                  </label>
+                  <Input
+                    type="text"
+                    className={styles.room_field_wrapper}
+                    value={updateFormData.gameType}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setUpdateFormData({
+                        ...updateFormData,
+                        gameType: e.target.value,
+                      })
+                    }
+                    placeholder="Game Type"
+                  />
+                </div>
+                <div className={styles.input_box}>
+                  <label className={styles.room_id} htmlFor="secondWin">
+                    Time
+                  </label>
+                  <Input
+                    type="text"
+                    className={styles.room_field_wrapper}
+                    value={updateFormData.time}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setUpdateFormData({
+                        ...updateFormData,
+                        time: e.target.value,
+                      })
+                    }
+                    placeholder="Game Type"
+                  />
+                </div>
 
-              <label className={styles.room_id} htmlFor="Password">
-                Password
-              </label>
-              <Input
-                type="text"
-                className={styles.room_field_wrapper}
-                value={updateFormData.password}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setUpdateFormData({
-                    ...updateFormData,
-                    password: e.target.value,
-                  })
-                }
-                placeholder="Map Type"
-              />
-              <Button
-                className={styles.cancel_btn}
-                onClick={() => setDeleteModal(false)}
-              >
-                cancel
-              </Button>
-              <Button
-                type="submit"
-                className={styles.roombutton}
-                onClick={updateRoom}
-              >
-                Update Room
-              </Button>
-            </form>
+                <label className={styles.room_id} htmlFor="Password">
+                  Password
+                </label>
+                <Input
+                  type="text"
+                  className={styles.room_field_wrapper}
+                  value={updateFormData.password}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setUpdateFormData({
+                      ...updateFormData,
+                      password: e.target.value,
+                    })
+                  }
+                  placeholder="Map Type"
+                />
+                <Button
+                  className={styles.cancel_btn}
+                  onClick={() => setDeleteModal(false)}
+                >
+                  cancel
+                </Button>
+                <Button
+                  type="submit"
+                  className={styles.roombutton}
+                  onClick={updateRoom}
+                >
+                  Update Room
+                </Button>
+              </form>
+            </div>
           </div>
-        </div>
-      ) : (
-        ''
-      )}
-    </div>
+        ) : (
+          ''
+        )}
+      </div>
+    </>
   );
 };
 
