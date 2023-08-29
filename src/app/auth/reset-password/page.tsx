@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { ResetPasswordSchema } from '../../../schemas/SignupSchemas';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
-import sendRequest from '../../../services/api/apiServices';
+import {sendRequest} from '../../../services/auth/auth_All_Api';
 import Image from 'next/image';
 
 interface FormValues {
@@ -65,7 +65,8 @@ const UpdateCredential: React.FC = () => {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <Image src="/assests/logobgmi.svg" alt="bgmilogo" width={100} height={100} />
+            <Image src="/assests/logoWithBg.svg" alt="bgmilogo" width={220}
+              height={100} />
           </div>
           <div>
             <h2 className={styles.headDesc}>Reset Password</h2>

@@ -152,18 +152,6 @@ const Updatespec = ({roomData, getAllSpectator}: UpdatespecProps) => {
                 }
                 placeholder="Map Type"
               />
-
-              {/* <Input
-                type="file"
-                value={updateFormData.mapImg}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setUpdateFormData({
-                    ...updateFormData,
-                    mapImg: e.target.value,
-                  })
-                }
-                placeholder="file Type"
-              /> */}
               <Button
                 className={styles.cancel_btn}
                 onClick={() => setDeleteModal(false)}

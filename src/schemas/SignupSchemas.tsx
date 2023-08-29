@@ -40,6 +40,12 @@ export const createspectater = Yup.object().shape({
   roomId: Yup.number().required('Please enter your Room Id'),
   gameName: Yup.string().required('Please enter your  Game Name'),
   gameType: Yup.string().required('Please enter your Game Type'),
-  //mapType: Yup.number().required('Please enter your Map Type'),
+  mapType: Yup.string().required('Please enter your Map Type'),
   password: Yup.string().required('Please enter your password'),
+  time: Yup.string().required('please select time'),
+  date: Yup.string().required('please select match date'),
+  secondWin: Yup.number().required('Please enter second winner prize '),
+  lastServival: Yup.number().required('Please enter lastServival winner prize'),
+  highestKill: Yup.number().required('Please enter highestKill winner prize'),
+  thirdWin: Yup.number().required('Please enter Third winner prize '),
 });

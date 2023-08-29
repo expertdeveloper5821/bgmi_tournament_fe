@@ -2,7 +2,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
 import styles from '../../../styles/auth.module.scss';
-import sendRequest from '../../../services/auth/auth_All_Api';
+import {sendRequest} from '../../../services/auth/auth_All_Api';
 import { useRouter } from 'next/navigation';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
@@ -46,7 +46,8 @@ export default function ResetPassword(): JSX.Element {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <Image src="/assests/logobgmi.svg" alt="logo" width={100} height={100} />
+            <Image src="/assests/logoWithBg.svg" alt="logo" width={250}
+              height={100} />
           </div>
           <div>
             <h2 className={styles.headDesc}>Forgot Password</h2>
