@@ -1,11 +1,9 @@
 import axios, {AxiosInstance} from 'axios';
-
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 const apiVersion = process.env.NEXT_PUBLIC_API_BASE_VER;
 export const axiosInstance: AxiosInstance = axios.create({
   baseURL: `${apiBaseUrl}${apiVersion}`,
 });
-
 export async function sendRequest(path: string, opts: any = {}) {
   const headers = {
     ...opts.headers,
@@ -18,7 +16,6 @@ export async function sendRequest(path: string, opts: any = {}) {
       data: opts.data,
       headers: headers,
     });
-
     return response;
   } catch (error) {
     console.error('Error making request:', error);

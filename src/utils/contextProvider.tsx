@@ -34,9 +34,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 };
 
 export const useUserContext = (): UserContextType => {
-  const context = useContext(UserContext);
-  if (context === undefined) {
+  const userDetails = useContext(UserContext);
+  if (userDetails === undefined) {
     throw new Error('useUserContext must be used within a UserProvider');
   }
-  return context;
+  return userDetails;
 };

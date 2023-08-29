@@ -6,8 +6,8 @@ import {Navbar} from '../Components/Navbar/Navbar';
 import Head from 'next/head';
 import {UserProvider} from '@/utils/contextProvider';
 import {ToastContainer} from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
+
 const inter = Inter({subsets: ['latin']});
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
@@ -15,8 +15,8 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     <html lang="en">
       <body className={inter.className}>
         <UserProvider>
-          <ToastContainer />
           {children}
+          <ToastContainer />
         </UserProvider>
       </body>
     </html>
