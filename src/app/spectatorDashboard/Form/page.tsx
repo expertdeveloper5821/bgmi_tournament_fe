@@ -24,7 +24,7 @@ interface FormCreate {
   mapImg: string;
 }
 
-const Form = ({getAllSpectator}: any) => {
+const Form: React.FC = ({getAllSpectator}: any) => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -122,6 +122,7 @@ const Form = ({getAllSpectator}: any) => {
                     onBlur={handleBlur}
                   />
                 </div>
+
                 {errors.roomId && touched.roomId && (
                   <div className={styles.error}>{errors.roomId}</div>
                 )}

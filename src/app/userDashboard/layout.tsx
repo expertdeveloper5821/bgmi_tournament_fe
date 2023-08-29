@@ -22,11 +22,11 @@ const dynamicMenuItems = [
   //   name: 'Transactions',
   //   icon: <FaUserAlt />,
   // },
-  // {
-  //   path: "/userDashboard/friends",
-  //   name: "Friends",
-  //   icon: <FaRegChartBar />,
-  // },
+  {
+    path: '/userDashboard/friends',
+    name: 'Friends',
+    icon: <FaRegChartBar />,
+  },
   // {
   //   path: '/userDashboard/videos',
   //   name: 'Videos',
@@ -37,11 +37,11 @@ const dynamicMenuItems = [
   //   name: 'KYC',
   //   icon: <FaCommentAlt />,
   // },
-  {
-    path: '/userDashboard/registerMatches',
-    name: 'register',
-    icon: <FaCommentAlt />,
-  },
+  // {
+  //   path: '/userDashboard/registerMatches',
+  //   name: 'register',
+  //   icon: <FaCommentAlt />,
+  // },
 ];
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
