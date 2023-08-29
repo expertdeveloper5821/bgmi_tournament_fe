@@ -6,11 +6,11 @@
 .container {
   display: flex;
   position: relative;
+
 }
 
 .sidebar {
-  color:white;
-  background: #003554;;
+  color:#fff;
   height: 100vh;
   width: 200px;
   transition: all 0.5s;
@@ -22,7 +22,8 @@
   .top_section {
     display: flex;
     align-items: center;
-    padding: 20px 15px;
+    padding-top: 20px;
+    padding-left: 8px;
   }
 
 
@@ -48,14 +49,14 @@
     transition: all 0.5s;
 
     &:hover {
-      background: #FF7A00;
-      color: white;
+      background: var(--bs-orange);
+      color: #fff;
       transition: all 0.5s;
     }
 
-    &.active {
+    &.active {  
       background: #FF7A00;
-      color: white;
+      color: #fff;
     }
 
     .icon,
@@ -94,13 +95,13 @@
   display: flex;
   align-items: center;
   position: absolute;
-  color: white;
+  color: #fff;
   margin-top: 20px;
   margin-left: 10px;
 }
 .listitems{
   position: absolute;
-  color: white;
+  color: #fff;
   margin-top: 70px;
   padding-left: 10px;
   background: #003554;
@@ -122,13 +123,13 @@
   padding-top: 3px;
   &:hover {
     background: #FF7A00;
-    color: white;
+    color: #fff;
     transition: all 0.5s;
   }
 
   &.active {
     background: #FF7A00;
-    color: white;
+    color: #fff;
   }
 }
 .itemname{
@@ -150,7 +151,7 @@
     font-weight: bold
 }
 .lap_sidebar_cancel{
-color: white;
+color: #fff;
 font-size: x-large;
 font-weight: bold;
 position: absolute;
