@@ -54,7 +54,7 @@ const Friend = () => {
       const data = teamData[fwdId];
       const id = data.id;
       const accessToken = localStorage.getItem('jwttoken');
-      const response = await sendRequest(`/api/v1/team/deleteteam/${id}`, {
+      const response = await sendRequest(`/team/deleteteam/${id}`, {
         method: 'Delete',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -117,7 +117,7 @@ const Friend = () => {
       };
 
       const accessToken = localStorage.getItem('jwttoken');
-      const response = await sendRequest('/api/v1/team/send-invite', {
+      const response = await sendRequest('/team/send-invite', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,
