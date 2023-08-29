@@ -55,7 +55,7 @@ const handleClick=()=>{
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await sendRequest(`api/v1/room/rooms`, {
+      const response = await sendRequest(`room/rooms`, {
         method: 'Get',
       });
       setData(response.data);
@@ -225,12 +225,13 @@ const handleClick=()=>{
                 <div className={styles.prizepool}>
                   <div className={styles.prize_container}>
                     <span>
-                      WINNING PRIZE{' '}
+                      WINNING PRIZE
                       <Image
                         src="../assests/downhead.svg"
                         height={10}
                         width={20}
-                        alt="rupees"
+                        className={styles.downheadimg}
+                        alt="downhead"
                         onClick={() => setPoolModal(true)}
                       />
                     </span>
@@ -262,15 +263,15 @@ const handleClick=()=>{
                 <div className={styles.gameInfo}>
                   <div className={styles.game}>
                     <span>TYPE</span>
-                    <span>{data[id].gameType}</span>
+                    <span className={styles.gameYellowspan}>{data[id].gameType}</span>
                   </div>
                   <div className={styles.game}>
                     <span>VERSION</span>
-                    <span>{data[id].version}</span>
+                    <span className={styles.gameYellowspan}>{data[id].version}</span>
                   </div>
                   <div className={styles.game}>
                     <span>MAP</span>
-                    <span>{data[id].mapType}</span>
+                    <span className={styles.gameOrangespan}>{data[id].mapType}</span>
                   </div>
                 </div>
                 <div className={styles.range_container}>

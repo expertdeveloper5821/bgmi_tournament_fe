@@ -1,6 +1,6 @@
 'use client';
 import React, {useState} from 'react';
-import sendRequest from '../../../services/api/apiServices';
+import {sendRequest} from '../../../services/auth/auth_All_Api';
 import {AiOutlineDelete} from 'react-icons/ai';
 import styles from '../../../styles/Spectator.module.scss';
 

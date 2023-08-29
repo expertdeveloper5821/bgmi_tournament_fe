@@ -391,6 +391,7 @@
   column-gap: 20%;
 }
 
+
 .time_container {
   width: 50%;
    @media (max-width: $breakpoint-md) {
@@ -408,6 +409,7 @@
 }
 .gameInfo {
   display: flex;
+  flex-wrap: wrap;
   column-gap: 20%;
   margin-top: 8%;
 }
@@ -415,8 +417,17 @@
   display: flex;
   flex-direction: column;
 }
-.game span {
+.game {
   margin-top: 10px;
+  
+}
+.gameYellowspan {
+  color: #FFD600;
+  padding-top: 3px;
+}
+.gameOrangespan{
+  color: #ff7a00;
+  padding-top: 3px;
 }
 .range_container {
   display: flex;
@@ -523,6 +534,9 @@
 @media (max-width: $breakpoint-xs) {
   left: 18%;
 }
+@media (max-width: 330px) {
+  left: 13%;
+}
 }
 .bg_img_static {
   animation: scaleImg 5s infinite;
@@ -537,6 +551,9 @@
   }
 @media (max-width: $breakpoint-xs) {
   left: 18%;
+}
+@media (max-width: 330px) {
+  left: 13%;
 }
 }
 
@@ -572,6 +589,10 @@
   left: 31%;
   top:46.5%
   
+}
+@media (max-width: 330px) {
+  left: 26.5%;
+  top:46.5%
 }
 }
 .scope_line_red_dot {
@@ -855,12 +876,21 @@ left: 42%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
+.prize_container{
+  position: relative;
+}
+.downheadimg{
+  position: absolute;
+  top: 6px;
+  z-index: 20;
+}
 .inner_winning_pool {
+  min-width: 310px;
   background: linear-gradient(
     131.26deg,
     #ffffff 26.63%,
     rgb(255 122 0 / 74%) 450.26%
-  );
+  ) !important;
   padding: 0px;
   width: 36%;
   border-radius: 16px;
@@ -1350,6 +1380,9 @@ left: 50rem;
   .time_container h2 {
     font-size: 15px;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .time_container span {
     font-size: 15px;
