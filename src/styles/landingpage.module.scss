@@ -1,0 +1,1519 @@
+@import './mixins.scss';
+@import './variable.scss';
+
+
+
+.bodycolor{
+  background: black;
+
+}
+.main_container {
+  background-image: url('../../public/assests/banner.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.navbar {
+  background-color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+.parashoot {
+  transform: scale(1);
+  top: -30%;
+  position: absolute;
+  left: 20%;
+  width: 130px;
+  height: 130px;
+  animation: parshoot1move 20s linear infinite;
+  opacity: 0.6;
+}
+.person_Img {
+  width: 200px;
+  height: auto;
+}
+
+@keyframes parshoot1move {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+    top: 100%;
+  }
+}
+.parashoot2 {
+  transform: scale(1);
+  top: 0%;
+  position: absolute;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  animation: parshoot2move 20s linear infinite;
+  opacity: 0.6;
+  
+}
+@keyframes parshoot2move {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+    top: 90%;
+  }
+}
+
+.parashoot5 {
+  transform: scale(1);
+  top: -30%;
+  position: absolute;
+  right: 15%;
+  width: 140px;
+  height: 140px;
+  animation: parshoot5move 20s linear infinite;
+  opacity: 0.6;
+  @media (max-width: $breakpoint-xs) {
+    right: 25%;  }
+}
+
+.parashoot4 {
+  transform: scale(1);
+  top: 0%;
+  position: absolute;
+  right: 0%;
+  width: 250px;
+  height: 250px;
+  animation: parshoot4move 25s linear infinite;
+  opacity: 0.4;
+}
+
+.parashoot3 {
+  transform: scale(1);
+  top: 10%;
+  position: absolute;
+  right: 20%;
+  width: 250px;
+  height: 250px;
+  animation: parshoot3move 25s linear infinite;
+  opacity: 0.4;
+
+}
+
+/* key frames */
+@keyframes parshoot5move {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+    top: 100%;
+  }
+}
+
+@keyframes parshoot4move {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+    right: 120%;
+  }
+}
+
+@keyframes parshoot3move {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+    right: 120%;
+  }
+}
+
+.logo {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+  margin-left: 100px;
+  @media (max-width: $breakpoint-md) {
+    margin-left: 0px;
+  }
+}
+.logo img {
+  height: 100px;
+  @media (max-width: $breakpoint-md) {
+    height: 50px;
+  }
+}
+.menu-toggle {
+  display: none;
+  @media (max-width: $breakpoint-md) {
+    display: block;
+    cursor: pointer;
+  }
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  align-items: center;
+  margin-right: 100px;
+  @media (max-width: $breakpoint-md) {
+    // display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    width: 100%;
+    margin-right: 10px;
+    background-color: #333;
+    height: 20vh;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  li {
+    align-items: center;
+    margin-right: 1rem;
+    @media (max-width: $breakpoint-md) {
+      margin-right: 0;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.menuicon {
+  display: none;
+  @media (max-width: $breakpoint-md) {
+    display: block;
+    cursor: pointer;
+  }
+}
+.loginBtn {
+  position: absolute;
+  right: 20px;
+  top: 52px;
+  z-index: 10;
+  color: white !important;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: 400;
+  background: none;
+  border: 1px solid white;
+  padding: 4px 20px 4px 24px;
+  border-radius: 8px;
+  margin-left: 30px;
+  gap: 8px;
+  align-items: center;
+  @media (max-width: $breakpoint-md) {
+   margin-left: 0px;
+}
+
+}
+.loginBtnMob {
+  position: absolute;
+  top: 132px;
+  left: 45%;
+  z-index: 10;
+  color: white !important;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: 400;
+  background: none;
+  border: 1px solid white;
+  padding: 4px 20px 4px 24px;
+  border-radius: 8px;
+  gap: 8px;
+  align-items: center;
+  @media (max-width: $breakpoint-sm) {
+    left: 38%;
+}
+
+}
+.menuToggle {
+  display: none;
+  position: absolute;
+  top: 30px;
+  z-index: 10;
+  @media (max-width: $breakpoint-md) {
+    display: block;
+    cursor: pointer;
+    color: white;
+  }
+}
+.banner_center_text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90vh;
+}
+.banner_center_text h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 42px;
+  letter-spacing: 36px;
+  color: #003554;
+  font-weight: 600;
+  margin-top: 319px;
+}
+.banner_subheading {
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: 300;
+  letter-spacing: 29px;
+  margin-top: 100px;
+}
+.rn_text {
+  font-size: 20px;
+  color: white;
+  padding-top: 40px;
+  letter-spacing: 10px;
+  animation: textmove 16s linear infinite;
+}
+@keyframes textmove {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.upcoming_mathces_container {
+  background: black;
+  
+}
+.gradient {
+  width: 100%;
+  position: absolute;
+  background: linear-gradient(to bottom, rgb(0, 27, 33) ,black );
+    height: 8%;
+}
+.upcoming_mathces {
+  display: flex;
+  justify-content: 'center';
+  flex-direction: column;
+  align-items: center;
+  margin-top: 6%;
+}
+.upComingHeading {
+  font-weight: 700;
+  font-size: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #ff7a00;
+}
+.upComingPara {
+  font-weight: 100;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  width: 50%;
+  @media (max-width: $breakpoint-sm) {
+    width: 90%;
+   }
+}
+.upcoming_mathces_sub_container {
+  display: flex;
+  color: white;
+  align-items: center;
+  margin-top: 10%;
+  column-gap: 7%;
+  @media (max-width: $breakpoint-md) {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 5%;
+   }
+}
+.banner_bgmi_img {
+  width: 50%;
+  @media (max-width: $breakpoint-md) {
+    width: 90%;
+   }
+}
+.banner_image {
+  width: 100%;
+  margin-left: 5%;
+  border-radius: 2%;
+  @media (max-width: $breakpoint-sm) {
+    margin-left: 0%;
+   }
+}
+.rn_images_container {
+  display: flex;
+  width: 70%;
+  padding: 2% 10% 5% 2%;
+  animation: imagemove 12s linear infinite;
+}
+@keyframes imagemove {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.rn_images {
+  width: 350px;
+  height: 180px;
+  color: white;
+  margin-left: 5%;
+}
+.time_container {
+  display: flex;
+  flex-direction: column;
+ 
+}
+.prizepool {
+  display: flex;
+  column-gap: 5%;
+  width: 100%;
+  margin-top: 5%;
+  column-gap: 20%;
+}
+
+
+.time_container {
+  width: 50%;
+   @media (max-width: $breakpoint-md) {
+    width: 90%;
+   }
+}
+.prize_container h2 {
+  padding-top: 10px;
+}
+.fee_container h2 {
+  margin-top: 10px;
+}
+.rsSign {
+  margin-left: 5px;
+}
+.gameInfo {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20%;
+  margin-top: 8%;
+}
+.game {
+  display: flex;
+  flex-direction: column;
+}
+.game {
+  margin-top: 10px;
+  
+}
+.gameYellowspan {
+  color: #FFD600;
+  padding-top: 3px;
+}
+.gameOrangespan{
+  color: #ff7a00;
+  padding-top: 3px;
+}
+.range_container {
+  display: flex;
+  margin-top: 8%;
+  column-gap: 12%;
+}
+.range {
+  display: flex;
+  flex-direction: column;
+}
+.range span {
+  margin-top: 5%;
+}
+.range input {
+  width: 300px;
+  border-radius: 8px;
+  accent-color: #ff7a00;
+}
+.joinbtn {
+  height: 35px;
+  min-width: 90px;
+  border-radius: 5px;
+  border: none;
+  align-items: center;
+  width: 14%;
+  font-size: 16px;
+  color: white;
+  font-weight: 100;
+  background: #ff7a00;
+}
+
+.welcome_Container {
+  display: flex;
+  position: relative;
+  width: 100%;
+  @media (max-width: $breakpoint-lg) {
+   flex-direction: column-reverse;
+  }
+
+}
+.stone {
+  flex: 0 1 49%;
+}
+
+.welcome_subcontainer {
+  color: #fdfafa;
+  flex: 0 1 45%;
+}
+.welcome_RightImg{
+  @media (max-width: $breakpoint-sm) {
+    width: 100%;
+    padding-left: 5px
+  }
+  
+}
+.welcome_alingnment{
+  position: absolute;
+  top: 0;
+  @media (max-width: $breakpoint-lg) {
+    padding-left: 1%;
+    padding-right: 7%;
+  }
+  @media (max-width: $breakpoint-xs) {
+   margin-top: 30px;
+  }
+  
+ 
+}
+
+.choseSection {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  color: white;
+  margin-top: 10%;
+}
+.choseSection p {
+  margin-top: 1%;
+  width: 50%;
+  text-align: center;
+  color: grey;
+}
+.choseSection img {
+  margin-top: 8%;
+}
+.scopeSection {
+  position: relative;
+  height: 100vh;
+  background: url('../../public/assests/scopesectionbanner.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+ 
+}
+
+.newscope {
+  height: auto;
+  width: 18%;
+  position: absolute;
+  top: 42%;
+  left: 41%;
+  min-width: 250px;
+
+@media (max-width: $breakpoint-xs) {
+  left: 18%;
+}
+@media (max-width: 330px) {
+  left: 13%;
+}
+}
+.bg_img_static {
+  animation: scaleImg 5s infinite;
+  width: 18%;
+  min-width: 250px;
+  height: auto;
+  top: 42.5%;
+  position: absolute;
+  left: 41%;
+  @media (max-width: $breakpoint-lg) {
+      top:42.5%
+  }
+@media (max-width: $breakpoint-xs) {
+  left: 18%;
+}
+@media (max-width: 330px) {
+  left: 13%;
+}
+}
+
+@keyframes scaleImg {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.8);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+.scope_line {
+  height: auto;
+  width: 12%;
+  position: absolute;
+  top: 46.5%;
+  left: 44%;
+  min-width:160px;
+  @media (min-width: $breakpoint-lg) {
+    left: 44%;
+    top:45.5%
+}
+  @media (max-width: $breakpoint-md) {
+    left: 46%;
+    top:45.5%
+}
+@media (max-width: $breakpoint-xs) {
+  left: 31%;
+  top:46.5%
+  
+}
+@media (max-width: 330px) {
+  left: 26.5%;
+  top:46.5%
+}
+}
+.scope_line_red_dot {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 58%;
+  left: 49.7%;
+  background-color: rgba(255, 0, 0, 0.688);
+  border-radius: 50%;
+  @media (min-width: $breakpoint-lg) {
+    top: 53%;
+  left: 49.7%;
+}
+@media (max-width: $breakpoint-lg) {
+  left: 54.8%;
+  top: 52.8%;
+}
+@media (max-width: $breakpoint-xs) {
+  display: none;
+}
+.centerscope{
+  position: relative;
+ 
+}
+
+}
+.scope_target_text {
+  width: 70px;
+  position: absolute;
+  top: 60%;
+  text-align: center;
+  left: 47.8%;
+  color: red;
+  font-size: 14px;
+  font-weight: 700;
+
+  @media (max-width: $breakpoint-lg) {
+    left: 50.5%;
+}
+@media (max-width: $breakpoint-tab) {
+  left: 52%;
+}
+@media (max-width: $breakpoint-xs) {
+  display: none;
+}
+}
+.bulletcontainer {
+  border: 2px solid white;
+  border-radius: 50%;
+  padding: 26px 18px 10px 10px;
+  width: 120px;
+  height: 120px;
+  background-color: #ffffff3d;
+  z-index: 1000;
+  top: 32%;
+  left: 35%;
+  position: absolute;
+  @media (max-width: $breakpoint-lg) {
+    top: 30%;
+    left: 33%;
+}
+@media (max-width: $breakpoint-md) {
+  top: 29%;
+  left: 30%;
+}
+@media (max-width: $breakpoint-tab) {
+  top: 29%;
+  left: 25%;
+}
+@media (max-width: $breakpoint-xs) {
+display: none;
+}
+}
+.bullet {
+  height: auto;
+  width: 100px;
+}
+.seamlesstxn {
+  top: 34%;
+  right: 32%;
+  position: absolute;
+  border: 2px solid white;
+  border-radius: 50px;
+  padding: 18px;
+  width: 80px;
+  height: 80px;
+  background-color: #ffffff52;
+  @media (max-width: $breakpoint-lg) {
+    top: 32%;
+  right: 29%;
+}
+@media (max-width: $breakpoint-md) {
+  top: 31%;
+right: 21%;
+}
+@media (max-width: $breakpoint-tab) {
+  top: 31%;
+right: 16%;
+}
+@media (max-width: $breakpoint-xs) {
+  top: 10%;
+left: 42%;
+}
+}
+
+.seamimg {
+  height: auto;
+  width: 40px;
+}
+.clock_maincontainer {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 52%;
+  left: 33%;
+  gap: 15px;
+  align-items: center;
+  @media (max-width: $breakpoint-lg) {
+    top: 51%;
+    left: 30%;
+}
+@media (max-width: $breakpoint-md) {
+  top: 51%;
+  left: 24%;
+}
+@media (max-width: $breakpoint-xs) {
+  top: 22%;
+  left: 11%;
+}
+@media (max-width: $breakpoint-xSmall) {
+  left: 3%;
+}
+}
+.clock {
+  border: 2px solid white;
+  border-radius: 50px;
+  padding: 16px;
+  width: 70px;
+  height: 70px;
+  background-color: #ffffff52;
+}
+.clock_img {
+  height: auto;
+  width: 100%;
+}
+.short_heading {
+  color: white;
+}
+.skills_maincontainer {
+  position: absolute;
+  bottom: 37%;
+  right: 34%;
+  width: 100px;
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media (max-width: $breakpoint-lg) {
+    bottom: 38%;
+    right: 24%
+}
+@media (max-width: $breakpoint-md) {
+  bottom: 38%;
+  right: 16%
+}
+@media (max-width: $breakpoint-tab) {
+  bottom: 38%;
+  right: 9%
+}
+@media (max-width: $breakpoint-xs) {
+  top: 24%;
+  right: 17%;
+  display: none;
+}
+}
+.skillman {
+  border-radius: 50px;
+  padding: 12px;
+  width: 60px;
+  height: 60px;
+  background-color: #ffffff52;
+}
+.tournament_maincontainer {
+  position: absolute;
+  bottom: 1%;
+  left: 35%;
+  gap: 12px;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+  text-align: center;
+  @media (max-width: $breakpoint-md) {
+    left: 25%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    left: 37%;
+  }
+
+}
+.trophy_container {
+  border: 2px solid white;
+  border-radius: 50px;
+  padding: 16px;
+  width: 70px;
+  height: 70px;
+  background-color: #ffffff52;
+
+}
+.prize_maincontainer {
+  position: absolute;
+  bottom: 1%;
+  right: 32%;
+  width: 100px;
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+  @media (max-width: $breakpoint-md) {
+    right: 20%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    right: 17%;
+    top:23%
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    right: 3%;
+    
+  }
+}
+.money_container {
+  border: 2px solid white;
+  border-radius: 50px;
+  padding: 16px;
+  width: 70px;
+  height: 70px;
+  background-color: #ffffff52;
+  
+}
+.scope_text {
+  font-weight: 100;
+  display: flex;
+  color: white;
+  text-align: center;
+  max-width: 600px;
+  font-size: 19px;
+  margin: 0 auto;
+  padding-top: 80px;
+}
+.guns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 50px;
+}
+.gun {
+  height: auto;
+  width: 15%;
+}
+.gun1 {
+  height: auto;
+  width: 15%;
+  margin-top: 25px;
+}
+// modal css
+
+.main_winning_pool {
+  position: absolute;
+  top: 1210px;
+  left: 0;
+  width: 100%;
+  min-width: 300px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.prize_container{
+  position: relative;
+}
+.downheadimg{
+  position: absolute;
+  top: 6px;
+  z-index: 20;
+}
+.inner_winning_pool {
+  min-width: 310px;
+  background: linear-gradient(
+    131.26deg,
+    #ffffff 26.63%,
+    rgb(255 122 0 / 74%) 450.26%
+  ) !important;
+  padding: 0px;
+  width: 36%;
+  border-radius: 16px;
+}
+.cancel_btn {
+  padding: 10px;
+  background: #ff7a00;
+  color: white;
+  margin: 10px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.text_pool_cls {
+  padding: 18px;
+  background: #ff7a00;
+  text-align: center;
+  border-top-right-radius: 16px;
+  border-top-left-radius: 16px;
+}
+.pool_cancel_p {
+  text-align: center;
+}
+
+.cancel_icon {
+  background-color: #ff7a00;
+  border-radius: 24px;
+  margin: 12px 0px;
+  font-size: 26px;
+  padding: 3px;
+}
+
+.pool_text_p {
+  color: #003554;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22.07px;
+  padding-top: 16px;
+}
+
+.gradient3{
+background-image: linear-gradient(transparent ,rgb(3, 3, 3) 70%, rgb(0, 0, 0));
+height: 100vh;
+position: absolute;
+width: 100%;
+}
+
+.gradient4{
+  background-image: radial-gradient(transparent, rgb(0, 0, 0) 95%,rgb(0, 0, 0));
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+}
+
+// map sec
+
+.map {
+  background-color: black;
+}
+.mapSecDescription {
+  text-align: center;
+  padding: 30px;
+  background-color: black;
+  margin: 0 auto;
+  color: #fdfafa;
+  width: 900px;
+}
+
+.mapSecHead {
+  padding: 20px;
+}
+
+.mapBg {
+  color: #fdfafa;
+  background: url('../../public/assests/BGMAP.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  position: relative;
+}
+
+.mapBgPara {
+  display: flex;
+  justify-content: center;
+  height: 85vh;
+  align-items: end;
+  color: #fdfafa;
+}
+
+.mapP{
+  z-index: 999;
+text-align: center;
+}
+
+.signUpDiv {
+  position: absolute;
+  top: 11rem;
+  left: 18rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100px;
+  height: 100px;
+}
+
+.singUp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #fdfafa;
+  border: 1px solid red;
+}
+
+.rewardDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 23rem;
+  left: 27.3rem;
+}
+.rewards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid white;
+}
+
+.playDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 20rem;
+  right: 22.5rem;
+}
+.play {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid white;
+}
+.mapLine{
+position: absolute;
+  top: 10rem;
+  left: 21rem;
+ 
+}
+.whiteLocationMark{
+  position: absolute;
+  top: 15rem;
+  right: 29rem;
+
+}
+.whiteLocationMark2{
+  position: absolute;
+top: 25rem;
+left: 50rem;
+}
+
+.whiteLocationMark3{
+  position: absolute;
+  top: 15rem;
+  left: 40rem;
+}
+
+
+
+
+
+.buggiSec {
+  width: 100%;
+  height: 100vh;
+  background: url('../../public/assests/bglastsection.svg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+.buggiDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.buggyHeading {
+  line-height: 6;
+}
+
+.buggiSec_heading {
+  font-size: 4rem;
+}
+
+.buggiSec_para {
+  font-size: 22px;
+}
+.btnSingup {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  max-width: 200px;
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid white;
+  background-color: transparent;
+  color: white;
+  border-radius: 10px;
+}
+
+.footer {
+  width: 100%;
+  height: 100vh;
+  color: white;
+  background: url('../../public/assests/sunriseimg.svg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.footerDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.anchorTags {
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  font-size: 1.5rem;
+}
+
+.footer_para {
+  padding: 10px;
+}
+.support {
+  text-align: center;
+}
+
+.footer_text {
+  padding: 10px;
+  text-align: center;
+}
+
+.social_I {
+  display: flex;
+  gap: 20px;
+}
+.gradient {
+  width: 100%;
+  position: absolute;
+  background-image: radial-gradient(transparent, black 70%, black);
+  height: 100%;
+}
+
+.redBlurCircle{
+  position: absolute;
+  bottom: 25rem;
+  left: 50rem;
+
+}
+
+
+
+
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .whiteLocationMark{
+    top: 10rem;
+    left: 20rem;
+  }
+  .whiteLocationMark2{
+    top: 20rem;
+    left: 35rem;
+  }
+  .whiteLocationMark3{
+    position: absolute;
+   top: 20rem;
+    left: 20rem;
+  }
+  .mapLine{
+    display: none;
+  }
+  .signUpDiv {
+   
+    top: 10rem;
+    left: 11rem;
+
+  }
+ 
+  .rewardDiv {
+    top: 20rem;
+    left: 20rem;
+  }
+  .playDiv {
+    top: 15rem;
+    right: 13rem;
+  }
+  .buggiSec_heading {
+    font-size: 42px;
+    margin-bottom: 10px;
+  }
+  .footer_para {
+    font-size: 22px;
+  }
+  .social_I {
+    margin: 15px 0px;
+  }
+  .support {
+    margin-bottom: 12px;
+    font-size: 22px;
+  }
+  .footer_text {
+    font-size: 22px;
+  }
+  .buggyHeading {
+    font-size: 20px;
+    padding: 10px 30px;
+    font-weight: 400;
+  }
+  .redBlurCircle{
+    top: 15rem;
+    left: 20rem;
+  }
+ 
+}
+
+
+@media only screen and (min-width: 569px) and (max-width: 768px){
+  
+  .mapLine{
+    display: none;
+  }
+  .signUpDiv{
+    top: 10rem;
+    left: 6rem;
+  }
+  .playDiv{
+    top: 19rem;
+    right: 15rem;
+  }
+  .rewardDiv{
+    top: 12rem;
+    left: 25rem;
+  }
+  .buggyHeading{
+    line-height: 2;
+    font-size: 20px;
+    letter-spacing: 2px;
+    padding: 0px 20px;
+    font-weight: 400;
+  }
+  .buggiSec_heading{
+    font-size: 40px;
+    font-weight: 300;
+    letter-spacing: 9px;
+  }
+  .buggiSec_para{
+    margin: 12px 0px;
+    font-size: 21px;
+  }
+  .btnSingup{
+    font-size: 20px;
+  }
+  .footer_para{
+    font-size: 20px;
+  }
+  .social_I{
+    margin: 15px 0px;
+  }
+  .support{
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .footer_text{
+    font-size: 20px;
+  }
+  .mapSecDescription{
+    width: 100%;
+  }
+  .whiteLocationMark{
+    top: 25rem;
+    left: 20rem;
+  }
+  .whiteLocationMark2{
+    top: 20rem;
+    left: 15rem;
+  }
+  .whiteLocationMark3{
+    position: absolute;
+   top: 10rem;
+    left: 20rem;
+  }
+  .redBlurCircle{
+    top:13rem;
+    left: 18rem;
+  }
+  
+  
+}
+
+@media only screen and (min-width: 320px) and (max-width: 968px) {
+  .parashoot {
+    display: none;
+  }
+  .parashoot2 {
+    display: none;
+  }
+  .parashoot4 {
+    display: none;
+  }
+  .mapLine{
+    display: none;
+  }
+  .main_container {
+    background: url('../../public//assests/Banner\ for\ mobile\ 1.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .banner_center_text .banner_heading {
+    font-size: 18px;
+    letter-spacing: 20px;
+  }
+  .banner_center_text .banner_subheading {
+    font-size: 18px;
+    letter-spacing: 9px;
+  }
+  .upcoming_mathces_container .rn_text {
+    width: 500px;
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+  .upcoming_mathces .upComingPara {
+    text-align: justify;
+    width: 80%;
+  }
+
+  .upcoming_mathces_sub_container {
+    flex-direction: column;
+  }
+  .upcoming_mathces_sub_container{
+    min-width: 300px;
+    padding: 10px;
+  }
+  .banner_bgmi_img {
+    min-width: 300px;
+  }
+  .time_container {
+    width: 100%;
+    padding-top: 20px;
+  }
+  .time_container h2 {
+    font-size: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .time_container span {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+ 
+  .range_container {
+    column-gap: 10%;
+
+    @media (max-width: $breakpoint-tab) {
+      flex-direction: column;
+      
+    }
+    
+  }
+
+  .welcome_Container {
+    padding: 10px;
+    flex-direction: column-reverse;
+  }
+
+  .stone img {
+    width: 320px;
+  }
+  .welcome_subcontainer p {
+    text-align: justify;
+  }
+
+  .choseSection h2 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .choseSection p {
+    padding: 10px;
+    width: 100%;
+    text-align: justify;
+  }
+ 
+ 
+  .playDiv {
+    top: 10rem;
+    left: 7rem;
+  }
+  .scope_text {
+    padding: 0px 21px;
+    font-size: 13px;
+  }
+  .signUpDiv,
+  .rewardDiv {
+    display: none;
+  }
+
+  .mapSecDescription{
+    width: 100%;
+  }
+.mapP{
+  padding: 10px;
+}
+
+.whiteLocationMark{
+  left: 15rem;
+}
+.whiteLocationMark2{
+  top: 15rem;
+  left: 5rem;
+}
+.whiteLocationMark3{
+  position: absolute;
+ top: 20rem;
+  left: 10rem;
+}
+
+.playDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 23rem;
+  right: 22.5rem;
+}
+.play {
+ 
+  background-color: red;
+  border: 1px solid white;
+}
+
+
+
+  .footerLogo {
+    width: 150px;
+  }
+  .anchorTags {
+    flex-direction: column;
+    font-size: 20px;
+    margin-top: 0px;
+  }
+  .buggyHeading {
+    line-height: 2;
+    padding: 26px 45px;
+    letter-spacing: 5px;
+    font-weight: 300;
+  }
+  .buggiImg {
+    width: 300px;
+    height: auto;
+  }
+  .buggiSec_heading {
+    font-size: 28px;
+    letter-spacing: 4px;
+    font-weight: 500;
+  }
+  .social_I {
+    margin: 12px 0px;
+  }
+  .support {
+    margin-bottom: 8px;
+  }
+  .buggiSec_para {
+    margin: 14px 0px;
+    font-size: 14px;
+  }
+  .btnSingup {
+    width: 150px;
+  }
+  .redBlurCircle{
+    top: 15rem;
+    left: 7rem;
+  }
+}

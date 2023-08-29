@@ -5,7 +5,7 @@ import {useRouter} from 'next/navigation';
 // @ts-ignore
 import {Avatar, Popover} from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
-import sendRequest from '@/services/auth/auth_All_Api';
+import {sendRequest} from '@/services/auth/auth_All_Api';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +32,7 @@ export function Navbar() {
 
   const getAlldata = async () => {
     const token = localStorage.getItem('jwtToken');
-    const Response = await sendRequest('api/v1/user/getuser', {
+    const Response = await sendRequest('user/getuser', {
       method: 'GET',
       headers: {Authorization: `Bearer ${token}`},
     });
@@ -135,12 +135,11 @@ export function Navbar() {
                         src="../assests/avatar.png"
                         size={25}
                       />
-                      {/* {useData?.map((usr: any, index: number) => ( */}
+
                       <div className={styles.username_details}>
                         <h1 className={styles.user_name_heading}>{namData}</h1>
                         <span className={styles.gmail}>{useData}</span>
                       </div>
-                      {/* ))} */}
                     </div>
 
                     <div className={styles.profilesection}>

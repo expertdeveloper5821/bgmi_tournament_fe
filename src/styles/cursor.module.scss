@@ -1,0 +1,36 @@
+.customcursor {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #FF7A00;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s;
+  transition-timing-function: ease-out;
+}
+
+.customcursor::before,
+.customcursor::after {
+  content: '';
+  position: absolute;
+  background-color: #FF7A00;
+}
+
+.customcursor::before {
+  width: 25px; /* Adjust the width of the cross lines */
+  height: 2px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.customcursor::after {
+  width: 2px;
+  height: 25px; /* Adjust the height of the cross lines */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

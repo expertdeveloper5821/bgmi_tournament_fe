@@ -45,25 +45,6 @@ const Form = ({getAllSpectator}: any) => {
     secondWin: '',
     mapImg: '',
   };
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files && e.target.files.length > 0) {
-  //     setFieldValue('mapImg', e.target.files[0]);
-  //     setFileset(e.target.files[0]);
-  //   }
-  // };
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.files && event.target.files.length > 0) {
-  //     setFieldValue('mapImg', event.target.files[0]);
-  //     setImage(event.target.files[0]);
-  //   }
-  // };
-  // console.log('check data==>', fileset);
-  // console.log('check', fileset);
-  // if (fileset) {
-  //   const formData = new FormData();
-  //   console.log('check fileset ==>', fileset);
-  //   formData.append('file', fileset);
-  // }
 
   const {
     values,
@@ -249,9 +230,9 @@ const Form = ({getAllSpectator}: any) => {
                     onBlur={handleBlur}
                   />
                 </div>
-                {/* {errors.time && touched.time && (
+                {errors.time && touched.time && (
                   <div className={styles.error}>{errors.time}</div>
-                )} */}
+                )}
                 <div className={styles.input_box}>
                   <div>
                     <label className={styles.room_id} htmlFor="Date">
@@ -268,9 +249,9 @@ const Form = ({getAllSpectator}: any) => {
                     onBlur={handleBlur}
                   />
                 </div>
-                {/* {errors.date && touched.date && (
+                {errors.date && touched.date && (
                   <div className={styles.error}>{errors.date}</div>
-                )} */}
+                )}
                 <div className={styles.input_box}>
                   <label className={styles.room_id} htmlFor="secondWin">
                     Last Servival
@@ -286,9 +267,9 @@ const Form = ({getAllSpectator}: any) => {
                     onBlur={handleBlur}
                   />
                 </div>
-                {/* {errors.password && touched.password && (
-                  <div className={styles.error}>{errors.password}</div>
-                )} */}
+                {errors.lastServival && touched.lastServival && (
+                  <div className={styles.error}>{errors.lastServival}</div>
+                )}
                 <div className={styles.input_box}>
                   <label className={styles.room_id} htmlFor="highestKill">
                     Highest Kill
@@ -304,9 +285,9 @@ const Form = ({getAllSpectator}: any) => {
                     onBlur={handleBlur}
                   />
                 </div>
-                {/* {errors.password && touched.password && (
-                  <div className={styles.error}>{errors.password}</div>
-                )} */}
+                {errors.highestKill && touched.highestKill && (
+                  <div className={styles.error}>{errors.highestKill}</div>
+                )}
                 <div className={styles.input_box}>
                   <label className={styles.room_id} htmlFor="secondWin">
                     Second Win
@@ -322,9 +303,9 @@ const Form = ({getAllSpectator}: any) => {
                     onBlur={handleBlur}
                   />
                 </div>
-                {/* {errors.password && touched.password && (
-                  <div className={styles.error}>{errors.password}</div>
-                )} */}
+                {errors.secondWin && touched.secondWin && (
+                  <div className={styles.error}>{errors.secondWin}</div>
+                )}
                 <div className={styles.input_box}>
                   <label className={styles.room_id} htmlFor="secondWin">
                     Third Win
@@ -341,9 +322,9 @@ const Form = ({getAllSpectator}: any) => {
                   />
                 </div>
 
-                {/* {errors.password && touched.password && (
-                  <div className={styles.error}>{errors.password}</div>
-                )} */}
+                {errors.thirdWin && touched.thirdWin && (
+                  <div className={styles.error}>{errors.thirdWin}</div>
+                )}
                 <div className={styles.input_box}>
                   <label className={styles.room_id} htmlFor="secondWin">
                     image upload
@@ -393,86 +374,3 @@ const Form = ({getAllSpectator}: any) => {
 };
 
 export default Form;
-
-// async (
-//   values: FormCreate,
-//   {setSubmitting}: FormikHelpers<FormCreate>,
-//   e: any,
-// ) => {
-//   // setIsLoading(true);
-//   console.log('VAAA');
-//   const {
-//     roomId,
-//     gameName,
-//     gameType,
-//     mapType,
-//     password,
-//     version,
-//     time,
-//     date,
-//     lastServival,
-//     thirdWin,
-//     highestKill,
-//     secondWin,
-//     mapImg,
-//   } = values;
-
-//   // console.log(values);
-//   e.preventDefault();
-//   const formData = new FormData();
-//   for (const key in values) {
-//     formData.append(key, values[key as keyof typeof values]);
-//   }
-
-//   // formData.append('dataField', e.target.gameName.value);
-//   formData.append('mapImg', image);
-//   console.log(formData);
-
-//   // formData.append('data', JSON.stringify(values));
-//   // formData.append('mapImg', values.mapImg);
-
-//   // const mapImgFile = formData.get('mapImg');
-//   // if (mapImgFile instanceof File) {
-//   //   const imageName = mapImgFile.name;
-//   //   console.log('console img', imageName);
-//   // } else {
-//   //   console.log('Image not found in FormData.');
-//   // }
-
-//   try {
-//     const token = localStorage.getItem('jwtToken');
-
-//     const response = await sendRequest('room/rooms', {
-//       method: 'POST',
-//       headers: {Authorization: `Bearer ${token}`},
-//       // data: {
-//       //   roomId,
-//       //   gameName,
-//       //   gameType,
-//       //   mapType,
-//       //   password,
-//       //   version,
-//       //   time,
-//       //   date,
-//       //   lastServival,
-//       //   thirdWin,
-//       //   highestKill,
-//       //   secondWin,
-//       //   mapImg,
-//       // },
-//       data: formData,
-//     });
-
-//     getAllSpectator();
-
-//     if (response.status === 200) {
-//     } else {
-//       setError('Failed to Add room. Please try again.');
-//     }
-//   } catch (error: any) {
-//     setIsLoading(false);
-//     setError('Failed to Add room. Please try again.');
-//   } finally {
-//     setSubmitting(false);
-//   }
-// },

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {Navbar} from '../../../Components/Navbar/Navbar';
 import styles from '../../../styles/Spectator.module.scss';
 import Form from '../Form/page';
-import sendRequest from '../../../services/api/apiServices';
+import {sendRequest} from '../../../services/auth/auth_All_Api';
 import RequireAuthentication from '../../../utils/requireAuthentication';
 //@ts-ignore
 import {Table, TableBody, TableCell} from 'technogetic-iron-smart-ui';
@@ -76,11 +76,6 @@ const Room = () => {
               <h1 className={styles.r_main_title}>Room </h1>
               <Form getAllSpectator={getAllSpectator} />
             </div>
-            {/* <SpectatorData
-            roomData={roomData}
-            columns={columns}
-            showAdditionalButton={true}
-          /> */}
 
             <div>
               <Table className={styles.table_content}>
@@ -157,14 +152,7 @@ const Room = () => {
                   </TableBody>
                 ))}
               </Table>
-              <CustomPagination data={Spect} />
             </div>
-            {/* <TableData
-          userData={paginatedData}
-          columns={columns}
-          showAdditionalButton={true}
-        />*/}
-            {/* <Pagination currentPage={currentPage} onPageChange={onPageChange} /> */}
           </div>
         </div>
       </div>

@@ -1,0 +1,16 @@
+@import './mixins.scss';
+@import './variable.scss';
+
+.id_password span {
+  font-size: 14px;
+  font-family: Century Gothic;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+}
+
+.id_password {
+    display: flex;
+    gap: 50px;
+    margin-top: 5px;
+  }
