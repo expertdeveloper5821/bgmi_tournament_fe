@@ -13,7 +13,7 @@ import Link from 'next/link';
 //@ts-ignore
 import {Button, Input} from 'technogetic-iron-smart-ui';
 import styles from '../../../styles/auth.module.scss';
-import sendRequest from '../../../services/api/apiServices';
+import {sendRequest} from '../../../services/auth/auth_All_Api';
 import {FcGoogle} from 'react-icons/fc';
 import Image from 'next/image';
 import {loginSchema} from '../../../schemas/SignupSchemas';
@@ -37,6 +37,7 @@ function Login(): React.JSX.Element {
   const {userInfo, updateUserInfo} = useUserContext();
 
   const router = useRouter();
+
 
   function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
     setRememberMe(event.target.checked);
