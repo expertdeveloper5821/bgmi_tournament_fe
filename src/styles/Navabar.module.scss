@@ -59,22 +59,29 @@
 .username_details {
   display: flex;
   flex-direction: column;
-
-  @media (max-width: $breakpoint-xs) {
-    display: none;
-  }
 }
-.username_details h1 {
+.username_details .user_name_title {
   color: white;
   font-weight: 900;
 }
-.username_details span {
+.username_details .user_name_title {
   color: white;
   font-size: smal;
   font-weight: 500;
 }
+.user_name_heading {
+  color: $primary-color;
+  font-size: 16px;
+  font-family: Century Gothic;
+  font-weight: 800;
+}
+.user_name_title {
+  color: $primary-color;
+  font-weight: 500;
+}
+
 .adminname {
-  color: var(--bs-darkblue);
+  color: $primary-color;
   margin: 1px;
   font-size: var(--bs-font-size);
 }
@@ -101,7 +108,7 @@
 .notify {
   margin: 0px 4px;
   font-size: 14px;
-  color: var(--bs-darkblue);
+  color: $primary-color;
 }
 
 .time {
@@ -111,7 +118,7 @@
 
 .allnotification {
   text-align: center;
-  color: var(--bs-darkblue);
+  color: $primary-color;
   margin: 25px 0px;
 }
 
@@ -133,7 +140,7 @@
 
 .gmail {
   font-size: 10px;
-  color: var(--bs-grey);
+  color: $primary-color;
 }
 
 .userdetails {
@@ -159,11 +166,11 @@
 
 .logoutbutton {
   text-align: center;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   font-size: 12px;
   border-top: 1px solid #dcdcdc;
   padding-top: 10px;
-  color: #003554;
+  color: $primary-color;
 }
 
 .logoutbuttonicon {
@@ -180,13 +187,19 @@
 }
 
 .myprofile {
-  margin: 5px 10px;
+  margin: 3px 10px;
   font-family: var(--bs-body-font-family);
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #003554;
 }
 h1 .user_name_heading {
   color: white;
   font-size: 16px;
   font-weight: 700;
   line-height: 19.62px;
+}
+
+.inner_logout {
+  cursor: pointer;
 }

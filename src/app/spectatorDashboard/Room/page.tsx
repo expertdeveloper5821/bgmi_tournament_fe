@@ -2,7 +2,6 @@
 import React, {useEffect, useState} from 'react';
 import {Navbar} from '../../../Components/Navbar/Navbar';
 import styles from '../../../styles/Spectator.module.scss';
-//import SpectatorData, {RoomData} from '../spectatorData/page';
 import Form from '../Form/page';
 import {sendRequest} from '../../../services/auth/auth_All_Api';
 import RequireAuthentication from '../../../utils/requireAuthentication';
@@ -10,14 +9,17 @@ import RequireAuthentication from '../../../utils/requireAuthentication';
 import {Table, TableBody, TableCell} from 'technogetic-iron-smart-ui';
 //@ts-ignore
 import {TableHeader, TableHead, TableRow} from 'technogetic-iron-smart-ui';
+import Image from 'next/image';
 import Deletespec from '../Deletespec/page';
-import UpdateRoom from '../Updatespec/page';
+import Updatespec from '../Updatespec/page';
+import CustomPagination from '@/Components/Pagination/Pagination';
+import withAuth from '@/Components/HOC/WithAuthHoc';
 export interface RoomData {
   roomId: string;
   _id: string;
   password: string;
   gameName: string;
-  gameType: number;
+  gameType: string;
   mapType: string;
   version: number;
   highestKill: number;
@@ -25,152 +27,142 @@ export interface RoomData {
   thirdWin: number;
   secondWin: number;
   time: string;
-  uuid: number;
+  date: string;
+  // uuid: number; //Not Available in response
   createdBy: number;
   updatedAt: number;
   createdAt: number;
+  mapImg: string;
 }
 
 const Room = () => {
-  const [roomData, setRoomData] = useState<RoomData[]>([]);
-  const columns: string[] = [
-    'roomId',
-    'password',
-    'gameName',
-    'gameType',
-    'mapType',
-    'createdBy',
-    'createdAt',
-  ];
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const [Spect, setSpect] = useState<RoomData[]>([]);
-  const rowPerPage = 8;
-  const onPageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+
+  const columns: string[] = [
+    'Room Id',
+    'Game Name',
+    'Game Type',
+    'Map Type',
+    'Version',
+    'HighestKill',
+    'lastServival',
+    'ThirdWin',
+    'SecondWin',
+    'Time',
+    'Date',
+    // 'Map Image',
+    'Action',
+  ];
   const getAllSpectator = async () => {
-    const token = localStorage.getItem('jwtToken');
-    const spectatorResponse = await sendRequest('room/user-rooms', {
-      method: 'GET',
-      headers: {Authorization: `Bearer ${token}`},
-    });
-    setSpect(spectatorResponse.data);
+    try {
+      const spectatorResponse = await sendRequest('room/user-rooms', {
+        method: 'GET',
+      });
+      console.log('check user ==>', spectatorResponse);
+      setSpect(spectatorResponse.data);
+    } catch (error: any) {
+      console.log('check error', error);
+    }
   };
+
   useEffect(() => {
     getAllSpectator();
   }, []);
 
-  // const handleUpdate = (updatedRoom: any) => {
-  //   // Update the Spect state with the updated room data
-  //   const updatedSpect = Spect.map((spec) => {
-  //     if (spec._id === updatedRoom._id) {
-  //       return updatedRoom;
-  //     }
-  //     return spec;
-  //   });
-
-  //   setSpect(updatedSpect);
-  // };
   return (
-    <RequireAuthentication>
-      <div className={styles.main_container}>
-        <div className={styles.inner_main_container}>
-          <div className={styles.sidebar_wrapper}>
-            <Navbar />
-            <div className={styles.inner_specter_cls}>
-              <h1 className={styles.r_main_title}>Room </h1>
-              <Form getAllSpectator={getAllSpectator} />
-            </div>
-            {/* <SpectatorData
-            roomData={roomData}
-            columns={columns}
-            showAdditionalButton={true}
-          /> */}
+    <>
+      <RequireAuthentication>
+        <div className={styles.main_container}>
+          <div className={styles.inner_main_container}>
+            <div className={styles.sidebar_wrapper}>
+              <Navbar />
+              <div className={styles.inner_specter_cls}>
+                <h1 className={styles.r_main_title}>Room </h1>
+                <Form getAllSpectator={getAllSpectator} />
+              </div>
 
-            <div>
-              <Table className={styles.table_content}>
-                <TableHeader className={styles.tableHeader}>
-                  <TableRow className={styles.tableRow}>
-                    <TableHead className={styles.table_head}>
-                      <div className={styles.filter}>RoomId</div>
-                    </TableHead>
-                    <TableHead className={styles.table_head}>
-                      <div className={styles.filter}>gameName</div>
-                    </TableHead>
-                    <TableHead className={styles.table_head}>
-                      <div className={styles.filter}>gameType</div>
-                    </TableHead>
-                    <TableHead className={styles.table_head}>
-                      <div className={styles.filter}>mapType</div>
-                    </TableHead>
-                    <TableHead className={styles.table_head}>
-                      <div className={styles.filter}>version</div>
-                    </TableHead>
-                    <TableHead className={styles.table_head}>
-                      <div className={styles.filter}>highestKill</div>
-                    </TableHead>
-                    <TableHead className={styles.table_head}>
-                      <div className={styles.filter}>lastServival</div>
-                    </TableHead>
-                    <TableHead className={styles.table_head}>
-                      <div className={styles.filter}>thirdWin</div>
-                    </TableHead>
-                    <TableHead className={styles.table_head}>
-                      <div className={styles.filter}>secondWin</div>
-                    </TableHead>
-                    <TableHead className={styles.table_head}>
-                      <div className={styles.filter}>time</div>
-                    </TableHead>
-                    <TableHead className={styles.table_head}>
-                      <div className={styles.filter}> createdBy</div>
-                    </TableHead>
+              <div>
+                <Table className={styles.table_content}>
+                  <TableHeader className={styles.tableHeader}>
+                    <TableRow className={styles.tableRow}>
+                      {columns?.map((column, index) => (
+                        <TableHead
+                          className={styles.table_head_sectat}
+                          key={index}
+                        >
+                          <div className={styles.filter}>{column}</div>
+                        </TableHead>
+                      ))}
+                    </TableRow>
+                  </TableHeader>
 
-                    <TableHead className={styles.table_head}>
-                      <div className={styles.filter}>action</div>
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                {Spect?.map((spec: any, index: number) => (
-                  <TableBody className={styles.table_body} key={index}>
-                    <TableCell> {spec.roomId}</TableCell>
-                    <TableCell> {spec.gameName}</TableCell>
-                    <TableCell> {spec.gameType}</TableCell>
-                    <TableCell> {spec.mapType}</TableCell>
-                    <TableCell> {spec.version}</TableCell>
-                    <TableCell> {spec.highestKill}</TableCell>
-                    <TableCell> {spec.lastServival}</TableCell>
-                    <TableCell> {spec.thirdWin}</TableCell>
-                    <TableCell>{spec.secondWin}</TableCell>
-                    <TableCell> {spec.time}</TableCell>
-                    <TableCell> {spec.uuid}</TableCell>
-                    <TableCell>{spec.createdBy}</TableCell>
-                    <TableCell>
-                      <Deletespec
-                        Id={spec._id}
-                        getAllSpectator={getAllSpectator}
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <UpdateRoom
-                        roomData={spec}
-                        getAllSpectator={getAllSpectator}
-                      />
-                    </TableCell>
+                  <TableBody>
+                    {Spect?.map((spec: any, index) => (
+                      <TableRow key={index} className={styles.table_row_cell}>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.roomId ?? '--'}
+                        </TableCell>
+
+                        <TableCell className={styles.tb_cell_body}>
+                          {spec?.gameName ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.gameType ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.mapType ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.version ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.tb_cell_body}>
+                          {spec?.highestKill ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.lastServival ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.thirdWin ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.secondWin ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.time ?? '--'}
+                        </TableCell>
+                        <TableCell className={styles.tb_cell_body}>
+                          {spec?.date ?? '--'}
+                        </TableCell>
+                        {/* <TableCell className={styles.tb_cell_body}>
+                          <Image
+                            src={spec?.mapImg}
+                            alt="mapImage"
+                            width={30}
+                            height={30}
+                          />
+                        </TableCell> */}
+                        <TableCell className={styles.tb_cell_action}>
+                          <Deletespec
+                            Id={spec._id}
+                            getAllSpectator={getAllSpectator}
+                          />
+                          <Updatespec
+                            updateRoom={Room}
+                            roomData={spec}
+                            getAllSpectator={getAllSpectator}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
-                ))}
-              </Table>
+                </Table>
+              </div>
             </div>
-            {/* <TableData
-          userData={paginatedData}
-          columns={columns}
-          showAdditionalButton={true}
-        />*/}
-            {/* <Pagination currentPage={currentPage} onPageChange={onPageChange} /> */}
           </div>
         </div>
-      </div>
-    </RequireAuthentication>
+      </RequireAuthentication>
+    </>
   );
 };
 
-export default Room;
+export default withAuth(Room);

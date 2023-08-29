@@ -38,7 +38,6 @@ function Login(): React.JSX.Element {
   console.log('usering=', userInfo);
   const router = useRouter();
 
-
   function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
     setRememberMe(event.target.checked);
   }
@@ -73,7 +72,6 @@ function Login(): React.JSX.Element {
       values: FormValues,
       {setSubmitting}: FormikHelpers<FormValues>,
     ) => {
-      console.log('values', values);
       setIsLoading(true);
       const {email, password} = values;
       if (rememberMe) {
@@ -103,6 +101,7 @@ function Login(): React.JSX.Element {
           };
           updateUserInfo(userDetails);
           localStorage.setItem('jwtToken', response?.data?.userData?.token);
+
           handleRedirect(response?.data?.userData?.token);
         } else {
           setError('Invalid email or password');
@@ -124,7 +123,7 @@ function Login(): React.JSX.Element {
       if (decodedToken.role.role === 'admin') {
         router.push('/adminDashboard');
       } else if (decodedToken.role.role === 'user') {
-        router.push('/userDashboard/tournament');
+        router.push('/userDashboard');
         // router.push(configData.web.cominSoonUrl)
       } else {
         router.push('/spectatorDashboard');
@@ -207,7 +206,6 @@ function Login(): React.JSX.Element {
       const verifyResponse = await sendRequest(`auth/verify/?token=${token}`, {
         method: 'GET',
       });
-      console.log('verifyResponse', verifyResponse);
 
       setLoadingData(false);
 
