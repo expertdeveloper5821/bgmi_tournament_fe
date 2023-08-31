@@ -6,20 +6,26 @@ const GlassCrack: React.FC = () => {
   const [cracks, setCracks] = useState<{ x: number; y: number }[]>([]);
 
   const handleDocumentClick = (e: MouseEvent) => {
+    // First, play the sound
+    playBulletFireSound();
+
     e.stopImmediatePropagation();
     const { clientX, clientY } = e;
-
-    // Create a new crack div and append it to the .glassContainer
     const crackDiv = document.createElement('div');
     crackDiv.className = `${styles.crack}`;
     crackDiv.style.left = `${clientX}px`;
     crackDiv.style.top = `${clientY}px`;
     document.querySelector(`.${styles.glassContainer}`)?.appendChild(crackDiv);
 
-    // Remove the crack div after a delay (adjust as needed)
     setTimeout(() => {
       document.querySelector(`.${styles.glassContainer}`)?.removeChild(crackDiv);
     }, 2000); // Change the timeout duration to 2 seconds
+  };
+
+  const playBulletFireSound = () => {
+    const audio = new Audio('../assests/gunsound.mp3');
+    audio.currentTime = 0;
+    audio.play();
   };
 
   React.useEffect(() => {
@@ -43,3 +49,4 @@ const GlassCrack: React.FC = () => {
 };
 
 export default GlassCrack;
+

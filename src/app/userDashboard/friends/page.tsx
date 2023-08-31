@@ -124,7 +124,7 @@ const Friend = () => {
         },
         body: userData,
       });
-      
+
       if (response.data.code) {
         setMessage('Friends added Successfully');
         setEmailList([]);
@@ -165,12 +165,30 @@ const Friend = () => {
               placeholder="Search by Name"
             />
 
-            <Image  src="/assests/search.svg" alt='search' height={20} width={20} className={styles.searchIcon} />
+            <Image
+              src="/assests/search.svg"
+              alt="search"
+              height={20}
+              width={20}
+              className={styles.searchIcon}
+            />
           </div>
           <div className={styles.btnContainer}>
             <div className={styles.selectContainer}>
-              <Image  src="/assests/sort.svg"  alt='sort' height={10} width={10}className={styles.sortIcon} />
-              <Image  src="/assests/downarrow.svg" alt='arrow' height={20} width={20} className={styles.arrowicon} />
+              <Image
+                src="/assests/sort.svg"
+                alt="sort"
+                height={10}
+                width={10}
+                className={styles.sortIcon}
+              />
+              <Image
+                src="/assests/downarrow.svg"
+                alt="arrow"
+                height={20}
+                width={20}
+                className={styles.arrowicon}
+              />
               <select className={styles.select}>
                 <option className={styles.sortByOption}> Sort By</option>
                 <option>1</option>
@@ -202,7 +220,8 @@ const Friend = () => {
               src="/assests/friendsherobanner.svg"
               alt="banner"
               className={styles.cardbannerimg}
-               height={100} width={100}
+              height={100}
+              width={100}
             />
           </div>
         </div>
@@ -215,7 +234,13 @@ const Friend = () => {
         <div className={styles.modalBackground}>
           <div className={styles.modalContainer}>
             <div className={styles.titleCloseBtn}>
-              <Image  src="/assests/delcancel.svg"  alt='delete' height={100} width={100}onClick={handleCloseModal} />
+              <Image
+                src="/assests/delcancel.svg"
+                alt="delete"
+                height={100}
+                width={100}
+                onClick={handleCloseModal}
+              />
             </div>
             <div className={styles.title}>
               <h1>Delete</h1>
@@ -264,7 +289,9 @@ const Friend = () => {
                         {truncatedEmail}
                         <Image
                           src="/assests/orangecross.svg"
-                          alt='search' height={10} width={10}
+                          alt="search"
+                          height={10}
+                          width={10}
                           className={styles.cancelsvg}
                           onClick={() => handleDeleteEmail(index)}
                         />
@@ -299,4 +326,3 @@ const Friend = () => {
 };
 
 export default Friend;
-                                                                  

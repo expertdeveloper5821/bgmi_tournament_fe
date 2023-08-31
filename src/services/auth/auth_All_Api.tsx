@@ -5,10 +5,15 @@ export const axiosInstance: AxiosInstance = axios.create({
   baseURL: `${apiBaseUrl}${apiVersion}`,
 });
 export async function sendRequest(path: string, opts: any = {}) {
+  console.log('check opts-', {...opts.headers});
   const headers = {
     ...opts.headers,
     'Content-Type': 'application/json; charset=UTF-8',
   };
+  const token: string | null = localStorage.getItem('jwtToken');
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
   try {
     const response = await axiosInstance({
       method: opts.method,
