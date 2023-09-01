@@ -14,7 +14,7 @@
   background-repeat: no-repeat;
 }
 .navbar {
-  background-color: #333;
+  opacity: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -147,7 +147,7 @@
   }
 }
 .logo img {
-  height: 70px;
+  height: 60px;
   @media (max-width: $breakpoint-md) {
     height: 50px;
   }
@@ -190,14 +190,52 @@
   }
 
   a {
-    color: white;
+    color:rgba(0, 53, 84, 1);
+    font-weight: 500;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
     }
   }
 }
+.menumob{
+  display: flex;
+  list-style: none;
+  align-items: center;
+  align-items: center;
+  margin-right: 100px;
+  @media (max-width: $breakpoint-md) {
+    flex-direction: column;
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    width: 100%;
+    margin-right: 10px;
+    background-color: #333;
+    height: 21vh;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
 
+  li {
+    align-items: center;
+    margin-right: 1rem;
+    @media (max-width: $breakpoint-md) {
+      margin-right: 0;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  a {
+    color:rgb(255, 255, 255);
+    font-weight: 400;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+}
 .menuicon {
   display: none;
   @media (max-width: $breakpoint-md) {
@@ -207,6 +245,7 @@
 }
 .loginBtn {
   z-index: 90;
+  font-weight: 500;
   color: white !important;
   font-size: 18px;
   text-decoration: none;
@@ -358,10 +397,13 @@
 }
 .rn_images_container {
   z-index: 90;
-
   display: flex;
   width: 70%;
   padding: 2% 10% 5% 2%;
+  @media (max-width: $breakpoint-xs) {
+    animation: imagemove 5s linear infinite;
+
+   }
   animation: imagemove 12s linear infinite;
 }
 @keyframes imagemove {
@@ -378,6 +420,10 @@
   height: 180px;
   color: white;
   margin-left: 5%;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 250px;
+    height: 150px;
+   }
 }
 .time_container {
   display: flex;
@@ -581,12 +627,21 @@
   min-width:160px;
   @media (min-width: $breakpoint-lg) {
     left: 44%;
-    top:45.5%
+    top:46%
 }
-  @media (max-width: $breakpoint-md) {
-    left: 46%;
-    top:45.5%
+@media (max-width: $breakpoint-ms) {
+  left: 45.5%;
+  top:46.8%
 }
+@media (max-width: $breakpoint-md) {
+  left: 46%;
+  top:45.5%
+}
+@media (max-width: $breakpoint-tab) {
+  left: 47%;
+  top:46.8%
+}
+ 
 @media (max-width: $breakpoint-xs) {
   left: 31%;
   top:46.5%
@@ -606,12 +661,21 @@
   background-color: rgba(255, 0, 0, 0.688);
   border-radius: 50%;
   @media (min-width: $breakpoint-lg) {
-    top: 53%;
+    top: 57%;
   left: 49.7%;
 }
-@media (max-width: $breakpoint-lg) {
-  left: 54.8%;
-  top: 52.8%;
+@media (max-width: $breakpoint-ms) {
+  top: 56.5%;
+left: 55.7%;
+}
+@media (max-width: $breakpoint-md) {
+  left: 53.9%;
+  top: 55%;
+}
+@media (max-width: $breakpoint-tab) {
+  left: 56.5%;
+  top: 56.5%;
+
 }
 @media (max-width: $breakpoint-xs) {
   display: none;
@@ -632,11 +696,22 @@
   font-size: 14px;
   font-weight: 700;
 
-  @media (max-width: $breakpoint-lg) {
-    left: 50.5%;
+  @media (min-width: $breakpoint-lg) {
+    top: 67%;
+    left: 47.8%;
+    
+}
+@media (max-width: $breakpoint-ms) {
+  left: 50%;
+  top: 64%;
+}
+@media (max-width: $breakpoint-md) {
+  left: 50.5%;
+  top: 65%;
 }
 @media (max-width: $breakpoint-tab) {
-  left: 52%;
+  left: 53%;
+  top: 64%;
 }
 @media (max-width: $breakpoint-xs) {
   display: none;

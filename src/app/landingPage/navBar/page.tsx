@@ -50,7 +50,7 @@ const page = () => {
           isMenuOpen ?<> <div className={styles.menuToggle} onClick={toggleMenu}>
           X
       </div>
-      <ul className={`${styles.menu}`}>
+      <ul className={`${styles.menumob}`}>
         <li>
           <Link href="/">
             Home
