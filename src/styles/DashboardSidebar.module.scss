@@ -50,18 +50,19 @@
     transition: all 0.5s;
   }
 
-  &.active {
+  &:active {
     background: #ff7a00;
     color: white;
   }
-
-  .icon,
   .link_text {
     font-size: 20px;
     font-weight: bold;
   }
 }
-.icon {
+.link.selected {
+  background: #ff7a00;
+  color: white;
+}
   .icon {
     display: flex;
     flex-direction: column;
@@ -87,7 +88,7 @@
       font-size: 16px;
     }
   }
-}
+
 .mobile_top_section {
   display: flex;
   align-items: center;
@@ -147,6 +148,7 @@
   font-weight: bold;
 }
 .lap_sidebar_cancel {
+  cursor: pointer;
   color: #fff;
   font-size: x-large;
   font-weight: bold;
