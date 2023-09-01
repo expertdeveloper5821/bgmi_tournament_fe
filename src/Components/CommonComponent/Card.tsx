@@ -30,16 +30,16 @@ const Card: React.FC<CardProps> = ({fwdindex,toOpen, forwardModalOpen, teamData}
     const fetchData = async () => {
       try {
         const accessToken = localStorage.getItem('jwttoken');
-        const response = await sendRequest('/team/get-team', {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        console.log(response);
-        
+        if (accessToken) {
+          const response = await sendRequest('/team/getallteam', {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });          
         setRes(response?.data);
         teamData(response?.data);
+        }
       } catch (error) {
         console.log(error);
       }

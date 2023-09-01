@@ -16,18 +16,18 @@ const page = () => {
   const [id, setId] = useState<any>(0);
   const [disable, setDisable] = useState<boolean>(false);
 
-  const handleIncrement = () => {
-    if (id === data.length - 1) {
-      setId(id);
-    } else {
-      setId(id + 1);
-    }
-    toast.success('Contest Joined Successfully', {
-      position: 'top-right',
-      autoClose: 2000, // Automatically close after 2 seconds
-      hideProgressBar: false, // Show the progress bar
-    });
-  };
+  // const handleIncrement = () => {
+  //   if (id === data.length - 1) {
+  //     setId(id);
+  //   } else {
+  //     setId(id + 1);
+  //   }
+  //   toast.success('Contest Joined Successfully', {
+  //     position: 'top-right',
+  //     autoClose: 2000, // Automatically close after 2 seconds
+  //     hideProgressBar: false, // Show the progress bar
+  //   });
+  // };
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -46,11 +46,23 @@ const page = () => {
 
     fetchData();
   }, []);
+  const playBulletFireSound = () => {
+    const audio = new Audio('../assests/gunsound.mp3');
+    audio.currentTime = 0;
+    audio.play();
+  };
+
+useEffect(() => {
+    document.addEventListener('click', playBulletFireSound);
+    return () => {
+      document.removeEventListener('click', playBulletFireSound);
+    };
+  }, []);
 
   return (
     <div className={styles.bodycolor}>
       <CustomCursor />
-      <GlassCrack />
+      {/* <GlassCrack /> */}
       <div className={styles.main_container}>
         <div>
           <NavBar />
@@ -148,7 +160,7 @@ const page = () => {
                         src="../assests/rupeeimg.svg"
                         alt="rupeeIcon"
                         width={12}
-                        height={12}
+                        height={15}
                       />
                     </span>
                   </p>
@@ -262,13 +274,15 @@ const page = () => {
                     <input type="range" value={50} />
                     <span>Only 30 spots left 20/50</span>
                   </div>
+                  <Link href='/auth/login'>
                   <button
                     className={styles.joinbtn}
-                    onClick={handleIncrement}
+                    // onClick={handleIncrement}
                     disabled={disable}
                   >
                     JOIN
                   </button>
+                  </Link>
                 </div>
               </>
             ) : (
@@ -579,7 +593,9 @@ const page = () => {
             <p className={styles.buggiSec_para}>
               Don’t waste your time Hurry up! Signup now
             </p>
+            <Link href='/auth/signup'>
             <button className={styles.btnSingup}>Sign up</button>
+            </Link>
           </div>
         </div>
       </section>

@@ -5,6 +5,7 @@
 
 .bodycolor{
   background: black;
+  z-index: 10;
 
 }
 .main_container {
@@ -146,7 +147,7 @@
   }
 }
 .logo img {
-  height: 100px;
+  height: 70px;
   @media (max-width: $breakpoint-md) {
     height: 50px;
   }
@@ -205,10 +206,7 @@
   }
 }
 .loginBtn {
-  position: absolute;
-  right: 20px;
-  top: 52px;
-  z-index: 10;
+  z-index: 90;
   color: white !important;
   font-size: 18px;
   text-decoration: none;
@@ -226,10 +224,10 @@
 
 }
 .loginBtnMob {
-  position: absolute;
-  top: 132px;
-  left: 45%;
-  z-index: 10;
+  // position: absolute;
+  // top: 132px;
+  // left: 45%;
+  z-index: 90;
   color: white !important;
   font-size: 18px;
   text-decoration: none;
@@ -359,6 +357,8 @@
    }
 }
 .rn_images_container {
+  z-index: 90;
+
   display: flex;
   width: 70%;
   padding: 2% 10% 5% 2%;
@@ -373,6 +373,7 @@
   }
 }
 .rn_images {
+  z-index: 90;
   width: 350px;
   height: 180px;
   color: white;
@@ -447,6 +448,7 @@
   accent-color: #ff7a00;
 }
 .joinbtn {
+  z-index: 90;
   height: 35px;
   min-width: 90px;
   border-radius: 5px;
@@ -880,9 +882,7 @@ left: 42%;
   position: relative;
 }
 .downheadimg{
-  position: absolute;
-  top: 6px;
-  z-index: 20;
+  z-index: 999
 }
 .inner_winning_pool {
   min-width: 310px;
@@ -896,6 +896,7 @@ left: 42%;
   border-radius: 16px;
 }
 .cancel_btn {
+  z-index: 90;
   padding: 10px;
   background: #ff7a00;
   color: white;
@@ -1113,10 +1114,15 @@ left: 50rem;
 
 .buggiSec_heading {
   font-size: 4rem;
+  @media (max-width: $breakpoint-md) {
+    font-size: 42px;
+    margin-bottom: 10px;
+  }
 }
 
 .buggiSec_para {
   font-size: 22px;
+  margin-top: 30px;
 }
 .btnSingup {
   margin-top: 20px;
