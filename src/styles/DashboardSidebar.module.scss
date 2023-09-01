@@ -4,6 +4,7 @@
 .container {
   display: flex;
   position: relative;
+  
 }
 
 .sidebar {
@@ -25,6 +26,7 @@
 
 .logo {
   font-size: 30px;
+  margin-left: 35px;
 }
 
 .bars {
@@ -88,11 +90,14 @@
       font-size: 16px;
     }
   }
+  .mob_container{
+    position: absolute;
+  }
+  
 
 .mobile_top_section {
   display: flex;
   align-items: center;
-  position: absolute;
   color: #fff;
   margin-top: 20px;
   margin-left: 10px;
@@ -107,6 +112,9 @@
   width: 150px;
   z-index: 1;
   height: 90vh;
+  @media (max-width: $breakpoint-sm) {
+    margin-top: 0px;
+  }
 }
 .mob_link_text {
   display: flex;
@@ -117,7 +125,6 @@
   font-size: 16px;
   font-weight: 800;
   padding-bottom: 3px;
-  margin-top: 30px;
   padding-top: 3px;
   &:hover {
     background: #ff7a00;
