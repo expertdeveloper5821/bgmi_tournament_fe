@@ -4,7 +4,6 @@
 .container {
   display: flex;
   position: relative;
-  
 }
 
 .sidebar {
@@ -22,6 +21,7 @@
   align-items: center;
   padding-top: 20px;
   padding-left: 8px;
+  margin-left: 15px;
 }
 
 .logo {
@@ -40,9 +40,9 @@
   align-items: center;
   margin-top: 30px;
   color: #fff;
+  margin-left: 20px;
+  margin-right: 17px;
   padding: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
   border-radius: 4px;
   transition: all 0.5s;
 
@@ -50,11 +50,15 @@
     background: #ff7a00;
     color: white;
     transition: all 0.5s;
+    margin-left: 20px;
+    margin-right: 17px;
   }
 
   &:active {
     background: #ff7a00;
     color: white;
+    margin-left: 20px;
+    margin-right: 17px;
   }
   .link_text {
     font-size: 20px;
@@ -64,36 +68,37 @@
 .link.selected {
   background: #ff7a00;
   color: white;
+  margin-left: 20px;
+  margin-right: 17px;
 }
-  .icon {
-    display: flex;
-    flex-direction: column;
-    margin-left: 7px;
-    padding-right: 20px;
-    justify-self: center;
+.icon {
+  display: flex;
+  flex-direction: column;
+  margin-left: 7px;
+  padding-right: 20px;
+  justify-self: center;
+}
+
+.submenu {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+  align-items: center;
+  text-align: end;
+  color: #fff;
+  padding: 10px;
+
+  .submenu_icon {
+    font-size: 20px;
   }
 
-  .submenu {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 20px;
-    align-items: center;
-    text-align: end;
-    color: #fff;
-    padding: 10px;
-
-    .submenu_icon {
-      font-size: 20px;
-    }
-
-    .submenu_link_text {
-      font-size: 16px;
-    }
+  .submenu_link_text {
+    font-size: 16px;
   }
-  .mob_container{
-    position: absolute;
-  }
-  
+}
+.mob_container {
+  position: absolute;
+}
 
 .mobile_top_section {
   display: flex;
