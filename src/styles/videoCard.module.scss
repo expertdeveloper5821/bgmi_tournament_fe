@@ -9,6 +9,9 @@
     flex-direction: column;
     margin-left: 5%;
   }
+  @media (max-width: $breakpoint-xSmall) {
+    margin-left: 0%;
+  }
 }
 .heading {
   color: yellow;
@@ -38,12 +41,12 @@
   color: #ff7a00;
   margin-right: 10px;
   max-height: 30px;
-  width: 135px;
+  width: 120px;
 }
 .button_maincontainer {
   margin-top: 20px;
   display: flex;
-  justify-content: space-between;
+
 }
 .copyimg {
   padding-right: 6px;
@@ -123,13 +126,20 @@
     width: 100%;
   }
 }
-.bannercontainer {
-  min-width: 250px;
-  @media (max-width: $breakpoint-xs) {
-    width: 320px;
-   }
-}
+// .bannercontainer {
+//   min-width: 250px;
+//   @media (max-width: $breakpoint-xs) {
+//     width: 320px;
+//    }
+// }
 .ytbanner {
-  width: 100%;
+ height: 100%;
+ min-width: 315px;
 
+}
+.copyicon{
+  height: 15px;
+  width: 15px;
+  align-items: center;
+  display: flex;
 }

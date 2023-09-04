@@ -15,7 +15,7 @@
   font-size: xx-large;
   color: white;
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: 40px;
 }
 .sub_container {
   display: flex;
@@ -69,12 +69,16 @@
     display: flex;
     justify-content: center;
   }
-  @media (max-width: $breakpoint-xs) {
+  @media (min-width: $breakpoint-xs) {
     display: flex;
     justify-content: center;
     padding-left: 3%;
     margin-left: 2%;
     margin-right: 3%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    display: flex;
+    justify-content: center;
   }
 }
 .videoCard {
@@ -107,8 +111,8 @@
 }
 .arrowicon{
   position: absolute;
-  right: 10px;
-  top: 13px;
+  right: 12px;
+  top: 20px;
 }
 .reviewSection{
   width: 30%;
