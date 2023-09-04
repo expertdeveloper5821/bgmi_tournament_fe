@@ -28,6 +28,10 @@ interface FormValues {
   password: string;
 }
 
+
+const googleAuth =()=>{
+  window.open(`${process.env.NEXT_PUBLIC_API_BASE_URL}auth/google`, 'self');
+}
 function Login(): React.JSX.Element {
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -323,7 +327,16 @@ function Login(): React.JSX.Element {
                   {isLoading ? 'Loading...' : 'Sign in'}
                 </Button>
               </div>
-              .
+              
+              <Button className={styles.google_btn} onClick={googleAuth} >
+              <Image
+                    src="/assests/google 1.svg"
+                    alt="fullname"
+                    width={30}
+                    height={20}
+                  />
+                <span>Sign in with Google</span>
+              </Button>
               <div className={styles.signin}>
                 <span className={styles.forgotDesc}>
                   <Link href="/auth/forget-password">
