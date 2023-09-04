@@ -17,6 +17,12 @@
   margin-top: 20px;
   margin-left: 40px;
 }
+.header{
+  @media (max-width: $breakpoint-xs) {
+    
+    margin-left: 4%;
+}
+}
 .sub_container {
   display: flex;
   justify-content: space-between;
@@ -59,26 +65,15 @@
 
 .container {
   display: flex;
-  // width: 100%;
   justify-content: space-between;
-  margin-top: 3%;
-  padding-right: 3%;
   @media (max-width: $breakpoint-md) {
     flex-direction: column;
     padding-left: 3%;
     display: flex;
     justify-content: center;
   }
-  @media (min-width: $breakpoint-xs) {
-    display: flex;
-    justify-content: center;
-    padding-left: 3%;
-    margin-left: 2%;
-    margin-right: 3%;
-  }
   @media (max-width: $breakpoint-xs) {
-    display: flex;
-    justify-content: center;
+    padding-left: 2%;
   }
 }
 .videoCard {
@@ -88,16 +83,18 @@
 }
 .centerText {
   margin-top: 15%;
-  width: 30%;
-  @media (min-width: $breakpoint-md) {
-    position: absolute;
-    left: 600px;
-    top: 37%;
-  }
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
   @media (max-width: $breakpoint-lg) and (min-width: $breakpoint-ms) {
-    position: absolute;
-    left: 580px;
-    top: 42%;
+   flex-direction: column;
+   width: 20%;
+   
+}
+@media (max-width: $breakpoint-md){
+  justify-content: left;
+  
 }
  
 }

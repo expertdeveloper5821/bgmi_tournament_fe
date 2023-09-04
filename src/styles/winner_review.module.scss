@@ -20,6 +20,9 @@
 }
 .reviewsContainer {
   margin-top: 30px;
+  @media (max-width: $breakpoint-xs) {
+    padding-left: 5%;
+  }
 }
 .reviewCard {
   min-width: 400px;
