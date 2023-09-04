@@ -9,4 +9,7 @@ const apiServices: AxiosInstance = axios.create({
     },
 });
 
+export const authService = axios.create({
+    baseURL: `${process.env.NEXT_PUBLIC_API_BASE_URL}auth`
+})
 export default apiServices;

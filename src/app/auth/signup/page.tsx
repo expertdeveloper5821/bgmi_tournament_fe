@@ -10,13 +10,18 @@ import styles from '../../../styles/auth.module.scss';
 import sendRequest from '../../../services/api/apiServices';
 import {FcGoogle} from 'react-icons/fc';
 import Image from 'next/image';
-
+// import NEXT_PUBLIC_API_BASE_URL from 
 interface FormValues {
   fullName: string;
   userName: string;
   email: string;
   password: string;
   upiId: any;
+}
+
+
+const googleAuth =()=>{
+  window.open(`${process.env.NEXT_PUBLIC_API_BASE_URL}auth/google`, 'self');
 }
 
 const Signup = () => {
@@ -251,6 +256,15 @@ const Signup = () => {
               {/* <div className={styles.signin_withgoogle}>
                                 <FcGoogle /> Sign up with Google
                             </div> */}
+              <Button className={styles.google_btn} onClick={googleAuth} >
+              <Image
+                    src="/assests/google 1.svg"
+                    alt="fullname"
+                    width={30}
+                    height={20}
+                  />
+                <span>Sign in with Google</span>
+              </Button>
 
               <div className={styles.log_acc_cls}>
                 <span className={styles.forgotDesc}>

@@ -58,7 +58,7 @@ function page() {
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
               <Navbar />
-              <h1>Welcome to Admin Dashboard</h1>
+              <h1>Welcome to Admin Dashboarddtrdtc</h1>
               <BtnDashboard />
               <TableData
                 studentData={paginatedData}

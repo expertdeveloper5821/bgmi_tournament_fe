@@ -19,6 +19,7 @@ import Image from 'next/image';
 import {loginSchema} from '../../../schemas/SignupSchemas';
 import {decodeJWt} from '@/utils/globalfunctions';
 import {configData} from '@/utils/config';
+import {authService} from '../../../services/api/apiServices';
 
 interface LoginProps {}
 
@@ -114,17 +115,22 @@ function Login(): React.JSX.Element {
     console.log('token', token);
     if (token) {
       const decodedToken: any = decodeJWt(token);
-      if (decodedToken.role.role === 'admin') {
-        router.push('/adminDashboard');
-      } else if (decodedToken.role.role === 'user') {
-        // router.push('/userDashboard');
-        // router.push(configData.web.cominSoonUrl.token);
-        window.location.href = `${configData.web.cominSoonUrl}?token=${token}`;
-      } else {
-        router.push('/spectatorDashboard');
+      console.log(decodedToken);
+      if (decodedToken?.role?.role) {
+       
+        if (decodedToken?.role?.role === 'admin') {
+          router.push('/adminDashboard');
+        } else if (decodedToken.role.role === 'user') {
+          // router.push('/userDashboard');
+          // router.push(configData.web.cominSoonUrl.token);
+          window.location.href = `${configData.web.cominSoonUrl}?token=${token}`;
+        } else {
+          router.push('/spectatorDashboard');
+        }
       }
-    } else {
-      router.push('/auth/401');
+      //   else {
+      //  //   router.push('/auth/401');
+      //   }
     }
   };
 
@@ -143,7 +149,7 @@ function Login(): React.JSX.Element {
   const handleVerifyToken = async (token: string) => {
     setIsLoading(true);
     try {
-      const verifyResponse = await sendRequest('/auth/verify', {
+      const verifyResponse = await sendRequest('/verify', {
         method: 'GET',
         data: {
           token: token,
@@ -159,12 +165,9 @@ function Login(): React.JSX.Element {
       }
       if (verifyResponse.status === 200) {
         router.push('/userDashboard');
-      } else {
-        setError('Google Sign-In failed');
       }
     } catch (error) {
-      setIsLoading(false);
-      setError('Google Sign-In failed');
+      console.log(error);
     }
   };
 
@@ -200,9 +203,7 @@ function Login(): React.JSX.Element {
   const handleVerifyTokenInLogin = async (token: string) => {
     setLoadingData(true);
     try {
-      const verifyResponse = await sendRequest(`auth/verify/?token=${token}`, {
-        method: 'GET',
-      });
+      const verifyResponse = await authService.get(`/verify/?token=${token}`);
       console.log('verifyResponse', verifyResponse);
 
       setLoadingData(false);
@@ -222,12 +223,12 @@ function Login(): React.JSX.Element {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     const isLogin = urlParams.get('isLogin');
-    if(isLogin == 'deny') {
-      localStorage.clear()
-      router.push('/')
-    } else if(token){
-        localStorage.setItem('jwtToken', token);
-        handleVerifyTokenInLogin(token);
+    if (isLogin == 'deny') {
+      localStorage.clear();
+      router.push('/');
+    } else if (token) {
+      localStorage.setItem('jwtToken', token);
+      handleVerifyTokenInLogin(token);
     }
   }, []);
 
@@ -277,7 +278,6 @@ function Login(): React.JSX.Element {
               {errors.email && touched.email && (
                 <div className={styles.error}>{errors.email}</div>
               )}
-
               <div className={styles.input_box}>
                 <label className={styles.password} htmlFor="password">
                   <Image
@@ -302,7 +302,6 @@ function Login(): React.JSX.Element {
               {errors.password && touched.password && (
                 <div className={styles.error}>{errors.password}</div>
               )}
-
               <div className={styles.checkbox_wrapper}>
                 <input
                   type="checkbox"
@@ -314,7 +313,6 @@ function Login(): React.JSX.Element {
                   Remember Me
                 </label>
               </div>
-
               <div className={styles.button_wrapper}>
                 <Button
                   disabled={isLoading}
@@ -325,18 +323,7 @@ function Login(): React.JSX.Element {
                   {isLoading ? 'Loading...' : 'Sign in'}
                 </Button>
               </div>
-              {/* <div className={styles.signin_withgoogle}>
-                <FcGoogle />
-                <Button
-                  disabled={isLoading}
-                  className={styles.googleButton}
-                  variant="primary"
-                  type="button"
-                  onClick={handleGoogleLogin}
-                >
-                  {isLoading ? 'Loading...' : 'Sign in with Google'}
-                </Button>
-              </div> */}
+              .
               <div className={styles.signin}>
                 <span className={styles.forgotDesc}>
                   <Link href="/auth/forget-password">
