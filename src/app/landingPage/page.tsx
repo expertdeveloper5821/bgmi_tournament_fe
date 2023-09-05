@@ -52,7 +52,7 @@ const page = () => {
     audio.play();
   };
 
-useEffect(() => {
+  useEffect(() => {
     document.addEventListener('click', playBulletFireSound);
     return () => {
       document.removeEventListener('click', playBulletFireSound);
@@ -61,7 +61,7 @@ useEffect(() => {
 
   return (
     <div className={styles.bodycolor}>
-      <CustomCursor />
+      {/* <CustomCursor /> */}
       {/* <GlassCrack /> */}
       <div className={styles.main_container}>
         <div>
@@ -115,7 +115,7 @@ useEffect(() => {
           <h1 className={styles.banner_heading}>PATT SE</h1>
           <p className={styles.banner_subheading}>Warriors Wanted</p>
         </div>
-        {/* <div className={styles.gradient}></div> */}
+
       </div>
 
       <div className={styles.upcoming_mathces_container}>
@@ -258,15 +258,21 @@ useEffect(() => {
                 <div className={styles.gameInfo}>
                   <div className={styles.game}>
                     <span>TYPE</span>
-                    <span className={styles.gameYellowspan}>{data[id].gameType}</span>
+                    <span className={styles.gameYellowspan}>
+                      {data[id].gameType}
+                    </span>
                   </div>
                   <div className={styles.game}>
                     <span>VERSION</span>
-                    <span className={styles.gameYellowspan}>{data[id].version}</span>
+                    <span className={styles.gameYellowspan}>
+                      {data[id].version}
+                    </span>
                   </div>
                   <div className={styles.game}>
                     <span>MAP</span>
-                    <span className={styles.gameOrangespan}>{data[id].mapType}</span>
+                    <span className={styles.gameOrangespan}>
+                      {data[id].mapType}
+                    </span>
                   </div>
                 </div>
                 <div className={styles.range_container}>
@@ -274,14 +280,14 @@ useEffect(() => {
                     <input type="range" value={50} />
                     <span>Only 30 spots left 20/50</span>
                   </div>
-                  <Link href='/auth/login'>
-                  <button
-                    className={styles.joinbtn}
-                    // onClick={handleIncrement}
-                    disabled={disable}
-                  >
-                    JOIN
-                  </button>
+                  <Link href="/auth/login">
+                    <button
+                      className={styles.joinbtn}
+                      // onClick={handleIncrement}
+                      disabled={disable}
+                    >
+                      JOIN
+                    </button>
                   </Link>
                 </div>
               </>
@@ -315,9 +321,13 @@ useEffect(() => {
           </div>
 
           <div className={styles.welcome_subcontainer}>
+
             <div className={styles.welcome_RightImg_container}>
+            <div className={styles.gradientoverlay}></div>
+
+
               <Image
-              className={styles.welcome_RightImg}
+                className={styles.welcome_RightImg}
                 src="../assests/Group20.svg"
                 height={700}
                 width={700}
@@ -325,20 +335,23 @@ useEffect(() => {
               />
             </div>
             <div className={styles.welcome_alingnment}>
-              <h2>Welcome to BGMI Rewards</h2>
-
+              <h2>Welcome to Patt Se Headshot</h2>
               <p>
-                Are you ready to take your BGMI gaming to the next level? Look
-                no further! BGMI Rewards brings you an exhilarating platform
-                where your gaming skills translate into real cash rewards. Join
-                thousands of enthusiastic players who have already unlocked the
-                true potential of their gaming passion.
+                Welcome to our cutting-edge esports platform designed
+                exclusively for BGMI players. Engage in thrilling competitive
+                tournaments, test your skills, and climb the leaderboards to
+                showcase your mastery. Enjoy personalized team-building
+                features, connect with fellow gamers, and strategize for
+                victory. Our platform provides in-depth game analytics to
+                enhance your performance and gain valuable insights. Embrace the
+                ultimate battleground for mobile gaming enthusiasts, where the
+                passion for esports meets unparalleled excitement. Join our
+                growing community, fuel your competitive spirit, and seize the
+                chance to win fantastic rewards. Elevate your gaming experience
+                and be a part of the future of esports with us!
               </p>
             </div>
-
-            {/* <div className={styles.gradient4}></div> */}
           </div>
-          {/* <div className={styles.gradient3}></div> */}
         </div>
         <div>
           <div className={styles.choseSection}>
@@ -351,7 +364,18 @@ useEffect(() => {
             <img src={'../assests/directionindicator.svg'} />
           </div>
           <div className={styles.scopeSection}>
+            <div className={styles.gradientoverlay}></div>
+
             <div className={styles.centerscope}>
+              <div className={styles.gradientoverlay}></div>
+              <Image
+                src="../assests/bagshelmet.svg"
+                alt="bagshelmet"
+                height={100}
+                width={100}
+                className={styles.bagshelmet}
+              />
+              <div className={styles.gradientoverlay}></div>
               <Image
                 src="../assests/zoominimage.svg"
                 className={styles.bg_img_static}
@@ -373,6 +397,7 @@ useEffect(() => {
                 width={100}
                 alt=" scope line"
               />
+
               <div className={styles.scope_target_text}>150 meters</div>
               <div className={styles.scope_line_red_dot}></div>
             </div>
@@ -386,15 +411,19 @@ useEffect(() => {
                 className={styles.bullet}
               />
             </div>
-            <div className={styles.seamlesstxn}>
-              <Image
-                src="../assests/seamless2.svg"
-                alt="bullter"
-                height={100}
-                width={100}
-                className={styles.seamimg}
-              />
+            <div className={styles.seam_main_container}>
+              <div className={styles.seamlesstxn}>
+                <Image
+                  src="../assests/seamless2.svg"
+                  alt="bullter"
+                  height={100}
+                  width={100}
+                  className={styles.seamimg}
+                />
+              </div>
+              <p className={styles.seam}>Seamless Transactions</p>
             </div>
+
             <div className={styles.clock_maincontainer}>
               <div className={styles.clock}>
                 <Image
@@ -481,7 +510,6 @@ useEffect(() => {
       </section>
 
       <section className={styles.mapBg}>
-      
         <div className={styles.signUpDiv}>
           <div className={styles.singUp}>
             <Image
@@ -572,7 +600,6 @@ useEffect(() => {
             ever-growing gaming community.
           </p>
         </div>
-    
       </section>
 
       <section className={styles.buggiSec}>
@@ -593,8 +620,8 @@ useEffect(() => {
             <p className={styles.buggiSec_para}>
               Don’t waste your time Hurry up! Signup now
             </p>
-            <Link href='/auth/signup'>
-            <button className={styles.btnSingup}>Sign up</button>
+            <Link href="/auth/signup">
+              <button className={styles.btnSingup}>Sign up</button>
             </Link>
           </div>
         </div>
