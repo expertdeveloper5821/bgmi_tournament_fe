@@ -15,6 +15,10 @@ import Loader from '@/Components/Loader/Loader';
 
 
 
+
+
+
+
 export interface IAppProps { }
 
 function page() {
@@ -96,6 +100,7 @@ function page() {
               <Navbar />
               <h1>Welcome to Admin Dashboard</h1>
               <BtnDashboard />
+
 
 
               {isLoading ? (

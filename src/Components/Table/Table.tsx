@@ -13,6 +13,9 @@ import {
   TableCell,
   IconButton,
 } from 'technogetic-iron-smart-ui';
+import Accordion from '../CommonComponent/TeammatesDropdownModal';
+import TeammatesDropdownModal from '../CommonComponent/TeammatesDropdownModal';
+
 
 export interface UserData {
   fullName: string;
@@ -81,6 +84,7 @@ const TableData = (props: StudentProfilePropsType) => {
 
 
 
+
   useEffect(() => {
     const updateSortedData = () => {
       if (window.location.href.includes('users')) {
@@ -92,7 +96,6 @@ const TableData = (props: StudentProfilePropsType) => {
         setSortedData(roomData);
       } else if (window.location.href.includes('spectator')) {
         setSortedData(spectatorData)
-
       }
     };
     updateSortedData();
@@ -136,6 +139,9 @@ const TableData = (props: StudentProfilePropsType) => {
     }
   };
 
+
+
+
   console.log('sortedData type:', typeof sortedData);
 
   return (
@@ -167,7 +173,8 @@ const TableData = (props: StudentProfilePropsType) => {
               </TableHead>
             ))}
             <TableHead className={styles.table_head}>
-              <div className={styles.filter}>Actions</div>
+              {!window.location.href.includes('teams') && (
+                <div className={styles.filter}>Actions</div>)}
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -175,6 +182,7 @@ const TableData = (props: StudentProfilePropsType) => {
         <TableBody className={styles.table_body}>
           {sortedData?.map((elm: any, index: number) => {
             console.log('sortedData type:', typeof sortedData);
+            const teammateKey = `teammate-${index}`;
             const additionalImagePath = props.showAdditionalButton
               ? './assests/StudentProfile.svg'
               : null;
@@ -186,215 +194,250 @@ const TableData = (props: StudentProfilePropsType) => {
             }
 
             return (
-              <TableRow className={styles.table_rowdata} key={index}>
-                {elm.createdBy && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.createdBy}
-                  </TableCell>
-                )}
-                {elm.roomId && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.roomId}
-                  </TableCell>
-                )}
-                {elm.password && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.password}
-                  </TableCell>
-                )}
-                {elm.gameName && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.gameName}
-                  </TableCell>
-                )}
-                {elm.gameType && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.gameType}
-                  </TableCell>
-                )}
-                {elm.mapType && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.mapType}
-                  </TableCell>
-                )}
+              <>
+                <TableRow className={styles.table_rowdata} key={index}>
+                  {elm.createdBy && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.createdBy}
+                    </TableCell>
+                  )}
+                  {elm.roomId && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.roomId}
+                    </TableCell>
+                  )}
+                  {elm.password && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.password}
+                    </TableCell>
+                  )}
+                  {elm.gameName && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.gameName}
+                    </TableCell>
+                  )}
+                  {elm.gameType && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.gameType}
+                    </TableCell>
+                  )}
+                  {elm.mapType && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.mapType}
+                    </TableCell>
+                  )}
 
-                {elm.mapImg && (
-                  <TableCell className={styles.table_cell}>
-                    <Image src={elm.mapImg} alt='mapImage' width={30} height={30} />
-                  </TableCell>
-                )}
-                {elm.version && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.version}
-                  </TableCell>
-                )}
+                  {elm.mapImg && (
+                    <TableCell className={styles.table_cell}>
+                      <Image src={elm.mapImg} alt='mapImage' width={30} height={30} />
+                    </TableCell>
+                  )}
+                  {elm.version && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.version}
+                    </TableCell>
+                  )}
 
-                {elm.time && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.time}
-                  </TableCell>
-                )}
-                {elm.date && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.date}
-                  </TableCell>
-                )}
-                {elm.lastServival && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.lastServival}
-                  </TableCell>
-                )} {elm.highestKill && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.highestKill}
-                  </TableCell>
-                )}
-                {elm.secondWin && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.secondWin}
-                  </TableCell>
-                )}
-                {elm.thirdWin && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.thirdWin}
-                  </TableCell>
-                )}
+                  {elm.time && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.time}
+                    </TableCell>
+                  )}
+                  {elm.date && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.date}
+                    </TableCell>
+                  )}
+                  {elm.lastServival && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.lastServival}
+                    </TableCell>
+                  )} {elm.highestKill && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.highestKill}
+                    </TableCell>
+                  )}
+                  {elm.secondWin && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.secondWin}
+                    </TableCell>
+                  )}
+                  {elm.thirdWin && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.thirdWin}
+                    </TableCell>
+                  )}
 
 
-                {elm.createdAt && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.createdAt}
-                  </TableCell>
-                )}
+                  {elm.createdAt && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.createdAt}
+                    </TableCell>
+                  )}
 
-                {elm.fullName && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.fullName}
-                  </TableCell>
-                )}
-                {elm.userName && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.userName}
-                  </TableCell>
-                )}
-                {elm.email && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.email}
-                  </TableCell>
-                )}{' '}
-                {/* {elm.password && (
+                  {elm.fullName && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.fullName}
+                    </TableCell>
+                  )}
+                  {elm.userName && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.userName}
+                    </TableCell>
+                  )}
+                  {elm.email && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.email}
+                    </TableCell>
+                  )}{' '}
+                  {/* {elm.password && (
                   <TableCell className={styles.table_cell}>
                     {elm.password}
                   </TableCell>
                 )} */}
 
-                {elm.uuid && (
+                  {/* {elm.uuid && (
                   <TableCell className={styles.table_cell}>
                     {elm.uuid}
                   </TableCell>
-                )}{' '}
-                {elm.leadPlayer && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.leadPlayer}
-                  </TableCell>
-                )}{' '}
-                {/* {elm.teammates && (
+                )}{' '} */}
+                  {elm.leadPlayer && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.leadPlayer}
+                    </TableCell>
+                  )}{' '}
+                  {/* {elm.teammates && (
                   <TableCell className={styles.table_cell}>
                     {elm.teammates}
                   </TableCell>
                 )} */}
-                {elm.registeredGame && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.registeredGame}
-                  </TableCell>
-                )}
-
-                <TableCell className={styles.table_cell}>
-                  {additionalImagePath ? (
-                    <IconButton>
-                      {props.imageIcon === 'spectator' ?
-                        <div className={styles.iconWrapper}>
-
-                          {/* <Image
-                            src="/assests/studentprofile.svg"
-                            alt="studentProfileView"
-                            width={15}
-                            height={15}
-                            className={styles.table_icon}
-                          />
- */}
-
-                          <Image
-                            src="/assests/Tabledelete.svg"
-                            alt="studentProfileView"
-                            width={15}
-                            height={15}
-                            className={styles.table_icon}
-                            // onClick={() => deleteroomId(elm._id)}
-                            onClick={() => props.deleteroomId(elm._id || elm.userUuid)}
-                          />
-
-                          <Image
-                            src="/assests/TableEdit.svg"
-                            alt="studentProfileEdit"
-                            width={15}
-                            height={15}
-                            className={styles.cell_icon}
-                            onClick={() => {
-                              props.setSetSpectatorId(elm)
-                              props.setModal(true)
-                              props.updateSpectatorByid(elm.userUuid)
-                            }
-                            }
-                          />
-
-
-                        </div>
-                        :
-                        <div className={styles.iconWrapper}>
-                          <Image
-                            src="/assests/Tabledelete.svg"
-                            alt="studentProfileView"
-                            width={15}
-                            height={15}
-                            className={styles.table_icon}
-                            // onClick={() => deleteroomId(elm._id)}
-                            onClick={() => props.deleteroomId(elm._id || elm.userUuid)}
-                          />
-                        </div>
-                      }
-
-                    </IconButton>
-                  ) : (
-                    <>
-                      {/* <IconButton onClick={() => handleEdit(elm)}>
-                        <Image
-                          src="/assests/TableEdit.svg"
-                          alt="studentProfileEdit"
-                          width={10}
-                          height={10}
-                          className={styles.cell_icon}
-                        ></Image>
-                      </IconButton>
-                      <IconButton onClick={() => handleDelete(elm)}>
-                        <Image
-                          src="/assests/Tabledelete.svg"
-                          alt="studentProfileDelete"
-                          width={10}
-                          height={10}
-                          className={styles.cell_icon}
-                        ></Image>
-                      </IconButton> */}
-                    </>
+                  {elm.registeredGame && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.registeredGame}
+                    </TableCell>
                   )}
-                </TableCell>
-              </TableRow>
+
+
+                  {elm.teammates && <TableCell className={styles.table_cell}>
+                    {elm.teammates.length}
+                  </TableCell>}
+
+
+                  {elm.teammates && (
+                    <TableCell className={styles.table_cell}>
+                      <Accordion>
+                        <TeammatesDropdownModal teammates={elm.teammates} onClose={() => { }} />
+                      </Accordion>
+                    </TableCell>
+                  )}
+
+
+                  <TableCell className={styles.table_cell}>
+                    {additionalImagePath ? (
+                      <IconButton>
+                        {props.imageIcon === 'spectator' ?
+                          <div className={styles.iconWrapper}>
+
+
+                            <Image
+                              src="/assests/Tabledelete.svg"
+                              alt="studentProfileView"
+                              width={15}
+                              height={15}
+                              className={styles.table_icon}
+                              // onClick={() => deleteroomId(elm._id)}
+                              onClick={() => props.deleteroomId(elm._id || elm.userUuid)}
+                            />
+
+                            <Image
+                              src="/assests/TableEdit.svg"
+                              alt="studentProfileEdit"
+                              width={15}
+                              height={15}
+                              className={styles.cell_icon}
+                              onClick={() => {
+                                props.setSetSpectatorId(elm)
+                                props.setModal(true)
+                                props.updateSpectatorByid(elm.userUuid)
+                              }
+                              }
+                            />
+
+
+                          </div>
+                          :
+                          <div className={styles.iconWrapper}>
+                            {!window.location.href.includes('teams') && (
+                              <Image
+                                src="/assests/Tabledelete.svg"
+                                alt="studentProfileView"
+                                width={15}
+                                height={15}
+                                className={styles.table_icon}
+                                // onClick={() => deleteroomId(elm._id)}
+                                onClick={() => props.deleteroomId(elm._id || elm.userUuid)}
+                              />
+                            )}
+                          </div>
+                        }
+
+                      </IconButton>
+                    ) : (
+                      <>
+
+                      </>
+                    )}
+                  </TableCell>
+                </TableRow>
+                {/* <TableRow>
+                  <table>
+                    <tr>
+                      <th>Company</th>
+                      <th>Contact</th>
+                      <th>Country</th>
+                    </tr>
+                    <tr>
+                      <td>Alfreds Futterkiste</td>
+                      <td>Maria Anders</td>
+                      <td>Germany</td>
+                    </tr>
+                    <tr>
+                      <td>Centro comercial Moctezuma</td>
+                      <td>Francisco Chang</td>
+                      <td>Mexico</td>
+                    </tr>
+                    <tr>
+                      <td>Ernst Handel</td>
+                      <td>Roland Mendel</td>
+                      <td>Austria</td>
+                    </tr>
+                    <tr>
+                      <td>Island Trading</td>
+                      <td>Helen Bennett</td>
+                      <td>UK</td>
+                    </tr>
+                    <tr>
+                      <td>Laughing Bacchus Winecellars</td>
+                      <td>Yoshi Tannamuri</td>
+                      <td>Canada</td>
+                    </tr>
+                    <tr>
+                      <td>Magazzini Alimentari Riuniti</td>
+                      <td>Giovanni Rovelli</td>
+                      <td>Italy</td>
+                    </tr>
+                  </table>
+                </TableRow> */}
+              </>
             );
           })}
         </TableBody>
       </Table>
+
     </div >
   );
 };
 
 export default TableData;
+
 

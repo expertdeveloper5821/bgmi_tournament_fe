@@ -56,8 +56,8 @@ function page() {
 
 
   const columns: string[] = [
-    'uuid',
     'leadPlayer',
+    'Team Member',
     'teammates',
   ];
 
