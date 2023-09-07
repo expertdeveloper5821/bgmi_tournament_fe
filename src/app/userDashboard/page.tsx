@@ -24,7 +24,7 @@ function UserDashboard() {
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
               <Navbar />
-              <h1>Welcome to Admin Dashboard</h1>
+              <h1>Welcome to User Dashboard</h1>
               <BtnDashboard />
             </div>
           </div>
