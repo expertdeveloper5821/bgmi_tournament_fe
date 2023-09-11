@@ -123,7 +123,7 @@ function Login(): React.JSX.Element {
       if (decodedToken.role.role === 'admin') {
         router.push('/adminDashboard');
       } else if (decodedToken.role.role === 'user') {
-        router.push('/userDashboard');
+        router.push('/userDashboard/tournament');
         // router.push(configData.web.cominSoonUrl)
       } else {
         router.push('/spectatorDashboard');
