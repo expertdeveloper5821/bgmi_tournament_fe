@@ -87,6 +87,12 @@ const page = () => {
           </div>
         )}
       </nav>
+      <div className={styles.bannertextcontainer}>
+          <div className={styles.banner_center_text}>
+            <h1 className={styles.banner_heading}>PATT SE</h1>
+            <p className={styles.banner_subheading}>Warriors Wanted</p>
+          </div>
+        </div>
     </div>
   );
 };

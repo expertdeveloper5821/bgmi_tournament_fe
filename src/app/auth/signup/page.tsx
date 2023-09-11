@@ -61,10 +61,8 @@ const Signup = () => {
           data: {fullName, userName, email, password, upiId},
         });
 
-        // console.log('sdvdsv', response.message);
-
         if (response.status === 200) {
-          // localStorage.setItem("jwtToken", response.data.token);
+          // localStorage.setItem('data', response.userName);
           router.push(`/auth/login`);
         } else {
           setError('Failed to sign up. Please try again.');

@@ -10,7 +10,7 @@ import CustomCursor from './customCursor/page';
 import GlassCrack from './glassCrack/page';
 import Link from 'next/link';
 import Slider from 'react-slick';
-import { string } from 'yup';
+import {string} from 'yup';
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 
@@ -20,7 +20,9 @@ const page = () => {
   const [poolModal, setPoolModal] = useState<boolean>(false);
   const [id, setId] = useState<any>(0);
   const [disable, setDisable] = useState<boolean>(false);
-  const [content, setContent] = useState("Create your free account in just a few simple steps and join our ever-growing gaming community");
+  const [content, setContent] = useState(
+    'Create your free account in just a few simple steps and join our ever-growing gaming community',
+  );
 
   const settings = {
     dots: true,
@@ -73,21 +75,27 @@ const page = () => {
     };
   }, []);
 
- const scrollToTop = () => {
+  const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth' // This creates a smooth scrolling effect
+      behavior: 'smooth', // This creates a smooth scrolling effect
     });
-  }
+  };
   const handleButtonHover1 = () => {
-    setContent('Cash out your earnings with ease and enjoy the real benefits of your gaming talent');
-  }
+    setContent(
+      'Cash out your earnings with ease and enjoy the real benefits of your gaming talent',
+    );
+  };
   const handleButtonHover2 = () => {
-    setContent('Dive into intense BGMI battles, showcase your skills, and climb the leaderboard to win cash rewards');
-  }
+    setContent(
+      'Dive into intense BGMI battles, showcase your skills, and climb the leaderboard to win cash rewards',
+    );
+  };
   const handleButtonHover3 = () => {
-    setContent('Create your free account in just a few simple steps and join our ever-growing gaming community');
-  }
+    setContent(
+      'Create your free account in just a few simple steps and join our ever-growing gaming community',
+    );
+  };
   return (
     <div className={styles.bodycolor}>
       {/* <CustomCursor /> */}
@@ -96,7 +104,7 @@ const page = () => {
         <div>
           <NavBar />
         </div>
-
+       
         <div className={styles.parashoot}>
           <Image
             className={styles.person_Img}
@@ -141,12 +149,6 @@ const page = () => {
             alt="parashoot"
           />
         </div>
-        <div className={styles.bannertextcontainer}>
-        <div className={styles.banner_center_text}>
-          <h1 className={styles.banner_heading}>PATT SE</h1>
-          <p className={styles.banner_subheading}>Warriors Wanted</p>
-        </div>
-        </div>
 
         <div className={styles.social_Icons_header}>
           <Link href="">
@@ -188,14 +190,13 @@ const page = () => {
             />
           </Link>
         </div>
-
-        {/* <div className={styles.bannergradient}></div> */}
-      </div>
-
-      <div className={styles.upcoming_mathces_container}>
         <div className={styles.rn_text}>
           <h2>EARN CASH REWARDS FOR CONQUERING</h2>
         </div>
+      </div>
+
+      <div className={styles.upcoming_mathces_container}>
+        
         <div className={styles.upcoming_mathces}>
           <h3 className={styles.upComingHeading}>Upcoming Matches</h3>
           <p className={styles.upComingPara}>
@@ -385,14 +386,24 @@ const page = () => {
             data?.map((gameDetails: any, index: number) => {
               return (
                 <>
-                  <img
-                    src={gameDetails.mapImg}
-                    className={styles.rn_images}
-                    height={100}
-                    width={100}
-                    alt="image"
-                    onClick={() => handleData(index)}
-                  />
+                  <div className={styles.cardimg}>
+                    <div className={styles.carddetails}>
+                      <h2>{gameDetails.mapType}</h2>
+                      <span>
+                        {`${gameDetails.gameName}` +
+                          `${gameDetails.gameType}` +
+                          `Match`}
+                      </span>
+                    </div>
+                    <img
+                      src={gameDetails.mapImg}
+                      className={styles.rn_images}
+                      height={100}
+                      width={100}
+                      alt="image"
+                      onClick={() => handleData(index)}
+                    />
+                  </div>
                 </>
               );
             })}
@@ -400,9 +411,10 @@ const page = () => {
 
         {/* </Slider> */}
         <div className={styles.welcome_Container}>
-          <div className={styles.stone}>          
+          <div className={styles.stone}>
             <img src="../assests/stone.svg" />
           </div>
+          <div className={styles.gradientoverlay1}></div>
           <div className={styles.welcome_subcontainer}>
             <div className={styles.welcome_RightImg_container}>
               <div className={styles.radialGradient}></div>
@@ -437,11 +449,11 @@ const page = () => {
             <img src={'../assests/directionindicator.svg'} />
           </div>
           <div className={styles.scopeSection}>
-            <div className={styles.gradientoverlay}></div>
-
             <div className={styles.centerscope}>
               <div className={styles.radialGradientfooter}></div>
-              {/* <div className={styles.gradientoverlay}></div> */}
+              <div className={styles.gradientoverlayscopesection}></div>
+              <div className={styles.gradientoverlayscopesectionright}></div>
+              <div className={styles.gradientoverlayscopesectiontop}></div>
               <Image
                 src="../assests/zoominimage.svg"
                 className={styles.bg_img_static}
@@ -456,6 +468,12 @@ const page = () => {
                 width={100}
                 className={styles.newscope}
               />
+              <div
+                className={styles.gradientoverlayscopesectionscopenear}
+              ></div>
+               <div
+                className={styles.gradientoverlayscopesectionscopenear1}
+              ></div>
 
               <Image
                 className={styles.scope_line}
@@ -600,7 +618,7 @@ const page = () => {
             />
           </div>
 
-          <p>Rewards</p>
+          <p>Play & Win</p>
         </div>
 
         <div className={styles.playDiv}>
@@ -612,7 +630,7 @@ const page = () => {
               alt="whiteLocation"
             />
           </div>
-          <p>Play & Win</p>
+          <p>Rewards</p>
         </div>
         <div className={styles.mapLine}>
           <img
@@ -626,7 +644,7 @@ const page = () => {
 
         <div className={styles.whiteLocationMark}>
           <Image
-          className={styles.whiteLocationMarkimg}
+            className={styles.whiteLocationMarkimg}
             src="../assests/whiteLocationIcon.svg"
             height={50}
             width={20}
@@ -662,9 +680,7 @@ const page = () => {
         </div>
 
         <div className={styles.mapBgPara}>
-          <p className={styles.mapP}>
-           {content}
-          </p>
+          <p className={styles.mapP}>{content}</p>
         </div>
       </section>
 
@@ -695,7 +711,7 @@ const page = () => {
 
       <footer className={styles.footer} id="contact">
         <div className={styles.footerDiv}>
-        <div className={styles.gradientoverlaytotopfooter}></div>
+          <div className={styles.gradientoverlaytotopfooter}></div>
           <Image
             className={styles.footerLogo}
             src="../assests/Asset 2@33 4.svg"
@@ -703,14 +719,14 @@ const page = () => {
             height={150}
             alt="footerLogo"
           />
-           <Image
+          <Image
             className={styles.shootingstar}
             src="../assests/shootingStar.svg"
             width={150}
             height={150}
             alt="shootingStar"
           />
-            <Image
+          <Image
             className={styles.shootingstarsmall}
             src="../assests/shootingStar.svg"
             width={100}
@@ -790,10 +806,15 @@ const page = () => {
           </Link>
 
           <p className={styles.footer_text}>
-            &#169; Technogetic Pvt Ltd All Rights Reserved.
+            &#169; Battlefield Gaming Private Limited. All Rights Reserved.
           </p>
           <div className={styles.headsuparrow} onClick={scrollToTop}>
-            <Image src="../assests/arrowheadup.svg" height={35} width={35} alt='headuparrow' />
+            <Image
+              src="../assests/arrowheadup.svg"
+              height={35}
+              width={35}
+              alt="headuparrow"
+            />
           </div>
         </div>
       </footer>
