@@ -517,6 +517,10 @@
   font-weight: 500;
   letter-spacing: 29px;
   margin-top: 80px;
+  @media (max-width: $breakpoint-tab) {
+    color: #003554;
+    margin-top: 40px;
+  }
 }
 .rn_text {
   position: absolute;
@@ -526,6 +530,13 @@
   padding-top: 20px;
   letter-spacing: 10px;
   animation: textmove 16s linear infinite;
+  @media (max-width: $breakpoint-tab) {
+    font-size: 16px;
+    letter-spacing: 5px;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    font-size: 10px;
+  }
 }
 @keyframes textmove {
   0% {
@@ -1863,6 +1874,9 @@
   flex-direction: row;
   gap: 70px;
   font-size: 1.5rem;
+  @media (max-width: $breakpoint-tab) {
+    gap: 30px;
+  }
 }
 
 .footer_para {
