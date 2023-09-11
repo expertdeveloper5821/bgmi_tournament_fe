@@ -9,12 +9,26 @@ import {toast} from 'react-toastify';
 import CustomCursor from './customCursor/page';
 import GlassCrack from './glassCrack/page';
 import Link from 'next/link';
+import Slider from 'react-slick';
+import { string } from 'yup';
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+
 const page = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [data, setData] = useState<any>();
   const [poolModal, setPoolModal] = useState<boolean>(false);
   const [id, setId] = useState<any>(0);
   const [disable, setDisable] = useState<boolean>(false);
+  const [content, setContent] = useState("Create your free account in just a few simple steps and join our ever-growing gaming community");
+
+  const settings = {
+    dots: true,
+    // infinite: true,
+    // speed: 500,
+    // slidesToShow: 1,
+    // slidesToScroll:1
+  };
 
   // const handleIncrement = () => {
   //   if (id === data.length - 1) {
@@ -59,6 +73,21 @@ const page = () => {
     };
   }, []);
 
+ const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // This creates a smooth scrolling effect
+    });
+  }
+  const handleButtonHover1 = () => {
+    setContent('Cash out your earnings with ease and enjoy the real benefits of your gaming talent');
+  }
+  const handleButtonHover2 = () => {
+    setContent('Dive into intense BGMI battles, showcase your skills, and climb the leaderboard to win cash rewards');
+  }
+  const handleButtonHover3 = () => {
+    setContent('Create your free account in just a few simple steps and join our ever-growing gaming community');
+  }
   return (
     <div className={styles.bodycolor}>
       {/* <CustomCursor /> */}
@@ -67,6 +96,7 @@ const page = () => {
         <div>
           <NavBar />
         </div>
+
         <div className={styles.parashoot}>
           <Image
             className={styles.person_Img}
@@ -111,11 +141,55 @@ const page = () => {
             alt="parashoot"
           />
         </div>
+        <div className={styles.bannertextcontainer}>
         <div className={styles.banner_center_text}>
           <h1 className={styles.banner_heading}>PATT SE</h1>
           <p className={styles.banner_subheading}>Warriors Wanted</p>
         </div>
+        </div>
 
+        <div className={styles.social_Icons_header}>
+          <Link href="">
+            <Image
+              className={styles.footerSocialIcon}
+              src="../assests/facebookiconblack.svg"
+              width={24}
+              height={24}
+              alt="facebook"
+            />
+          </Link>
+
+          <Link href="">
+            <Image
+              className={styles.footerSocialIcon}
+              src="../assests/instaiconblack.svg"
+              width={24}
+              height={24}
+              alt="insta"
+            />
+          </Link>
+          <Link href="">
+            <Image
+              className={styles.footerSocialIcon}
+              src="../assests/twittericonblack.svg"
+              width={24}
+              height={24}
+              alt="telegram"
+            />
+          </Link>
+
+          <Link href="">
+            <Image
+              className={styles.footerSocialIcon}
+              src="../assests/youtubeiconblack.svg"
+              width={24}
+              height={24}
+              alt="youtube"
+            />
+          </Link>
+        </div>
+
+        {/* <div className={styles.bannergradient}></div> */}
       </div>
 
       <div className={styles.upcoming_mathces_container}>
@@ -213,13 +287,13 @@ const page = () => {
           <div className={styles.time_container}>
             {data && data.length > 0 ? (
               <>
-                <div>
+                <div className={styles.comingsooncontainer}>
                   <h2>Coming Soon</h2>
                   <span>Time: {data.length > 0 && data[id].time} pm</span>
                 </div>
                 <div className={styles.prizepool}>
                   <div className={styles.prize_container}>
-                    <span>
+                    <span className={styles.commonspanprizesection}>
                       WINNING PRIZE
                       <Image
                         src="../assests/downhead.svg"
@@ -242,7 +316,9 @@ const page = () => {
                     </h2>
                   </div>
                   <div className={styles.fee_container}>
-                    <span>ENTRY FEES</span>
+                    <span className={styles.commonspanprizesection}>
+                      ENTRY FEES
+                    </span>
                     <h2>
                       0
                       <Image
@@ -257,19 +333,21 @@ const page = () => {
                 </div>
                 <div className={styles.gameInfo}>
                   <div className={styles.game}>
-                    <span>TYPE</span>
+                    <span className={styles.commonspanprizesection}>TYPE</span>
                     <span className={styles.gameYellowspan}>
                       {data[id].gameType}
                     </span>
                   </div>
                   <div className={styles.game}>
-                    <span>VERSION</span>
+                    <span className={styles.commonspanprizesection}>
+                      VERSION
+                    </span>
                     <span className={styles.gameYellowspan}>
                       {data[id].version}
                     </span>
                   </div>
                   <div className={styles.game}>
-                    <span>MAP</span>
+                    <span className={styles.commonspanprizesection}>MAP</span>
                     <span className={styles.gameOrangespan}>
                       {data[id].mapType}
                     </span>
@@ -278,7 +356,9 @@ const page = () => {
                 <div className={styles.range_container}>
                   <div className={styles.range}>
                     <input type="range" value={50} />
-                    <span>Only 30 spots left 20/50</span>
+                    <span className={styles.commonspanprizesection}>
+                      Only 30 spots left 20/50
+                    </span>
                   </div>
                   <Link href="/auth/login">
                     <button
@@ -298,6 +378,8 @@ const page = () => {
             )}
           </div>
         </div>
+        {/* <Slider {...settings}> */}
+
         <div className={styles.rn_images_container}>
           {data?.length > 0 &&
             data?.map((gameDetails: any, index: number) => {
@@ -315,17 +397,15 @@ const page = () => {
               );
             })}
         </div>
+
+        {/* </Slider> */}
         <div className={styles.welcome_Container}>
-          <div className={styles.stone}>
+          <div className={styles.stone}>          
             <img src="../assests/stone.svg" />
           </div>
-
           <div className={styles.welcome_subcontainer}>
-
             <div className={styles.welcome_RightImg_container}>
-            <div className={styles.gradientoverlay}></div>
-
-
+              <div className={styles.radialGradient}></div>
               <Image
                 className={styles.welcome_RightImg}
                 src="../assests/Group20.svg"
@@ -337,18 +417,11 @@ const page = () => {
             <div className={styles.welcome_alingnment}>
               <h2>Welcome to Patt Se Headshot</h2>
               <p>
-                Welcome to our cutting-edge esports platform designed
-                exclusively for BGMI players. Engage in thrilling competitive
-                tournaments, test your skills, and climb the leaderboards to
-                showcase your mastery. Enjoy personalized team-building
-                features, connect with fellow gamers, and strategize for
-                victory. Our platform provides in-depth game analytics to
-                enhance your performance and gain valuable insights. Embrace the
-                ultimate battleground for mobile gaming enthusiasts, where the
-                passion for esports meets unparalleled excitement. Join our
-                growing community, fuel your competitive spirit, and seize the
-                chance to win fantastic rewards. Elevate your gaming experience
-                and be a part of the future of esports with us!
+                Are you ready to take your BGMI gaming to the next level? Look
+                no further! BGMI Rewards brings you an exhilarating platform
+                where your gaming skills translate into real cash rewards. Join
+                thousands of enthusiastic players who have already unlocked the
+                true potential of their gaming passion.
               </p>
             </div>
           </div>
@@ -367,15 +440,8 @@ const page = () => {
             <div className={styles.gradientoverlay}></div>
 
             <div className={styles.centerscope}>
-              <div className={styles.gradientoverlay}></div>
-              <Image
-                src="../assests/bagshelmet.svg"
-                alt="bagshelmet"
-                height={100}
-                width={100}
-                className={styles.bagshelmet}
-              />
-              <div className={styles.gradientoverlay}></div>
+              <div className={styles.radialGradientfooter}></div>
+              {/* <div className={styles.gradientoverlay}></div> */}
               <Image
                 src="../assests/zoominimage.svg"
                 className={styles.bg_img_static}
@@ -390,6 +456,7 @@ const page = () => {
                 width={100}
                 className={styles.newscope}
               />
+
               <Image
                 className={styles.scope_line}
                 src="../assests/scopeline.svg"
@@ -451,7 +518,7 @@ const page = () => {
             <div className={styles.tournament_maincontainer}>
               <div className={styles.trophy_container}>
                 <Image
-                  src="../assests/excitmentlogo.svg"
+                  src="../assests/stamp.svg"
                   alt="trophy"
                   height={100}
                   width={100}
@@ -463,7 +530,7 @@ const page = () => {
             <div className={styles.prize_maincontainer}>
               <div className={styles.money_container}>
                 <Image
-                  src="../assests/getprize2.svg"
+                  src="../assests/moneycashback.svg"
                   alt="trophy"
                   height={100}
                   width={100}
@@ -510,7 +577,7 @@ const page = () => {
       </section>
 
       <section className={styles.mapBg}>
-        <div className={styles.signUpDiv}>
+        <div className={styles.signUpDiv} onMouseOver={handleButtonHover3}>
           <div className={styles.singUp}>
             <Image
               src="../assests/redLoction.svg"
@@ -520,11 +587,11 @@ const page = () => {
             />
           </div>
 
-          <p>Sing Up</p>
+          <p>Sign Up</p>
         </div>
 
         <div className={styles.rewardDiv}>
-          <div className={styles.rewards}>
+          <div className={styles.rewards} onMouseOver={handleButtonHover1}>
             <Image
               src="../assests/whiteLocationIcon.svg"
               height={20}
@@ -537,7 +604,7 @@ const page = () => {
         </div>
 
         <div className={styles.playDiv}>
-          <div className={styles.play}>
+          <div className={styles.play} onMouseOver={handleButtonHover2}>
             <Image
               src="../assests/whiteLocationIcon.svg"
               height={20}
@@ -545,14 +612,13 @@ const page = () => {
               alt="whiteLocation"
             />
           </div>
-
           <p>Play & Win</p>
         </div>
         <div className={styles.mapLine}>
-          <Image
+          <img
             className={styles.mapLines}
             src="../assests/mapline.svg"
-            width={900}
+            width={1100}
             height={400}
             alt="mapLine"
           />
@@ -560,6 +626,7 @@ const page = () => {
 
         <div className={styles.whiteLocationMark}>
           <Image
+          className={styles.whiteLocationMarkimg}
             src="../assests/whiteLocationIcon.svg"
             height={50}
             width={20}
@@ -587,17 +654,16 @@ const page = () => {
 
         <div className={styles.redBlurCircle}>
           <Image
-            src="../assests/redBlurCircle.svg"
-            height={70}
-            width={70}
+            src="../assests/redcircle.svg"
+            height={45}
+            width={45}
             alt="resBlur"
           />
         </div>
 
         <div className={styles.mapBgPara}>
           <p className={styles.mapP}>
-            Create your free account in just a few simple steps and join our
-            ever-growing gaming community.
+           {content}
           </p>
         </div>
       </section>
@@ -616,12 +682,12 @@ const page = () => {
           />
 
           <div className={styles.text_div}>
-            <h3 className={styles.buggiSec_heading}>Play First time free</h3>
+            <h3 className={styles.buggiSec_heading}>Play first game free</h3>
             <p className={styles.buggiSec_para}>
               Don’t waste your time Hurry up! Signup now
             </p>
             <Link href="/auth/signup">
-              <button className={styles.btnSingup}>Sign up</button>
+              <button className={styles.btnSingup}>Signup</button>
             </Link>
           </div>
         </div>
@@ -629,6 +695,7 @@ const page = () => {
 
       <footer className={styles.footer} id="contact">
         <div className={styles.footerDiv}>
+        <div className={styles.gradientoverlaytotopfooter}></div>
           <Image
             className={styles.footerLogo}
             src="../assests/Asset 2@33 4.svg"
@@ -636,7 +703,20 @@ const page = () => {
             height={150}
             alt="footerLogo"
           />
-
+           <Image
+            className={styles.shootingstar}
+            src="../assests/shootingStar.svg"
+            width={150}
+            height={150}
+            alt="shootingStar"
+          />
+            <Image
+            className={styles.shootingstarsmall}
+            src="../assests/shootingStar.svg"
+            width={100}
+            height={150}
+            alt="shootingStar"
+          />
           <div className={styles.anchorTags}>
             <Link className={styles.ancor} href="policy.html" target="_blank">
               Privacy Policy
@@ -654,42 +734,49 @@ const page = () => {
           </p>
 
           <div className={styles.social_I}>
-            <Link href="">
+            <Link href="" className={styles.sociallink}>
               <Image
-                className={styles.footerSocialIcon}
-                src="../assests/facebook (2).svg"
-                width={30}
-                height={30}
+                className={styles.footerSocialIconfb}
+                src="../assests/fbiconfooterwhite.svg"
+                width={24}
+                height={23}
                 alt="facebook"
               />
             </Link>
 
-            <Link href="">
+            <Link href="" className={styles.sociallink}>
               <Image
-                className={styles.footerSocialIcon}
-                src="../assests/instagram (2).svg"
-                width={30}
-                height={30}
+                className={styles.footerSocialIconinsta}
+                src="../assests/instaiconfooterwhite.svg"
+                width={19}
+                height={18}
                 alt="insta"
               />
             </Link>
-
-            <Link href="">
+            <Link href="" className={styles.sociallink}>
               <Image
-                className={styles.footerSocialIcon}
-                src="../assests/youtube.svg"
-                width={30}
-                height={30}
+                className={styles.footerSocialIcontwitter}
+                src="../assests/twittericonfooterwhite.svg"
+                width={19}
+                height={18}
+                alt="telegram"
+              />
+            </Link>
+            <Link href="" className={styles.sociallink}>
+              <Image
+                className={styles.footerSocialIconyt}
+                src="../assests/youtubeiconfooterwhite.svg"
+                width={19}
+                height={18}
                 alt="youtube"
               />
             </Link>
-
-            <Link href="">
+            <Link href="" className={styles.sociallink}>
               <Image
-                className={styles.footerSocialIcon}
-                src="../assests/telegram.svg"
-                width={30}
-                height={30}
+                className={styles.footerSocialIcontelegram}
+                src="../assests/telegramfootericonwhite.svg"
+                width={19}
+                height={18}
                 alt="telegram"
               />
             </Link>
@@ -705,6 +792,9 @@ const page = () => {
           <p className={styles.footer_text}>
             &#169; Technogetic Pvt Ltd All Rights Reserved.
           </p>
+          <div className={styles.headsuparrow} onClick={scrollToTop}>
+            <Image src="../assests/arrowheadup.svg" height={35} width={35} alt='headuparrow' />
+          </div>
         </div>
       </footer>
     </div>
