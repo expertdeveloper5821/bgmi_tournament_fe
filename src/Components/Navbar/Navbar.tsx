@@ -112,7 +112,7 @@ export function Navbar() {
               >
                 <Image
                   className={styles.notification}
-                  src="../assests/notificationImg.svg"
+                  src="../assests/notification.svg"
                   alt="notification"
                   onClick={() => setIsOpen(true)}
                   width={20}
@@ -120,9 +120,10 @@ export function Navbar() {
                 />
               </Popover>
             </li>
-            <li className={styles.navitem}>
-              <Avatar onClick={() => {}} src="./assests/avatar.png" size={20} />
-            </li>
+             {/* <li className={styles.navitem}>
+             <Avatar onClick={() => {}} src="../assests/avatar.png" size={20} /> 
+             
+            </li>*/}
             <li className={styles.navitem}>
               <Popover
                 isOpen={isPopOpen}
@@ -130,12 +131,12 @@ export function Navbar() {
                 content={
                   <div className={styles.myprofilesection}>
                     <div className={styles.userdetails}>
-                      <Avatar
+                      {/* <Avatar
                         onClick={() => {}}
                         src="../assests/avatar.png"
                         size={25}
-                      />
-
+                      /> */}
+   <p className={styles.dropdownprofileimage}>{namData.charAt(0).toUpperCase()}</p>
                       <div className={styles.username_details}>
                         <h1 className={styles.user_name_heading}>{namData}</h1>
                         <span className={styles.gmail}>{useData}</span>
@@ -196,20 +197,20 @@ export function Navbar() {
                 placement="bottom"
                 width="224px"
               >
-                <Image
+                 <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>{namData.charAt(0).toUpperCase()}</p>
+                {/* <Image
                   className={styles.dropdown}
                   src="../assests/dropdown.svg"
                   alt="dropdown"
                   onClick={() => setIsPopOpen(!isPopOpen)}
                   width={20}
                   height={20}
-                />
+                /> */}
               </Popover>
             </li>
             <li className={styles.navitem}>
               <div className={styles.username_details}>
-                <h1 className={styles.user_name_title}>{namData}</h1>
-                {/* <span className={styles.profile}>Web Developer</span> */}
+             <h1 className={styles.user_name_title}>{namData}</h1> 
               </div>
             </li>
           </ul>

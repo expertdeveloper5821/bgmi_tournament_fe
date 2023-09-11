@@ -5,6 +5,12 @@ import {Navbar} from '../../../Components/Navbar/Navbar';
 import Image from 'next/image';
 import {sendRequest} from '@/services/auth/auth_All_Api';
 import {useSearchParams} from 'next/navigation';
+import InputCustomTag from '@/Components/InputCustomTag/InputCustomTag';
+//@ts-ignore
+import {Button, Input} from 'technogetic-iron-smart-ui';
+import { FormikHelpers, useFormik } from 'formik';
+import { SendInviteSchema } from '@/schemas/SignupSchemas';
+
 
 export interface RegMatch {
   gameName: string;
@@ -17,8 +23,24 @@ export interface RegMatch {
   roomId: string;
   password: string;
 }
+interface FormValues {
+  email: string;
+}
+
 
 const regMatches = () => {
+  const [poolModal, setPoolModal] = useState(false);
+  const [values, setValues] = useState<string[]>([]);
+
+  const handleValueChange = (newValues: string[]) => {
+    setValues(newValues);
+  };
+ 
+  const [tags, setTags] = useState([]);
+  const handleTagsChange = (newTags:any) => {
+    setTags(newTags);
+   
+  };
   const searchParams = useSearchParams();
   const matchID = searchParams.get('id');
   const [matchData, setMatchData] = useState<RegMatch>();
@@ -49,7 +71,40 @@ const regMatches = () => {
   useEffect(() => {
     getRoomidPwd();
   }, [matchData]);
+  // const handleSubmit = async () => {
+   
+  //     // const token: any = localStorage.getItem('jwtToken');
+  //     // const responseaddteam = await sendRequest(`team/addteam`, {
+  //     //   method: 'POST',
+  //     //   headers: {Authorization: `Bearer ${token}`},
+  //     //   data:tags,
+  //     // });
+     
+  //  console.log("check this api respones" )
+  
+  // }
+  // const initialValues: FormValues = {
+  //   email: '',
+  // };
 
+  // const {
+  //   values,
+  //   touched,
+  //   errors,
+  //   handleSubmit,
+  //   handleChange,
+  //   handleBlur,
+  //   setFieldValue,
+  // } = useFormik({
+  //   initialValues,
+  //   validationSchema: SendInviteSchema,
+  //   onSubmit: async (
+  //     values: FormValues,
+  //     {setSubmitting}: FormikHelpers<FormValues>,
+  //   ) => {
+  //     const {email} = values;
+  //   }
+  //  })
   return (
     <div className={styles.main_container}>
       <div className={styles.abcd}>
@@ -63,12 +118,12 @@ const regMatches = () => {
               </h1>
             </div>
             <div className={styles.sendmailbtnContainer}>
-              {/* <button
+              <button
                   className={styles.sendMailBtn}
-                  // onClick={handleOpenFwdModal}
-                >
+                  onClick={() => setPoolModal(true)}>
+                  
                   SEND INVITE BY EMAIL
-                </button> */}
+                </button>
             </div>
           </div>
           <div className={styles.room_wrapper}>
@@ -198,6 +253,33 @@ const regMatches = () => {
               </div>
             </div>
           </div>
+          <div>
+         
+      {poolModal ? (
+        <div className={styles.main_tag_model}>
+            <div className={styles.check_model}>
+        <h3 className={styles.heading_tag}>Invite your Friend</h3>
+      
+        
+
+        <div>
+        <Button
+                  className={styles.cancel_tag_cls}
+                  onClick={() => setPoolModal(false)}
+                >
+                  cancel
+                </Button>
+                <Button
+                  type="submit"
+                  className={styles.roombutton}
+                 // onClick={handleSubmit}
+                >
+                Send
+                </Button>
+                </div>
+        </div></div>):''}
+     
+    </div>
           {/* <div className={styles.Teammembers}>Your Team Members</div> */}
 
           {/* <div className={styles.container2}>
@@ -264,6 +346,7 @@ const regMatches = () => {
             </div> */}
         </div>
       </div>
+     
     </div>
   );
 };
