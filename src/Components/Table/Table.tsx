@@ -208,11 +208,11 @@ const TableData = (props: StudentProfilePropsType) => {
 
 
             {/* {isModalOpen ?
-              // <div className={styles.main_del_sec}>
-              //   <div className={styles.inner_del_sec}>
+              <div className={styles.main_del_sec}>
+                <div className={styles.inner_del_sec}>
 
-              //   </div>
-              // </div> : ""} */}
+                </div>
+              </div> : ""} */}
             {isShowData && colAdded.map(col =>
               <TableHead className={styles.table_head}>
                 <div className={styles.filter}>{col}</div>
