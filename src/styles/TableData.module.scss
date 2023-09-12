@@ -3,16 +3,18 @@
 
 .table_content {
   font-size: 10px;
-  color: #003554;
+  overflow-x: auto;
   text-align: center;
-
-  // position: relative;
 }
 
 .filter {
   display: flex;
-  align-items: flex-start;
-  width: auto;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+
+  // justify-content: space-between
 }
 
 .tableHeader {
@@ -20,8 +22,25 @@
 }
 
 .table_head {
-  padding: 0.8rem;
-  background-color: none;
+  @include tableheader;
+  text-align: center;
+  // height: 60px;
+}
+.room_header {
+  @include tableheader;
+  margin: 12px;
+}
+
+.table_head:last-child {
+  width: 100px;
+}
+.table_head:first-child {
+  width: 120px;
+  text-align: center;
+}
+
+.table_cell:nth-child(even) {
+  color: #ff7a00;
 }
 
 .table_body {
@@ -33,7 +52,8 @@
 }
 
 .table_rowdata {
-  background-color: #f5f5f5;
+  @include tdbody;
+  font-weight: 800;
 }
 
 .table_icon {
@@ -53,8 +73,10 @@
 
 .table_cell {
   padding: 1rem;
-  text-align: start;
-
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
   @media (max-width: $breakpoint-sm) {
     font-size: 12px;
   }
@@ -72,4 +94,237 @@
 
 .table_Studenticon img {
   size: 20px;
+}
+.arrow {
+  display: flex;
+}
+
+.r_main_title {
+  color: aliceblue;
+  font-size: 30px;
+  font-weight: 700;
+  font-family: Century Gothic;
+  line-height: 36.78px;
+}
+.check_model {
+  background: white;
+  height: auto;
+  width: 30%;
+  border-radius: 15px;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 90% !important;
+  }
+  @media (max-width: $breakpoint-xs) {
+    width: 90% !important;
+  }
+  @media (max-width: $breakpoint-sm) {
+    width: 50%;
+  }
+  @media (max-width: $breakpoint-md) {
+    width: 50%;
+  }
+}
+.main_pop_cls,
+.main_del_sec {
+  @include spectator_model;
+}
+
+.main_del_sec {
+  background-color: rgba(0, 0, 0, 0.18);
+}
+
+.inner_specter_cls {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 26px;
+}
+.main_form_btn {
+  background: #ff7a00;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+}
+.cancel_btn {
+  border: none;
+  background: white;
+  font-size: 16px;
+}
+.pop_heading {
+  @include spectator_model_heading;
+}
+.form_spectator_cls {
+  padding: 28px 48px;
+  height: 500px;
+  overflow-y: scroll;
+}
+button#btn_cls_st {
+  background: #ff7a00;
+}
+.roombutton {
+  background: #ff7a00 !important;
+  width: 100%;
+  margin-top: 12px;
+  color: white !important;
+}
+.room_field_wrapper {
+  @include spectator_modelfield;
+  @media (max-width: $breakpoint-xs) {
+    margin: 8px 0px;
+  }
+}
+.room_id {
+  color: #003554 !important;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17.17px;
+  font-family: Century Gothic;
+  @media (max-width: $breakpoint-xs) {
+    font-size: 13px;
+  }
+}
+.btn_form_wrapper {
+  padding: 16px 0px 0px 0px;
+}
+.cancel_btn {
+  width: 100%;
+  border: 1px solid #ff7a00 !important;
+  color: #ff7a00 !important;
+}
+.cancel_btn:hover {
+  background: #ff7a00 !important;
+  color: white !important;
+}
+.error {
+  @include error;
+}
+#gameName {
+  color: #ff7a00;
+}
+.inner_del_sec {
+  background: white;
+  height: auto;
+  width: 28%;
+  border-radius: 15px;
+  padding: 20px 10px;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 90% !important;
+  }
+  @media (max-width: $breakpoint-xs) {
+    width: 90% !important;
+  }
+  @media (max-width: $breakpoint-sm) {
+    width: 90%;
+  }
+  @media (max-width: $breakpoint-md) {
+    width: 50%;
+  }
+}
+.sec_heading {
+  color: #6c757d !important;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: Century Gothic;
+  line-height: 19.62px;
+  padding: 12px;
+  text-align: center;
+}
+.del_btn_sec {
+  text-align: center;
+}
+.del_title {
+  color: #ff7a00 !important;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: Century Gothic;
+}
+.dele_btn {
+  border: none;
+  background: #ff7a00;
+  color: white !important;
+  width: 102px;
+  margin-right: 6px;
+}
+.canc_btn {
+  border: 1px solid #ff7a00 !important;
+  background: #fff;
+  color: #ff7a00 !important;
+  width: 102px;
+  margin-left: 6px;
+}
+
+.update_form {
+  padding: 18px 30px;
+}
+.room_field_cls2 {
+  width: 100%;
+}
+//new tabel code
+.table_content {
+  border: none;
+  // width: 84%;
+  overflow-x: scroll;
+  @media (max-width: $breakpoint-xSmall) {
+    overflow: scroll;
+  }
+  @media (max-width: $breakpoint-xs) {
+    overflow: scroll;
+  }
+  @media (max-width: $breakpoint-sm) {
+    overflow: scroll;
+  }
+  @media (max-width: $breakpoint-md) {
+    overflow: scroll;
+  }
+}
+.table_head_sectat {
+  @include tableheader;
+}
+
+.table_row_cell {
+  @include tdbody;
+}
+.tb_cell_body {
+  color: #ff7a00 !important;
+  text-align: center;
+  padding: 3px 3px;
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 7px 38px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    padding: 7px 38px;
+  }
+  @media (max-width: $breakpoint-sm) {
+    padding: 7px 38px;
+  }
+}
+.el_tb_cell {
+  color: #fff;
+  text-align: center;
+  padding: 3px 6px;
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 8px 36px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    padding: 8px 36px;
+  }
+  @media (max-width: $breakpoint-sm) {
+    padding: 8px 36px;
+  }
+}
+.tb_cell_action {
+  display: flex !important;
+  justify-content: space-around;
+  padding: 8px;
+}
+.showdata {
+  // border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scrolling {
+  overflow-x: scroll;
 }
