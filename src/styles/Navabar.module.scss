@@ -2,13 +2,14 @@
 @import './variable.scss';
 
 .container {
-  border: none !important;
+  border: none;
   width: auto;
-  height: 50px;
+  // height: 50px;
+  padding: 9px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  // padding: 0 20px;
 
   @media (max-width: $breakpoint-xs) {
     padding: 0 0 0 10px;
@@ -25,7 +26,7 @@
 }
 
 .navitem {
-  margin-right: 20px;
+  margin-right: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -61,7 +62,7 @@
   flex-direction: column;
 }
 .username_details .user_name_title {
-  color: white;
+  color: $bs-white;
   font-weight: 900;
 }
 .username_details .user_name_title {
@@ -80,17 +81,17 @@
   font-weight: 500;
 }
 
-.adminname {
-  color: $primary-color;
-  margin: 1px;
-  font-size: var(--bs-font-size);
-}
+// .adminname {
+//   color: $primary-color;
+//   margin: 1px;
+//   font-size: var(--bs-font-size);
+// }
 
-.profile {
-  font-size: 8px;
-  color: var(--bs-grey);
-  text-align: center;
-}
+// .profile {
+//   font-size: 8px;
+//   color: var(--bs-grey);
+//   text-align: center;
+// }
 
 .dropdown {
   cursor: pointer;

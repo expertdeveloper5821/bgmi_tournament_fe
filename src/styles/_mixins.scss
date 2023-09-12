@@ -57,7 +57,7 @@
   @media (max-width: $breakpoint-xs) {
     font-size: 28px;
     line-height: 32px;
-    font-family: var(--bs-body-font-family);
+    font-family: $bs-body-font-family;
   }
 }
 

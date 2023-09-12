@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700&display=swap');
+
+
+//Font Family 
+$bs-body-font-family: 'Century Gothic';
+
+:export {
+    //font family 
+    bs-body-font-family: $bs-body-font-family;
+}
