@@ -6,7 +6,7 @@ import {Navbar} from '../../../Components/Navbar/Navbar';
 import {Button} from 'technogetic-iron-smart-ui';
 import {decodeJWt} from '@/utils/globalfunctions';
 import Image from 'next/image';
-import {sendRequest} from '@/services/auth/auth_All_Api';
+import {sendRequest} from '@/utils/axiosInstanse';
 import {
   AiOutlineDown,
   AiOutlineClose,

@@ -13,12 +13,11 @@ import Link from 'next/link';
 //@ts-ignore
 import {Button, Input} from 'technogetic-iron-smart-ui';
 import styles from '../../../styles/auth.module.scss';
-import {sendRequest} from '../../../services/auth/auth_All_Api';
+import {sendRequest} from '../../../utils/axiosInstanse';
 import {FcGoogle} from 'react-icons/fc';
 import Image from 'next/image';
 import {loginSchema} from '../../../schemas/SignupSchemas';
 import {decodeJWt} from '@/utils/globalfunctions';
-import {configData} from '@/utils/config';
 import {useUserContext} from '@/utils/contextProvider';
 
 interface LoginProps {}
