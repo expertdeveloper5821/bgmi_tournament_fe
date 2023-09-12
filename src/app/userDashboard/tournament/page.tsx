@@ -1,21 +1,16 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Dashboard.module.scss';
-import {Navbar} from '../../../components/commonComponent/Navbar/Navbar';
+import { Navbar } from '../../../components/commonComponent/Navbar/Navbar';
 //@ts-ignore
-import {Button} from 'technogetic-iron-smart-ui';
-import {decodeJWt} from '@/utils/globalfunctions';
+import { Button } from 'technogetic-iron-smart-ui';
+import { decodeJWt } from '@/utils/globalfunctions';
 import Image from 'next/image';
-import {sendRequest} from '@/utils/axiosInstanse';
-import {
-  AiOutlineDown,
-  AiOutlineClose,
-  AiOutlineLeft,
-  AiOutlineRight,
-} from 'react-icons/ai';
+import { sendRequest } from '@/utils/axiosInstanse';
+import { AiOutlineDown, AiOutlineClose, AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import CountdownComponent from './CountdownComponent';
-import {toast} from 'react-toastify';
-import {useRouter} from 'next/navigation';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 export interface tournament {
   gameName: string;
@@ -57,12 +52,11 @@ function Tournament() {
     const decodedToken: any = decodeJWt(token);
     const tournamentResponse = await sendRequest('room/rooms', {
       method: 'GET',
-      headers: {Authorization: `Bearer ${token}`},
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     const filteredDataArray = tournamentResponse.data.filter(
-      (item: {roomUuid: string; roomid: string}) =>
-        !roomids?.includes(item.roomUuid),
+      (item: { roomUuid: string; roomid: string }) => !roomids?.includes(item.roomUuid),
     );
 
     setData(filteredDataArray);
@@ -73,7 +67,7 @@ function Tournament() {
     const decodedToken: any = decodeJWt(token);
     const registeredMatches = await sendRequest('team/register-room ', {
       method: 'GET',
-      headers: {Authorization: `Bearer ${token}`},
+      headers: { Authorization: `Bearer ${token}` },
     });
     setRegMatches(registeredMatches.data.rooms);
   };
@@ -157,7 +151,7 @@ function Tournament() {
 
       const response = await sendRequest('payment/create-payment', {
         method: 'POST',
-        headers: {Authorization: `Bearer ${token}`},
+        headers: { Authorization: `Bearer ${token}` },
         data: {
           upiId: 'success@payment',
           matchAmount: 60,
@@ -227,9 +221,7 @@ function Tournament() {
             <div className={styles.content}>
               <div className={styles.dashboard}>
                 <span className={styles.head_desc}>Upcoming Matches</span>
-                <h1 className={styles.subhead_desc}>
-                  Dashboard/Upcoming Matches
-                </h1>
+                <h1 className={styles.subhead_desc}>Dashboard/Upcoming Matches</h1>
               </div>
             </div>
             <div className={styles.room_wrapper}>
@@ -246,9 +238,7 @@ function Tournament() {
                   </div>
                 </div>
                 {alldata && alldata.length === 0 ? (
-                  <div className={styles.register_match}>
-                    There is no room created till now
-                  </div>
+                  <div className={styles.register_match}>There is no room created till now</div>
                 ) : (
                   <>
                     <div className={styles.squad_match}>
@@ -261,21 +251,15 @@ function Tournament() {
                           <span className={styles.winning_prize}>
                             WINNING PRIZE
                             <span>
-                              <AiOutlineDown
-                                onClick={() => setPoolModal(true)}
-                              />
+                              <AiOutlineDown onClick={() => setPoolModal(true)} />
                             </span>
                           </span>
                           {poolModal ? (
                             <div className={styles.main_winning_pool}>
                               <div className={styles.inner_winning_pool}>
                                 <div className={styles.text_pool_cls}>
-                                  <h1 className={styles.pool_heading}>
-                                    WINNING PRIZE POOL
-                                  </h1>
-                                  <p className={styles.pool_para}>
-                                    BGMI Squad match
-                                  </p>
+                                  <h1 className={styles.pool_heading}>WINNING PRIZE POOL</h1>
+                                  <p className={styles.pool_para}>BGMI Squad match</p>
                                 </div>
                                 <div className={styles.pool_cancel_p}>
                                   <p className={styles.pool_text_p}>
@@ -327,9 +311,7 @@ function Tournament() {
                                   className={styles.pool_cancel_p}
                                   onClick={() => setPoolModal(false)}
                                 >
-                                  <AiOutlineClose
-                                    className={styles.cancel_icon}
-                                  />
+                                  <AiOutlineClose className={styles.cancel_icon} />
                                 </p>
                               </div>
                             </div>
@@ -349,9 +331,7 @@ function Tournament() {
                           </span>
                         </div>
                         <div>
-                          <span className={styles.winning_prize}>
-                            Entry FEES
-                          </span>
+                          <span className={styles.winning_prize}>Entry FEES</span>
                           <span className={styles.survival_content}>
                             50
                             <span className="rs_logo">
@@ -370,7 +350,7 @@ function Tournament() {
                           <span className={styles.winning_prize}>TYPE</span>
                           <span
                             className={styles.tvm_font}
-                            style={{color: 'rgba(255, 214, 0, 1)'}}
+                            style={{ color: 'rgba(255, 214, 0, 1)' }}
                           >
                             {gameType}
                           </span>
@@ -379,7 +359,7 @@ function Tournament() {
                           <span className={styles.winning_prize}>VERSION</span>
                           <span
                             className={styles.tvm_font}
-                            style={{color: 'rgba(255, 214, 0, 1)'}}
+                            style={{ color: 'rgba(255, 214, 0, 1)' }}
                           >
                             {version}
                           </span>
@@ -388,31 +368,21 @@ function Tournament() {
                           <span className={styles.winning_prize}>MAP</span>
                           <span
                             className={styles.tvm_font}
-                            style={{color: 'rgba(255, 122, 0, 1)'}}
+                            style={{ color: 'rgba(255, 122, 0, 1)' }}
                           >
                             {mapType}
                           </span>
                         </div>
                       </div>
                       <div className={styles.spot_line_sec}>
-                        <progress
-                          className={styles.progress_cls}
-                          id="file"
-                          value="40"
-                          max="100"
-                        />
+                        <progress className={styles.progress_cls} id="file" value="40" max="100" />
                       </div>
                       <div className={styles.winnings_sec_secton}>
                         <div className={styles.spot_line}>
-                          <span className={styles.bar_font}>
-                            Only 30 spots Left
-                          </span>
+                          <span className={styles.bar_font}>Only 30 spots Left</span>
                           <span className={styles.bar_font}>20/50</span>
                         </div>
-                        <Button
-                          className={styles.join_button}
-                          onClick={() => addRegMatch(roomId)}
-                        >
+                        <Button className={styles.join_button} onClick={() => addRegMatch(roomId)}>
                           Join
                         </Button>
                       </div>
@@ -452,9 +422,7 @@ function Tournament() {
             </div>
             <span className={styles.register_match}>Registered Matches</span>
             {!regMatches.length ? (
-              <div className={styles.register_match}>
-                There is no Registered Match till now
-              </div>
+              <div className={styles.register_match}>There is no Registered Match till now</div>
             ) : (
               <>
                 <div className={styles.container2}>
@@ -487,7 +455,7 @@ function Tournament() {
                                       <span> TYPE</span>
                                       <span
                                         className={styles.tvm_font}
-                                        style={{color: 'rgba(255, 214, 0, 1)'}}
+                                        style={{ color: 'rgba(255, 214, 0, 1)' }}
                                       >
                                         {match?.gameType}
                                       </span>
@@ -496,7 +464,7 @@ function Tournament() {
                                       <span>Version</span>
                                       <span
                                         className={styles.tvm_font}
-                                        style={{color: 'rgba(255, 214, 0, 1)'}}
+                                        style={{ color: 'rgba(255, 214, 0, 1)' }}
                                       >
                                         {match?.version}
                                       </span>
@@ -505,7 +473,7 @@ function Tournament() {
                                       <span>MAP</span>
                                       <span
                                         className={styles.tvm_font}
-                                        style={{color: 'rgba(255, 122, 0, 1)'}}
+                                        style={{ color: 'rgba(255, 122, 0, 1)' }}
                                       >
                                         {match?.mapType}
                                       </span>
@@ -521,13 +489,10 @@ function Tournament() {
                                       <span>{match?.time}</span>
                                     </div>
                                   </div>
-                                  {matchIndex.length != 0 &&
-                                  matchIndex.includes(index) ? (
+                                  {matchIndex.length != 0 && matchIndex.includes(index) ? (
                                     <div className={styles.id_password}>
                                       <span>Room Id: {match?.roomId}</span>
-                                      <span>
-                                        Room password: {match?.password}
-                                      </span>
+                                      <span>Room password: {match?.password}</span>
                                     </div>
                                   ) : (
                                     <div className={styles.id_password}>
@@ -543,9 +508,7 @@ function Tournament() {
                     <button
                       onClick={goToNextSlide}
                       className={styles.nextButton}
-                      disabled={
-                        currentIndex === regMatches.length - numItemsToShow
-                      }
+                      disabled={currentIndex === regMatches.length - numItemsToShow}
                     >
                       <AiOutlineRight className={styles.outline_icon} />
                     </button>

@@ -1,7 +1,11 @@
- {"studentData":[{
-    "StudentName": "",
-    "Student": "",
-    "studentID": "",
-    "Mobile": "",
-    "Course": ""
-  }]}
+{
+  "studentData": [
+    {
+      "StudentName": "",
+      "Student": "",
+      "studentID": "",
+      "Mobile": "",
+      "Course": ""
+    }
+  ]
+}

@@ -1,10 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Teams = () => {
-  return (
-    <div> User dashbaord Teams</div>
-  )
-}
+  return <div> User dashbaord Teams</div>;
+};
 
-export default Teams
-
+export default Teams;

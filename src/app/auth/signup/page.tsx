@@ -5,8 +5,8 @@ import SignupForm from '@/components/pageComponents/auth/signup';
 
 const Signup = () => (
   <AuthContainer>
-    <SignupForm/>
+    <SignupForm />
   </AuthContainer>
-)
+);
 
 export default Signup;

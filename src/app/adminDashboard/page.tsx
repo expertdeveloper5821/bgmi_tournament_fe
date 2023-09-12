@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '@/styles/Dashboard.module.scss';
 import Sidebar from '../../components/commonComponent/SideBar/Sidebar';
 import { Navbar } from '../../components/commonComponent/Navbar/Navbar';
-import TableData, { StudentProfile } from '../../components/commonComponent/Table/Table'
+import TableData, { StudentProfile } from '../../components/commonComponent/Table/Table';
 import assignmentData from '../../utils/CreateAssignmment.json';
 //@ts-ignore
 import { Pagination } from 'technogetic-iron-smart-ui';
@@ -11,24 +11,20 @@ import { BtnDashboard } from '../../components/commonComponent/BtnDashboard';
 import RequireAuthentication from '../../utils/requireAuthentication';
 import withAuth from '@/components/hoc/WithAuthHoc';
 
-
-export interface IAppProps { }
+export interface IAppProps {}
 
 function AdminDashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
   const rowPerPage = 8;
 
-
-  const transformedStudentData = assignmentData.studentData.map(
-    (item: StudentProfile) => ({
-      StudentName: item.StudentName,
-      Student: item.Student,
-      studentID: item.studentID,
-      Mobile: item.Mobile,
-      Course: item.Course,
-    }),
-  );
+  const transformedStudentData = assignmentData.studentData.map((item: StudentProfile) => ({
+    StudentName: item.StudentName,
+    Student: item.Student,
+    studentID: item.studentID,
+    Mobile: item.Mobile,
+    Course: item.Course,
+  }));
 
   useEffect(() => {
     const startIndex = (currentPage - 1) * rowPerPage;
@@ -41,13 +37,7 @@ function AdminDashboard() {
     setCurrentPage(page);
   };
 
-  const columns: string[] = [
-    'Squad',
-    'Room Id',
-    'Spectator Id',
-    'Date and Time',
-    'Map',
-  ];
+  const columns: string[] = ['Squad', 'Room Id', 'Spectator Id', 'Date and Time', 'Map'];
 
   return (
     <>
@@ -65,9 +55,7 @@ function AdminDashboard() {
               />
               <Pagination
                 currentPage={currentPage}
-                totalPages={Math.ceil(
-                  transformedStudentData.length / rowPerPage,
-                )}
+                totalPages={Math.ceil(transformedStudentData.length / rowPerPage)}
                 onPageChange={onPageChange}
               />
             </div>

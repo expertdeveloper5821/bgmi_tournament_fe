@@ -1,3 +1,3 @@
 export const serviceUrls = {
-    signup: '/user/signup'
-}
+  signup: '/user/signup',
+};

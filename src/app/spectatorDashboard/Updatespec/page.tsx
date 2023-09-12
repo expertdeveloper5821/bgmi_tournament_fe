@@ -1,12 +1,12 @@
 'use client';
-import React, {ChangeEvent, useState} from 'react';
+import React, { ChangeEvent, useState } from 'react';
 //@ts-ignore
-import {Button, Input} from 'technogetic-iron-smart-ui';
-import {AiOutlineDelete} from 'react-icons/ai';
+import { Button, Input } from 'technogetic-iron-smart-ui';
+import { AiOutlineDelete } from 'react-icons/ai';
 import styles from '@/styles/Spectator.module.scss';
-import {RoomData} from '../Room/page';
+import { RoomData } from '../Room/page';
 import Image from 'next/image';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import { sendRequest } from '@/utils/axiosInstanse';
 
 // interface UpdatespecProps {
@@ -14,7 +14,7 @@ import { sendRequest } from '@/utils/axiosInstanse';
 //   getAllSpectator: () => void;
 //   updateRoom: (updatedRoom: RoomData) => void;
 // }
-const Updatespec = ({roomData, getAllSpectator}: any) => {
+const Updatespec = ({ roomData, getAllSpectator }: any) => {
   const [error, setError] = useState<string>('');
   const [deletModal, setDeleteModal] = useState(false);
   const [updateFormData, setUpdateFormData] = useState<RoomData>(roomData);
@@ -150,17 +150,10 @@ const Updatespec = ({roomData, getAllSpectator}: any) => {
                   }
                   placeholder="Map Type"
                 />
-                <Button
-                  className={styles.cancel_btn}
-                  onClick={() => setDeleteModal(false)}
-                >
+                <Button className={styles.cancel_btn} onClick={() => setDeleteModal(false)}>
                   cancel
                 </Button>
-                <Button
-                  type="submit"
-                  className={styles.roombutton}
-                  onClick={updateRoom}
-                >
+                <Button type="submit" className={styles.roombutton} onClick={updateRoom}>
                   Update Room
                 </Button>
               </form>

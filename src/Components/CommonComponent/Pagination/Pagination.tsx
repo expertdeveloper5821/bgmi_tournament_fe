@@ -1,11 +1,11 @@
-import {RoomData} from '@/app/spectatorDashboard/Room/page';
-import React, {useState} from 'react';
+import { RoomData } from '@/app/spectatorDashboard/Room/page';
+import React, { useState } from 'react';
 import styles from '@/styles/pagination.module.scss';
 interface CustomPaginationProps {
   data: RoomData[]; // Replace 'any' with the actual type of your data
 }
 
-const CustomPagination: React.FC<CustomPaginationProps> = ({data}) => {
+const CustomPagination: React.FC<CustomPaginationProps> = ({ data }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const recordsPerPage = 3;
   const lastIndex = currentPage * recordsPerPage;

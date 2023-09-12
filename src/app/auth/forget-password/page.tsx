@@ -8,7 +8,7 @@ import { Button, Input } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
 
-interface ResetPasswordProps { }
+interface ResetPasswordProps {}
 
 export default function ResetPassword(): JSX.Element {
   const [email, setEmail] = useState<string>('');
@@ -46,14 +46,12 @@ export default function ResetPassword(): JSX.Element {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <Image src="/assests/logoWithBg.svg" alt="logo" width={250}
-              height={100} />
+            <Image src="/assests/logoWithBg.svg" alt="logo" width={250} height={100} />
           </div>
           <div>
             <h2 className={styles.headDesc}>Forgot Password</h2>
             <p className={styles.heading}>
-              Please enter your registered email id or mobile to reset your
-              password
+              Please enter your registered email id or mobile to reset your password
             </p>
           </div>
           <div className={styles.input_box}>
@@ -68,19 +66,12 @@ export default function ResetPassword(): JSX.Element {
               value={email}
               onChange={handleEmailChange}
             />
-            {!isEmailValid && (
-              <p className={styles.error_message}>Please enter a valid email</p>
-            )}
+            {!isEmailValid && <p className={styles.error_message}>Please enter a valid email</p>}
           </div>
           <div className={styles.button_wrapper}>
-            <Button
-              variant="contained"
-              className={styles.SignIn_button}
-              onClick={sendEmail}
-            >
+            <Button variant="contained" className={styles.SignIn_button} onClick={sendEmail}>
               Recover Password
             </Button>
-
           </div>
           <div className={styles.signin}>
             <span>

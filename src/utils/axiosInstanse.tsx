@@ -1,4 +1,4 @@
-import axios, {AxiosInstance} from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { config } from './config';
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 const apiVersion = process.env.NEXT_PUBLIC_API_BASE_VER;

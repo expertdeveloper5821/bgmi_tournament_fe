@@ -1,11 +1,11 @@
 'use client';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 //@ts-ignore
-import {Button, Input} from 'technogetic-iron-smart-ui';
-import {useFormik, FormikHelpers} from 'formik';
-import {ChangeEvent} from 'react';
-import {toast} from 'react-toastify';
+import { Button, Input } from 'technogetic-iron-smart-ui';
+import { useFormik, FormikHelpers } from 'formik';
+import { ChangeEvent } from 'react';
+import { toast } from 'react-toastify';
 import { sendRequest } from '@/utils/axiosInstanse';
 import { createspectater } from '@/utils/schema';
 interface FormCreate {
@@ -24,7 +24,7 @@ interface FormCreate {
   mapImg: string;
 }
 
-const Form = ({getAllSpectator}: any) => {
+const Form = ({ getAllSpectator }: any) => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -46,56 +46,46 @@ const Form = ({getAllSpectator}: any) => {
     mapImg: '',
   };
 
-  const {
-    values,
-    touched,
-    errors,
-    handleSubmit,
-    handleChange,
-    handleBlur,
-    setFieldValue,
-  } = useFormik({
-    initialValues,
-    validationSchema: createspectater,
-    onSubmit: async (values: any) => {
-      const form = new FormData();
-      form.append('mapImg', image);
-      for (const key in values) {
-        form.append(key, values[key]);
-      }
-      console.log(form);
-      try {
-        const token = localStorage.getItem('jwtToken');
-        const response = await sendRequest('room/rooms', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-          data: form,
-        });
+  const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
+    useFormik({
+      initialValues,
+      validationSchema: createspectater,
+      onSubmit: async (values: any) => {
+        const form = new FormData();
+        form.append('mapImg', image);
+        for (const key in values) {
+          form.append(key, values[key]);
+        }
+        console.log(form);
+        try {
+          const token = localStorage.getItem('jwtToken');
+          const response = await sendRequest('room/rooms', {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'multipart/form-data',
+            },
+            data: form,
+          });
 
-        if (response.status === 200) {
-          getAllSpectator();
-          toast.success(response.data.message);
-          setShowModal(false);
-        } else {
+          if (response.status === 200) {
+            getAllSpectator();
+            toast.success(response.data.message);
+            setShowModal(false);
+          } else {
+            setError('Failed to Add room. Please try again.');
+          }
+        } catch (error: any) {
+          setIsLoading(false);
           setError('Failed to Add room. Please try again.');
         }
-      } catch (error: any) {
-        setIsLoading(false);
-        setError('Failed to Add room. Please try again.');
-      }
-    },
-  });
+      },
+    });
 
   return (
     <>
       <div>
-        <button
-          className={styles.main_form_btn}
-          onClick={() => setShowModal(true)}
-        >
+        <button className={styles.main_form_btn} onClick={() => setShowModal(true)}>
           CREATE ROOM ID
         </button>
         {showModal ? (
@@ -105,10 +95,7 @@ const Form = ({getAllSpectator}: any) => {
                 <h1 className={styles.pop_heading}>Create new room</h1>
               </div>
               <div className="check">
-                <form
-                  onSubmit={handleSubmit}
-                  className={styles.form_spectator_cls}
-                >
+                <form onSubmit={handleSubmit} className={styles.form_spectator_cls}>
                   {error && <div className={styles.error}>{error}</div>}
                   <div className={styles.input_box}>
                     <label className={styles.room_id} htmlFor="room_id">
@@ -349,10 +336,7 @@ const Form = ({getAllSpectator}: any) => {
                     />
                   </div>
                   <div className={styles.btn_form_wrapper}>
-                    <Button
-                      className={styles.cancel_btn}
-                      onClick={() => setShowModal(false)}
-                    >
+                    <Button className={styles.cancel_btn} onClick={() => setShowModal(false)}>
                       Cancel
                     </Button>
                     <Button

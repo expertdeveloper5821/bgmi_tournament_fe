@@ -1,22 +1,16 @@
 'use client';
-import React, {useState, useEffect, ChangeEvent, useContext} from 'react';
-import {
-  useFormik,
-  FormikErrors,
-  FormikTouched,
-  FormikValues,
-  FormikHelpers,
-} from 'formik';
-import {useRouter} from 'next/navigation';
+import React, { useState, useEffect, ChangeEvent, useContext } from 'react';
+import { useFormik, FormikErrors, FormikTouched, FormikValues, FormikHelpers } from 'formik';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 //@ts-ignore
-import {Button, Input} from 'technogetic-iron-smart-ui';
+import { Button, Input } from 'technogetic-iron-smart-ui';
 import styles from '@/styles/auth.module.scss';
-import {sendRequest} from '../../../utils/axiosInstanse';
-import {FcGoogle} from 'react-icons/fc';
+import { sendRequest } from '../../../utils/axiosInstanse';
+import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
-import {decodeJWt} from '@/utils/globalfunctions';
-import {useUserContext} from '@/utils/contextProvider';
+import { decodeJWt } from '@/utils/globalfunctions';
+import { useUserContext } from '@/utils/contextProvider';
 import { SignupSchema, loginSchema } from '@/utils/schema';
 
 interface LoginProps {}
@@ -32,7 +26,7 @@ function Login(): React.JSX.Element {
   const [role, setRole] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [getToken, setGetToken] = useState<any>('');
-  const {userInfo, updateUserInfo} = useUserContext();
+  const { userInfo, updateUserInfo } = useUserContext();
   console.log('usering=', userInfo);
   const router = useRouter();
 
@@ -55,64 +49,54 @@ function Login(): React.JSX.Element {
     password: '',
   };
 
-  const {
-    values,
-    touched,
-    errors,
-    handleSubmit,
-    handleChange,
-    handleBlur,
-    setFieldValue,
-  } = useFormik({
-    initialValues,
-    validationSchema: loginSchema,
-    onSubmit: async (
-      values: FormValues,
-      {setSubmitting}: FormikHelpers<FormValues>,
-    ) => {
-      setIsLoading(true);
-      const {email, password} = values;
-      if (rememberMe) {
-        const expirationDate = new Date();
-        expirationDate.setDate(expirationDate.getDate() + 30);
-        localStorage.setItem('email', email);
-        localStorage.setItem('password', password);
-        localStorage.setItem('rememberMe', 'true');
-      } else {
-        localStorage.removeItem('email');
-        localStorage.removeItem('password');
-        localStorage.removeItem('rememberMe');
-      }
-
-      // manual login
-      try {
-        const response = await sendRequest('user/login', {
-          method: 'POST',
-          data: {email, password},
-        });
-
-        setIsLoading(false);
-        if (response.status === 200) {
-          const userDetails = {
-            name: response?.data?.userData?.fullName,
-            email: response?.data?.userData?.email,
-          };
-          updateUserInfo(userDetails);
-          localStorage.setItem('jwtToken', response?.data?.userData?.token);
-
-          handleRedirect(response?.data?.userData?.token);
+  const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
+    useFormik({
+      initialValues,
+      validationSchema: loginSchema,
+      onSubmit: async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
+        setIsLoading(true);
+        const { email, password } = values;
+        if (rememberMe) {
+          const expirationDate = new Date();
+          expirationDate.setDate(expirationDate.getDate() + 30);
+          localStorage.setItem('email', email);
+          localStorage.setItem('password', password);
+          localStorage.setItem('rememberMe', 'true');
         } else {
-          setError('Invalid email or password');
+          localStorage.removeItem('email');
+          localStorage.removeItem('password');
+          localStorage.removeItem('rememberMe');
         }
-      } catch (error: any) {
-        console.log('Error in Login API => ', error);
-        setIsLoading(false);
-        setError('Login Failed, Please try again later');
-      } finally {
-        setSubmitting(false);
-      }
-    },
-  });
+
+        // manual login
+        try {
+          const response = await sendRequest('user/login', {
+            method: 'POST',
+            data: { email, password },
+          });
+
+          setIsLoading(false);
+          if (response.status === 200) {
+            const userDetails = {
+              name: response?.data?.userData?.fullName,
+              email: response?.data?.userData?.email,
+            };
+            updateUserInfo(userDetails);
+            localStorage.setItem('jwtToken', response?.data?.userData?.token);
+
+            handleRedirect(response?.data?.userData?.token);
+          } else {
+            setError('Invalid email or password');
+          }
+        } catch (error: any) {
+          console.log('Error in Login API => ', error);
+          setIsLoading(false);
+          setError('Login Failed, Please try again later');
+        } finally {
+          setSubmitting(false);
+        }
+      },
+    });
 
   const handleRedirect = (token: any) => {
     if (token) {
@@ -236,29 +220,17 @@ function Login(): React.JSX.Element {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <Image
-              src="../assests/logoWithBg.svg"
-              alt="Tg-logo"
-              width={250}
-              height={100}
-            />
+            <Image src="../assests/logoWithBg.svg" alt="Tg-logo" width={250} height={100} />
           </div>
           <div>
-            <p className={styles.heading}>
-              Welcome back! Please enter your details
-            </p>
+            <p className={styles.heading}>Welcome back! Please enter your details</p>
           </div>
           <div>
             <form onSubmit={handleSubmit}>
               {error && <div className={styles.error}>{error}</div>}
               <div className={styles.input_box}>
                 <label className={styles.email} htmlFor="email">
-                  <Image
-                    src="../assests/fullnameicon.svg"
-                    alt="fullname"
-                    width={30}
-                    height={20}
-                  />
+                  <Image src="../assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
                 </label>
                 <Input
                   id="email"
@@ -272,9 +244,7 @@ function Login(): React.JSX.Element {
                   onBlur={handleBlur}
                 />
               </div>
-              {errors.email && touched.email && (
-                <div className={styles.error}>{errors.email}</div>
-              )}
+              {errors.email && touched.email && <div className={styles.error}>{errors.email}</div>}
 
               <div className={styles.input_box}>
                 <label className={styles.password} htmlFor="password">
@@ -337,14 +307,10 @@ function Login(): React.JSX.Element {
               </div> */}
               <div className={styles.signin}>
                 <span className={styles.forgotDesc}>
-                  <Link href="/auth/forget-password">
-                    Forget your Password?
-                  </Link>
+                  <Link href="/auth/forget-password">Forget your Password?</Link>
                 </span>
                 <div className={styles.sign_accout}>
-                  <span className={styles.accout_in}>
-                    Don't have an accout?
-                  </span>
+                  <span className={styles.accout_in}>Don't have an accout?</span>
                   <span className={styles.forgotDescsec}>
                     <Link className={styles.link_sign} href="/auth/signup">
                       Signup

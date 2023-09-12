@@ -1,11 +1,8 @@
 @import './mixins.scss';
 @import './variable.scss';
 
-
-
-.bodycolor{
+.bodycolor {
   background: black;
-
 }
 .main_container {
   background-image: url('../../public/assests/banner.svg');
@@ -53,7 +50,6 @@
   height: 180px;
   animation: parshoot2move 20s linear infinite;
   opacity: 0.6;
-  
 }
 @keyframes parshoot2move {
   0% {
@@ -76,7 +72,8 @@
   animation: parshoot5move 20s linear infinite;
   opacity: 0.6;
   @media (max-width: $breakpoint-xs) {
-    right: 25%;  }
+    right: 25%;
+  }
 }
 
 .parashoot4 {
@@ -99,7 +96,6 @@
   height: 250px;
   animation: parshoot3move 25s linear infinite;
   opacity: 0.4;
-
 }
 
 /* key frames */
@@ -221,9 +217,8 @@
   gap: 8px;
   align-items: center;
   @media (max-width: $breakpoint-md) {
-   margin-left: 0px;
-}
-
+    margin-left: 0px;
+  }
 }
 .loginBtnMob {
   position: absolute;
@@ -242,8 +237,7 @@
   align-items: center;
   @media (max-width: $breakpoint-sm) {
     left: 38%;
-}
-
+  }
 }
 .menuToggle {
   display: none;
@@ -300,13 +294,12 @@
 
 .upcoming_mathces_container {
   background: black;
-  
 }
 .gradient {
   width: 100%;
   position: absolute;
-  background: linear-gradient(to bottom, rgb(0, 27, 33) ,black );
-    height: 8%;
+  background: linear-gradient(to bottom, rgb(0, 27, 33), black);
+  height: 8%;
 }
 .upcoming_mathces {
   display: flex;
@@ -330,7 +323,7 @@
   width: 50%;
   @media (max-width: $breakpoint-sm) {
     width: 90%;
-   }
+  }
 }
 .upcoming_mathces_sub_container {
   display: flex;
@@ -342,13 +335,13 @@
     flex-direction: column;
     align-items: flex-start;
     margin-left: 5%;
-   }
+  }
 }
 .banner_bgmi_img {
   width: 50%;
   @media (max-width: $breakpoint-md) {
     width: 90%;
-   }
+  }
 }
 .banner_image {
   width: 100%;
@@ -356,7 +349,7 @@
   border-radius: 2%;
   @media (max-width: $breakpoint-sm) {
     margin-left: 0%;
-   }
+  }
 }
 .rn_images_container {
   display: flex;
@@ -381,7 +374,6 @@
 .time_container {
   display: flex;
   flex-direction: column;
- 
 }
 .prizepool {
   display: flex;
@@ -391,12 +383,11 @@
   column-gap: 20%;
 }
 
-
 .time_container {
   width: 50%;
-   @media (max-width: $breakpoint-md) {
+  @media (max-width: $breakpoint-md) {
     width: 90%;
-   }
+  }
 }
 .prize_container h2 {
   padding-top: 10px;
@@ -419,13 +410,12 @@
 }
 .game {
   margin-top: 10px;
-  
 }
 .gameYellowspan {
-  color: #FFD600;
+  color: #ffd600;
   padding-top: 3px;
 }
-.gameOrangespan{
+.gameOrangespan {
   color: #ff7a00;
   padding-top: 3px;
 }
@@ -464,9 +454,8 @@
   position: relative;
   width: 100%;
   @media (max-width: $breakpoint-lg) {
-   flex-direction: column-reverse;
+    flex-direction: column-reverse;
   }
-
 }
 .stone {
   flex: 0 1 49%;
@@ -476,14 +465,13 @@
   color: #fdfafa;
   flex: 0 1 45%;
 }
-.welcome_RightImg{
+.welcome_RightImg {
   @media (max-width: $breakpoint-sm) {
     width: 100%;
-    padding-left: 5px
+    padding-left: 5px;
   }
-  
 }
-.welcome_alingnment{
+.welcome_alingnment {
   position: absolute;
   top: 0;
   @media (max-width: $breakpoint-lg) {
@@ -491,10 +479,8 @@
     padding-right: 7%;
   }
   @media (max-width: $breakpoint-xs) {
-   margin-top: 30px;
+    margin-top: 30px;
   }
-  
- 
 }
 
 .choseSection {
@@ -520,7 +506,6 @@
   background: url('../../public/assests/scopesectionbanner.svg');
   background-size: cover;
   background-repeat: no-repeat;
- 
 }
 
 .newscope {
@@ -531,12 +516,12 @@
   left: 41%;
   min-width: 250px;
 
-@media (max-width: $breakpoint-xs) {
-  left: 18%;
-}
-@media (max-width: 330px) {
-  left: 13%;
-}
+  @media (max-width: $breakpoint-xs) {
+    left: 18%;
+  }
+  @media (max-width: 330px) {
+    left: 13%;
+  }
 }
 .bg_img_static {
   animation: scaleImg 5s infinite;
@@ -547,14 +532,14 @@
   position: absolute;
   left: 41%;
   @media (max-width: $breakpoint-lg) {
-      top:42.5%
+    top: 42.5%;
   }
-@media (max-width: $breakpoint-xs) {
-  left: 18%;
-}
-@media (max-width: 330px) {
-  left: 13%;
-}
+  @media (max-width: $breakpoint-xs) {
+    left: 18%;
+  }
+  @media (max-width: 330px) {
+    left: 13%;
+  }
 }
 
 @keyframes scaleImg {
@@ -576,24 +561,23 @@
   position: absolute;
   top: 46.5%;
   left: 44%;
-  min-width:160px;
+  min-width: 160px;
   @media (min-width: $breakpoint-lg) {
     left: 44%;
-    top:45.5%
-}
+    top: 45.5%;
+  }
   @media (max-width: $breakpoint-md) {
     left: 46%;
-    top:45.5%
-}
-@media (max-width: $breakpoint-xs) {
-  left: 31%;
-  top:46.5%
-  
-}
-@media (max-width: 330px) {
-  left: 26.5%;
-  top:46.5%
-}
+    top: 45.5%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    left: 31%;
+    top: 46.5%;
+  }
+  @media (max-width: 330px) {
+    left: 26.5%;
+    top: 46.5%;
+  }
 }
 .scope_line_red_dot {
   width: 10px;
@@ -605,20 +589,18 @@
   border-radius: 50%;
   @media (min-width: $breakpoint-lg) {
     top: 53%;
-  left: 49.7%;
-}
-@media (max-width: $breakpoint-lg) {
-  left: 54.8%;
-  top: 52.8%;
-}
-@media (max-width: $breakpoint-xs) {
-  display: none;
-}
-.centerscope{
-  position: relative;
- 
-}
-
+    left: 49.7%;
+  }
+  @media (max-width: $breakpoint-lg) {
+    left: 54.8%;
+    top: 52.8%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    display: none;
+  }
+  .centerscope {
+    position: relative;
+  }
 }
 .scope_target_text {
   width: 70px;
@@ -632,13 +614,13 @@
 
   @media (max-width: $breakpoint-lg) {
     left: 50.5%;
-}
-@media (max-width: $breakpoint-tab) {
-  left: 52%;
-}
-@media (max-width: $breakpoint-xs) {
-  display: none;
-}
+  }
+  @media (max-width: $breakpoint-tab) {
+    left: 52%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    display: none;
+  }
 }
 .bulletcontainer {
   border: 2px solid white;
@@ -654,18 +636,18 @@
   @media (max-width: $breakpoint-lg) {
     top: 30%;
     left: 33%;
-}
-@media (max-width: $breakpoint-md) {
-  top: 29%;
-  left: 30%;
-}
-@media (max-width: $breakpoint-tab) {
-  top: 29%;
-  left: 25%;
-}
-@media (max-width: $breakpoint-xs) {
-display: none;
-}
+  }
+  @media (max-width: $breakpoint-md) {
+    top: 29%;
+    left: 30%;
+  }
+  @media (max-width: $breakpoint-tab) {
+    top: 29%;
+    left: 25%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    display: none;
+  }
 }
 .bullet {
   height: auto;
@@ -683,20 +665,20 @@ display: none;
   background-color: #ffffff52;
   @media (max-width: $breakpoint-lg) {
     top: 32%;
-  right: 29%;
-}
-@media (max-width: $breakpoint-md) {
-  top: 31%;
-right: 21%;
-}
-@media (max-width: $breakpoint-tab) {
-  top: 31%;
-right: 16%;
-}
-@media (max-width: $breakpoint-xs) {
-  top: 10%;
-left: 42%;
-}
+    right: 29%;
+  }
+  @media (max-width: $breakpoint-md) {
+    top: 31%;
+    right: 21%;
+  }
+  @media (max-width: $breakpoint-tab) {
+    top: 31%;
+    right: 16%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    top: 10%;
+    left: 42%;
+  }
 }
 
 .seamimg {
@@ -714,18 +696,18 @@ left: 42%;
   @media (max-width: $breakpoint-lg) {
     top: 51%;
     left: 30%;
-}
-@media (max-width: $breakpoint-md) {
-  top: 51%;
-  left: 24%;
-}
-@media (max-width: $breakpoint-xs) {
-  top: 22%;
-  left: 11%;
-}
-@media (max-width: $breakpoint-xSmall) {
-  left: 3%;
-}
+  }
+  @media (max-width: $breakpoint-md) {
+    top: 51%;
+    left: 24%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    top: 22%;
+    left: 11%;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    left: 3%;
+  }
 }
 .clock {
   border: 2px solid white;
@@ -753,21 +735,21 @@ left: 42%;
   align-items: center;
   @media (max-width: $breakpoint-lg) {
     bottom: 38%;
-    right: 24%
-}
-@media (max-width: $breakpoint-md) {
-  bottom: 38%;
-  right: 16%
-}
-@media (max-width: $breakpoint-tab) {
-  bottom: 38%;
-  right: 9%
-}
-@media (max-width: $breakpoint-xs) {
-  top: 24%;
-  right: 17%;
-  display: none;
-}
+    right: 24%;
+  }
+  @media (max-width: $breakpoint-md) {
+    bottom: 38%;
+    right: 16%;
+  }
+  @media (max-width: $breakpoint-tab) {
+    bottom: 38%;
+    right: 9%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    top: 24%;
+    right: 17%;
+    display: none;
+  }
 }
 .skillman {
   border-radius: 50px;
@@ -793,7 +775,6 @@ left: 42%;
   @media (max-width: $breakpoint-xs) {
     left: 37%;
   }
-
 }
 .trophy_container {
   border: 2px solid white;
@@ -802,7 +783,6 @@ left: 42%;
   width: 70px;
   height: 70px;
   background-color: #ffffff52;
-
 }
 .prize_maincontainer {
   position: absolute;
@@ -819,11 +799,10 @@ left: 42%;
   }
   @media (max-width: $breakpoint-xs) {
     right: 17%;
-    top:23%
+    top: 23%;
   }
   @media (max-width: $breakpoint-xSmall) {
     right: 3%;
-    
   }
 }
 .money_container {
@@ -833,7 +812,6 @@ left: 42%;
   width: 70px;
   height: 70px;
   background-color: #ffffff52;
-  
 }
 .scope_text {
   font-weight: 100;
@@ -876,21 +854,17 @@ left: 42%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
-.prize_container{
+.prize_container {
   position: relative;
 }
-.downheadimg{
+.downheadimg {
   position: absolute;
   top: 6px;
   z-index: 20;
 }
 .inner_winning_pool {
   min-width: 310px;
-  background: linear-gradient(
-    131.26deg,
-    #ffffff 26.63%,
-    rgb(255 122 0 / 74%) 450.26%
-  ) !important;
+  background: linear-gradient(131.26deg, #ffffff 26.63%, rgb(255 122 0 / 74%) 450.26%) !important;
   padding: 0px;
   width: 36%;
   border-radius: 16px;
@@ -931,15 +905,15 @@ left: 42%;
   padding-top: 16px;
 }
 
-.gradient3{
-background-image: linear-gradient(transparent ,rgb(3, 3, 3) 70%, rgb(0, 0, 0));
-height: 100vh;
-position: absolute;
-width: 100%;
+.gradient3 {
+  background-image: linear-gradient(transparent, rgb(3, 3, 3) 70%, rgb(0, 0, 0));
+  height: 100vh;
+  position: absolute;
+  width: 100%;
 }
 
-.gradient4{
-  background-image: radial-gradient(transparent, rgb(0, 0, 0) 95%,rgb(0, 0, 0));
+.gradient4 {
+  background-image: radial-gradient(transparent, rgb(0, 0, 0) 95%, rgb(0, 0, 0));
   height: 100%;
 
   position: absolute;
@@ -982,9 +956,9 @@ width: 100%;
   color: #fdfafa;
 }
 
-.mapP{
+.mapP {
   z-index: 999;
-text-align: center;
+  text-align: center;
 }
 
 .signUpDiv {
@@ -1056,33 +1030,27 @@ text-align: center;
   background-color: transparent;
   border: 1px solid white;
 }
-.mapLine{
-position: absolute;
+.mapLine {
+  position: absolute;
   top: 10rem;
   left: 21rem;
- 
 }
-.whiteLocationMark{
+.whiteLocationMark {
   position: absolute;
   top: 15rem;
   right: 29rem;
-
 }
-.whiteLocationMark2{
+.whiteLocationMark2 {
   position: absolute;
-top: 25rem;
-left: 50rem;
+  top: 25rem;
+  left: 50rem;
 }
 
-.whiteLocationMark3{
+.whiteLocationMark3 {
   position: absolute;
   top: 15rem;
   left: 40rem;
 }
-
-
-
-
 
 .buggiSec {
   width: 100%;
@@ -1179,41 +1147,34 @@ left: 50rem;
   height: 100%;
 }
 
-.redBlurCircle{
+.redBlurCircle {
   position: absolute;
   bottom: 25rem;
   left: 50rem;
-
 }
 
-
-
-
-
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
-  .whiteLocationMark{
+  .whiteLocationMark {
     top: 10rem;
     left: 20rem;
   }
-  .whiteLocationMark2{
+  .whiteLocationMark2 {
     top: 20rem;
     left: 35rem;
   }
-  .whiteLocationMark3{
+  .whiteLocationMark3 {
     position: absolute;
-   top: 20rem;
+    top: 20rem;
     left: 20rem;
   }
-  .mapLine{
+  .mapLine {
     display: none;
   }
   .signUpDiv {
-   
     top: 10rem;
     left: 11rem;
-
   }
- 
+
   .rewardDiv {
     top: 20rem;
     left: 20rem;
@@ -1244,85 +1205,80 @@ left: 50rem;
     padding: 10px 30px;
     font-weight: 400;
   }
-  .redBlurCircle{
+  .redBlurCircle {
     top: 15rem;
     left: 20rem;
   }
- 
 }
 
-
-@media only screen and (min-width: 569px) and (max-width: 768px){
-  
-  .mapLine{
+@media only screen and (min-width: 569px) and (max-width: 768px) {
+  .mapLine {
     display: none;
   }
-  .signUpDiv{
+  .signUpDiv {
     top: 10rem;
     left: 6rem;
   }
-  .playDiv{
+  .playDiv {
     top: 19rem;
     right: 15rem;
   }
-  .rewardDiv{
+  .rewardDiv {
     top: 12rem;
     left: 25rem;
   }
-  .buggyHeading{
+  .buggyHeading {
     line-height: 2;
     font-size: 20px;
     letter-spacing: 2px;
     padding: 0px 20px;
     font-weight: 400;
   }
-  .buggiSec_heading{
+  .buggiSec_heading {
     font-size: 40px;
     font-weight: 300;
     letter-spacing: 9px;
   }
-  .buggiSec_para{
+  .buggiSec_para {
     margin: 12px 0px;
     font-size: 21px;
   }
-  .btnSingup{
+  .btnSingup {
     font-size: 20px;
   }
-  .footer_para{
+  .footer_para {
     font-size: 20px;
   }
-  .social_I{
+  .social_I {
     margin: 15px 0px;
   }
-  .support{
+  .support {
     font-size: 20px;
     margin-bottom: 10px;
   }
-  .footer_text{
+  .footer_text {
     font-size: 20px;
   }
-  .mapSecDescription{
+  .mapSecDescription {
     width: 100%;
   }
-  .whiteLocationMark{
+  .whiteLocationMark {
     top: 25rem;
     left: 20rem;
   }
-  .whiteLocationMark2{
+  .whiteLocationMark2 {
     top: 20rem;
     left: 15rem;
   }
-  .whiteLocationMark3{
+  .whiteLocationMark3 {
     position: absolute;
-   top: 10rem;
+    top: 10rem;
     left: 20rem;
   }
-  .redBlurCircle{
-    top:13rem;
+  .redBlurCircle {
+    top: 13rem;
     left: 18rem;
   }
-  
-  
 }
 
 @media only screen and (min-width: 320px) and (max-width: 968px) {
@@ -1335,7 +1291,7 @@ left: 50rem;
   .parashoot4 {
     display: none;
   }
-  .mapLine{
+  .mapLine {
     display: none;
   }
   .main_container {
@@ -1366,7 +1322,7 @@ left: 50rem;
   .upcoming_mathces_sub_container {
     flex-direction: column;
   }
-  .upcoming_mathces_sub_container{
+  .upcoming_mathces_sub_container {
     min-width: 300px;
     padding: 10px;
   }
@@ -1388,15 +1344,13 @@ left: 50rem;
     font-size: 15px;
     margin-bottom: 10px;
   }
- 
+
   .range_container {
     column-gap: 10%;
 
     @media (max-width: $breakpoint-tab) {
       flex-direction: column;
-      
     }
-    
   }
 
   .welcome_Container {
@@ -1421,8 +1375,7 @@ left: 50rem;
     width: 100%;
     text-align: justify;
   }
- 
- 
+
   .playDiv {
     top: 10rem;
     left: 7rem;
@@ -1436,45 +1389,42 @@ left: 50rem;
     display: none;
   }
 
-  .mapSecDescription{
+  .mapSecDescription {
     width: 100%;
   }
-.mapP{
-  padding: 10px;
-}
+  .mapP {
+    padding: 10px;
+  }
 
-.whiteLocationMark{
-  left: 15rem;
-}
-.whiteLocationMark2{
-  top: 15rem;
-  left: 5rem;
-}
-.whiteLocationMark3{
-  position: absolute;
- top: 20rem;
-  left: 10rem;
-}
+  .whiteLocationMark {
+    left: 15rem;
+  }
+  .whiteLocationMark2 {
+    top: 15rem;
+    left: 5rem;
+  }
+  .whiteLocationMark3 {
+    position: absolute;
+    top: 20rem;
+    left: 10rem;
+  }
 
-.playDiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 10px;
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  top: 23rem;
-  right: 22.5rem;
-}
-.play {
- 
-  background-color: red;
-  border: 1px solid white;
-}
-
-
+  .playDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 23rem;
+    right: 22.5rem;
+  }
+  .play {
+    background-color: red;
+    border: 1px solid white;
+  }
 
   .footerLogo {
     width: 150px;
@@ -1512,7 +1462,7 @@ left: 50rem;
   .btnSingup {
     width: 150px;
   }
-  .redBlurCircle{
+  .redBlurCircle {
     top: 15rem;
     left: 7rem;
   }

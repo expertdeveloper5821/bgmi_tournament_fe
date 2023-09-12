@@ -6,15 +6,14 @@ import Sidebar from '../../components/commonComponent/SideBar/Sidebar';
 import { Pagination } from 'technogetic-iron-smart-ui';
 import { BtnDashboard } from '../../components/commonComponent/BtnDashboard';
 import RequireAuthentication from '../../utils/requireAuthentication';
-import { FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt } from 'react-icons/fa'
+import { FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt } from 'react-icons/fa';
 import withAuth from '@/components/hoc/WithAuthHoc';
 import { Navbar } from '@/components/commonComponent/Navbar/Navbar';
-export interface IAppProps { }
+export interface IAppProps {}
 
 function UserDashboard() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const rowPerPage = 8;
-
 
   return (
     <>

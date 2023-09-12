@@ -1,12 +1,7 @@
-
-import React from 'react'
+import React from 'react';
 
 function spectator() {
-  return (
-    <div>spectator page</div>
-  )
+  return <div>spectator page</div>;
 }
 
-export default spectator
-
-
+export default spectator;

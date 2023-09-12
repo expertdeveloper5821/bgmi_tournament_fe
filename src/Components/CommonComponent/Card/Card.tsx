@@ -1,30 +1,29 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@/styles/card.module.scss';
-import {sendRequest} from '@/utils/axiosInstanse';
+import { sendRequest } from '@/utils/axiosInstanse';
 
 interface CardProps {
   toOpen: (value: boolean) => void;
   forwardModalOpen: (value: boolean) => void;
   teamData: (value: any[]) => void;
-  fwdindex:(value:any) => void;
+  fwdindex: (value: any) => void;
 }
-const Card: React.FC<CardProps> = ({fwdindex,toOpen, forwardModalOpen, teamData}) => {
+const Card: React.FC<CardProps> = ({ fwdindex, toOpen, forwardModalOpen, teamData }) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [forwardModal, setForwardModal] = useState<boolean>(false);
   const [res, setRes] = useState<any>();
   console.log(res);
 
-  const handleOpenModal = (index:any) => {
+  const handleOpenModal = (index: any) => {
     setDeleteModal(true);
     toOpen(deleteModal);
-    fwdindex(index)
-    
+    fwdindex(index);
   };
-  const openForwardModal = (index:any) => {
+  const openForwardModal = (index: any) => {
     setForwardModal(true);
     forwardModalOpen(forwardModal);
-    fwdindex(index)
+    fwdindex(index);
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +36,7 @@ const Card: React.FC<CardProps> = ({fwdindex,toOpen, forwardModalOpen, teamData}
           },
         });
         console.log(response);
-        
+
         setRes(response?.data);
         teamData(response?.data);
       } catch (error) {
@@ -56,11 +55,7 @@ const Card: React.FC<CardProps> = ({fwdindex,toOpen, forwardModalOpen, teamData}
               {' '}
               <div className={styles.reviewCard}>
                 <div className={styles.reviews}>
-                  <img
-                    src="/assests/reviewer.svg"
-                    alt="image"
-                    className={styles.profile}
-                  />
+                  <img src="/assests/reviewer.svg" alt="image" className={styles.profile} />
                   <div className={styles.reviewer}>
                     <div className={styles.name}>
                       <h2>JOhn doe</h2>
@@ -72,13 +67,17 @@ const Card: React.FC<CardProps> = ({fwdindex,toOpen, forwardModalOpen, teamData}
                       <div>
                         <img
                           src="/assests/forward.svg"
-                          onClick={()=>{openForwardModal(index)}}
+                          onClick={() => {
+                            openForwardModal(index);
+                          }}
                         />
                       </div>
                       <div>
                         <img
                           src="/assests/cancel.svg"
-                          onClick={()=>{handleOpenModal(index)}}
+                          onClick={() => {
+                            handleOpenModal(index);
+                          }}
                         />
                       </div>
                     </div>

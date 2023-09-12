@@ -1,10 +1,10 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Dashboard.module.scss';
-import {Navbar} from '../../../components/commonComponent/Navbar/Navbar';
+import { Navbar } from '../../../components/commonComponent/Navbar/Navbar';
 import Image from 'next/image';
-import {sendRequest} from '@/utils/axiosInstanse';
-import {useSearchParams} from 'next/navigation';
+import { sendRequest } from '@/utils/axiosInstanse';
+import { useSearchParams } from 'next/navigation';
 
 export interface RegMatch {
   gameName: string;
@@ -27,7 +27,7 @@ const regMatches = () => {
     const token: any = localStorage.getItem('jwtToken');
     const regMAtch = await sendRequest(`room/rooms/${matchID}`, {
       method: 'GET',
-      headers: {Authorization: `Bearer ${token}`},
+      headers: { Authorization: `Bearer ${token}` },
     });
     setMatchData(regMAtch.data.room);
   };
@@ -58,9 +58,7 @@ const regMatches = () => {
           <div className={styles.content}>
             <div className={styles.dashboard}>
               <span className={styles.head_desc}>Registered Matches</span>
-              <h1 className={styles.subhead_desc}>
-                Dashboard /registered matches
-              </h1>
+              <h1 className={styles.subhead_desc}>Dashboard /registered matches</h1>
             </div>
             <div className={styles.sendmailbtnContainer}>
               {/* <button
@@ -83,14 +81,10 @@ const regMatches = () => {
                     height={100}
                   />
                 </div>
-                <span className={styles.register_match}>
-                  Registered Matches
-                </span>
+                <span className={styles.register_match}>Registered Matches</span>
               </div>
               <div className={styles.squad_match}>
-                <span className={styles.register_match}>
-                  {matchData?.gameName}
-                </span>
+                <span className={styles.register_match}>{matchData?.gameName}</span>
                 <span className={styles.winning_prize}>
                   Time : {matchData?.date} at {matchData?.time}
                 </span>
@@ -122,30 +116,21 @@ const regMatches = () => {
                 <div className={styles.winnings}>
                   <div>
                     <span className={styles.winning_prize}>TYPE</span>
-                    <span
-                      className={styles.tvm_font}
-                      style={{color: 'rgba(255, 214, 0, 1)'}}
-                    >
+                    <span className={styles.tvm_font} style={{ color: 'rgba(255, 214, 0, 1)' }}>
                       {matchData?.gameType}
                     </span>
                   </div>
 
                   <div>
                     <span className={styles.winning_prize}>VERSION</span>
-                    <span
-                      className={styles.tvm_font}
-                      style={{color: 'rgba(255, 214, 0, 1)'}}
-                    >
+                    <span className={styles.tvm_font} style={{ color: 'rgba(255, 214, 0, 1)' }}>
                       {matchData?.version}
                     </span>
                   </div>
 
                   <div>
                     <span className={styles.winning_prize}>MAP</span>
-                    <span
-                      className={styles.tvm_font}
-                      style={{color: 'rgba(255, 122, 0, 1)'}}
-                    >
+                    <span className={styles.tvm_font} style={{ color: 'rgba(255, 122, 0, 1)' }}>
                       {matchData?.mapType}
                     </span>
                   </div>
@@ -163,9 +148,7 @@ const regMatches = () => {
                     <div className={styles.roomdetails_container}>
                       <div className={styles.roomdetails}>
                         <div className={styles.countdown}>
-                          <span className={styles.roomId}>
-                            Room Id : {matchData?.roomId}
-                          </span>
+                          <span className={styles.roomId}>Room Id : {matchData?.roomId}</span>
                         </div>
                       </div>
                       <div className={styles.roomcreds}>
@@ -180,16 +163,12 @@ const regMatches = () => {
                     <div className={styles.roomdetails_container}>
                       <div className={styles.roomdetails}>
                         <div className={styles.countdown}>
-                          <span className={styles.roomId}>
-                            Room Id : ********
-                          </span>
+                          <span className={styles.roomId}>Room Id : ********</span>
                         </div>
                       </div>
                       <div className={styles.roomcreds}>
                         <div className={styles.zeromin}>
-                          <span className={styles.roomId}>
-                            Room Password : ********
-                          </span>
+                          <span className={styles.roomId}>Room Password : ********</span>
                         </div>
                       </div>
                     </div>

@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { emailRegex, passwordRegex } from './pattern';
 
- const SignupSchema = Yup.object().shape({
+const SignupSchema = Yup.object().shape({
   fullName: Yup.string().required('Please enter your Full Name'),
   userName: Yup.string().required('Please enter your  Username'),
   email: Yup.string()
@@ -11,7 +11,7 @@ import { emailRegex, passwordRegex } from './pattern';
   password: Yup.string()
     .required('Please enter your password')
     .matches(
-        passwordRegex,
+      passwordRegex,
       'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
     ),
 });
@@ -24,7 +24,7 @@ const loginSchema = Yup.object().shape({
   password: Yup.string().required('Please enter your password'),
 });
 
- const ResetPasswordSchema = Yup.object().shape({
+const ResetPasswordSchema = Yup.object().shape({
   newPassword: Yup.string()
     .required('New password is required')
     .min(6, 'Password must be at least 6 characters long'),
@@ -33,7 +33,7 @@ const loginSchema = Yup.object().shape({
     .oneOf([Yup.ref('newPassword')], 'Passwords must match'),
 });
 
- const createspectater = Yup.object().shape({
+const createspectater = Yup.object().shape({
   roomId: Yup.number().required('Please enter your Room Id'),
   gameName: Yup.string().required('Please enter your  Game Name'),
   gameType: Yup.string().required('Please enter your Game Type'),
@@ -47,4 +47,4 @@ const loginSchema = Yup.object().shape({
   thirdWin: Yup.number().required('Please enter Third winner prize '),
 });
 
-export {SignupSchema, loginSchema, ResetPasswordSchema, createspectater}
+export { SignupSchema, loginSchema, ResetPasswordSchema, createspectater };

@@ -1,9 +1,9 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Navabar.module.scss';
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 // @ts-ignore
-import {Avatar, Popover} from 'technogetic-iron-smart-ui';
+import { Avatar, Popover } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
 

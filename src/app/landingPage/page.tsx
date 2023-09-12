@@ -1,10 +1,10 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@/styles/landingpage.module.scss';
 import useWindowSize from '@/hooks/useWindowSize';
 import NavBar from './navBar/page';
 import Image from 'next/image';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import CustomCursor from './customCursor/page';
 import GlassCrack from './glassCrack/page';
 import Link from 'next/link';
@@ -66,12 +66,7 @@ const page = () => {
           />
         </div>
         <div className={styles.parashoot2}>
-          <Image
-            src="/assests/p.png"
-            alt="parashoot"
-            height={100}
-            width={100}
-          />
+          <Image src="/assests/p.png" alt="parashoot" height={100} width={100} />
         </div>
         <div className={styles.parashoot3}>
           <img
@@ -114,22 +109,17 @@ const page = () => {
         <div className={styles.upcoming_mathces}>
           <h3 className={styles.upComingHeading}>Upcoming Matches</h3>
           <p className={styles.upComingPara}>
-            Are you ready to take your BGMI gaming to the next level? Look no
-            further! BGMI Rewards brings you an exhilarating platform where your
-            gaming skills translate into real cash rewards. Join thousands of
-            enthusiastic players who have already unlocked the true potential of
-            their gaming passion.
+            Are you ready to take your BGMI gaming to the next level? Look no further! BGMI Rewards
+            brings you an exhilarating platform where your gaming skills translate into real cash
+            rewards. Join thousands of enthusiastic players who have already unlocked the true
+            potential of their gaming passion.
           </p>
         </div>
 
         <div className={styles.upcoming_mathces_sub_container}>
           {data && data.length > 0 && (
             <div className={styles.banner_bgmi_img}>
-              <img
-                src={data && data[id].mapImg}
-                alt="bg"
-                className={styles.banner_image}
-              />
+              <img src={data && data[id].mapImg} alt="bg" className={styles.banner_image} />
             </div>
           )}
 
@@ -145,53 +135,30 @@ const page = () => {
                   <p className={styles.pool_text_p}>
                     Last Survival: {data[id].lastServival}
                     <span className={styles.rs_pool_logo}>
-                      <Image
-                        src="../assests/rupeeimg.svg"
-                        alt="rupeeIcon"
-                        width={12}
-                        height={12}
-                      />
+                      <Image src="../assests/rupeeimg.svg" alt="rupeeIcon" width={12} height={12} />
                     </span>
                   </p>
                   <p className={styles.pool_text_p}>
                     Highest kill: {data[id].highestKill}
                     <span className={styles.rs_pool_logo}>
-                      <Image
-                        src="../assests/rupeeimg.svg"
-                        alt="rupeeIcon"
-                        width={12}
-                        height={12}
-                      />
+                      <Image src="../assests/rupeeimg.svg" alt="rupeeIcon" width={12} height={12} />
                     </span>
                   </p>
                   <p className={styles.pool_text_p}>
                     2nd Winner: {data[id].secondWin}
                     <span className={styles.rs_pool_logo}>
-                      <Image
-                        src="../assests/rupeeimg.svg"
-                        alt="rupeeIcon"
-                        width={12}
-                        height={12}
-                      />
+                      <Image src="../assests/rupeeimg.svg" alt="rupeeIcon" width={12} height={12} />
                     </span>
                   </p>
 
                   <p className={styles.pool_text_p}>
                     3rd Winner: {data[id].thirdWin}
                     <span className={styles.rs_pool_logo}>
-                      <Image
-                        src="../assests/rupeeimg.svg"
-                        alt="rupeeIcon"
-                        width={12}
-                        height={12}
-                      />
+                      <Image src="../assests/rupeeimg.svg" alt="rupeeIcon" width={12} height={12} />
                     </span>
                   </p>
                 </div>{' '}
-                <p
-                  className={styles.pool_cancel_p}
-                  onClick={() => setPoolModal(false)}
-                >
+                <p className={styles.pool_cancel_p} onClick={() => setPoolModal(false)}>
                   <button className={styles.cancel_btn}>Cancel</button>
                 </p>
               </div>
@@ -263,11 +230,7 @@ const page = () => {
                     <input type="range" value={50} />
                     <span>Only 30 spots left 20/50</span>
                   </div>
-                  <button
-                    className={styles.joinbtn}
-                    onClick={handleIncrement}
-                    disabled={disable}
-                  >
+                  <button className={styles.joinbtn} onClick={handleIncrement} disabled={disable}>
                     JOIN
                   </button>
                 </div>
@@ -304,7 +267,7 @@ const page = () => {
           <div className={styles.welcome_subcontainer}>
             <div className={styles.welcome_RightImg_container}>
               <Image
-              className={styles.welcome_RightImg}
+                className={styles.welcome_RightImg}
                 src="../assests/Group20.svg"
                 height={700}
                 width={700}
@@ -315,11 +278,10 @@ const page = () => {
               <h2>Welcome to BGMI Rewards</h2>
 
               <p>
-                Are you ready to take your BGMI gaming to the next level? Look
-                no further! BGMI Rewards brings you an exhilarating platform
-                where your gaming skills translate into real cash rewards. Join
-                thousands of enthusiastic players who have already unlocked the
-                true potential of their gaming passion.
+                Are you ready to take your BGMI gaming to the next level? Look no further! BGMI
+                Rewards brings you an exhilarating platform where your gaming skills translate into
+                real cash rewards. Join thousands of enthusiastic players who have already unlocked
+                the true potential of their gaming passion.
               </p>
             </div>
 
@@ -331,9 +293,9 @@ const page = () => {
           <div className={styles.choseSection}>
             <h2>Why Choose PATT SE HEADSHOT</h2>
             <p>
-              Join the ranks of those who have chosen us as their preferred
-              esports platform for BGMI. Experience the future of gaming
-              excellence and be part of our ever-growing success story.
+              Join the ranks of those who have chosen us as their preferred esports platform for
+              BGMI. Experience the future of gaming excellence and be part of our ever-growing
+              success story.
             </p>
             <img src={'../assests/directionindicator.svg'} />
           </div>
@@ -433,8 +395,8 @@ const page = () => {
           </div>
           <div>
             <p className={styles.scope_text} id="changing-text">
-              Our dedicated support team is here to assist you around the clock,
-              ensuring a smooth and enjoyable gaming experience.
+              Our dedicated support team is here to assist you around the clock, ensuring a smooth
+              and enjoyable gaming experience.
             </p>
           </div>
           <div className={styles.guns}>
@@ -459,24 +421,17 @@ const page = () => {
         <div className={styles.mapSecDescription}>
           <h3 className={styles.mapSecHead}>How It Works</h3>
           <p>
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters,
+            It is a long established fact that a reader will be distracted by the readable content
+            of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
+            more-or-less normal distribution of letters,
           </p>
         </div>
       </section>
 
       <section className={styles.mapBg}>
-      
         <div className={styles.signUpDiv}>
           <div className={styles.singUp}>
-            <Image
-              src="../assests/redLoction.svg"
-              height={20}
-              width={20}
-              alt="red_loction"
-            />
+            <Image src="../assests/redLoction.svg" height={20} width={20} alt="red_loction" />
           </div>
 
           <p>Sing Up</p>
@@ -545,21 +500,15 @@ const page = () => {
         </div>
 
         <div className={styles.redBlurCircle}>
-          <Image
-            src="../assests/redBlurCircle.svg"
-            height={70}
-            width={70}
-            alt="resBlur"
-          />
+          <Image src="../assests/redBlurCircle.svg" height={70} width={70} alt="resBlur" />
         </div>
 
         <div className={styles.mapBgPara}>
           <p className={styles.mapP}>
-            Create your free account in just a few simple steps and join our
-            ever-growing gaming community.
+            Create your free account in just a few simple steps and join our ever-growing gaming
+            community.
           </p>
         </div>
-    
       </section>
 
       <section className={styles.buggiSec}>
@@ -577,9 +526,7 @@ const page = () => {
 
           <div className={styles.text_div}>
             <h3 className={styles.buggiSec_heading}>Play First time free</h3>
-            <p className={styles.buggiSec_para}>
-              Don’t waste your time Hurry up! Signup now
-            </p>
+            <p className={styles.buggiSec_para}>Don’t waste your time Hurry up! Signup now</p>
             <button className={styles.btnSingup}>Sign up</button>
           </div>
         </div>
@@ -607,9 +554,7 @@ const page = () => {
             </Link>
           </div>
 
-          <p className={styles.footer_para}>
-            Let's connect for more information
-          </p>
+          <p className={styles.footer_para}>Let's connect for more information</p>
 
           <div className={styles.social_I}>
             <Link href="">
@@ -653,16 +598,11 @@ const page = () => {
             </Link>
           </div>
 
-          <Link
-            href="mailto:support@pattseheadshot.com"
-            className={styles.support}
-          >
+          <Link href="mailto:support@pattseheadshot.com" className={styles.support}>
             Mail us: support@pattseheadshot.com
           </Link>
 
-          <p className={styles.footer_text}>
-            &#169; Technogetic Pvt Ltd All Rights Reserved.
-          </p>
+          <p className={styles.footer_text}>&#169; Technogetic Pvt Ltd All Rights Reserved.</p>
         </div>
       </footer>
     </div>

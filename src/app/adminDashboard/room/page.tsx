@@ -1,12 +1,12 @@
 'use client';
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '@/styles/Dashboard.module.scss';
-import {Navbar} from '../../../components/commonComponent/Navbar/Navbar';
-import TableData, {StudentProfile} from '../../../components/commonComponent/Table/Table';
+import { Navbar } from '../../../components/commonComponent/Navbar/Navbar';
+import TableData, { StudentProfile } from '../../../components/commonComponent/Table/Table';
 import assignmentData from '../../../utils/CreateAssignmment.json';
 //@ts-ignore
-import {Pagination} from 'technogetic-iron-smart-ui';
-import {BtnDashboard} from '../../../components/commonComponent/BtnDashboard';
+import { Pagination } from 'technogetic-iron-smart-ui';
+import { BtnDashboard } from '../../../components/commonComponent/BtnDashboard';
 import RequireAuthentication from '../../../utils/requireAuthentication';
 import { sendRequest } from '@/utils/axiosInstanse';
 
@@ -17,15 +17,13 @@ function page() {
   const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
   const rowPerPage = 8;
 
-  const transformedStudentData = assignmentData.studentData.map(
-    (item: StudentProfile) => ({
-      StudentName: item.StudentName,
-      Student: item.Student,
-      studentID: item.studentID,
-      Mobile: item.Mobile,
-      Course: item.Course,
-    }),
-  );
+  const transformedStudentData = assignmentData.studentData.map((item: StudentProfile) => ({
+    StudentName: item.StudentName,
+    Student: item.Student,
+    studentID: item.studentID,
+    Mobile: item.Mobile,
+    Course: item.Course,
+  }));
 
   useEffect(() => {
     const startIndex = (currentPage - 1) * rowPerPage;

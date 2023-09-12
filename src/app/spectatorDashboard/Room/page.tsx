@@ -1,13 +1,13 @@
 'use client';
-import React, {useEffect, useState} from 'react';
-import {Navbar} from '../../../components/commonComponent/Navbar/Navbar';
+import React, { useEffect, useState } from 'react';
+import { Navbar } from '../../../components/commonComponent/Navbar/Navbar';
 import styles from '@/styles/Spectator.module.scss';
 import Form from '../Form/page';
 import RequireAuthentication from '../../../utils/requireAuthentication';
 //@ts-ignore
-import {Table, TableBody, TableCell} from 'technogetic-iron-smart-ui';
+import { Table, TableBody, TableCell } from 'technogetic-iron-smart-ui';
 //@ts-ignore
-import {TableHeader, TableHead, TableRow} from 'technogetic-iron-smart-ui';
+import { TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import Deletespec from '../Deletespec/page';
 import Updatespec from '../Updatespec/page';
@@ -86,10 +86,7 @@ const Room = () => {
                   <TableHeader className={styles.tableHeader}>
                     <TableRow className={styles.tableRow}>
                       {columns?.map((column, index) => (
-                        <TableHead
-                          className={styles.table_head_sectat}
-                          key={index}
-                        >
+                        <TableHead className={styles.table_head_sectat} key={index}>
                           <div className={styles.filter}>{column}</div>
                         </TableHead>
                       ))}
@@ -99,9 +96,7 @@ const Room = () => {
                   <TableBody>
                     {Spect?.map((spec: any, index) => (
                       <TableRow key={index} className={styles.table_row_cell}>
-                        <TableCell className={styles.el_tb_cell}>
-                          {spec?.roomId ?? '--'}
-                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>{spec?.roomId ?? '--'}</TableCell>
 
                         <TableCell className={styles.tb_cell_body}>
                           {spec?.gameName ?? '--'}
@@ -109,12 +104,8 @@ const Room = () => {
                         <TableCell className={styles.el_tb_cell}>
                           {spec?.gameType ?? '--'}
                         </TableCell>
-                        <TableCell className={styles.el_tb_cell}>
-                          {spec?.mapType ?? '--'}
-                        </TableCell>
-                        <TableCell className={styles.el_tb_cell}>
-                          {spec?.version ?? '--'}
-                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>{spec?.mapType ?? '--'}</TableCell>
+                        <TableCell className={styles.el_tb_cell}>{spec?.version ?? '--'}</TableCell>
                         <TableCell className={styles.tb_cell_body}>
                           {spec?.highestKill ?? '--'}
                         </TableCell>
@@ -127,12 +118,8 @@ const Room = () => {
                         <TableCell className={styles.el_tb_cell}>
                           {spec?.secondWin ?? '--'}
                         </TableCell>
-                        <TableCell className={styles.el_tb_cell}>
-                          {spec?.time ?? '--'}
-                        </TableCell>
-                        <TableCell className={styles.tb_cell_body}>
-                          {spec?.date ?? '--'}
-                        </TableCell>
+                        <TableCell className={styles.el_tb_cell}>{spec?.time ?? '--'}</TableCell>
+                        <TableCell className={styles.tb_cell_body}>{spec?.date ?? '--'}</TableCell>
                         {/* <TableCell className={styles.tb_cell_body}>
                           <Image
                             src={spec?.mapImg}
@@ -142,10 +129,7 @@ const Room = () => {
                           />
                         </TableCell> */}
                         <TableCell className={styles.tb_cell_action}>
-                          <Deletespec
-                            Id={spec._id}
-                            getAllSpectator={getAllSpectator}
-                          />
+                          <Deletespec Id={spec._id} getAllSpectator={getAllSpectator} />
                           <Updatespec
                             updateRoom={Room}
                             roomData={spec}
