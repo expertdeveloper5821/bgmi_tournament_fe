@@ -1,19 +1,26 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import styles from '../../styles/Navabar.module.scss';
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 // @ts-ignore
-import {Avatar, Popover} from 'technogetic-iron-smart-ui';
+import { Avatar, Popover } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
-import {sendRequest} from '@/services/auth/auth_All_Api';
+import { sendRequest } from '@/services/auth/auth_All_Api';
 
-export function Navbar() {
+interface INavbar {
+  setUserName?: Dispatch<SetStateAction<string>>
+}
+
+export function Navbar(props: INavbar) {
   const [isOpen, setIsOpen] = useState(false);
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [useData, setUseData] = useState<string>('');
   const [namData, setNamData] = useState<string>('');
+  const [pofile, setPofile] = useState<string>('');
+
+  const { setUserName = () => { } } = props;
 
   function handleClosePopover() {
     setIsOpen(false);
@@ -32,13 +39,17 @@ export function Navbar() {
 
   const getAlldata = async () => {
     const token = localStorage.getItem('jwtToken');
+   
     const Response = await sendRequest('user/getuser', {
       method: 'GET',
-      headers: {Authorization: `Bearer ${token}`},
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     setUseData(Response.data.data.email);
     setNamData(Response.data.data.userName);
+    setUserName(Response.data.data.fullName);
+    setPofile(Response.data.data.profilePic);
+
   };
 
   useEffect(() => {
@@ -70,7 +81,7 @@ export function Navbar() {
                     </div>
                     <div className={styles.dropdown}>
                       <Avatar
-                        onClick={() => {}}
+                        onClick={() => { }}
                         size={20}
                         src="../assests/avatar.png"
                       />
@@ -81,7 +92,7 @@ export function Navbar() {
                     </div>
                     <div className={styles.dropdown}>
                       <Avatar
-                        onClick={() => {}}
+                        onClick={() => { }}
                         size={20}
                         src="../assests/avatar.png"
                       />
@@ -92,7 +103,7 @@ export function Navbar() {
                     </div>
                     <div className={styles.dropdown}>
                       <Avatar
-                        onClick={() => {}}
+                        onClick={() => { }}
                         size={20}
                         src="../assests/avatar.png"
                       />
@@ -110,31 +121,32 @@ export function Navbar() {
                 width="300px"
                 height="350px"
               >
-                <Image
+                {/* <Image
                   className={styles.notification}
                   src="../assests/notification.svg"
                   alt="notification"
                   onClick={() => setIsOpen(true)}
                   width={20}
                   height={20}
-                />
+                /> */}
               </Popover>
             </li>
             <li className={styles.navitem}>
               <Popover
+              className={styles.popover_show}
                 isOpen={isPopOpen}
                 setIsOpen={setIsPopOpen}
                 content={
                   <div className={styles.myprofilesection}>
                     <div className={styles.userdetails}>
-   <p className={styles.dropdownprofileimage}>{namData.charAt(0).toUpperCase()}</p>
+                      <p className={styles.dropdownprofileimage}>{namData.charAt(0).toUpperCase()}</p>
                       <div className={styles.username_details}>
                         <h1 className={styles.user_name_heading}>{namData}</h1>
                         <span className={styles.gmail}>{useData}</span>
                       </div>
                     </div>
 
-                    <div className={styles.profilesection}>
+                    {/* <div className={styles.profilesection}>
                       <div className={styles.flexcol}>
                         <Image
                           className={styles.profileicon}
@@ -165,7 +177,7 @@ export function Navbar() {
                         />
                         <div className={styles.myprofile}>Notification</div>
                       </div>
-                    </div>
+                    </div> */}
                     <div className={styles.logoutbutton}>
                       <div
                         className={styles.inner_logout}
@@ -188,12 +200,14 @@ export function Navbar() {
                 placement="bottom"
                 width="224px"
               >
-                 <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>{namData.charAt(0).toUpperCase()}</p>
+                {!pofile  ?   <Avatar src={pofile} /> :   <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>{namData.charAt(0).toUpperCase()}</p>}
+               
+              
               </Popover>
             </li>
             <li className={styles.navitem}>
               <div className={styles.username_details}>
-             <h1 className={styles.user_name_title}>{namData}</h1> 
+                <h1 className={styles.user_name_title}>{namData}</h1>
               </div>
             </li>
           </ul>

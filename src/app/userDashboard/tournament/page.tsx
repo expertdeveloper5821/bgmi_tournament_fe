@@ -16,6 +16,7 @@ import {
 import CountdownComponent from './CountdownComponent';
 import {toast} from 'react-toastify';
 import {useRouter} from 'next/navigation';
+import { number } from 'yup';
 
 export interface tournament {
   gameName: string;
@@ -46,6 +47,7 @@ function Tournament() {
   const [mapImg, setMapImg] = useState<String>('');
   const [matchIndex, setMatchIndex] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+ const [userName , setUserName] = useState<string>("");
 
   const router = useRouter();
   const regMatchRedirect = (matchID: string) => {
@@ -87,7 +89,7 @@ function Tournament() {
       const matchTime = new Date(dbTime);
       const timeDifference = Number(matchTime) - Number(currentTime);
       if (timeDifference <= 900000) {
-        console.log('timeDifference_', timeDifference);
+        console.log('timeDifference_ ', timeDifference);
         selectedMatchIndexes.push(i);
       }
     }
@@ -101,7 +103,7 @@ function Tournament() {
 
   useEffect(() => {
     setLastTournament(alldata[alldata.length - 1]);
-    setAllTournaments(alldata?.slice(0, 2));
+    setAllTournaments(alldata?.slice(0, 6));
     getRegisteredMatches();
     getRoomidPwd();
   }, [alldata]);
@@ -185,49 +187,44 @@ function Tournament() {
     }
   };
 
+ 
+
   /********** */
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentIndexRegister, setCurrentIndexRegister] = useState(0);
   const [numItemsToShow, setNumItemsToShow] = useState(1);
-  const [numToShow, setNumToShow] = useState(1);
 
   const goToNextSlide = () => {
     const newIndex = currentIndex + 1;
-    const newIndexRegis = currentIndexRegister + 1; 
+   
     if (newIndex < regMatches.length) {
       setCurrentIndex(newIndex);
-    }
-    if (newIndexRegis < allTournaments.length) {
-      setCurrentIndexRegister(newIndexRegis);
     }
   };
 
   const goToPrevSlide = () => {
     const newIndex = currentIndex - 1;
-    const newIndexRegis = currentIndexRegister + 1; 
+   
     if (newIndex >= 0) {
       setCurrentIndex(newIndex);
     }
-    if (newIndexRegis >= 0) {
-      setCurrentIndexRegister(newIndexRegis);
-    }
+   
   };
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setNumItemsToShow(2);
-        setNumToShow(2);
+      
       } else {
         setNumItemsToShow(1);
-        setNumToShow(1);
+     
       }
       if (window.innerWidth >= 1000) {
         setNumItemsToShow(2);
-        setNumToShow(3);
+        
       } else {
         setNumItemsToShow(1);
-        setNumToShow(1);
+       
       }
     };
 
@@ -241,10 +238,10 @@ function Tournament() {
       <div className={styles.main_container}>
         <div className={styles.abcd}>
           <div className={styles.sidebar_wrapper}>
-            <Navbar />
+            <Navbar setUserName={setUserName}/>
             <div className={styles.content}>
               <div className={styles.dashboard}>
-              <h1 className={styles.page_title}>Welcome to User Dashboard</h1>
+              <h1 className={styles.page_title}>Welcome <span className={styles.fullname_title}>{userName}</span></h1>
                 <span className={styles.head_desc}>Upcoming Matches</span>
                 <h1 className={styles.subhead_desc}>
                   Dashboard/Upcoming Matches
@@ -442,17 +439,11 @@ function Tournament() {
                       </div>
 </div>
                       <div className={styles.winnings_sec_slider}>
-                      <button
-                      onClick={goToPrevSlide}
-                      className={styles.prevButton}
-                      disabled={currentIndexRegister === 0}
-                      
-                    >
-                      <AiOutlineLeft className={styles.outline_icon} />
-                    </button>
+                     
                         <div className={styles.game_imgsection}>
                           {allTournaments &&
-                            allTournaments.slice(currentIndexRegister, currentIndexRegister + numToShow).map((e: any, index: any) => (
+                            allTournaments.map((e: any, index: any) => (
+                             
                               <Image
                                 key={index}
                                 width={100}
@@ -474,17 +465,10 @@ function Tournament() {
                                   )
                                 }
                               />
+                           
                             ))}
                         </div>
-                        <button
-                      onClick={goToNextSlide}
-                      className={styles.nextButton}
-                      disabled={
-                        currentIndexRegister === allTournaments.length - numToShow
-                      }
-                    >
-                      <AiOutlineRight className={styles.outline_icon} />
-                    </button>
+                   
                       </div>
                      
                     </div>

@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 0px;
-  width: auto;
+  width: 40%;
   @media (max-width: $breakpoint-sm) {
     margin-left: 6px !important;
   }
@@ -254,6 +254,7 @@ img.slides_image {
   flex-wrap: wrap;
   width: 90%;
   border-top: 1px solid #12415d;
+
     margin-top: 18px;
   @media (max-width: $breakpoint-xSmall) {
     padding: 28px 1px !important;
@@ -280,6 +281,8 @@ img.slides_image {
 
 .container2 img {
   margin-left: 3%;
+  box-shadow: 0px 4px 14px 0px #00000040;
+    border-radius: 5px;
 }
 
 .Tournaments {
@@ -322,7 +325,7 @@ img.slides_image {
 }
 
 .head_desc {
-  font-size: 27px;
+  font-size: 23px;
   font-weight: 600;
   line-height: 40px;
   font-family: Century Gothic;
@@ -553,7 +556,7 @@ img.slides_image {
 .Teammembers {
   margin-top: 20px;
 
-  border-bottom: 1px solid grey;
+ // border-bottom: 1px solid grey;
 
   padding-bottom: 20px;
 
@@ -792,10 +795,12 @@ img.slides_image {
 }
 .winnings_sec_slider{
   display: flex;
+  width: 500px;
 }
 .game_imgsection {
   display: flex;
   column-gap: 18px;
+  overflow-x: scroll;
 }
 .progress_cls {
   accent-color: #ff7a00;
@@ -912,3 +917,10 @@ font-size: 28px;
 font-weight: 800;
 padding: 13px 0px;
 }
+.fullname_title{
+color: #ff7a00;
+font-size: 27px;
+font-weight: 700;
+}
+
+

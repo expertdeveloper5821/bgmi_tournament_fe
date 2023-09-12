@@ -105,9 +105,9 @@ const regMatches = () => {
                     height={100}
                   />
                 </div>
-                <span className={styles.register_match}>
+                {/* <span className={styles.register_match}>
                   Registered Matches
-                </span>
+                </span> */}
               </div>
               <div className={styles.squad_match}>
                 <span className={styles.register_match}>
@@ -223,9 +223,135 @@ const regMatches = () => {
           <div>
          
       </div>
-     
+     {/* <div className={styles.Teammembers}>Your Team Members</div>
+
+ 
+
+          <div className={styles.container2}>
+
+              <div className={styles.inner_cont}> */}
+
+                 {/* <div key={index} className={`${styles.slide}`}> */}
+
+          {/* <div className={styles.reviewsContainer}>
+
+                  <div className={styles.reviewCard}>
+
+                    <div className={styles.reviews}>
+
+                      <img
+
+                        src="/assests/reviewman.svg"
+
+                        alt="image"
+
+                        className={styles.profile}
+
+                      />
+
+                      <div className={styles.reviewer}>
+
+                        <div className={styles.name}>
+
+                          <h2>JOhn doe</h2>
+
+                          <div className={styles.greenCircle}></div>
+
+                        </div>
+
+                        <p></p>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div> */}
+
+ 
+
+           {/* <div className={styles.reviewsContainer}>
+
+                <div className={styles.reviewCard}>
+
+                  <div className={styles.reviews}>
+
+                    <img
+
+                      src="/assests/reviewman.svg"
+
+                      alt="image"
+
+                      className={styles.profile}
+
+                    />
+
+                    <div className={styles.reviewer}>
+
+                      <div className={styles.name}>
+
+                        <h2>JOhn doe</h2>
+
+                        <div className={styles.greenCircle}></div>
+
+                      </div>
+
+                      <p>akshay@gmail.com</p>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div> */}
+
+              {/* <div className={styles.reviewsContainer}>
+
+                <div className={styles.reviewCard}>
+
+                  <div className={styles.reviews}>
+
+                    <img
+
+                      src="/assests/reviewman.svg"
+
+                      alt="image"
+
+                      className={styles.profile}
+
+                    />
+
+                    <div className={styles.reviewer}>
+
+                      <div className={styles.name}>
+
+                        <h2>JOhn doe</h2>
+
+                        <div className={styles.greenCircle}></div>
+
+                      </div>
+
+                      <p>akshay@gmail.com</p>
+
+                    </div>
+
+                  </div>
+
+                </div> 
+
+          </div> */}
+
+          {/* </Slider>
+
+              )} */}
+
+          {/* </div>
+
+            </div>*/}
          
-        </div>
+        </div> 
       </div>
      
     </div>
