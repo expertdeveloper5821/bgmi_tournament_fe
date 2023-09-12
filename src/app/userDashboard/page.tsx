@@ -1,15 +1,14 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import styles from '../../styles/Dashboard.module.scss';
-import Sidebar from '../../Components/SideBar/Sidebar';
-import { Navbar } from '../../Components/Navbar/Navbar';
-import assignmentData from '../../utils/CreateAssignment.json';
+import styles from '@/styles/Dashboard.module.scss';
+import Sidebar from '../../components/commonComponent/SideBar/Sidebar';
 //@ts-ignore
 import { Pagination } from 'technogetic-iron-smart-ui';
-import { BtnDashboard } from '../../Components/CommonComponent/BtnDashboard';
+import { BtnDashboard } from '../../components/commonComponent/BtnDashboard';
 import RequireAuthentication from '../../utils/requireAuthentication';
 import { FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt } from 'react-icons/fa'
-import withAuth from '@/Components/HOC/WithAuthHoc';
+import withAuth from '@/components/hoc/WithAuthHoc';
+import { Navbar } from '@/components/commonComponent/Navbar/Navbar';
 export interface IAppProps { }
 
 function UserDashboard() {

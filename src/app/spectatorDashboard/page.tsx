@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import {Navbar} from '@/Components/Navbar/Navbar';
+import {Navbar} from '@/components/commonComponent/Navbar/Navbar';
 
 import Room from './Room/page';
 

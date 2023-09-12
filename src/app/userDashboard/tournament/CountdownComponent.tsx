@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import styles from '../../../styles/CountdownComponent.module.scss';
+import styles from '@/styles/CountdownComponent.module.scss';
 
 function CountdownComponent(props: {
   roomidd: string;

@@ -1,13 +1,13 @@
 'use client';
 import React, {ChangeEvent, useState} from 'react';
-import sendRequest from '../../../services/api/apiServices';
 //@ts-ignore
 import {Button, Input} from 'technogetic-iron-smart-ui';
 import {AiOutlineDelete} from 'react-icons/ai';
-import styles from '../../../styles/Spectator.module.scss';
+import styles from '@/styles/Spectator.module.scss';
 import {RoomData} from '../Room/page';
 import Image from 'next/image';
 import {toast} from 'react-toastify';
+import { sendRequest } from '@/utils/axiosInstanse';
 
 // interface UpdatespecProps {
 //   roomData: RoomData;

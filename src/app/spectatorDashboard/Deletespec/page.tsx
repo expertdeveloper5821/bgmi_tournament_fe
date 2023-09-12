@@ -1,9 +1,9 @@
 'use client';
 import React, {useState} from 'react';
-import {sendRequest} from '../../../services/auth/auth_All_Api';
 import {AiOutlineDelete} from 'react-icons/ai';
-import styles from '../../../styles/Spectator.module.scss';
+import styles from '@/styles/Spectator.module.scss';
 import {toast} from 'react-toastify';
+import { sendRequest } from '@/utils/axiosInstanse';
 
 const Deletespec = ({Id, getAllSpectator}: any) => {
   const [deletModal, setDeleteModal] = useState(false);

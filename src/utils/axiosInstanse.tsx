@@ -1,11 +1,12 @@
 import axios, {AxiosInstance} from 'axios';
+import { config } from './config';
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 const apiVersion = process.env.NEXT_PUBLIC_API_BASE_VER;
 export const axiosInstance: AxiosInstance = axios.create({
-  baseURL: `${apiBaseUrl}${apiVersion}`,
+  baseURL: `${config.api.url}/api/${config.api.ver}`,
 });
 export async function sendRequest(path: string, opts: any = {}) {
-  console.log('check opts-', {...opts.headers});
+  // console.log('check opts-', {...opts.headers});
   const headers = {
     ...opts.headers,
     'Content-Type': 'application/json; charset=UTF-8',

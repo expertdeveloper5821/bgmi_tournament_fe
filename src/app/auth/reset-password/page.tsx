@@ -1,13 +1,13 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import styles from "../../../styles/credential.module.scss";
+import styles from "@/styles/credential.module.scss";
 import { useRouter } from 'next/navigation';
 import { useFormik } from 'formik';
-import { ResetPasswordSchema } from '../../../schemas/SignupSchemas';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
-import {sendRequest} from '../../../services/auth/auth_All_Api';
 import Image from 'next/image';
+import { sendRequest } from '@/utils/axiosInstanse';
+import { ResetPasswordSchema } from '@/utils/schema';
 
 interface FormValues {
   newPassword: string;

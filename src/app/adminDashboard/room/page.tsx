@@ -1,14 +1,14 @@
 'use client';
 import React, {useState, useEffect} from 'react';
-import styles from '../../../styles/Dashboard.module.scss';
-import {Navbar} from '../../../Components/Navbar/Navbar';
-import TableData, {StudentProfile} from '../../../Components/Table/Table';
-import assignmentData from '../../../utils/CreateAssignment.json';
+import styles from '@/styles/Dashboard.module.scss';
+import {Navbar} from '../../../components/commonComponent/Navbar/Navbar';
+import TableData, {StudentProfile} from '../../../components/commonComponent/Table/Table';
+import assignmentData from '../../../utils/CreateAssignmment.json';
 //@ts-ignore
 import {Pagination} from 'technogetic-iron-smart-ui';
-import {BtnDashboard} from '../../../Components/CommonComponent/BtnDashboard';
+import {BtnDashboard} from '../../../components/commonComponent/BtnDashboard';
 import RequireAuthentication from '../../../utils/requireAuthentication';
-import {sendRequest} from '@/services/auth/auth_All_Api';
+import { sendRequest } from '@/utils/axiosInstanse';
 
 export interface IAppProps {}
 

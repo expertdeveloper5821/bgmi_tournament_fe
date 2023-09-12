@@ -1,14 +1,15 @@
 'use client';
 import React, {useEffect, useState} from 'react';
-import styles from '../../styles/landingpage.module.scss';
+import styles from '@/styles/landingpage.module.scss';
 import useWindowSize from '@/hooks/useWindowSize';
 import NavBar from './navBar/page';
 import Image from 'next/image';
-import {sendRequest} from '@/services/auth/auth_All_Api';
 import {toast} from 'react-toastify';
 import CustomCursor from './customCursor/page';
 import GlassCrack from './glassCrack/page';
 import Link from 'next/link';
+import { sendRequest } from '@/utils/axiosInstanse';
+
 const page = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [data, setData] = useState<any>();

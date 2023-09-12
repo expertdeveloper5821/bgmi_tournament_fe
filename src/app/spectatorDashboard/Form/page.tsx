@@ -1,13 +1,13 @@
 'use client';
 import React, {useState} from 'react';
-import styles from '../../../styles/Spectator.module.scss';
+import styles from '@/styles/Spectator.module.scss';
 //@ts-ignore
 import {Button, Input} from 'technogetic-iron-smart-ui';
 import {useFormik, FormikHelpers} from 'formik';
-import {createspectater} from '@/schemas/SignupSchemas';
-import {sendRequest} from '../../../services/auth/auth_All_Api';
 import {ChangeEvent} from 'react';
 import {toast} from 'react-toastify';
+import { sendRequest } from '@/utils/axiosInstanse';
+import { createspectater } from '@/utils/schema';
 interface FormCreate {
   roomId: string;
   gameName: string;

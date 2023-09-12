@@ -1,15 +1,15 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import styles from '../../styles/Dashboard.module.scss';
-import Sidebar from '../../Components/SideBar/Sidebar';
-import { Navbar } from '../../Components/Navbar/Navbar';
-import TableData, { StudentProfile } from '../../Components/Table/Table'
-import assignmentData from '../../utils/CreateAssignment.json';
+import styles from '@/styles/Dashboard.module.scss';
+import Sidebar from '../../components/commonComponent/SideBar/Sidebar';
+import { Navbar } from '../../components/commonComponent/Navbar/Navbar';
+import TableData, { StudentProfile } from '../../components/commonComponent/Table/Table'
+import assignmentData from '../../utils/CreateAssignmment.json';
 //@ts-ignore
 import { Pagination } from 'technogetic-iron-smart-ui';
-import { BtnDashboard } from '../../Components/CommonComponent/BtnDashboard';
+import { BtnDashboard } from '../../components/commonComponent/BtnDashboard';
 import RequireAuthentication from '../../utils/requireAuthentication';
-import withAuth from '@/Components/HOC/WithAuthHoc';
+import withAuth from '@/components/hoc/WithAuthHoc';
 
 
 export interface IAppProps { }
@@ -18,6 +18,7 @@ function AdminDashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
   const rowPerPage = 8;
+
 
   const transformedStudentData = assignmentData.studentData.map(
     (item: StudentProfile) => ({

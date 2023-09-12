@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from "react";
 import { useRouter, NextRouter } from "next/router";
-import styles from "../../styles/TableData.module.scss";
+import styles from "@/styles/TableData.module.scss";
 //@ts-ignore
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell, IconButton } from "technogetic-iron-smart-ui";
 

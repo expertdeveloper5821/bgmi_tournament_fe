@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import styles from '../../../styles/landingpage.module.scss'
+import styles from '@/styles/landingpage.module.scss'
 import Link from 'next/link';
 import useWindowSize from '@/hooks/useWindowSize';
 const page = () => {
