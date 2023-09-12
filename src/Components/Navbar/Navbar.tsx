@@ -5,15 +5,15 @@ import {useRouter} from 'next/navigation';
 // @ts-ignore
 import {Avatar, Popover} from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
-import {sendRequest} from '@/services/auth/auth_All_Api';
+import { sendRequest } from '@/utils/axiosInstanse';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const [useData, setUseData] = useState<string>('');
-  const [namData, setNamData] = useState<string>('');
+  const [useData, setUseData] = useState<string>('vijayg963');
+  const [namData, setNamData] = useState<string>('vijay');
 
   function handleClosePopover() {
     setIsOpen(false);
@@ -30,20 +30,20 @@ export function Navbar() {
     }
   };
 
-  const getAlldata = async () => {
-    const token = localStorage.getItem('jwtToken');
-    const Response = await sendRequest('user/getuser', {
-      method: 'GET',
-      headers: {Authorization: `Bearer ${token}`},
-    });
+  // const getAlldata = async () => {
+  //   const token = localStorage.getItem('jwtToken');
+  //   const Response = await sendRequest('user/getuser', {
+  //     method: 'GET',
+  //     headers: {Authorization: `Bearer ${token}`},
+  //   });
 
-    setUseData(Response.data.data.email);
-    setNamData(Response.data.data.userName);
-  };
+  //   setUseData(Response.data.data.email);
+  //   setNamData(Response.data.data.userName);
+  // };
 
-  useEffect(() => {
-    getAlldata();
-  }, []);
+  // useEffect(() => {
+  //   getAlldata();
+  // }, []);
 
   return (
     <header>
@@ -51,7 +51,7 @@ export function Navbar() {
         <nav className={styles.container}>
           <div className={styles.navbarbrand}></div>
           <ul className={styles.navbarnav}>
-            <li className={styles.navitem}>
+            {/* <li className={styles.navitem}>
               <Popover
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
@@ -119,11 +119,11 @@ export function Navbar() {
                   height={20}
                 />
               </Popover>
-            </li>
+            </li> */}
             <li className={styles.navitem}>
               <Avatar onClick={() => {}} src="./assests/avatar.png" size={20} />
             </li>
-            <li className={styles.navitem}>
+            {/* <li className={styles.navitem}>
               <Popover
                 isOpen={isPopOpen}
                 setIsOpen={setIsPopOpen}
@@ -205,7 +205,7 @@ export function Navbar() {
                   height={20}
                 />
               </Popover>
-            </li>
+            </li> */}
             <li className={styles.navitem}>
               <div className={styles.username_details}>
                 <h1 className={styles.user_name_title}>{namData}</h1>

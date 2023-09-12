@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { emailRegex, passwordRegex } from './pattern';
 
-export const SignupSchema = Yup.object().shape({
+ const SignupSchema = Yup.object().shape({
   fullName: Yup.string().required('Please enter your Full Name'),
   userName: Yup.string().required('Please enter your  Username'),
   email: Yup.string()
@@ -16,7 +16,7 @@ export const SignupSchema = Yup.object().shape({
     ),
 });
 
-export const loginSchema = Yup.object().shape({
+const loginSchema = Yup.object().shape({
   email: Yup.string()
     .email('Invalid email')
     .required('Please enter your email')
@@ -24,7 +24,7 @@ export const loginSchema = Yup.object().shape({
   password: Yup.string().required('Please enter your password'),
 });
 
-export const ResetPasswordSchema = Yup.object().shape({
+ const ResetPasswordSchema = Yup.object().shape({
   newPassword: Yup.string()
     .required('New password is required')
     .min(6, 'Password must be at least 6 characters long'),
@@ -33,7 +33,7 @@ export const ResetPasswordSchema = Yup.object().shape({
     .oneOf([Yup.ref('newPassword')], 'Passwords must match'),
 });
 
-export const createspectater = Yup.object().shape({
+ const createspectater = Yup.object().shape({
   roomId: Yup.number().required('Please enter your Room Id'),
   gameName: Yup.string().required('Please enter your  Game Name'),
   gameType: Yup.string().required('Please enter your Game Type'),
@@ -46,3 +46,5 @@ export const createspectater = Yup.object().shape({
   highestKill: Yup.number().required('Please enter highestKill winner prize'),
   thirdWin: Yup.number().required('Please enter Third winner prize '),
 });
+
+export {SignupSchema, loginSchema, ResetPasswordSchema, createspectater}

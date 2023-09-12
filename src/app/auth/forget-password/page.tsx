@@ -2,11 +2,11 @@
 import React, { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
 import styles from '../../../styles/auth.module.scss';
-import {sendRequest} from '../../../services/auth/auth_All_Api';
 import { useRouter } from 'next/navigation';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
+import { sendRequest } from '@/utils/axiosInstanse';
 
 interface ResetPasswordProps { }
 
