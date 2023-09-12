@@ -1,9 +1,9 @@
 'use client';
 import React, {useEffect, useState} from 'react';
-import styles from '../../../styles/Dashboard.module.scss';
-import {Navbar} from '../../../Components/Navbar/Navbar';
+import styles from '@/styles/Dashboard.module.scss';
+import {Navbar} from '../../../components/commonComponent/Navbar/Navbar';
 import Image from 'next/image';
-import {sendRequest} from '@/services/auth/auth_All_Api';
+import {sendRequest} from '@/utils/axiosInstanse';
 import {useSearchParams} from 'next/navigation';
 
 export interface RegMatch {

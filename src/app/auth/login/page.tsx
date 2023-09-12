@@ -11,7 +11,7 @@ import {useRouter} from 'next/navigation';
 import Link from 'next/link';
 //@ts-ignore
 import {Button, Input} from 'technogetic-iron-smart-ui';
-import styles from '../../../styles/auth.module.scss';
+import styles from '@/styles/auth.module.scss';
 import {sendRequest} from '../../../utils/axiosInstanse';
 import {FcGoogle} from 'react-icons/fc';
 import Image from 'next/image';

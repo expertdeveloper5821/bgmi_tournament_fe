@@ -1,7 +1,7 @@
 // Sidebar.tsx
 import React, {useState} from 'react';
 import Link from 'next/link';
-import styles from '../../styles/DashboardSidebar.module.scss';
+import styles from '@/styles/DashboardSidebar.module.scss';
 import {FaBars} from 'react-icons/fa';
 import useWindowSize from '@/hooks/useWindowSize';
 interface MenuItem {

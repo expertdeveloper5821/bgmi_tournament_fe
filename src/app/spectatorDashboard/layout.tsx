@@ -1,7 +1,7 @@
 'use client';
 import {Inter} from 'next/font/google';
-import Sidebar from '@/Components/SideBar/Sidebar';
-import styles from '../../styles/Dashboard.module.scss';
+import Sidebar from '@/components/commonComponent/SideBar/Sidebar';
+import styles from '@/styles/Dashboard.module.scss';
 import {FaTh} from 'react-icons/fa';
 const inter = Inter({subsets: ['latin']});
 

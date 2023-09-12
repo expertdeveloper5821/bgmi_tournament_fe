@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
-import styles from '../../../styles/auth.module.scss';
+import styles from '@/styles/auth.module.scss';
 import { useRouter } from 'next/navigation';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';

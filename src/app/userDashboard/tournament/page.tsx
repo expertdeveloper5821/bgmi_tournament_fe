@@ -1,7 +1,7 @@
 'use client';
 import React, {useEffect, useState} from 'react';
-import styles from '../../../styles/Dashboard.module.scss';
-import {Navbar} from '../../../Components/Navbar/Navbar';
+import styles from '@/styles/Dashboard.module.scss';
+import {Navbar} from '../../../components/commonComponent/Navbar/Navbar';
 //@ts-ignore
 import {Button} from 'technogetic-iron-smart-ui';
 import {decodeJWt} from '@/utils/globalfunctions';
