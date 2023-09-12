@@ -29,7 +29,7 @@ interface FormValues {
 
 
 const regMatches = () => {
-  const [poolModal, setPoolModal] = useState(false);
+  
   const [values, setValues] = useState<string[]>([]);
 
   const handleValueChange = (newValues: string[]) => {
@@ -71,40 +71,7 @@ const regMatches = () => {
   useEffect(() => {
     getRoomidPwd();
   }, [matchData]);
-  // const handleSubmit = async () => {
-   
-  //     // const token: any = localStorage.getItem('jwtToken');
-  //     // const responseaddteam = await sendRequest(`team/addteam`, {
-  //     //   method: 'POST',
-  //     //   headers: {Authorization: `Bearer ${token}`},
-  //     //   data:tags,
-  //     // });
-     
-  //  console.log("check this api respones" )
   
-  // }
-  // const initialValues: FormValues = {
-  //   email: '',
-  // };
-
-  // const {
-  //   values,
-  //   touched,
-  //   errors,
-  //   handleSubmit,
-  //   handleChange,
-  //   handleBlur,
-  //   setFieldValue,
-  // } = useFormik({
-  //   initialValues,
-  //   validationSchema: SendInviteSchema,
-  //   onSubmit: async (
-  //     values: FormValues,
-  //     {setSubmitting}: FormikHelpers<FormValues>,
-  //   ) => {
-  //     const {email} = values;
-  //   }
-  //  })
   return (
     <div className={styles.main_container}>
       <div className={styles.abcd}>
@@ -118,12 +85,12 @@ const regMatches = () => {
               </h1>
             </div>
             <div className={styles.sendmailbtnContainer}>
-              <button
+              {/* <button
                   className={styles.sendMailBtn}
                   onClick={() => setPoolModal(true)}>
                   
                   SEND INVITE BY EMAIL
-                </button>
+                </button> */}
             </div>
           </div>
           <div className={styles.room_wrapper}>
@@ -255,95 +222,9 @@ const regMatches = () => {
           </div>
           <div>
          
-      {poolModal ? (
-        <div className={styles.main_tag_model}>
-            <div className={styles.check_model}>
-        <h3 className={styles.heading_tag}>Invite your Friend</h3>
-      
-        
-
-        <div>
-        <Button
-                  className={styles.cancel_tag_cls}
-                  onClick={() => setPoolModal(false)}
-                >
-                  cancel
-                </Button>
-                <Button
-                  type="submit"
-                  className={styles.roombutton}
-                 // onClick={handleSubmit}
-                >
-                Send
-                </Button>
-                </div>
-        </div></div>):''}
+      </div>
      
-    </div>
-          {/* <div className={styles.Teammembers}>Your Team Members</div> */}
-
-          {/* <div className={styles.container2}>
-              <div className={styles.inner_cont}>
-                {/* <div key={index} className={`${styles.slide}`}> */}
-          {/* <div className={styles.reviewsContainer}>
-                  <div className={styles.reviewCard}>
-                    <div className={styles.reviews}>
-                      <img
-                        src="/assests/reviewman.svg"
-                        alt="image"
-                        className={styles.profile}
-                      />
-                      <div className={styles.reviewer}>
-                        <div className={styles.name}>
-                          <h2>JOhn doe</h2>
-                          <div className={styles.greenCircle}></div>
-                        </div>
-                        <p></p>
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
-
-          {/* <div className={styles.reviewsContainer}>
-                <div className={styles.reviewCard}>
-                  <div className={styles.reviews}>
-                    <img
-                      src="/assests/reviewman.svg"
-                      alt="image"
-                      className={styles.profile}
-                    />
-                    <div className={styles.reviewer}>
-                      <div className={styles.name}>
-                        <h2>JOhn doe</h2>
-                        <div className={styles.greenCircle}></div>
-                      </div>
-                      <p>akshay@gmail.com</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.reviewsContainer}>
-                <div className={styles.reviewCard}>
-                  <div className={styles.reviews}>
-                    <img
-                      src="/assests/reviewman.svg"
-                      alt="image"
-                      className={styles.profile}
-                    />
-                    <div className={styles.reviewer}>
-                      <div className={styles.name}>
-                        <h2>JOhn doe</h2>
-                        <div className={styles.greenCircle}></div>
-                      </div>
-                      <p>akshay@gmail.com</p>
-                    </div>
-                  </div>
-                </div> */}
-          {/* </div> */}
-          {/* </Slider>
-              )} */}
-          {/* </div>
-            </div> */}
+         
         </div>
       </div>
      

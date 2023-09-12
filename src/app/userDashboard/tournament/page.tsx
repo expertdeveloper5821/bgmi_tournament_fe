@@ -33,7 +33,7 @@ function Tournament() {
   const [poolModal, setPoolModal] = useState(false);
   const [alldata, setData] = useState<any>([]);
   const [lastTournament, setLastTournament] = useState<tournament>();
-  const [allTournaments, setAllTournaments] = useState<any>();
+  const [allTournaments, setAllTournaments] = useState<[]>([]);
   const [regMatches, setRegMatches] = useState<any>('');
   const [gameName, setMatchName] = useState<String>('');
   const [gameType, setGameType] = useState<String>('');

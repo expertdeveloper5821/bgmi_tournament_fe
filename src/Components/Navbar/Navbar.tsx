@@ -120,10 +120,6 @@ export function Navbar() {
                 />
               </Popover>
             </li>
-             {/* <li className={styles.navitem}>
-             <Avatar onClick={() => {}} src="../assests/avatar.png" size={20} /> 
-             
-            </li>*/}
             <li className={styles.navitem}>
               <Popover
                 isOpen={isPopOpen}
@@ -131,11 +127,6 @@ export function Navbar() {
                 content={
                   <div className={styles.myprofilesection}>
                     <div className={styles.userdetails}>
-                      {/* <Avatar
-                        onClick={() => {}}
-                        src="../assests/avatar.png"
-                        size={25}
-                      /> */}
    <p className={styles.dropdownprofileimage}>{namData.charAt(0).toUpperCase()}</p>
                       <div className={styles.username_details}>
                         <h1 className={styles.user_name_heading}>{namData}</h1>
@@ -198,14 +189,6 @@ export function Navbar() {
                 width="224px"
               >
                  <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>{namData.charAt(0).toUpperCase()}</p>
-                {/* <Image
-                  className={styles.dropdown}
-                  src="../assests/dropdown.svg"
-                  alt="dropdown"
-                  onClick={() => setIsPopOpen(!isPopOpen)}
-                  width={20}
-                  height={20}
-                /> */}
               </Popover>
             </li>
             <li className={styles.navitem}>

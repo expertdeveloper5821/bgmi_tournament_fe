@@ -14,6 +14,36 @@ $bs-body-font-family: 'Century Gothic';
 
 // Theme Color Variables
 $primary-color: rgba(0, 53, 84, 1);
+$darkblue: rgba(0, 53, 84, 1);
+$bs-orange: rgba(255, 122, 0, 1);
+$bs-green: rgba(28, 95, 17, 1);
+$bs-black: black;
+$bs-white: rgba(245, 245, 245, 1);
+$bs-red: rgba(255, 0, 0, 1);
+$bs-grey: rgb(163, 164, 165);
+$bs-blue: rgba(0, 148, 218, 1);
+$bs-lightgrey: rgba(217, 217, 217, 1);
+$bs-skyblue: #eff9ff;
+$bs-error: #f70707;
+$bs-disablebtn: #d9d9d9;
+$bs-white: #fff;
+$bs-font-style: normal;
+$bs-border: 1px solid transparent;
+$bs-cursor: pointer;
+$bs-body-font-weight: 400;
+$bs-font-size: 14px;
+$bs-border-radius: 8px;
+$bs-body-font-size: 16px;
+$bs-body-font-size-extra: 48px;
+$bs-line-height: 16px;
+$bs-notification: 0px 4px 9px 1px #82c7ee;
+$bs-btnShadow: 4px 4px 4px rgba(152, 152, 152, 0.25);
+$bs-sideBarTxt: #6c757d;
+
+//background
+$bg-errorScreen: rgba(249, 143, 143, 0.55);
+$bg-sidebar: rgba(205, 239, 255, 0.6);
+$bg-navbarBg: #858585;
 
 // Theme Color
 :export {
