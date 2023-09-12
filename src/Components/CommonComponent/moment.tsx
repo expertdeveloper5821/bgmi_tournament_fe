@@ -1,5 +1,5 @@
 import moment from 'moment';
-// If you installed moment-timezone
+// If you installed moment-timezone xxx
 
 // ...
 
