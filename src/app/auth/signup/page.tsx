@@ -1,14 +1,14 @@
 'use client';
-import React, {useState, useEffect} from 'react';
-import {useFormik, FormikValues, FormikHelpers} from 'formik';
-import {SignupSchema} from '../../../schemas/SignupSchemas';
-import {useRouter} from 'next/navigation';
+import React, { useState, useEffect } from 'react';
+import { useFormik, FormikValues, FormikHelpers } from 'formik';
+import { SignupSchema } from '../../../schemas/SignupSchemas';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 //@ts-ignore
-import {Button, Input} from 'technogetic-iron-smart-ui';
+import { Button, Input } from 'technogetic-iron-smart-ui';
 import styles from '../../../styles/auth.module.scss';
-import {sendRequest} from '../../../services/auth/auth_All_Api';
-import {FcGoogle} from 'react-icons/fc';
+import { sendRequest } from '../../../services/auth/auth_All_Api';
+import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
 
 interface FormValues {
@@ -18,6 +18,9 @@ interface FormValues {
   password: string;
   upiId: any;
 }
+
+
+
 
 const Signup = () => {
   const [rememberMe, setRememberMe] = useState<boolean>(false);
@@ -46,10 +49,10 @@ const Signup = () => {
     validationSchema: SignupSchema,
     onSubmit: async (
       values: FormValues,
-      {setSubmitting}: FormikHelpers<FormValues>,
+      { setSubmitting }: FormikHelpers<FormValues>,
     ) => {
       setIsLoading(true);
-      const {fullName, userName, email, password, upiId} = values;
+      const { fullName, userName, email, password, upiId } = values;
       if (rememberMe) {
         const expirationDate = new Date();
         expirationDate.setDate(expirationDate.getDate() + 30);
@@ -58,7 +61,7 @@ const Signup = () => {
       try {
         const response = await sendRequest('user/signup', {
           method: 'POST',
-          data: {fullName, userName, email, password, upiId},
+          data: { fullName, userName, email, password, upiId },
         });
 
         if (response.status === 200) {
@@ -102,27 +105,18 @@ const Signup = () => {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <Image
-              src="/assests/logoWithBg.svg"
-              alt="Tg-logo"
-              width={250}
-              height={100}
-            />
+            <Image src="/assests/logobgmi.svg" alt="Tg-logo" width={100} height={100} />
           </div>
           <div>
-            <p className={styles.heading}>Welcome! Please enter your details</p>
+            <h2 className={styles.headDesc}>Welcome back</h2>
+            <p className={styles.heading}>Welcome back! Please enter your details</p>
           </div>
           <div>
             <form onSubmit={handleSubmit}>
               {error && <div className={styles.error}>{error}</div>}
               <div className={styles.input_box}>
                 <label className={styles.email} htmlFor="Fullname">
-                  <Image
-                    src="/assests/fullnameicon.svg"
-                    alt="fullname"
-                    width={30}
-                    height={20}
-                  />
+                  <Image src="/assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
                 </label>
                 <Input
                   id="fullName"
@@ -141,12 +135,7 @@ const Signup = () => {
               )}
               <div className={styles.input_box}>
                 <label className={styles.email} htmlFor="UserName">
-                  <Image
-                    src="/assests/fullnameicon.svg"
-                    alt="fullname"
-                    width={30}
-                    height={20}
-                  />
+                  <Image src="/assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
                 </label>
                 <Input
                   id="userName"
@@ -165,12 +154,7 @@ const Signup = () => {
               )}
               <div className={styles.input_box}>
                 <label className={styles.email} htmlFor="email">
-                  <Image
-                    src="/assests/maillogo.svg"
-                    alt="mailogo"
-                    width={30}
-                    height={20}
-                  />
+                  <Image src="/assests/maillogo.svg" alt="mailogo" width={30} height={20} />
                 </label>
                 <Input
                   id="email"
@@ -189,12 +173,7 @@ const Signup = () => {
               )}
               <div className={styles.input_box}>
                 <label className={styles.password} htmlFor="password">
-                  <Image
-                    src="/assests/passwordlogo.svg"
-                    alt="passwordlogo"
-                    width={30}
-                    height={20}
-                  />
+                  <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
                 </label>
                 <Input
                   id="password"
@@ -211,29 +190,6 @@ const Signup = () => {
               {errors.password && touched.password && (
                 <div className={styles.error}>{errors.password}</div>
               )}
-
-              <div className={styles.input_box}>
-                <label className={styles.email} htmlFor="UserName">
-                  <Image
-                    src="/assests/fullnameicon.svg"
-                    alt="fullname"
-                    width={30}
-                    height={20}
-                  />
-                </label>
-                <Input
-                  id="upiId"
-                  className={styles.password_wrapper}
-                  type="text"
-                  name="upiId"
-                  autoComplete="off"
-                  placeholder="Your UPI-ID"
-                  value={values.upiId}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-              </div>
-
               <div className={styles.button_wrapper}>
                 <Button
                   disabled={isLoading}
@@ -242,22 +198,18 @@ const Signup = () => {
                   type="submit"
                   onClick={handleSubmit}
                 >
-                  {isLoading ? 'Loading...' : 'Sign up'}
+                  {isLoading ? "Loading..." : "Sign up"}
                 </Button>
+
               </div>
 
               {/* <div className={styles.signin_withgoogle}>
                                 <FcGoogle /> Sign up with Google
                             </div> */}
 
-              <div className={styles.log_acc_cls}>
+              <div className={styles.signin}>
                 <span className={styles.forgotDesc}>
-                  Already have an account ?
-                </span>
-                <span className={styles.forgotDescsec}>
-                  <Link className={styles.link_sign} href="/auth/login">
-                    Login
-                  </Link>
+                  <Link href="/auth/login"> Already have an account ? &nbsp; <b>Login</b></Link>
                 </span>
               </div>
             </form>

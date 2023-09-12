@@ -42,7 +42,6 @@ export default function SentMail(props: SentMailProps): JSX.Element {
                 >
                   Go to Link
                 </Button>
-
               </div>
             </div>
           </div>

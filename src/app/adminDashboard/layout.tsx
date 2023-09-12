@@ -32,11 +32,11 @@ const dynamicMenuItems = [
     name: "Teams",
     icon: <FaUserFriends />,
   },
-  {
-    path: "/adminDashboard/video",
-    name: "video",
-    icon: <FaVideo />,
-  }
+  // {
+  //   path: "/adminDashboard/video",
+  //   name: "video",
+  //   icon: <FaVideo />,
+  // }
 ];
 
 export default function RootLayout({

@@ -9,6 +9,9 @@
   min-height: 100vh;
   color: white;
 }
+.container {
+  position: absolute;
+}
 
 .squad_match {
   display: flex;
@@ -24,6 +27,11 @@
   @media (max-width: $breakpoint-xs) {
     margin-left: 8px !important;
   }
+}
+.heading {
+  font-weight: 700;
+  font-size: 30px;
+  margin: 2rem 0rem;
 }
 
 .abcd {
@@ -830,4 +838,132 @@ img.slides_image {
   font-size: 18px;
   background: #ff7a00;
   border-radius: 18px;
+}
+
+.abcd {
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper_main {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar_wrapper {
+  z-index: 99;
+  height: auto;
+}
+
+.content {
+  line-height: 48px;
+  font-size: 40px;
+  padding: 5px;
+}
+
+.room_wrapper {
+  display: flex;
+  border: 2px solid white;
+}
+
+.imgSection {
+  border: 1px solid;
+}
+
+.room_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapperimg {
+  height: 450px;
+  width: 600px;
+  margin: 2px;
+  border-radius: 20px;
+}
+
+.input_desc Input {
+  border-radius: 8px;
+  color: #8a96a5 !important;
+  font-size: 14px;
+}
+.input_desc {
+  display: flex;
+  justify-content: space-between;
+}
+
+//modal
+body.activemodal {
+  overflow-y: hidden;
+}
+
+.btnmodal {
+  padding: 10px 20px;
+  display: flex;
+  border: transparent;
+  font-size: 18px;
+  background-color: orangered !important;
+}
+
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.overlay {
+  background: rgba(49, 49, 49, 0.8);
+}
+.modalcontent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  // line-height: 1.4;
+  background: #f1f1f1;
+  padding: 18px 36px;
+  border-radius: 6px;
+  max-width: 600px;
+  min-width: 300px;
+}
+
+.closemodal {
+  position: absolute;
+  border: 1px solid black;
+  background-color: #f1f1f1;
+  border: transparent;
+  top: 6px;
+  right: 10px;
+  padding: 5px 7px;
+}
+
+.name {
+  color: rgba(0, 53, 84, 1);
+}
+
+.text {
+  padding: 10px;
+}
+
+.popupbutton {
+  padding-left: 10px;
+  margin-bottom: 0.5rem;
+}
+.email_wrapper input[type='text'],
+.email_wrapper input[type='email'],
+.email_wrapper input[type='password'] {
+  color: #000 !important;
+}
+.register_button {
+  background-color: orangered !important;
+  border: transparent;
+  color: white !important;
+  margin: 15px 0px;
+  width: 100%;
 }

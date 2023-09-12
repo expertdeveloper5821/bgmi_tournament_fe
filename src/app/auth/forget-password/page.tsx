@@ -2,7 +2,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
 import styles from '../../../styles/auth.module.scss';
-import {sendRequest} from '../../../services/auth/auth_All_Api';
+import { sendRequest } from '../../../services/auth/auth_All_Api';
 import { useRouter } from 'next/navigation';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
@@ -14,6 +14,7 @@ export default function ResetPassword(): JSX.Element {
   const [email, setEmail] = useState<string>('');
   const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
 
+
   const router = useRouter();
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -24,9 +25,9 @@ export default function ResetPassword(): JSX.Element {
 
   const sendEmail = async () => {
     try {
-      const response = await sendRequest('api/v1/user/forget-password', {
+      const response = await sendRequest('/user/forget-password', {
         method: 'POST',
-        body: { email },
+        data: { email: email },
       });
       router.push('/auth/mailpage');
 

@@ -1,14 +1,14 @@
 'use client';
-import React, {useEffect, useState} from 'react';
-import {Navbar} from '../../../Components/Navbar/Navbar';
+import React, { useEffect, useState } from 'react';
+import { Navbar } from '../../../Components/Navbar/Navbar';
 import styles from '../../../styles/Spectator.module.scss';
 import Form from '../Form/page';
-import {sendRequest} from '../../../services/auth/auth_All_Api';
+import { sendRequest } from '../../../services/auth/auth_All_Api';
 import RequireAuthentication from '../../../utils/requireAuthentication';
 //@ts-ignore
-import {Table, TableBody, TableCell} from 'technogetic-iron-smart-ui';
+import { Table, TableBody, TableCell } from 'technogetic-iron-smart-ui';
 //@ts-ignore
-import {TableHeader, TableHead, TableRow} from 'technogetic-iron-smart-ui';
+import { TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import Deletespec from '../Deletespec/page';
 import Updatespec from '../Updatespec/page';
