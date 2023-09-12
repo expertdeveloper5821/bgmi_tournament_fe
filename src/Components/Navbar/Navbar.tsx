@@ -200,8 +200,8 @@ export function Navbar(props: INavbar) {
                 placement="bottom"
                 width="224px"
               >
-                {!pofile  ?   <Avatar src={pofile} /> :   <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>{namData.charAt(0).toUpperCase()}</p>}
-               
+                {pofile  ?   <Avatar src={pofile} /> :   <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>{namData.charAt(0).toUpperCase()}</p>}
+              
               
               </Popover>
             </li>
