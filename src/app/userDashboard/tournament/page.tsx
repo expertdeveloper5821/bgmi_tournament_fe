@@ -16,6 +16,7 @@ import {
 import CountdownComponent from './CountdownComponent';
 import {toast} from 'react-toastify';
 import {useRouter} from 'next/navigation';
+import { number } from 'yup';
 
 export interface tournament {
   gameName: string;
@@ -33,7 +34,7 @@ function Tournament() {
   const [poolModal, setPoolModal] = useState(false);
   const [alldata, setData] = useState<any>([]);
   const [lastTournament, setLastTournament] = useState<tournament>();
-  const [allTournaments, setAllTournaments] = useState<[]>();
+  const [allTournaments, setAllTournaments] = useState<[]>([]);
   const [regMatches, setRegMatches] = useState<any>('');
   const [gameName, setMatchName] = useState<String>('');
   const [gameType, setGameType] = useState<String>('');
@@ -45,6 +46,8 @@ function Tournament() {
   const [roomId, setRoomId] = useState<String>('');
   const [mapImg, setMapImg] = useState<String>('');
   const [matchIndex, setMatchIndex] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+ const [userName , setUserName] = useState<string>("");
 
   const router = useRouter();
   const regMatchRedirect = (matchID: string) => {
@@ -86,7 +89,7 @@ function Tournament() {
       const matchTime = new Date(dbTime);
       const timeDifference = Number(matchTime) - Number(currentTime);
       if (timeDifference <= 900000) {
-        console.log('timeDifference_', timeDifference);
+        console.log('timeDifference_ ', timeDifference);
         selectedMatchIndexes.push(i);
       }
     }
@@ -100,7 +103,7 @@ function Tournament() {
 
   useEffect(() => {
     setLastTournament(alldata[alldata.length - 1]);
-    setAllTournaments(alldata?.slice(0, 2));
+    setAllTournaments(alldata?.slice(0, 6));
     getRegisteredMatches();
     getRoomidPwd();
   }, [alldata]);
@@ -142,6 +145,7 @@ function Tournament() {
   };
 
   const addRegMatch = async (roomId: any) => {
+    setIsLoading(true);
     try {
       const token: any = localStorage.getItem('jwtToken');
       const decodedToken: any = decodeJWt(token);
@@ -174,6 +178,7 @@ function Tournament() {
           autoClose: 2000,
           hideProgressBar: false,
         });
+        setIsLoading(false)
       } else {
         console.log('Payment Failed');
       }
@@ -182,11 +187,15 @@ function Tournament() {
     }
   };
 
+ 
+
+  /********** */
   const [currentIndex, setCurrentIndex] = useState(0);
   const [numItemsToShow, setNumItemsToShow] = useState(1);
 
   const goToNextSlide = () => {
     const newIndex = currentIndex + 1;
+   
     if (newIndex < regMatches.length) {
       setCurrentIndex(newIndex);
     }
@@ -194,22 +203,28 @@ function Tournament() {
 
   const goToPrevSlide = () => {
     const newIndex = currentIndex - 1;
+   
     if (newIndex >= 0) {
       setCurrentIndex(newIndex);
     }
+   
   };
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setNumItemsToShow(2);
+      
       } else {
         setNumItemsToShow(1);
+     
       }
       if (window.innerWidth >= 1000) {
         setNumItemsToShow(2);
+        
       } else {
         setNumItemsToShow(1);
+       
       }
     };
 
@@ -223,9 +238,10 @@ function Tournament() {
       <div className={styles.main_container}>
         <div className={styles.abcd}>
           <div className={styles.sidebar_wrapper}>
-            <Navbar />
+            <Navbar setUserName={setUserName}/>
             <div className={styles.content}>
               <div className={styles.dashboard}>
+              <h1 className={styles.page_title}>Welcome <span className={styles.fullname_title}>{userName}</span></h1>
                 <span className={styles.head_desc}>Upcoming Matches</span>
                 <h1 className={styles.subhead_desc}>
                   Dashboard/Upcoming Matches
@@ -250,8 +266,9 @@ function Tournament() {
                     There is no room created till now
                   </div>
                 ) : (
-                  <>
+                  <div>
                     <div className={styles.squad_match}>
+                    <div className={styles.inner_squad_match}>
                       <span className={styles.register_match}>{gameName}</span>
                       <span className={styles.winning_prize}>
                         Time : {date} at {time}
@@ -288,6 +305,7 @@ function Tournament() {
                                         height={12}
                                       />
                                     </span>
+                                   
                                   </p>
                                   <p className={styles.pool_text_p}>
                                     Highest kill: 200
@@ -312,7 +330,7 @@ function Tournament() {
                                     </span>
                                   </p>
                                   <p className={styles.pool_text_p}>
-                                    3nd Winner: 60{' '}
+                                    3nd Winner: 60
                                     <span className={styles.rs_pool_logo}>
                                       <Image
                                         src="../assests/rupee-icon.svg"
@@ -337,8 +355,8 @@ function Tournament() {
                             ''
                           )}
                           <span className={styles.survival_content}>
-                            Last Survival: {lastServival}
-                            <span className="rs_logo">
+                            Last Survival: 
+                            <span className={styles.rs_logo}>
                               <Image
                                 src="../assests/rupee-icon.svg"
                                 alt="rupeeIcon"
@@ -346,6 +364,7 @@ function Tournament() {
                                 height={12}
                               />
                             </span>
+                            {lastServival}
                           </span>
                         </div>
                         <div>
@@ -353,7 +372,7 @@ function Tournament() {
                             Entry FEES
                           </span>
                           <span className={styles.survival_content}>
-                            50
+                           
                             <span className="rs_logo">
                               <Image
                                 src="../assests/rupee-icon.svg"
@@ -362,6 +381,7 @@ function Tournament() {
                                 height={12}
                               />
                             </span>
+                            50
                           </span>
                         </div>
                       </div>
@@ -395,32 +415,35 @@ function Tournament() {
                         </div>
                       </div>
                       <div className={styles.spot_line_sec}>
-                        <progress
+                        {/* <progress
                           className={styles.progress_cls}
                           id="file"
                           value="40"
                           max="100"
-                        />
+                        /> */}
                       </div>
                       <div className={styles.winnings_sec_secton}>
                         <div className={styles.spot_line}>
-                          <span className={styles.bar_font}>
+                          {/* <span className={styles.bar_font}>
                             Only 30 spots Left
                           </span>
-                          <span className={styles.bar_font}>20/50</span>
+                          <span className={styles.bar_font}>20/50</span> */}
                         </div>
                         <Button
+                         disabled={isLoading}
                           className={styles.join_button}
                           onClick={() => addRegMatch(roomId)}
                         >
-                          Join
+                          {isLoading ? 'Loading...' : 'Join'} 
                         </Button>
                       </div>
-
+</div>
                       <div className={styles.winnings_sec_slider}>
+                     
                         <div className={styles.game_imgsection}>
                           {allTournaments &&
                             allTournaments.map((e: any, index: any) => (
+                             
                               <Image
                                 key={index}
                                 width={100}
@@ -442,11 +465,14 @@ function Tournament() {
                                   )
                                 }
                               />
+                           
                             ))}
                         </div>
+                   
                       </div>
+                     
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
             </div>
@@ -463,13 +489,14 @@ function Tournament() {
                       onClick={goToPrevSlide}
                       className={styles.prevButton}
                       disabled={currentIndex === 0}
+                      
                     >
                       <AiOutlineLeft className={styles.outline_icon} />
                     </button>
                     <div className={styles.slideContainer}>
                       {regMatches &&
                         regMatches
-                          .slice(currentIndex, currentIndex + numItemsToShow)
+                          .slice(currentIndex, currentIndex + numItemsToShow).reverse()
                           .map((match: any, index: any) => (
                             <div key={index} className={`${styles.slide}`}>
                               <div className={styles.container3} key={index}>

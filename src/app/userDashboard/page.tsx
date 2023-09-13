@@ -10,6 +10,7 @@ import { BtnDashboard } from '../../Components/CommonComponent/BtnDashboard';
 import RequireAuthentication from '../../utils/requireAuthentication';
 import { FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt } from 'react-icons/fa'
 import withAuth from '@/Components/HOC/WithAuthHoc';
+import Tournament from './tournament/page';
 export interface IAppProps { }
 
 function UserDashboard() {
@@ -20,15 +21,7 @@ function UserDashboard() {
   return (
     <>
       <RequireAuthentication>
-        <div className={styles.main_container}>
-          <div className={styles.abcd}>
-            <div className={styles.sidebar_wrapper}>
-              <Navbar />
-              <h1>Welcome to User Dashboard</h1>
-              <BtnDashboard />
-            </div>
-          </div>
-        </div>
+              <Tournament/>       
       </RequireAuthentication>
     </>
   );
