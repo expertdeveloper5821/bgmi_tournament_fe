@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
 import { Navbar } from '../../../Components/Navbar/Navbar';
-
 import TableData, { RoomData } from '../../../Components/Table/Table'
 import assignmentData from '../../../utils/CreateAssignment.json';
 //@ts-ignore
@@ -106,7 +105,7 @@ function page() {
             <div className={styles.sidebar_wrapper}>
               <Navbar />
               <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
-              {/* <BtnDashboard /> */}
+              <BtnDashboard />
               {isLoading ? (
                 <Loader />
               ) : (

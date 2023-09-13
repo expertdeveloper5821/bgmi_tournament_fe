@@ -12,8 +12,9 @@ export function BtnDashboard() {
 
         <div className={styles.content_wrapper}>
           <div className={styles.input_desc}>
-            <Input placeholder="Squad Name" type="text"></Input>
-            <Input placeholder="Date and Time" type="text"></Input>
+            <Input placeholder="Search" type="text"></Input>
+            <Input placeholder="Date " type="text"></Input>
+            <Input placeholder="Time" type="text"></Input>
             <div className={styles.select_wrapper}>
 
             </div>
