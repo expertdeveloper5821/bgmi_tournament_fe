@@ -119,10 +119,10 @@ function Login(): React.JSX.Element {
   const handleRedirect = (token: any) => {
     if (token) {
       const decodedToken: any = decodeJWt(token);
-      console.log('tokennnn', decodedToken.role.role);
-      if (decodedToken.role.role === 'admin') {
+      console.log('tokennnn', decodedToken?.role?.role);
+      if (decodedToken?.role?.role === 'admin') {
         router.push('/adminDashboard');
-      } else if (decodedToken.role.role === 'user') {
+      } else if (decodedToken?.role?.role === 'user') {
         router.push('/userDashboard/tournament');
         // router.push(configData.web.cominSoonUrl)
       } else {

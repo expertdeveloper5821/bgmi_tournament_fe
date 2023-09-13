@@ -82,8 +82,9 @@
   font-weight: var(--bs-body-font-weight);
   font-size: var(--bs-body-font-size);
   display: flex;
+ 
   align-items: center;
-  padding: 5px;
+  padding: 10px;
   width: 100%;
   @media (max-width: $breakpoint-xSmall) {
     margin-top: 1rem;
@@ -105,10 +106,10 @@
   color: #003354;
   font-style: var(--bs-font-style);
   font-weight: var(--bs-body-font-weight);
-  font-family: Century Gothi;
+
   font-weight: 700;
   width: 100% !important;
-  font-size: 14px;
+  font-size: 15px;
   border-style: none !important;
 }
 
