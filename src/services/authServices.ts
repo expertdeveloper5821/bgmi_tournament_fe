@@ -1,6 +1,6 @@
 import { sendRequest } from '@/utils/axiosInstanse';
 import { serviceUrls } from './serviceUrls';
-import { SignupFormValuesType } from '@/components/pageComponents/auth/authInterfaces';
+import { SignupFormValuesType } from '@/Components/pageComponents/auth/authInterfaces';
 
 export const signUpService = async (data: SignupFormValuesType) => {
   try {

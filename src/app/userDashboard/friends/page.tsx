@@ -1,12 +1,12 @@
 'use client';
 import React, { useState } from 'react';
 import styles from '@/styles/friends.module.scss';
-import Card from '@/components/commonComponent/Card/Card';
-import { Navbar } from '@/components/commonComponent/Navbar/Navbar';
+Navbar
 import { sendRequest } from '@/utils/axiosInstanse';
-import { toast } from 'react-toastify';
-import CustomPagination from '@/components/commonComponent/Pagination/Pagination';
 import Image from 'next/image';
+import Card from '@/Components/CommonComponent/Card/Card';
+import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
+import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination';
 
 const Friend = () => {
   const [open, setOpen] = useState(false);

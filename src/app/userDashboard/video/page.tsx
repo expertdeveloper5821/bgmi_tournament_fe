@@ -1,11 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/video.module.scss';
-import { Navbar } from '@/components/commonComponent/Navbar/Navbar';
 import VideoCard from './videoCard/videoCard';
 import CenterText from './videoCard/centerText';
 import ReviewSection from './videoCard/reviewSection';
-import CustomPagination from '@/components/commonComponent/Pagination/Pagination';
+import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
+import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination';
+
 const Page: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [receivedData, setReceivedData] = useState<any[]>([]);

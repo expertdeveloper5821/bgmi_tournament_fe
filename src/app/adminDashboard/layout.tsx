@@ -1,8 +1,8 @@
 'use client';
 import { Inter } from 'next/font/google';
-import Sidebar from '@/components/commonComponent/SideBar/Sidebar';
 import styles from '@/styles/Dashboard.module.scss';
 import { FaTh, FaUserAlt, FaRegChartBar, FaUserFriends, FaVideo } from 'react-icons/fa';
+import Sidebar from '@/Components/CommonComponent/SideBar/Sidebar';
 const inter = Inter({ subsets: ['latin'] });
 
 const dynamicMenuItems = [
