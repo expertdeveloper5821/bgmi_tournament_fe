@@ -1,19 +1,18 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Navbar } from '../../../components/commonComponent/Navbar/Navbar';
 import styles from '@/styles/Spectator.module.scss';
 import Form from '../Form/page';
 import RequireAuthentication from '../../../utils/requireAuthentication';
+import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 //@ts-ignore
 import { Table, TableBody, TableCell } from 'technogetic-iron-smart-ui';
 //@ts-ignore
 import { TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
-import Image from 'next/image';
 import Deletespec from '../Deletespec/page';
 import Updatespec from '../Updatespec/page';
-import CustomPagination from '@/components/commonComponent/Pagination/Pagination';
-import withAuth from '@/components/hoc/WithAuthHoc';
 import { sendRequest } from '@/utils/axiosInstanse';
+import withAuth from '@/Components/HOC/WithAuthHoc';
+
 export interface RoomData {
   roomId: string;
   _id: string;

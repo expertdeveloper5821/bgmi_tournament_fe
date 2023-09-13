@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Dashboard.module.scss';
-import { Navbar } from '../../../components/commonComponent/Navbar/Navbar';
 //@ts-ignore
 import { Button } from 'technogetic-iron-smart-ui';
 import { decodeJWt } from '@/utils/globalfunctions';
@@ -11,6 +10,7 @@ import { AiOutlineDown, AiOutlineClose, AiOutlineLeft, AiOutlineRight } from 're
 import CountdownComponent from './CountdownComponent';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 
 export interface tournament {
   gameName: string;

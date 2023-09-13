@@ -1,10 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Dashboard.module.scss';
-import { Navbar } from '../../../components/commonComponent/Navbar/Navbar';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
 import { useSearchParams } from 'next/navigation';
+import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 
 export interface RegMatch {
   gameName: string;
