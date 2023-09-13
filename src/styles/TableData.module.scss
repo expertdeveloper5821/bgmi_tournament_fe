@@ -264,7 +264,7 @@ button#btn_cls_st {
 .table_content {
   border: none;
   // width: 84%;
-  overflow-x: scroll;
+  overflow-x: hidden;
   @media (max-width: $breakpoint-xSmall) {
     overflow: scroll;
   }

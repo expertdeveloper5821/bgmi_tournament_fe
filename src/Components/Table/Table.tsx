@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useRouter, NextRouter } from 'next/router';
+// import { useRouter, NextRouter } from 'next/router';
 import styles from '../../styles/TableData.module.scss';
 import Image from 'next/image';
 import { formatDate, formatTime } from '../CommonComponent/moment';
@@ -12,8 +12,9 @@ import {
   TableHead,
   TableBody,
   TableCell,
-  IconButton,
+  IconButton
 } from 'technogetic-iron-smart-ui';
+
 
 // import Accordion from '../CommonComponent/TeammatesDropdownModal';
 // import TeammatesDropdownModal from '../CommonComponent/TeammatesDropdownModal';
@@ -119,10 +120,7 @@ const TableData = (props: StudentProfilePropsType) => {
 
 
 
-  const handleSort = (    // 'Last Servival',
-    // 'Highest Kill',
-    // 'Second Win',
-    // 'Third Win',
+  const handleSort = (
     key: keyof TableDataType,
     dataType: 'room' | 'user' | 'spectator'
   ) => {
@@ -290,13 +288,6 @@ const TableData = (props: StudentProfilePropsType) => {
                       {elm.time}
                     </TableCell>
                   )}
-
-                  {/* {elm.date && (
-                    <TableCell className={styles.table_cell}>
-                      {elm.date}
-                    </TableCell>
-                  )} */}
-
                   {elm.date && (
                     <TableCell className={styles.table_cell}>
                       {formatDate({ date: elm.date, format: 'l' })}
@@ -333,18 +324,12 @@ const TableData = (props: StudentProfilePropsType) => {
                       {elm.leadPlayer}
                     </TableCell>
                   )}{' '}
-                  {/* {elm.teammates && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.teammates}
-                  </TableCell>
-                )} */}
+
                   {elm.registeredGame && (
                     <TableCell className={styles.table_cell}>
                       {elm.registeredGame}
                     </TableCell>
                   )}
-
-
                   {elm.teammates && <TableCell className={styles.table_cell}>
                     {elm.teammates.length}
                   </TableCell>}
