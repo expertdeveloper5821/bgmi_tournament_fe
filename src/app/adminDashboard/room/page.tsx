@@ -46,7 +46,6 @@ function page() {
   }, [])
 
   const deleteroomId = async (_id: any) => {
-    // console.log("id__________", _id)
     setIsLoading(true);
     try {
       const tokens = localStorage.getItem('jwtToken');
@@ -61,7 +60,6 @@ function page() {
         toast.success(success);
       }
     } catch (error) {
-      // console.error('Error deleting room:', error);
     } finally {
       setIsLoading(false);
     }

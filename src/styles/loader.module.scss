@@ -2,7 +2,7 @@
 @import './variable.scss';
 
 .loader {
-  border: 5px solid #ff7a00;
+  border: 5px solid $bs-orange;
   border-top: 5px solid transparent;
   border-radius: 50%;
   width: 50px;
@@ -38,11 +38,11 @@
 
 .text td,
 .text th {
-  border: 1px solid black;
+  border: 1px solid $bs-black;
   text-align: left;
   padding: 8px;
 }
 
 .tablerow tr:nth-child(even) {
-  background-color: #dddddd;
+  background-color: $bs-lightgrey;
 }
