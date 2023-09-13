@@ -3,7 +3,7 @@ import { emailRegex, passwordRegex } from './pattern';
 
 const SignupSchema = Yup.object().shape({
   fullName: Yup.string().required('Please enter your Full Name'),
-  userName: Yup.string().required('Please enter your  Username'),
+  // userName: Yup.string().required('Please enter your  Username'),
   email: Yup.string()
     .email('Invalid email')
     .required('Please enter your email')
