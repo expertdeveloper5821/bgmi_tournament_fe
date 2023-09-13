@@ -15,14 +15,14 @@
   flex-direction: column;
   margin-left: 0px;
   width: 40%;
-  @media (max-width: $breakpoint-sm) {
-    margin-left: 6px !important;
-  }
   @media (max-width: $breakpoint-ms) {
-    margin-left: 156px !important;
+    margin-left: 15px;
   }
+  @media (max-width: $breakpoint-sm) {
+    margin-left: 124px ;
+  } 
   @media (max-width: $breakpoint-xs) {
-    margin-left: 8px !important;
+    margin-left: 8px;
   }
 }
 
@@ -54,6 +54,9 @@
   @media (max-width: $breakpoint-sm) {
     padding: 0px 136px;
   }
+ 
+  @media (max-width:  $breakpoint-md) {
+  padding: 0px 126px;}
 }
 
 .desc_container {
@@ -66,8 +69,8 @@
   width: 100%;
   border-radius: 4px;
   opacity: 0.6;
-  box-shadow: rgb(2 19 29) 0px 7px 29px 0px;
-  border-radius: 24px;
+  // box-shadow: rgb(2 19 29) 0px 7px 29px 0px;
+  
   @media (max-width: $breakpoint-xSmall) {
     height: 280px !important;
   }
@@ -205,15 +208,16 @@
 
 .winnings_sec_secton {
   display: flex;
-  gap: 9px;
-  margin: 12px 0px;
+  margin: 12px 38px;
   justify-content: space-between;
   @media (max-width: $breakpoint-xSmall) {
     justify-content: flex-start !important;
+    margin: 12px 0px !important;
   }
 
   @media (max-width: $breakpoint-xs) {
     justify-content: flex-start !important;
+    margin: 12px 0px !important;
   }
 
   @media (max-width: $breakpoint-sm) {
@@ -222,6 +226,10 @@
 
   @media (max-width: $breakpoint-md) {
     justify-content: space-between;
+  }
+  @media (max-width: $breakpoint-ms) {
+    display:block;
+    margin: 5px 0px;
   }
 }
 
@@ -261,12 +269,17 @@ img.slides_image {
     width: 100% !important;
   }
   @media (max-width: $breakpoint-xs) {
-    padding: 28px 6px !important;
+    padding: 28px 28px ;
+  
   }
   @media (max-width: $breakpoint-sm) {
-    padding: 28px 96px;
+    padding: 28px 96px ;
     width: 100%;
   }
+  // @media (max-width:  $breakpoint-md) {
+  //   padding: 31px 99px !important;
+  //   width: 100%;
+  // }
 }
 
 .container3 {
@@ -322,8 +335,27 @@ img.slides_image {
   font-family: Century Gothic;
   letter-spacing: 0.02em;
   margin: 10px 0px 0px 0px;
-}
 
+}
+.register_match_title{
+  font-family:Century Gothic ;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 26.97px;
+  margin-left: 26px;
+  @media (max-width: $breakpoint-xSmall) {
+    margin-left: 8px !important;
+  }
+  @media (max-width: $breakpoint-xs) {
+    margin-left: 8px !important;
+  }
+  @media (max-width:  $breakpoint-sm) {
+  margin-left: 146px;
+  }
+  @media (max-width:  $breakpoint-md) {
+    margin-left: 126px;
+  }
+}
 .head_desc {
   font-size: 23px;
   font-weight: 600;

@@ -226,6 +226,13 @@ function Tournament() {
 
       }
       if (window.innerWidth >= 1000) {
+        setNumItemsToShow(1);
+
+      } else {
+        setNumItemsToShow(1);
+
+      }
+      if (window.innerWidth >= 1280) {
         setNumItemsToShow(2);
 
       } else {
@@ -497,7 +504,7 @@ function Tournament() {
                 )}
               </div>
             </div>
-            <span className={styles.register_match}>Registered Matches</span>
+            <span className={styles.register_match_title}>Registered Matches</span>
             {!regMatches.length ? (
               <div className={styles.register_match}>
                 There is no Registered Match till now
