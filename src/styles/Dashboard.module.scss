@@ -1,13 +1,12 @@
 @import './mixins.scss';
-
 @import './variable.scss';
 
 .main_container {
   width: 100vw;
   display: flex;
-  background-color: rgba(0, 53, 84, 1);
+  background-color: $darkblue;
   min-height: 100vh;
-  color: white;
+  color:$bs-white;
 }
 .container {
   position: absolute;
@@ -173,7 +172,7 @@
   display: inherit;
   flex-direction: column;
   font-size: 14px;
-  font-family: Century Gothic;
+  font-family: $bs-body-font-family;
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.02em;
@@ -184,7 +183,7 @@
 .id_password span,
 .image_text span {
   font-size: 14px;
-  font-family: Century Gothic;
+  font-family: $bs-body-font-family;
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.02em;
@@ -196,8 +195,8 @@
 }
 
 .join_button {
-  background-color: rgba(255, 122, 0, 1) !important;
-  color: white !important;
+  background-color: $bs-orange !important;
+  color:$bs-white !important;
   display: flex;
   gap: 40px;
   width: 20%;
@@ -288,7 +287,7 @@ img.slides_image {
 
 .Tournaments {
   padding: 0px 15px;
-  font-family: Century Gothic;
+  font-family: $bs-body-font-family;
   font-weight: 400;
   font-size: 16px;
 }
@@ -302,7 +301,7 @@ img.slides_image {
   display: flex;
   gap: 50px;
   padding: 8px 0px;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid$bs-white;
 }
 
 .id_password {
@@ -320,7 +319,7 @@ img.slides_image {
   font-size: 22px;
   font-weight: 700;
   line-height: 34px;
-  font-family: Century Gothic;
+  font-family: $bs-body-font-family;
   letter-spacing: 0.02em;
   margin: 10px 0px 0px 0px;
 }
@@ -329,17 +328,17 @@ img.slides_image {
   font-size: 27px;
   font-weight: 600;
   line-height: 40px;
-  font-family: Century Gothic;
+  font-family: $bs-body-font-family;
 }
 
 .subhead_desc {
   font-size: 14px;
   font-weight: 400;
-  font-family: Century Gothic;
+  font-family: $bs-body-font-family;
 }
 
 .survival_content {
-  font-family: Century Gothic;
+  font-family: $bs-body-font-family;
   font-size: 17px;
   font-weight: 700;
   line-height: 22px;
@@ -349,7 +348,7 @@ img.slides_image {
 
 .bar_font {
   font-size: 14px;
-  font-family: Century Gothic;
+  font-family: $bs-body-font-family;
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.02em;
@@ -365,7 +364,7 @@ img.slides_image {
 
 .tvm_font {
   font-size: 14px;
-  font-family: Century Gothic;
+  font-family: $bs-body-font-family;
   font-weight: 700;
   line-height: 20px;
   letter-spacing: 0.02em;
@@ -393,25 +392,19 @@ img.slides_image {
 
 .row {
   display: flex;
-
   overflow: hidden;
 }
 
 .imagegroup {
   display: flex;
-
   gap: 3rem;
-
   width: 350px;
-
   height: 170px;
-
   margin-bottom: 20px;
 }
 
 .imagegroup img {
   flex-shrink: 0;
-
   object-fit: cover;
 }
 
@@ -434,97 +427,65 @@ img.slides_image {
 
 .roomdetails_container {
   display: flex;
-
   justify-content: space-between;
-
   margin-top: 20px;
 }
 
 .zeromin {
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
   text-align: center;
-
   margin-left: 20px;
-
   text-align: center;
 }
 
 .zeromin h1 {
   font-weight: bold;
-
   font-size: 30px;
-
   margin-top: 3px;
-
   margin-bottom: 3px;
 }
 
 .roomId span {
   font-size: 14px;
-
   margin-right: 18px;
 }
 
 .roomPwd span {
   font-size: 14px;
-
   margin-right: 10px;
 }
 
 .countdown {
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
   text-align: center;
 }
 
 .countdown h2 {
   font-weight: bold;
-
   font-size: 25px;
-
   margin-top: 3px;
-
   margin-bottom: 3px;
 }
 
 .sendMailBtn {
   display: flex;
-
   justify-content: center;
-
   align-items: center;
-
   text-align: center;
-
-  border: 1px solid #ff7a00;
-
+  border: 1px solid $bs-orange;
   padding: 10px;
-
   margin-left: 20px;
-
   width: 100%;
-
   height: 44px;
-
   border-radius: 4px;
-
   font-size: 15px;
-
-  background-color: #ff7a00;
-
-  color: white;
-
+  background-color: $bs-orange;
+  color:$bs-white;
   font-size: 14px;
-
   font-weight: bold;
 
   @media (max-width: $breakpoint-md) {
@@ -540,13 +501,11 @@ img.slides_image {
 
 .roomdetails {
   display: flex;
-
   flex-direction: column;
 }
 
 .roomcreds {
   display: flex;
-
   flex-direction: column;
 }
 
@@ -556,22 +515,16 @@ img.slides_image {
 
 .Teammembers {
   margin-top: 20px;
-
-  border-bottom: 1px solid grey;
-
+  border-bottom: 1px solid $bs-grey;
   padding-bottom: 20px;
-
   font-size: x-large;
-
   font-weight: bold;
-
   padding-left: 3%;
 }
 
 .reviewsContainer {
   margin-top: 30px;
   padding-left: 2%;
-  // align-items: flex-start;
   @media (max-width: $breakpoint-md) {
     display: flex;
 
@@ -580,28 +533,21 @@ img.slides_image {
 }
 
 .reviewCard {
-  color: white;
-
-  border: 1px solid #ff7a00;
-
+  color:$bs-white;
+  border: 1px solid $bs-orange;
   border-radius: 5px;
-
   padding: 10px;
-
   width: 330px;
 }
 
 .profile {
   margin-left: 5px;
-
   border-radius: 10px;
-
   height: 70%;
 }
 
 .reviews {
   display: flex;
-
   align-items: center;
 }
 
@@ -610,66 +556,46 @@ img.slides_image {
 }
 
 .name h2 {
-  color: #ff7a00;
-
+  color: $bs-orange;
   font-size: 20px;
-
   font-weight: bold;
 }
 
 .name {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
 }
 
 .reviewer p {
   font-weight: 300;
-
   font-size: 15px;
-
   margin-top: 5px;
 }
 
 .reviewer span {
   display: flex;
-
   justify-content: flex-end;
-
   margin-right: 10px;
 }
 
 .greenCircle {
   height: 10px;
-
   width: 10px;
-
   border-radius: 50%;
-
-  background: green;
+  background:$bs-green;
 }
 
 .main_winning_pool {
   position: absolute;
-
   top: 0;
-
   left: 0;
-
   width: 100%;
-
   height: 100%;
-
   display: flex;
-
   justify-content: center;
-
   align-items: center;
-
-  background-color: rgba(0, 0, 0, 0.5);
-
+  background-color:$bs-backgroundblurr;
   z-index: 1;
 }
 
@@ -677,24 +603,17 @@ img.slides_image {
   background: linear-gradient(
     131.26deg,
     #ffffff 26.63%,
-
     rgb(255 122 0 / 74%) 450.26%
   );
-
   padding: 0px;
-
   width: 36%;
-
   border-radius: 16px;
-
   @media (max-width: $breakpoint-xs) {
     width: 90% !important;
   }
-
   @media (max-width: $breakpoint-md) {
     width: 50%;
   }
-
   @media (max-width: $breakpoint-ms) {
     width: 50%;
   }
@@ -702,29 +621,21 @@ img.slides_image {
 
 .text_pool_cls {
   padding: 18px;
-
-  background: #ff7a00;
-
+  background: $bs-orange;
   text-align: center;
-
   border-top-right-radius: 16px;
-
   border-top-left-radius: 16px;
 }
 
 .pool_heading {
   font-size: 22px;
-
   font-weight: 700;
-
   line-height: 26.97px;
 }
 
 .pool_para {
   font-size: 18px;
-
   font-weight: 400;
-
   line-height: 22.07px;
 }
 
@@ -733,31 +644,23 @@ img.slides_image {
 }
 
 .cancel_icon {
-  background-color: #ff7a00;
-
+  background-color: $bs-orange;
   border-radius: 24px;
-
   margin: 12px 0px;
-
   font-size: 26px;
-
   padding: 3px;
 }
 
 .pool_text_p {
-  color: #003554;
-
+  color: $darkblue;
   font-weight: 700;
-
   font-size: 18px;
-
   line-height: 22.07px;
-
   padding-top: 16px;
 }
 
 .rs_pool_logo {
-  color: #003554 !important;
+  color: $darkblue !important;
 }
 
 .slides_image:nth-child(3) {
@@ -768,29 +671,17 @@ img.slides_image {
   width: 100px !important;
 }
 
-// .slider-container {
-
-//   width: 80%;
-
-//   margin: 0 auto;
-
-// }
 
 .img_slider_one {
   width: auto;
-
   height: 138px;
-
   margin-top: 12px;
-
   @media (max-width: $breakpoint-xSmall) {
     height: 86px;
   }
-
   @media (max-width: $breakpoint-xs) {
     height: 86px;
   }
-
   @media (max-width: $breakpoint-sm) {
   }
 }
@@ -799,7 +690,7 @@ img.slides_image {
   column-gap: 18px;
 }
 .progress_cls {
-  accent-color: #ff7a00;
+  accent-color: $bs-orange;
   width: 50%;
 }
 
@@ -832,11 +723,11 @@ img.slides_image {
 .nextButton {
   background: none;
   border: none;
-  color: white;
+  color:$bs-white;
 }
 .outline_icon {
   font-size: 18px;
-  background: #ff7a00;
+  background: $bs-orange;
   border-radius: 18px;
 }
 
@@ -863,7 +754,7 @@ img.slides_image {
 
 .room_wrapper {
   display: flex;
-  border: 2px solid white;
+  border: 2px solid$bs-white;
 }
 
 .imgSection {
@@ -885,7 +776,7 @@ img.slides_image {
 
 .input_desc Input {
   border-radius: 8px;
-  color: #8a96a5 !important;
+  color:$bs-grey !important;
   font-size: 14px;
 }
 .input_desc {
@@ -918,14 +809,13 @@ body.activemodal {
 }
 
 .overlay {
-  background: rgba(49, 49, 49, 0.8);
+  background:$bs-backgroundblurr;
 }
 .modalcontent {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  // line-height: 1.4;
   background: #f1f1f1;
   padding: 18px 36px;
   border-radius: 6px;
@@ -935,7 +825,7 @@ body.activemodal {
 
 .closemodal {
   position: absolute;
-  border: 1px solid black;
+  border: 1px solid $bs-black;
   background-color: #f1f1f1;
   border: transparent;
   top: 6px;
@@ -944,7 +834,7 @@ body.activemodal {
 }
 
 .name {
-  color: rgba(0, 53, 84, 1);
+  color: $darkblue;
 }
 
 .text {
@@ -958,12 +848,12 @@ body.activemodal {
 .email_wrapper input[type='text'],
 .email_wrapper input[type='email'],
 .email_wrapper input[type='password'] {
-  color: #000 !important;
+  color: $bs-black !important;
 }
 .register_button {
   background-color: orangered !important;
   border: transparent;
-  color: white !important;
+  color:$bs-white !important;
   margin: 15px 0px;
   width: 100%;
 }

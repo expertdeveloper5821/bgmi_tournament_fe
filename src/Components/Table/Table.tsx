@@ -14,13 +14,8 @@ import {
   TableCell,
   IconButton
 } from 'technogetic-iron-smart-ui';
-
-
 // import Accordion from '../CommonComponent/TeammatesDropdownModal';
 // import TeammatesDropdownModal from '../CommonComponent/TeammatesDropdownModal';
-
-
-
 
 export interface UserData {
   fullName: string;
@@ -28,8 +23,6 @@ export interface UserData {
   email: string;
   // role?: [];
 }
-
-
 export interface RoomData {
   createdBy: string;
   roomId: string;
@@ -87,10 +80,6 @@ const TableData = (props: StudentProfilePropsType) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
 
-
-
-
-
   let colAdded = [
     'Last Servival',
     'Highest Kill',
@@ -98,12 +87,10 @@ const TableData = (props: StudentProfilePropsType) => {
     'Third Win',
   ]
 
-
   useEffect(() => {
     const updateSortedData = () => {
       if (window.location.href.includes('users')) {
         setSortedData(userData);
-        console.log("users", sortedData)
       } else if (window.location.href.includes('teams')) {
         setSortedData(teamData);
       } else if (window.location.href.includes('room')) {
@@ -114,11 +101,6 @@ const TableData = (props: StudentProfilePropsType) => {
     };
     updateSortedData();
   }, [props]);
-
-
-
-
-
 
   const handleSort = (
     key: keyof TableDataType,
@@ -148,8 +130,6 @@ const TableData = (props: StudentProfilePropsType) => {
     try {
       await props.deleteroomId(_id);
     } catch (error) {
-      console.error('Error deleting room:', error);
-
     }
   };
 
@@ -160,10 +140,6 @@ const TableData = (props: StudentProfilePropsType) => {
     ['Date', true]
   ]);
 
-
-
-  console.log('sortedData type:', typeof sortedData);
-
   return (
     <div style={isShowData ? { display: 'flex' } : undefined}  >
       <Table style={isShowData ? { flex: "1 1 80%" } : undefined} className={styles.table_content}>
@@ -173,11 +149,9 @@ const TableData = (props: StudentProfilePropsType) => {
               <TableHead className={styles.table_head} key={index}>
                 <div className={styles.header_room}>
                   <div className={styles.filter}>
-
                     <h1 className={styles.room_header}>  {columnName}</h1>
                     {sortableColumnsMap.get(columnName) && (
                       <div className={styles.arrow}>
-
                         <Image
                           src="/assests/upArow.svg"
                           alt="filterup"
@@ -194,7 +168,6 @@ const TableData = (props: StudentProfilePropsType) => {
                         ></Image>
                       </div>
                     )}
-
                   </div>
                 </div>
               </TableHead>
@@ -203,8 +176,6 @@ const TableData = (props: StudentProfilePropsType) => {
               {!window.location.href.includes('teams') && (
                 <div className={styles.filter}>Actions</div>)}
             </TableHead>
-
-
             {/* {isModalOpen ?
               // <div className={styles.main_del_sec}>
               //   <div className={styles.inner_del_sec}>
@@ -216,24 +187,18 @@ const TableData = (props: StudentProfilePropsType) => {
                 <div className={styles.filter}>{col}</div>
               </TableHead>
             )}
-
           </TableRow>
         </TableHeader>
 
         <TableBody className={styles.table_body}>
           {sortedData?.map((elm: any, index: number) => {
-            console.log('sortedData type:', typeof sortedData);
             const teammateKey = `teammate-${index}`;
             const additionalImagePath = props.showAdditionalButton
               ? './assests/StudentProfile.svg'
               : null;
 
-
             const deleteroomId = (_id: any) => {
-              console.log("deleteroomId=====>dddqq", deleteroomId);
-
             }
-
             return (
               <>
                 <TableRow className={styles.table_rowdata} key={index}>
@@ -267,7 +232,6 @@ const TableData = (props: StudentProfilePropsType) => {
                       {elm.mapType}
                     </TableCell>
                   )}
-
                   {/* {elm.mapImg && (
                     <TableCell className={styles.table_cell}>
                       <Image src={elm.mapImg} alt='mapImage' width={30} height={30} />
@@ -308,23 +272,11 @@ const TableData = (props: StudentProfilePropsType) => {
                       {elm.email}
                     </TableCell>
                   )}
-                  {/* {elm.password && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.password}
-                  </TableCell>
-                )} */}
-
-                  {/* {elm.uuid && (
-                  <TableCell className={styles.table_cell}>
-                    {elm.uuid}
-                  </TableCell>
-                )}{' '} */}
                   {elm.leadPlayer && (
                     <TableCell className={styles.table_cell}>
                       {elm.leadPlayer}
                     </TableCell>
                   )}{' '}
-
                   {elm.registeredGame && (
                     <TableCell className={styles.table_cell}>
                       {elm.registeredGame}
@@ -333,8 +285,6 @@ const TableData = (props: StudentProfilePropsType) => {
                   {elm.teammates && <TableCell className={styles.table_cell}>
                     {elm.teammates.length}
                   </TableCell>}
-
-
                   {elm.teammates && (
                     <TableCell className={styles.table_cell}>
                       {/* <Accordion>
@@ -342,16 +292,11 @@ const TableData = (props: StudentProfilePropsType) => {
                       </Accordion> */}
                     </TableCell>
                   )}
-
-
                   <TableCell className={styles.table_cell}>
                     {additionalImagePath ? (
                       <IconButton>
                         {props.imageIcon === 'spectator' ?
                           <div className={styles.iconWrapper}>
-
-
-
                             <Image
                               src="/assests/Tabledeleted.svg"
                               alt="studentProfileView"
@@ -361,7 +306,6 @@ const TableData = (props: StudentProfilePropsType) => {
                               // onClick={() => deleteroomId(elm._id)}
                               onClick={() => props.deleteroomId(elm._id || elm.userUuid)}
                             />
-
                             <Image
                               src="/assests/update.svg"
                               alt="studentProfileEdit"
@@ -375,8 +319,6 @@ const TableData = (props: StudentProfilePropsType) => {
                               }
                               }
                             />
-
-
                           </div>
                           :
                           <div className={styles.iconWrapper}>
@@ -392,12 +334,9 @@ const TableData = (props: StudentProfilePropsType) => {
                                   // onClick={() => props.deleteroomId(elm._id || elm.userUuid)}
                                   />
                                 </div>
-
                                 <div onClick={() => setIsModalOpen(true)}>
                                   <div onClick={() => setIsShowData(!isShowData)}><Image src="/assests/eye.png" alt='show' width={15} height={15} /></div></div>
-
                               </div>
-
                             )}
                             {deletModal ? (
                               <div className={styles.main_del_sec}>
@@ -426,13 +365,10 @@ const TableData = (props: StudentProfilePropsType) => {
                               ''
                             )}
                           </div>
-
                         }
-
                       </IconButton>
                     ) : (
                       <>
-
                       </>
                     )}
                   </TableCell>
@@ -441,7 +377,6 @@ const TableData = (props: StudentProfilePropsType) => {
                       {elm.lastServival}
                     </TableCell>
                   )}
-
                   {isShowData && elm.highestKill && (
                     <TableCell className={styles.table_cell}>  <Image
                       src="/assests/rupee-icon.svg"

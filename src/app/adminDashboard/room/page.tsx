@@ -2,12 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
 import { Navbar } from '../../../Components/Navbar/Navbar';
-
 import TableData, { RoomData } from '../../../Components/Table/Table'
 import assignmentData from '../../../utils/CreateAssignment.json';
 //@ts-ignore
 import { Pagination } from 'technogetic-iron-smart-ui';
-import { BtnDashboard } from '../../../Components/CommonComponent/BtnDashboard';
+import { SearchFilter } from '../../../Components/CommonComponent/BtnDashboard';
 import RequireAuthentication from '../../../utils/requireAuthentication';
 // import apiServices from '@/services/api/apiServices';
 import { sendRequest } from '@/services/auth/auth_All_Api';
@@ -39,9 +38,7 @@ function page() {
       method: 'GET',
       headers: { 'Authorization': `Bearer ${tokens}` }
     });
-
     setRoomData(tournamentResponse.data);
-
   }
 
   useEffect(() => {
@@ -49,28 +46,22 @@ function page() {
   }, [])
 
   const deleteroomId = async (_id: any) => {
-    console.log("id__________", _id)
+    // console.log("id__________", _id)
     setIsLoading(true);
     try {
       const tokens = localStorage.getItem('jwtToken');
-      console.log(tokens)
+      // console.log(tokens)
       const response = await sendRequest(`/room/rooms/${_id}`, {
         method: 'delete',
         headers: { 'Authorization': `Bearer ${tokens}` }
       });
-      // const updatedData = roomData.filter(data => data.roomId !== _id);
-      // setRoomData(updatedData);
       getAllTournaments();
       if (response) {
-
         const success = response.data.message;
         toast.success(success);
-
       }
-
     } catch (error) {
-      console.error('Error deleting room:', error);
-
+      // console.error('Error deleting room:', error);
     } finally {
       setIsLoading(false);
     }
@@ -84,29 +75,21 @@ function page() {
     'Game Name',
     'Game Type',
     'Map Type',
-    // 'MapImg',
     'Version',
     'Time',
     'Date',
-    // 'Last Servival',
-    // 'Highest Kill',
-    // 'Second Win',
-    // 'Third Win',
-
-
   ];
 
 
   return (
     <>
       <RequireAuthentication>
-
         <div className={styles.main_container}>
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
               <Navbar />
               <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
-              {/* <BtnDashboard /> */}
+              {/* <SearchFilter /> */}
               {isLoading ? (
                 <Loader />
               ) : (
@@ -116,11 +99,9 @@ function page() {
                   columns={columns}
                   showAdditionalButton={true} userData={[]} teamData={[]} spectatorData={[]} deleteroomId={deleteroomId} setSetSpectatorId={undefined} setModal={undefined} updateSpectatorByid={undefined} />
               )}
-
             </div>
           </div>
         </div>
-
       </RequireAuthentication>
     </>
   );

@@ -13,8 +13,6 @@
   font-size: 12px;
   font-weight: 700;
   white-space: nowrap;
-
-  // justify-content: space-between
 }
 
 .tableHeader {
@@ -24,8 +22,8 @@
 .table_head {
   @include tableheader;
   text-align: center;
-  // height: 60px;
 }
+
 .room_header {
   @include tableheader;
   margin: 12px;
@@ -34,13 +32,14 @@
 .table_head:last-child {
   width: 100px;
 }
+
 .table_head:first-child {
   width: 120px;
   text-align: center;
 }
 
 .table_cell:nth-child(even) {
-  color: #ff7a00;
+  color: $bs-orange;
 }
 
 .table_body {
@@ -64,9 +63,8 @@
 
 .iconWrapper {
   :hover {
-    color: #003554;
+    color: $darkblue;
   }
-
   display: flex;
   align-items: center;
 }
@@ -95,19 +93,21 @@
 .table_Studenticon img {
   size: 20px;
 }
+
 .arrow {
   display: flex;
 }
 
 .r_main_title {
-  color: aliceblue;
+  color: $bs-skyblue;
   font-size: 30px;
   font-weight: 700;
   font-family: Century Gothic;
   line-height: 36.78px;
 }
+
 .check_model {
-  background: white;
+  background: $bs-white;
   height: auto;
   width: 30%;
   border-radius: 15px;
@@ -130,7 +130,7 @@
 }
 
 .main_del_sec {
-  background-color: rgba(0, 0, 0, 0.18);
+  background-color: $bs-backgroundblurr;
 }
 
 .inner_specter_cls {
@@ -138,35 +138,42 @@
   justify-content: space-between;
   padding: 4px 26px;
 }
+
 .main_form_btn {
-  background: #ff7a00;
+  background: $bs-orange;
   border: none;
-  color: white;
+  color: $bs-white;
   font-size: 16px;
   font-weight: 700;
 }
+
 .cancel_btn {
   border: none;
-  background: white;
+  background: $bs-white;
   font-size: 16px;
 }
+
 .pop_heading {
   @include spectator_model_heading;
 }
+
 .form_spectator_cls {
   padding: 28px 48px;
   height: 500px;
   overflow-y: scroll;
 }
+
 button#btn_cls_st {
-  background: #ff7a00;
+  background: $bs-orange;
 }
+
 .roombutton {
-  background: #ff7a00 !important;
+  background: $bs-orange !important;
   width: 100%;
   margin-top: 12px;
-  color: white !important;
+  color: $bs-white !important;
 }
+
 .room_field_wrapper {
   @include spectator_modelfield;
   @media (max-width: $breakpoint-xs) {
@@ -174,7 +181,7 @@ button#btn_cls_st {
   }
 }
 .room_id {
-  color: #003554 !important;
+  color:$darkblue !important;
   font-weight: 700;
   font-size: 14px;
   line-height: 17.17px;
@@ -183,26 +190,31 @@ button#btn_cls_st {
     font-size: 13px;
   }
 }
+
 .btn_form_wrapper {
   padding: 16px 0px 0px 0px;
 }
+
 .cancel_btn {
   width: 100%;
-  border: 1px solid #ff7a00 !important;
-  color: #ff7a00 !important;
+  border: 1px solid $bs-orange !important;
+  color: $bs-orange !important;
 }
+
 .cancel_btn:hover {
-  background: #ff7a00 !important;
-  color: white !important;
+  background: $bs-orange !important;
+  color: $bs-white !important;
 }
+
 .error {
   @include error;
 }
+
 #gameName {
-  color: #ff7a00;
+  color: $bs-orange;
 }
 .inner_del_sec {
-  background: white;
+  background: $bs-white;
   height: auto;
   width: 28%;
   border-radius: 15px;
@@ -221,7 +233,7 @@ button#btn_cls_st {
   }
 }
 .sec_heading {
-  color: #6c757d !important;
+  color: $bs-grey !important;
   font-size: 16px;
   font-weight: 400;
   font-family: Century Gothic;
@@ -233,7 +245,7 @@ button#btn_cls_st {
   text-align: center;
 }
 .del_title {
-  color: #ff7a00 !important;
+  color: $bs-orange !important;
   text-align: center;
   font-size: 18px;
   font-weight: 700;
@@ -241,15 +253,15 @@ button#btn_cls_st {
 }
 .dele_btn {
   border: none;
-  background: #ff7a00;
-  color: white !important;
+  background: $bs-orange;
+  color: $bs-white !important;
   width: 102px;
   margin-right: 6px;
 }
 .canc_btn {
-  border: 1px solid #ff7a00 !important;
-  background: #fff;
-  color: #ff7a00 !important;
+  border: 1px solid $bs-orange !important;
+  background: $bs-white;
+  color: $bs-orange !important;
   width: 102px;
   margin-left: 6px;
 }
@@ -260,10 +272,9 @@ button#btn_cls_st {
 .room_field_cls2 {
   width: 100%;
 }
-//new tabel code
+
 .table_content {
   border: none;
-  // width: 84%;
   overflow-x: hidden;
   @media (max-width: $breakpoint-xSmall) {
     overflow: scroll;
@@ -286,7 +297,7 @@ button#btn_cls_st {
   @include tdbody;
 }
 .tb_cell_body {
-  color: #ff7a00 !important;
+  color: $bs-orange !important;
   text-align: center;
   padding: 3px 3px;
   @media (max-width: $breakpoint-xSmall) {
@@ -300,7 +311,7 @@ button#btn_cls_st {
   }
 }
 .el_tb_cell {
-  color: #fff;
+  color: $bs-white;
   text-align: center;
   padding: 3px 6px;
   @media (max-width: $breakpoint-xSmall) {
@@ -319,7 +330,6 @@ button#btn_cls_st {
   padding: 8px;
 }
 .showdata {
-  // border: 1px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
