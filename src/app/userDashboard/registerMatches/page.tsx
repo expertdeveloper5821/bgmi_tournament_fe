@@ -223,13 +223,15 @@ const regMatches = () => {
           <div>
          
       </div>
+      {/* use this code for your team member  */}
+      
      {/* <div className={styles.Teammembers}>Your Team Members</div>
 
  
 
           <div className={styles.container2}>
 
-              <div className={styles.inner_cont}> */}
+              <div className={styles.inner_cont}>  */}
 
                  {/* <div key={index} className={`${styles.slide}`}> */}
 
@@ -305,9 +307,9 @@ const regMatches = () => {
 
                 </div>
 
-              </div> */}
+              </div>
 
-              {/* <div className={styles.reviewsContainer}>
+              <div className={styles.reviewsContainer}>
 
                 <div className={styles.reviewCard}>
 
@@ -341,17 +343,17 @@ const regMatches = () => {
 
                 </div> 
 
-          </div> */}
+          </div>  */}
 
           {/* </Slider>
 
               )} */}
 
-          {/* </div>
+           {/* </div>
 
             </div>*/}
          
-        </div> 
+        </div>  
       </div>
      
     </div>
