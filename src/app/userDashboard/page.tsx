@@ -6,7 +6,6 @@ import { Navbar } from '../../Components/Navbar/Navbar';
 import assignmentData from '../../utils/CreateAssignment.json';
 //@ts-ignore
 import { Pagination } from 'technogetic-iron-smart-ui';
-import { BtnDashboard } from '../../Components/CommonComponent/BtnDashboard';
 import RequireAuthentication from '../../utils/requireAuthentication';
 import { FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt } from 'react-icons/fa'
 import withAuth from '@/Components/HOC/WithAuthHoc';
@@ -21,7 +20,7 @@ function UserDashboard() {
   return (
     <>
       <RequireAuthentication>
-              <Tournament/>       
+        <Tournament />
       </RequireAuthentication>
     </>
   );
