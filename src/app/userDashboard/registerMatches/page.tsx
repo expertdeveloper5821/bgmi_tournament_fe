@@ -37,10 +37,7 @@ const regMatches = () => {
   };
 
   const [tags, setTags] = useState([]);
-  const handleTagsChange = (newTags: any) => {
-    setTags(newTags);
 
-  };
   const searchParams = useSearchParams();
   const matchID = searchParams.get('id');
   const [matchData, setMatchData] = useState<RegMatch>();
