@@ -1,6 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
+import RequireAuthentication from '../../../utils/requireAuthentication';
+import withAuth from '@/Components/HOC/WithAuthHoc';
 import { Navbar } from '../../../Components/Navbar/Navbar';
 //@ts-ignore
 import { Button } from 'technogetic-iron-smart-ui';
@@ -158,6 +160,7 @@ function Tournament() {
       const userId = decodedToken.userId;
 
       var addRoom = localStorage.getItem('roomIds');
+     
       var obj = [];
       if (addRoom) {
         obj = JSON.parse(addRoom);
@@ -263,6 +266,7 @@ function Tournament() {
 
   return (
     <>
+    <RequireAuthentication>
       <div className={styles.main_container}>
         <div className={styles.abcd}>
           <div className={styles.sidebar_wrapper}>
@@ -589,6 +593,25 @@ function Tournament() {
                                   </div>
                               
                               </div>
+                              <div className={styles.container_btn}>
+                              <button
+                      onClick={goToPrevSlide}
+                      className={styles.prevButton_small}
+                      disabled={currentIndex === 0}
+
+                    >
+                      <AiOutlineLeft className={styles.outline_icon} />
+                    </button>
+                    <button
+                      onClick={goToNextSlide}
+                      className={styles.nextButton_small}
+                      disabled={
+                        currentIndex === regMatches.length - numItemsToShow
+                      }
+                    >
+                      <AiOutlineRight className={styles.outline_icon} />
+                    </button>
+                    </div>
                             </div>
                             )
                           })}
@@ -602,15 +625,19 @@ function Tournament() {
                     >
                       <AiOutlineRight className={styles.outline_icon} />
                     </button>
+                  
+                    
+                    </div>
                   </div>
-                </div>
+                
               </>
             )}
           </div>
         </div>
       </div>
+      </RequireAuthentication>
     </>
   );
 }
 
-export default Tournament;
+export default withAuth(Tournament);
