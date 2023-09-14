@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useFormik, FormikHelpers } from 'formik';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
-
 import { SignupSchema } from '@/utils/schema';
 import { FormDefaultPropsType, SignupFormValuesType } from '../authInterfaces';
 import { signUpService } from '@/services/authServices';
@@ -150,7 +149,8 @@ const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => 
         </Button>
       </div>
 
-      <Button className={styles.google_btn}>
+      <Button className={styles.btnStyle}>
+        <Image src="/assests/google.svg" alt="passwordlogo" width={20} height={20} />
         <span className={styles.googleIcon}>Sign in with Google</span>
       </Button>
 
@@ -158,7 +158,7 @@ const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => 
         <span className={styles.forgotDesc}>Already have an account ?</span>
         <span className={styles.forgotDescsec}>
           <Link className={styles.link_sign} href="/auth/login">
-            Sing up
+            Sign up
           </Link>
         </span>
       </div>

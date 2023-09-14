@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import { emailRegex, passwordRegex } from './pattern';
+import PersonalDetail from '../Components/pageComponents/auth/personalDetails/index';
 
 const SignupSchema = Yup.object().shape({
   fullName: Yup.string().required('Please enter your Full Name'),
@@ -47,4 +48,16 @@ const createspectater = Yup.object().shape({
   thirdWin: Yup.number().required('Please enter Third winner prize '),
 });
 
-export { SignupSchema, loginSchema, ResetPasswordSchema, createspectater };
+const personDetailSchema = Yup.object().shape({
+  player: Yup.string()
+    .required('player Id or username is Required')
+    .min(8, 'playerId or username must be min 8 ').max(12, "playerId or username must be max 12"),
+  upi: Yup.string()
+    .required('UPI is needed'),
+    // whatsapp:  Yup.string()
+    // .matches(/^\+\d{1,3}\d{6,14}$/, 'Invalid WhatsApp number')
+    // .required('Phone number is required'),
+});
+
+
+export { SignupSchema, loginSchema, ResetPasswordSchema, createspectater, personDetailSchema};

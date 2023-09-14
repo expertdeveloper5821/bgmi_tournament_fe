@@ -21,3 +21,9 @@ export interface onbStepType {
   title: string
   subTitle: string
 }
+export interface details {
+  player: string
+  upi: string
+  whatsapp: string
+}
+
