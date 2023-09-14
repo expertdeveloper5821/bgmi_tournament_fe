@@ -6,7 +6,7 @@ import TableData, { RoomData } from '../../../Components/Table/Table'
 import assignmentData from '../../../utils/CreateAssignment.json';
 //@ts-ignore
 import { Pagination } from 'technogetic-iron-smart-ui';
-import { SearchFilter } from '../../../Components/CommonComponent/BtnDashboard';
+import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
 import RequireAuthentication from '../../../utils/requireAuthentication';
 // import apiServices from '@/services/api/apiServices';
 import { sendRequest } from '@/services/auth/auth_All_Api';
