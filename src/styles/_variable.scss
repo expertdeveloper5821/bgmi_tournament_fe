@@ -8,9 +8,8 @@ $breakpoint-md: 968px;
 $breakpoint-ms: 1024px;
 $breakpoint-lg: 1200px;
 
-//Font Family 
+//Font Family
 $bs-body-font-family: 'Century Gothic';
-
 
 // Theme Color Variables
 $primary-color: rgba(0, 53, 84, 1);
@@ -18,7 +17,6 @@ $darkblue: rgba(0, 53, 84, 1);
 $bs-orange: rgba(255, 122, 0, 1);
 $bs-green: rgba(28, 95, 17, 1);
 $bs-black: black;
-$bs-white: rgba(245, 245, 245, 1);
 $bs-red: rgba(255, 0, 0, 1);
 $bs-grey: rgb(163, 164, 165);
 $bs-blue: rgba(0, 148, 218, 1);
@@ -27,6 +25,8 @@ $bs-skyblue: #eff9ff;
 $bs-error: #f70707;
 $bs-disablebtn: #d9d9d9;
 $bs-white: #fff;
+$bs-backgroundblurr: rgba(0, 0, 0, 0.18);
+
 $bs-font-style: normal;
 $bs-border: 1px solid transparent;
 $bs-cursor: pointer;
@@ -45,13 +45,12 @@ $bg-errorScreen: rgba(249, 143, 143, 0.55);
 $bg-sidebar: rgba(205, 239, 255, 0.6);
 $bg-navbarBg: #858585;
 
+
 // Theme Color
+
 :export {
-
-  //font family 
-  bs-body-font-family: $bs-body-font-family;
-
   //Text Colors
+
   primaryColor: $primary-color;
   darkblue: $darkblue;
   bs-orange: $bs-orange;
@@ -80,9 +79,8 @@ $bg-navbarBg: #858585;
   bs-sideBarTxt: $bs-sideBarTxt;
 
   //background
+
   bg-errorScreen: $bg-errorScreen;
   bg-sidebar: $bg-sidebar;
   bg-navbarBg: $bg-navbarBg;
-
-
 }
