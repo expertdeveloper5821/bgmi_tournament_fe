@@ -29,13 +29,7 @@ interface FormValues {
 
 
 const regMatches = () => {
-
   const [values, setValues] = useState<string[]>([]);
-
-  const handleValueChange = (newValues: string[]) => {
-    setValues(newValues);
-  };
-
   const [tags, setTags] = useState([]);
 
   const searchParams = useSearchParams();
@@ -230,11 +224,11 @@ const regMatches = () => {
 
             <div className={styles.inner_cont}> */}
 
-              {/* <div key={index} className={`${styles.slide}`}> */}
+          {/* <div key={index} className={`${styles.slide}`}> */}
 
-              
 
-              {/* <div className={styles.reviewsContainer}>
+
+          {/* <div className={styles.reviewsContainer}>
 
                 <div className={styles.reviewCard}>
 
@@ -346,11 +340,11 @@ const regMatches = () => {
                 
               </div> */}
 
-              {/* </Slider>
+          {/* </Slider>
 
               )} */}
 
-            {/* </div>
+          {/* </div>
 
           </div> */}
 
