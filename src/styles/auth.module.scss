@@ -80,14 +80,13 @@
 
 .input_box {
   @include input_box;
-
   border-bottom: 2px solid white;
-
   @media (max-width: $breakpoint-xs) {
     width: 100%;
   }
 }
 .email_wrapper {
+  
   @include email_wrapper;
 }
 .password_wrapper {
@@ -187,7 +186,7 @@
 }
 
 .input_box input {
-  
+
   color: black;
 }
 .password_wrapper {
