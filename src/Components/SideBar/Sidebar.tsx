@@ -93,10 +93,10 @@ const Sidebar: React.FC<SidebarProps> = ({menuItem}: SidebarProps) => {
                   {isOpen && (
                     <div className={styles.mob_link_text}>
                       <span className={styles.itemname}>
-                      {item.name}
-
+                      <span className={styles.mob_icon}>{item.icon}</span>
+                     {item.name}
                       </span>
-                      {item.icon}
+                      
                       </div>
                   )}
                 </div>
