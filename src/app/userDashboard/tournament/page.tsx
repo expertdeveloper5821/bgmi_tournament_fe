@@ -605,7 +605,7 @@ function Tournament() {
                                     {/* isData15MinBefore(match?.time) */}
 
                                     <div className={styles.id_password}>
-                                      <span>Room Id: {roomId === "12345" ? "--" : roomId}</span>
+                                      <span>Room Id: {roomId == 12345 ? "--" : roomId}</span>
                                       <span>Room password: {password === "1234567" ? "--" : password}</span>
                                     </div>
 
