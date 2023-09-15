@@ -67,6 +67,8 @@
   align-items: center;
 }
 
+
+
 @mixin heading {
   display: flex;
   justify-content: center;
@@ -193,4 +195,5 @@
   border-radius: 0px !important;
   margin: 12px 0px;
   padding: 2px !important;
+  color-scheme: dark;
 }

@@ -36,14 +36,22 @@ export const ResetPasswordSchema = Yup.object().shape({
     .oneOf([Yup.ref('newPassword')], 'Passwords must match'),
 });
 
-export const createspectater = Yup.object().shape({
+export const validationSchema = Yup.object().shape({
   roomId: Yup.number().required('Please enter your Room Id'),
   gameName: Yup.string().required('Please enter your  Game Name'),
   gameType: Yup.string().required('Please enter your Game Type'),
   mapType: Yup.string().required('Please enter your Map Type'),
   password: Yup.string().required('Please enter your password'),
-  time: Yup.string().required('please select time'),
-  date: Yup.string().required('please select match date'),
+  version: Yup.string().required('please enter your version'),
+  time: Yup
+    .string()
+    .required('Time is required').matches(
+      /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
+      'Time must be in HH:mm format'
+    ),
+  date: Yup
+    .date()
+    .required('Date is required'),
   secondWin: Yup.number().required('Please enter second winner prize '),
   lastServival: Yup.number().required('Please enter lastServival winner prize'),
   highestKill: Yup.number().required('Please enter highestKill winner prize'),
@@ -52,7 +60,7 @@ export const createspectater = Yup.object().shape({
 
 export const SendInviteSchema = Yup.object().shape({
   email: Yup.string()
-  .email('Invalid email')
-  .required('Please enter your email')
-  .matches(emailRegex, 'Invalid email'),
+    .email('Invalid email')
+    .required('Please enter your email')
+    .matches(emailRegex, 'Invalid email'),
 })

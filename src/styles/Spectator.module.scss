@@ -15,6 +15,19 @@
   z-index: 99;
   height: auto;
 }
+.flex_col{
+ 
+  width: 50%;
+  margin: 10px;
+}
+
+.main_form{
+  display: flex; 
+  height: 500px;
+  overflow-y: scroll;
+  flex-direction: column;
+}
+
 
 .r_main_title {
   color: aliceblue;
@@ -26,7 +39,7 @@
 .check_model {
   background: white;
   height: auto;
-  width: 30%;
+  width: 50%;
   border-radius: 15px;
   @media (max-width: $breakpoint-xSmall) {
     width: 90% !important;
@@ -41,6 +54,7 @@
     width: 50%;
   }
 }
+
 .main_pop_cls,
 .main_del_sec {
   @include spectator_model;
@@ -50,33 +64,30 @@
   justify-content: space-between;
   padding: 4px 26px;
 }
-.main_form_btn {
+.main_form_btn{
   background: #ff7a00;
   border: none;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
+  padding: 8px;
   font-weight: 700;
 }
-.cancel_btn {
-  border: none;
-  background: white;
-  font-size: 16px;
-}
+
 .pop_heading {
   @include spectator_model_heading;
 }
+
 .form_spectator_cls {
-  padding: 28px 48px;
-  height: 500px;
-  overflow-y: scroll;
+  display: flex;
+  padding: 15px 30px;
+ 
 }
 button#btn_cls_st {
   background: #ff7a00;
 }
 .roombutton {
   background: #ff7a00 !important;
-  width: 100%;
-  margin-top: 12px;
+  width: 30%;
   color: white !important;
 }
 .room_field_wrapper {
@@ -85,6 +96,18 @@ button#btn_cls_st {
     margin: 8px 0px;
   }
 }
+.input_box{
+  display: flex;
+  flex-direction: column;
+}
+
+.input_box input {
+  color: $bs-black;
+}
+.input_box input[password] {
+  color: $bs-black;
+}
+
 .room_id {
   color: #003554 !important;
   font-weight: 700;
@@ -95,17 +118,32 @@ button#btn_cls_st {
     font-size: 13px;
   }
 }
+.optional{
+  // border: 1px solid grey;
+  color:$bs-grey;
+  font-weight: 700;
+  font-size: 20px;
+}
+
 .btn_form_wrapper {
-  padding: 16px 0px 0px 0px;
+  padding: 20px 0px 20px 0px;
+  
+  display: flex;
+  justify-content: space-evenly;
 }
 .cancel_btn {
-  width: 100%;
-  border: 1px solid #ff7a00 !important;
-  color: #ff7a00 !important;
+  border: none;
+  background:$bs-white;
+  font-size: 16px;
+}
+.cancel_btn {
+  width: 30%;
+  border: 1px solid $bs-orange !important;
+  color:$bs-orange !important;
 }
 .cancel_btn:hover {
-  background: #ff7a00 !important;
-  color: white !important;
+  background: $bs-white !important;
+  color: $bs-orange !important;
 }
 .error {
   @include error;

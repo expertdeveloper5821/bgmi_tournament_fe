@@ -1,14 +1,15 @@
 'use client';
-import React, {useEffect, useState} from 'react';
-import {Navbar} from '../../../Components/Navbar/Navbar';
+import React, { useEffect, useState } from 'react';
+import { Navbar } from '../../../Components/Navbar/Navbar';
 import styles from '../../../styles/Spectator.module.scss';
 import Form from '../Form/page';
-import {sendRequest} from '../../../services/auth/auth_All_Api';
+import { sendRequest } from '../../../services/auth/auth_All_Api';
 import RequireAuthentication from '../../../utils/requireAuthentication';
 //@ts-ignore
-import {Table, TableBody, TableCell} from 'technogetic-iron-smart-ui';
+import { Table, TableBody, TableCell } from 'technogetic-iron-smart-ui';
 //@ts-ignore
-import {TableHeader, TableHead, TableRow} from 'technogetic-iron-smart-ui';
+import { TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
+import { formatDate, formatTime } from "../../../Components/CommonComponent/moment"
 import Image from 'next/image';
 import Deletespec from '../Deletespec/page';
 import Updatespec from '../Updatespec/page';
@@ -21,14 +22,13 @@ export interface RoomData {
   gameName: string;
   gameType: string;
   mapType: string;
-  version: number;
-  highestKill: number;
-  lastServival: number;
-  thirdWin: number;
-  secondWin: number;
+  version: string;
+  highestKill: string;
+  lastServival: string;
+  thirdWin: string;
+  secondWin: string;
   time: string;
   date: string;
-  // uuid: number; //Not Available in response
   createdBy: number;
   updatedAt: number;
   createdAt: number;
@@ -68,7 +68,6 @@ const Room = () => {
   useEffect(() => {
     getAllSpectator();
   }, []);
-
   return (
     <>
       <RequireAuthentication>
@@ -102,7 +101,6 @@ const Room = () => {
                         <TableCell className={styles.el_tb_cell}>
                           {spec?.roomId ?? '--'}
                         </TableCell>
-
                         <TableCell className={styles.tb_cell_body}>
                           {spec?.gameName ?? '--'}
                         </TableCell>
@@ -127,20 +125,18 @@ const Room = () => {
                         <TableCell className={styles.el_tb_cell}>
                           {spec?.secondWin ?? '--'}
                         </TableCell>
-                        <TableCell className={styles.el_tb_cell}>
-                          {spec?.time ?? '--'}
-                        </TableCell>
+
                         <TableCell className={styles.tb_cell_body}>
-                          {spec?.date ?? '--'}
+                          {spec?.dateAndTime
+                            ? formatTime({ time: spec.dateAndTime, format: "LT" })
+                            : '--'}
                         </TableCell>
-                        {/* <TableCell className={styles.tb_cell_body}>
-                          <Image
-                            src={spec?.mapImg}
-                            alt="mapImage"
-                            width={30}
-                            height={30}
-                          />
-                        </TableCell> */}
+
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.dateAndTime
+                            ? formatDate({ date: spec.dateAndTime, format: "DD/MM/YYYY" })
+                            : '--'}
+                        </TableCell>
                         <TableCell className={styles.tb_cell_action}>
                           <Deletespec
                             Id={spec._id}
