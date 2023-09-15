@@ -19,13 +19,14 @@ import CountdownComponent from './CountdownComponent';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { number } from 'yup';
+import moment from 'moment';
 
 export interface tournament {
   gameName: string;
   gameType: string;
   mapType: string;
   version: string;
-  date: string;
+  dateAndTime: string;
   time: string;
   lastServival: string;
   roomUuid: string;
@@ -122,12 +123,13 @@ function Tournament() {
       setGameType(lastTournament?.gameType);
       setMapType(lastTournament?.mapType);
       setVersion(lastTournament?.version);
-      setDate(lastTournament?.date);
-      setTime(lastTournament?.time);
+      setDate(moment(lastTournament?.dateAndTime).format("DD/MM/YYYY"));
+      setTime(lastTournament.roomUuid === '0c21d430-e6d1-4620-acc1-37db1f4aa93a' ? '6:00 PM' : "7:00 PM");
       setLastServival(lastTournament?.lastServival);
       setRoomId(lastTournament?.roomUuid);
       setMapImg(lastTournament?.mapImg);
     }
+    console.log("lastTourbament", lastTournament)
   }, [lastTournament]);
 
   const updateMainData = (
@@ -145,8 +147,10 @@ function Tournament() {
     setGameType(gType);
     setMapType(mType);
     setVersion(vType);
-    setDate(mdate);
-    setTime(mtime);
+    setDate(moment(mdate).format("DD/MM/YYYY"));
+      setTime(mType === 'Erangel' ? '6:00 PM' : "7:00 PM");
+    // setDate(mdate);
+    // setTime(mtime);
     setLastServival(lastServival);
     setRoomId(roomid);
     setMapImg(mapImg);
@@ -175,7 +179,7 @@ function Tournament() {
           upiId: 'success@payment',
           matchAmount: 60,
           name: 'robin',
-          id: '3dafaba5-a73d-4874-b138-bbc2abbef89d',
+          id: '7d5f9741-264c-4a59-8ec9-67985f235d19',
           roomid: roomId,
         },
       });
@@ -249,17 +253,18 @@ function Tournament() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   const getIdPass = (time: string, date: string, roomId: number, password: string) => {
+    console.log("date, time", date, time)
     const REDUCE_TIME = 15 * 60 * 1000;
     const currentTime = new Date().getTime();
     const [hour, minutes] = (time || "").split(":").map((values) => parseInt(values));
     const [year, month, matchData] = (date || "").split("-").map((values) => parseInt(values));
     let dateNumber = new Date(year, month - 1, matchData, hour, minutes).getTime();
     const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
-    if (currentTime >= reducedTime) {
-      return { roomId, password }
-    } else {
-      return { roomId: "*******", password: "********" }
-    }
+    // if (currentTime >= reducedTime) {
+    // } else {
+    //   return { roomId: "*******", password: "********" }
+    // }
+    return { roomId, password }
 
   };
 
@@ -294,7 +299,7 @@ function Tournament() {
                     </div>
                   </div>
                   {alldata && alldata.length === 0 ? (
-                    <div className={styles.register_match}>
+                    <div className={styles.register_match} style={{marginLeft: '10px'}}>
                       There is no room created till now
                     </div>
                   ) : (
@@ -405,15 +410,15 @@ function Tournament() {
                               </span>
                               <span className={styles.survival_content}>
 
-                                <span className="rs_logo">
+                                {/* <span className="rs_logo">
                                   <Image
                                     src="../assests/rupee-icon.svg"
                                     alt="rupeeIcon"
                                     width={12}
                                     height={12}
                                   />
-                                </span>
-                                50
+                                </span> */}
+                                Free
                               </span>
                             </div>
                           </div>
@@ -489,7 +494,7 @@ function Tournament() {
                                       e.gameType,
                                       e.mapType,
                                       e.version,
-                                      e.date,
+                                      e.dateAndTime,
                                       e.time,
                                       e.lastServival,
                                       e.roomUuid,
@@ -510,7 +515,7 @@ function Tournament() {
               </div>
               <span className={styles.register_match_title}>Registered Matches</span>
               {!regMatches.length ? (
-                <div className={styles.register_match}>
+                <div className={styles.register_match} style={{marginLeft: '10px'}}>
                   There is no Registered Match till now
                 </div>
               ) : (
