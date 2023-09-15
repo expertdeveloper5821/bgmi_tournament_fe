@@ -1,5 +1,5 @@
 'use client';
-import React, {useState, useEffect, ChangeEvent, useContext} from 'react';
+import React, { useState, useEffect, ChangeEvent, useContext } from 'react';
 import {
   useFormik,
   FormikErrors,
@@ -7,21 +7,21 @@ import {
   FormikValues,
   FormikHelpers,
 } from 'formik';
-import {SignupSchema} from '../../../schemas/SignupSchemas';
-import {useRouter} from 'next/navigation';
+import { SignupSchema } from '../../../schemas/SignupSchemas';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 //@ts-ignore
-import {Button, Input} from 'technogetic-iron-smart-ui';
+import { Button, Input } from 'technogetic-iron-smart-ui';
 import styles from '../../../styles/auth.module.scss';
-import {sendRequest} from '../../../services/auth/auth_All_Api';
-import {FcGoogle} from 'react-icons/fc';
+import { sendRequest } from '../../../services/auth/auth_All_Api';
+import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
-import {loginSchema} from '../../../schemas/SignupSchemas';
-import {decodeJWt} from '@/utils/globalfunctions';
-import {configData} from '@/utils/config';
-import {useUserContext} from '@/utils/contextProvider';
+import { loginSchema } from '../../../schemas/SignupSchemas';
+import { decodeJWt } from '@/utils/globalfunctions';
+import { configData } from '@/utils/config';
+import { useUserContext } from '@/utils/contextProvider';
 
-interface LoginProps {}
+interface LoginProps { }
 
 interface FormValues {
   email: string;
@@ -34,7 +34,7 @@ function Login(): React.JSX.Element {
   const [role, setRole] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [getToken, setGetToken] = useState<any>('');
-  const {userInfo, updateUserInfo} = useUserContext();
+  const { userInfo, updateUserInfo } = useUserContext();
   console.log('usering=', userInfo);
   const router = useRouter();
 
@@ -70,10 +70,10 @@ function Login(): React.JSX.Element {
     validationSchema: loginSchema,
     onSubmit: async (
       values: FormValues,
-      {setSubmitting}: FormikHelpers<FormValues>,
+      { setSubmitting }: FormikHelpers<FormValues>,
     ) => {
       setIsLoading(true);
-      const {email, password} = values;
+      const { email, password } = values;
       if (rememberMe) {
         const expirationDate = new Date();
         expirationDate.setDate(expirationDate.getDate() + 30);
@@ -90,7 +90,7 @@ function Login(): React.JSX.Element {
       try {
         const response = await sendRequest('user/login', {
           method: 'POST',
-          data: {email, password},
+          data: { email, password },
         });
 
         setIsLoading(false);
@@ -121,9 +121,9 @@ function Login(): React.JSX.Element {
       const decodedToken: any = decodeJWt(token);
       console.log('tokennnn', decodedToken.role.role);
       if (decodedToken.role.role === 'admin') {
-        router.push('/adminDashboard');
+        router.push('/adminDashboard/room');
       } else if (decodedToken.role.role === 'user') {
-        router.push('/userDashboard');
+        router.push('/userDashboard/tournament');
         // router.push(configData.web.cominSoonUrl)
       } else {
         router.push('/spectatorDashboard');
@@ -158,7 +158,7 @@ function Login(): React.JSX.Element {
       setIsLoading(false);
 
       if (verifyResponse.status === 200) {
-        router.push('/adminDashboard');
+        router.push('/adminDashboard/room');
       } else {
         setError('Google Sign-In failed');
       }
@@ -210,7 +210,7 @@ function Login(): React.JSX.Element {
       setLoadingData(false);
 
       if (verifyResponse.status === 200) {
-        router.push('/adminDashboard');
+        router.push('/adminDashboard/room');
       } else {
         showErrorData('Google Sign-In failed');
       }

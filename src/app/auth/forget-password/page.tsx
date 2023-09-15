@@ -24,9 +24,9 @@ export default function ResetPassword(): JSX.Element {
 
   const sendEmail = async () => {
     try {
-      const response = await sendRequest('api/v1/user/forget-password', {
+      const response = await sendRequest('user/forget-password', {
         method: 'POST',
-        body: { email },
+        data: { email },
       });
       router.push('/auth/mailpage');
 

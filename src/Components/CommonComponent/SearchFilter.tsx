@@ -5,7 +5,7 @@ import { Button, Input } from "technogetic-iron-smart-ui";
 
 export interface IAppProps { }
 
-export function BtnDashboard() {
+export function SearchFilter() {
   return (
     <>
       <div className={styles.dashboard_content}>
