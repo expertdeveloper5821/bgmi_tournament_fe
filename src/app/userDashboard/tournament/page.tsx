@@ -193,9 +193,20 @@ function Tournament() {
         });
         setIsLoading(false)
       } else {
-        console.log('Payment Failed');
+        setIsLoading(false)
+        toast.error('Already registered', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+        });
       }
     } catch (error: any) {
+        setIsLoading(false)
+        toast.error('Already registered', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+      });
       console.log('Failed to sign up. Please try again.');
     }
   };
@@ -538,6 +549,7 @@ function Tournament() {
                             .slice(currentIndex, currentIndex + numItemsToShow)
                             .map((match: any, index: any) => {
                               const { roomId, password } = getIdPass(match?.time, match?.date, match?.roomId, match?.password)
+                              console.log("Match", match)
                               return (
                                 <div className={styles.container3} key={index} >
 
@@ -582,19 +594,19 @@ function Tournament() {
                                     <div className={styles.room_create}>
                                       <div className={styles.winning_prize}>
                                         <span> Match start Date </span>
-                                        <span>{match?.date}</span>
+                                        <span>{moment(match?.dateAndTime).format('DD/MM/YYYY')}</span>
                                       </div>
                                       <div className={styles.winning_prize}>
                                         <span>Time</span>
-                                        <span>{match?.time}</span>
+                                        <span>{match.roomUuid === "1c2804fb-0d39-40e6-b34d-a1d8cd0c428d" ? "6:00 PM" : "7:00 PM"}</span>
 
                                       </div>
                                     </div>
                                     {/* isData15MinBefore(match?.time) */}
 
                                     <div className={styles.id_password}>
-                                      <span>Room Id: {roomId}</span>
-                                      <span>Room password: {password}</span>
+                                      <span>Room Id: {roomId === "12345" ? "--" : roomId}</span>
+                                      <span>Room password: {password === "1234567" ? "--" : password}</span>
                                     </div>
 
                                   </div>
