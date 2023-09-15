@@ -31,7 +31,7 @@
   }
 
   @media (max-width:$breakpoint-tab) {
-    margin-left: 28px;
+    margin-left: 116px;
   }
 
   @media (max-width: $breakpoint-xs) {
@@ -153,6 +153,9 @@
     width: 50%;
   }
 
+  @media (max-width: $breakpoint-tab){
+    width: 86% ;
+  }
   @media (max-width: $breakpoint-sm) {
     width: 60% !important;
   }
@@ -635,7 +638,7 @@ img.slides_image {
   color: white;
   border: 1px solid #ff7a00;
   border-radius: 5px;
-  padding: 10px;
+  padding: 6px;
   width: 330px;
   display: flex;
   justify-content: space-around;
@@ -685,6 +688,7 @@ img.slides_image {
   width: 10px;
   border-radius: 50%;
   background:$bs-green;
+  display: none;
 }
 
 .main_winning_pool {
@@ -800,12 +804,9 @@ img.slides_image {
   }
 
   @media (max-width: $breakpoint-tab) {
-    width: 456px;
+    width: 530px ;
   }
 
-  // @media (max-width: $breakpoint-xs) { 
-  // width: 346px;
-  // }
   @media (max-width:$breakpoint-xSmall) {
     width: 346px;
   }
@@ -1025,4 +1026,9 @@ img.slides_image {
   color: #ff7a00;
   font-size: 27px;
   font-weight: 700;
+}
+.review_close{
+  color: #FFC700;
+  font-size: 18px;
+  font-weight: 900;
 }
