@@ -248,7 +248,7 @@ const regMatches = () => {
 
                       <div className={styles.name}>
 
-                        <h2>JOhn doe</h2>
+                        <h2>John doe</h2>
 
                         <div className={styles.greenCircle}></div>
 
@@ -285,7 +285,7 @@ const regMatches = () => {
 
                       <div className={styles.name}>
 
-                        <h2>JOhn doe</h2>
+                        <h2>John doe</h2>
 
                         <div className={styles.greenCircle}></div>
 
@@ -322,7 +322,7 @@ const regMatches = () => {
 
                       <div className={styles.name}>
 
-                        <h2>JOhn doe</h2>
+                        <h2>John doe</h2>
 
                         <div className={styles.greenCircle}></div>
 
@@ -336,6 +336,7 @@ const regMatches = () => {
                   <div  className={styles.review_close}>
                   x
                   </div>
+                 
                 </div>
                 
               </div> */}

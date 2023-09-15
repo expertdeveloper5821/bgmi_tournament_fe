@@ -48,15 +48,20 @@
   margin-right: 5px;
   border-radius: 4px;
   transition: all 0.5s;
-  
-  @media (max-width: $breakpoint-xSmall) {
-    margin-top: -1px;
-    margin-left: 3px;
+  @media (max-width: $breakpoint-tab){
+    display:contents;
   }
   @media (max-width:  $breakpoint-xs) {
     margin-top: 1px;
     margin-left: 3px;
+    display:contents;
   }
+  @media (max-width: $breakpoint-xSmall) {
+    margin-top: -1px;
+    margin-left: 3px;
+    display:contents;
+  }
+ 
 
   &:hover {
     background: #ff7a00;
@@ -122,8 +127,7 @@
   width: 150px;
   z-index: 1;
   height: 90vh;
-  
-  @media (max-width: $breakpoint-xSmall) {
+  @media (max-width: $breakpoint-tab){
     margin-top: 60px;
     height: 100vh;
   }
@@ -131,6 +135,11 @@
     margin-top: 60px;
     height: 100vh;
   }
+  @media (max-width: $breakpoint-xSmall) {
+    margin-top: 60px;
+    height: 100vh;
+  }
+ 
 }
 .mob_link_text {
   display: flex;
@@ -184,3 +193,7 @@
 }
 .mob_icon{
 margin-right: 7px;}
+.mob_name{
+  font-size: 16px;
+  font-weight: 600;
+}
