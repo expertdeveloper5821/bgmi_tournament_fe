@@ -128,16 +128,14 @@ function Tournament() {
     gType: string,
     mType: string,
     vType: string,
-    mdate:string,
     dateandtime: Date,
-    mtime: string,
     roomUid: string,
     lastsurvival: string,
     roomid: string,
     mapImg: string,
   ) => {
     
-    const updatedformattedDandt = ` ${formatDate({ date: mdate })} and ${formatTime({ time: mtime  , format : 'LT' })}`;
+    const updatedformattedDandt = ` ${formatDate({ date: dateandtime })} and ${formatTime({ time: dateandtime  , format : 'LT' })}`;
     setMatchDetails({gameName:gname, mapType: mType, gameType:gType , version:vType , dateAndTime:updatedformattedDandt, lastsurvival:lastsurvival, roomId:roomid , roomUuid:roomUid, mapImg:mapImg })
    
   };
@@ -483,9 +481,7 @@ function Tournament() {
                                       e.gameType,
                                       e.mapType,
                                       e.version,
-                                      e.dateAndTime, 
                                       new Date(e.dateAndTime), 
-                                      e.mtime,
                                       e.lastServival,
                                       e.roomid,
                                       e.roomUuid,
