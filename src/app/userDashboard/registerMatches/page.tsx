@@ -1,13 +1,13 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
-import {Navbar} from '../../../Components/Navbar/Navbar';
+import { Navbar } from '../../../Components/Navbar/Navbar';
 import Image from 'next/image';
-import {sendRequest} from '@/services/auth/auth_All_Api';
-import {useSearchParams} from 'next/navigation';
+import { sendRequest } from '@/services/auth/auth_All_Api';
+import { useSearchParams } from 'next/navigation';
 import InputCustomTag from '@/Components/InputCustomTag/InputCustomTag';
 //@ts-ignore
-import {Button, Input} from 'technogetic-iron-smart-ui';
+import { Button, Input } from 'technogetic-iron-smart-ui';
 import { FormikHelpers, useFormik } from 'formik';
 import { SendInviteSchema } from '@/schemas/SignupSchemas';
 
@@ -29,18 +29,9 @@ interface FormValues {
 
 
 const regMatches = () => {
-  
   const [values, setValues] = useState<string[]>([]);
-
-  const handleValueChange = (newValues: string[]) => {
-    setValues(newValues);
-  };
- 
   const [tags, setTags] = useState([]);
-  const handleTagsChange = (newTags:any) => {
-    setTags(newTags);
-   
-  };
+
   const searchParams = useSearchParams();
   const matchID = searchParams.get('id');
   const [matchData, setMatchData] = useState<RegMatch>();
@@ -49,7 +40,7 @@ const regMatches = () => {
     const token: any = localStorage.getItem('jwtToken');
     const regMAtch = await sendRequest(`room/rooms/${matchID}`, {
       method: 'GET',
-      headers: {Authorization: `Bearer ${token}`},
+      headers: { Authorization: `Bearer ${token}` },
     });
     setMatchData(regMAtch.data.room);
   };
@@ -71,7 +62,7 @@ const regMatches = () => {
   useEffect(() => {
     getRoomidPwd();
   }, [matchData]);
-  
+
   return (
     <div className={styles.main_container}>
       <div className={styles.abcd}>
@@ -146,7 +137,7 @@ const regMatches = () => {
                     <span className={styles.winning_prize}>TYPE</span>
                     <span
                       className={styles.tvm_font}
-                      style={{color: 'rgba(255, 214, 0, 1)'}}
+                      style={{ color: 'rgba(255, 214, 0, 1)' }}
                     >
                       {matchData?.gameType}
                     </span>
@@ -156,7 +147,7 @@ const regMatches = () => {
                     <span className={styles.winning_prize}>VERSION</span>
                     <span
                       className={styles.tvm_font}
-                      style={{color: 'rgba(255, 214, 0, 1)'}}
+                      style={{ color: 'rgba(255, 214, 0, 1)' }}
                     >
                       {matchData?.version}
                     </span>
@@ -166,7 +157,7 @@ const regMatches = () => {
                     <span className={styles.winning_prize}>MAP</span>
                     <span
                       className={styles.tvm_font}
-                      style={{color: 'rgba(255, 122, 0, 1)'}}
+                      style={{ color: 'rgba(255, 122, 0, 1)' }}
                     >
                       {matchData?.mapType}
                     </span>
@@ -221,58 +212,24 @@ const regMatches = () => {
             </div>
           </div>
           <div>
-         
-      </div>
-     {/* <div className={styles.Teammembers}>Your Team Members</div>
 
- 
+          </div>
+          {/* use this code for your team member  */}
+
+          {/* <div className={styles.Teammembers}>Your Team Members</div>
+
+
 
           <div className={styles.container2}>
 
-              <div className={styles.inner_cont}> */}
+            <div className={styles.inner_cont}> */}
 
-                 {/* <div key={index} className={`${styles.slide}`}> */}
+          {/* <div key={index} className={`${styles.slide}`}> */}
+
+
 
           {/* <div className={styles.reviewsContainer}>
 
-                  <div className={styles.reviewCard}>
-
-                    <div className={styles.reviews}>
-
-                      <img
-
-                        src="/assests/reviewman.svg"
-
-                        alt="image"
-
-                        className={styles.profile}
-
-                      />
-
-                      <div className={styles.reviewer}>
-
-                        <div className={styles.name}>
-
-                          <h2>JOhn doe</h2>
-
-                          <div className={styles.greenCircle}></div>
-
-                        </div>
-
-                        <p></p>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div> */}
-
- 
-
-           {/* <div className={styles.reviewsContainer}>
-
                 <div className={styles.reviewCard}>
 
                   <div className={styles.reviews}>
@@ -291,7 +248,7 @@ const regMatches = () => {
 
                       <div className={styles.name}>
 
-                        <h2>JOhn doe</h2>
+                        <h2>John doe</h2>
 
                         <div className={styles.greenCircle}></div>
 
@@ -302,12 +259,13 @@ const regMatches = () => {
                     </div>
 
                   </div>
-
+                  <div  className={styles.review_close}>
+                  x
+                  </div>
                 </div>
-
-              </div> */}
-
-              {/* <div className={styles.reviewsContainer}>
+                
+              </div>
+              <div className={styles.reviewsContainer}>
 
                 <div className={styles.reviewCard}>
 
@@ -327,7 +285,7 @@ const regMatches = () => {
 
                       <div className={styles.name}>
 
-                        <h2>JOhn doe</h2>
+                        <h2>John doe</h2>
 
                         <div className={styles.greenCircle}></div>
 
@@ -338,10 +296,50 @@ const regMatches = () => {
                     </div>
 
                   </div>
+                  <div  className={styles.review_close}>
+                  x
+                  </div>
+                </div>
+                
+              </div>
+              <div className={styles.reviewsContainer}>
 
-                </div> 
+                <div className={styles.reviewCard}>
 
-          </div> */}
+                  <div className={styles.reviews}>
+
+                    <img
+
+                      src="/assests/reviewman.svg"
+
+                      alt="image"
+
+                      className={styles.profile}
+
+                    />
+
+                    <div className={styles.reviewer}>
+
+                      <div className={styles.name}>
+
+                        <h2>John doe</h2>
+
+                        <div className={styles.greenCircle}></div>
+
+                      </div>
+
+                      <p>akshay@gmail.com</p>
+
+                    </div>
+
+                  </div>
+                  <div  className={styles.review_close}>
+                  x
+                  </div>
+                 
+                </div>
+                
+              </div> */}
 
           {/* </Slider>
 
@@ -349,11 +347,11 @@ const regMatches = () => {
 
           {/* </div>
 
-            </div>*/}
-         
-        </div> 
+          </div> */}
+
+        </div>
       </div>
-     
+
     </div>
   );
 };
