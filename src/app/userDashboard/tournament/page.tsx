@@ -185,7 +185,8 @@ function Tournament() {
         console.log('Payment Failed');
       }
     } catch (error: any) {
-      console.log('Failed to sign up. Please try again.');
+      toast.success(error)
+      
     }
   };
   
