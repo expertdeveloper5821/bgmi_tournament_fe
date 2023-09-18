@@ -2,14 +2,19 @@
 
 $breakpoint-xSmall: 414px;
 $breakpoint-xs: 680px;
+$breakpoint-tab: 769px;
+$breakpoint-sm: 900px;
 $breakpoint-tab: 768px;
 $breakpoint-sm: 900px;
 $breakpoint-md: 968px;
 $breakpoint-ms: 1024px;
 $breakpoint-lg: 1200px;
+$breakpoint-xlg: 1440px;
 
-//Font Family
-$bs-body-font-family: 'Century Gothic';
+
+
+//Font Family 
+$bs-body-font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
 
 // Theme Color Variables
 $primary-color: rgba(0, 53, 84, 1);
