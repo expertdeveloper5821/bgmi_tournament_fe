@@ -34,7 +34,7 @@ export interface RoomData {
   version: string;
   time: any;
   date: number;
-  lastServival: number;
+  lastSurvival: number;
   highestKill: number;
   secondWin: number;
   thirdWin: number;
@@ -372,9 +372,9 @@ const TableData = (props: StudentProfilePropsType) => {
                       </>
                     )}
                   </TableCell>
-                  {isShowData && elm.lastServival && (
+                  {isShowData && elm.lastSurvival && (
                     <TableCell className={styles.table_cell}>
-                      {elm.lastServival}
+                      {elm.lastSurvival}
                     </TableCell>
                   )}
                   {isShowData && elm.highestKill && (

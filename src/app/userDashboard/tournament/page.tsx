@@ -1,12 +1,12 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
-import {Navbar} from '../../../Components/Navbar/Navbar';
+import { Navbar } from '../../../Components/Navbar/Navbar';
 //@ts-ignore
-import {Button} from 'technogetic-iron-smart-ui';
-import {decodeJWt} from '@/utils/globalfunctions';
+import { Button } from 'technogetic-iron-smart-ui';
+import { decodeJWt } from '@/utils/globalfunctions';
 import Image from 'next/image';
-import {sendRequest} from '@/services/auth/auth_All_Api';
+import { sendRequest } from '@/services/auth/auth_All_Api';
 import {
   AiOutlineDown,
   AiOutlineClose,
@@ -14,8 +14,8 @@ import {
   AiOutlineRight,
 } from 'react-icons/ai';
 import CountdownComponent from './CountdownComponent';
-import {toast} from 'react-toastify';
-import {useRouter} from 'next/navigation';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 import { number } from 'yup';
 
 export interface tournament {
@@ -25,7 +25,7 @@ export interface tournament {
   version: string;
   date: string;
   time: string;
-  lastServival: string;
+  lastSurvival: string;
   roomUuid: string;
   mapImg: string;
 }
@@ -42,12 +42,12 @@ function Tournament() {
   const [version, setVersion] = useState<String>('');
   const [date, setDate] = useState<String>('');
   const [time, setTime] = useState<String>('');
-  const [lastServival, setLastServival] = useState<String>('');
+  const [lastSurvival, setlastSurvival] = useState<String>('');
   const [roomId, setRoomId] = useState<String>('');
   const [mapImg, setMapImg] = useState<String>('');
   const [matchIndex, setMatchIndex] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
- const [userName , setUserName] = useState<string>("");
+  const [userName, setUserName] = useState<string>("");
 
   const router = useRouter();
   const regMatchRedirect = (matchID: string) => {
@@ -60,11 +60,11 @@ function Tournament() {
     const decodedToken: any = decodeJWt(token);
     const tournamentResponse = await sendRequest('room/rooms', {
       method: 'GET',
-      headers: {Authorization: `Bearer ${token}`},
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     const filteredDataArray = tournamentResponse.data.filter(
-      (item: {roomUuid: string; roomid: string}) =>
+      (item: { roomUuid: string; roomid: string }) =>
         !roomids?.includes(item.roomUuid),
     );
 
@@ -76,7 +76,7 @@ function Tournament() {
     const decodedToken: any = decodeJWt(token);
     const registeredMatches = await sendRequest('team/register-room ', {
       method: 'GET',
-      headers: {Authorization: `Bearer ${token}`},
+      headers: { Authorization: `Bearer ${token}` },
     });
     setRegMatches(registeredMatches.data.rooms);
   };
@@ -116,7 +116,7 @@ function Tournament() {
       setVersion(lastTournament?.version);
       setDate(lastTournament?.date);
       setTime(lastTournament?.time);
-      setLastServival(lastTournament?.lastServival);
+      setlastSurvival(lastTournament?.lastSurvival);
       setRoomId(lastTournament?.roomUuid);
       setMapImg(lastTournament?.mapImg);
     }
@@ -129,7 +129,7 @@ function Tournament() {
     vType: string,
     mdate: string,
     mtime: string,
-    lastServival: string,
+    lastSurvival: string,
     roomid: string,
     mapImg: string,
   ) => {
@@ -139,7 +139,7 @@ function Tournament() {
     setVersion(vType);
     setDate(mdate);
     setTime(mtime);
-    setLastServival(lastServival);
+    setlastSurvival(lastSurvival);
     setRoomId(roomid);
     setMapImg(mapImg);
   };
@@ -161,7 +161,7 @@ function Tournament() {
 
       const response = await sendRequest('payment/create-payment', {
         method: 'POST',
-        headers: {Authorization: `Bearer ${token}`},
+        headers: { Authorization: `Bearer ${token}` },
         data: {
           upiId: 'success@payment',
           matchAmount: 60,
@@ -187,7 +187,7 @@ function Tournament() {
     }
   };
 
- 
+
 
   /********** */
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -195,7 +195,7 @@ function Tournament() {
 
   const goToNextSlide = () => {
     const newIndex = currentIndex + 1;
-   
+
     if (newIndex < regMatches.length) {
       setCurrentIndex(newIndex);
     }
@@ -203,28 +203,28 @@ function Tournament() {
 
   const goToPrevSlide = () => {
     const newIndex = currentIndex - 1;
-   
+
     if (newIndex >= 0) {
       setCurrentIndex(newIndex);
     }
-   
+
   };
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setNumItemsToShow(2);
-      
+
       } else {
         setNumItemsToShow(1);
-     
+
       }
       if (window.innerWidth >= 1000) {
         setNumItemsToShow(2);
-        
+
       } else {
         setNumItemsToShow(1);
-       
+
       }
     };
 
@@ -238,10 +238,10 @@ function Tournament() {
       <div className={styles.main_container}>
         <div className={styles.abcd}>
           <div className={styles.sidebar_wrapper}>
-            <Navbar setUserName={setUserName}/>
+            <Navbar setUserName={setUserName} />
             <div className={styles.content}>
               <div className={styles.dashboard}>
-              <h1 className={styles.page_title}>Welcome <span className={styles.fullname_title}>{userName}</span></h1>
+                <h1 className={styles.page_title}>Welcome <span className={styles.fullname_title}>{userName}</span></h1>
                 <span className={styles.head_desc}>Upcoming Matches</span>
                 <h1 className={styles.subhead_desc}>
                   Dashboard/Upcoming Matches
@@ -268,182 +268,182 @@ function Tournament() {
                 ) : (
                   <div>
                     <div className={styles.squad_match}>
-                    <div className={styles.inner_squad_match}>
-                      <span className={styles.register_match}>{gameName}</span>
-                      <span className={styles.winning_prize}>
-                        Time : {date} at {time}
-                      </span>
-                      <div className={styles.winnings}>
-                        <div>
-                          <span className={styles.winning_prize}>
-                            WINNING PRIZE
-                            <span>
-                              <AiOutlineDown
-                                onClick={() => setPoolModal(true)}
-                              />
+                      <div className={styles.inner_squad_match}>
+                        <span className={styles.register_match}>{gameName}</span>
+                        <span className={styles.winning_prize}>
+                          Time : {date} at {time}
+                        </span>
+                        <div className={styles.winnings}>
+                          <div>
+                            <span className={styles.winning_prize}>
+                              WINNING PRIZE
+                              <span>
+                                <AiOutlineDown
+                                  onClick={() => setPoolModal(true)}
+                                />
+                              </span>
                             </span>
-                          </span>
-                          {poolModal ? (
-                            <div className={styles.main_winning_pool}>
-                              <div className={styles.inner_winning_pool}>
-                                <div className={styles.text_pool_cls}>
-                                  <h1 className={styles.pool_heading}>
-                                    WINNING PRIZE POOL
-                                  </h1>
-                                  <p className={styles.pool_para}>
-                                    BGMI Squad match
+                            {poolModal ? (
+                              <div className={styles.main_winning_pool}>
+                                <div className={styles.inner_winning_pool}>
+                                  <div className={styles.text_pool_cls}>
+                                    <h1 className={styles.pool_heading}>
+                                      WINNING PRIZE POOL
+                                    </h1>
+                                    <p className={styles.pool_para}>
+                                      BGMI Squad match
+                                    </p>
+                                  </div>
+                                  <div className={styles.pool_cancel_p}>
+                                    <p className={styles.pool_text_p}>
+                                      Last Survival: 200
+                                      <span className={styles.rs_pool_logo}>
+                                        <Image
+                                          src="../assests/rupee-icon.svg"
+                                          alt="rupeeIcon"
+                                          width={12}
+                                          height={12}
+                                        />
+                                      </span>
+
+                                    </p>
+                                    <p className={styles.pool_text_p}>
+                                      Highest kill: 200
+                                      <span className={styles.rs_pool_logo}>
+                                        <Image
+                                          src="../assests/rupee-icon.svg"
+                                          alt="rupeeIcon"
+                                          width={12}
+                                          height={12}
+                                        />
+                                      </span>
+                                    </p>
+                                    <p className={styles.pool_text_p}>
+                                      2nd Winner: 100
+                                      <span className={styles.rs_pool_logo}>
+                                        <Image
+                                          src="../assests/rupee-icon.svg"
+                                          alt="rupeeIcon"
+                                          width={12}
+                                          height={12}
+                                        />
+                                      </span>
+                                    </p>
+                                    <p className={styles.pool_text_p}>
+                                      3nd Winner: 60
+                                      <span className={styles.rs_pool_logo}>
+                                        <Image
+                                          src="../assests/rupee-icon.svg"
+                                          alt="rupeeIcon"
+                                          width={12}
+                                          height={12}
+                                        />
+                                      </span>
+                                    </p>
+                                  </div>
+                                  <p
+                                    className={styles.pool_cancel_p}
+                                    onClick={() => setPoolModal(false)}
+                                  >
+                                    <AiOutlineClose
+                                      className={styles.cancel_icon}
+                                    />
                                   </p>
                                 </div>
-                                <div className={styles.pool_cancel_p}>
-                                  <p className={styles.pool_text_p}>
-                                    Last Survival: 200
-                                    <span className={styles.rs_pool_logo}>
-                                      <Image
-                                        src="../assests/rupee-icon.svg"
-                                        alt="rupeeIcon"
-                                        width={12}
-                                        height={12}
-                                      />
-                                    </span>
-                                   
-                                  </p>
-                                  <p className={styles.pool_text_p}>
-                                    Highest kill: 200
-                                    <span className={styles.rs_pool_logo}>
-                                      <Image
-                                        src="../assests/rupee-icon.svg"
-                                        alt="rupeeIcon"
-                                        width={12}
-                                        height={12}
-                                      />
-                                    </span>
-                                  </p>
-                                  <p className={styles.pool_text_p}>
-                                    2nd Winner: 100
-                                    <span className={styles.rs_pool_logo}>
-                                      <Image
-                                        src="../assests/rupee-icon.svg"
-                                        alt="rupeeIcon"
-                                        width={12}
-                                        height={12}
-                                      />
-                                    </span>
-                                  </p>
-                                  <p className={styles.pool_text_p}>
-                                    3nd Winner: 60
-                                    <span className={styles.rs_pool_logo}>
-                                      <Image
-                                        src="../assests/rupee-icon.svg"
-                                        alt="rupeeIcon"
-                                        width={12}
-                                        height={12}
-                                      />
-                                    </span>
-                                  </p>
-                                </div>
-                                <p
-                                  className={styles.pool_cancel_p}
-                                  onClick={() => setPoolModal(false)}
-                                >
-                                  <AiOutlineClose
-                                    className={styles.cancel_icon}
-                                  />
-                                </p>
                               </div>
-                            </div>
-                          ) : (
-                            ''
-                          )}
-                          <span className={styles.survival_content}>
-                            Last Survival: 
-                            <span className={styles.rs_logo}>
-                              <Image
-                                src="../assests/rupee-icon.svg"
-                                alt="rupeeIcon"
-                                width={12}
-                                height={12}
-                              />
+                            ) : (
+                              ''
+                            )}
+                            <span className={styles.survival_content}>
+                              Last Survival:
+                              <span className={styles.rs_logo}>
+                                <Image
+                                  src="../assests/rupee-icon.svg"
+                                  alt="rupeeIcon"
+                                  width={12}
+                                  height={12}
+                                />
+                              </span>
+                              {lastSurvival}
                             </span>
-                            {lastServival}
-                          </span>
-                        </div>
-                        <div>
-                          <span className={styles.winning_prize}>
-                            Entry FEES
-                          </span>
-                          <span className={styles.survival_content}>
-                           
-                            <span className="rs_logo">
-                              <Image
-                                src="../assests/rupee-icon.svg"
-                                alt="rupeeIcon"
-                                width={12}
-                                height={12}
-                              />
+                          </div>
+                          <div>
+                            <span className={styles.winning_prize}>
+                              Entry FEES
                             </span>
-                            50
-                          </span>
+                            <span className={styles.survival_content}>
+
+                              <span className="rs_logo">
+                                <Image
+                                  src="../assests/rupee-icon.svg"
+                                  alt="rupeeIcon"
+                                  width={12}
+                                  height={12}
+                                />
+                              </span>
+                              50
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      <div className={styles.winnings}>
-                        <div>
-                          <span className={styles.winning_prize}>TYPE</span>
-                          <span
-                            className={styles.tvm_font}
-                            style={{color: 'rgba(255, 214, 0, 1)'}}
-                          >
-                            {gameType}
-                          </span>
+                        <div className={styles.winnings}>
+                          <div>
+                            <span className={styles.winning_prize}>TYPE</span>
+                            <span
+                              className={styles.tvm_font}
+                              style={{ color: 'rgba(255, 214, 0, 1)' }}
+                            >
+                              {gameType}
+                            </span>
+                          </div>
+                          <div>
+                            <span className={styles.winning_prize}>VERSION</span>
+                            <span
+                              className={styles.tvm_font}
+                              style={{ color: 'rgba(255, 214, 0, 1)' }}
+                            >
+                              {version}
+                            </span>
+                          </div>
+                          <div>
+                            <span className={styles.winning_prize}>MAP</span>
+                            <span
+                              className={styles.tvm_font}
+                              style={{ color: 'rgba(255, 122, 0, 1)' }}
+                            >
+                              {mapType}
+                            </span>
+                          </div>
                         </div>
-                        <div>
-                          <span className={styles.winning_prize}>VERSION</span>
-                          <span
-                            className={styles.tvm_font}
-                            style={{color: 'rgba(255, 214, 0, 1)'}}
-                          >
-                            {version}
-                          </span>
-                        </div>
-                        <div>
-                          <span className={styles.winning_prize}>MAP</span>
-                          <span
-                            className={styles.tvm_font}
-                            style={{color: 'rgba(255, 122, 0, 1)'}}
-                          >
-                            {mapType}
-                          </span>
-                        </div>
-                      </div>
-                      <div className={styles.spot_line_sec}>
-                        {/* <progress
+                        <div className={styles.spot_line_sec}>
+                          {/* <progress
                           className={styles.progress_cls}
                           id="file"
                           value="40"
                           max="100"
                         /> */}
-                      </div>
-                      <div className={styles.winnings_sec_secton}>
-                        <div className={styles.spot_line}>
-                          {/* <span className={styles.bar_font}>
+                        </div>
+                        <div className={styles.winnings_sec_secton}>
+                          <div className={styles.spot_line}>
+                            {/* <span className={styles.bar_font}>
                             Only 30 spots Left
                           </span>
                           <span className={styles.bar_font}>20/50</span> */}
+                          </div>
+                          <Button
+                            disabled={isLoading}
+                            className={styles.join_button}
+                            onClick={() => addRegMatch(roomId)}
+                          >
+                            {isLoading ? 'Loading...' : 'Join'}
+                          </Button>
                         </div>
-                        <Button
-                         disabled={isLoading}
-                          className={styles.join_button}
-                          onClick={() => addRegMatch(roomId)}
-                        >
-                          {isLoading ? 'Loading...' : 'Join'} 
-                        </Button>
                       </div>
-</div>
                       <div className={styles.winnings_sec_slider}>
-                     
+
                         <div className={styles.game_imgsection}>
                           {allTournaments &&
                             allTournaments.map((e: any, index: any) => (
-                             
+
                               <Image
                                 key={index}
                                 width={100}
@@ -459,18 +459,18 @@ function Tournament() {
                                     e.version,
                                     e.date,
                                     e.time,
-                                    e.lastServival,
+                                    e.lastSurvival,
                                     e.roomUuid,
                                     e.mapImg,
                                   )
                                 }
                               />
-                           
+
                             ))}
                         </div>
-                   
+
                       </div>
-                     
+
                     </div>
                   </div>
                 )}
@@ -489,7 +489,7 @@ function Tournament() {
                       onClick={goToPrevSlide}
                       className={styles.prevButton}
                       disabled={currentIndex === 0}
-                      
+
                     >
                       <AiOutlineLeft className={styles.outline_icon} />
                     </button>
@@ -514,7 +514,7 @@ function Tournament() {
                                       <span> TYPE</span>
                                       <span
                                         className={styles.tvm_font}
-                                        style={{color: 'rgba(255, 214, 0, 1)'}}
+                                        style={{ color: 'rgba(255, 214, 0, 1)' }}
                                       >
                                         {match?.gameType}
                                       </span>
@@ -523,7 +523,7 @@ function Tournament() {
                                       <span>Version</span>
                                       <span
                                         className={styles.tvm_font}
-                                        style={{color: 'rgba(255, 214, 0, 1)'}}
+                                        style={{ color: 'rgba(255, 214, 0, 1)' }}
                                       >
                                         {match?.version}
                                       </span>
@@ -532,7 +532,7 @@ function Tournament() {
                                       <span>MAP</span>
                                       <span
                                         className={styles.tvm_font}
-                                        style={{color: 'rgba(255, 122, 0, 1)'}}
+                                        style={{ color: 'rgba(255, 122, 0, 1)' }}
                                       >
                                         {match?.mapType}
                                       </span>
@@ -549,7 +549,7 @@ function Tournament() {
                                     </div>
                                   </div>
                                   {matchIndex.length != 0 &&
-                                  matchIndex.includes(index) ? (
+                                    matchIndex.includes(index) ? (
                                     <div className={styles.id_password}>
                                       <span>Room Id: {match?.roomId}</span>
                                       <span>

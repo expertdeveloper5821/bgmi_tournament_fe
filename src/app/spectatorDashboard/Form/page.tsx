@@ -15,7 +15,9 @@ interface FormCreate {
   mapType: string;
   password: string;
   version: string;
-  lastServival: string;
+  date: string;
+  time: string;
+  lastSurvival: string;
   thirdWin: string;
   highestKill: string;
   secondWin: string;
@@ -27,7 +29,8 @@ const Form = ({ getAllSpectator }: any) => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const [image, setImage] = useState<any | null>(null);
+  const [image, setImage] = useState<File | null>(null);
+
 
   const initialValues: FormCreate = {
     roomId: '',
@@ -36,12 +39,14 @@ const Form = ({ getAllSpectator }: any) => {
     mapType: '',
     password: '',
     version: '',
-    lastServival: '',
+    date: '',
+    time: '',
+    lastSurvival: '',
     thirdWin: '',
     highestKill: '',
     secondWin: '',
     mapImg: '',
-    entryFee: '60'
+    entryFee: ''
   };
 
 
@@ -53,16 +58,12 @@ const Form = ({ getAllSpectator }: any) => {
     handleChange,
     handleBlur,
     setFieldValue,
-  } = useFormik<any>({
+  } = useFormik<FormCreate>({
     initialValues,
     validationSchema,
     onSubmit: async (values: any) => {
-      console.log("check values", values)
-
-
 
       const dateTimeString = new Date(`${values.date} ${values.time}`);
-      console.log("Formatted Date and Time:", dateTimeString);
       values.dateAndTime = dateTimeString;
 
       const form = new FormData();
@@ -70,10 +71,6 @@ const Form = ({ getAllSpectator }: any) => {
       for (const key in values) {
         form.append(key, values[key]);
       }
-      form.append("enteryFee", "60")
-      console.log("Form___________________________________", form);
-
-
       try {
         const token = localStorage.getItem('jwtToken');
         const response = await sendRequest('room/rooms', {
@@ -84,7 +81,6 @@ const Form = ({ getAllSpectator }: any) => {
           },
           data: form,
         });
-        console.log("check response ==>", response)
         if (response.status === 200) {
           getAllSpectator();
           toast.success(response.data.message);
@@ -245,7 +241,7 @@ const Form = ({ getAllSpectator }: any) => {
                           type="time"
                           name="time"
                           placeholder="Enter time"
-                          value={values.time}
+                          value={values?.time}
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
@@ -277,21 +273,21 @@ const Form = ({ getAllSpectator }: any) => {
                       )}
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="secondWin">
-                          Last Servival
+                          Last Survival
                         </label>
                         <Input
-                          id="lastServival"
+                          id="lastSurvival"
                           className={styles.room_field_wrapper}
                           type="text"
-                          name="lastServival"
+                          name="lastSurvival"
                           placeholder="Enter last Servival"
-                          value={values.lastServival}
+                          value={values.lastSurvival}
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
                       </div>
-                      {errors.lastServival && touched.lastServival && (
-                        <div className={styles.error}>{String(errors.lastServival)}</div>
+                      {errors.lastSurvival && touched.lastSurvival && (
+                        <div className={styles.error}>{String(errors.lastSurvival)}</div>
                       )}
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="highestKill">
@@ -330,7 +326,7 @@ const Form = ({ getAllSpectator }: any) => {
                         <div className={styles.error}>{String(errors.secondWin)}</div>
                       )}
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="secondWin">
+                        <label className={styles.room_id} htmlFor="thirdWin">
                           Third Win
                         </label>
                         <Input
@@ -346,6 +342,24 @@ const Form = ({ getAllSpectator }: any) => {
                       </div>
                       {errors.thirdWin && touched.thirdWin && (
                         <div className={styles.error}>{String(errors.thirdWin)}</div>
+                      )}
+                      <div className={styles.input_box}>
+                        <label className={styles.room_id} htmlFor="entryFee">
+                          Entry Fee
+                        </label>
+                        <Input
+                          id="entryFee"
+                          className={styles.room_field_wrapper}
+                          type="text"
+                          name="entryFee"
+                          placeholder="Enter Entry Fee"
+                          value={values.entryFee}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      {errors.entryFee && touched.entryFee && (
+                        <div className={styles.error}>{String(errors.entryFee)}</div>
                       )}
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="secondWin">

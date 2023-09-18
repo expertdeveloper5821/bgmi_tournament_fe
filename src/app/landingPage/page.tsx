@@ -1,11 +1,11 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../styles/landingpage.module.scss';
 import useWindowSize from '@/hooks/useWindowSize';
 import NavBar from './navBar/page';
 import Image from 'next/image';
-import {sendRequest} from '@/services/auth/auth_All_Api';
-import {toast} from 'react-toastify';
+import { sendRequest } from '@/services/auth/auth_All_Api';
+import { toast } from 'react-toastify';
 import CustomCursor from './customCursor/page';
 import GlassCrack from './glassCrack/page';
 import Link from 'next/link';
@@ -142,7 +142,7 @@ const page = () => {
                 </div>
                 <div className={styles.pool_cancel_p}>
                   <p className={styles.pool_text_p}>
-                    Last Survival: {data[id].lastServival}
+                    Last Survival: {data[id].lastSurvival}
                     <span className={styles.rs_pool_logo}>
                       <Image
                         src="../assests/rupeeimg.svg"
@@ -303,7 +303,7 @@ const page = () => {
           <div className={styles.welcome_subcontainer}>
             <div className={styles.welcome_RightImg_container}>
               <Image
-              className={styles.welcome_RightImg}
+                className={styles.welcome_RightImg}
                 src="../assests/Group20.svg"
                 height={700}
                 width={700}
@@ -467,7 +467,7 @@ const page = () => {
       </section>
 
       <section className={styles.mapBg}>
-      
+
         <div className={styles.signUpDiv}>
           <div className={styles.singUp}>
             <Image
@@ -558,7 +558,7 @@ const page = () => {
             ever-growing gaming community.
           </p>
         </div>
-    
+
       </section>
 
       <section className={styles.buggiSec}>

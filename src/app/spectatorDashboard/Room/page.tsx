@@ -24,7 +24,7 @@ export interface RoomData {
   mapType: string;
   version: string;
   highestKill: string;
-  lastServival: string;
+  lastSurvival: string;
   thirdWin: string;
   secondWin: string;
   time: string;
@@ -32,6 +32,7 @@ export interface RoomData {
   createdBy: number;
   updatedAt: number;
   createdAt: number;
+  entryFee: string;
   mapImg: string;
 }
 
@@ -44,13 +45,13 @@ const Room = () => {
     'Game Type',
     'Map Type',
     'Version',
-    'HighestKill',
-    'lastServival',
-    'ThirdWin',
-    'SecondWin',
+    'Highest Kill',
+    'Last Survival',
+    'Third Win',
+    'Second Win',
     'Time',
     'Date',
-    // 'Map Image',
+    'Entry Fee',
     'Action',
   ];
   const getAllSpectator = async () => {
@@ -117,7 +118,7 @@ const Room = () => {
                           {spec?.highestKill ?? '--'}
                         </TableCell>
                         <TableCell className={styles.el_tb_cell}>
-                          {spec?.lastServival ?? '--'}
+                          {spec?.lastSurvival ?? '--'}
                         </TableCell>
                         <TableCell className={styles.el_tb_cell}>
                           {spec?.thirdWin ?? '--'}
@@ -125,7 +126,6 @@ const Room = () => {
                         <TableCell className={styles.el_tb_cell}>
                           {spec?.secondWin ?? '--'}
                         </TableCell>
-
                         <TableCell className={styles.tb_cell_body}>
                           {spec?.dateAndTime
                             ? formatTime({ time: spec.dateAndTime, format: "LT" })
@@ -137,6 +137,11 @@ const Room = () => {
                             ? formatDate({ date: spec.dateAndTime, format: "DD/MM/YYYY" })
                             : '--'}
                         </TableCell>
+
+                        <TableCell className={styles.el_tb_cell}>
+                          {spec?.entryFee ?? '--'}
+                        </TableCell>
+
                         <TableCell className={styles.tb_cell_action}>
                           <Deletespec
                             Id={spec._id}

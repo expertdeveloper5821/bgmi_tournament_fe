@@ -9,11 +9,12 @@ import { RoomData } from '../Room/page';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
 
-// interface UpdatespecProps {
+// export interface UpdatespecProps {
 //   roomData: RoomData;
 //   getAllSpectator: () => void;
-//   updateRoom: (updatedRoom: RoomData) => void;
+//   updateRoom: () => void;
 // }
+
 const Updatespec = ({ roomData, getAllSpectator }: any) => {
   const [error, setError] = useState<string>('');
   const [deletModal, setDeleteModal] = useState(false);
@@ -32,7 +33,7 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
       version: updateFormData.version,
       time: updateFormData.time,
       date: updateFormData.date,
-      lastServival: updateFormData.lastServival,
+      lastSurvival: updateFormData.lastSurvival,
       highestKill: updateFormData.highestKill,
       secondWin: updateFormData.secondWin,
       thirdWin: updateFormData.thirdWin
@@ -68,7 +69,6 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
         {deletModal ? (
           <div className={styles.main_pop_cls}>
             <div className={styles.check_model}>
-              {/* <div className={styles.main_form}> */}
               <form className={styles.form_spectator_cls} onSubmit={updateRoom}>
                 {error && <div className={styles.error}>{error}</div>}
                 <div className={styles.flex_col}>
@@ -157,8 +157,6 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
                       placeholder="Map Type"
                     />
                   </div>
-
-
                   <div className={styles.input_box}>
                     <label className={styles.room_id} htmlFor="Password">
                       Version
@@ -219,11 +217,11 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
                     <Input
                       type="text"
                       className={styles.room_field_wrapper}
-                      value={updateFormData.lastServival}
+                      value={updateFormData.lastSurvival}
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
                         setUpdateFormData({
                           ...updateFormData,
-                          lastServival: e.target.value,
+                          lastSurvival: e.target.value,
                         })
                       }
                       placeholder="Date"
@@ -281,9 +279,7 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
                     />
                   </div>
                 </div>
-
               </form>
-              {/* </div> */}
               <div className={styles.btn_form_wrapper}>
                 <Button
                   className={styles.cancel_btn}
