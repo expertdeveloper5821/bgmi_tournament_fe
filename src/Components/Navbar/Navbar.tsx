@@ -16,8 +16,8 @@ export function Navbar(props: INavbar) {
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const [useData, setUseData] = useState<string>('');
-  const [namData, setNamData] = useState<string>('');
+  const [userData, setUserData] = useState<string>('');
+  const [nameData, setNameData] = useState<string>('');
   const [pofile, setPofile] = useState<string>('');
 
   const { setUserName = () => { } } = props;
@@ -37,11 +37,11 @@ export function Navbar(props: INavbar) {
     }
   };
 
-  const userData = JSON.parse(localStorage.getItem('userData'));
   const getAlldata = async () => {
+    const userData = JSON.parse(localStorage.getItem('userData'));
 
-    setUseData(userData.email);
-    setNamData(userData.fullName);
+    setUserData(userData.email);
+    setNameData(userData.fullName);
     setUserName(userData.fullName);
     setPofile(userData.profilePic);
 
@@ -55,7 +55,7 @@ export function Navbar(props: INavbar) {
     <header>
         <nav className={styles.container}>
           <div className={styles.navbarbrand}>
-            <h1 className={styles.page_title}>Welcome <span className={styles.fullname_title}>{userData.fullName}</span></h1>
+            <h1 className={styles.page_title}>Welcome <span className={styles.fullname_title}>{nameData}</span></h1>
           </div>
           <ul className={styles.navbarnav}>
             {/* <li className={styles.navitem}>
@@ -135,10 +135,10 @@ export function Navbar(props: INavbar) {
                 content={
                   <div className={styles.myprofilesection}>
                     <div className={styles.userdetails}>
-                      <p className={styles.dropdownprofileimage}>{namData.charAt(0).toUpperCase()}</p>
+                      <p className={styles.dropdownprofileimage}>{nameData.charAt(0).toUpperCase()}</p>
                       <div className={styles.username_details}>
-                        <h1 className={styles.user_name_heading}>{namData}</h1>
-                        <span className={styles.gmail}>{useData}</span>
+                        <h1 className={styles.user_name_heading}>{nameData}</h1>
+                        <span className={styles.gmail}>{userData}</span>
                       </div>
                     </div>
 
@@ -196,14 +196,14 @@ export function Navbar(props: INavbar) {
                 placement="bottom"
                 width="224px"
               >
-                {pofile  ?   <Avatar src={pofile}  onClick={() => setIsPopOpen(!isPopOpen)}/> :   <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>{namData.charAt(0).toUpperCase()}</p>}
+                {pofile  ?   <Avatar src={pofile}  onClick={() => setIsPopOpen(!isPopOpen)}/> :   <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>{nameData.charAt(0).toUpperCase()}</p>}
               
               
               </Popover>
             </li>
             {/* <li className={styles.navitem}>
               <div className={styles.username_details}>
-                <h1 className={styles.user_name_title}>{namData}</h1>
+                <h1 className={styles.user_name_title}>{nameData}</h1>
               </div>
             </li> */}
           </ul>
