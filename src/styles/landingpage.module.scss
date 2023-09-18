@@ -634,7 +634,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 5%;
+  width: 100vw;
+  
 }
 .demo {
   // display: flex;
@@ -643,14 +644,11 @@
   display: flex;
   z-index: 90;
   width: 100%;
-  padding: 2% 10% 5% 2%;
-  // @media (max-width: $breakpoint-xs) {
-  //   animation: imagemove 5s linear infinite;
-  // }
-  // animation: imagemove 12s linear infinite;
-  overflow-x: scroll;
+  padding: 2% 10% 0% 2%;
+  overflow-x: auto;
   &::-webkit-scrollbar {
-    width: 5px; /* Set the width of the scrollbar */
+    width: 1px; /* Set the width of the scrollbar */
+    height: 2px;
   }
 
   &::-webkit-scrollbar-track {
@@ -659,12 +657,12 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #2c271f; 
+    background: #ffffff; 
   border-radius: 5px;/* Set the border radius of the thumb */
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: #2c271f; /* Set the color of the thumb on hover */
+    background: #636363; /* Set the color of the thumb on hover */
   }
   
 }
@@ -854,35 +852,33 @@
 }
 .gradientoverlayscopesectionscopenear{
   position: absolute;
-  width:40%;
-  margin-top: 230px;
-  height: 33%;
-  right: 30%;
-  left: 30%;
+  width:100vw;
+  margin-top: 420px;
+  height: 30%;
+right: 15%;
   opacity: 0.95;
   filter: blur(21px);
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   // background: linear-gradient(to left, rgba(0, 0, 0, 0.137), rgb(0, 0, 0));
 
   pointer-events: none;
-  @media (max-width: $breakpoint-lg) {
+  @media (max-width: $breakpoint-xs) {
     display: none;
    }
 }
 .gradientoverlayscopesectionscopenear1{
   position: absolute;
-  width:100%;
-  margin-top: 90px;
-  height: 33%;
-  right: 0%;
-  left: 0%;
+  width:100vw;
+  margin-top: 320px;
+  height: 350px;
+  left: 10%;
   opacity: 0.7;
   filter: blur(21px);
   // background-color: black;
   background: linear-gradient(to left, rgba(0, 0, 0, 0.137), rgb(0, 0, 0));
 
   pointer-events: none;
-  @media (max-width: $breakpoint-lg) {
+  @media (max-width: $breakpoint-xs) {
     display: none;
    }
 }
@@ -946,7 +942,7 @@
 }
 .radialGradient {
   position: absolute;
-  top: 20%;
+  top: 150px;
   bottom: 20%;
   left: 40%;
   right: 20%;
@@ -954,8 +950,10 @@
   height: 70%;
   background-image: radial-gradient(#87746e00, #000000 60%);
   @media (max-width: $breakpoint-lg) {
-    display: none;
-  }
+    left: 0%;
+    width: 850px;
+    height: 72%
+}
 }
 .gradientoverlaytotopfooter {
   position: absolute;
@@ -999,10 +997,9 @@
 .welcome_Container {
   position: relative;
   display: flex;
-  position: relative;
   width: 100%;
   margin-top: 30px;
-  @media (max-width: $breakpoint-lg) {
+  @media (max-width: $breakpoint-ms) {
     flex-direction: column-reverse;
   }
 }
@@ -1033,6 +1030,10 @@
 .welcome_RightImg {
   margin-left: 2%;
 
+  @media (max-width: $breakpoint-lg) {
+    margin-left: 10%;
+    
+  }
   @media (max-width: $breakpoint-tab) {
     margin-left: 0%;
     width: 95%;
@@ -1047,9 +1048,12 @@
   padding: 0px 55px 0px 10px;
   top: 0;
   @media (max-width: $breakpoint-lg) {
-    padding-left: 1%;
-    padding-right: 7%;
+    padding: 0px;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
   @media (max-width: $breakpoint-xs) {
     margin-top: 30px;
@@ -1070,6 +1074,9 @@
   letter-spacing: 0.5px;
   font-weight: 400;
   font-size: 16px;
+  @media (max-width: $breakpoint-lg) {
+   margin-left: 2%;
+  }
   @media (max-width: $breakpoint-xs) {
     font-weight: 400;
     font-size: 14px;
@@ -1107,20 +1114,29 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+.scopemaincontainer{
+  min-width: 478px;
+  position: relative;
+  min-height: 478px;
+  // background-color: red;
+  border-radius: 50%;
+  margin-left: 108px;
+  margin-top: 106px
+}
 
 .newscope {
   height: auto;
   position: absolute;
-  top: 33%;
-  left: 36.3%;
+  // top: 33%;
+  // left: 36.3%;
   min-width: 478px;
-  @media (max-width: $breakpoint-lg) {
-    min-width: 390px;
-  }
-  @media (max-width: $breakpoint-md) {
-    top: 31%;
-    left: 30.3%;
-  }
+  // @media (max-width: $breakpoint-lg) {
+  //   min-width: 390px;
+  // }
+  // @media (max-width: $breakpoint-md) {
+  //   top: 31%;
+  //   left: 30.3%;
+  // }
   @media (max-width: $breakpoint-md) {
     min-width: 380px;
     top: 23%;
@@ -1143,15 +1159,15 @@
   animation: scaleImg 5s infinite;
   position: absolute;
   min-width: 475px;
-  top: 34%;
-  left: 36.5%;
+  top: 2%;
+  // left: 36.5%;
 
   height: auto;
-  @media (max-width: $breakpoint-lg) {
-    min-width: 385px;
-    top: 31%;
-    left: 36.5%
-  }
+  // @media (max-width: $breakpoint-lg) {
+  //   min-width: 385px;
+  //   top: 31%;
+  //   left: 36.5%
+  // }
   @media (max-width: $breakpoint-md) {
     top: 24%;
     left: 23.5%;
@@ -1183,36 +1199,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 43.3%;
-  left: 42%;
+  top: 20%;
+  left: 21.9%;
   min-width: 269px;
-  @media (max-width: $breakpoint-xlg) {
-    top: 41%;
-    left: 43.7%;
-  }
-  @media (max-width: $breakpoint-lg) {
-    left: 45.7%;
-    top: 39%;
-  }
-  @media (max-width: $breakpoint-ms) {
-    left: 45%;
-    min-width: 200px;
-  }
+  // @media (max-width: $breakpoint-xlg) {
+  //   top: 41%;
+  //   left: 43.7%;
+  // }
+  // @media (max-width: $breakpoint-lg) {
+  //   left: 45.7%;
+  //   top: 39%;
+  // }
+  // @media (max-width: $breakpoint-ms) {
+  //   left: 45%;
+  //   min-width: 200px;
+  // }
   @media (max-width: $breakpoint-md) {
     left: 32.5%;
     top: 31.5%;
     min-width: 234px;
   }
-  // @media (max-width: $breakpoint-sm) {
-  //   left: 36.2%;
-  //   top: 35.5%;
-  // }
-  // @media (max-width: $breakpoint-tab) {
-  //   left: 35.2%;
-  //   top: 35.5%;
-  //   min-width: 175px;
-  // }
-
   @media only screen and (max-width: 430px) {
     left: 31.2%;
     top: 42.5%;
@@ -1223,35 +1229,27 @@
   width: 12px;
   height: 12px;
   position: absolute;
-  top: 57.6%;
+  top: 48%;
+  // top: 57.6%;
   left: 49%;
   background-color: rgba(255, 0, 0, 0.688);
   border-radius: 50%;
-  @media (max-width: $breakpoint-xlg) {
-    top: 57.4%;
-    left: 52.6%;
-}
-  @media (max-width: $breakpoint-lg) {
-    left: 54.2%;
-    top: 51.2%;
-  }
-  @media (max-width: $breakpoint-ms) {
-    left: 54.2%;
-    top: 51.2%;
-  }
+//   @media (max-width: $breakpoint-xlg) {
+//     top: 57.4%;
+//     left: 52.6%;
+// }
+//   @media (max-width: $breakpoint-lg) {
+//     left: 54.2%;
+//     top: 51.2%;
+//   }
+  // @media (max-width: $breakpoint-ms) {
+  //   left: 54.2%;
+  //   top: 51.2%;
+  // }
   @media (max-width: $breakpoint-md) {
     left: 47%;
     top: 45.8%;
 }
-  
-  // @media (max-width: $breakpoint-sm) {
-  //   left: 49.2%;
-  //   top: 46%;
-  // }
-  // @media (max-width: $breakpoint-tab) {
-  //   left: 46%;
-  //   top: 46.1%;
-  // }
 
   @media only screen and (max-width: 430px) {
     top: 51.8%;
@@ -1268,20 +1266,20 @@
   width: 80px;
   position: absolute;
   text-align: center;
-  top: 63%;
-  left: 43.5%;
+  top: 60%;
+    left: 26.5%;
   color: #ff7a00;
   font-size: 22px;
   font-weight: 600;
-  @media (max-width: $breakpoint-xlg) {
-    top: 64%;
-    left: 45.8%;
+  // @media (max-width: $breakpoint-xlg) {
+  //   top: 64%;
+  //   left: 45.8%;
 
-  }
-  @media (max-width: $breakpoint-lg) {
-    left: 45.6%;
-    top: 55%;
-  }
+  // }
+  // @media (max-width: $breakpoint-lg) {
+  //   left: 45.6%;
+  //   top: 55%;
+  // }
   @media (max-width: $breakpoint-md) {
     left: 35.8%;
     top: 50.5%;
@@ -1309,13 +1307,9 @@
   align-items: center;
   background-color: #ffffff3d;
   z-index: 1000;
-  top: 31%;
-  left: 33%;
+  right: 80%;
+  // left: 680px;
   position: absolute;
-  @media (max-width: $breakpoint-lg) {
-    top: 23%;
-    left: 32%;
-  }
   @media (max-width: $breakpoint-tab) {
     top: 18%;
     left: 16%;
@@ -1436,8 +1430,9 @@
 
 .skills_maincontainer {
   position: absolute;
-  bottom: 33%;
-  right: 33%;
+  // bottom: 33%;
+  left:500px;
+  top: 50%;
   width: 43px;
   gap: 12px;
   display: flex;
@@ -1576,12 +1571,18 @@
 }
 .gun {
   height: auto;
-  width: 15%;
+  width:200px;
+  @media (max-width: $breakpoint-xSmall) {
+    width:150px;
+  }
 }
 .gun1 {
   height: auto;
-  width: 15%;
-  margin-top: 25px;
+  width: 200px;
+  margin-top: 20px;
+  @media (max-width: $breakpoint-xSmall) {
+    width:150px;
+  }
 }
 // modal css
 
@@ -1650,6 +1651,9 @@
   font-size: 18px;
   line-height: 22.07px;
   padding-top: 16px;
+}
+.rs_pool_logo{
+  color: #ffd600;
 }
 
 .gradient3 {
@@ -2068,9 +2072,6 @@
     margin-bottom: 12px;
     font-size: 22px;
   }
-  // .footer_text {
-  //   font-size: 22px;
-  // }
   .buggyHeading {
     font-size: 20px;
     padding: 10px 30px;
@@ -2127,9 +2128,6 @@
     font-size: 20px;
     margin-bottom: 10px;
   }
-  // .footer_text {
-  //   font-size: 20px;
-  // }
   .mapSecDescription {
     width: 100%;
     margin-top: 30px;
@@ -2223,10 +2221,10 @@
     }
   }
 
-  .welcome_Container {
-    padding: 10px;
-    flex-direction: column-reverse;
-  }
+  // .welcome_Container {
+  //   padding: 10px;
+  //   flex-direction: column-reverse;
+  // }
 
   .stone img {
     width: 320px;

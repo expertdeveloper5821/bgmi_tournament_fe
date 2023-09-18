@@ -49,3 +49,10 @@ export const createspectater = Yup.object().shape({
   highestKill: Yup.number().required('Please enter highestKill winner prize'),
   thirdWin: Yup.number().required('Please enter Third winner prize '),
 });
+
+export const SendInviteSchema = Yup.object().shape({
+  email: Yup.string()
+  .email('Invalid email')
+  .required('Please enter your email')
+  .matches(emailRegex, 'Invalid email'),
+})
