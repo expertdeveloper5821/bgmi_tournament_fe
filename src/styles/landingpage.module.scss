@@ -620,6 +620,7 @@
   }
 }
 .banner_image {
+  height: 450px;
   width: 75%;
   margin-left: 12%;
   border-radius: 23px;
@@ -791,6 +792,8 @@
   min-width: 90px;
   border-radius: 5px;
   border: none;
+  display: flex;
+  justify-content: center;
   align-items: center;
   width: 14%;
   font-size: 16px;
@@ -944,9 +947,10 @@ right: 15%;
   position: absolute;
   top: 150px;
   bottom: 20%;
-  left: 40%;
-  right: 20%;
-  width: 60%;
+  // left: 40%;
+  // right: 20%;
+  width: 745px;
+  height: 486px;
   height: 70%;
   background-image: radial-gradient(#87746e00, #000000 60%);
   @media (max-width: $breakpoint-lg) {
