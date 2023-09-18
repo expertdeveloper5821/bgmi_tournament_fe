@@ -98,7 +98,7 @@ const Friend = () => {
   //         window.location.reload()
   //       }, 2000);
   //     }
-  //         } catch (error: any) {
+  //         } catch (error: any) {sort
   //     setEmailList([]);
   //     setMessage(error.response.data.message)
   //     toast.error(error.response.data.message, {
@@ -185,8 +185,8 @@ const Friend = () => {
               <Image
                 src="/assests/downarrow.svg"
                 alt="arrow"
-                height={20}
-                width={20}
+                height={10}
+                width={10}
                 className={styles.arrowicon}
               />
               <select className={styles.select}>

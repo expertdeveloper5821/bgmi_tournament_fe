@@ -26,10 +26,12 @@
   align-items: center;
   padding-top: 20px;
   padding-left: 8px;
+  margin-left: 9px;
 }
 
 .logo {
   font-size: 30px;
+  margin-left: 35px;
 }
 
 .bars {
@@ -43,76 +45,74 @@
   align-items: center;
   margin-top: 30px;
   color: #fff;
+  margin-left: 20px;
+  margin-right: 17px;
   padding: 5px;
   margin-left: 13px;
   margin-right: 5px;
   border-radius: 4px;
   transition: all 0.5s;
-  @media (max-width: $breakpoint-tab){
-    display:contents;
+  @media (max-width: $breakpoint-tab) {
+    margin-left: 0px;
   }
-  @media (max-width:  $breakpoint-xs) {
-    margin-top: 1px;
-    margin-left: 3px;
-    display:contents;
-  }
-  @media (max-width: $breakpoint-xSmall) {
-    margin-top: -1px;
-    margin-left: 3px;
-    display:contents;
-  }
- 
-
   &:hover {
     background: #ff7a00;
     color: white;
     transition: all 0.5s;
+    margin-left: 20px;
+    margin-right: 17px;
   }
 
-  &.active {
+  &:active {
     background: #ff7a00;
     color: white;
+    margin-left: 20px;
+    margin-right: 17px;
   }
-
-  .icon,
   .link_text {
     font-size: 20px;
     font-weight: bold;
     padding-right: 19px;
   }
 }
+.link.selected {
+  background: #ff7a00;
+  color: white;
+  margin-left: 20px;
+  margin-right: 17px;
+}
 .icon {
-  .icon {
-    display: flex;
-    flex-direction: column;
-    margin-left: 7px;
-    padding-right: 20px;
-    justify-self: center;
-   
+  display: flex;
+  flex-direction: column;
+  margin-left: 7px;
+  padding-right: 20px;
+  justify-self: center;
+}
+
+.submenu {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+  align-items: center;
+  text-align: end;
+  color: #fff;
+  padding: 10px;
+
+  .submenu_icon {
+    font-size: 20px;
   }
 
-  .submenu {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 20px;
-    align-items: center;
-    text-align: end;
-    color: #fff;
-    padding: 10px;
-
-    .submenu_icon {
-      font-size: 20px;
-    }
-
-    .submenu_link_text {
-      font-size: 16px;
-    }
+  .submenu_link_text {
+    font-size: 16px;
   }
 }
+.mob_container {
+  position: absolute;
+}
+
 .mobile_top_section {
   display: flex;
   align-items: center;
-  position: absolute;
   color: #fff;
   margin-top: 20px;
   margin-left: 10px;
@@ -127,19 +127,9 @@
   width: 150px;
   z-index: 1;
   height: 90vh;
-  @media (max-width: $breakpoint-tab){
-    margin-top: 60px;
-    height: 100vh;
+  @media (max-width: $breakpoint-sm) {
+    margin-top: 0px;
   }
-  @media (max-width:  $breakpoint-xs) {
-    margin-top: 60px;
-    height: 100vh;
-  }
-  @media (max-width: $breakpoint-xSmall) {
-    margin-top: 60px;
-    height: 100vh;
-  }
- 
 }
 .mob_link_text {
   display: flex;
@@ -150,7 +140,6 @@
   font-size: 16px;
   font-weight: 800;
   padding-bottom: 3px;
-  margin-top: 30px;
   padding-top: 3px;
   @media (max-width: $breakpoint-xSmall) {
     margin-top: 16px;
@@ -184,6 +173,7 @@
   font-weight: bold;
 }
 .lap_sidebar_cancel {
+  cursor: pointer;
   color: #fff;
   font-size: x-large;
   font-weight: bold;

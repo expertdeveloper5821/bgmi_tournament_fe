@@ -36,7 +36,7 @@ const Card: React.FC<CardProps> = ({fwdindex,toOpen, forwardModalOpen, teamData}
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        console.log(response);
+        console.log(response.data);
         
         setRes(response?.data);
         teamData(response?.data);
@@ -50,10 +50,11 @@ const Card: React.FC<CardProps> = ({fwdindex,toOpen, forwardModalOpen, teamData}
     <>
       {res &&
         res.map((data: any, index: any) => {
+          console.log("thisis the data",data);
+          
           const shortEmail = data.email.slice(0, 20);
           return (
             <div className={styles.reviewsContainer} key={index}>
-              {' '}
               <div className={styles.reviewCard}>
                 <div className={styles.reviews}>
                   <img
