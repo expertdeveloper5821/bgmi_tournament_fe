@@ -17,6 +17,11 @@
       "eslint --fix"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run build && git add ."
+    }
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@remix-run/react": "^1.19.1",
