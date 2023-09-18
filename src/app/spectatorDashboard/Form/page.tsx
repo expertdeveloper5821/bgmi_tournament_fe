@@ -41,7 +41,7 @@ const Form = ({ getAllSpectator }: any) => {
     highestKill: '',
     secondWin: '',
     mapImg: '',
-    enteryFee: '60'
+    entryFee: '60'
   };
 
 
