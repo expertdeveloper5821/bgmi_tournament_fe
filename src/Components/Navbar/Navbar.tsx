@@ -16,8 +16,8 @@ export function Navbar(props: INavbar) {
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const [useData, setUseData] = useState<string>('');
-  const [namData, setNamData] = useState<string>('');
+  const [userData, setUserData] = useState<string>('');
+  const [nameData, setNameData] = useState<string>('');
   const [pofile, setPofile] = useState<string>('');
 
   const { setUserName = () => { } } = props;
@@ -38,17 +38,12 @@ export function Navbar(props: INavbar) {
   };
 
   const getAlldata = async () => {
-    const token = localStorage.getItem('jwtToken');
-   
-    const Response = await sendRequest('user/getuser', {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const userData = JSON.parse(localStorage.getItem('userData'));
 
-    setUseData(Response.data.data.email);
-    setNamData(Response.data.data.userName);
-    setUserName(Response.data.data.fullName);
-    setPofile(Response.data.data.profilePic);
+    setUserData(userData.email);
+    setNameData(userData.fullName);
+    setUserName(userData.fullName);
+    setPofile(userData.profilePic);
 
   };
 
@@ -58,11 +53,12 @@ export function Navbar(props: INavbar) {
 
   return (
     <header>
-      <div className={styles.maincontainer}>
         <nav className={styles.container}>
-          <div className={styles.navbarbrand}></div>
+          <div className={styles.navbarbrand}>
+            <h1 className={styles.page_title}>Welcome <span className={styles.fullname_title}>{nameData}</span></h1>
+          </div>
           <ul className={styles.navbarnav}>
-            <li className={styles.navitem}>
+            {/* <li className={styles.navitem}>
               <Popover
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
@@ -121,16 +117,16 @@ export function Navbar(props: INavbar) {
                 width="300px"
                 height="350px"
               >
-                {/* <Image
+                <Image
                   className={styles.notification}
                   src="../assests/notification.svg"
                   alt="notification"
                   onClick={() => setIsOpen(true)}
                   width={20}
                   height={20}
-                /> */}
+                />
               </Popover>
-            </li>
+            </li> */}
             <li className={styles.navitem}>
               <Popover
               className={styles.popover_show}
@@ -139,10 +135,10 @@ export function Navbar(props: INavbar) {
                 content={
                   <div className={styles.myprofilesection}>
                     <div className={styles.userdetails}>
-                      <p className={styles.dropdownprofileimage}>{namData.charAt(0).toUpperCase()}</p>
+                      <p className={styles.dropdownprofileimage}>{nameData.charAt(0).toUpperCase()}</p>
                       <div className={styles.username_details}>
-                        <h1 className={styles.user_name_heading}>{namData}</h1>
-                        <span className={styles.gmail}>{useData}</span>
+                        <h1 className={styles.user_name_heading}>{nameData}</h1>
+                        <span className={styles.gmail}>{userData}</span>
                       </div>
                     </div>
 
@@ -200,19 +196,18 @@ export function Navbar(props: INavbar) {
                 placement="bottom"
                 width="224px"
               >
-                {pofile  ?   <Avatar src={pofile} /> :   <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>{namData.charAt(0).toUpperCase()}</p>}
+                {pofile  ?   <Avatar src={pofile}  onClick={() => setIsPopOpen(!isPopOpen)}/> :   <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>{nameData.charAt(0).toUpperCase()}</p>}
               
               
               </Popover>
             </li>
-            <li className={styles.navitem}>
+            {/* <li className={styles.navitem}>
               <div className={styles.username_details}>
-                <h1 className={styles.user_name_title}>{namData}</h1>
+                <h1 className={styles.user_name_title}>{nameData}</h1>
               </div>
-            </li>
+            </li> */}
           </ul>
         </nav>
-      </div>
     </header>
   );
 }

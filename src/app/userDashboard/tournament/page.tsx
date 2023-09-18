@@ -6,7 +6,6 @@ import withAuth from '@/Components/HOC/WithAuthHoc';
 import { Navbar } from '../../../Components/Navbar/Navbar';
 //@ts-ignore
 import { Button } from 'technogetic-iron-smart-ui';
-import { decodeJWt } from '@/utils/globalfunctions';
 import Image from 'next/image';
 import { sendRequest } from '@/services/auth/auth_All_Api';
 import {
@@ -18,174 +17,137 @@ import {
 import CountdownComponent from './CountdownComponent';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { number } from 'yup';
-import moment from 'moment';
+import { formatDate, formatTime } from '../../../Components/CommonComponent/moment';
+import { configData } from '@/utils/config';
 
 export interface tournament {
   gameName: string;
   gameType: string;
   mapType: string;
   version: string;
-  dateAndTime: string;
-  time: string;
-  lastServival: string;
+  dateAndTime: Date | string;
+  roomId: string;
+  lastSurvival: string;
   roomUuid: string;
   mapImg: string;
+  entryFee?: string;
+  highestKill: string;
+  secondWin: string;
+  thirdWin: string;
 }
 
 function Tournament() {
   const [poolModal, setPoolModal] = useState(false);
-  const [alldata, setData] = useState<any>([]);
-  const [lastTournament, setLastTournament] = useState<tournament>();
-  const [allTournaments, setAllTournaments] = useState<[]>([]);
+  const [allRoomsData, setAllRoomsData] = useState<any>([]);
   const [regMatches, setRegMatches] = useState<any>('');
-  const [gameName, setMatchName] = useState<String>('');
-  const [gameType, setGameType] = useState<String>('');
-  const [mapType, setMapType] = useState<String>('');
-  const [version, setVersion] = useState<String>('');
-  const [date, setDate] = useState<String>('');
-  const [time, setTime] = useState<String>('');
-  const [lastServival, setLastServival] = useState<String>('');
-  const [roomId, setRoomId] = useState<String>('');
-  const [mapImg, setMapImg] = useState<String>('');
-  const [matchIndex, setMatchIndex] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
+    const initialValues:tournament = {
+    gameName:"", 
+    mapType:"", 
+    gameType:"", 
+    version:"", 
+    roomUuid:"", 
+    dateAndTime:new Date(), 
+    lastSurvival:"" , 
+    roomId:"", 
+    mapImg:"",
+    entryFee: '',
+    highestKill: '',
+    secondWin: '',
+    thirdWin: ''
 
+  }
+  const [matchDetails , setMatchDetails] = useState<tournament>(initialValues)
   const router = useRouter();
   const regMatchRedirect = (matchID: string) => {
 
     router.push(`/userDashboard/registerMatches?id=${matchID}`);
   };
+
   const getAllTournaments = async () => {
-    const token: any = localStorage.getItem('jwtToken');
-    const roomids = localStorage.getItem('roomIds');
-    const decodedToken: any = decodeJWt(token);
-    const tournamentResponse = await sendRequest('room/rooms', {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    const filteredDataArray = tournamentResponse.data.filter(
-      (item: { roomUuid: string; roomid: string }) =>
-        !roomids?.includes(item.roomUuid),
-    );
-
-    setData(filteredDataArray);
+    try {
+      const res = await sendRequest('room/rooms', {
+        method: 'GET',
+      });
+      console.log("res", res)
+      if(res.status === 200 || res.status === 201){
+        if(res.data.length > 0) {
+          const lastTournament = res.data[res.data.length - 1]
+          const formatDateTime =` ${formatDate({ date: lastTournament?.dateAndTime})} and ${formatTime({time: lastTournament?.dateAndTime, format : 'LT'})}`
+          setAllRoomsData(res.data);
+          setMatchDetails({...res.data[0], dateAndTime: formatDateTime})
+        }
+      } else {
+        throw Error()
+      }
+  
+    } catch(err) {
+      console.error("Error in Get All Tournaments => ", err)
+      toast.error('Something went wrong, please try again later!', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+      });
+    }
+   
   };
 
   const getRegisteredMatches = async () => {
-    const token: any = localStorage.getItem('jwtToken');
-    const decodedToken: any = decodeJWt(token);
-    const registeredMatches = await sendRequest('team/register-room ', {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setRegMatches(registeredMatches.data.rooms);
-
-  };
-
-
-  const getRoomidPwd = () => {
-    var selectedMatchIndexes: number[] = [];
-    for (let i = 0; i < regMatches.length; i++) {
-      const currentTime = new Date();
-
-      const dbTime = `${regMatches[i]?.date}T${regMatches[i]?.time}`;
-
-      const matchTime = new Date(dbTime);
-
-      const timeDifference = Number(matchTime) - Number(currentTime);
-      if (timeDifference <= 900000) {
-
-        selectedMatchIndexes.push(i);
+    try {
+      const registeredMatchesRes = await sendRequest('team/register-room ', {
+        method: 'GET',
+      });
+      if(registeredMatchesRes.status === 200 || registeredMatchesRes.status === 201) {
+        setRegMatches(registeredMatchesRes.data.rooms);
+      } else {
+        throw Error()
       }
+    } catch(err) {
+      console.error("Error in Get All Registered Tournaments => ", err)
+      toast.error('Something went wrong, please try again later!', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+      });
     }
-    setMatchIndex(selectedMatchIndexes);
-  };
+  
 
+  };
 
   useEffect(() => {
     getAllTournaments();
     getRegisteredMatches();
   }, []);
 
-  useEffect(() => {
-    setLastTournament(alldata[alldata.length - 1]);
-    setAllTournaments(alldata?.slice(0, 8));
-    getRegisteredMatches();
-    getRoomidPwd();
-  }, [alldata]);
-
-  useEffect(() => {
-    if (lastTournament) {
-      setMatchName(lastTournament?.gameName);
-      setGameType(lastTournament?.gameType);
-      setMapType(lastTournament?.mapType);
-      setVersion(lastTournament?.version);
-      setDate(moment(lastTournament?.dateAndTime).format("DD/MM/YYYY"));
-      setTime(lastTournament.roomUuid === '0c21d430-e6d1-4620-acc1-37db1f4aa93a' ? '6:00 PM' : "7:00 PM");
-      setLastServival(lastTournament?.lastServival);
-      setRoomId(lastTournament?.roomUuid);
-      setMapImg(lastTournament?.mapImg);
-    }
-    console.log("lastTourbament", lastTournament)
-  }, [lastTournament]);
-
-  const updateMainData = (
-    gname: string,
-    gType: string,
-    mType: string,
-    vType: string,
-    mdate: string,
-    mtime: string,
-    lastServival: string,
-    roomid: string,
-    mapImg: string,
+  const updateMainData = (match: tournament
   ) => {
-    setMatchName(gname);
-    setGameType(gType);
-    setMapType(mType);
-    setVersion(vType);
-    setDate(moment(mdate).format("DD/MM/YYYY"));
-      setTime(mType === 'Erangel' ? '6:00 PM' : "7:00 PM");
-    // setDate(mdate);
-    // setTime(mtime);
-    setLastServival(lastServival);
-    setRoomId(roomid);
-    setMapImg(mapImg);
+    const updatedformattedDandt = ` ${formatDate({ date: match.dateAndTime })} and ${formatTime({ time: match.dateAndTime  , format : 'LT' })}`;
+    setMatchDetails({
+      ...match,
+      dateAndTime: updatedformattedDandt
+    })
   };
 
-  const addRegMatch = async (roomId: any) => {
+  const addRegMatch = async (match: tournament) => {
+    console.log("tournament", match)
     setIsLoading(true);
     try {
-      const token: any = localStorage.getItem('jwtToken');
-      const decodedToken: any = decodeJWt(token);
-      const userId = decodedToken.userId;
-
-      var addRoom = localStorage.getItem('roomIds');
-
-      var obj = [];
-      if (addRoom) {
-        obj = JSON.parse(addRoom);
-      }
-      obj.push(roomId);
-      localStorage.setItem('roomIds', JSON.stringify(obj));
-
+      const userData: any = JSON.parse(localStorage.getItem('userData'));
       const response = await sendRequest('payment/create-payment', {
         method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
         data: {
           upiId: 'success@payment',
           matchAmount: 60,
-          name: 'robin',
-          id: '7d5f9741-264c-4a59-8ec9-67985f235d19',
-          roomid: roomId,
+          name: userData.fullName,
+          id: configData.paymentID,
+          roomid: match.roomUuid,
         },
       });
+      
       if (response.status === 200) {
         getAllTournaments();
-        //getRegisteredMatches();
+        getRegisteredMatches()
         toast.success('Contest Joined Successfully', {
           position: 'top-right',
           autoClose: 2000,
@@ -193,12 +155,7 @@ function Tournament() {
         });
         setIsLoading(false)
       } else {
-        setIsLoading(false)
-        toast.error('Already registered', {
-          position: 'top-right',
-          autoClose: 2000,
-          hideProgressBar: false,
-        });
+        throw Error()
       }
     } catch (error: any) {
         setIsLoading(false)
@@ -207,13 +164,10 @@ function Tournament() {
         autoClose: 2000,
         hideProgressBar: false,
       });
-      console.log('Failed to sign up. Please try again.');
     }
   };
+  
 
-
-
-  /********** */
   const [currentIndex, setCurrentIndex] = useState(0);
   const [numItemsToShow, setNumItemsToShow] = useState(1);
 
@@ -263,88 +217,89 @@ function Tournament() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  const getIdPass = (time: string, date: string, roomId: number, password: string) => {
-    console.log("date, time", date, time)
-    const REDUCE_TIME = 15 * 60 * 1000;
-    const currentTime = new Date().getTime();
-    const [hour, minutes] = (time || "").split(":").map((values) => parseInt(values));
-    const [year, month, matchData] = (date || "").split("-").map((values) => parseInt(values));
-    let dateNumber = new Date(year, month - 1, matchData, hour, minutes).getTime();
-    const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
-    // if (currentTime >= reducedTime) {
-    // } else {
-    //   return { roomId: "*******", password: "********" }
-    // }
-    return { roomId, password }
 
+  const getIdPass = ( dateAndTime :string, password:string , roomId:string )=> {
+   const REDUCE_TIME = 15 * 60 * 1000;
+    const currentTime = new Date().getTime();
+   let dateNumber = new Date(dateAndTime).getTime();
+    const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
+    if (currentTime >= reducedTime) {
+       return { roomId:roomId , password:password}
+    } else {
+       return { roomId: "*******", password: "********" }
+    }
   };
 
 
   return (
     <>
       <RequireAuthentication>
-        <div className={styles.main_container}>
+        <div className={styles.main_container} id="mainLayoutContainerInner">
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
               <Navbar setUserName={setUserName} />
               <div className={styles.content}>
                 <div className={styles.dashboard}>
-                  <h1 className={styles.page_title}>Welcome <span className={styles.fullname_title}>{userName}</span></h1>
+                  {/* <h1 className={styles.page_title}>Welcome <span className={styles.fullname_title}>{userName}</span></h1> */}
                   <span className={styles.head_desc}>Upcoming Matches</span>
-                  <h1 className={styles.subhead_desc}>
-                    Dashboard/Upcoming Matches
-                  </h1>
+                  <small className={styles.subhead_desc}>
+                    Dashboard / Upcoming Matches
+                  </small>
                 </div>
               </div>
               <div className={styles.room_wrapper}>
                 <div className={styles.room_container}>
                   <div className={styles.registeredmatches}>
-                    <div className={styles.imgSection}>
+                    <div className={styles.imgSection}>  
                       <Image
-                        src="../assests/userdashboardbg.svg"
+                        src={matchDetails.mapImg || "../assests/userdashboardbg.svg"}
                         alt="userdashboardbg"
                         className={styles.wrapperimg}
                         width={200}
                         height={200}
                       />
                     </div>
-                  </div>
-                  {alldata && alldata.length === 0 ? (
-                    <div className={styles.register_match} style={{marginLeft: '10px'}}>
+                  </div> 
+                
+                  
+                  {allRoomsData && allRoomsData.length === 0 ? ( 
+                    <div className={styles.register_match_room}>
                       There is no room created till now
                     </div>
                   ) : (
-                    <div>
+                 <div>
                       <div className={styles.squad_match}>
                         <div className={styles.inner_squad_match}>
-                          <span className={styles.register_match}>{gameName}</span>
+                          <span className={styles.register_match_gamename}>{matchDetails?.gameName}</span>
                           <span className={styles.winning_prize}>
-                            Time : {date} at {time}
+                            Date & Time: {matchDetails?.dateAndTime.toString()} 
+                            
                           </span>
                           <div className={styles.winnings}>
                             <div>
-                              <span className={styles.winning_prize}>
-                                WINNING PRIZE
-                                <span>
+                              <strong className={styles.winning_prize}>
+                                Winning Prize
+                                <span className={styles.caret_down_style}>
                                   <AiOutlineDown
                                     onClick={() => setPoolModal(true)}
+                                    style={{verticleAllign: "middle"}}
                                   />
                                 </span>
-                              </span>
+                              </strong>
                               {poolModal ? (
                                 <div className={styles.main_winning_pool}>
                                   <div className={styles.inner_winning_pool}>
                                     <div className={styles.text_pool_cls}>
                                       <h1 className={styles.pool_heading}>
-                                        WINNING PRIZE POOL
+                                        Winning Prize Pool
                                       </h1>
                                       <p className={styles.pool_para}>
-                                        BGMI Squad match
+                                        {matchDetails.gameName}
                                       </p>
                                     </div>
                                     <div className={styles.pool_cancel_p}>
                                       <p className={styles.pool_text_p}>
-                                        Last Survival: 200
+                                        Last Survival: {matchDetails.lastSurvival}
                                         <span className={styles.rs_pool_logo}>
                                           <Image
                                             src="../assests/rupee-icon.svg"
@@ -356,7 +311,7 @@ function Tournament() {
 
                                       </p>
                                       <p className={styles.pool_text_p}>
-                                        Highest kill: 200
+                                        Highest kill: {matchDetails.highestKill}
                                         <span className={styles.rs_pool_logo}>
                                           <Image
                                             src="../assests/rupee-icon.svg"
@@ -367,7 +322,7 @@ function Tournament() {
                                         </span>
                                       </p>
                                       <p className={styles.pool_text_p}>
-                                        2nd Winner: 100
+                                        2nd Winner: {matchDetails.secondWin}
                                         <span className={styles.rs_pool_logo}>
                                           <Image
                                             src="../assests/rupee-icon.svg"
@@ -378,7 +333,7 @@ function Tournament() {
                                         </span>
                                       </p>
                                       <p className={styles.pool_text_p}>
-                                        3nd Winner: 60
+                                        3nd Winner: {matchDetails.thirdWin}
                                         <span className={styles.rs_pool_logo}>
                                           <Image
                                             src="../assests/rupee-icon.svg"
@@ -412,24 +367,24 @@ function Tournament() {
                                     height={12}
                                   />
                                 </span>
-                                {lastServival}
+                                {matchDetails?.lastSurvival}
                               </span>
                             </div>
                             <div>
                               <span className={styles.winning_prize}>
-                                Entry FEES
+                                Entry Fees
                               </span>
                               <span className={styles.survival_content}>
 
-                                {/* <span className="rs_logo">
+                                <span className="rs_logo">
                                   <Image
                                     src="../assests/rupee-icon.svg"
                                     alt="rupeeIcon"
                                     width={12}
                                     height={12}
                                   />
-                                </span> */}
-                                Free
+                                </span>
+                                {matchDetails?.entryFee}
                               </span>
                             </div>
                           </div>
@@ -440,7 +395,7 @@ function Tournament() {
                                 className={styles.tvm_font}
                                 style={{ color: 'rgba(255, 214, 0, 1)' }}
                               >
-                                {gameType}
+                                {matchDetails?.gameType}
                               </span>
                             </div>
                             <div>
@@ -449,7 +404,7 @@ function Tournament() {
                                 className={styles.tvm_font}
                                 style={{ color: 'rgba(255, 214, 0, 1)' }}
                               >
-                                {version}
+                                {matchDetails?.version}
                               </span>
                             </div>
                             <div>
@@ -458,11 +413,12 @@ function Tournament() {
                                 className={styles.tvm_font}
                                 style={{ color: 'rgba(255, 122, 0, 1)' }}
                               >
-                                {mapType}
+                                {matchDetails?.mapType}
                               </span>
                             </div>
                           </div>
                           <div className={styles.spot_line_sec}>
+
                             {/* <progress
                           className={styles.progress_cls}
                           id="file"
@@ -480,7 +436,7 @@ function Tournament() {
                             <Button
                               disabled={isLoading}
                               className={styles.join_button}
-                              onClick={() => addRegMatch(roomId)}
+                              onClick={() => addRegMatch(matchDetails)}
                             >
                               {isLoading ? 'Loading...' : 'Join'}
                             </Button>
@@ -489,31 +445,20 @@ function Tournament() {
                         <div className={styles.winnings_sec_slider}>
 
                           <div className={styles.game_imgsection}>
-                            {allTournaments &&
-                              allTournaments.map((e: any, index: any) => (
-
+                            {allRoomsData &&
+                              allRoomsData.map((match: tournament, index: number) => (
+                                    
                                 <Image
                                   key={index}
                                   width={100}
                                   height={100}
                                   className={styles.img_slider_one}
-                                  src="../assests/cards.svg"
+                                  src={match.mapImg || "../assests/cards.svg"}
                                   alt="slides"
                                   onClick={() =>
-                                    updateMainData(
-                                      e.gameName,
-                                      e.gameType,
-                                      e.mapType,
-                                      e.version,
-                                      e.dateAndTime,
-                                      e.time,
-                                      e.lastServival,
-                                      e.roomUuid,
-                                      e.mapImg,
-                                    )
-                                  }
+                                    updateMainData(match)
+                                 }
                                 />
-
                               ))}
                           </div>
 
@@ -526,7 +471,7 @@ function Tournament() {
               </div>
               <span className={styles.register_match_title}>Registered Matches</span>
               {!regMatches.length ? (
-                <div className={styles.register_match} style={{marginLeft: '10px'}}>
+                <div className={styles.register_match}>
                   There is no Registered Match till now
                 </div>
               ) : (
@@ -548,13 +493,13 @@ function Tournament() {
                           regMatches
                             .slice(currentIndex, currentIndex + numItemsToShow)
                             .map((match: any, index: any) => {
-                              const { roomId, password } = getIdPass(match?.time, match?.date, match?.roomId, match?.password)
-                              console.log("Match", match)
+                              
+                              const { roomId, password } = getIdPass( match?.dateAndTime ,match?.roomId, match?.password)
                               return (
                                 <div className={styles.container3} key={index} >
 
                                   <Image
-                                    src="../assests/registeredmatches.svg"
+                                    src={match.mapImg || "../assests/registeredmatches.svg"}
                                     alt={`${styles.slide}`}
                                     className={styles.container3_img}
                                     width={100}
@@ -594,19 +539,18 @@ function Tournament() {
                                     <div className={styles.room_create}>
                                       <div className={styles.winning_prize}>
                                         <span> Match start Date </span>
-                                        <span>{moment(match?.dateAndTime).format('DD/MM/YYYY')}</span>
+                                        <span>{formatDate({ date:match?.dateAndTime })}</span>
                                       </div>
                                       <div className={styles.winning_prize}>
                                         <span>Time</span>
-                                        <span>{match.roomUuid === "1c2804fb-0d39-40e6-b34d-a1d8cd0c428d" ? "6:00 PM" : "7:00 PM"}</span>
+                                        <span>{formatTime({ time: match?.dateAndTime , format : 'LT' })}</span>
 
                                       </div>
                                     </div>
-                                    {/* isData15MinBefore(match?.time) */}
-
                                     <div className={styles.id_password}>
-                                      <span>Room Id: {roomId == 12345 ? "--" : roomId}</span>
-                                      <span>Room password: {password === "1234567" ? "--" : password}</span>
+                                    
+                                      <span>Room Id: {roomId}</span>
+                                      <span>Room password: {password}</span>
                                     </div>
 
                                   </div>
