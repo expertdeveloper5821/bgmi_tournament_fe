@@ -28,9 +28,8 @@ export interface tournament {
   version: string;
   dateAndTime: Date | string;
   roomId: string;
- // time: string;
- lastServival: string;
- // roomUuid: string;
+ lastsurvival: string;
+  roomUuid: string;
   mapImg: string;
 }
 
@@ -40,25 +39,24 @@ function Tournament() {
   const [lastTournament, setLastTournament] = useState<tournament>();
   const [allTournaments, setAllTournaments] = useState<[]>([]);
   const [regMatches, setRegMatches] = useState<any>('');
-  const [gameName, setMatchName] = useState<string>('');
-  const [gameType, setGameType] = useState<string>('');
-  const [mapType, setMapType] = useState<string>('');
-  const [version, setVersion] = useState<string>('');
-  const [date, setDate] = useState<string>('');
-  const [time, setTime] = useState<string>("");
-  const [lastServival, setLastServival] = useState<string>('');
-  const [roomId, setRoomId] = useState<string>('');
-  const [mapImg, setMapImg] = useState<string>('');
+  // const [gameName, setMatchName] = useState<string>('');
+  // const [gameType, setGameType] = useState<string>('');
+  // const [mapType, setMapType] = useState<string>('');
+  // const [version, setVersion] = useState<string>('');
+  // const [date, setDate] = useState<string>('');
+  // const [time, setTime] = useState<string>("");
+  // const [lastServival, setLastServival] = useState<string>('');
+  // const [roomId, setRoomId] = useState<string>('');
+  // const [mapImg, setMapImg] = useState<string>('');
   const [matchIndex, setMatchIndex] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
     const initialValues:tournament = {
-    gameName:"", mapType:"", gameType:"", version:"", dateAndTime:new Date(), lastServival:"" , roomId:"", mapImg:""
+    gameName:"", mapType:"", gameType:"", version:"", roomUuid:"",  dateAndTime:new Date(), lastsurvival:"" , roomId:"", mapImg:""
   }
   const [matchDetails , setMatchDetails] = useState<tournament>(initialValues)
-  
 
-console.log("matchDetails",matchDetails)
+
   const router = useRouter();
   const regMatchRedirect = (matchID: string) => {
 
@@ -92,25 +90,6 @@ console.log("matchDetails",matchDetails)
     setRegMatches(registeredMatches.data.rooms);
 
   };
-
-
-  const getRoomidPwd = () => {
-    var selectedMatchIndexes: number[] = [];
-    for (let i = 0; i < regMatches.length; i++) {
-      const currentTime = new Date();
-
-      const dbTime = `${regMatches[i]?.date}T${regMatches[i]?.time}`;
-
-      const matchTime = new Date(dbTime);
-
-      const timeDifference = Number(matchTime) - Number(currentTime);
-      if (timeDifference <= 900000) {
-
-        selectedMatchIndexes.push(i);
-      }
-    }
-    setMatchIndex(selectedMatchIndexes);
-  };
   
 
   useEffect(() => {
@@ -122,26 +101,12 @@ console.log("matchDetails",matchDetails)
     setLastTournament(alldata[alldata.length - 1]);
     setAllTournaments(alldata?.slice(0, 50));
     getRegisteredMatches();
-    getRoomidPwd();
+   // getRoomidPwd();
   }, [alldata]);
 
-  // useEffect(() => {
-  //   if (lastTournament) {
-      
-  //     setMatchName(lastTournament?.gameName);
-  //     setGameType(lastTournament?.gameType);
-  //     setMapType(lastTournament?.mapType);
-  //     setVersion(lastTournament?.version);
-  //     setDate(formatDate({ date:lastTournament?.dateAndTime }));
-  //     setTime(formatTime({ time:lastTournament?.dateAndTime}));
-  //     setLastServival(lastTournament?.lastServival);
-  //     // setRoomId(lastTournament?.roomUuid);
-  //     setMapImg(lastTournament?.mapImg);
-  //   }
-   
-  // }, [lastTournament]);
+
   useEffect(() => {
-    const format =` ${formatDate({ date: lastTournament?.dateAndTime})} and ${formatTime({time: lastTournament?.dateAndTime})}`
+    const format =` ${formatDate({ date: lastTournament?.dateAndTime})} and ${formatTime({time: lastTournament?.dateAndTime, format : 'LT'})}`
    
     if (lastTournament) {
       setMatchDetails({
@@ -150,8 +115,9 @@ console.log("matchDetails",matchDetails)
         gameType: lastTournament?.gameType,
         mapType: lastTournament?.mapType,
         version: lastTournament?.version,
-        dateAndTime:format ,
-        lastServival: lastTournament?.lastServival,
+        roomId: lastTournament?.roomId,
+        dateAndTime: format,
+        lastsurvival: lastTournament?.lastsurvival,
         mapImg: lastTournament?.mapImg
       });
     }
@@ -165,14 +131,14 @@ console.log("matchDetails",matchDetails)
     mdate:string,
     dateandtime: Date,
     mtime: string,
-    lastServival: string,
-    // lastsurvival: string,
+    roomUid: string,
+    lastsurvival: string,
     roomid: string,
     mapImg: string,
   ) => {
     
-    const updatedformattedDandt = ` ${formatDate({ date: mdate })} and ${formatTime({ time: mtime })}`;
-    setMatchDetails({gameName:gname, mapType: mType, gameType:gType , version:vType , dateAndTime:updatedformattedDandt, lastServival:lastServival, roomId:roomid , mapImg:mapImg })
+    const updatedformattedDandt = ` ${formatDate({ date: mdate })} and ${formatTime({ time: mtime , format : 'LT' })}`;
+    setMatchDetails({gameName:gname, mapType: mType, gameType:gType , version:vType , dateAndTime:updatedformattedDandt, lastsurvival:lastsurvival, roomId:roomid , roomUuid:roomUid, mapImg:mapImg })
    
   };
 
@@ -192,8 +158,8 @@ console.log("matchDetails",matchDetails)
         obj = JSON.parse(addRoom);
       }
       obj.push(roomId);
-      localStorage.setItem('roomIds', JSON.stringify(obj));
-
+    
+ localStorage.setItem('roomIds', JSON.stringify(obj));
       const response = await sendRequest('payment/create-payment', {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
@@ -205,6 +171,7 @@ console.log("matchDetails",matchDetails)
           roomid: roomId,
         },
       });
+      
       if (response.status === 200) {
         getAllTournaments();
         //getRegisteredMatches();
@@ -273,26 +240,17 @@ console.log("matchDetails",matchDetails)
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const getIdPass = ( )=> {
+  const getIdPass = ( dateAndTime :string, password:string , roomId:string )=> {
    const REDUCE_TIME = 15 * 60 * 1000;
     const currentTime = new Date().getTime();
-    const [hour, minutes] = (time || "").split(":").map((values) => parseInt(values));
-  const [year, month, matchData] = (date || "").split("-").map((values) => parseInt(values));
-   let dateNumber = new Date(year, month - 1, matchData, hour, minutes).getTime();
+   let dateNumber = new Date(dateAndTime).getTime();
     const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
     if (currentTime >= reducedTime) {
-    
-       return { roomId:"i2334", password:'22344'}
+       return { roomId:roomId , password:password}
     } else {
-     
        return { roomId: "*******", password: "********" }
     }
-
   };
-
-  const result = getIdPass();
-console.log(result);
-
 
 
   return (
@@ -430,7 +388,7 @@ console.log(result);
                                     height={12}
                                   />
                                 </span>
-                                {matchDetails?.lastServival}
+                                {matchDetails?.lastsurvival}
                               </span>
                             </div>
                             <div>
@@ -481,6 +439,7 @@ console.log(result);
                             </div>
                           </div>
                           <div className={styles.spot_line_sec}>
+
                             {/* <progress
                           className={styles.progress_cls}
                           id="file"
@@ -498,7 +457,7 @@ console.log(result);
                             <Button
                               disabled={isLoading}
                               className={styles.join_button}
-                              onClick={() => addRegMatch(roomId)}
+                              onClick={() => addRegMatch(matchDetails?.roomId)}
                             >
                               {isLoading ? 'Loading...' : 'Join'}
                             </Button>
@@ -528,6 +487,7 @@ console.log(result);
                                       e.mtime,
                                       e.lastServival,
                                       e.roomid,
+                                      e.roomUuid,
                                       e.mapImg,
                                     )
                                  }
@@ -567,7 +527,7 @@ console.log(result);
                             .slice(currentIndex, currentIndex + numItemsToShow)
                             .map((match: any, index: any) => {
                               
-                              //const { roomId, password } = getIdPass(match?.time, match?.date, match?.roomId, match?.password)
+                              const { roomId, password } = getIdPass( match?.dateAndTime ,match?.roomId, match?.password)
                               return (
                                 <div className={styles.container3} key={index} >
 
@@ -612,20 +572,18 @@ console.log(result);
                                     <div className={styles.room_create}>
                                       <div className={styles.winning_prize}>
                                         <span> Match start Date </span>
-                                        <span>{match?.dateAndTime}</span>
+                                        <span>{formatDate({ date:match?.dateAndTime })}</span>
                                       </div>
                                       <div className={styles.winning_prize}>
                                         <span>Time</span>
-                                        <span>{match?.dateAndTime}</span>
+                                        <span>{formatTime({ time: match?.dateAndTime , format : 'LT' })}</span>
 
                                       </div>
                                     </div>
-                                    {/* isData15MinBefore(match?.time) */}
-
                                     <div className={styles.id_password}>
-                                      
+                                    
                                       <span>Room Id: {roomId}</span>
-                                      {/* <span>Room password: {password}</span> */}
+                                      <span>Room password: {password}</span>
                                     </div>
 
                                   </div>
