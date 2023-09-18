@@ -137,8 +137,13 @@ const TableData = (props: StudentProfilePropsType) => {
     ['Created By', true],
     ['Game Name', true],
     ['Time', true],
-    ['Date', true]
+    ['Date', true],
+    ['FullName', true],
+    ['UserName', true],
+    ['Email', true]
   ]);
+
+
 
   return (
     <div style={isShowData ? { display: 'flex' } : undefined}  >
@@ -157,14 +162,14 @@ const TableData = (props: StudentProfilePropsType) => {
                           alt="filterup"
                           width={10}
                           height={10}
-                          onClick={() => handleSort(columnName as keyof TableDataType, 'room')}
+                          onClick={() => handleSort(columnName as keyof TableDataType, 'room' || 'spectator')}
                         ></Image>
                         <Image
                           src="/assests/downarow.svg"
                           alt="filterdown"
                           width={10}
                           height={10}
-                          onClick={() => handleSort(columnName as keyof TableDataType, 'room')}
+                          onClick={() => handleSort(columnName as keyof TableDataType, 'room' || 'spectator')}
                         ></Image>
                       </div>
                     )}
@@ -247,16 +252,16 @@ const TableData = (props: StudentProfilePropsType) => {
                       {formatTime({ time: elm.time, format: 'LT' })}
                     </TableCell>
                   )} */}
-                  {elm.time && (
+                  {window.location.href.includes("spectator") ? "" :
                     <TableCell className={styles.table_cell}>
-                      {elm.time}
+                      {elm.time || "--"}
                     </TableCell>
-                  )}
-                  {elm.date && (
+                  }
+                  {window.location.href.includes("spectator") ? "" :
                     <TableCell className={styles.table_cell}>
                       {formatDate({ date: elm.date, format: 'l' })}
                     </TableCell>
-                  )}
+                  }
                   {elm.fullName && (
                     <TableCell className={styles.table_cell}>
                       {elm.fullName}
