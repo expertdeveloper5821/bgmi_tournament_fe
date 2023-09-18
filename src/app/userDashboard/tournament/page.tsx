@@ -171,7 +171,7 @@ console.log("matchDetails",matchDetails)
     mapImg: string,
   ) => {
     
-    const updatedformattedDandt = ` ${formatDate({ date: mdate })}and ${formatTime({ time: mtime })}`;
+    const updatedformattedDandt = ` ${formatDate({ date: mdate })} and ${formatTime({ time: mtime })}`;
     setMatchDetails({gameName:gname, mapType: mType, gameType:gType , version:vType , dateAndTime:updatedformattedDandt, lastServival:lastServival, roomId:roomid , mapImg:mapImg })
    
   };
@@ -334,7 +334,7 @@ console.log(result);
                  <div>
                       <div className={styles.squad_match}>
                         <div className={styles.inner_squad_match}>
-                          <span className={styles.register_match}>{matchDetails?.gameName}</span>
+                          <span className={styles.register_match_gamename}>{matchDetails?.gameName}</span>
                           <span className={styles.winning_prize}>
                             Time: {matchDetails?.dateAndTime.toString()} 
                             
