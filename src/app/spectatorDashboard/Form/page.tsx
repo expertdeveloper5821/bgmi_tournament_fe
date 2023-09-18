@@ -19,7 +19,7 @@ interface FormCreate {
   thirdWin: string;
   highestKill: string;
   secondWin: string;
-  enteryFee: string;
+  entryFee: string;
   mapImg: any | null;
 }
 
