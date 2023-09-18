@@ -4,6 +4,7 @@
 .container {
   display: flex;
   position: relative;
+  box-shadow: 12px 4px 30px 0px #00000040;
 }
 
 .sidebar {
@@ -11,9 +12,13 @@
   height: 100vh;
   width: 200px;
   transition: all 0.5s;
+  
   @media (max-width: $breakpoint-md) {
     width: auto;
     position: absolute;
+    background-color: #003554;
+    box-shadow: 12px 4px 30px 0px #00000040;
+
   }
 }
 .top_section {
@@ -21,7 +26,7 @@
   align-items: center;
   padding-top: 20px;
   padding-left: 8px;
-  margin-left: 15px;
+  margin-left: 9px;
 }
 
 .logo {
@@ -43,6 +48,8 @@
   margin-left: 20px;
   margin-right: 17px;
   padding: 5px;
+  margin-left: 13px;
+  margin-right: 5px;
   border-radius: 4px;
   transition: all 0.5s;
   @media (max-width: $breakpoint-tab) {
@@ -65,6 +72,7 @@
   .link_text {
     font-size: 20px;
     font-weight: bold;
+    padding-right: 19px;
   }
 }
 .link.selected {
@@ -133,6 +141,9 @@
   font-weight: 800;
   padding-bottom: 3px;
   padding-top: 3px;
+  @media (max-width: $breakpoint-xSmall) {
+    margin-top: 16px;
+  }
   &:hover {
     background: #ff7a00;
     color: #fff;
@@ -169,4 +180,10 @@
   position: absolute;
   left: 195px;
   top: 30px;
+}
+.mob_icon{
+margin-right: 7px;}
+.mob_name{
+  font-size: 16px;
+  font-weight: 600;
 }
