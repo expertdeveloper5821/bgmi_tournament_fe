@@ -43,7 +43,20 @@ function Tournament() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
     const initialValues:tournament = {
-    gameName:"", mapType:"", gameType:"", version:"", roomUuid:"",  dateAndTime:new Date(), lastSurvival:"" , roomId:"", mapImg:""
+    gameName:"", 
+    mapType:"", 
+    gameType:"", 
+    version:"", 
+    roomUuid:"", 
+    dateAndTime:new Date(), 
+    lastSurvival:"" , 
+    roomId:"", 
+    mapImg:"",
+    entryFee: '',
+    highestKill: '',
+    secondWin: '',
+    thirdWin: ''
+
   }
   const [matchDetails , setMatchDetails] = useState<tournament>(initialValues)
   const router = useRouter();
