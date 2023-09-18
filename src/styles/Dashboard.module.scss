@@ -861,12 +861,13 @@ img.slides_image {
   display: flex;
   column-gap: 18px;
   overflow-x: scroll;
-
+ 
   @media (max-width: $breakpoint-xSmall) {
     column-gap: 13px;
   }
 
 }
+
 
 .progress_cls {
   accent-color: $bs-orange;

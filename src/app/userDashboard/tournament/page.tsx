@@ -28,7 +28,7 @@ export interface tournament {
   version: string;
   dateAndTime: Date | string;
   roomId: string;
- lastsurvival: string;
+  lastSurvival: string;
   roomUuid: string;
   mapImg: string;
 }
@@ -39,20 +39,11 @@ function Tournament() {
   const [lastTournament, setLastTournament] = useState<tournament>();
   const [allTournaments, setAllTournaments] = useState<[]>([]);
   const [regMatches, setRegMatches] = useState<any>('');
-  // const [gameName, setMatchName] = useState<string>('');
-  // const [gameType, setGameType] = useState<string>('');
-  // const [mapType, setMapType] = useState<string>('');
-  // const [version, setVersion] = useState<string>('');
-  // const [date, setDate] = useState<string>('');
-  // const [time, setTime] = useState<string>("");
-  // const [lastServival, setLastServival] = useState<string>('');
-  // const [roomId, setRoomId] = useState<string>('');
-  // const [mapImg, setMapImg] = useState<string>('');
   const [matchIndex, setMatchIndex] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
     const initialValues:tournament = {
-    gameName:"", mapType:"", gameType:"", version:"", roomUuid:"",  dateAndTime:new Date(), lastsurvival:"" , roomId:"", mapImg:""
+    gameName:"", mapType:"", gameType:"", version:"", roomUuid:"",  dateAndTime:new Date(), lastSurvival:"" , roomId:"", mapImg:""
   }
   const [matchDetails , setMatchDetails] = useState<tournament>(initialValues)
 
@@ -117,7 +108,7 @@ function Tournament() {
         version: lastTournament?.version,
         roomId: lastTournament?.roomId,
         dateAndTime: format,
-        lastsurvival: lastTournament?.lastsurvival,
+        lastSurvival: lastTournament?.lastSurvival,
         mapImg: lastTournament?.mapImg
       });
     }
@@ -128,15 +119,15 @@ function Tournament() {
     gType: string,
     mType: string,
     vType: string,
-    dateandtime: Date,
+    dateandTime: Date,
     roomUid: string,
-    lastsurvival: string,
+    lastSurvival: string,
     roomid: string,
     mapImg: string,
   ) => {
     
-    const updatedformattedDandt = ` ${formatDate({ date: dateandtime })} and ${formatTime({ time: dateandtime  , format : 'LT' })}`;
-    setMatchDetails({gameName:gname, mapType: mType, gameType:gType , version:vType , dateAndTime:updatedformattedDandt, lastsurvival:lastsurvival, roomId:roomid , roomUuid:roomUid, mapImg:mapImg })
+    const updatedformattedDandt = ` ${formatDate({ date: dateandTime })} and ${formatTime({ time: dateandTime  , format : 'LT' })}`;
+    setMatchDetails({gameName:gname, mapType: mType, gameType:gType , version:vType , dateAndTime:updatedformattedDandt, lastSurvival:lastSurvival, roomId:roomid , roomUuid:roomUid, mapImg:mapImg })
    
   };
 
@@ -387,7 +378,7 @@ function Tournament() {
                                     height={12}
                                   />
                                 </span>
-                                {matchDetails?.lastsurvival}
+                                {matchDetails?.lastSurvival}
                               </span>
                             </div>
                             <div>
@@ -482,7 +473,7 @@ function Tournament() {
                                       e.mapType,
                                       e.version,
                                       new Date(e.dateAndTime), 
-                                      e.lastServival,
+                                      e.lastSurvival,
                                       e.roomid,
                                       e.roomUuid,
                                       e.mapImg,
