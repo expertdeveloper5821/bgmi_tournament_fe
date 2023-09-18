@@ -110,6 +110,7 @@ function Tournament() {
         mapImg: lastTournament?.mapImg
       });
     }
+    console.log("lastTourbament", lastTournament)
   }, [lastTournament]);
 
   const updateMainData = (
@@ -123,13 +124,19 @@ function Tournament() {
     roomid: string,
     mapImg: string,
   ) => {
-    
     const updatedformattedDandt = ` ${formatDate({ date: dateandTime })} and ${formatTime({ time: dateandTime  , format : 'LT' })}`;
-    setMatchDetails({gameName:gname, mapType: mType, gameType:gType , version:vType , dateAndTime:updatedformattedDandt, lastSurvival:lastSurvival, roomId:roomid , roomUuid:roomUid, mapImg:mapImg })
-   
+    setMatchDetails({
+      gameName:gname,
+      mapType: mType,
+      gameType:gType,
+      version:vType, 
+      dateAndTime:updatedformattedDandt, 
+      lastSurvival:lastSurvival, 
+      roomId:roomid, 
+      roomUuid:roomUid, 
+      mapImg:mapImg 
+    })
   };
-
-  
 
   const addRegMatch = async (roomId: any) => {
     setIsLoading(true);
@@ -154,7 +161,7 @@ function Tournament() {
           upiId: 'success@payment',
           matchAmount: 60,
           name: 'robin',
-          id: '3dafaba5-a73d-4874-b138-bbc2abbef89d',
+          id: '7d5f9741-264c-4a59-8ec9-67985f235d19',
           roomid: roomId,
         },
       });
@@ -168,11 +175,21 @@ function Tournament() {
         });
         setIsLoading(false)
       } else {
-        console.log('Payment Failed');
+        setIsLoading(false)
+        toast.error('Already registered', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+        });
       }
     } catch (error: any) {
-      toast.success(error)
-      
+        setIsLoading(false)
+        toast.error('Already registered', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+      });
+      console.log('Failed to sign up. Please try again.');
     }
   };
   
@@ -384,15 +401,15 @@ function Tournament() {
                               </span>
                               <span className={styles.survival_content}>
 
-                                <span className="rs_logo">
+                                {/* <span className="rs_logo">
                                   <Image
                                     src="../assests/rupee-icon.svg"
                                     alt="rupeeIcon"
                                     width={12}
                                     height={12}
                                   />
-                                </span>
-                                50
+                                </span> */}
+                                Free
                               </span>
                             </div>
                           </div>
@@ -489,7 +506,7 @@ function Tournament() {
               </div>
               <span className={styles.register_match_title}>Registered Matches</span>
               {!regMatches.length ? (
-                <div className={styles.register_match}>
+                <div className={styles.register_match} style={{marginLeft: '10px'}}>
                   There is no Registered Match till now
                 </div>
               ) : (
