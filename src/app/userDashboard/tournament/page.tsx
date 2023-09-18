@@ -19,16 +19,18 @@ import CountdownComponent from './CountdownComponent';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { number } from 'yup';
+import { formatDate, formatTime } from '../../../Components/CommonComponent/moment';
 
 export interface tournament {
   gameName: string;
   gameType: string;
   mapType: string;
   version: string;
-  date: string;
-  time: string;
-  lastServival: string;
-  roomUuid: string;
+  dateAndTime: Date | string;
+  roomId: string;
+ // time: string;
+ lastServival: string;
+ // roomUuid: string;
   mapImg: string;
 }
 
@@ -38,19 +40,25 @@ function Tournament() {
   const [lastTournament, setLastTournament] = useState<tournament>();
   const [allTournaments, setAllTournaments] = useState<[]>([]);
   const [regMatches, setRegMatches] = useState<any>('');
-  const [gameName, setMatchName] = useState<String>('');
-  const [gameType, setGameType] = useState<String>('');
-  const [mapType, setMapType] = useState<String>('');
-  const [version, setVersion] = useState<String>('');
-  const [date, setDate] = useState<String>('');
-  const [time, setTime] = useState<String>('');
-  const [lastServival, setLastServival] = useState<String>('');
-  const [roomId, setRoomId] = useState<String>('');
-  const [mapImg, setMapImg] = useState<String>('');
+  const [gameName, setMatchName] = useState<string>('');
+  const [gameType, setGameType] = useState<string>('');
+  const [mapType, setMapType] = useState<string>('');
+  const [version, setVersion] = useState<string>('');
+  const [date, setDate] = useState<string>('');
+  const [time, setTime] = useState<string>("");
+  const [lastServival, setLastServival] = useState<string>('');
+  const [roomId, setRoomId] = useState<string>('');
+  const [mapImg, setMapImg] = useState<string>('');
   const [matchIndex, setMatchIndex] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
+    const initialValues:tournament = {
+    gameName:"", mapType:"", gameType:"", version:"", dateAndTime:new Date(), lastServival:"" , roomId:"", mapImg:""
+  }
+  const [matchDetails , setMatchDetails] = useState<tournament>(initialValues)
+  
 
+console.log("matchDetails",matchDetails)
   const router = useRouter();
   const regMatchRedirect = (matchID: string) => {
 
@@ -72,6 +80,7 @@ function Tournament() {
 
     setData(filteredDataArray);
   };
+ 
 
   const getRegisteredMatches = async () => {
     const token: any = localStorage.getItem('jwtToken');
@@ -102,7 +111,7 @@ function Tournament() {
     }
     setMatchIndex(selectedMatchIndexes);
   };
-
+  
 
   useEffect(() => {
     getAllTournaments();
@@ -111,22 +120,39 @@ function Tournament() {
 
   useEffect(() => {
     setLastTournament(alldata[alldata.length - 1]);
-    setAllTournaments(alldata?.slice(0, 8));
+    setAllTournaments(alldata?.slice(0, 50));
     getRegisteredMatches();
     getRoomidPwd();
   }, [alldata]);
 
+  // useEffect(() => {
+  //   if (lastTournament) {
+      
+  //     setMatchName(lastTournament?.gameName);
+  //     setGameType(lastTournament?.gameType);
+  //     setMapType(lastTournament?.mapType);
+  //     setVersion(lastTournament?.version);
+  //     setDate(formatDate({ date:lastTournament?.dateAndTime }));
+  //     setTime(formatTime({ time:lastTournament?.dateAndTime}));
+  //     setLastServival(lastTournament?.lastServival);
+  //     // setRoomId(lastTournament?.roomUuid);
+  //     setMapImg(lastTournament?.mapImg);
+  //   }
+   
+  // }, [lastTournament]);
   useEffect(() => {
     if (lastTournament) {
-      setMatchName(lastTournament?.gameName);
-      setGameType(lastTournament?.gameType);
-      setMapType(lastTournament?.mapType);
-      setVersion(lastTournament?.version);
-      setDate(lastTournament?.date);
-      setTime(lastTournament?.time);
-      setLastServival(lastTournament?.lastServival);
-      setRoomId(lastTournament?.roomUuid);
-      setMapImg(lastTournament?.mapImg);
+      setMatchDetails({
+        ...matchDetails,
+        gameName: lastTournament?.gameName,
+        gameType: lastTournament?.gameType,
+        mapType: lastTournament?.mapType,
+        version: lastTournament?.version,
+        dateAndTime:lastTournament?.dateAndTime,
+        lastServival: lastTournament?.lastServival,
+        // roomId: lastTournament?.roomUuid, // Uncomment this if roomId is part of your tournament type
+        mapImg: lastTournament?.mapImg
+      });
     }
   }, [lastTournament]);
 
@@ -135,22 +161,32 @@ function Tournament() {
     gType: string,
     mType: string,
     vType: string,
-    mdate: string,
+    mdate:string,
+    dateandtime: Date,
     mtime: string,
     lastServival: string,
+    // lastsurvival: string,
     roomid: string,
     mapImg: string,
   ) => {
-    setMatchName(gname);
-    setGameType(gType);
-    setMapType(mType);
-    setVersion(vType);
-    setDate(mdate);
-    setTime(mtime);
-    setLastServival(lastServival);
-    setRoomId(roomid);
-    setMapImg(mapImg);
+    
+    const formattedDate = formatDate({ date: mdate });
+    const formattedTime = formatTime({ time: mtime });
+    
+    //console.log('updateMainData called with:', gname, gType, mType, vType, mdate, dateandtime, mtime, lastServival, roomid, mapImg);
+    setMatchDetails({gameName:gname, mapType: mType, gameType:gType , version:vType , dateAndTime:`${formattedDate} ${formattedTime}`, lastServival:lastServival, roomId:roomid , mapImg:mapImg })
+    // setMatchName(gname);
+    // setGameType(gType);
+    // setMapType(mType);
+    // setVersion(vType);
+    // setDate(formatDate({ date:mdate}));
+    // setTime(formatTime({ time: mtime}));
+    // setLastServival(lastServival);
+    // setRoomId(roomid);
+    // setMapImg(mapImg);
   };
+
+  
 
   const addRegMatch = async (roomId: any) => {
     setIsLoading(true);
@@ -195,8 +231,19 @@ function Tournament() {
       console.log('Failed to sign up. Please try again.');
     }
   };
+  
+ 
+/************* */
 
-
+    // const checktime:any = (time).split(':').map((values) => parseInt(values))
+    // console.log("check time", checktime)
+    // const currenttime = new Date().getTime()
+    // console.log("check this currenttime ",currenttime)
+    // const REDUCETIME = 15 * 60 * 1000;
+    // const redTime = new Date(checktime - REDUCETIME).getTime();
+    // console.log("check this function ",redTime)
+  
+  
 
   /********** */
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -248,20 +295,40 @@ function Tournament() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  const getIdPass = (time: string, date: string, roomId: number, password: string) => {
-    const REDUCE_TIME = 15 * 60 * 1000;
+// roomId: number, password: string
+  const getIdPass = ( )=> {
+    const dateAndTime ='2023-09-20T21:09:00.000Z'
+   // console.log("check date and time ",dateAndTime)
+   const REDUCE_TIME = 15 * 60 * 1000;
+    // const currentTime = new Date().getTime();
     const currentTime = new Date().getTime();
-    const [hour, minutes] = (time || "").split(":").map((values) => parseInt(values));
-    const [year, month, matchData] = (date || "").split("-").map((values) => parseInt(values));
-    let dateNumber = new Date(year, month - 1, matchData, hour, minutes).getTime();
+   // console.log("current time ", currentTime)
+    const [year, month, matchData, hour, minutes] = (dateAndTime || "").split(/[-T:.]+/).map((values) => parseInt(values));
+   // console.log("check the code ==>", (dateAndTime || "").split(/[-T:.]+/).map((values) => parseInt(values)))
+    let dateNumber = new Date(year, month , matchData, hour, minutes).getTime();
+   // console.log("current ----> ", dateNumber)
+  //  const [hour, minutes] = (time || "").split(":").map((values) => parseInt(values));
+
+    //const [year, month, matchData] = (date || "").split("-").map((values) => parseInt(values));
+   
+    //let dateNumber = new Date(year, month - 1, matchData, hour, minutes).getTime();
+    
     const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
+   // console.log("check reducedTime==>",reducedTime)
+   // console.log("check reducedTime==>",reducedTime)
     if (currentTime >= reducedTime) {
-      return { roomId, password }
+     console.log( "match")
+      // return { roomId:"i2334", password:'22344'}
     } else {
-      return { roomId: "*******", password: "********" }
+      console.log( "not match")
+      // return { roomId: "*******", password: "********" }
     }
 
   };
+
+  const result = getIdPass();
+console.log(result);
+
 
 
   return (
@@ -283,7 +350,7 @@ function Tournament() {
               <div className={styles.room_wrapper}>
                 <div className={styles.room_container}>
                   <div className={styles.registeredmatches}>
-                    <div className={styles.imgSection}>
+                    <div className={styles.imgSection}>  
                       <Image
                         src="../assests/userdashboardbg.svg"
                         alt="userdashboardbg"
@@ -292,18 +359,21 @@ function Tournament() {
                         height={200}
                       />
                     </div>
-                  </div>
-                  {alldata && alldata.length === 0 ? (
-                    <div className={styles.register_match}>
+                  </div> 
+                
+                  
+                  {alldata && alldata.length === 0 ? ( 
+                    <div className={styles.register_match_room}>
                       There is no room created till now
                     </div>
                   ) : (
-                    <div>
+                 <div>
                       <div className={styles.squad_match}>
                         <div className={styles.inner_squad_match}>
-                          <span className={styles.register_match}>{gameName}</span>
+                          <span className={styles.register_match}>{matchDetails?.gameName}</span>
                           <span className={styles.winning_prize}>
-                            Time : {date} at {time}
+                            Time: {matchDetails?.dateAndTime} 
+                            
                           </span>
                           <div className={styles.winnings}>
                             <div>
@@ -396,7 +466,7 @@ function Tournament() {
                                     height={12}
                                   />
                                 </span>
-                                {lastServival}
+                                {matchDetails?.lastServival}
                               </span>
                             </div>
                             <div>
@@ -424,7 +494,7 @@ function Tournament() {
                                 className={styles.tvm_font}
                                 style={{ color: 'rgba(255, 214, 0, 1)' }}
                               >
-                                {gameType}
+                                {matchDetails?.gameType}
                               </span>
                             </div>
                             <div>
@@ -433,7 +503,7 @@ function Tournament() {
                                 className={styles.tvm_font}
                                 style={{ color: 'rgba(255, 214, 0, 1)' }}
                               >
-                                {version}
+                                {matchDetails?.version}
                               </span>
                             </div>
                             <div>
@@ -442,7 +512,7 @@ function Tournament() {
                                 className={styles.tvm_font}
                                 style={{ color: 'rgba(255, 122, 0, 1)' }}
                               >
-                                {mapType}
+                                {matchDetails?.mapType}
                               </span>
                             </div>
                           </div>
@@ -474,8 +544,8 @@ function Tournament() {
 
                           <div className={styles.game_imgsection}>
                             {allTournaments &&
-                              allTournaments.map((e: any, index: any) => (
-
+                              allTournaments.map((e: any, index: number) => (
+                                    
                                 <Image
                                   key={index}
                                   width={100}
@@ -489,15 +559,15 @@ function Tournament() {
                                       e.gameType,
                                       e.mapType,
                                       e.version,
-                                      e.date,
-                                      e.time,
+                                      e.dateAndTime, 
+                                      new Date(e.dateAndTime), 
+                                      e.mtime,
                                       e.lastServival,
-                                      e.roomUuid,
+                                      e.roomid,
                                       e.mapImg,
                                     )
-                                  }
+                                 }
                                 />
-
                               ))}
                           </div>
 
@@ -532,7 +602,8 @@ function Tournament() {
                           regMatches
                             .slice(currentIndex, currentIndex + numItemsToShow)
                             .map((match: any, index: any) => {
-                              const { roomId, password } = getIdPass(match?.time, match?.date, match?.roomId, match?.password)
+                              
+                              //const { roomId, password } = getIdPass(match?.time, match?.date, match?.roomId, match?.password)
                               return (
                                 <div className={styles.container3} key={index} >
 
@@ -577,19 +648,20 @@ function Tournament() {
                                     <div className={styles.room_create}>
                                       <div className={styles.winning_prize}>
                                         <span> Match start Date </span>
-                                        <span>{match?.date}</span>
+                                        <span>{match?.dateAndTime}</span>
                                       </div>
                                       <div className={styles.winning_prize}>
                                         <span>Time</span>
-                                        <span>{match?.time}</span>
+                                        <span>{match?.dateAndTime}</span>
 
                                       </div>
                                     </div>
                                     {/* isData15MinBefore(match?.time) */}
 
                                     <div className={styles.id_password}>
+                                      
                                       <span>Room Id: {roomId}</span>
-                                      <span>Room password: {password}</span>
+                                      {/* <span>Room password: {password}</span> */}
                                     </div>
 
                                   </div>

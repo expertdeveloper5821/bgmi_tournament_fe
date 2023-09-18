@@ -86,31 +86,35 @@
 }
 
 .imgSection img {
-  height: 416px;
+  height: 389px;
   border-radius: 30px;
   width: 100%;
   border-radius: 4px;
   opacity: 0.6;
-  // box-shadow: rgb(2 19 29) 0px 7px 29px 0px;
-
-  @media (max-width: $breakpoint-xSmall) {
-    height: 280px !important;
-  }
-
-  @media (max-width: $breakpoint-xs) {
-    height: auto;
-  }
 
   @media (max-width: $breakpoint-ms) {
     height: 250px;
   }
+  @media (max-width:$breakpoint-md){
+    height: 336px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    height: auto;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    height: 280px !important;
+  }
+
+
 }
 
 .room_container {
   display: flex;
   margin: 10px 10px;
   column-gap: 18px;
-
+  @media (max-width:$breakpoint-md){
+    display: block ;
+  }
   @media (max-width: $breakpoint-sm) {
     display: block !important;
     flex-direction: column;
@@ -395,9 +399,50 @@ img.slides_image {
   font-family: $bs-body-font-family;
   letter-spacing: 0.02em;
   margin: 10px 0px 0px 0px;
+  margin-left: 25px;
+  @media (max-width: $breakpoint-md){
+    margin-left:120px;
+  }
+  @media (max-width:$breakpoint-sm){
+    margin-left:125px;
+  }
+  @media (max-width: $breakpoint-tab){
+    margin-left: 126px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    margin-left: 8px;
+  }
 
+  @media (max-width: $breakpoint-xSmall) {
+    margin-left: 8px;
+  }
 }
+.register_match_room{
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 34px;
+  font-family: $bs-body-font-family;
+  letter-spacing: 0.02em;
+  margin: 10px 0px 0px 0px;
+  margin-left: 25px;
+  // $breakpoint-lg
+  // $breakpoint-ms
+  @media (max-width:$breakpoint-md){
+  margin-left:116px;}
+  @media (max-width:$breakpoint-sm){
+    margin-left:109px;
+  }
+  @media (max-width:   $breakpoint-tab){
+    margin-left: 108px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    margin-left: 8px;
+  }
 
+  @media (max-width: $breakpoint-xSmall) {
+    margin-left: 8px;
+  }
+}
 .register_match_title {
   font-family: Century Gothic;
   font-size: 22px;
@@ -820,7 +865,6 @@ img.slides_image {
   @media (max-width: $breakpoint-xSmall) {
     column-gap: 13px;
   }
-
 
 }
 
