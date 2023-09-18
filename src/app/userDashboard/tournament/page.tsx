@@ -137,7 +137,7 @@ function Tournament() {
     mapImg: string,
   ) => {
     
-    const updatedformattedDandt = ` ${formatDate({ date: mdate })} and ${formatTime({ time: mtime , format : 'LT' })}`;
+    const updatedformattedDandt = ` ${formatDate({ date: mdate })} and ${formatTime({ time: mtime  , format : 'LT' })}`;
     setMatchDetails({gameName:gname, mapType: mType, gameType:gType , version:vType , dateAndTime:updatedformattedDandt, lastsurvival:lastsurvival, roomId:roomid , roomUuid:roomUid, mapImg:mapImg })
    
   };
