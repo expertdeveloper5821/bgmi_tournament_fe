@@ -11,8 +11,7 @@ import GlassCrack from './glassCrack/page';
 import Link from 'next/link';
 import Slider from 'react-slick';
 import {string} from 'yup';
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+
 
 const page = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -24,26 +23,10 @@ const page = () => {
     'Create your free account in just a few simple steps and join our ever-growing gaming community',
   );
 
-  const settings = {
-    dots: true,
-    // infinite: true,
-    // speed: 500,
-    // slidesToShow: 1,
-    // slidesToScroll:1
-  };
+ 
 
-  // const handleIncrement = () => {
-  //   if (id === data.length - 1) {
-  //     setId(id);
-  //   } else {
-  //     setId(id + 1);
-  //   }
-  //   toast.success('Contest Joined Successfully', {
-  //     position: 'top-right',
-  //     autoClose: 2000, // Automatically close after 2 seconds
-  //     hideProgressBar: false, // Show the progress bar
-  //   });
-  // };
+  console.log("this is the", data);
+              
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -104,7 +87,7 @@ const page = () => {
         <div>
           <NavBar />
         </div>
-       
+
         <div className={styles.parashoot}>
           <Image
             className={styles.person_Img}
@@ -196,7 +179,6 @@ const page = () => {
       </div>
 
       <div className={styles.upcoming_mathces_container}>
-        
         <div className={styles.upcoming_mathces}>
           <h3 className={styles.upComingHeading}>Upcoming Matches</h3>
           <p className={styles.upComingPara}>
@@ -212,7 +194,11 @@ const page = () => {
           {data && data.length > 0 && (
             <div className={styles.banner_bgmi_img}>
               <img
-                src={data && data[id].mapImg}
+                src={
+                  data && data[id].mapImg
+                    ? data[id].mapImg
+                    : `${'./assests/eranglemapimage.svg'}`
+                }
                 alt="bg"
                 className={styles.banner_image}
               />
@@ -287,9 +273,10 @@ const page = () => {
           )}
           <div className={styles.time_container}>
             {data && data.length > 0 ? (
+             
               <>
                 <div className={styles.comingsooncontainer}>
-                  <h2>Coming Soon</h2>
+                  <h2>{data.length > 0 && data[id].mapType + ' '+ data[id].gameType + ' '+ 'match'}</h2>
                   <span>Time: {data.length > 0 && data[id].time} pm</span>
                 </div>
                 <div className={styles.prizepool}>
@@ -307,13 +294,7 @@ const page = () => {
                     </span>
                     <h2>
                       Last Survival: 200
-                      <Image
-                        src="../assests/rupeeimg.svg"
-                        height={20}
-                        width={10}
-                        alt="rupees"
-                        className={styles.rsSign}
-                      />
+                      <span className={styles.rsSign}>₹</span>
                     </h2>
                   </div>
                   <div className={styles.fee_container}>
@@ -321,14 +302,7 @@ const page = () => {
                       ENTRY FEES
                     </span>
                     <h2>
-                      0
-                      <Image
-                        src="../assests/rupeeimg.svg"
-                        height={20}
-                        width={10}
-                        alt="rupees"
-                        className={styles.rsSign}
-                      />
+                      0<span className={styles.rsSign}>₹</span>
                     </h2>
                   </div>
                 </div>
@@ -396,11 +370,15 @@ const page = () => {
                       </span>
                     </div>
                     <img
-                      src={gameDetails.mapImg}
+                      src={
+                        gameDetails.mapImg
+                          ? gameDetails.mapImg
+                          : `./assests/eranglemapimage.svg`
+                      }
                       className={styles.rn_images}
                       height={100}
                       width={100}
-                      alt="image"
+                      alt={gameDetails.mapType}
                       onClick={() => handleData(index)}
                     />
                   </div>
@@ -471,7 +449,7 @@ const page = () => {
               <div
                 className={styles.gradientoverlayscopesectionscopenear}
               ></div>
-               <div
+              <div
                 className={styles.gradientoverlayscopesectionscopenear1}
               ></div>
 

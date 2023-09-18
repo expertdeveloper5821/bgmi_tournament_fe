@@ -28,6 +28,9 @@
   position: absolute;
   bottom: 12%;
   right: 5%;
+  @media (max-width: $breakpoint-xs) {
+    display: none;
+  }
 }
 .sociallink {
   display: flex;
@@ -498,6 +501,9 @@
   @media (max-width: $breakpoint-lg) {
     top: 20px;
   }
+  @media (max-width: $breakpoint-sm) {
+    top: 100px;
+  }
 }
 .banner_center_text h1 {
   display: flex;
@@ -507,6 +513,9 @@
   letter-spacing: 36px;
   color: #003554;
   font-weight: 600;
+  @media (max-width: $breakpoint-sm) {
+    font-weight: 900;
+  }
 }
 .banner_subheading {
   display: flex;
@@ -520,6 +529,10 @@
   @media (max-width: $breakpoint-tab) {
     color: #003554;
     margin-top: 40px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    color: #ffffff;
+    font-weight: 600;
   }
 }
 .rn_text {
@@ -535,7 +548,9 @@
     letter-spacing: 5px;
   }
   @media (max-width: $breakpoint-xSmall) {
-    font-size: 10px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-align: center;
   }
 }
 @keyframes textmove {
@@ -568,6 +583,9 @@
   margin-top: 20px;
   margin-bottom: 20px;
   color: #ffffff;
+  @media (max-width: $breakpoint-xs) {
+    font-size: 20px;
+  }
 }
 .upComingPara {
   font-weight: 200;
@@ -577,6 +595,10 @@
   width: 50%;
   @media (max-width: $breakpoint-sm) {
     width: 90%;
+  }
+  @media (max-width: $breakpoint-sm) {
+    font-weight: 400;
+    font-size: 14px;
   }
 }
 .upcoming_mathces_sub_container {
@@ -601,9 +623,12 @@
   width: 75%;
   margin-left: 12%;
   border-radius: 23px;
-  @media (max-width: $breakpoint-sm) {
+  @media (max-width: $breakpoint-xs) {
     margin-left: 0%;
+    width: 95%;
+    border-radius: 15px;
   }
+  
 }
 .elseText {
   display: flex;
@@ -617,13 +642,36 @@
 .rn_images_container {
   display: flex;
   z-index: 90;
-  width: 70%;
+  width: 100%;
   padding: 2% 10% 5% 2%;
-  @media (max-width: $breakpoint-xs) {
-    animation: imagemove 5s linear infinite;
+  // @media (max-width: $breakpoint-xs) {
+  //   animation: imagemove 5s linear infinite;
+  // }
+  // animation: imagemove 12s linear infinite;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    width: 5px; /* Set the width of the scrollbar */
   }
-  animation: imagemove 12s linear infinite;
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 5px; /* Set the background color of the track */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #2c271f; 
+  border-radius: 5px;/* Set the border radius of the thumb */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #2c271f; /* Set the color of the thumb on hover */
+  }
+  
 }
+
+
+
+
 @keyframes imagemove {
   0% {
     transform: translateX(100%);
@@ -691,7 +739,9 @@
   margin-top: 10px;
 }
 .rsSign {
-  margin-left: 5px;
+  margin-left: 3px;
+  color: #ffd600;
+  font-size: 19px;
 }
 .gameInfo {
   display: flex;
@@ -974,6 +1024,11 @@
 }
 .welcome_RightImg_container {
   background-image: radial-gradient(#87746e00, #000000 60%);
+  @media (max-width: $breakpoint-xs) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 .welcome_RightImg {
   margin-left: 2%;
@@ -1004,11 +1059,22 @@
   padding-bottom: 10px;
   font-weight: 700;
   font-size: 30px;
+  @media (max-width: $breakpoint-xs) {
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+  }
 }
 .welcome_alingnment p {
   letter-spacing: 0.5px;
   font-weight: 400;
   font-size: 16px;
+  @media (max-width: $breakpoint-xs) {
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+  }
 }
 
 .choseSection {
@@ -1026,6 +1092,10 @@
 }
 .choseSection img {
   margin-top: 2%;
+  @media (max-width: $breakpoint-xs) {
+    margin-top: 5%;
+  }
+  
 }
 .scopeSection {
   position: relative;
@@ -1621,11 +1691,17 @@
 .mapSecDescription p {
   font-size: 16px;
   font-weight: 400;
+  @media (max-width: $breakpoint-xs) {
+    font-size: 14px;
+  }
 }
 .mapSecHead {
   padding: 20px;
   font-weight: 700;
   font-size: 32px;
+  @media (max-width: $breakpoint-xs) {
+    font-size: 20px;
+  }
 }
 
 .mapBg {
@@ -1652,6 +1728,9 @@
   font-weight: 400;
   font-size: 18px;
   max-width: 700px;
+  @media (max-width: $breakpoint-xs) {
+    font-size: 14px;
+  }
 }
 
 .signUpDiv {
@@ -1815,6 +1894,10 @@
   font-size: 27px;
   line-height: 27px;
   letter-spacing: 6%;
+  @media (max-width: $breakpoint-xs) {
+    font-size: 42px;
+    margin-bottom: 10px;
+  }
 }
 
 .buggiSec_heading {
@@ -1846,6 +1929,13 @@
   background-color: transparent;
   color: white;
   border-radius: 10px;
+  @media (max-width: $breakpoint-xs) {
+    margin-top: 2px;
+    font-size: 16px;
+    width: 160px;
+    height: 42px;
+    border-radius: 8px;
+  }
 }
 
 .footer {
@@ -1889,6 +1979,10 @@
   font-weight: 400;
   font-size: 16px;
   padding-top: 30px;
+  @media (max-width: $breakpoint-xs) {
+    font-size: 10px;
+    padding-bottom: 100px;
+  }
 }
 
 .footer_text {
@@ -1897,8 +1991,9 @@
   color: #ff7a00;
   position: absolute;
   text-align: center;
-  @media (max-width: $breakpoint-lg) {
-    position: static;
+  @media (max-width: $breakpoint-xs) {
+   font-size: 10px;
+   padding-top: 30px;
   }
 }
 
@@ -1973,9 +2068,9 @@
     margin-bottom: 12px;
     font-size: 22px;
   }
-  .footer_text {
-    font-size: 22px;
-  }
+  // .footer_text {
+  //   font-size: 22px;
+  // }
   .buggyHeading {
     font-size: 20px;
     padding: 10px 30px;
@@ -2032,9 +2127,9 @@
     font-size: 20px;
     margin-bottom: 10px;
   }
-  .footer_text {
-    font-size: 20px;
-  }
+  // .footer_text {
+  //   font-size: 20px;
+  // }
   .mapSecDescription {
     width: 100%;
     margin-top: 30px;
@@ -2136,10 +2231,6 @@
   .stone img {
     width: 320px;
   }
-  .welcome_subcontainer p {
-    text-align: justify;
-  }
-
   .choseSection h2 {
     font-size: 18px;
     text-align: center;
@@ -2149,6 +2240,11 @@
     padding: 10px;
     width: 100%;
     text-align: justify;
+    @media (max-width: $breakpoint-xs) {
+      font-weight: 400;
+      font-size: 14px;
+      text-align: center;
+    }
   }
 
   .playDiv {
@@ -2217,6 +2313,14 @@
     padding: 26px 45px;
     letter-spacing: 5px;
     font-weight: 300;
+    @media (max-width: $breakpoint-xs) {
+          line-height: 1;
+  letter-spacing: 0px;
+    font-weight: 400;
+    font-size: 18px;
+    padding-top: 125px;
+    }
+    
   }
   .buggiImg {
     width: 300px;
@@ -2226,6 +2330,11 @@
     font-size: 28px;
     letter-spacing: 4px;
     font-weight: 500;
+    @media (max-width: $breakpoint-xs) {
+      font-size: 30px;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
   }
   .social_I {
     margin: 12px 0px;
@@ -2237,9 +2346,9 @@
     margin: 14px 0px;
     font-size: 14px;
   }
-  .btnSingup {
-    width: 150px;
-  }
+  // .btnSingup {
+  //   width: 160px;
+  // }
   .redBlurCircle {
     position: absolute;
     top: 34%;
