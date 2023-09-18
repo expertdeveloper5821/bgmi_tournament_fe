@@ -141,6 +141,8 @@ console.log("matchDetails",matchDetails)
    
   // }, [lastTournament]);
   useEffect(() => {
+    const format =` ${formatDate({ date: lastTournament?.dateAndTime})} and ${formatTime({time: lastTournament?.dateAndTime})}`
+   
     if (lastTournament) {
       setMatchDetails({
         ...matchDetails,
@@ -148,9 +150,8 @@ console.log("matchDetails",matchDetails)
         gameType: lastTournament?.gameType,
         mapType: lastTournament?.mapType,
         version: lastTournament?.version,
-        dateAndTime:lastTournament?.dateAndTime,
+        dateAndTime:format ,
         lastServival: lastTournament?.lastServival,
-        // roomId: lastTournament?.roomUuid, // Uncomment this if roomId is part of your tournament type
         mapImg: lastTournament?.mapImg
       });
     }
@@ -170,20 +171,9 @@ console.log("matchDetails",matchDetails)
     mapImg: string,
   ) => {
     
-    const formattedDate = formatDate({ date: mdate });
-    const formattedTime = formatTime({ time: mtime });
-    
-    //console.log('updateMainData called with:', gname, gType, mType, vType, mdate, dateandtime, mtime, lastServival, roomid, mapImg);
-    setMatchDetails({gameName:gname, mapType: mType, gameType:gType , version:vType , dateAndTime:`${formattedDate} ${formattedTime}`, lastServival:lastServival, roomId:roomid , mapImg:mapImg })
-    // setMatchName(gname);
-    // setGameType(gType);
-    // setMapType(mType);
-    // setVersion(vType);
-    // setDate(formatDate({ date:mdate}));
-    // setTime(formatTime({ time: mtime}));
-    // setLastServival(lastServival);
-    // setRoomId(roomid);
-    // setMapImg(mapImg);
+    const updatedformattedDandt = ` ${formatDate({ date: mdate })}and ${formatTime({ time: mtime })}`;
+    setMatchDetails({gameName:gname, mapType: mType, gameType:gType , version:vType , dateAndTime:updatedformattedDandt, lastServival:lastServival, roomId:roomid , mapImg:mapImg })
+   
   };
 
   
@@ -232,20 +222,7 @@ console.log("matchDetails",matchDetails)
     }
   };
   
- 
-/************* */
 
-    // const checktime:any = (time).split(':').map((values) => parseInt(values))
-    // console.log("check time", checktime)
-    // const currenttime = new Date().getTime()
-    // console.log("check this currenttime ",currenttime)
-    // const REDUCETIME = 15 * 60 * 1000;
-    // const redTime = new Date(checktime - REDUCETIME).getTime();
-    // console.log("check this function ",redTime)
-  
-  
-
-  /********** */
   const [currentIndex, setCurrentIndex] = useState(0);
   const [numItemsToShow, setNumItemsToShow] = useState(1);
 
@@ -295,33 +272,20 @@ console.log("matchDetails",matchDetails)
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-// roomId: number, password: string
-  const getIdPass = ( )=> {
-    const dateAndTime ='2023-09-20T21:09:00.000Z'
-   // console.log("check date and time ",dateAndTime)
-   const REDUCE_TIME = 15 * 60 * 1000;
-    // const currentTime = new Date().getTime();
-    const currentTime = new Date().getTime();
-   // console.log("current time ", currentTime)
-    const [year, month, matchData, hour, minutes] = (dateAndTime || "").split(/[-T:.]+/).map((values) => parseInt(values));
-   // console.log("check the code ==>", (dateAndTime || "").split(/[-T:.]+/).map((values) => parseInt(values)))
-    let dateNumber = new Date(year, month , matchData, hour, minutes).getTime();
-   // console.log("current ----> ", dateNumber)
-  //  const [hour, minutes] = (time || "").split(":").map((values) => parseInt(values));
 
-    //const [year, month, matchData] = (date || "").split("-").map((values) => parseInt(values));
-   
-    //let dateNumber = new Date(year, month - 1, matchData, hour, minutes).getTime();
-    
+  const getIdPass = ( )=> {
+   const REDUCE_TIME = 15 * 60 * 1000;
+    const currentTime = new Date().getTime();
+    const [hour, minutes] = (time || "").split(":").map((values) => parseInt(values));
+  const [year, month, matchData] = (date || "").split("-").map((values) => parseInt(values));
+   let dateNumber = new Date(year, month - 1, matchData, hour, minutes).getTime();
     const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
-   // console.log("check reducedTime==>",reducedTime)
-   // console.log("check reducedTime==>",reducedTime)
     if (currentTime >= reducedTime) {
-     console.log( "match")
-      // return { roomId:"i2334", password:'22344'}
+    
+       return { roomId:"i2334", password:'22344'}
     } else {
-      console.log( "not match")
-      // return { roomId: "*******", password: "********" }
+     
+       return { roomId: "*******", password: "********" }
     }
 
   };
@@ -372,7 +336,7 @@ console.log(result);
                         <div className={styles.inner_squad_match}>
                           <span className={styles.register_match}>{matchDetails?.gameName}</span>
                           <span className={styles.winning_prize}>
-                            Time: {matchDetails?.dateAndTime} 
+                            Time: {matchDetails?.dateAndTime.toString()} 
                             
                           </span>
                           <div className={styles.winnings}>
