@@ -2,16 +2,44 @@
 @import './variable.scss';
 
 .main_container {
-  width: 100vw;
+  width: 96vw;
   display: flex;
   background-color: $darkblue;
   min-height: 100vh;
   color:$bs-white;
+  transition:600ms linear;
+  @media (max-width: $breakpoint-ms) {
+    width: 100vw;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    width: 100vw;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    width: 100vw;
+  }
+
+  @media (max-width:$breakpoint-tab) {
+    width: 100vw;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    width: 100vw;
+  }
+}
+.content__container {
+  margin: 0 10px 0 10px;
 }
 .container {
   position: absolute;
 }
-
+.caret_down_style {
+  svg {
+    vertical-align: middle;
+    padding-left: 5px;;
+  }
+}
 .squad_match {
   display: flex;
   flex-direction: column;
@@ -288,13 +316,17 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
+  width: 50%;
+  object-fit: contain;
 
   @media (max-width: $breakpoint-xSmall) {
     padding: 1px !important;
+    width: 95%;
   }
 
   @media (max-width: $breakpoint-xs) {
     padding: 1px !important;
+    width: 95%;
   }
 }
 
@@ -475,7 +507,7 @@ img.slides_image {
 }
 
 .subhead_desc {
-  font-size: 14px;
+  font-size: 10px;
   font-weight: 400;
   font-family: $bs-body-font-family;
 }
@@ -838,7 +870,7 @@ img.slides_image {
 
 .winnings_sec_slider {
   display: flex;
-  width: 500px;
+  width: 530px;
 
   @media (max-width: $breakpoint-md) {
     width: 380px;

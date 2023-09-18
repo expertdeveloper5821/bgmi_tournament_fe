@@ -37,18 +37,13 @@ export function Navbar(props: INavbar) {
     }
   };
 
+  const userData = JSON.parse(localStorage.getItem('userData'));
   const getAlldata = async () => {
-    const token = localStorage.getItem('jwtToken');
-   
-    const Response = await sendRequest('user/getuser', {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` },
-    });
 
-    setUseData(Response.data.data.email);
-    setNamData(Response.data.data.userName);
-    setUserName(Response.data.data.fullName);
-    setPofile(Response.data.data.profilePic);
+    setUseData(userData.email);
+    setNamData(userData.fullName);
+    setUserName(userData.fullName);
+    setPofile(userData.profilePic);
 
   };
 
@@ -58,11 +53,12 @@ export function Navbar(props: INavbar) {
 
   return (
     <header>
-      <div className={styles.maincontainer}>
         <nav className={styles.container}>
-          <div className={styles.navbarbrand}></div>
+          <div className={styles.navbarbrand}>
+            <h1 className={styles.page_title}>Welcome <span className={styles.fullname_title}>{userData.fullName}</span></h1>
+          </div>
           <ul className={styles.navbarnav}>
-            <li className={styles.navitem}>
+            {/* <li className={styles.navitem}>
               <Popover
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
@@ -121,16 +117,16 @@ export function Navbar(props: INavbar) {
                 width="300px"
                 height="350px"
               >
-                {/* <Image
+                <Image
                   className={styles.notification}
                   src="../assests/notification.svg"
                   alt="notification"
                   onClick={() => setIsOpen(true)}
                   width={20}
                   height={20}
-                /> */}
+                />
               </Popover>
-            </li>
+            </li> */}
             <li className={styles.navitem}>
               <Popover
               className={styles.popover_show}
@@ -205,14 +201,13 @@ export function Navbar(props: INavbar) {
               
               </Popover>
             </li>
-            <li className={styles.navitem}>
+            {/* <li className={styles.navitem}>
               <div className={styles.username_details}>
                 <h1 className={styles.user_name_title}>{namData}</h1>
               </div>
-            </li>
+            </li> */}
           </ul>
         </nav>
-      </div>
     </header>
   );
 }

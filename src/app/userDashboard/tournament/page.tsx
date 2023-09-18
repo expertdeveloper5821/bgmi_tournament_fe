@@ -6,7 +6,6 @@ import withAuth from '@/Components/HOC/WithAuthHoc';
 import { Navbar } from '../../../Components/Navbar/Navbar';
 //@ts-ignore
 import { Button } from 'technogetic-iron-smart-ui';
-import { decodeJWt } from '@/utils/globalfunctions';
 import Image from 'next/image';
 import { sendRequest } from '@/services/auth/auth_All_Api';
 import {
@@ -18,8 +17,8 @@ import {
 import CountdownComponent from './CountdownComponent';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { number } from 'yup';
 import { formatDate, formatTime } from '../../../Components/CommonComponent/moment';
+import { configData } from '@/utils/config';
 
 export interface tournament {
   gameName: string;
@@ -31,13 +30,15 @@ export interface tournament {
   lastSurvival: string;
   roomUuid: string;
   mapImg: string;
+  entryFee?: string;
+  highestKill: string;
+  secondWin: string;
+  thirdWin: string;
 }
 
 function Tournament() {
   const [poolModal, setPoolModal] = useState(false);
-  const [alldata, setData] = useState<any>([]);
-  const [lastTournament, setLastTournament] = useState<tournament>();
-  const [allTournaments, setAllTournaments] = useState<[]>([]);
+  const [allRoomsData, setAllRoomsData] = useState<any>([]);
   const [regMatches, setRegMatches] = useState<any>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
@@ -45,129 +46,95 @@ function Tournament() {
     gameName:"", mapType:"", gameType:"", version:"", roomUuid:"",  dateAndTime:new Date(), lastSurvival:"" , roomId:"", mapImg:""
   }
   const [matchDetails , setMatchDetails] = useState<tournament>(initialValues)
-
-
   const router = useRouter();
   const regMatchRedirect = (matchID: string) => {
 
     router.push(`/userDashboard/registerMatches?id=${matchID}`);
   };
+
   const getAllTournaments = async () => {
-    const token: any = localStorage.getItem('jwtToken');
-    const roomids = localStorage.getItem('roomIds');
-    const decodedToken: any = decodeJWt(token);
-    const tournamentResponse = await sendRequest('room/rooms', {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    const filteredDataArray = tournamentResponse.data.filter(
-      (item: { roomUuid: string; roomid: string }) =>
-        !roomids?.includes(item.roomUuid),
-    );
-
-    setData(filteredDataArray);
+    try {
+      const res = await sendRequest('room/rooms', {
+        method: 'GET',
+      });
+      console.log("res", res)
+      if(res.status === 200 || res.status === 201){
+        if(res.data.length > 0) {
+          const lastTournament = res.data[res.data.length - 1]
+          const formatDateTime =` ${formatDate({ date: lastTournament?.dateAndTime})} and ${formatTime({time: lastTournament?.dateAndTime, format : 'LT'})}`
+          setAllRoomsData(res.data);
+          setMatchDetails({...res.data[0], dateAndTime: formatDateTime})
+        }
+      } else {
+        throw Error()
+      }
+  
+    } catch(err) {
+      console.error("Error in Get All Tournaments => ", err)
+      toast.error('Something went wrong, please try again later!', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+      });
+    }
+   
   };
- 
 
   const getRegisteredMatches = async () => {
-    const token: any = localStorage.getItem('jwtToken');
-    const decodedToken: any = decodeJWt(token);
-    const registeredMatches = await sendRequest('team/register-room ', {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setRegMatches(registeredMatches.data.rooms);
+    try {
+      const registeredMatchesRes = await sendRequest('team/register-room ', {
+        method: 'GET',
+      });
+      if(registeredMatchesRes.status === 200 || registeredMatchesRes.status === 201) {
+        setRegMatches(registeredMatchesRes.data.rooms);
+      } else {
+        throw Error()
+      }
+    } catch(err) {
+      console.error("Error in Get All Registered Tournaments => ", err)
+      toast.error('Something went wrong, please try again later!', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+      });
+    }
+  
 
   };
-  
 
   useEffect(() => {
     getAllTournaments();
     getRegisteredMatches();
   }, []);
 
-  useEffect(() => {
-    setLastTournament(alldata[alldata.length - 1]);
-    setAllTournaments(alldata?.slice(0, 50));
-    getRegisteredMatches();
-  }, [alldata]);
-
-
-  useEffect(() => {
-    const format =` ${formatDate({ date: lastTournament?.dateAndTime})} and ${formatTime({time: lastTournament?.dateAndTime, format : 'LT'})}`
-   
-    if (lastTournament) {
-      setMatchDetails({
-        ...matchDetails,
-        gameName: lastTournament?.gameName,
-        gameType: lastTournament?.gameType,
-        mapType: lastTournament?.mapType,
-        version: lastTournament?.version,
-        roomId: lastTournament?.roomId,
-        dateAndTime: format,
-        lastSurvival: lastTournament?.lastSurvival,
-        mapImg: lastTournament?.mapImg
-      });
-    }
-    console.log("lastTourbament", lastTournament)
-  }, [lastTournament]);
-
-  const updateMainData = (
-    gname: string,
-    gType: string,
-    mType: string,
-    vType: string,
-    dateandTime: Date,
-    roomUid: string,
-    lastSurvival: string,
-    roomid: string,
-    mapImg: string,
+  const updateMainData = (match: tournament
   ) => {
-    const updatedformattedDandt = ` ${formatDate({ date: dateandTime })} and ${formatTime({ time: dateandTime  , format : 'LT' })}`;
+    const updatedformattedDandt = ` ${formatDate({ date: match.dateAndTime })} and ${formatTime({ time: match.dateAndTime  , format : 'LT' })}`;
     setMatchDetails({
-      gameName:gname,
-      mapType: mType,
-      gameType:gType,
-      version:vType, 
-      dateAndTime:updatedformattedDandt, 
-      lastSurvival:lastSurvival, 
-      roomId:roomid, 
-      roomUuid:roomUid, 
-      mapImg:mapImg 
+      ...match,
+      dateAndTime: updatedformattedDandt
     })
   };
 
-  const addRegMatch = async (roomId: any) => {
+  const addRegMatch = async (match: tournament) => {
+    console.log("tournament", match)
     setIsLoading(true);
     try {
-      const token: any = localStorage.getItem('jwtToken');
-      const decodedToken: any = decodeJWt(token);
-      const userId = decodedToken.userId;
-
-      var addRoom = localStorage.getItem('roomIds');
-
-      var obj = [];
-      if (addRoom) {
-        obj = JSON.parse(addRoom);
-      }
-      obj.push(roomId);
-    
- localStorage.setItem('roomIds', JSON.stringify(obj));
+      const userData: any = JSON.parse(localStorage.getItem('userData'));
       const response = await sendRequest('payment/create-payment', {
         method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
         data: {
           upiId: 'success@payment',
           matchAmount: 60,
-          name: 'robin',
-          id: '7d5f9741-264c-4a59-8ec9-67985f235d19',
-          roomid: roomId,
+          name: userData.fullName,
+          id: configData.paymentID,
+          roomid: match.roomUuid,
         },
       });
       
       if (response.status === 200) {
         getAllTournaments();
+        getRegisteredMatches()
         toast.success('Contest Joined Successfully', {
           position: 'top-right',
           autoClose: 2000,
@@ -175,12 +142,7 @@ function Tournament() {
         });
         setIsLoading(false)
       } else {
-        setIsLoading(false)
-        toast.error('Already registered', {
-          position: 'top-right',
-          autoClose: 2000,
-          hideProgressBar: false,
-        });
+        throw Error()
       }
     } catch (error: any) {
         setIsLoading(false)
@@ -189,7 +151,6 @@ function Tournament() {
         autoClose: 2000,
         hideProgressBar: false,
       });
-      console.log('Failed to sign up. Please try again.');
     }
   };
   
@@ -260,17 +221,17 @@ function Tournament() {
   return (
     <>
       <RequireAuthentication>
-        <div className={styles.main_container}>
+        <div className={styles.main_container} id="mainLayoutContainerInner">
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
               <Navbar setUserName={setUserName} />
               <div className={styles.content}>
                 <div className={styles.dashboard}>
-                  <h1 className={styles.page_title}>Welcome <span className={styles.fullname_title}>{userName}</span></h1>
+                  {/* <h1 className={styles.page_title}>Welcome <span className={styles.fullname_title}>{userName}</span></h1> */}
                   <span className={styles.head_desc}>Upcoming Matches</span>
-                  <h1 className={styles.subhead_desc}>
-                    Dashboard/Upcoming Matches
-                  </h1>
+                  <small className={styles.subhead_desc}>
+                    Dashboard / Upcoming Matches
+                  </small>
                 </div>
               </div>
               <div className={styles.room_wrapper}>
@@ -278,7 +239,7 @@ function Tournament() {
                   <div className={styles.registeredmatches}>
                     <div className={styles.imgSection}>  
                       <Image
-                        src="../assests/userdashboardbg.svg"
+                        src={matchDetails.mapImg || "../assests/userdashboardbg.svg"}
                         alt="userdashboardbg"
                         className={styles.wrapperimg}
                         width={200}
@@ -288,7 +249,7 @@ function Tournament() {
                   </div> 
                 
                   
-                  {alldata && alldata.length === 0 ? ( 
+                  {allRoomsData && allRoomsData.length === 0 ? ( 
                     <div className={styles.register_match_room}>
                       There is no room created till now
                     </div>
@@ -298,33 +259,34 @@ function Tournament() {
                         <div className={styles.inner_squad_match}>
                           <span className={styles.register_match_gamename}>{matchDetails?.gameName}</span>
                           <span className={styles.winning_prize}>
-                            Time: {matchDetails?.dateAndTime.toString()} 
+                            Date & Time: {matchDetails?.dateAndTime.toString()} 
                             
                           </span>
                           <div className={styles.winnings}>
                             <div>
-                              <span className={styles.winning_prize}>
-                                WINNING PRIZE
-                                <span>
+                              <strong className={styles.winning_prize}>
+                                Winning Prize
+                                <span className={styles.caret_down_style}>
                                   <AiOutlineDown
                                     onClick={() => setPoolModal(true)}
+                                    style={{verticleAllign: "middle"}}
                                   />
                                 </span>
-                              </span>
+                              </strong>
                               {poolModal ? (
                                 <div className={styles.main_winning_pool}>
                                   <div className={styles.inner_winning_pool}>
                                     <div className={styles.text_pool_cls}>
                                       <h1 className={styles.pool_heading}>
-                                        WINNING PRIZE POOL
+                                        Winning Prize Pool
                                       </h1>
                                       <p className={styles.pool_para}>
-                                        BGMI Squad match
+                                        {matchDetails.gameName}
                                       </p>
                                     </div>
                                     <div className={styles.pool_cancel_p}>
                                       <p className={styles.pool_text_p}>
-                                        Last Survival: 200
+                                        Last Survival: {matchDetails.lastSurvival}
                                         <span className={styles.rs_pool_logo}>
                                           <Image
                                             src="../assests/rupee-icon.svg"
@@ -336,7 +298,7 @@ function Tournament() {
 
                                       </p>
                                       <p className={styles.pool_text_p}>
-                                        Highest kill: 200
+                                        Highest kill: {matchDetails.highestKill}
                                         <span className={styles.rs_pool_logo}>
                                           <Image
                                             src="../assests/rupee-icon.svg"
@@ -347,7 +309,7 @@ function Tournament() {
                                         </span>
                                       </p>
                                       <p className={styles.pool_text_p}>
-                                        2nd Winner: 100
+                                        2nd Winner: {matchDetails.secondWin}
                                         <span className={styles.rs_pool_logo}>
                                           <Image
                                             src="../assests/rupee-icon.svg"
@@ -358,7 +320,7 @@ function Tournament() {
                                         </span>
                                       </p>
                                       <p className={styles.pool_text_p}>
-                                        3nd Winner: 60
+                                        3nd Winner: {matchDetails.thirdWin}
                                         <span className={styles.rs_pool_logo}>
                                           <Image
                                             src="../assests/rupee-icon.svg"
@@ -397,19 +359,19 @@ function Tournament() {
                             </div>
                             <div>
                               <span className={styles.winning_prize}>
-                                Entry FEES
+                                Entry Fees
                               </span>
                               <span className={styles.survival_content}>
 
-                                {/* <span className="rs_logo">
+                                <span className="rs_logo">
                                   <Image
                                     src="../assests/rupee-icon.svg"
                                     alt="rupeeIcon"
                                     width={12}
                                     height={12}
                                   />
-                                </span> */}
-                                Free
+                                </span>
+                                {matchDetails?.entryFee}
                               </span>
                             </div>
                           </div>
@@ -461,7 +423,7 @@ function Tournament() {
                             <Button
                               disabled={isLoading}
                               className={styles.join_button}
-                              onClick={() => addRegMatch(matchDetails?.roomId)}
+                              onClick={() => addRegMatch(matchDetails)}
                             >
                               {isLoading ? 'Loading...' : 'Join'}
                             </Button>
@@ -470,28 +432,18 @@ function Tournament() {
                         <div className={styles.winnings_sec_slider}>
 
                           <div className={styles.game_imgsection}>
-                            {allTournaments &&
-                              allTournaments.map((e: any, index: number) => (
+                            {allRoomsData &&
+                              allRoomsData.map((match: tournament, index: number) => (
                                     
                                 <Image
                                   key={index}
                                   width={100}
                                   height={100}
                                   className={styles.img_slider_one}
-                                  src="../assests/cards.svg"
+                                  src={match.mapImg || "../assests/cards.svg"}
                                   alt="slides"
                                   onClick={() =>
-                                    updateMainData(
-                                      e.gameName,
-                                      e.gameType,
-                                      e.mapType,
-                                      e.version,
-                                      new Date(e.dateAndTime), 
-                                      e.lastSurvival,
-                                      e.roomid,
-                                      e.roomUuid,
-                                      e.mapImg,
-                                    )
+                                    updateMainData(match)
                                  }
                                 />
                               ))}
@@ -506,7 +458,7 @@ function Tournament() {
               </div>
               <span className={styles.register_match_title}>Registered Matches</span>
               {!regMatches.length ? (
-                <div className={styles.register_match} style={{marginLeft: '10px'}}>
+                <div className={styles.register_match}>
                   There is no Registered Match till now
                 </div>
               ) : (
@@ -534,7 +486,7 @@ function Tournament() {
                                 <div className={styles.container3} key={index} >
 
                                   <Image
-                                    src="../assests/registeredmatches.svg"
+                                    src={match.mapImg || "../assests/registeredmatches.svg"}
                                     alt={`${styles.slide}`}
                                     className={styles.container3_img}
                                     width={100}
