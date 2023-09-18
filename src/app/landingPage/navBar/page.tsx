@@ -4,8 +4,8 @@ import styles from '../../../styles/landingpage.module.scss';
 import Link from 'next/link';
 import useWindowSize from '@/hooks/useWindowSize';
 const page = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolling, setScrolling] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [scrolling, setScrolling] = useState<boolean>(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
