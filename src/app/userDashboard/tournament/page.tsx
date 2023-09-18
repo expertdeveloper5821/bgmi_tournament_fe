@@ -39,7 +39,6 @@ function Tournament() {
   const [lastTournament, setLastTournament] = useState<tournament>();
   const [allTournaments, setAllTournaments] = useState<[]>([]);
   const [regMatches, setRegMatches] = useState<any>('');
-  const [matchIndex, setMatchIndex] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
     const initialValues:tournament = {
@@ -92,7 +91,6 @@ function Tournament() {
     setLastTournament(alldata[alldata.length - 1]);
     setAllTournaments(alldata?.slice(0, 50));
     getRegisteredMatches();
-   // getRoomidPwd();
   }, [alldata]);
 
 
@@ -163,7 +161,6 @@ function Tournament() {
       
       if (response.status === 200) {
         getAllTournaments();
-        //getRegisteredMatches();
         toast.success('Contest Joined Successfully', {
           position: 'top-right',
           autoClose: 2000,
