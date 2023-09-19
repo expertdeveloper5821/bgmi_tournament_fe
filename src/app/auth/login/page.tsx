@@ -101,6 +101,7 @@ function Login(): React.JSX.Element {
           };
           updateUserInfo(userDetails);
           localStorage.setItem('jwtToken', response?.data?.userData?.token);
+          localStorage.setItem('userData', JSON.stringify(response?.data?.userData));
 
           handleRedirect(response?.data?.userData?.token);
         } else {

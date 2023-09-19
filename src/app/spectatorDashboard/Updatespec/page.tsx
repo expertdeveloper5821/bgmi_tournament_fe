@@ -1,6 +1,6 @@
 'use client';
-import React, { ChangeEvent, useState } from 'react';
-import sendRequest from '../../../services/api/apiServices';
+import React, {ChangeEvent, useState} from 'react';
+import { sendRequest } from '@/services/auth/auth_All_Api';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import { AiOutlineDelete } from 'react-icons/ai';

@@ -29,18 +29,9 @@ interface FormValues {
 
 
 const regMatches = () => {
-
   const [values, setValues] = useState<string[]>([]);
-
-  const handleValueChange = (newValues: string[]) => {
-    setValues(newValues);
-  };
-
   const [tags, setTags] = useState([]);
-  const handleTagsChange = (newTags: any) => {
-    setTags(newTags);
 
-  };
   const searchParams = useSearchParams();
   const matchID = searchParams.get('id');
   const [matchData, setMatchData] = useState<RegMatch>();
@@ -223,52 +214,18 @@ const regMatches = () => {
           <div>
 
           </div>
+          {/* use this code for your team member  */}
+
           {/* <div className={styles.Teammembers}>Your Team Members</div>
 
- 
+
 
           <div className={styles.container2}>
 
-              <div className={styles.inner_cont}> */}
+            <div className={styles.inner_cont}> */}
 
           {/* <div key={index} className={`${styles.slide}`}> */}
 
-          {/* <div className={styles.reviewsContainer}>
-
-                  <div className={styles.reviewCard}>
-
-                    <div className={styles.reviews}>
-
-                      <img
-
-                        src="/assests/reviewman.svg"
-
-                        alt="image"
-
-                        className={styles.profile}
-
-                      />
-
-                      <div className={styles.reviewer}>
-
-                        <div className={styles.name}>
-
-                          <h2>JOhn doe</h2>
-
-                          <div className={styles.greenCircle}></div>
-
-                        </div>
-
-                        <p></p>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div> */}
-
 
 
           {/* <div className={styles.reviewsContainer}>
@@ -291,7 +248,7 @@ const regMatches = () => {
 
                       <div className={styles.name}>
 
-                        <h2>JOhn doe</h2>
+                        <h2>John doe</h2>
 
                         <div className={styles.greenCircle}></div>
 
@@ -302,12 +259,13 @@ const regMatches = () => {
                     </div>
 
                   </div>
-
+                  <div  className={styles.review_close}>
+                  x
+                  </div>
                 </div>
-
-              </div> */}
-
-          {/* <div className={styles.reviewsContainer}>
+                
+              </div>
+              <div className={styles.reviewsContainer}>
 
                 <div className={styles.reviewCard}>
 
@@ -327,7 +285,7 @@ const regMatches = () => {
 
                       <div className={styles.name}>
 
-                        <h2>JOhn doe</h2>
+                        <h2>John doe</h2>
 
                         <div className={styles.greenCircle}></div>
 
@@ -338,10 +296,50 @@ const regMatches = () => {
                     </div>
 
                   </div>
+                  <div  className={styles.review_close}>
+                  x
+                  </div>
+                </div>
+                
+              </div>
+              <div className={styles.reviewsContainer}>
 
-                </div> 
+                <div className={styles.reviewCard}>
 
-          </div> */}
+                  <div className={styles.reviews}>
+
+                    <img
+
+                      src="/assests/reviewman.svg"
+
+                      alt="image"
+
+                      className={styles.profile}
+
+                    />
+
+                    <div className={styles.reviewer}>
+
+                      <div className={styles.name}>
+
+                        <h2>John doe</h2>
+
+                        <div className={styles.greenCircle}></div>
+
+                      </div>
+
+                      <p>akshay@gmail.com</p>
+
+                    </div>
+
+                  </div>
+                  <div  className={styles.review_close}>
+                  x
+                  </div>
+                 
+                </div>
+                
+              </div> */}
 
           {/* </Slider>
 
@@ -349,7 +347,7 @@ const regMatches = () => {
 
           {/* </div>
 
-            </div>*/}
+          </div> */}
 
         </div>
       </div>

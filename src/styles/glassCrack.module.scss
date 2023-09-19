@@ -9,7 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 10;
 }
 
 .glass {
@@ -19,7 +19,7 @@
   border-radius: 50%;
   position: relative;
   cursor: pointer;
-  z-index: 2;
+  z-index: 10;
 }
 
 .crack {
@@ -30,7 +30,7 @@
   width: 100px; /* Adjust the width and height to match the glass size */
   height: 100px;
   transform: translate(-50%, -50%); /* Center the crack element */
-  z-index: 1; /* Lower z-index than the glass elements */
+  z-index: 10; /* Lower z-index than the glass elements */
 }
 
 @keyframes crackAnimation {

@@ -15,6 +15,28 @@
   }
 }
 
+.navbarbrand {
+  .page_title {
+    font-size: 28px;
+    font-weight: 800;
+    padding: 13px 0px;
+    @media (max-width: $breakpoint-xSmall) {
+      padding-left: 1rem;
+      font-size: 19px;
+    }
+  }
+  
+  .fullname_title {
+    color: #ff7a00;
+    font-size: 27px;
+    font-weight: 700;
+    @media (max-width: $breakpoint-xSmall) {
+      padding-left: 1rem;
+      font-size: 19px;
+    }
+  }
+}
+
 .navbarnav {
   list-style: none;
   display: flex;
@@ -208,27 +230,27 @@ h1 .user_name_heading {
   cursor: pointer;
 }
 .navprofile{
-background: #898989;
-padding: 8px 12px;
-border-radius: 27px;
-cursor: pointer;
+  background: #898989;
+  padding: 8px 12px;
+  border-radius: 27px;
+  cursor: pointer;
 }
 
 .dropdownprofileimage{
   background: #898989;
-border-radius: 24px;
-    width: 36px;
-    height: 36px;
-    text-align: center;
-    padding-top: 8px;}
+  border-radius: 24px;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  padding-top: 8px;}
 
-    .popover{
-height: 126px;
+  .popover{
+    height: 126px;
+  }
+  .popover_show{
+    div:nth-child(2) {
+      height: 15px !important;
+      background: none !important;
+      left: -50px;  
     }
-
-    .popover_show{
-      div:nth-child(2) {
-        height: 15px !important;
-        background: none !important;
-      }
-    }
+  }

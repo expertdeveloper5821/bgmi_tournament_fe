@@ -8,8 +8,7 @@ const GlassCrack: React.FC = () => {
   const handleDocumentClick = (e: MouseEvent) => {
     // First, play the sound
     playBulletFireSound();
-
-    e.stopImmediatePropagation();
+    e.preventDefault();
     const { clientX, clientY } = e;
     const crackDiv = document.createElement('div');
     crackDiv.className = `${styles.crack}`;
