@@ -6,7 +6,8 @@ import Image from 'next/image';
 import { sendRequest } from '@/services/auth/auth_All_Api';
 import { useSearchParams } from 'next/navigation';
 import { formatDate, formatTime } from '@/Components/CommonComponent/moment';
-import getIdPass from '../tournament/CountdownComponent';
+import { toast } from 'react-toastify';
+
 
 
 export interface RegMatch {
@@ -43,7 +44,7 @@ const regMatches = () => {
         getIdPass(matchData?.dateAndTime, matchData?.roomUuid);
       }
     } catch (err) {
-
+      toast.error("not show data ")
     }
   };
 
@@ -96,7 +97,7 @@ const regMatches = () => {
                 </div>
               </div>
               <div className={styles.squad_match}>
-                <span className={styles.register_match}>
+                <span className={styles.register_match_gamename}>
                   {matchData?.gameName}
                 </span>
                 <span className={styles.winning_prize}>
