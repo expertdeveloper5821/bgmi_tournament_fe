@@ -52,17 +52,15 @@ export default function Modal() {
       });
 
       setSpectatorData(filteredData);
-      // console.log('sortedData____________>', allUsersData);
       setIsLoading(false);
     } catch (error) {
-      // console.error('Error fetching spectator data:', error);
+
       setIsLoading(false);
     }
   };
 
 
   const deleteroomId = async (userUuid: any) => {
-    // console.log("id__________", userUuid)
     try {
       const tokens = localStorage.getItem('jwtToken');
       console.log(tokens)
@@ -70,7 +68,6 @@ export default function Modal() {
         method: 'delete',
         headers: { 'Authorization': `Bearer ${tokens}` }
       });
-      //const updatedData = spectatorData.filter(data => data. !== _id);
       getAllUsers();
       if (response) {
         const success = response.data.message;
@@ -107,15 +104,12 @@ export default function Modal() {
         data: formData
       });
       getAllUsers();
-      //console.log("responseupdate____________________", response)
-      // alert(JSON.stringify(response))
       setSetSpectatorId(null);
     } catch (error) {
       console.error('Error deleting room', error);
     }
 
   }
-  // console.log("updateSpectatorByid______________________", updateSpectatorByid)
 
 
 
@@ -145,14 +139,7 @@ export default function Modal() {
 
   const [formData, setFormData] = useState<FormCreate>(initialFormData);
 
-  // useEffect(() => {
-  //   if (getSpectatorId) {
-  //     const spectatorToUpdate = spectatorData.find(spectator => spectator.userUuid === getSpectatorId);
-  //     if (spectatorToUpdate) {
-  //       setFormData(spectatorToUpdate);
-  //     }
-  //   }
-  // }, [getSpectatorId]);
+
   useEffect(() => {
     if (getSpectatorId) {
       setFormData(initialFormData)
@@ -198,12 +185,11 @@ export default function Modal() {
       userName: '',
       email: '',
       password: '',
-      role: '64d7239c8a677a5d2e21b00d'
+      role: '64d7239c8a677a5d2e21b00d',
     });
 
     const token: any = localStorage.getItem('jwtToken');
     setFormData({ ...initialFormData, role: '64d5d42ee428f9561c3a125f' });
-
 
     try {
       const response = await sendRequest("/role/spectator/Register", {
@@ -222,11 +208,11 @@ export default function Modal() {
     console.log('Form data submitted:', formData);
     setModal(false)
     setSetSpectatorId(null)
-    // toggleModal(''); // Close the modal after submission
-    // getAllUsers()
   };
   console.log(getSpectatorId)
+
   return (
+
     <>
       <div className={styles.main_container}>
         <div className={styles.abcd}>
@@ -271,7 +257,6 @@ export default function Modal() {
                     placeholder="Enter Fullname"
                     className={styles.email_wrapper}
                     value={formData.fullName}
-                    //  (e:any)=>{{ e?.target.fullname}}
                     onChange={handleChange}
                   />
                   {formErrors.fullName && <div className={styles.error}>{formErrors.fullName}</div>}
