@@ -10,6 +10,9 @@ export async function sendRequest(path: string, opts: any = {}) {
     ...opts.headers,
     'Content-Type': 'application/json; charset=UTF-8',
   };
+  if(opts.headers && opts.headers['Content-Type']) {
+    headers['Content-Type']= opts.headers['Content-Type']
+  }
   const token: string | null = localStorage.getItem('jwtToken');
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;

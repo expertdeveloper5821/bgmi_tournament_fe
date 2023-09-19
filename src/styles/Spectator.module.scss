@@ -2,10 +2,31 @@
 @import './variable.scss';
 
 .main_container {
-  width: 100vw;
+  width: 96vw;
   display: flex;
-  background-color: rgba(0, 53, 84, 1);
-  height: 100vh;
+  background-color: $darkblue;
+  min-height: 100vh;
+  color:$bs-white;
+  transition:600ms linear;
+  @media (max-width: $breakpoint-ms) {
+    width: 100vw;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    width: 100vw;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    width: 100vw;
+  }
+
+  @media (max-width:$breakpoint-tab) {
+    width: 100vw;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    width: 100vw;
+  }
 }
 .inner_main_container {
   width: 100%;

@@ -18,9 +18,9 @@ export function Navbar(props: INavbar) {
   const [error, setError] = useState<string>('');
   const [userData, setUserData] = useState<string>('');
   const [nameData, setNameData] = useState<string>('');
+  const [initialsName, setInitialsName] = useState<string>('');
   const [pofile, setPofile] = useState<string>('');
 
-  const { setUserName = () => { } } = props;
 
   function handleClosePopover() {
     setIsOpen(false);
@@ -42,7 +42,15 @@ export function Navbar(props: INavbar) {
 
     setUserData(userData.email);
     setNameData(userData.fullName);
-    setUserName(userData.fullName);
+    let initials = ''
+    userData?.fullName?.split(" ")?.forEach(initial => {
+      if(initials.length > 0) {
+        initials = `${initials} ${initial.charAt(0)}`
+      } else {
+        initials = initial.charAt(0)
+      }
+    })
+    setInitialsName(initials)
     setPofile(userData.profilePic);
 
   };
@@ -50,7 +58,6 @@ export function Navbar(props: INavbar) {
   useEffect(() => {
     getAlldata();
   }, []);
-
   return (
     <header>
         <nav className={styles.container}>
@@ -135,7 +142,7 @@ export function Navbar(props: INavbar) {
                 content={
                   <div className={styles.myprofilesection}>
                     <div className={styles.userdetails}>
-                      <p className={styles.dropdownprofileimage}>{nameData.charAt(0).toUpperCase()}</p>
+                      <p className={styles.dropdownprofileimage}>{initialsName}</p>
                       <div className={styles.username_details}>
                         <h1 className={styles.user_name_heading}>{nameData}</h1>
                         <span className={styles.gmail}>{userData}</span>
@@ -196,7 +203,7 @@ export function Navbar(props: INavbar) {
                 placement="bottom"
                 width="224px"
               >
-                {pofile  ?   <Avatar src={pofile}  onClick={() => setIsPopOpen(!isPopOpen)}/> :   <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>{nameData.charAt(0).toUpperCase()}</p>}
+                {pofile  ?   <Avatar src={pofile}  onClick={() => setIsPopOpen(!isPopOpen)}/> :   <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>{initialsName}</p>}
               
               
               </Popover>

@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 
 const Updatespec = ({ roomData, getAllSpectator }: any) => {
   const [error, setError] = useState<string>('');
-  const [deletModal, setDeleteModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
   const [updateFormData, setUpdateFormData] = useState<RoomData>(roomData);
 
   const updateRoom = async (e: any) => {
@@ -52,7 +52,7 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
       if (updateResponse) {
         getAllSpectator();
         toast.success(updateResponse.data.message);
-        setDeleteModal(false);
+        setEditModal(false);
       }
     } catch (error: any) {
       setError(error.message);
@@ -63,10 +63,10 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
   return (
     <>
       <div>
-        <p onClick={() => setDeleteModal(true)}>
+        <p onClick={() => setEditModal(true)}>
           <Image src="/assests/update.svg" alt="" width={10} height={10} />
         </p>
-        {deletModal ? (
+        {editModal ? (
           <div className={styles.main_pop_cls}>
             <div className={styles.check_model}>
               <form className={styles.form_spectator_cls} onSubmit={updateRoom}>
@@ -283,7 +283,7 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
               <div className={styles.btn_form_wrapper}>
                 <Button
                   className={styles.cancel_btn}
-                  onClick={() => setDeleteModal(false)}
+                  onClick={() => setEditModal(false)}
                 >
                   Cancel
                 </Button>
