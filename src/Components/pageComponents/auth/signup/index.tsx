@@ -5,13 +5,12 @@ import Link from 'next/link';
 import { useFormik, FormikHelpers } from 'formik';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
-
 import { SignupSchema } from '@/utils/schema';
-import { SignupFormValuesType } from '../authInterfaces';
+import { FormDefaultPropsType, SignupFormValuesType } from '../authInterfaces';
 import { signUpService } from '@/services/authServices';
 import styles from '@/styles/auth.module.scss';
 
-const SignupForm = () => {
+const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -20,10 +19,8 @@ const SignupForm = () => {
 
   const initialValues: SignupFormValuesType = {
     fullName: '',
-    userName: '',
     email: '',
     password: '',
-    upiId: '',
   };
 
   const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
@@ -34,23 +31,25 @@ const SignupForm = () => {
         values: SignupFormValuesType,
         { setSubmitting }: FormikHelpers<SignupFormValuesType>,
       ) => {
+        console.log('In SUbmit');
         setIsLoading(true);
-        const { fullName, userName, email, password, upiId } = values;
+        const { fullName, email, password } = values;
         if (rememberMe) {
           const expirationDate = new Date();
           expirationDate.setDate(expirationDate.getDate() + 30);
         }
 
         try {
-          const response = await signUpService({ fullName, userName, email, password, upiId });
+          // const response = await signUpService({ fullName, email, password });
 
-          if (response.status === 200) {
-            // localStorage.setItem('data', response.userName);
-            router.push(`/auth/login`);
-          } else {
-            setIsLoading(false);
-            setError('Failed to sign up. Please try again.');
-          }
+          // if (response.status === 200) {
+          // localStorage.setItem('data', response.userName);
+          handleStepChange(currentStep + 1);
+          // router.push(`/auth/login`);
+          // } else {
+          //   setIsLoading(false);
+          //   setError('Failed to sign up. Please try again.');
+          // }
         } catch (error: any) {
           setIsLoading(false);
           setError('user with email already exists.');
@@ -81,9 +80,9 @@ const SignupForm = () => {
       setFieldValue('password', storedPassword);
     }
   }, [setFieldValue]);
+  console.log('Error', error);
   return (
-    <form onSubmit={handleSubmit}>
-      {error && <div className={styles.error}>{error}</div>}
+    <form>
       <div className={styles.input_box}>
         <label className={styles.email} htmlFor="Fullname">
           <Image src="/assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
@@ -101,23 +100,7 @@ const SignupForm = () => {
         />
       </div>
       {errors.fullName && touched.fullName && <div className={styles.error}>{errors.fullName}</div>}
-      <div className={styles.input_box}>
-        <label className={styles.email} htmlFor="UserName">
-          <Image src="/assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
-        </label>
-        <Input
-          id="userName"
-          className={styles.email_wrapper}
-          type="text"
-          name="userName"
-          autoComplete="off"
-          placeholder="Player ID / Username"
-          value={values.userName}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-      </div>
-      {errors.userName && touched.userName && <div className={styles.error}>{errors.userName}</div>}
+
       <div className={styles.input_box}>
         <label className={styles.email} htmlFor="email">
           <Image src="/assests/maillogo.svg" alt="mailogo" width={30} height={20} />
@@ -135,6 +118,7 @@ const SignupForm = () => {
         />
       </div>
       {errors.email && touched.email && <div className={styles.error}>{errors.email}</div>}
+
       <div className={styles.input_box}>
         <label className={styles.password} htmlFor="password">
           <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
@@ -153,23 +137,6 @@ const SignupForm = () => {
       </div>
       {errors.password && touched.password && <div className={styles.error}>{errors.password}</div>}
 
-      <div className={styles.input_box}>
-        <label className={styles.email} htmlFor="UserName">
-          <Image src="/assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
-        </label>
-        <Input
-          id="upiId"
-          className={styles.password_wrapper}
-          type="text"
-          name="upiId"
-          autoComplete="off"
-          placeholder="Your UPI-ID"
-          value={values.upiId}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-      </div>
-
       <div className={styles.button_wrapper}>
         <Button
           disabled={isLoading}
@@ -178,19 +145,20 @@ const SignupForm = () => {
           type="submit"
           onClick={handleSubmit}
         >
-          {isLoading ? 'Loading...' : 'Sign up'}
+          {isLoading ? 'Loading...' : 'Next'}
         </Button>
       </div>
 
-      {/* <div className={styles.signin_withgoogle}>
-                                <FcGoogle /> Sign up with Google
-                            </div> */}
+      <Button className={styles.btnStyle}>
+        <Image src="/assests/google.svg" alt="passwordlogo" width={20} height={20} />
+        <span className={styles.googleIcon}>Sign in with Google</span>
+      </Button>
 
       <div className={styles.log_acc_cls}>
         <span className={styles.forgotDesc}>Already have an account ?</span>
         <span className={styles.forgotDescsec}>
           <Link className={styles.link_sign} href="/auth/login">
-            Login
+            Sign up
           </Link>
         </span>
       </div>

@@ -80,14 +80,13 @@
 
 .input_box {
   @include input_box;
-
   border-bottom: 2px solid white;
-
   @media (max-width: $breakpoint-xs) {
     width: 100%;
   }
 }
 .email_wrapper {
+  
   @include email_wrapper;
 }
 .password_wrapper {
@@ -187,6 +186,7 @@
 }
 
 .input_box input {
+
   color: black;
 }
 .password_wrapper {
@@ -220,3 +220,29 @@
   color-scheme: white;
   color: white;
 }
+
+.heading{
+  margin-top: 20px;
+  font-size: 2rem;
+  color: #003556;
+  font-weight: 700;
+ 
+}
+.SubHeading{
+  text-align: center;
+  color: #5C5C5C !important;
+  font-size: 16px;
+ 
+}
+.btnStyle{
+  color: #003556 !important;
+  border: 1px solid !important;
+  width: 330px;
+  margin-top: 10px;
+  background-color: transparent !important;
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
