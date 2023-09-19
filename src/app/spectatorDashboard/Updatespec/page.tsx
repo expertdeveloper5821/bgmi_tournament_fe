@@ -1,5 +1,5 @@
 'use client';
-import React, {ChangeEvent, useState} from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { sendRequest } from '@/services/auth/auth_All_Api';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
@@ -23,6 +23,7 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
   const updateRoom = async (e: any) => {
     e.preventDefault();
     const token = localStorage.getItem('jwtToken');
+
 
     const bodyData = {
       roomId: updateFormData.roomId,

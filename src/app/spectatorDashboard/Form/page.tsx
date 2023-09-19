@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../../../styles/Spectator.module.scss';
 //@ts-ignore
 import { Button, Input, Select } from 'technogetic-iron-smart-ui';
@@ -25,30 +25,50 @@ interface FormCreate {
   mapImg: any | null;
 }
 
-const Form = ({ getAllSpectator }: any) => {
-  const [showModal, setShowModal] = useState(false);
+const Form = ({ getAllSpectator, ...props }: any) => {
+  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate } = props
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [image, setImage] = useState<File | null>(null);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+
+
+  console.log("check form Data", roomIdToUpdate)
+
+
+  const {
+    roomId,
+    gameName,
+    gameType,
+    mapType,
+    password,
+    version,
+    date,
+    time,
+    lastSurvival,
+    thirdWin,
+    highestKill,
+    secondWin,
+    mapImg,
+    entryFee } = roomIdToUpdate || {};
 
 
   const initialValues: FormCreate = {
     roomId: '',
-    gameName: '',
-    gameType: '',
-    mapType: '',
-    password: '',
-    version: '',
-    date: '',
-    time: '',
-    lastSurvival: '',
-    thirdWin: '',
-    highestKill: '',
-    secondWin: '',
-    mapImg: '',
-    entryFee: ''
+    gameName: gameName || '',
+    gameType: gameType || '',
+    mapType: mapType || '',
+    password: password || '',
+    version: version || '',
+    date: date || '',
+    time: time || '',
+    lastSurvival: lastSurvival || '',
+    thirdWin: thirdWin || '',
+    highestKill: highestKill || '',
+    secondWin: secondWin || '',
+    mapImg: mapImg || '',
+    entryFee: entryFee || '',
   };
-
 
   const {
     values,
@@ -71,11 +91,19 @@ const Form = ({ getAllSpectator }: any) => {
       for (const key in values) {
         form.append(key, values[key]);
       }
+
+      useEffect(() => {
+
+        if (roomIdToUpdate) {
+          setIsEditMode(true);
+        }
+      }, [roomIdToUpdate]);
+
       try {
         setIsLoading(true)
         const token = localStorage.getItem('jwtToken');
-        const response = await sendRequest('room/rooms', {
-          method: 'POST',
+        const response = await sendRequest(`room/rooms/${roomIdToUpdate ? roomIdToUpdate._id : ""}`, {
+          method: roomIdToUpdate ? "PUT" : 'POST',
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -99,6 +127,7 @@ const Form = ({ getAllSpectator }: any) => {
       }
     },
   });
+
 
   return (
     <>
@@ -160,7 +189,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.gameName && touched.gameName && (
                         <div className={styles.error}>{String(errors.gameName)}</div>
                       )}
-                      
+
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="password">
                           Game Map Name
@@ -173,7 +202,6 @@ const Form = ({ getAllSpectator }: any) => {
                           placeholder="Enter bgmi map"
                           value={values.mapType}
                           onChange={handleChange}
-
                           onBlur={handleBlur}
 
                         />
@@ -236,7 +264,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.secondWin && touched.secondWin && (
                         <div className={styles.error}>{String(errors.secondWin)}</div>
                       )}
-                       <div className={styles.input_box}>
+                      <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="entryFee">
                           Entry Fee
                         </label>
@@ -246,7 +274,8 @@ const Form = ({ getAllSpectator }: any) => {
                           type="text"
                           name="entryFee"
                           placeholder="Enter Entry Fee"
-                          value={values.entryFee}
+                          value={roomIdToUpdate ? roomIdToUpdate.entryFee : values.entryFee}
+                          // value={values.entryFee}
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
@@ -257,7 +286,7 @@ const Form = ({ getAllSpectator }: any) => {
                     </div>
 
                     <div className={styles.flex_col}>
-                    <div className={styles.input_box}>
+                      <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="password">
                           Room Password
                         </label>
@@ -268,6 +297,7 @@ const Form = ({ getAllSpectator }: any) => {
                           name="password"
                           placeholder="Enter password"
                           value={values.password}
+                          // value={roomIdToUpdate ? roomIdToUpdate.password : values.password}
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
@@ -313,9 +343,9 @@ const Form = ({ getAllSpectator }: any) => {
                         <div className={styles.error}>{String(errors.version)}</div>
                       )}
                       <div className={styles.input_box}>
-                          <label className={styles.room_id} htmlFor="Date">
-                            Date
-                          </label>
+                        <label className={styles.room_id} htmlFor="Date">
+                          Date
+                        </label>
                         <Input
                           type="date"
                           className={`${styles.room_field_wrapper} ${styles.room_field_cls2}`}
@@ -329,7 +359,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.date && touched.date && (
                         <div className={styles.error}>{String(errors.date)}</div>
                       )}
-                      
+
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="highestKill">
                           Highest Kill
@@ -348,7 +378,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.highestKill && touched.highestKill && (
                         <div className={styles.error}>{String(errors.highestKill)}</div>
                       )}
-                    
+
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="thirdWin">
                           Third Win
@@ -367,7 +397,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.thirdWin && touched.thirdWin && (
                         <div className={styles.error}>{String(errors.thirdWin)}</div>
                       )}
-                     
+
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="secondWin">
                           Image Upload
