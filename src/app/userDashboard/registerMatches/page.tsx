@@ -7,7 +7,7 @@ import { sendRequest } from '@/services/auth/auth_All_Api';
 import { useSearchParams } from 'next/navigation';
 import { formatDate, formatTime } from '@/Components/CommonComponent/moment';
 import { toast } from 'react-toastify';
-
+import CountdownComponent from '../tournament/CountdownComponent'
 
 
 export interface RegMatch {
@@ -41,24 +41,10 @@ const regMatches = () => {
       if (regMAtch.status === 200) {
         const formatDateTime = ` ${formatDate({ date: matchData?.dateAndTime })} and ${formatTime({ time: matchData?.dateAndTime, format: 'LT' })}`;
         setMatchData({ ...regMAtch.data.room, dateAndTime: formatDateTime })
-        getIdPass(matchData?.dateAndTime, matchData?.roomUuid);
+       CountdownComponent(matchData?.dateAndTime, matchData?.roomUuid, setVisibleRooms)
       }
     } catch (err) {
       toast.error("not show data ")
-    }
-  };
-
-  const getIdPass = (dateAndTime: string, roomUuid: string) => {
-    if (dateAndTime && roomUuid) {
-      setInterval(() => {
-        const REDUCE_TIME = 15 * 60 * 1000;
-        const currentTime = new Date().getTime();
-        let dateNumber = new Date(dateAndTime).getTime();
-        const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
-        if (currentTime >= reducedTime) {
-          setVisibleRooms([...visibleRooms, roomUuid])
-        }
-      }, 60000)
     }
   };
 
