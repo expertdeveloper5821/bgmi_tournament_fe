@@ -61,8 +61,9 @@ function Tournament() {
   const [matchDetails , setMatchDetails] = useState<tournament>(initialValues)
   const router = useRouter();
   const regMatchRedirect = (matchID: string) => {
-
+console.log("matchID =>",matchID)
     router.push(`/userDashboard/registerMatches?id=${matchID}`);
+   
   };
 
   const getAllTournaments = async () => {
@@ -70,7 +71,7 @@ function Tournament() {
       const res = await sendRequest('room/rooms', {
         method: 'GET',
       });
-      console.log("res", res)
+     
       if(res.status === 200 || res.status === 201){
         if(res.data.length > 0) {
           const lastTournament = res.data[res.data.length - 1]
@@ -226,6 +227,7 @@ function Tournament() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   
+  
   const getIdPass = ( dateAndTime: string, roomUuid: string) => {
     if(dateAndTime && roomUuid) {
       setInterval(() => {
@@ -260,7 +262,7 @@ function Tournament() {
               <div className={styles.registeredmatches}>
                 <div className={styles.imgSection}>  
                   <Image
-                    src={matchDetails.mapImg || "../assests/userdashboardbg.svg"}
+                    src={matchDetails?.mapImg || "../assests/userdashboardbg.svg"}
                     alt="userdashboardbg"
                     className={styles.wrapperimg}
                     width={200}
@@ -512,6 +514,7 @@ function Tournament() {
                                 width={100}
                                 height={100}
                                 onClick={() => regMatchRedirect(match?._id)}
+                                
                               />
                               <div className={styles.Tournaments}>
                                 <div className={styles.tournament_slider}>

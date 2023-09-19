@@ -5,11 +5,8 @@ import { Navbar } from '../../../Components/Navbar/Navbar';
 import Image from 'next/image';
 import { sendRequest } from '@/services/auth/auth_All_Api';
 import { useSearchParams } from 'next/navigation';
-import InputCustomTag from '@/Components/InputCustomTag/InputCustomTag';
-//@ts-ignore
-import { Button, Input } from 'technogetic-iron-smart-ui';
-import { FormikHelpers, useFormik } from 'formik';
-import { SendInviteSchema } from '@/schemas/SignupSchemas';
+import { formatDate, formatTime } from '@/Components/CommonComponent/moment';
+import getIdPass from '../tournament/CountdownComponent';
 
 
 export interface RegMatch {
@@ -17,51 +14,58 @@ export interface RegMatch {
   gameType: string;
   mapType: string;
   version: string;
-  date: string;
-  time: string;
+  dateAndTime: string;
   lastSurvival: string;
   roomId: string;
+  roomUuid: string;
   password: string;
+  entryFee?: string;
+  mapImg: string;
 }
-interface FormValues {
-  email: string;
-}
-
 
 const regMatches = () => {
-  const [values, setValues] = useState<string[]>([]);
-  const [tags, setTags] = useState([]);
-
   const searchParams = useSearchParams();
   const matchID = searchParams.get('id');
   const [matchData, setMatchData] = useState<RegMatch>();
-  const [showRoomPwd, setRoomPwd] = useState<boolean>(false);
+  const [visibleRooms, setVisibleRooms] = useState<string[]>([]);
+
   const getRegisterMatchWithId = async () => {
-    const token: any = localStorage.getItem('jwtToken');
-    const regMAtch = await sendRequest(`room/rooms/${matchID}`, {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setMatchData(regMAtch.data.room);
+    try {
+      const token: any = localStorage.getItem('jwtToken');
+      const regMAtch = await sendRequest(`room/rooms/${matchID}`, {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setMatchData(regMAtch.data.room);
+      if (regMAtch.status === 200) {
+        const formatDateTime = ` ${formatDate({ date: matchData?.dateAndTime })} and ${formatTime({ time: matchData?.dateAndTime, format: 'LT' })}`;
+        setMatchData({ ...regMAtch.data.room, dateAndTime: formatDateTime })
+        getIdPass(matchData?.dateAndTime, matchData?.roomUuid);
+      }
+    } catch (err) {
+
+    }
   };
 
-  const getRoomidPwd = () => {
-    const currentTime = new Date();
-    const dbTime = `${matchData?.date}T${matchData?.time}`;
-    const matchTime = new Date(dbTime);
-    const timeDifference = Number(matchTime) - Number(currentTime);
-    if (timeDifference <= 900000) {
-      setRoomPwd(true);
+  const getIdPass = (dateAndTime: string, roomUuid: string) => {
+    if (dateAndTime && roomUuid) {
+      setInterval(() => {
+        const REDUCE_TIME = 15 * 60 * 1000;
+        const currentTime = new Date().getTime();
+        let dateNumber = new Date(dateAndTime).getTime();
+        const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
+        if (currentTime >= reducedTime) {
+          setVisibleRooms([...visibleRooms, roomUuid])
+        }
+      }, 60000)
     }
   };
 
   useEffect(() => {
     getRegisterMatchWithId();
+    
   }, []);
 
-  useEffect(() => {
-    getRoomidPwd();
-  }, [matchData]);
 
   return (
     <div className={styles.main_container}>
@@ -76,12 +80,6 @@ const regMatches = () => {
               </h1>
             </div>
             <div className={styles.sendmailbtnContainer}>
-              {/* <button
-                  className={styles.sendMailBtn}
-                  onClick={() => setPoolModal(true)}>
-                  
-                  SEND INVITE BY EMAIL
-                </button> */}
             </div>
           </div>
           <div className={styles.room_wrapper}>
@@ -89,37 +87,27 @@ const regMatches = () => {
               <div className={styles.registeredmatches}>
                 <div className={styles.imgSection}>
                   <Image
-                    src="../assests/userdashboardbg.svg"
+                    src={matchData?.mapImg || "../assests/userdashboardbg.svg"}
                     alt="userdashboardbg"
                     className={styles.wrapperimg}
-                    width={100}
-                    height={100}
+                    width={200}
+                    height={200}
                   />
                 </div>
-                {/* <span className={styles.register_match}>
-                  Registered Matches
-                </span> */}
               </div>
               <div className={styles.squad_match}>
                 <span className={styles.register_match}>
                   {matchData?.gameName}
                 </span>
                 <span className={styles.winning_prize}>
-                  Time : {matchData?.date} at {matchData?.time}
+                  Time: {matchData?.dateAndTime.toString()}
                 </span>
 
                 <div className={styles.winnings}>
                   <div>
                     <span className={styles.winning_prize}>WINNING PRIZE</span>
                     <span className={styles.survival_content}>
-                      Last Survival: {matchData?.lastSurvival}
-                    </span>
-                  </div>
-
-                  <div>
-                    <span className={styles.winning_prize}> Entry FEES</span>
-                    <span className={styles.survival_content}>
-                      50
+                      Last Survival: 
                       <span className="rs_logo">
                         <Image
                           src="../assests/rupee-icon.svg"
@@ -128,10 +116,25 @@ const regMatches = () => {
                           height={12}
                         />
                       </span>
+                      {matchData?.lastSurvival}
+                    </span>
+                  </div>
+
+                  <div>
+                    <span className={styles.winning_prize}> Entry FEES :</span>
+                    <span className={styles.survival_content}>
+                      <span className="rs_logo">
+                        <Image
+                          src="../assests/rupee-icon.svg"
+                          alt="rupeeIcon"
+                          width={12}
+                          height={12}
+                        />
+                      </span>
+                      {matchData?.entryFee}
                     </span>
                   </div>
                 </div>
-
                 <div className={styles.winnings}>
                   <div>
                     <span className={styles.winning_prize}>TYPE</span>
@@ -163,50 +166,9 @@ const regMatches = () => {
                     </span>
                   </div>
                 </div>
-
                 <div className={styles.winnings}>
-                  <div className={styles.spot_line}>
-                    <span className={styles.bar_font}>Only 30 spots Left</span>
-                    <span className={styles.bar_font}>20/50</span>
-                  </div>
-                </div>
-
-                <div className={styles.winnings}>
-                  {showRoomPwd ? (
-                    <div className={styles.roomdetails_container}>
-                      <div className={styles.roomdetails}>
-                        <div className={styles.countdown}>
-                          <span className={styles.roomId}>
-                            Room Id : {matchData?.roomId}
-                          </span>
-                        </div>
-                      </div>
-                      <div className={styles.roomcreds}>
-                        <div className={styles.zeromin}>
-                          <span className={styles.roomId}>
-                            Room Password : {matchData?.password}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className={styles.roomdetails_container}>
-                      <div className={styles.roomdetails}>
-                        <div className={styles.countdown}>
-                          <span className={styles.roomId}>
-                            Room Id : ********
-                          </span>
-                        </div>
-                      </div>
-                      <div className={styles.roomcreds}>
-                        <div className={styles.zeromin}>
-                          <span className={styles.roomId}>
-                            Room Password : ********
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                <span>Room Id: {visibleRooms?.find(room => room === matchData.roomUuid) ? matchData.roomId : '*****'}</span>
+                <span>Room password: {visibleRooms?.find(room => room === matchData.roomUuid) ? matchData.password : '*****'}</span>
                 </div>
               </div>
             </div>
@@ -214,21 +176,14 @@ const regMatches = () => {
           <div>
 
           </div>
-          {/* use this code for your team member  */}
+          {/******  use this code for your team member  ****/}
 
           {/* <div className={styles.Teammembers}>Your Team Members</div>
-
-
-
           <div className={styles.container2}>
-
             <div className={styles.inner_cont}> */}
-
-          {/* <div key={index} className={`${styles.slide}`}> */}
-
-
-
-          {/* <div className={styles.reviewsContainer}>
+              {/* <div key={index} className={`${styles.slide}`}> */}
+{/* 
+              <div className={styles.reviewsContainer}>
 
                 <div className={styles.reviewCard}>
 
@@ -259,11 +214,11 @@ const regMatches = () => {
                     </div>
 
                   </div>
-                  <div  className={styles.review_close}>
-                  x
+                  <div className={styles.review_close}>
+                    x
                   </div>
                 </div>
-                
+
               </div>
               <div className={styles.reviewsContainer}>
 
@@ -296,11 +251,11 @@ const regMatches = () => {
                     </div>
 
                   </div>
-                  <div  className={styles.review_close}>
-                  x
+                  <div className={styles.review_close}>
+                    x
                   </div>
                 </div>
-                
+
               </div>
               <div className={styles.reviewsContainer}>
 
@@ -333,25 +288,22 @@ const regMatches = () => {
                     </div>
 
                   </div>
-                  <div  className={styles.review_close}>
-                  x
+                  <div className={styles.review_close}>
+                    x
                   </div>
-                 
+
                 </div>
-                
+
               </div> */}
 
-          {/* </Slider>
+              {/* </Slider>
 
               )} */}
 
-          {/* </div>
-
+            {/* </div>
           </div> */}
-
         </div>
       </div>
-
     </div>
   );
 };
