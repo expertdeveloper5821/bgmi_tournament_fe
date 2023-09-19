@@ -19,7 +19,7 @@ export interface RegMatch {
   version: string;
   date: string;
   time: string;
-  lastServival: string;
+  lastSurvival: string;
   roomId: string;
   password: string;
 }
@@ -112,7 +112,7 @@ const regMatches = () => {
                   <div>
                     <span className={styles.winning_prize}>WINNING PRIZE</span>
                     <span className={styles.survival_content}>
-                      Last Survival: {matchData?.lastServival}
+                      Last Survival: {matchData?.lastSurvival}
                     </span>
                   </div>
 
