@@ -41,6 +41,7 @@ function Tournament() {
   const [allRoomsData, setAllRoomsData] = useState<any>([]);
   const [regMatches, setRegMatches] = useState<any>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [visibleRooms, setVisibleRooms] = useState([])
     const initialValues:tournament = {
     gameName:"", 
     mapType:"", 
@@ -78,7 +79,11 @@ function Tournament() {
           setMatchDetails({...res.data[0], dateAndTime: formatDateTime})
         }
       } else {
-        throw Error()
+        if(res.status === 204) {
+          setAllRoomsData([])
+        } else {
+          throw Error()
+        }
       }
   
     } catch(err) {
@@ -100,7 +105,11 @@ function Tournament() {
       if(registeredMatchesRes.status === 200 || registeredMatchesRes.status === 201) {
         setRegMatches(registeredMatchesRes.data.rooms);
       } else {
-        throw Error()
+        if(registeredMatchesRes.status === 204) {
+          setRegMatches([])
+        } else {
+          throw Error()
+        }
       }
     } catch(err) {
       console.error("Error in Get All Registered Tournaments => ", err)
@@ -121,7 +130,7 @@ function Tournament() {
 
   const updateMainData = (match: tournament
   ) => {
-    const updatedformattedDandt = ` ${formatDate({ date: match.dateAndTime })} and ${formatTime({ time: match.dateAndTime  , format : 'LT' })}`;
+    const updatedformattedDandt = ` ${formatDate({ date: match?.dateAndTime })} and ${formatTime({ time: match?.dateAndTime  , format : 'LT' })}`;
     setMatchDetails({
       ...match,
       dateAndTime: updatedformattedDandt
@@ -140,7 +149,7 @@ function Tournament() {
           matchAmount: 60,
           name: userData.fullName,
           id: configData.paymentID,
-          roomid: match.roomUuid,
+          roomid: match?.roomUuid,
         },
       });
       
@@ -216,16 +225,18 @@ function Tournament() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  const getIdPass = ( dateAndTime :string, password:string , roomId:string )=> {
-   const REDUCE_TIME = 15 * 60 * 1000;
-    const currentTime = new Date().getTime();
-   let dateNumber = new Date(dateAndTime).getTime();
-    const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
-    if (currentTime >= reducedTime) {
-       return { roomId:roomId , password:password}
-    } else {
-       return { roomId: "*******", password: "********" }
+  
+  const getIdPass = ( dateAndTime: string, roomUuid: string) => {
+    if(dateAndTime && roomUuid) {
+      setInterval(() => {
+        const REDUCE_TIME = 15 * 60 * 1000;
+         const currentTime = new Date().getTime();
+        let dateNumber = new Date(dateAndTime).getTime();
+         const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
+         if (currentTime >= reducedTime) {
+            setVisibleRooms([...visibleRooms, roomUuid])
+         }
+      }, 60000)
     }
   };
 
@@ -450,7 +461,7 @@ function Tournament() {
                               width={100}
                               height={100}
                               className={styles.img_slider_one}
-                              src={match.mapImg || "../assests/cards.svg"}
+                              src={match?.mapImg || "../assests/cards.svg"}
                               alt="slides"
                               onClick={() =>
                                 updateMainData(match)
@@ -489,14 +500,13 @@ function Tournament() {
                     {regMatches &&
                       regMatches
                         .slice(currentIndex, currentIndex + numItemsToShow)
-                        .map((match: any, index: any) => {
-                          
-                          const { roomId, password } = getIdPass( match?.dateAndTime ,match?.roomId, match?.password)
+                        .map(async (match: any, index: any) => {
+                          getIdPass(match.dateAndTime, match.roomUuid)
                           return (
                             <div className={styles.container3} key={index} >
 
                               <Image
-                                src={match.mapImg || "../assests/registeredmatches.svg"}
+                                src={match?.mapImg || "../assests/registeredmatches.svg"}
                                 alt={`${styles.slide}`}
                                 className={styles.container3_img}
                                 width={100}
@@ -546,8 +556,8 @@ function Tournament() {
                                 </div>
                                 <div className={styles.id_password}>
                                 
-                                  <span>Room Id: {roomId}</span>
-                                  <span>Room password: {password}</span>
+                                  <span>Room Id: {visibleRooms?.find(room => room === match.roomUuid) ? match.roomId : '*****'}</span>
+                                  <span>Room password: {visibleRooms?.find(room => room === match.roomUuid) ? match.password : '*****'}</span>
                                 </div>
 
                               </div>
