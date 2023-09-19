@@ -1,10 +1,11 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../styles/landingpage.module.scss';
 import useWindowSize from '@/hooks/useWindowSize';
 import NavBar from './navBar/page';
 import Image from 'next/image';
-import {sendRequest} from '@/services/auth/auth_All_Api';
+import { sendRequest } from '@/services/auth/auth_All_Api';
+import { toast } from 'react-toastify';
 import CustomCursor from './customCursor/page';
 import Link from 'next/link';
 import { formatTime } from '@/Components/CommonComponent/moment';
@@ -564,7 +565,8 @@ const page = () => {
       </section>
 
       <section className={styles.mapBg}>
-        <div className={styles.signUpDiv} onMouseOver={handleButtonHover3}>
+
+        <div className={styles.signUpDiv}>
           <div className={styles.singUp}>
             <Image
               src="../assests/redLoction.svg"

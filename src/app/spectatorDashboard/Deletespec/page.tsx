@@ -6,23 +6,27 @@ import styles from '../../../styles/Spectator.module.scss';
 import {toast} from 'react-toastify';
 
 const Deletespec = ({Id, getAllSpectator}: any) => {
-  const [deletModal, setDeleteModal] = useState(false);
+  const [deletModal, setDeleteModal] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleDelete = async () => {
-    const token = localStorage.getItem('jwtToken');
     try {
+      setIsLoading(true)
       const deleteResponse = await sendRequest(`room/rooms/${Id}`, {
         method: 'DELETE',
-        headers: {Authorization: `Bearer ${token}`},
       });
-      getAllSpectator();
-      if (deleteResponse) {
-        const success = deleteResponse.data.message;
-        toast.success(success);
+      if (deleteResponse.status === 200 || deleteResponse.status === 201) {
+        toast.success(deleteResponse.data.message);
+        getAllSpectator();
+        setIsLoading(false)
+      } else {
+        throw Error()
       }
     } catch (error: any) {
-      setMessage('data is not deleted');
+      toast.error('Something went wrong, please try again later!');
+      setMessage('Room not deleted, please try again later!');
+      setIsLoading(false)
     }
   };
 
@@ -40,8 +44,8 @@ const Deletespec = ({Id, getAllSpectator}: any) => {
               Are you sure want to delete this room?
             </p>
             <div className={styles.del_btn_sec}>
-              <button className={styles.dele_btn} onClick={handleDelete}>
-                Delete
+              <button className={styles.dele_btn} onClick={handleDelete} disabled={isLoading}>
+                {isLoading ? 'Loading...' : 'Delete'}
               </button>
               <button
                 className={styles.canc_btn}
