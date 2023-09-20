@@ -45,9 +45,9 @@ export function Navbar(props: INavbar) {
     let initials = ''
     userData?.fullName?.split(" ")?.forEach(initial => {
       if(initials.length > 0) {
-        initials = `${initials} ${initial.charAt(0)}`
+        initials = `${initials} ${initial.charAt(0).toUpperCase()}`
       } else {
-        initials = initial.charAt(0)
+        initials = initial.charAt(0).toUpperCase()
       }
     })
     setInitialsName(initials)

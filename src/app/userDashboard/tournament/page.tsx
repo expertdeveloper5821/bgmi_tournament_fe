@@ -76,7 +76,7 @@ function Tournament() {
           const lastTournament = res.data[res.data.length - 1]
           const formatDateTime =` ${formatDate({ date: lastTournament?.dateAndTime})} and ${formatTime({time: lastTournament?.dateAndTime, format : 'LT'})}`
           setAllRoomsData(res.data);
-          setMatchDetails({...res.data[0], dateAndTime: formatDateTime})
+          // setMatchDetails({...res.data[0], dateAndTime: formatDateTime})
         }
       } else {
         if(res.status === 204) {
@@ -500,19 +500,20 @@ function Tournament() {
                     {regMatches &&
                       regMatches
                         .slice(currentIndex, currentIndex + numItemsToShow)
-                        .map(async (match: any, index: any) => {
+                        .map((match: any, index: any) => {
                           getIdPass(match.dateAndTime, match.roomUuid)
                           return (
                             <div className={styles.container3} key={index} >
-
-                              <Image
-                                src={match?.mapImg || "../assests/registeredmatches.svg"}
-                                alt={`${styles.slide}`}
-                                className={styles.container3_img}
-                                width={100}
-                                height={100}
-                                onClick={() => regMatchRedirect(match?._id)}
-                              />
+                              <div className={styles.reg_match_image_container}>
+                                <Image
+                                  src={match?.mapImg || "../assests/registeredmatches.svg"}
+                                  alt={`${styles.slide}`}
+                                  className={styles.container3_img}
+                                  width={100}
+                                  height={100}
+                                  onClick={() => regMatchRedirect(match?._id)}
+                                />
+                                </div>
                               <div className={styles.Tournaments}>
                                 <div className={styles.tournament_slider}>
                                   <div className={styles.winning_prize}>
