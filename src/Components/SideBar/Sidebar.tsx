@@ -19,14 +19,24 @@ const Sidebar: React.FC<SidebarProps> = ({menuItem}: SidebarProps) => {
   const [menuItems, setMenuItems] = useState<MenuItem[]>(menuItem);
   const [selectedItemIndex, setSelectedItemIndex] = useState<number>(-1); // Initialize as -1, no item selected
   const [width] = useWindowSize();
-  const toggle = () => setIsOpen(!isOpen);
+  const toggle = () => {
+    setIsOpen(isOpen => {
+      if(width > 768) {
+        const mainElem = document.getElementById('mainLayoutContainer')
+        const mainElemInner = document.getElementById('mainLayoutContainerInner')
+        mainElem.style.width = !isOpen ? '78.5vw' : '96vw'
+        mainElemInner.style.width = !isOpen ? '85vw' : '96vw'
+      }
+      return !isOpen
+    });
+  }
 
   return (
     <>
       {width > 768 ? (
         <div className={styles.container}>
           <div
-            style={{width: isOpen ? '220px' : '100px'}}
+            style={{width: isOpen ? '220px' : '50px'}}
             className={styles.sidebar}
           >
             <div className={styles.top_section}>

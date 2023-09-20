@@ -1,6 +1,6 @@
 'use client';
-import React, { ChangeEvent, useState } from 'react';
-import sendRequest from '../../../services/api/apiServices';
+import React, {ChangeEvent, useState} from 'react';
+import { sendRequest } from '@/services/auth/auth_All_Api';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import { AiOutlineDelete } from 'react-icons/ai';
@@ -9,14 +9,15 @@ import { RoomData } from '../Room/page';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
 
-// interface UpdatespecProps {
+// export interface UpdatespecProps {
 //   roomData: RoomData;
 //   getAllSpectator: () => void;
-//   updateRoom: (updatedRoom: RoomData) => void;
+//   updateRoom: () => void;
 // }
+
 const Updatespec = ({ roomData, getAllSpectator }: any) => {
   const [error, setError] = useState<string>('');
-  const [deletModal, setDeleteModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
   const [updateFormData, setUpdateFormData] = useState<RoomData>(roomData);
 
   const updateRoom = async (e: any) => {
@@ -32,7 +33,7 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
       version: updateFormData.version,
       time: updateFormData.time,
       date: updateFormData.date,
-      lastServival: updateFormData.lastServival,
+      lastSurvival: updateFormData.lastSurvival,
       highestKill: updateFormData.highestKill,
       secondWin: updateFormData.secondWin,
       thirdWin: updateFormData.thirdWin
@@ -51,7 +52,7 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
       if (updateResponse) {
         getAllSpectator();
         toast.success(updateResponse.data.message);
-        setDeleteModal(false);
+        setEditModal(false);
       }
     } catch (error: any) {
       setError(error.message);
@@ -62,13 +63,12 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
   return (
     <>
       <div>
-        <p onClick={() => setDeleteModal(true)}>
+        <p onClick={() => setEditModal(true)}>
           <Image src="/assests/update.svg" alt="" width={10} height={10} />
         </p>
-        {deletModal ? (
+        {editModal ? (
           <div className={styles.main_pop_cls}>
             <div className={styles.check_model}>
-              {/* <div className={styles.main_form}> */}
               <form className={styles.form_spectator_cls} onSubmit={updateRoom}>
                 {error && <div className={styles.error}>{error}</div>}
                 <div className={styles.flex_col}>
@@ -157,8 +157,6 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
                       placeholder="Map Type"
                     />
                   </div>
-
-
                   <div className={styles.input_box}>
                     <label className={styles.room_id} htmlFor="Password">
                       Version
@@ -219,11 +217,11 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
                     <Input
                       type="text"
                       className={styles.room_field_wrapper}
-                      value={updateFormData.lastServival}
+                      value={updateFormData.lastSurvival}
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
                         setUpdateFormData({
                           ...updateFormData,
-                          lastServival: e.target.value,
+                          lastSurvival: e.target.value,
                         })
                       }
                       placeholder="Date"
@@ -281,13 +279,11 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
                     />
                   </div>
                 </div>
-
               </form>
-              {/* </div> */}
               <div className={styles.btn_form_wrapper}>
                 <Button
                   className={styles.cancel_btn}
-                  onClick={() => setDeleteModal(false)}
+                  onClick={() => setEditModal(false)}
                 >
                   Cancel
                 </Button>

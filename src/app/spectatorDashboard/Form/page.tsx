@@ -15,7 +15,9 @@ interface FormCreate {
   mapType: string;
   password: string;
   version: string;
-  lastServival: string;
+  date: string;
+  time: string;
+  lastSurvival: string;
   thirdWin: string;
   highestKill: string;
   secondWin: string;
@@ -27,7 +29,8 @@ const Form = ({ getAllSpectator }: any) => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const [image, setImage] = useState<any | null>(null);
+  const [image, setImage] = useState<File | null>(null);
+
 
   const initialValues: FormCreate = {
     roomId: '',
@@ -36,12 +39,14 @@ const Form = ({ getAllSpectator }: any) => {
     mapType: '',
     password: '',
     version: '',
-    lastServival: '',
+    date: '',
+    time: '',
+    lastSurvival: '',
     thirdWin: '',
     highestKill: '',
     secondWin: '',
     mapImg: '',
-    entryFee: '60'
+    entryFee: ''
   };
 
 
@@ -53,16 +58,12 @@ const Form = ({ getAllSpectator }: any) => {
     handleChange,
     handleBlur,
     setFieldValue,
-  } = useFormik<any>({
+  } = useFormik<FormCreate>({
     initialValues,
     validationSchema,
-    onSubmit: async (values: any) => {
-      console.log("check values", values)
-
-
+    onSubmit: async (values: any, { resetForm }) => {
 
       const dateTimeString = new Date(`${values.date} ${values.time}`);
-      console.log("Formatted Date and Time:", dateTimeString);
       values.dateAndTime = dateTimeString;
 
       const form = new FormData();
@@ -70,31 +71,31 @@ const Form = ({ getAllSpectator }: any) => {
       for (const key in values) {
         form.append(key, values[key]);
       }
-      form.append("enteryFee", "60")
-      console.log("Form___________________________________", form);
-
-
       try {
+        setIsLoading(true)
         const token = localStorage.getItem('jwtToken');
         const response = await sendRequest('room/rooms', {
           method: 'POST',
           headers: {
-            Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
           },
           data: form,
         });
-        console.log("check response ==>", response)
         if (response.status === 200) {
+          resetForm()
+          setIsLoading(false)
           getAllSpectator();
           toast.success(response.data.message);
           setShowModal(false);
         } else {
+          setIsLoading(false)
           setError('Failed to Add room. Please try again.');
+          toast.error('Failed to Add room. Please try again.');
         }
       } catch (error: any) {
         setIsLoading(false);
         setError('Failed to Add room. Please try again.');
+        toast.error('Failed to Add room. Please try again.');
       }
     },
   });
@@ -159,24 +160,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.gameName && touched.gameName && (
                         <div className={styles.error}>{String(errors.gameName)}</div>
                       )}
-                      <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="password">
-                          Game Type (No of players)
-                        </label>
-                        <Input
-                          id="gameType"
-                          className={styles.room_field_wrapper}
-                          type="text"
-                          name="gameType"
-                          placeholder="Enter no of players"
-                          value={values.gameType}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </div>
-                      {errors.gameType && touched.gameType && (
-                        <div className={styles.error}>{String(errors.gameType)}</div>
-                      )}
+                      
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="password">
                           Game Map Name
@@ -197,9 +181,85 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.mapType && touched.mapType && (
                         <div className={styles.error}>{String(errors.mapType)}</div>
                       )}
+
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="password">
-                          Password
+                          Time
+                        </label>
+                        <Input
+                          id="time"
+                          className={`${styles.room_field_wrapper} ${styles.room_field_cls2}`}
+                          type="time"
+                          name="time"
+                          placeholder="Enter time"
+                          value={values?.time}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      {errors.time && touched.time && (
+                        <div className={styles.error}>{String(errors.time)}</div>
+                      )}
+                      <div className={styles.input_box}>
+                        <label className={styles.room_id} htmlFor="secondWin">
+                          Last Survival
+                        </label>
+                        <Input
+                          id="lastSurvival"
+                          className={styles.room_field_wrapper}
+                          type="text"
+                          name="lastSurvival"
+                          placeholder="Enter last Servival"
+                          value={values.lastSurvival}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      {errors.lastSurvival && touched.lastSurvival && (
+                        <div className={styles.error}>{String(errors.lastSurvival)}</div>
+                      )}
+                      <div className={styles.input_box}>
+                        <label className={styles.room_id} htmlFor="secondWin">
+                          Second Win
+                        </label>
+                        <Input
+                          id="secondWin"
+                          className={styles.room_field_wrapper}
+                          type="text"
+                          name="secondWin"
+                          placeholder="Enter second Win"
+                          value={values.secondWin}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      {errors.secondWin && touched.secondWin && (
+                        <div className={styles.error}>{String(errors.secondWin)}</div>
+                      )}
+                       <div className={styles.input_box}>
+                        <label className={styles.room_id} htmlFor="entryFee">
+                          Entry Fee
+                        </label>
+                        <Input
+                          id="entryFee"
+                          className={styles.room_field_wrapper}
+                          type="text"
+                          name="entryFee"
+                          placeholder="Enter Entry Fee"
+                          value={values.entryFee}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      {errors.entryFee && touched.entryFee && (
+                        <div className={styles.error}>{String(errors.entryFee)}</div>
+                      )}
+                    </div>
+
+                    <div className={styles.flex_col}>
+                    <div className={styles.input_box}>
+                        <label className={styles.room_id} htmlFor="password">
+                          Room Password
                         </label>
                         <Input
                           id="password"
@@ -214,6 +274,24 @@ const Form = ({ getAllSpectator }: any) => {
                       </div>
                       {errors.password && touched.password && (
                         <div className={styles.error}>{String(errors.password)}</div>
+                      )}
+                      <div className={styles.input_box}>
+                        <label className={styles.room_id} htmlFor="password">
+                          No. Of Players (Game Type)
+                        </label>
+                        <Input
+                          id="gameType"
+                          className={styles.room_field_wrapper}
+                          type="text"
+                          name="gameType"
+                          placeholder="Enter no of players"
+                          value={values.gameType}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      {errors.gameType && touched.gameType && (
+                        <div className={styles.error}>{String(errors.gameType)}</div>
                       )}
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="password">
@@ -234,35 +312,11 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.version && touched.version && (
                         <div className={styles.error}>{String(errors.version)}</div>
                       )}
-
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="password">
-                          Time
-                        </label>
-                        <Input
-                          id="time"
-                          className={`${styles.room_field_wrapper} ${styles.room_field_cls2}`}
-                          type="time"
-                          name="time"
-                          placeholder="Enter time"
-                          value={values.time}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </div>
-                      {errors.time && touched.time && (
-                        <div className={styles.error}>{String(errors.time)}</div>
-                      )}
-                    </div>
-
-                    <div className={styles.flex_col}>
-                      <div className={styles.input_box}>
-                        <div>
                           <label className={styles.room_id} htmlFor="Date">
                             Date
                           </label>
-                        </div>
-                        <input
+                        <Input
                           type="date"
                           className={`${styles.room_field_wrapper} ${styles.room_field_cls2}`}
                           id="gameid"
@@ -275,24 +329,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.date && touched.date && (
                         <div className={styles.error}>{String(errors.date)}</div>
                       )}
-                      <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="secondWin">
-                          Last Servival
-                        </label>
-                        <Input
-                          id="lastServival"
-                          className={styles.room_field_wrapper}
-                          type="text"
-                          name="lastServival"
-                          placeholder="Enter last Servival"
-                          value={values.lastServival}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </div>
-                      {errors.lastServival && touched.lastServival && (
-                        <div className={styles.error}>{String(errors.lastServival)}</div>
-                      )}
+                      
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="highestKill">
                           Highest Kill
@@ -311,26 +348,9 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.highestKill && touched.highestKill && (
                         <div className={styles.error}>{String(errors.highestKill)}</div>
                       )}
+                    
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="secondWin">
-                          Second Win
-                        </label>
-                        <Input
-                          id="secondWin"
-                          className={styles.room_field_wrapper}
-                          type="text"
-                          name="secondWin"
-                          placeholder="Enter second Win"
-                          value={values.secondWin}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </div>
-                      {errors.secondWin && touched.secondWin && (
-                        <div className={styles.error}>{String(errors.secondWin)}</div>
-                      )}
-                      <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="secondWin">
+                        <label className={styles.room_id} htmlFor="thirdWin">
                           Third Win
                         </label>
                         <Input
@@ -347,9 +367,10 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.thirdWin && touched.thirdWin && (
                         <div className={styles.error}>{String(errors.thirdWin)}</div>
                       )}
+                     
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="secondWin">
-                          image upload
+                          Image Upload
                         </label>
                         <Input
                           id="file"

@@ -5,7 +5,7 @@ import styles from '../../styles/Dashboard.module.scss';
 import {FaTh} from 'react-icons/fa';
 const inter = Inter({subsets: ['latin']});
 
-const spectatorMenuItems = [
+const dynamicMenuItems = [
   {
     path: '/spectatorDashboard/Room',
     name: 'Room',
@@ -15,9 +15,13 @@ const spectatorMenuItems = [
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <div className={styles.main_container}>
-      <Sidebar menuItem={spectatorMenuItems} />
-      {children}
+    <div className={styles.main_container} id="mainLayoutContainer">
+      <>
+        <Sidebar menuItem={dynamicMenuItems} />
+        <div className={styles.content__container}>
+          {children}
+        </div>
+      </>
     </div>
   );
 }

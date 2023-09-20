@@ -16,7 +16,7 @@ const WithAuth = (props: any) => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div style={{width: '100%', textAlign: 'center'}}>Loading...</div>;
     }
 
     if (!user) {

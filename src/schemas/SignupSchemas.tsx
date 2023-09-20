@@ -53,9 +53,10 @@ export const validationSchema = Yup.object().shape({
     .date()
     .required('Date is required'),
   secondWin: Yup.number().required('Please enter second winner prize '),
-  lastServival: Yup.number().required('Please enter lastServival winner prize'),
+  lastSurvival: Yup.number().required('Please enter lastSurvival winner prize'),
   highestKill: Yup.number().required('Please enter highestKill winner prize'),
   thirdWin: Yup.number().required('Please enter Third winner prize '),
+  entryFee: Yup.number().required('Please enter entry Fee'),
 });
 
 export const SendInviteSchema = Yup.object().shape({
