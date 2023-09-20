@@ -39,7 +39,7 @@ export interface RoomData {
 const Room = () => {
   const [Spect, setSpect] = useState<RoomData[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const [roomIdToUpdate, setRoomIdToUpdate] = useState<string>("");
+  const [roomIdToUpdate, setRoomIdToUpdate] = useState<any>({});
   const columns: string[] = [
     'Room Id',
     'Game Name',
@@ -142,15 +142,15 @@ const Room = () => {
                     </TableCell>
 
                     <TableCell className={styles.tb_cell_action}>
-                      <Deletespec
-                        Id={spec._id}
-                        getAllSpectator={getAllSpectator}
-                      />
-
-                      <button onClick={() => {
-                        setShowModal(!showModal)
-                        setRoomIdToUpdate(spec)
-                      }}>Edit</button>
+                      <div className={styles.flex}>
+                        <Deletespec
+                          Id={spec._id}
+                          getAllSpectator={getAllSpectator}
+                        />
+                        <button className={styles.editbtn} onClick={() => {
+                          setShowModal(!showModal)
+                          setRoomIdToUpdate(spec)
+                        }}> <Image src="assests/update.svg" alt="Image" width={12} height={12} /></button></div>
                     </TableCell>
                   </TableRow>
                 ))}

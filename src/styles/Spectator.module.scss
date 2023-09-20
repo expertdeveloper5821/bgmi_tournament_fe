@@ -289,3 +289,14 @@ button#btn_cls_st {
   justify-content: space-around;
   padding: 8px;
 }
+
+.editbtn{
+  border: none;
+  background-color: transparent;
+}
+.flex{
+  // border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
