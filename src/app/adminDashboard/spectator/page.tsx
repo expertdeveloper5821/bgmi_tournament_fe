@@ -11,6 +11,7 @@ import TableData, { SpectatorData } from '../../../Components/Table/Table';
 import { toast } from 'react-toastify';
 import Image from "next/image";
 
+
 interface FormCreate {
   fullName: string;
   userName: string;
@@ -26,9 +27,8 @@ export default function Modal() {
   const [isupdateData, setIsUpdateData] = useState<any>(null)
   const imageIcon: string = 'spectator';
   const [getSpectatorId, setSetSpectatorId] = useState<any>()
-  console.log("getSpectatorId______________", getSpectatorId)
 
-  // console.log('getData', isupdateData)
+
   const [modal, setModal] = useState(false);
   const [formErrors, setFormErrors] = useState<FormCreate>({
     fullName: '',
@@ -214,7 +214,7 @@ export default function Modal() {
   return (
 
     <>
-      <div className={styles.main_container}>
+      <div className={styles.main_container} id="mainLayoutContainerInner">
         <div className={styles.abcd}>
           <div className={styles.sidebar_wrapper}>
             <Navbar />
