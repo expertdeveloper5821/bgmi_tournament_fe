@@ -40,7 +40,6 @@ const Room = () => {
   const [Spect, setSpect] = useState<RoomData[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [roomIdToUpdate, setRoomIdToUpdate] = useState<string>("");
-
   const columns: string[] = [
     'Room Id',
     'Game Name',
@@ -78,10 +77,7 @@ const Room = () => {
           <Navbar />
           <div className={styles.inner_specter_cls}>
             <h1 className={styles.r_main_title}>Rooms</h1>
-            {/* <small className={styles.subhead_desc}>
-                Dashboard / All Rooms
-              </small> */}
-            <Form showModal={showModal} setShowModal={setShowModal} getAllSpectator={getAllSpectator} />
+            <Form showModal={showModal} setShowModal={setShowModal} roomIdToUpdate={roomIdToUpdate} setRoomIdToUpdate={setRoomIdToUpdate} />
           </div>
 
           <div>
@@ -150,15 +146,11 @@ const Room = () => {
                         Id={spec._id}
                         getAllSpectator={getAllSpectator}
                       />
+
                       <button onClick={() => {
                         setShowModal(!showModal)
                         setRoomIdToUpdate(spec)
                       }}>Edit</button>
-                      {/* <Updatespec
-                        updateRoom={Room}
-                        roomData={spec}
-                        getAllSpectator={getAllSpectator}
-                      /> */}
                     </TableCell>
                   </TableRow>
                 ))}

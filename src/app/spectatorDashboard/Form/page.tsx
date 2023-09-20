@@ -25,50 +25,74 @@ interface FormCreate {
   mapImg: any | null;
 }
 
-const Form = ({ getAllSpectator, ...props }: any) => {
+const Form = ({ ...props }) => {
+
   const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate } = props
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [image, setImage] = useState<File | null>(null);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
-
   console.log("check form Data", roomIdToUpdate)
 
 
-  const {
-    roomId,
-    gameName,
-    gameType,
-    mapType,
-    password,
-    version,
-    date,
-    time,
-    lastSurvival,
-    thirdWin,
-    highestKill,
-    secondWin,
-    mapImg,
-    entryFee } = roomIdToUpdate || {};
+  // const {
+  //   roomId,
+  //   gameName,
+  //   gameType,
+  //   mapType,
+  //   password,
+  //   version,
+  //   date,
+  //   time,
+  //   lastSurvival,
+  //   thirdWin,
+  //   highestKill,
+  //   secondWin,
+  //   mapImg,
+  //   entryFee } = roomIdToUpdate || {};
 
-
-  const initialValues: FormCreate = {
+  const { roomId, gameName, gameType, mapType, version, lastSurvival, thirdWin, secondWin, highestKill, entryFee } = roomIdToUpdate
+  const initialValues: FormCreate = roomIdToUpdate ? {
+    roomId: roomId,
+    gameName: gameName,
+    gameType: gameType,
+    mapType: mapType,
+    password: '',
+    version: version,
+    date: '',
+    time: '',
+    lastSurvival: lastSurvival,
+    thirdWin: thirdWin,
+    highestKill: highestKill,
+    secondWin: secondWin,
+    mapImg: '',
+    entryFee: entryFee,
+  } : {
     roomId: '',
-    gameName: gameName || '',
-    gameType: gameType || '',
-    mapType: mapType || '',
-    password: password || '',
-    version: version || '',
-    date: date || '',
-    time: time || '',
-    lastSurvival: lastSurvival || '',
-    thirdWin: thirdWin || '',
-    highestKill: highestKill || '',
-    secondWin: secondWin || '',
-    mapImg: mapImg || '',
-    entryFee: entryFee || '',
-  };
+    gameName: '',
+    gameType: '',
+    mapType: '',
+    password: '',
+    version: '',
+    date: '',
+    time: '',
+    lastSurvival: '',
+    thirdWin: '',
+    highestKill: '',
+    secondWin: '',
+    mapImg: '',
+    entryFee: '',
+  }
+
+
+
+  // useEffect(() => {
+
+  //   if (roomIdToUpdate) {
+  //     setIsEditMode(true);
+  //   }
+  // }, [roomIdToUpdate]);
 
   const {
     values,
@@ -92,13 +116,6 @@ const Form = ({ getAllSpectator, ...props }: any) => {
         form.append(key, values[key]);
       }
 
-      useEffect(() => {
-
-        if (roomIdToUpdate) {
-          setIsEditMode(true);
-        }
-      }, [roomIdToUpdate]);
-
       try {
         setIsLoading(true)
         const token = localStorage.getItem('jwtToken');
@@ -112,16 +129,17 @@ const Form = ({ getAllSpectator, ...props }: any) => {
         if (response.status === 200) {
           resetForm()
           setIsLoading(false)
-          getAllSpectator();
           toast.success(response.data.message);
           setShowModal(false);
         } else {
           setIsLoading(false)
+          setRoomIdToUpdate('')
           setError('Failed to Add room. Please try again.');
           toast.error('Failed to Add room. Please try again.');
         }
       } catch (error: any) {
         setIsLoading(false);
+        setRoomIdToUpdate('')
         setError('Failed to Add room. Please try again.');
         toast.error('Failed to Add room. Please try again.');
       }
@@ -134,7 +152,10 @@ const Form = ({ getAllSpectator, ...props }: any) => {
       <div>
         <button
           className={styles.main_form_btn}
-          onClick={() => setShowModal(true)}
+          onClick={() => {
+            setShowModal(true)
+            setRoomIdToUpdate("")
+          }}
         >
           CREATE ROOM ID
         </button>
@@ -157,13 +178,15 @@ const Form = ({ getAllSpectator, ...props }: any) => {
                         <label className={styles.room_id} htmlFor="room_id">
                           Room ID
                         </label>
-                        <Input
+                        <input
                           id="roomId"
                           className={styles.room_field_wrapper}
                           type="text"
                           name="roomId"
                           placeholder="Enter Room ID from BGMI"
                           value={values.roomId}
+                          // value={roomIdToUpdate ? values.roomId : roomIdToUpdate.roomId}
+                          // value={roomIdToUpdate.roomId || values.roomId}
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
@@ -175,13 +198,15 @@ const Form = ({ getAllSpectator, ...props }: any) => {
                         <label className={styles.room_id} htmlFor="password">
                           Game Name
                         </label>
-                        <Input
+                        <input
                           id="gameName"
                           className={styles.room_field_wrapper}
                           type="text"
                           name="gameName"
                           placeholder="Enter Game Name BGMI"
+                          // value={roomIdToUpdate.gameName}
                           value={values.gameName}
+                          // value={roomIdToUpdate.gameName || values.gameName}
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
@@ -194,7 +219,7 @@ const Form = ({ getAllSpectator, ...props }: any) => {
                         <label className={styles.room_id} htmlFor="password">
                           Game Map Name
                         </label>
-                        <Input
+                        <input
                           id="mapType"
                           className={styles.room_field_wrapper}
                           type="text"
@@ -214,7 +239,7 @@ const Form = ({ getAllSpectator, ...props }: any) => {
                         <label className={styles.room_id} htmlFor="password">
                           Time
                         </label>
-                        <Input
+                        <input
                           id="time"
                           className={`${styles.room_field_wrapper} ${styles.room_field_cls2}`}
                           type="time"
@@ -232,7 +257,7 @@ const Form = ({ getAllSpectator, ...props }: any) => {
                         <label className={styles.room_id} htmlFor="secondWin">
                           Last Survival
                         </label>
-                        <Input
+                        <input
                           id="lastSurvival"
                           className={styles.room_field_wrapper}
                           type="text"
@@ -250,7 +275,7 @@ const Form = ({ getAllSpectator, ...props }: any) => {
                         <label className={styles.room_id} htmlFor="secondWin">
                           Second Win
                         </label>
-                        <Input
+                        <input
                           id="secondWin"
                           className={styles.room_field_wrapper}
                           type="text"
@@ -268,14 +293,14 @@ const Form = ({ getAllSpectator, ...props }: any) => {
                         <label className={styles.room_id} htmlFor="entryFee">
                           Entry Fee
                         </label>
-                        <Input
+                        <input
                           id="entryFee"
                           className={styles.room_field_wrapper}
                           type="text"
                           name="entryFee"
                           placeholder="Enter Entry Fee"
-                          value={roomIdToUpdate ? roomIdToUpdate.entryFee : values.entryFee}
-                          // value={values.entryFee}
+                          // value={roomIdToUpdate.entryFee || values.entryFee}
+                          value={values.entryFee}
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
@@ -290,14 +315,14 @@ const Form = ({ getAllSpectator, ...props }: any) => {
                         <label className={styles.room_id} htmlFor="password">
                           Room Password
                         </label>
-                        <Input
+                        <input
                           id="password"
                           className={styles.room_field_wrapper}
                           type="password"
                           name="password"
                           placeholder="Enter password"
                           value={values.password}
-                          // value={roomIdToUpdate ? roomIdToUpdate.password : values.password}
+                          // value={roomIdToUpdate.password || values.password}
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
@@ -309,7 +334,7 @@ const Form = ({ getAllSpectator, ...props }: any) => {
                         <label className={styles.room_id} htmlFor="password">
                           No. Of Players (Game Type)
                         </label>
-                        <Input
+                        <input
                           id="gameType"
                           className={styles.room_field_wrapper}
                           type="text"
@@ -327,7 +352,7 @@ const Form = ({ getAllSpectator, ...props }: any) => {
                         <label className={styles.room_id} htmlFor="password">
                           Version
                         </label>
-                        <Input
+                        <input
                           id="version"
                           className={styles.room_field_wrapper}
                           type="text"
@@ -346,7 +371,7 @@ const Form = ({ getAllSpectator, ...props }: any) => {
                         <label className={styles.room_id} htmlFor="Date">
                           Date
                         </label>
-                        <Input
+                        <input
                           type="date"
                           className={`${styles.room_field_wrapper} ${styles.room_field_cls2}`}
                           id="gameid"
@@ -364,7 +389,7 @@ const Form = ({ getAllSpectator, ...props }: any) => {
                         <label className={styles.room_id} htmlFor="highestKill">
                           Highest Kill
                         </label>
-                        <Input
+                        <input
                           id="highestKill"
                           className={styles.room_field_wrapper}
                           type="text"
@@ -383,7 +408,7 @@ const Form = ({ getAllSpectator, ...props }: any) => {
                         <label className={styles.room_id} htmlFor="thirdWin">
                           Third Win
                         </label>
-                        <Input
+                        <input
                           id="thirdWin"
                           className={styles.room_field_wrapper}
                           type="text"
@@ -402,7 +427,7 @@ const Form = ({ getAllSpectator, ...props }: any) => {
                         <label className={styles.room_id} htmlFor="secondWin">
                           Image Upload
                         </label>
-                        <Input
+                        <input
                           id="file"
                           className={styles.room_field_wrapper}
                           type="file"
