@@ -97,6 +97,7 @@
   font-size: 16px;
   font-family: Century Gothic;
   font-weight: 800;
+  text-transform: capitalize;
 }
 .user_name_title {
   color: $primary-color;
@@ -224,6 +225,7 @@ h1 .user_name_heading {
   font-size: 16px;
   font-weight: 700;
   line-height: 19.62px;
+  text-transform: capitalize;
 }
 
 .inner_logout {

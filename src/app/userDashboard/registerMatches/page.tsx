@@ -7,7 +7,8 @@ import { sendRequest } from '@/services/auth/auth_All_Api';
 import { useSearchParams } from 'next/navigation';
 import { formatDate, formatTime } from '@/Components/CommonComponent/moment';
 import { toast } from 'react-toastify';
-import CountdownComponent from '../tournament/CountdownComponent'
+import CountdownTimer from '../../../Components/CountdownTimer/CountdownTimer';
+import Loader from '@/Components/Loader/Loader';
 
 
 export interface RegMatch {
@@ -29,28 +30,43 @@ const regMatches = () => {
   const matchID = searchParams.get('id');
   const [matchData, setMatchData] = useState<RegMatch>();
   const [visibleRooms, setVisibleRooms] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getRegisterMatchWithId = async () => {
+    setIsLoading(true);
     try {
       const token: any = localStorage.getItem('jwtToken');
-      const regMAtch = await sendRequest(`room/rooms/${matchID}`, {
+      const resMatch = await sendRequest(`room/rooms/${matchID}`, {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },
       });
-      setMatchData(regMAtch.data.room);
-      if (regMAtch.status === 200) {
+      if (resMatch.status === 200 || resMatch.status === 201) {
+
         const formatDateTime = ` ${formatDate({ date: matchData?.dateAndTime })} and ${formatTime({ time: matchData?.dateAndTime, format: 'LT' })}`;
-        setMatchData({ ...regMAtch.data.room, dateAndTime: formatDateTime })
-       CountdownComponent(matchData?.dateAndTime, matchData?.roomUuid, setVisibleRooms)
+        setMatchData({ ...resMatch.data.room, dateAndTime: formatDateTime })
+        CountdownTimer(matchData?.dateAndTime, matchData?.roomUuid, setVisibleRooms)
+      }
+      else {
+        if (resMatch.status === 202) {
+         toast.success(resMatch.data.message);
+        } else {
+          throw Error()
+        }
       }
     } catch (err) {
-      toast.error("not show data ")
+      toast.error('Something went wrong, please try again later!', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+      });
     }
   };
 
   useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
     getRegisterMatchWithId();
-    
   }, []);
 
 
@@ -69,6 +85,9 @@ const regMatches = () => {
             <div className={styles.sendmailbtnContainer}>
             </div>
           </div>
+          {isLoading ? (
+                <Loader />
+              ) : (
           <div className={styles.room_wrapper}>
             <div className={styles.room_container}>
               <div className={styles.registeredmatches}>
@@ -160,61 +179,9 @@ const regMatches = () => {
               </div>
             </div>
           </div>
+              )}
           <div>
-
           </div>
-          {/******  use this code for your team member  ****/}
-
-          {/* <div className={styles.Teammembers}>Your Team Members</div>
-          <div className={styles.container2}>
-            <div className={styles.inner_cont}> */}
-              {/* <div key={index} className={`${styles.slide}`}> */}
-{/* 
-              <div className={styles.reviewsContainer}>
-
-                <div className={styles.reviewCard}>
-
-                  <div className={styles.reviews}>
-
-                    <img
-
-                      src="/assests/reviewman.svg"
-
-                      alt="image"
-
-                      className={styles.profile}
-
-                    />
-
-                    <div className={styles.reviewer}>
-
-                      <div className={styles.name}>
-
-                        <h2>John doe</h2>
-
-                        <div className={styles.greenCircle}></div>
-
-                      </div>
-
-                      <p>akshay@gmail.com</p>
-
-                    </div>
-
-                  </div>
-                  <div className={styles.review_close}>
-                    x
-                  </div>
-                </div>
-
-              </div>
-            */}
-
-              {/* </Slider>
-
-              )} */}
-
-            {/* </div>
-          </div> */}
         </div>
       </div>
     </div>
