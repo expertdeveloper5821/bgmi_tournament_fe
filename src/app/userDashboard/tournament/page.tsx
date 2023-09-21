@@ -18,6 +18,8 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { formatDate, formatTime } from '../../../Components/CommonComponent/moment';
 import { configData } from '@/utils/config';
+import MatchComponent from '@/Components/MatchComponent/MatchComponent';
+
 
 export interface tournament {
   gameName: string;
@@ -255,6 +257,8 @@ function Tournament() {
           </div>
           <div className={styles.room_wrapper}>
             <div className={styles.room_container}>
+           
+             
               <div className={styles.registeredmatches}>
                 <div className={styles.imgSection}>
                   <Image
@@ -273,164 +277,12 @@ function Tournament() {
                   There is no room created till now
                 </div>
               ) : (
-                <div>
+                <div>  
                   <div className={styles.squad_match}>
                     <div className={styles.inner_squad_match}>
-                      <span className={styles.register_match_gamename}>{matchDetails?.gameName}</span>
-                      <span className={styles.winning_prize}>
-                        Date & Time: {matchDetails?.dateAndTime.toString()}
-
-                      </span>
-                      <div className={styles.winnings}>
-                        <div>
-                          <strong className={styles.winning_prize}>
-                            Winning Prize
-                            <span className={styles.caret_down_style}>
-                              <AiOutlineDown
-                                onClick={() => setPoolModal(true)}
-                                style={{ verticleAllign: "middle" }}
-                              />
-                            </span>
-                          </strong>
-                          {poolModal ? (
-                            <div className={styles.main_winning_pool}>
-                              <div className={styles.inner_winning_pool}>
-                                <div className={styles.text_pool_cls}>
-                                  <h1 className={styles.pool_heading}>
-                                    Winning Prize Pool
-                                  </h1>
-                                  <p className={styles.pool_para}>
-                                    {matchDetails.gameName}
-                                  </p>
-                                </div>
-                                <div className={styles.pool_cancel_p}>
-                                  <p className={styles.pool_text_p}>
-                                    Last Survival: {matchDetails.lastSurvival}
-                                    <span className={styles.rs_pool_logo}>
-                                      <Image
-                                        src="../assests/rupee-icon.svg"
-                                        alt="rupeeIcon"
-                                        width={12}
-                                        height={12}
-                                      />
-                                    </span>
-
-                                  </p>
-                                  <p className={styles.pool_text_p}>
-                                    Highest kill: {matchDetails.highestKill}
-                                    <span className={styles.rs_pool_logo}>
-                                      <Image
-                                        src="../assests/rupee-icon.svg"
-                                        alt="rupeeIcon"
-                                        width={12}
-                                        height={12}
-                                      />
-                                    </span>
-                                  </p>
-                                  <p className={styles.pool_text_p}>
-                                    2nd Winner: {matchDetails.secondWin}
-                                    <span className={styles.rs_pool_logo}>
-                                      <Image
-                                        src="../assests/rupee-icon.svg"
-                                        alt="rupeeIcon"
-                                        width={12}
-                                        height={12}
-                                      />
-                                    </span>
-                                  </p>
-                                  <p className={styles.pool_text_p}>
-                                    3nd Winner: {matchDetails.thirdWin}
-                                    <span className={styles.rs_pool_logo}>
-                                      <Image
-                                        src="../assests/rupee-icon.svg"
-                                        alt="rupeeIcon"
-                                        width={12}
-                                        height={12}
-                                      />
-                                    </span>
-                                  </p>
-                                </div>
-                                <p
-                                  className={styles.pool_cancel_p}
-                                  onClick={() => setPoolModal(false)}
-                                >
-                                  <AiOutlineClose
-                                    className={styles.cancel_icon}
-                                  />
-                                </p>
-                              </div>
-                            </div>
-                          ) : (
-                            ''
-                          )}
-                          <span className={styles.survival_content}>
-                            Last Survival:
-                            <span className={styles.rs_logo}>
-                              <Image
-                                src="../assests/rupee-icon.svg"
-                                alt="rupeeIcon"
-                                width={12}
-                                height={12}
-                              />
-                            </span>
-                            {matchDetails?.lastSurvival}
-                          </span>
-                        </div>
-                        <div>
-                          <span className={styles.winning_prize}>
-                            Entry Fees
-                          </span>
-                          <span className={styles.survival_content}>
-
-                            <span className="rs_logo">
-                              <Image
-                                src="../assests/rupee-icon.svg"
-                                alt="rupeeIcon"
-                                width={12}
-                                height={12}
-                              />
-                            </span>
-                            {matchDetails?.entryFee}
-                          </span>
-                        </div>
-                      </div>
-                      <div className={styles.winnings}>
-                        <div>
-                          <span className={styles.winning_prize}>TYPE</span>
-                          <span
-                            className={styles.tvm_font}
-                            style={{ color: 'rgba(255, 214, 0, 1)' }}
-                          >
-                            {matchDetails?.gameType}
-                          </span>
-                        </div>
-                        <div>
-                          <span className={styles.winning_prize}>VERSION</span>
-                          <span
-                            className={styles.tvm_font}
-                            style={{ color: 'rgba(255, 214, 0, 1)' }}
-                          >
-                            {matchDetails?.version}
-                          </span>
-                        </div>
-                        <div>
-                          <span className={styles.winning_prize}>MAP</span>
-                          <span
-                            className={styles.tvm_font}
-                            style={{ color: 'rgba(255, 122, 0, 1)' }}
-                          >
-                            {matchDetails?.mapType}
-                          </span>
-                        </div>
-                      </div>
+                    <MatchComponent gameName={matchDetails?.gameName} dateAndTime={matchDetails?.dateAndTime.toString()} lastSurvival={matchDetails?.lastSurvival} highestKill={matchDetails?.highestKill} secondWin={matchDetails?.secondWin} thirdWin={matchDetails?.thirdWin} entryFee={matchDetails?.entryFee} gameType={matchDetails?.gameType} version={matchDetails?.version} mapType={matchDetails?.mapType} />
                       <div className={styles.spot_line_sec}>
-
-                        {/* <progress
-                      className={styles.progress_cls}
-                      id="file"
-                      value="40"
-                      max="100"
-                    /> */}
+                      
                       </div>
                       <div className={styles.winnings_sec_secton}>
                         <div className={styles.spot_line}>
@@ -499,7 +351,7 @@ function Tournament() {
                       regMatches
                         .slice(currentIndex, currentIndex + numItemsToShow)
                         .map((match: any, index: any) => {
-                          getIdPass(match.dateAndTime, match.roomUuid)
+                        getIdPass(match.dateAndTime, match.roomUuid)
                           return (
                             <div className={styles.container3} key={index} >
                               <div className={styles.reg_match_image_container}>

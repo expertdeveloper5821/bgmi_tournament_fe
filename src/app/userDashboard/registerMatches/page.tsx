@@ -9,6 +9,7 @@ import { formatDate, formatTime } from '@/Components/CommonComponent/moment';
 import { toast } from 'react-toastify';
 import CountdownTimer from '../../../Components/CountdownTimer/CountdownTimer';
 import Loader from '@/Components/Loader/Loader';
+import MatchComponent from '@/Components/MatchComponent/MatchComponent';
 
 
 export interface RegMatch {
@@ -23,6 +24,9 @@ export interface RegMatch {
   password: string;
   entryFee?: string;
   mapImg: string;
+  highestKill:string;
+  secondWin:string;
+  thirdWin:string;
 }
 
 const regMatches = () => {
@@ -41,7 +45,6 @@ const regMatches = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (resMatch.status === 200 || resMatch.status === 201) {
-
         const formatDateTime = ` ${formatDate({ date: matchData?.dateAndTime })} and ${formatTime({ time: matchData?.dateAndTime, format: 'LT' })}`;
         setMatchData({ ...resMatch.data.room, dateAndTime: formatDateTime })
         CountdownTimer(matchData?.dateAndTime, matchData?.roomUuid, setVisibleRooms)
@@ -71,7 +74,7 @@ const regMatches = () => {
 
 
   return (
-    <div className={styles.main_container}>
+    <div className={styles.main_container} id="mainLayoutContainerInner">
       <div className={styles.abcd}>
         <div className={styles.sidebar_wrapper}>
           <Navbar />
@@ -102,76 +105,7 @@ const regMatches = () => {
                 </div>
               </div>
               <div className={styles.squad_match}>
-                <span className={styles.register_match_gamename}>
-                  {matchData?.gameName}
-                </span>
-                <span className={styles.winning_prize}>
-                  Time: {matchData?.dateAndTime.toString()}
-                </span>
-
-                <div className={styles.winnings}>
-                  <div>
-                    <span className={styles.winning_prize}>WINNING PRIZE</span>
-                    <span className={styles.survival_content}>
-                      Last Survival: 
-                      <span className="rs_logo">
-                        <Image
-                          src="../assests/rupee-icon.svg"
-                          alt="rupeeIcon"
-                          width={12}
-                          height={12}
-                        />
-                      </span>
-                      {matchData?.lastSurvival}
-                    </span>
-                  </div>
-
-                  <div>
-                    <span className={styles.winning_prize}> Entry FEES :</span>
-                    <span className={styles.survival_content}>
-                      <span className="rs_logo">
-                        <Image
-                          src="../assests/rupee-icon.svg"
-                          alt="rupeeIcon"
-                          width={12}
-                          height={12}
-                        />
-                      </span>
-                      {matchData?.entryFee}
-                    </span>
-                  </div>
-                </div>
-                <div className={styles.winnings}>
-                  <div>
-                    <span className={styles.winning_prize}>TYPE</span>
-                    <span
-                      className={styles.tvm_font}
-                      style={{ color: 'rgba(255, 214, 0, 1)' }}
-                    >
-                      {matchData?.gameType}
-                    </span>
-                  </div>
-
-                  <div>
-                    <span className={styles.winning_prize}>VERSION</span>
-                    <span
-                      className={styles.tvm_font}
-                      style={{ color: 'rgba(255, 214, 0, 1)' }}
-                    >
-                      {matchData?.version}
-                    </span>
-                  </div>
-
-                  <div>
-                    <span className={styles.winning_prize}>MAP</span>
-                    <span
-                      className={styles.tvm_font}
-                      style={{ color: 'rgba(255, 122, 0, 1)' }}
-                    >
-                      {matchData?.mapType}
-                    </span>
-                  </div>
-                </div>
+              <MatchComponent gameName={matchData?.gameName}  dateAndTime={matchData?.dateAndTime.toString()} lastSurvival={matchData?.lastSurvival}  entryFee={matchData?.entryFee} gameType={matchData?.gameType} version={matchData?.version} mapType={matchData?.mapType} highestKill={matchData?.highestKill}  secondWin={matchData?.secondWin} thirdWin={matchData?.thirdWin}/>
                 <div className={styles.winnings}>
                 <span>Room Id: {visibleRooms?.find(room => room === matchData.roomUuid) ? matchData.roomId : '*****'}</span>
                 <span>Room password: {visibleRooms?.find(room => room === matchData.roomUuid) ? matchData.password : '*****'}</span>
