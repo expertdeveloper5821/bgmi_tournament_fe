@@ -22,11 +22,13 @@ interface FormCreate {
 
 export default function Modal() {
   const [spectatorData, setSpectatorData] = useState<SpectatorData[]>([]);
-  console.log("spectatorData", spectatorData)
   const [isLoading, setIsLoading] = useState(true);
   const [isupdateData, setIsUpdateData] = useState<any>(null)
   const imageIcon: string = 'spectator';
   const [getSpectatorId, setSetSpectatorId] = useState<any>()
+  const [specRoleId, setSpecRoleId] = useState<any>();
+
+
 
 
   const [modal, setModal] = useState(false);
@@ -35,25 +37,35 @@ export default function Modal() {
     userName: '',
     email: '',
     password: '',
-    role: '64d7239c8a677a5d2e21b00d'
+    role: specRoleId
   });
 
   const getAllUsers = async () => {
+    setIsLoading(true);
     try {
       const tokens = localStorage.getItem('jwtToken');
       const allUsersData: any = await sendRequest('/user/getalluser', {
         method: 'GET',
         headers: { 'Authorization': `Bearer ${tokens}` }
-      });
 
-      const allspectatorData = allUsersData?.data?.data;
-      const filteredData = allspectatorData.filter((spectator: any) => {
-        return spectator.role.role === 'spectator';
       });
+      if (allUsersData.status === 200) {
+        const allspectatorData = allUsersData?.data?.data;
+        const filteredData = allspectatorData.filter((spectator: any) => {
+          return spectator.role.role === 'spectator';
+        });
+        setSpectatorData(filteredData);
 
-      setSpectatorData(filteredData);
-      setIsLoading(false);
+        setIsLoading(false);
+        setSpecRoleId(filteredData[0].role._id);
+      }
+      else {
+        console.error('Failed to fetch users:', allUsersData.statusText);
+      }
     } catch (error) {
+
+      console.error('An error occurred:', error);
+    } finally {
 
       setIsLoading(false);
     }
@@ -62,13 +74,16 @@ export default function Modal() {
 
   const deleteroomId = async (userUuid: any) => {
     try {
+      setIsLoading(true);
       const tokens = localStorage.getItem('jwtToken');
-      console.log(tokens)
       const response: any = await sendRequest(`/role/deleterole/${userUuid}`, {
         method: 'delete',
         headers: { 'Authorization': `Bearer ${tokens}` }
       });
+
+      setIsLoading(false);
       getAllUsers();
+
       if (response) {
         const success = response.data.message;
         toast.success(success);
@@ -76,27 +91,22 @@ export default function Modal() {
       setSpectatorData(spectatorData);
     } catch (error) {
       console.error('Error deleting room:', error);
+      setIsLoading(false);
+      toast.error('An error occurred while deleting the room.');
 
     }
   };
 
-  console.log("getSpectatorId", getSpectatorId)
 
   const toggleModal = (userid: string) => {
     setModal(!modal);
-
-    if (!modal) {
-      document.body.classList.add('activemodal');
-    } else {
-      document.body.classList.remove('activemodal');
-    }
-
     setSetSpectatorId(userid || null);
-    setFormData(initialFormData); // Reset form data when modal is opened
+    setFormData(initialFormData);
   };
 
   const updateSpectatorByid = async () => {
     try {
+      setIsLoading(true);
       const token = localStorage.getItem('jwtToken');
       const response: any = await sendRequest(`/role/updaterole/${getSpectatorId.userUuid}`, {
         method: "PUT",
@@ -111,18 +121,14 @@ export default function Modal() {
 
   }
 
-
-
   useEffect(() => {
     getAllUsers();
   }, []);
 
   const columns: string[] = [
-    'FullName',
-    'UserName',
+    'Full Name',
+    'User Name',
     'Email',
-    // 'password',
-
   ];
 
 
@@ -131,7 +137,7 @@ export default function Modal() {
     userName: getSpectatorId != null ? getSpectatorId?.userName : '',
     email: getSpectatorId?.email || '',
     password: getSpectatorId?.password || '',
-    role: '64d7239c8a677a5d2e21b00d'
+    role: specRoleId
   };
 
 
@@ -150,7 +156,7 @@ export default function Modal() {
         userName: '',
         email: '',
         password: '',
-        role: '64d7239c8a677a5d2e21b00d'
+        role: specRoleId
       };
       setFormData(initialFormData)
     }
@@ -185,7 +191,7 @@ export default function Modal() {
       userName: '',
       email: '',
       password: '',
-      role: '64d7239c8a677a5d2e21b00d',
+      role: specRoleId
     });
 
     const token: any = localStorage.getItem('jwtToken');
