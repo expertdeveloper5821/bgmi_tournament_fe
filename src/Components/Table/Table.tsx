@@ -47,7 +47,6 @@ export interface SpectatorData {
   fullName: string;
   userName: any;
   email: any;
-  // password: any;
 }
 interface StudentProfilePropsType {
   updateSpectatorByid: any;
@@ -137,7 +136,10 @@ const TableData = (props: StudentProfilePropsType) => {
     ['Created By', true],
     ['Game Name', true],
     ['Time', true],
-    ['Date', true]
+    ['Date', true],
+    ['Full Name', true],
+    ['User Name', true],
+    ['Email', true]
   ]);
 
   return (
@@ -232,21 +234,11 @@ const TableData = (props: StudentProfilePropsType) => {
                       {elm.mapType}
                     </TableCell>
                   )}
-                  {/* {elm.mapImg && (
-                    <TableCell className={styles.table_cell}>
-                      <Image src={elm.mapImg} alt='mapImage' width={30} height={30} />
-                    </TableCell>
-                  )} */}
                   {elm.version && (
                     <TableCell className={styles.table_cell}>
                       {elm.version}
                     </TableCell>
                   )}
-                  {/* {elm.time && (
-                    <TableCell className={styles.table_cell}>
-                      {formatTime({ time: elm.time, format: 'LT' })}
-                    </TableCell>
-                  )} */}
                   {elm.time && (
                     <TableCell className={styles.table_cell}>
                       {elm.time}
@@ -262,11 +254,11 @@ const TableData = (props: StudentProfilePropsType) => {
                       {elm.fullName}
                     </TableCell>
                   )}
-                  {elm.userName && (
-                    <TableCell className={styles.table_cell}>
-                      {elm.userName}
-                    </TableCell>
-                  )}
+
+                  <TableCell className={styles.table_cell}>
+                    {elm.userName || "--"}
+                  </TableCell>
+
                   {elm.email && (
                     <TableCell className={styles.table_cell}>
                       {elm.email}
@@ -303,7 +295,6 @@ const TableData = (props: StudentProfilePropsType) => {
                               width={15}
                               height={15}
                               className={styles.table_icon}
-                              // onClick={() => deleteroomId(elm._id)}
                               onClick={() => props.deleteroomId(elm._id || elm.userUuid)}
                             />
                             <Image
@@ -331,11 +322,13 @@ const TableData = (props: StudentProfilePropsType) => {
                                     width={15}
                                     height={15}
                                     className={styles.table_icon}
-                                  // onClick={() => props.deleteroomId(elm._id || elm.userUuid)}
                                   />
                                 </div>
-                                <div onClick={() => setIsModalOpen(true)}>
-                                  <div onClick={() => setIsShowData(!isShowData)}><Image src="/assests/eye.png" alt='show' width={15} height={15} /></div></div>
+                                {!window.location.href.includes('users') && (
+                                  <div onClick={() => setIsModalOpen(true)}>
+                                    <Image src="/assests/eye.png" alt='show' width={15} height={15} />
+                                  </div>
+                                )}
                               </div>
                             )}
                             {deletModal ? (
