@@ -1,19 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
-import RequireAuthentication from '../../../utils/requireAuthentication';
 import withAuth from '@/Components/HOC/WithAuthHoc';
 import { Navbar } from '../../../Components/Navbar/Navbar';
 //@ts-ignore
 import { Button } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import { sendRequest } from '@/services/auth/auth_All_Api';
-import {
-  AiOutlineDown,
-  AiOutlineClose,
-  AiOutlineLeft,
-  AiOutlineRight,
-} from 'react-icons/ai';
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { formatDate, formatTime } from '../../../Components/CommonComponent/moment';
@@ -225,7 +219,6 @@ function Tournament() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-
   const getIdPass = (dateAndTime: string, roomUuid: string) => {
     if (dateAndTime && roomUuid) {
       setInterval(() => {
@@ -239,7 +232,6 @@ function Tournament() {
       }, 60000)
     }
   };
-
 
   return (
     <div className={styles.main_container} id="mainLayoutContainerInner">
@@ -257,8 +249,6 @@ function Tournament() {
           </div>
           <div className={styles.room_wrapper}>
             <div className={styles.room_container}>
-           
-             
               <div className={styles.registeredmatches}>
                 <div className={styles.imgSection}>
                   <Image
