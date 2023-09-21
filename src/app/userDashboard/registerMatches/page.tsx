@@ -48,6 +48,7 @@ const regMatches = () => {
         const formatDateTime = ` ${formatDate({ date: matchData?.dateAndTime })} and ${formatTime({ time: matchData?.dateAndTime, format: 'LT' })}`;
         setMatchData({ ...resMatch.data.room, dateAndTime: formatDateTime })
         CountdownTimer(matchData?.dateAndTime, matchData?.roomUuid, setVisibleRooms)
+        setIsLoading(false);
       }
       else {
         if (resMatch.status === 202) {
@@ -66,9 +67,6 @@ const regMatches = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
     getRegisterMatchWithId();
   }, []);
 
