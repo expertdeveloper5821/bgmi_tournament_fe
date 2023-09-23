@@ -47,7 +47,6 @@ export interface SpectatorData {
   fullName: string;
   userName: any;
   email: any;
-  // password: any;
 }
 interface StudentProfilePropsType {
   updateSpectatorByid: any;
@@ -133,12 +132,27 @@ const TableData = (props: StudentProfilePropsType) => {
     }
   };
 
-  const sortableColumnsMap = new Map<string, boolean>([
-    ['Created By', true],
-    ['Game Name', true],
-    ['Time', true],
-    ['Date', true]
-  ]);
+  // const sortableColumnsMap = new Map<string, boolean>([
+  //   ['Created By', true],
+  //   ['Game Name', true],
+  //   ['Time', true],
+  //   ['Date', true],
+  //   ['FullName', true],
+  //   ['UserName', true],
+  //   ['Email', true]
+  // ]);
+
+  const columns = [
+    { label: "Created By", key: "Created By", isSortable: true },
+    { label: "Game Name", key: "Game Name", isSortable: true },
+    { label: "Time", key: "Time", isSortable: true },
+    { label: "Date", key: "Date", isSortable: true },
+    { label: "Full Name", key: "FullName", isSortable: true },
+    { label: "User Name", key: "User Name", isSortable: true },
+    { label: "Email", key: "Email", isSortable: true },
+  ];
+
+
 
   return (
     <div style={isShowData ? { display: 'flex' } : undefined}  >
@@ -150,21 +164,21 @@ const TableData = (props: StudentProfilePropsType) => {
                 <div className={styles.header_room}>
                   <div className={styles.filter}>
                     <h1 className={styles.room_header}>  {columnName}</h1>
-                    {sortableColumnsMap.get(columnName) && (
+                    {columnName && columns.find(col => col.label === columnName)?.isSortable && (
                       <div className={styles.arrow}>
                         <Image
                           src="/assests/upArow.svg"
                           alt="filterup"
                           width={10}
                           height={10}
-                          onClick={() => handleSort(columnName as keyof TableDataType, 'room')}
+                          onClick={() => handleSort(columnName as keyof TableDataType, 'room' || 'spectator')}
                         ></Image>
                         <Image
                           src="/assests/downarow.svg"
                           alt="filterdown"
                           width={10}
                           height={10}
-                          onClick={() => handleSort(columnName as keyof TableDataType, 'room')}
+                          onClick={() => handleSort(columnName as keyof TableDataType, 'room' || 'spectator')}
                         ></Image>
                       </div>
                     )}
@@ -232,11 +246,6 @@ const TableData = (props: StudentProfilePropsType) => {
                       {elm.mapType}
                     </TableCell>
                   )}
-                  {/* {elm.mapImg && (
-                    <TableCell className={styles.table_cell}>
-                      <Image src={elm.mapImg} alt='mapImage' width={30} height={30} />
-                    </TableCell>
-                  )} */}
                   {elm.version && (
                     <TableCell className={styles.table_cell}>
                       {elm.version}
@@ -247,16 +256,16 @@ const TableData = (props: StudentProfilePropsType) => {
                       {formatTime({ time: elm.time, format: 'LT' })}
                     </TableCell>
                   )} */}
-                  {elm.time && (
+                  {window.location.href.includes("spectator") ? "" :
                     <TableCell className={styles.table_cell}>
-                      {elm.time}
+                      {elm.time || "--"}
                     </TableCell>
-                  )}
-                  {elm.date && (
+                  }
+                  {window.location.href.includes("spectator") ? "" :
                     <TableCell className={styles.table_cell}>
                       {formatDate({ date: elm.date, format: 'l' })}
                     </TableCell>
-                  )}
+                  }
                   {elm.fullName && (
                     <TableCell className={styles.table_cell}>
                       {elm.fullName}

@@ -160,7 +160,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.gameName && touched.gameName && (
                         <div className={styles.error}>{String(errors.gameName)}</div>
                       )}
-                      
+
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="password">
                           Game Map Name
@@ -236,7 +236,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.secondWin && touched.secondWin && (
                         <div className={styles.error}>{String(errors.secondWin)}</div>
                       )}
-                       <div className={styles.input_box}>
+                      <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="entryFee">
                           Entry Fee
                         </label>
@@ -257,7 +257,7 @@ const Form = ({ getAllSpectator }: any) => {
                     </div>
 
                     <div className={styles.flex_col}>
-                    <div className={styles.input_box}>
+                      <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="password">
                           Room Password
                         </label>
@@ -313,9 +313,9 @@ const Form = ({ getAllSpectator }: any) => {
                         <div className={styles.error}>{String(errors.version)}</div>
                       )}
                       <div className={styles.input_box}>
-                          <label className={styles.room_id} htmlFor="Date">
-                            Date
-                          </label>
+                        <label className={styles.room_id} htmlFor="Date">
+                          Date
+                        </label>
                         <Input
                           type="date"
                           className={`${styles.room_field_wrapper} ${styles.room_field_cls2}`}
@@ -329,7 +329,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.date && touched.date && (
                         <div className={styles.error}>{String(errors.date)}</div>
                       )}
-                      
+
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="highestKill">
                           Highest Kill
@@ -348,7 +348,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.highestKill && touched.highestKill && (
                         <div className={styles.error}>{String(errors.highestKill)}</div>
                       )}
-                    
+
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="thirdWin">
                           Third Win
@@ -367,7 +367,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.thirdWin && touched.thirdWin && (
                         <div className={styles.error}>{String(errors.thirdWin)}</div>
                       )}
-                     
+
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="secondWin">
                           Image Upload

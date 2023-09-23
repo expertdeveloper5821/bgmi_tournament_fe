@@ -9,6 +9,7 @@
 
 .filter {
   display: flex;
+  justify-content: center;
   align-items: center;
   font-size: 12px;
   font-weight: 700;
@@ -338,3 +339,5 @@ button#btn_cls_st {
 .scrolling {
   overflow-x: scroll;
 }
+
+

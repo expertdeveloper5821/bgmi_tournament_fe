@@ -49,7 +49,6 @@ function page() {
     setIsLoading(true);
     try {
       const tokens = localStorage.getItem('jwtToken');
-      // console.log(tokens)
       const response = await sendRequest(`/room/rooms/${_id}`, {
         method: 'delete',
         headers: { 'Authorization': `Bearer ${tokens}` }
@@ -82,7 +81,7 @@ function page() {
   return (
     <>
       <RequireAuthentication>
-        <div className={styles.main_container}>
+        <div className={styles.main_container} id="mainLayoutContainerInner">
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
               <Navbar />
