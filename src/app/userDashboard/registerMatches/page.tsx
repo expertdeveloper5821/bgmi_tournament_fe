@@ -1,9 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
-import { Navbar } from '../../../Components/Navbar/Navbar';
+import { Navbar } from '@/components/CommonComponent/Navbar/Navbar';
 import Image from 'next/image';
-import { sendRequest } from '@/services/auth/auth_All_Api';
+import { sendRequest } from '@/utils/axiosInstanse';
 import { useSearchParams } from 'next/navigation';
 import { formatDate, formatTime } from '@/Components/CommonComponent/moment';
 import { toast } from 'react-toastify';
@@ -79,9 +79,7 @@ const regMatches = () => {
           <div className={styles.content}>
             <div className={styles.dashboard}>
               <span className={styles.head_desc}>Registered Matches</span>
-              <h1 className={styles.subhead_desc}>
-                Dashboard /registered matches
-              </h1>
+              <h1 className={styles.subhead_desc}>Dashboard /registered matches</h1>
             </div>
             <div className={styles.sendmailbtnContainer}>
             </div>

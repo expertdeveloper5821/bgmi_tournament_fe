@@ -4,8 +4,8 @@ import styles from '../../../styles/Spectator.module.scss';
 //@ts-ignore
 import { Button, Input, Select } from 'technogetic-iron-smart-ui';
 import { useFormik, FormikHelpers } from 'formik';
-import { validationSchema } from '../../../schemas/SignupSchemas';
-import { sendRequest } from '../../../services/auth/auth_All_Api';
+import { validationSchema } from '@/utils/schema';
+import { sendRequest } from '@/utils/axiosInstanse';
 import { ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
 interface FormCreate {

@@ -1,6 +1,5 @@
 {
-    "welcome": "Welcome to my Next.js app!",
-    "greeting": "Hello, {{name}}!",
-    "buttonLabel": "Click me"
-  }
-  
+  "welcome": "Welcome to my Next.js app!",
+  "greeting": "Hello, {{name}}!",
+  "buttonLabel": "Click me"
+}

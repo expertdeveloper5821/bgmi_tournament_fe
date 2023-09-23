@@ -1,9 +1,9 @@
 'use client';
-import React, {useState} from 'react';
-import {sendRequest} from '../../../services/auth/auth_All_Api';
-import {AiOutlineDelete} from 'react-icons/ai';
-import styles from '../../../styles/Spectator.module.scss';
-import {toast} from 'react-toastify';
+import React, { useState } from 'react';
+import { AiOutlineDelete } from 'react-icons/ai';
+import styles from '@/styles/Spectator.module.scss';
+import { toast } from 'react-toastify';
+import { sendRequest } from '@/utils/axiosInstanse';
 
 const Deletespec = ({Id, getAllSpectator}: any) => {
   const [deletModal, setDeleteModal] = useState<boolean>(false);
@@ -33,24 +33,19 @@ const Deletespec = ({Id, getAllSpectator}: any) => {
   return (
     <>
       <p onClick={() => setDeleteModal(true)}>
-        <AiOutlineDelete style={{color: '#FFD600', size: '18'}} />
+        <AiOutlineDelete style={{ color: '#FFD600', size: '18' }} />
       </p>
       {deletModal ? (
         <div className={styles.main_del_sec}>
           <div className={styles.inner_del_sec}>
             <h4 className={styles.del_title}>Delete</h4>
             <div className={styles.sucess_msg}>{message}</div>
-            <p className={styles.sec_heading}>
-              Are you sure want to delete this room?
-            </p>
+            <p className={styles.sec_heading}>Are you sure want to delete this room?</p>
             <div className={styles.del_btn_sec}>
               <button className={styles.dele_btn} onClick={handleDelete} disabled={isLoading}>
                 {isLoading ? 'Loading...' : 'Delete'}
               </button>
-              <button
-                className={styles.canc_btn}
-                onClick={() => setDeleteModal(false)}
-              >
+              <button className={styles.canc_btn} onClick={() => setDeleteModal(false)}>
                 cancel
               </button>
             </div>

@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
 import withAuth from '@/Components/HOC/WithAuthHoc';
-import { Navbar } from '../../../Components/Navbar/Navbar';
+import { Navbar } from '@/components/CommonComponent/Navbar/Navbar';
 //@ts-ignore
 import { Button } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
-import { sendRequest } from '@/services/auth/auth_All_Api';
+import { sendRequest } from '@/utils/axiosInstanse';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';

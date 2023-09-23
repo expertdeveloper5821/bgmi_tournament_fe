@@ -1,5 +1,6 @@
 import React from 'react';
 import Tournament from './tournament/page';
+import withAuth from '@/Components/HOC/WithAuthHoc';
 
 
 function UserDashboard() {
@@ -10,4 +11,4 @@ function UserDashboard() {
   );
 }
 
-export default UserDashboard;
+export default withAuth(UserDashboard);

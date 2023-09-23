@@ -2,10 +2,10 @@
 'use client';
 import React, { useState, useEffect } from "react";
 import styles from "../../../styles/Dashboard.module.scss";
-import { sendRequest } from "@/services/auth/auth_All_Api";
+import { sendRequest } from "@/utils/axiosInstanse";
 //@ts-ignore
 import { Input, Button } from 'technogetic-iron-smart-ui';
-import { Navbar } from '../../../Components/Navbar/Navbar';
+import { Navbar } from '@/components/CommonComponent/Navbar/Navbar';
 import Loader from "@/Components/Loader/Loader";
 import TableData, { SpectatorData } from '../../../Components/Table/Table';
 import { toast } from 'react-toastify';

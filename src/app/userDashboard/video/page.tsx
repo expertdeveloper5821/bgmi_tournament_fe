@@ -1,11 +1,12 @@
 'use client';
-import React, {useEffect, useState} from 'react';
-import styles from '../../../styles/video.module.scss';
-import {Navbar} from '@/Components/Navbar/Navbar';
+import React, { useEffect, useState } from 'react';
+import styles from '@/styles/video.module.scss';
 import VideoCard from './videoCard/videoCard';
 import CenterText from './videoCard/centerText';
 import ReviewSection from './videoCard/reviewSection';
-import CustomPagination from '@/Components/Pagination/Pagination';
+import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
+import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination';
+
 const Page: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [receivedData, setReceivedData] = useState<any[]>([]);
@@ -51,7 +52,7 @@ const Page: React.FC = () => {
           </div>
           <div className={styles.container}>
             <div className={styles.videoCard}>
-              <VideoCard  onDataUpdate={handleChildData}/>
+              <VideoCard onDataUpdate={handleChildData} />
             </div>
             <div className={styles.centerText}>
               <CenterText />
@@ -61,7 +62,7 @@ const Page: React.FC = () => {
             </div>
           </div>
           <div className={styles.pagination}>
-            <CustomPagination  data={receivedData} />
+            <CustomPagination data={receivedData} />
           </div>
         </div>
       )}

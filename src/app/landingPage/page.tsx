@@ -4,7 +4,7 @@ import styles from '../../styles/landingpage.module.scss';
 import useWindowSize from '@/hooks/useWindowSize';
 import NavBar from './navBar/page';
 import Image from 'next/image';
-import { sendRequest } from '@/services/auth/auth_All_Api';
+import { sendRequest } from '@/utils/axiosInstanse';
 import { toast } from 'react-toastify';
 import CustomCursor from './customCursor/page';
 import Link from 'next/link';
@@ -110,12 +110,7 @@ const page = () => {
           />
         </div>
         <div className={styles.parashoot2}>
-          <Image
-            src="/assests/p.png"
-            alt="parashoot"
-            height={100}
-            width={100}
-          />
+          <Image src="/assests/p.png" alt="parashoot" height={100} width={100} />
         </div>
         <div className={styles.parashoot3}>
           <img
@@ -194,11 +189,10 @@ const page = () => {
         <div className={styles.upcoming_mathces}>
           <h3 className={styles.upComingHeading}>Upcoming Matches</h3>
           <p className={styles.upComingPara}>
-            Are you ready to take your BGMI gaming to the next level? Look no
-            further! BGMI Rewards brings you an exhilarating platform where your
-            gaming skills translate into real cash rewards. Join thousands of
-            enthusiastic players who have already unlocked the true potential of
-            their gaming passion.
+            Are you ready to take your BGMI gaming to the next level? Look no further! BGMI Rewards
+            brings you an exhilarating platform where your gaming skills translate into real cash
+            rewards. Join thousands of enthusiastic players who have already unlocked the true
+            potential of their gaming passion.
           </p>
         </div>
 
@@ -397,11 +391,10 @@ const page = () => {
             <div className={styles.welcome_alingnment}>
               <h2>Welcome to Patt Se Headshot</h2>
               <p>
-                Are you ready to take your BGMI gaming to the next level? Look
-                no further! BGMI Rewards brings you an exhilarating platform
-                where your gaming skills translate into real cash rewards. Join
-                thousands of enthusiastic players who have already unlocked the
-                true potential of their gaming passion.
+                Are you ready to take your BGMI gaming to the next level? Look no further! BGMI
+                Rewards brings you an exhilarating platform where your gaming skills translate into
+                real cash rewards. Join thousands of enthusiastic players who have already unlocked
+                the true potential of their gaming passion.
               </p>
             </div>
           </div>
@@ -410,9 +403,9 @@ const page = () => {
           <div className={styles.choseSection}>
             <h2>Why Choose PATT SE HEADSHOT</h2>
             <p>
-              Join the ranks of those who have chosen us as their preferred
-              esports platform for BGMI. Experience the future of gaming
-              excellence and be part of our ever-growing success story.
+              Join the ranks of those who have chosen us as their preferred esports platform for
+              BGMI. Experience the future of gaming excellence and be part of our ever-growing
+              success story.
             </p>
             <img src={'../assests/directionindicator.svg'} />
           </div>
@@ -530,8 +523,8 @@ const page = () => {
           </div>
           <div>
             <p className={styles.scope_text} id="changing-text">
-              Our dedicated support team is here to assist you around the clock,
-              ensuring a smooth and enjoyable gaming experience.
+              Our dedicated support team is here to assist you around the clock, ensuring a smooth
+              and enjoyable gaming experience.
             </p>
           </div>
           <div className={styles.guns}>
@@ -556,24 +549,17 @@ const page = () => {
         <div className={styles.mapSecDescription}>
           <h3 className={styles.mapSecHead}>How It Works</h3>
           <p>
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters,
+            It is a long established fact that a reader will be distracted by the readable content
+            of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
+            more-or-less normal distribution of letters,
           </p>
         </div>
       </section>
 
       <section className={styles.mapBg}>
-
         <div className={styles.signUpDiv}>
           <div className={styles.singUp}>
-            <Image
-              src="../assests/redLoction.svg"
-              height={20}
-              width={20}
-              alt="red_loction"
-            />
+            <Image src="../assests/redLoction.svg" height={20} width={20} alt="red_loction" />
           </div>
 
           <p>Sign Up</p>
@@ -716,9 +702,7 @@ const page = () => {
             </Link>
           </div>
 
-          <p className={styles.footer_para}>
-            Let's connect for more information
-          </p>
+          <p className={styles.footer_para}>Let's connect for more information</p>
 
           <div className={styles.social_I}>
             <Link href="" className={styles.sociallink}>
@@ -769,10 +753,7 @@ const page = () => {
             </Link>
           </div>
 
-          <Link
-            href="mailto:support@pattseheadshot.com"
-            className={styles.support}
-          >
+          <Link href="mailto:support@pattseheadshot.com" className={styles.support}>
             Mail us: support@pattseheadshot.com
           </Link>
 

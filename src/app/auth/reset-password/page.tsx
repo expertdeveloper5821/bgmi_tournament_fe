@@ -1,13 +1,13 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import styles from "../../../styles/credential.module.scss";
+import styles from '@/styles/credential.module.scss';
 import { useRouter } from 'next/navigation';
 import { useFormik } from 'formik';
-import { ResetPasswordSchema } from '../../../schemas/SignupSchemas';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
-import {sendRequest} from '../../../services/auth/auth_All_Api';
 import Image from 'next/image';
+import { sendRequest } from '@/utils/axiosInstanse';
+import { ResetPasswordSchema } from '@/utils/schema';
 
 interface FormValues {
   newPassword: string;
@@ -31,14 +31,7 @@ const UpdateCredential: React.FC = () => {
     confirmPassword: '',
   };
 
-  const {
-    values,
-    touched,
-    errors,
-    handleSubmit,
-    handleChange,
-    handleBlur,
-  } = useFormik({
+  const { values, touched, errors, handleSubmit, handleChange, handleBlur } = useFormik({
     initialValues,
     validationSchema: ResetPasswordSchema,
     onSubmit: async (values: FormValues) => {
@@ -65,20 +58,22 @@ const UpdateCredential: React.FC = () => {
       <div className={styles.background_container}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <Image src="/assests/logoWithBg.svg" alt="bgmilogo" width={220}
-              height={100} />
+            <Image src="/assests/logoWithBg.svg" alt="bgmilogo" width={220} height={100} />
           </div>
           <div>
             <h2 className={styles.headDesc}>Reset Password</h2>
-            <p className={styles.heading}>
-              Please enter your password and confirm the password
-            </p>
+            <p className={styles.heading}>Please enter your password and confirm the password</p>
           </div>
           <div>
             <form onSubmit={handleSubmit}>
               <div className={styles.input_box}>
                 <label htmlFor="newPassword" className={styles.password}>
-                  <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
+                  <Image
+                    src="/assests/passwordlogo.svg"
+                    alt="passwordlogo"
+                    width={30}
+                    height={20}
+                  />
                 </label>
                 <Input
                   type="password"
@@ -91,19 +86,20 @@ const UpdateCredential: React.FC = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                 ></Input>
-
               </div>
               <div className={styles.error}>
                 {errors.newPassword && touched.newPassword ? (
-                  <p>{(errors.newPassword = "Password must be at least 6 characters")}</p>
+                  <p>{(errors.newPassword = 'Password must be at least 6 characters')}</p>
                 ) : null}
               </div>
               <div className={styles.input_box}>
-                <label
-                  htmlFor="confirmPassword"
-                  className={styles.password}
-                >
-                  <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
+                <label htmlFor="confirmPassword" className={styles.password}>
+                  <Image
+                    src="/assests/passwordlogo.svg"
+                    alt="passwordlogo"
+                    width={30}
+                    height={20}
+                  />
                 </label>
                 <Input
                   type="password"
@@ -116,19 +112,14 @@ const UpdateCredential: React.FC = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                 ></Input>
-
               </div>
               <div className={styles.error}>
                 {errors.confirmPassword && touched.confirmPassword ? (
-                  <p>{(errors.confirmPassword = "Both passwords must match")}</p>
+                  <p>{(errors.confirmPassword = 'Both passwords must match')}</p>
                 ) : null}
               </div>
               <div className={styles.button_wrapper}>
-                <Button
-                  varient="contained"
-                  className={styles.forgetbutton}
-                  onClick={handleSubmit}
-                >
+                <Button varient="contained" className={styles.forgetbutton} onClick={handleSubmit}>
                   Update
                 </Button>
               </div>

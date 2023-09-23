@@ -1,12 +1,12 @@
 'use client';
-import React, {useState} from 'react';
-import styles from '../../../styles/friends.module.scss';
-import Card from '@/Components/CommonComponent/Card';
-import {Navbar} from '@/Components/Navbar/Navbar';
-import {sendRequest} from '@/services/auth/auth_All_Api';
-import {toast} from 'react-toastify';
-import CustomPagination from '@/Components/Pagination/Pagination';
+import React, { useState } from 'react';
+import styles from '@/styles/friends.module.scss';
+Navbar
+import { sendRequest } from '@/utils/axiosInstanse';
 import Image from 'next/image';
+import Card from '@/Components/CommonComponent/Card/Card';
+import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
+import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination';
 
 const Friend = () => {
   const [open, setOpen] = useState(false);
@@ -141,9 +141,7 @@ const Friend = () => {
     }
   };
   const handleDeleteEmail = (indexToDelete: number) => {
-    const updatedEmailList = emailList.filter(
-      (_, index) => index !== indexToDelete,
-    );
+    const updatedEmailList = emailList.filter((_, index) => index !== indexToDelete);
     setEmailList(updatedEmailList);
   };
   return (
@@ -158,12 +156,7 @@ const Friend = () => {
             <span>Dashboard /invite your friends</span>
           </div>
           <div className={styles.inputContainer}>
-            <input
-              type="search"
-              id="search"
-              name="search"
-              placeholder="Search by Name"
-            />
+            <input type="search" id="search" name="search" placeholder="Search by Name" />
 
             <Image
               src="/assests/search.svg"
@@ -197,10 +190,7 @@ const Friend = () => {
               </select>
             </div>
             <div>
-              <button
-                className={styles.sendMailBtn}
-                onClick={handleOpenFwdModal}
-              >
+              <button className={styles.sendMailBtn} onClick={handleOpenFwdModal}>
                 SEND INVITE BY EMAIL
               </button>
             </div>
@@ -281,8 +271,7 @@ const Friend = () => {
               />
               {emailList.length > 0 &&
                 emailList.map((email, index) => {
-                  const truncatedEmail =
-                    email.length > 15 ? email.substring(0, 15) + '...' : email;
+                  const truncatedEmail = email.length > 15 ? email.substring(0, 15) + '...' : email;
                   return (
                     <div key={index} className={styles.inputemail_container}>
                       <div className={styles.inputemail}>
@@ -306,10 +295,7 @@ const Friend = () => {
               <span>Notify Please</span>
             </div>
             <div className={styles.forwardModalfooter}>
-              <button
-                onClick={handleCloseForwardModal}
-                className={styles.cancelbtn}
-              >
+              <button onClick={handleCloseForwardModal} className={styles.cancelbtn}>
                 Cancel
               </button>
               <button className={styles.sendbtn} onClick={sendInviteByEmail}>

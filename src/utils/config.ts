@@ -1,6 +1,6 @@
 export const configData: any = {
     api: {
-        baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
+        url: process.env.NEXT_PUBLIC_API_BASE_URL,
         ver: process.env.NEXT_PUBLIC_API_BASE_VER
     },
     web: {
