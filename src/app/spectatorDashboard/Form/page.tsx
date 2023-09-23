@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import styles from '../../../styles/Spectator.module.scss';
 //@ts-ignore
 import { Button, Input, Select } from 'technogetic-iron-smart-ui';
@@ -25,38 +25,49 @@ interface FormCreate {
   mapImg: any | null;
 }
 
-const Form = ({ getAllSpectator }: any) => {
-  const [showModal, setShowModal] = useState(false);
+const initial: FormCreate = {
+  roomId: '',
+  gameName: '',
+  gameType: '',
+  mapType: '',
+  password: '',
+  version: '',
+  date: '',
+  time: '',
+  lastSurvival: '',
+  thirdWin: '',
+  highestKill: '',
+  secondWin: '',
+  mapImg: '',
+  entryFee: '',
+}
+
+const Form = ({ ...props }) => {
+
+  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate } = props
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [image, setImage] = useState<File | null>(null);
+  const [initialValues, setInitialValues] = useState(initial)
 
 
-  const initialValues: FormCreate = {
-    roomId: '',
-    gameName: '',
-    gameType: '',
-    mapType: '',
-    password: '',
-    version: '',
-    date: '',
-    time: '',
-    lastSurvival: '',
-    thirdWin: '',
-    highestKill: '',
-    secondWin: '',
-    mapImg: '',
-    entryFee: ''
+  const { roomId, gameName, gameType, mapType, version, lastSurvival, thirdWin, secondWin, highestKill, entryFee } = roomIdToUpdate || '';
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
   };
-
 
   const {
     values,
     touched,
     errors,
     handleSubmit,
-    handleChange,
     handleBlur,
+    setValues,
     setFieldValue,
   } = useFormik<FormCreate>({
     initialValues,
@@ -71,11 +82,12 @@ const Form = ({ getAllSpectator }: any) => {
       for (const key in values) {
         form.append(key, values[key]);
       }
+
       try {
         setIsLoading(true)
         const token = localStorage.getItem('jwtToken');
-        const response = await sendRequest('room/rooms', {
-          method: 'POST',
+        const response = await sendRequest(`room/rooms/${roomIdToUpdate ? roomIdToUpdate._id : ""}`, {
+          method: roomIdToUpdate ? "PUT" : 'POST',
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -84,28 +96,42 @@ const Form = ({ getAllSpectator }: any) => {
         if (response.status === 200) {
           resetForm()
           setIsLoading(false)
-          getAllSpectator();
           toast.success(response.data.message);
           setShowModal(false);
         } else {
           setIsLoading(false)
+          setRoomIdToUpdate('')
           setError('Failed to Add room. Please try again.');
           toast.error('Failed to Add room. Please try again.');
         }
       } catch (error: any) {
         setIsLoading(false);
+        setRoomIdToUpdate('')
         setError('Failed to Add room. Please try again.');
         toast.error('Failed to Add room. Please try again.');
       }
     },
   });
 
+  useEffect(() => {
+    for (const key in values) {
+      if (key !== 'data' && key !== 'time') {
+        setFieldValue(key, (roomIdToUpdate[key] || ""))
+      }
+
+    }
+
+
+  }, [roomIdToUpdate])
   return (
     <>
       <div>
         <button
           className={styles.main_form_btn}
-          onClick={() => setShowModal(true)}
+          onClick={() => {
+            setShowModal(true)
+            setRoomIdToUpdate("")
+          }}
         >
           CREATE ROOM ID
         </button>
@@ -114,7 +140,7 @@ const Form = ({ getAllSpectator }: any) => {
           <div className={styles.main_pop_cls}>
             <div className={styles.check_model}>
               <div className={styles.class_check}>
-                <h1 className={styles.pop_heading}>Create new room</h1>
+                <h1 className={styles.pop_heading}>{roomIdToUpdate ? "Update Room" : "Create new room"}</h1>
               </div>
               <div className={styles.main_form}>
                 <div className={styles.check}>
@@ -173,7 +199,6 @@ const Form = ({ getAllSpectator }: any) => {
                           placeholder="Enter bgmi map"
                           value={values.mapType}
                           onChange={handleChange}
-
                           onBlur={handleBlur}
 
                         />
@@ -393,20 +418,37 @@ const Form = ({ getAllSpectator }: any) => {
                   <div className={styles.btn_form_wrapper}>
                     <Button
                       className={styles.cancel_btn}
-                      onClick={() => setShowModal(false)}
+                      onClick={() => {
+                        setShowModal(false)
+                        setRoomIdToUpdate("")
+                      }}
                     >
                       Cancel
                     </Button>
-                    <Button
-                      id="check"
-                      disabled={isLoading}
-                      className={styles.roombutton}
-                      variant="contained"
-                      type="submit"
-                      onClick={handleSubmit}
-                    >
-                      {isLoading ? 'Loading...' : 'Add Room'}
-                    </Button>
+
+                    {roomIdToUpdate ? (
+                      <Button
+                        id="update"
+                        disabled={isLoading}
+                        className={styles.roombutton}
+                        variant="contained"
+                        type="submit"
+                        onClick={handleSubmit}
+                      >
+                        {isLoading ? 'Updating...' : 'Update Room'}
+                      </Button>
+                    ) : (
+                      <Button
+                        id="add"
+                        disabled={isLoading}
+                        className={styles.roombutton}
+                        variant="contained"
+                        type="submit"
+                        onClick={handleSubmit}
+                      >
+                        {isLoading ? 'Loading...' : 'Add Room'}
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>

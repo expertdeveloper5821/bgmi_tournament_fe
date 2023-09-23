@@ -38,7 +38,8 @@ export interface RoomData {
 
 const Room = () => {
   const [Spect, setSpect] = useState<RoomData[]>([]);
-
+  const [showModal, setShowModal] = useState(false);
+  const [roomIdToUpdate, setRoomIdToUpdate] = useState<any>({});
   const columns: string[] = [
     'Room Id',
     'Game Name',
@@ -76,10 +77,7 @@ const Room = () => {
           <Navbar />
           <div className={styles.inner_specter_cls}>
             <h1 className={styles.r_main_title}>Rooms</h1>
-              {/* <small className={styles.subhead_desc}>
-                Dashboard / All Rooms
-              </small> */}
-            <Form getAllSpectator={getAllSpectator} />
+            <Form showModal={showModal} setShowModal={setShowModal} roomIdToUpdate={roomIdToUpdate} setRoomIdToUpdate={setRoomIdToUpdate} />
           </div>
 
           <div>
@@ -144,15 +142,15 @@ const Room = () => {
                     </TableCell>
 
                     <TableCell className={styles.tb_cell_action}>
-                      <Deletespec
-                        Id={spec._id}
-                        getAllSpectator={getAllSpectator}
-                      />
-                      <Updatespec
-                        updateRoom={Room}
-                        roomData={spec}
-                        getAllSpectator={getAllSpectator}
-                      />
+                      <div className={styles.flex}>
+                        <Deletespec
+                          Id={spec._id}
+                          getAllSpectator={getAllSpectator}
+                        />
+                        <button className={styles.editbtn} onClick={() => {
+                          setShowModal(!showModal)
+                          setRoomIdToUpdate(spec)
+                        }}> <Image src="assests/update.svg" alt="Image" width={12} height={12} /></button></div>
                     </TableCell>
                   </TableRow>
                 ))}

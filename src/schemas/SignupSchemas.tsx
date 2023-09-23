@@ -43,15 +43,15 @@ export const validationSchema = Yup.object().shape({
   mapType: Yup.string().required('Please enter your Map Type'),
   password: Yup.string().required('Please enter your password'),
   version: Yup.string().required('please enter your version'),
-  time: Yup
-    .string()
-    .required('Time is required').matches(
-      /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
-      'Time must be in HH:mm format'
-    ),
-  date: Yup
-    .date()
-    .required('Date is required'),
+  // time: Yup
+  //   .string()
+  //   .required('Time is required').matches(
+  //     /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
+  //     'Time must be in HH:mm format'
+  //   ),
+  // date: Yup
+  //   .date()
+  //   .required('Date is required'),
   secondWin: Yup.number().required('Please enter second winner prize '),
   lastSurvival: Yup.number().required('Please enter lastSurvival winner prize'),
   highestKill: Yup.number().required('Please enter highestKill winner prize'),
