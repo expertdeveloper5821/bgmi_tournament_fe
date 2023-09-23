@@ -13,7 +13,6 @@ const Card: React.FC<CardProps> = ({ fwdindex, toOpen, forwardModalOpen, teamDat
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [forwardModal, setForwardModal] = useState<boolean>(false);
   const [res, setRes] = useState<any>();
- 
 
   const handleOpenModal = (index: any) => {
     setDeleteModal(true);
@@ -28,12 +27,11 @@ const Card: React.FC<CardProps> = ({ fwdindex, toOpen, forwardModalOpen, teamDat
   useEffect(() => {
     const fetchData = async () => {
       try {
-          const response = await sendRequest('/team/getallteam', {
-            method: 'GET',
-          });          
+        const response = await sendRequest('/team/getallteam', {
+          method: 'GET',
+        });
         setRes(response?.data);
         teamData(response?.data);
-        
       } catch (error) {
         console.log(error);
       }

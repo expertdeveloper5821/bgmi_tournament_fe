@@ -16,7 +16,7 @@ const withAuth = (WrappedComponent: any) => {
     }, []);
 
     if (loading) {
-        return <div style={{width: '100%', textAlign: 'center'}}>Loading...</div>;
+      return <div style={{ width: '100%', textAlign: 'center' }}>Loading...</div>;
     }
 
     if (!user) {

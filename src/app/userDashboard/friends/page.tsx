@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import styles from '@/styles/friends.module.scss';
-Navbar
+Navbar;
 import { sendRequest } from '@/utils/axiosInstanse';
 import Image from 'next/image';
 import Card from '@/Components/CommonComponent/Card/Card';

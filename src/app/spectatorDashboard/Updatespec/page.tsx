@@ -23,7 +23,6 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
     e.preventDefault();
     const token = localStorage.getItem('jwtToken');
 
-
     const bodyData = {
       roomId: updateFormData.roomId,
       gameName: updateFormData.gameName,
@@ -36,7 +35,7 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
       lastSurvival: updateFormData.lastSurvival,
       highestKill: updateFormData.highestKill,
       secondWin: updateFormData.secondWin,
-      thirdWin: updateFormData.thirdWin
+      thirdWin: updateFormData.thirdWin,
     };
 
     try {
@@ -281,10 +280,7 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
                 </div>
               </form>
               <div className={styles.btn_form_wrapper}>
-                <Button
-                  className={styles.cancel_btn}
-                  onClick={() => setEditModal(false)}
-                >
+                <Button className={styles.cancel_btn} onClick={() => setEditModal(false)}>
                   Cancel
                 </Button>
                 <Button type="submit" className={styles.roombutton} onClick={updateRoom}>

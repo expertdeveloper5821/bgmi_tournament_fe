@@ -8,7 +8,7 @@ import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import { Table, TableBody, TableCell } from 'technogetic-iron-smart-ui';
 //@ts-ignore
 import { TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
-import { formatDate, formatTime } from "../../../Components/CommonComponent/moment"
+import { formatDate, formatTime } from '../../../Components/CommonComponent/moment';
 import Image from 'next/image';
 import Deletespec from '../Deletespec/page';
 import Updatespec from '../Updatespec/page';
@@ -77,7 +77,12 @@ const Room = () => {
           <Navbar />
           <div className={styles.inner_specter_cls}>
             <h1 className={styles.r_main_title}>Rooms</h1>
-            <Form showModal={showModal} setShowModal={setShowModal} roomIdToUpdate={roomIdToUpdate} setRoomIdToUpdate={setRoomIdToUpdate} />
+            <Form
+              showModal={showModal}
+              setShowModal={setShowModal}
+              roomIdToUpdate={roomIdToUpdate}
+              setRoomIdToUpdate={setRoomIdToUpdate}
+            />
           </div>
 
           <div>
@@ -85,10 +90,7 @@ const Room = () => {
               <TableHeader className={styles.tableHeader}>
                 <TableRow className={styles.tableRow}>
                   {columns?.map((column, index) => (
-                    <TableHead
-                      className={styles.table_head_sectat}
-                      key={index}
-                    >
+                    <TableHead className={styles.table_head_sectat} key={index}>
                       <div className={styles.filter}>{column}</div>
                     </TableHead>
                   ))}
@@ -98,59 +100,47 @@ const Room = () => {
               <TableBody>
                 {Spect?.map((spec: any, index) => (
                   <TableRow key={index} className={styles.table_row_cell}>
-                    <TableCell className={styles.el_tb_cell}>
-                      {spec?.roomId ?? '--'}
-                    </TableCell>
-                    <TableCell className={styles.tb_cell_body}>
-                      {spec?.gameName ?? '--'}
-                    </TableCell>
-                    <TableCell className={styles.el_tb_cell}>
-                      {spec?.gameType ?? '--'}
-                    </TableCell>
-                    <TableCell className={styles.el_tb_cell}>
-                      {spec?.mapType ?? '--'}
-                    </TableCell>
-                    <TableCell className={styles.el_tb_cell}>
-                      {spec?.version ?? '--'}
-                    </TableCell>
+                    <TableCell className={styles.el_tb_cell}>{spec?.roomId ?? '--'}</TableCell>
+                    <TableCell className={styles.tb_cell_body}>{spec?.gameName ?? '--'}</TableCell>
+                    <TableCell className={styles.el_tb_cell}>{spec?.gameType ?? '--'}</TableCell>
+                    <TableCell className={styles.el_tb_cell}>{spec?.mapType ?? '--'}</TableCell>
+                    <TableCell className={styles.el_tb_cell}>{spec?.version ?? '--'}</TableCell>
                     <TableCell className={styles.tb_cell_body}>
                       {spec?.highestKill ?? '--'}
                     </TableCell>
                     <TableCell className={styles.el_tb_cell}>
                       {spec?.lastSurvival ?? '--'}
                     </TableCell>
-                    <TableCell className={styles.el_tb_cell}>
-                      {spec?.thirdWin ?? '--'}
-                    </TableCell>
-                    <TableCell className={styles.el_tb_cell}>
-                      {spec?.secondWin ?? '--'}
-                    </TableCell>
+                    <TableCell className={styles.el_tb_cell}>{spec?.thirdWin ?? '--'}</TableCell>
+                    <TableCell className={styles.el_tb_cell}>{spec?.secondWin ?? '--'}</TableCell>
                     <TableCell className={styles.tb_cell_body}>
                       {spec?.dateAndTime
-                        ? formatTime({ time: spec.dateAndTime, format: "LT" })
+                        ? formatTime({ time: spec.dateAndTime, format: 'LT' })
                         : '--'}
                     </TableCell>
 
                     <TableCell className={styles.el_tb_cell}>
                       {spec?.dateAndTime
-                        ? formatDate({ date: spec.dateAndTime, format: "DD/MM/YYYY" })
+                        ? formatDate({ date: spec.dateAndTime, format: 'DD/MM/YYYY' })
                         : '--'}
                     </TableCell>
 
-                    <TableCell className={styles.el_tb_cell}>
-                      {spec?.entryFee ?? '--'}
-                    </TableCell>
+                    <TableCell className={styles.el_tb_cell}>{spec?.entryFee ?? '--'}</TableCell>
 
                     <TableCell className={styles.tb_cell_action}>
                       <div className={styles.flex}>
-                        <Deletespec
-                          Id={spec._id}
-                          getAllSpectator={getAllSpectator}
-                        />
-                        <button className={styles.editbtn} onClick={() => {
-                          setShowModal(!showModal)
-                          setRoomIdToUpdate(spec)
-                        }}> <Image src="assests/update.svg" alt="Image" width={12} height={12} /></button></div>
+                        <Deletespec Id={spec._id} getAllSpectator={getAllSpectator} />
+                        <button
+                          className={styles.editbtn}
+                          onClick={() => {
+                            setShowModal(!showModal);
+                            setRoomIdToUpdate(spec);
+                          }}
+                        >
+                          {' '}
+                          <Image src="assests/update.svg" alt="Image" width={12} height={12} />
+                        </button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}

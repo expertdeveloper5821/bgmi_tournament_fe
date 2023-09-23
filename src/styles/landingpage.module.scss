@@ -629,14 +629,12 @@
     width: 95%;
     border-radius: 15px;
   }
-  
 }
 .elseText {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
-  
 }
 .demo {
   // display: flex;
@@ -653,23 +651,19 @@
   }
 
   &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
+    box-shadow: inset 0 0 5px grey;
     border-radius: 5px; /* Set the background color of the track */
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #ffffff; 
-  border-radius: 5px;/* Set the border radius of the thumb */
+    background: #ffffff;
+    border-radius: 5px; /* Set the border radius of the thumb */
   }
 
   &::-webkit-scrollbar-thumb:hover {
     background: #636363; /* Set the color of the thumb on hover */
   }
-  
 }
-
-
-
 
 @keyframes imagemove {
   0% {
@@ -815,7 +809,7 @@
   position: absolute;
   top: 0;
   left: 0%;
-  width:13%;
+  width: 13%;
   height: 100%;
   opacity: 0.9;
   filter: blur(51px);
@@ -823,14 +817,14 @@
   // background: linear-gradient(to right, rgba(0, 0, 0, 0.137), rgb(0, 0, 0));
   pointer-events: none;
   @media (max-width: $breakpoint-md) {
-   display: none;
+    display: none;
   }
 }
 .gradientoverlayscopesectionright {
   position: absolute;
   top: 0;
   right: 0%;
-  width:12%;
+  width: 12%;
   height: 100%;
   opacity: 0.7;
   filter: blur(31px);
@@ -838,11 +832,11 @@
   pointer-events: none;
   @media (max-width: $breakpoint-md) {
     display: none;
-   }
+  }
 }
 .gradientoverlayscopesectiontop {
   position: absolute;
-  width:100%;
+  width: 100%;
   top: -1%;
   height: 13%;
   right: 10%;
@@ -851,14 +845,14 @@
   pointer-events: none;
   @media (max-width: $breakpoint-md) {
     display: none;
-   }
+  }
 }
-.gradientoverlayscopesectionscopenear{
+.gradientoverlayscopesectionscopenear {
   position: absolute;
-  width:100vw;
+  width: 100vw;
   margin-top: 420px;
   height: 30%;
-right: 15%;
+  right: 15%;
   opacity: 0.95;
   filter: blur(21px);
   background-color: rgb(0, 0, 0);
@@ -867,11 +861,11 @@ right: 15%;
   pointer-events: none;
   @media (max-width: $breakpoint-xs) {
     display: none;
-   }
+  }
 }
-.gradientoverlayscopesectionscopenear1{
+.gradientoverlayscopesectionscopenear1 {
   position: absolute;
-  width:100vw;
+  width: 100vw;
   margin-top: 320px;
   height: 350px;
   left: 10%;
@@ -883,7 +877,7 @@ right: 15%;
   pointer-events: none;
   @media (max-width: $breakpoint-xs) {
     display: none;
-   }
+  }
 }
 .gradientoverlay1 {
   position: absolute;
@@ -918,7 +912,7 @@ right: 15%;
 .gradientoverlay1 {
   position: absolute;
   top: 30%;
-    left: 0;
+  left: 0;
   width: 100%;
   height: 70%;
   opacity: 1;
@@ -936,11 +930,7 @@ right: 15%;
   width: 10%;
   height: 100%;
   opacity: 0.5;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.137),
-    rgba(0, 0, 0, 0.931)
-  );
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.137), rgba(0, 0, 0, 0.931));
   pointer-events: none;
 }
 .radialGradient {
@@ -956,8 +946,8 @@ right: 15%;
   @media (max-width: $breakpoint-lg) {
     left: 0%;
     width: 850px;
-    height: 72%
-}
+    height: 72%;
+  }
 }
 .gradientoverlaytotopfooter {
   position: absolute;
@@ -991,11 +981,7 @@ right: 15%;
   width: 100%;
   height: 100%;
   opacity: 0.5;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.137),
-    rgba(0, 0, 0, 0.931)
-  );
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.137), rgba(0, 0, 0, 0.931));
   pointer-events: none;
 }
 .welcome_Container {
@@ -1011,7 +997,7 @@ right: 15%;
   flex: 0 1 49%;
   width: 100%;
   @media (max-width: $breakpoint-lg) {
-   display: none;
+    display: none;
   }
 }
 .stone img {
@@ -1036,7 +1022,6 @@ right: 15%;
 
   @media (max-width: $breakpoint-lg) {
     margin-left: 10%;
-    
   }
   @media (max-width: $breakpoint-tab) {
     margin-left: 0%;
@@ -1079,7 +1064,7 @@ right: 15%;
   font-weight: 400;
   font-size: 16px;
   @media (max-width: $breakpoint-lg) {
-   margin-left: 2%;
+    margin-left: 2%;
   }
   @media (max-width: $breakpoint-xs) {
     font-weight: 400;
@@ -1106,7 +1091,6 @@ right: 15%;
   @media (max-width: $breakpoint-xs) {
     margin-top: 5%;
   }
-  
 }
 .scopeSection {
   position: relative;
@@ -1118,14 +1102,14 @@ right: 15%;
   background-size: cover;
   background-repeat: no-repeat;
 }
-.scopemaincontainer{
+.scopemaincontainer {
   min-width: 478px;
   position: relative;
   min-height: 478px;
   // background-color: red;
   border-radius: 50%;
   margin-left: 108px;
-  margin-top: 106px
+  margin-top: 106px;
 }
 
 .newscope {
@@ -1144,12 +1128,12 @@ right: 15%;
   @media (max-width: $breakpoint-md) {
     min-width: 380px;
     top: 23%;
-    left: 23.3%
+    left: 23.3%;
   }
   @media only screen and (max-width: 430px) {
     top: 37%;
     left: 19.3%;
-    min-width: 260px
+    min-width: 260px;
   }
 }
 .bagshelmet {
@@ -1175,7 +1159,7 @@ right: 15%;
   @media (max-width: $breakpoint-md) {
     top: 24%;
     left: 23.5%;
-    min-width: 378px
+    min-width: 378px;
   }
   @media only screen and (max-width: 430px) {
     top: 38%;
@@ -1238,14 +1222,14 @@ right: 15%;
   left: 49%;
   background-color: rgba(255, 0, 0, 0.688);
   border-radius: 50%;
-//   @media (max-width: $breakpoint-xlg) {
-//     top: 57.4%;
-//     left: 52.6%;
-// }
-//   @media (max-width: $breakpoint-lg) {
-//     left: 54.2%;
-//     top: 51.2%;
-//   }
+  //   @media (max-width: $breakpoint-xlg) {
+  //     top: 57.4%;
+  //     left: 52.6%;
+  // }
+  //   @media (max-width: $breakpoint-lg) {
+  //     left: 54.2%;
+  //     top: 51.2%;
+  //   }
   // @media (max-width: $breakpoint-ms) {
   //   left: 54.2%;
   //   top: 51.2%;
@@ -1253,7 +1237,7 @@ right: 15%;
   @media (max-width: $breakpoint-md) {
     left: 47%;
     top: 45.8%;
-}
+  }
 
   @media only screen and (max-width: 430px) {
     top: 51.8%;
@@ -1271,7 +1255,7 @@ right: 15%;
   position: absolute;
   text-align: center;
   top: 60%;
-    left: 26.5%;
+  left: 26.5%;
   color: #ff7a00;
   font-size: 22px;
   font-weight: 600;
@@ -1435,7 +1419,7 @@ right: 15%;
 .skills_maincontainer {
   position: absolute;
   // bottom: 33%;
-  left:500px;
+  left: 500px;
   top: 50%;
   width: 43px;
   gap: 12px;
@@ -1575,9 +1559,9 @@ right: 15%;
 }
 .gun {
   height: auto;
-  width:200px;
+  width: 200px;
   @media (max-width: $breakpoint-xSmall) {
-    width:150px;
+    width: 150px;
   }
 }
 .gun1 {
@@ -1585,7 +1569,7 @@ right: 15%;
   width: 200px;
   margin-top: 20px;
   @media (max-width: $breakpoint-xSmall) {
-    width:150px;
+    width: 150px;
   }
 }
 // modal css
@@ -1652,27 +1636,19 @@ right: 15%;
   line-height: 22.07px;
   padding-top: 16px;
 }
-.rs_pool_logo{
+.rs_pool_logo {
   color: #ffd600;
 }
 
 .gradient3 {
-  background-image: linear-gradient(
-    transparent,
-    rgb(3, 3, 3) 70%,
-    rgb(0, 0, 0)
-  );
+  background-image: linear-gradient(transparent, rgb(3, 3, 3) 70%, rgb(0, 0, 0));
   height: 100vh;
   position: absolute;
   width: 100%;
 }
 
 .gradient4 {
-  background-image: radial-gradient(
-    transparent,
-    rgb(0, 0, 0) 95%,
-    rgb(0, 0, 0)
-  );
+  background-image: radial-gradient(transparent, rgb(0, 0, 0) 95%, rgb(0, 0, 0));
   height: 100%;
 
   position: absolute;
@@ -1996,8 +1972,8 @@ right: 15%;
   position: absolute;
   text-align: center;
   @media (max-width: $breakpoint-xs) {
-   font-size: 10px;
-   padding-top: 30px;
+    font-size: 10px;
+    padding-top: 30px;
   }
 }
 
@@ -2013,7 +1989,6 @@ right: 15%;
 }
 
 .redBlurCircle {
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2312,13 +2287,12 @@ right: 15%;
     letter-spacing: 5px;
     font-weight: 300;
     @media (max-width: $breakpoint-xs) {
-          line-height: 1;
-  letter-spacing: 0px;
-    font-weight: 400;
-    font-size: 18px;
-    padding-top: 125px;
+      line-height: 1;
+      letter-spacing: 0px;
+      font-weight: 400;
+      font-size: 18px;
+      padding-top: 125px;
     }
-    
   }
   .buggiImg {
     width: 300px;
@@ -2368,17 +2342,16 @@ right: 15%;
   left: 13%;
 }
 
-.cardimg{
+.cardimg {
   position: relative;
   margin-right: 20px;
 }
-.carddetails{
+.carddetails {
   position: absolute;
   left: 10%;
   bottom: 10%;
   color: white;
-
 }
-.carddetails span{
+.carddetails span {
   font-weight: 700;
 }

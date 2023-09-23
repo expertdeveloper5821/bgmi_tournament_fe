@@ -13,7 +13,7 @@ import { decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
 import { SignupSchema, loginSchema } from '@/utils/schema';
 
-interface LoginProps { }
+interface LoginProps {}
 
 interface FormValues {
   email: string;

@@ -31,17 +31,14 @@ const dynamicMenuItems = [
     name: 'video',
     icon: <FaVideo />,
   },
-
 ];
 
-export default function RootLayout({children}: {children: React.ReactNode}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className={styles.main_container} id="mainLayoutContainer">
       <>
         <Sidebar menuItem={dynamicMenuItems} />
-        <div className={styles.content__container}>
-          {children}
-        </div>
+        <div className={styles.content__container}>{children}</div>
       </>
     </div>
   );

@@ -19,13 +19,28 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
   const [menuItems, setMenuItems] = useState<MenuItem[]>(menuItem);
   const [selectedItemIndex, setSelectedItemIndex] = useState<number>(-1); // Initialize as -1, no item selected
   const [width] = useWindowSize();
-  const toggle = () => setIsOpen(!isOpen);
+  const toggle = () => {
+    setIsOpen((isOpen) => {
+      if (width > 768) {
+        const mainElem = document.getElementById('mainLayoutContainer');
+        const mainElemInner = document.getElementById('mainLayoutContainerInner');
+        if (mainElem) {
+          mainElem.style.width = !isOpen ? '73.5vw' : '96vw';
+        }
+
+        if (mainElemInner) {
+          mainElemInner.style.width = !isOpen ? '85vw' : '96vw';
+        }
+      }
+      return !isOpen;
+    });
+  };
 
   return (
     <>
       {width > 768 ? (
         <div className={styles.container}>
-          <div style={{ width: isOpen ? '220px' : '100px' }} className={styles.sidebar}>
+          <div style={{ width: isOpen ? '220px' : '50px' }} className={styles.sidebar}>
             <div className={styles.top_section}>
               <h1 style={{ display: isOpen ? 'block' : 'none' }} className={styles.logo}>
                 <img src="/assests/logo.svg" />
@@ -85,8 +100,10 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
                     <div className={styles.link}>
                       {isOpen && (
                         <div className={styles.mob_link_text}>
-                          <span className={styles.itemname}>{item.name}</span>
-                          {item.icon}
+                          <div className={styles.itemname}>
+                            <span className={styles.mob_icon}>{item.icon}</span>
+                            <span className={styles.mob_name}> {item.name}</span>
+                          </div>
                         </div>
                       )}
                     </div>

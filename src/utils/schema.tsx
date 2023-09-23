@@ -61,5 +61,5 @@ const SendInviteSchema = Yup.object().shape({
     .email('Invalid email')
     .required('Please enter your email')
     .matches(emailRegex, 'Invalid email'),
-})
+});
 export { SignupSchema, loginSchema, ResetPasswordSchema, validationSchema, SendInviteSchema };

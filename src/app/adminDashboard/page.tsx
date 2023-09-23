@@ -6,8 +6,7 @@ import assignmentData from '../../utils/CreateAssignmment.json';
 import { Pagination } from 'technogetic-iron-smart-ui';
 import RequireAuthentication from '../../utils/requireAuthentication';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
-import TableData, {StudentProfile} from '@/Components/CommonComponent/Table/Table';
-import { BtnDashboard } from '@/Components/CommonComponent/BtnDashboard';
+import TableData, { StudentProfile } from '@/Components/CommonComponent/Table/Table';
 import withAuth from '@/Components/HOC/WithAuthHoc';
 
 export interface IAppProps {}
@@ -46,7 +45,6 @@ function AdminDashboard() {
             <div className={styles.sidebar_wrapper}>
               <Navbar />
               <h1>Welcome to Admin Dashboard</h1>
-              <BtnDashboard />
               <TableData
                 studentData={paginatedData}
                 columns={columns}

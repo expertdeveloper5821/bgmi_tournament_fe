@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import styles from '../../styles/landingpage.module.scss';
+import styles from '@/styles/landingpage.module.scss';
 import useWindowSize from '@/hooks/useWindowSize';
 import NavBar from './navBar/page';
 import Image from 'next/image';
@@ -9,31 +9,29 @@ import { toast } from 'react-toastify';
 import CustomCursor from './customCursor/page';
 import Link from 'next/link';
 import { formatTime } from '@/Components/CommonComponent/moment';
-interface GameDetails{
-  createdAt : string
-createdBy : string
-dateAndTime:string
-entryFee: string
-gameName: string
-gameType: string
-highestKill:string
-lastSurvival:string
-mapImg:string
-mapType:string
-password:string
-roomId:string
-roomUuid: string
-secondWin:string
-thirdWin:string
-updatedAt:string
-version: string
-__v: number
-_id:string
+interface GameDetails {
+  createdAt: string;
+  createdBy: string;
+  dateAndTime: string;
+  entryFee: string;
+  gameName: string;
+  gameType: string;
+  highestKill: string;
+  lastSurvival: string;
+  mapImg: string;
+  mapType: string;
+  password: string;
+  roomId: string;
+  roomUuid: string;
+  secondWin: string;
+  thirdWin: string;
+  updatedAt: string;
+  version: string;
+  __v: number;
+  _id: string;
 }
 
-
 const page = () => {
-
   const [data, setData] = useState<GameDetails[]>();
   const [poolModal, setPoolModal] = useState<boolean>(false);
   const [id, setId] = useState<number>(0);
@@ -51,8 +49,7 @@ const page = () => {
         method: 'Get',
       });
       setData(response.data);
-    }; 
-
+    };
 
     fetchData();
   }, []);
@@ -90,7 +87,7 @@ const page = () => {
       'Create your free account in just a few simple steps and join our ever-growing gaming community',
     );
   };
-  
+
   return (
     <div className={styles.bodycolor}>
       <CustomCursor />
@@ -201,9 +198,7 @@ const page = () => {
             <div className={styles.banner_bgmi_img}>
               <img
                 src={
-                  data && data[id].mapImg
-                    ? data[id].mapImg
-                    : `${'./assests/eranglemapimage.svg'}`
+                  data && data[id].mapImg ? data[id].mapImg : `${'./assests/eranglemapimage.svg'}`
                 }
                 alt="bg"
                 className={styles.banner_image}
@@ -222,34 +217,23 @@ const page = () => {
                 <div className={styles.pool_cancel_p}>
                   <p className={styles.pool_text_p}>
                     Last Survival: {data[id].lastSurvival}
-                    <span className={styles.rs_pool_logo}>
-                    ₹
-                    </span>
+                    <span className={styles.rs_pool_logo}>₹</span>
                   </p>
                   <p className={styles.pool_text_p}>
                     Highest kill: {data[id].highestKill}
-                    <span className={styles.rs_pool_logo}>
-                    ₹
-                    </span>
+                    <span className={styles.rs_pool_logo}>₹</span>
                   </p>
                   <p className={styles.pool_text_p}>
                     2nd Winner: {data[id].secondWin}
-                    <span className={styles.rs_pool_logo}>
-                    ₹
-                    </span>
+                    <span className={styles.rs_pool_logo}>₹</span>
                   </p>
 
                   <p className={styles.pool_text_p}>
                     3rd Winner: {data[id].thirdWin}
-                    <span className={styles.rs_pool_logo}>
-                    ₹
-                    </span>
+                    <span className={styles.rs_pool_logo}>₹</span>
                   </p>
                 </div>
-                <p
-                  className={styles.pool_cancel_p}
-                  onClick={() => setPoolModal(false)}
-                >
+                <p className={styles.pool_cancel_p} onClick={() => setPoolModal(false)}>
                   <button className={styles.cancel_btn}>Cancel</button>
                 </p>
               </div>
@@ -259,11 +243,14 @@ const page = () => {
           )}
           <div className={styles.time_container}>
             {data && data?.length > 0 ? (
-             
               <>
                 <div className={styles.comingsooncontainer}>
-                  <h2>{data?.length > 0 && data[id].mapType + ' '+ data[id].gameType + ' '+ 'match'}</h2>
-                  <span>Time: {data.length > 0  &&  `${formatTime({ time: data[id].dateAndTime})}`}</span>
+                  <h2>
+                    {data?.length > 0 && data[id].mapType + ' ' + data[id].gameType + ' ' + 'match'}
+                  </h2>
+                  <span>
+                    Time: {data.length > 0 && `${formatTime({ time: data[id].dateAndTime })}`}
+                  </span>
                 </div>
                 <div className={styles.prizepool}>
                   <div className={styles.prize_container}>
@@ -284,9 +271,7 @@ const page = () => {
                     </h2>
                   </div>
                   <div className={styles.fee_container}>
-                    <span className={styles.commonspanprizesection}>
-                      ENTRY FEES
-                    </span>
+                    <span className={styles.commonspanprizesection}>ENTRY FEES</span>
                     <h2>
                       0<span className={styles.rsSign}>₹</span>
                     </h2>
@@ -295,38 +280,24 @@ const page = () => {
                 <div className={styles.gameInfo}>
                   <div className={styles.game}>
                     <span className={styles.commonspanprizesection}>TYPE</span>
-                    <span className={styles.gameYellowspan}>
-                      {data[id].gameType}
-                    </span>
+                    <span className={styles.gameYellowspan}>{data[id].gameType}</span>
                   </div>
                   <div className={styles.game}>
-                    <span className={styles.commonspanprizesection}>
-                      VERSION
-                    </span>
-                    <span className={styles.gameYellowspan}>
-                      {data[id].version}
-                    </span>
+                    <span className={styles.commonspanprizesection}>VERSION</span>
+                    <span className={styles.gameYellowspan}>{data[id].version}</span>
                   </div>
                   <div className={styles.game}>
                     <span className={styles.commonspanprizesection}>MAP</span>
-                    <span className={styles.gameOrangespan}>
-                      {data[id].mapType}
-                    </span>
+                    <span className={styles.gameOrangespan}>{data[id].mapType}</span>
                   </div>
                 </div>
                 <div className={styles.range_container}>
                   <div className={styles.range}>
                     <input type="range" value={50} />
-                    <span className={styles.commonspanprizesection}>
-                      Only 30 spots left 20/50
-                    </span>
+                    <span className={styles.commonspanprizesection}>Only 30 spots left 20/50</span>
                   </div>
                   <Link href="/auth/login">
-                    <button
-                      className={styles.joinbtn}                     
-                    >
-                      JOIN
-                    </button>
+                    <button className={styles.joinbtn}>JOIN</button>
                   </Link>
                 </div>
               </>
@@ -342,22 +313,16 @@ const page = () => {
         <div className={styles.rn_images_container}>
           {data?.length > 0 &&
             data?.map((gameDetails: GameDetails, index: number) => {
-            return (
+              return (
                 <>
                   <div className={styles.cardimg}>
                     <div className={styles.carddetails}>
                       <h2>{gameDetails.mapType}</h2>
-                      <span>
-                        {`${gameDetails.gameName}` +
-                          `${gameDetails.gameType}` +
-                          `Match`}
-                      </span>
+                      <span>{`${gameDetails.gameName}` + `${gameDetails.gameType}` + `Match`}</span>
                     </div>
                     <img
                       src={
-                        gameDetails.mapImg
-                          ? gameDetails.mapImg
-                          : `./assests/eranglemapimage.svg`
+                        gameDetails.mapImg ? gameDetails.mapImg : `./assests/eranglemapimage.svg`
                       }
                       className={styles.rn_images}
                       height={100}
@@ -410,66 +375,61 @@ const page = () => {
             <img src={'../assests/directionindicator.svg'} />
           </div>
           <div className={styles.scopeSection}>
-          <div className={styles.radialGradientfooter}></div>
-              <div className={styles.gradientoverlayscopesection}></div>
-              <div className={styles.gradientoverlayscopesectionright}></div>
-              <div className={styles.gradientoverlayscopesectiontop}></div>
+            <div className={styles.radialGradientfooter}></div>
+            <div className={styles.gradientoverlayscopesection}></div>
+            <div className={styles.gradientoverlayscopesectionright}></div>
+            <div className={styles.gradientoverlayscopesectiontop}></div>
             <div className={styles.scopemaincontainer}>
-            <div className={styles.bulletcontainer}>
-              <Image
-                src="../assests/bullet2.svg"
-                alt="bullter"
-                height={100}
-                width={100}
-                className={styles.bullet}
-              />
-            </div>
-            <div className={styles.skills_maincontainer}>
-              <div className={styles.skillman}>
+              <div className={styles.bulletcontainer}>
                 <Image
-                  src="../assests/downperson2.svg"
-                  alt="person"
+                  src="../assests/bullet2.svg"
+                  alt="bullter"
                   height={100}
                   width={100}
-                  className={styles.clock_img}
+                  className={styles.bullet}
                 />
               </div>
-              <p className={styles.short_heading}>Skills</p>
-            </div>
-            <div className={styles.centerscope}>
-              
-              <Image
-                src="../assests/zoominimage.svg"
-                className={styles.bg_img_static}
-                height={100}
-                width={100}
-                alt="zoom in image"
-              />
-              <Image
-                src="../assests/newscope.svg"
-                alt="center scope"
-                height={100}
-                width={100}
-                className={styles.newscope}
-              />
-              <div
-                className={styles.gradientoverlayscopesectionscopenear}
-              ></div>
-              <div
-                className={styles.gradientoverlayscopesectionscopenear1}
-              ></div>
+              <div className={styles.skills_maincontainer}>
+                <div className={styles.skillman}>
+                  <Image
+                    src="../assests/downperson2.svg"
+                    alt="person"
+                    height={100}
+                    width={100}
+                    className={styles.clock_img}
+                  />
+                </div>
+                <p className={styles.short_heading}>Skills</p>
+              </div>
+              <div className={styles.centerscope}>
+                <Image
+                  src="../assests/zoominimage.svg"
+                  className={styles.bg_img_static}
+                  height={100}
+                  width={100}
+                  alt="zoom in image"
+                />
+                <Image
+                  src="../assests/newscope.svg"
+                  alt="center scope"
+                  height={100}
+                  width={100}
+                  className={styles.newscope}
+                />
+                <div className={styles.gradientoverlayscopesectionscopenear}></div>
+                <div className={styles.gradientoverlayscopesectionscopenear1}></div>
 
-              <Image
-                className={styles.scope_line}
-                src="../assests/scopeline.svg"
-                height={100}
-                width={100}
-                alt=" scope line"
-              />
+                <Image
+                  className={styles.scope_line}
+                  src="../assests/scopeline.svg"
+                  height={100}
+                  width={100}
+                  alt=" scope line"
+                />
 
-              <div className={styles.scope_target_text}>150 meters</div>
-              <div className={styles.scope_line_red_dot}></div>
-            </div>
+                <div className={styles.scope_target_text}>150 meters</div>
+                <div className={styles.scope_line_red_dot}></div>
+              </div>
             </div>
             <div className={styles.seam_main_container}>
               <div className={styles.seamlesstxn}>
@@ -628,12 +588,7 @@ const page = () => {
         </div>
 
         <div className={styles.redBlurCircle}>
-          <Image
-            src="../assests/redcircle.svg"
-            height={45}
-            width={45}
-            alt="resBlur"
-          />
+          <Image src="../assests/redcircle.svg" height={45} width={45} alt="resBlur" />
         </div>
 
         <div className={styles.mapBgPara}>
@@ -656,9 +611,7 @@ const page = () => {
 
           <div className={styles.text_div}>
             <h3 className={styles.buggiSec_heading}>Play first game free</h3>
-            <p className={styles.buggiSec_para}>
-              Don’t waste your time Hurry up! Signup now
-            </p>
+            <p className={styles.buggiSec_para}>Don’t waste your time Hurry up! Signup now</p>
             <Link href="/auth/signup">
               <button className={styles.btnSingup}>Signup</button>
             </Link>
@@ -761,12 +714,7 @@ const page = () => {
             &#169; Battlefield Gaming Private Limited. All Rights Reserved.
           </p>
           <div className={styles.headsuparrow} onClick={scrollToTop}>
-            <Image
-              src="../assests/arrowheadup.svg"
-              height={35}
-              width={35}
-              alt="headuparrow"
-            />
+            <Image src="../assests/arrowheadup.svg" height={35} width={35} alt="headuparrow" />
           </div>
         </div>
       </footer>
