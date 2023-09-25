@@ -19,7 +19,7 @@ const dynamicMenuItems = [
   },
   {
     path: "/adminDashboard/spectator",
-    name: "Specatator",
+    name: "Spectatator",
     icon: <FaUserAlt />,
   },
   {
@@ -34,7 +34,7 @@ const dynamicMenuItems = [
   },
 ];
 
-export default function RootLayout({children}: {children: React.ReactNode}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className={styles.main_container} id="mainLayoutContainer">
       <>
