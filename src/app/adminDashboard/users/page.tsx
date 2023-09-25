@@ -27,13 +27,18 @@ function page() {
           Authorization: `Bearer ${jwtToken}`,
         },
       });
-
-      const allUsersData = response?.data?.data;
-      const filteredData = allUsersData.filter((user: any) => {
-        return user.role.role === 'user';
-      })
-      setUserData(filteredData)
-      setIsLoading(false)
+      if (response.status === 200) {
+        const allUsersData = response?.data?.data;
+        const filteredData = allUsersData.filter((user: any) => {
+          return user.role.role === 'user';
+        })
+        setUserData(filteredData)
+        setIsLoading(false)
+      }
+      else {
+        console.error('Tournament response status is not 200');
+        setIsLoading(false);
+      }
     } catch (error) {
       console.error('Error fetching tournament data:', error);
       setIsLoading(false);
@@ -48,7 +53,7 @@ function page() {
     try {
       const tokens = localStorage.getItem('jwtToken');
       console.log(tokens)
-      const response = await sendRequest(`/ role / deleterole / ${userUuid}`, {
+      const response = await sendRequest(`/role/deleterole/${userUuid}`, {
         method: 'delete',
         headers: { 'Authorization': `Bearer ${tokens}` }
       });
@@ -60,9 +65,7 @@ function page() {
       }
     } catch (error) {
       console.error('Error deleting room:', error);
-
     }
-
   };
 
 

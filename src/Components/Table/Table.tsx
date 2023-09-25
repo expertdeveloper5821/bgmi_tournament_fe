@@ -297,7 +297,6 @@ const TableData = (props: StudentProfilePropsType) => {
                               width={15}
                               height={15}
                               className={styles.table_icon}
-                              // onClick={() => deleteroomId(elm._id)}
                               onClick={() => props.deleteroomId(elm._id || elm.userUuid)}
                             />
                             <Image
@@ -328,8 +327,9 @@ const TableData = (props: StudentProfilePropsType) => {
                                   // onClick={() => props.deleteroomId(elm._id || elm.userUuid)}
                                   />
                                 </div>
-                                <div onClick={() => setIsModalOpen(true)}>
-                                  <div onClick={() => setIsShowData(!isShowData)}><Image src="/assests/eye.png" alt='show' width={15} height={15} /></div></div>
+                                {!window.location.href.includes('users') && (
+                                  <div onClick={() => setIsModalOpen(true)}>
+                                    <div onClick={() => setIsShowData(!isShowData)}><Image src="/assests/eye.png" alt='show' width={15} height={15} /></div></div>)}
                               </div>
                             )}
                             {deletModal ? (

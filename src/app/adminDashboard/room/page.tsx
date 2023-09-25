@@ -98,7 +98,7 @@ function page() {
               <div className={styles.flex}>
                 <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
                 <SearchFilter handleSearch={getAllTournaments} /></div>
-              {/* {isLoading ? (
+              {isLoading ? (
                 <Loader />
               ) : (
                 <TableData
@@ -114,29 +114,6 @@ function page() {
                   setModal={undefined}
                   updateSpectatorByid={undefined}
                 />
-              )} */}
-              {isLoading ? (
-                <Loader />
-              ) : (
-                <>
-                  {roomData.length === 0 ? (
-                    <p>No Data Found</p>
-                  ) : (
-                    <TableData
-                      imageIcon={imageIcon}
-                      roomData={roomData}
-                      columns={columns}
-                      showAdditionalButton={true}
-                      userData={[]}
-                      teamData={[]}
-                      spectatorData={[]}
-                      deleteroomId={deleteroomId}
-                      setSetSpectatorId={undefined}
-                      setModal={undefined}
-                      updateSpectatorByid={undefined}
-                    />
-                  )}
-                </>
               )}
             </div>
           </div>
