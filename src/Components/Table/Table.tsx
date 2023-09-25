@@ -132,15 +132,17 @@ const TableData = (props: StudentProfilePropsType) => {
     }
   };
 
-  const sortableColumnsMap = new Map<string, boolean>([
-    ['Created By', true],
-    ['Game Name', true],
-    ['Time', true],
-    ['Date', true],
-    ['Full Name', true],
-    ['User Name', true],
-    ['Email', true]
-  ]);
+  const columns = [
+    { label: "Created By", key: "createdBy", isSortable: true },
+    { label: "Game Name", key: "gameName", isSortable: true },
+    { label: "Time", key: "time", isSortable: true },
+    { label: "Date", key: "date", isSortable: true },
+    { label: "Full Name", key: "FullName", isSortable: true },
+    { label: "User Name", key: "UserName", isSortable: true },
+    { label: "Email", key: "email", isSortable: true },
+  ];
+
+
 
   return (
     <div style={isShowData ? { display: 'flex' } : undefined}  >
@@ -152,21 +154,21 @@ const TableData = (props: StudentProfilePropsType) => {
                 <div className={styles.header_room}>
                   <div className={styles.filter}>
                     <h1 className={styles.room_header}>  {columnName}</h1>
-                    {sortableColumnsMap.get(columnName) && (
+                    {columnName && columns.find(col => col.label === columnName)?.isSortable && (
                       <div className={styles.arrow}>
                         <Image
                           src="/assests/upArow.svg"
                           alt="filterup"
                           width={10}
                           height={10}
-                          onClick={() => handleSort(columnName as keyof TableDataType, 'room')}
+                          onClick={() => handleSort(columnName as keyof TableDataType, 'room' || 'spectator')}
                         ></Image>
                         <Image
                           src="/assests/downarow.svg"
                           alt="filterdown"
                           width={10}
                           height={10}
-                          onClick={() => handleSort(columnName as keyof TableDataType, 'room')}
+                          onClick={() => handleSort(columnName as keyof TableDataType, 'room' || 'spectator')}
                         ></Image>
                       </div>
                     )}
@@ -239,26 +241,26 @@ const TableData = (props: StudentProfilePropsType) => {
                       {elm.version}
                     </TableCell>
                   )}
-                  {elm.time && (
-                    <TableCell className={styles.table_cell}>
-                      {elm.time}
-                    </TableCell>
-                  )}
-                  {elm.date && (
-                    <TableCell className={styles.table_cell}>
-                      {formatDate({ date: elm.date, format: 'l' })}
-                    </TableCell>
+                  {!window.location.href.includes("spectator") && !window.location.href.includes("users") && (
+                    <>
+                      <TableCell className={styles.table_cell}>
+                        {formatTime({ time: elm.time, format: 'LT' })}
+                      </TableCell>
+                      <TableCell className={styles.table_cell}>
+                        {formatDate({ date: elm.date, format: 'l' })}
+                      </TableCell>
+                    </>
                   )}
                   {elm.fullName && (
                     <TableCell className={styles.table_cell}>
                       {elm.fullName}
                     </TableCell>
                   )}
-
-                  <TableCell className={styles.table_cell}>
-                    {elm.userName || "--"}
-                  </TableCell>
-
+                  {elm.userName && (
+                    <TableCell className={styles.table_cell}>
+                      {elm.userName}
+                    </TableCell>
+                  )}
                   {elm.email && (
                     <TableCell className={styles.table_cell}>
                       {elm.email}
@@ -295,6 +297,7 @@ const TableData = (props: StudentProfilePropsType) => {
                               width={15}
                               height={15}
                               className={styles.table_icon}
+                              // onClick={() => deleteroomId(elm._id)}
                               onClick={() => props.deleteroomId(elm._id || elm.userUuid)}
                             />
                             <Image
@@ -322,13 +325,11 @@ const TableData = (props: StudentProfilePropsType) => {
                                     width={15}
                                     height={15}
                                     className={styles.table_icon}
+                                  // onClick={() => props.deleteroomId(elm._id || elm.userUuid)}
                                   />
                                 </div>
-                                {!window.location.href.includes('users') && (
-                                  <div onClick={() => setIsModalOpen(true)}>
-                                    <Image src="/assests/eye.png" alt='show' width={15} height={15} />
-                                  </div>
-                                )}
+                                <div onClick={() => setIsModalOpen(true)}>
+                                  <div onClick={() => setIsShowData(!isShowData)}><Image src="/assests/eye.png" alt='show' width={15} height={15} /></div></div>
                               </div>
                             )}
                             {deletModal ? (

@@ -24,8 +24,6 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
       if (width > 768) {
         const mainElem = document.getElementById('mainLayoutContainer')
         const mainElemInner = document.getElementById('mainLayoutContainerInner')
-        // mainElem.style.width = !isOpen ? '78.5vw' : '96vw'
-        // mainElemInner.style.width = !isOpen ? '85vw' : '96vw'
         if (mainElem) {
           mainElem.style.width = !isOpen ? '73.5vw' : '96vw';
         }
@@ -33,7 +31,6 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
         if (mainElemInner) {
           mainElemInner.style.width = !isOpen ? '85vw' : '96vw';
         }
-
       }
       return !isOpen
     });
@@ -42,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
   return (
     <>
       {width > 768 ? (
-        <div className={styles.container}>
+        <div className={styles.container} >
           <div
             style={{ width: isOpen ? '220px' : '50px' }}
             className={styles.sidebar}

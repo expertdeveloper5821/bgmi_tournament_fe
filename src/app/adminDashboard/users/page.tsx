@@ -18,10 +18,10 @@ function page() {
   const [isLoading, setIsLoading] = useState(true);
   const imageIcon: string = 'user';
 
-  const fetchTournaments = async () => {
+  const fetchTournaments = async (searchVal) => {
     try {
       const jwtToken = localStorage.getItem('jwtToken');
-      const response = await sendRequest('/user/getalluser', {
+      const response = await sendRequest(`/user/getalluser?search=${searchVal}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${jwtToken}`,
@@ -41,19 +41,19 @@ function page() {
   };
 
   useEffect(() => {
-    fetchTournaments();
+    fetchTournaments('');
   }, []);
 
   const deleteroomId = async (userUuid: any) => {
     try {
       const tokens = localStorage.getItem('jwtToken');
       console.log(tokens)
-      const response = await sendRequest(`/role/deleterole/${userUuid}`, {
+      const response = await sendRequest(`/ role / deleterole / ${userUuid}`, {
         method: 'delete',
         headers: { 'Authorization': `Bearer ${tokens}` }
       });
       setUserData(userData);
-      fetchTournaments();
+      fetchTournaments('');
       if (response) {
         const success = response.data.message;
         toast.success(success);
@@ -79,7 +79,9 @@ function page() {
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
               <Navbar />
-              {/* <SearchFilter /> */}
+              <div className={styles.flex}>
+                <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+                <SearchFilter handleSearch={fetchTournaments} /></div>
               {isLoading ? (
                 <Loader />
               ) : (
