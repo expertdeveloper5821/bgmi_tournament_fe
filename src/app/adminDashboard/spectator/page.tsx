@@ -26,9 +26,7 @@ export default function Modal() {
   const [isupdateData, setIsUpdateData] = useState<any>(null)
   const imageIcon: string = 'spectator';
   const [getSpectatorId, setSetSpectatorId] = useState<any>()
-  const [specRoleId, setSpecRoleId] = useState<any>();
-
-
+  const [specRoleId, setSpecRoleId] = useState<any>('');
 
 
   const [modal, setModal] = useState(false);
@@ -47,17 +45,15 @@ export default function Modal() {
       const allUsersData: any = await sendRequest('/user/getalluser', {
         method: 'GET',
         headers: { 'Authorization': `Bearer ${tokens}` }
-
       });
       if (allUsersData.status === 200) {
         const allspectatorData = allUsersData?.data?.data;
         const filteredData = allspectatorData.filter((spectator: any) => {
           return spectator.role.role === 'spectator';
         });
-        setSpectatorData(filteredData);
 
+        setSpectatorData(filteredData);
         setIsLoading(false);
-        setSpecRoleId(filteredData[0].role._id);
       }
       else {
         console.error('Failed to fetch users:', allUsersData.statusText);
@@ -70,7 +66,6 @@ export default function Modal() {
       setIsLoading(false);
     }
   };
-
 
   const deleteroomId = async (userUuid: any) => {
     try {
@@ -90,13 +85,12 @@ export default function Modal() {
       }
       setSpectatorData(spectatorData);
     } catch (error) {
-      console.error('Error deleting room:', error);
+      console.error('Diksha@123Error deleting room:', error);
       setIsLoading(false);
       toast.error('An error occurred while deleting the room.');
 
     }
   };
-
 
   const toggleModal = (userid: string) => {
     setModal(!modal);
@@ -118,11 +112,28 @@ export default function Modal() {
     } catch (error) {
       console.error('Error deleting room', error);
     }
+  }
+
+  const getSpecRoleid = async () => {
+    const tokens = localStorage.getItem('jwtToken');
+    const getAllRoles = await sendRequest('/role/getAllRole', {
+      method: 'GET',
+      headers: { 'Authorization': `Bearer ${tokens}` }
+    });
+    if (getAllRoles.status === 200) {
+      const allspectatorData = getAllRoles?.data?.data;
+      const specData = allspectatorData.filter((spectator: any) => {
+        return spectator?.role === 'spectator';
+      });
+      setSpecRoleId(specData[0]?._id)
+    }
 
   }
 
   useEffect(() => {
     getAllUsers();
+    getSpecRoleid();
+
   }, []);
 
   const columns: string[] = [
@@ -140,11 +151,7 @@ export default function Modal() {
     role: specRoleId
   };
 
-
-
-
   const [formData, setFormData] = useState<FormCreate>(initialFormData);
-
 
   useEffect(() => {
     if (getSpectatorId) {
@@ -160,9 +167,8 @@ export default function Modal() {
       };
       setFormData(initialFormData)
     }
-  }, [getSpectatorId])
+  }, [getSpectatorId, specRoleId])
 
-  console.log("FormData", formData)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -181,7 +187,7 @@ export default function Modal() {
         userName: formData.userName ? '' : 'Please Enter your User Name ',
         email: formData.email ? '' : 'Please Enter your Email ',
         password: formData.password ? '' : ' Please Enter your Password ',
-        role: ''
+        role: specRoleId
       });
       return;
     }
@@ -195,7 +201,7 @@ export default function Modal() {
     });
 
     const token: any = localStorage.getItem('jwtToken');
-    setFormData({ ...initialFormData, role: '64d5d42ee428f9561c3a125f' });
+    setFormData({ ...initialFormData, role: specRoleId });
 
     try {
       const response = await sendRequest("/role/spectator/Register", {
