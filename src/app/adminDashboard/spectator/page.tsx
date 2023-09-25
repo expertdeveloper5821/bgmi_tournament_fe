@@ -29,6 +29,7 @@ export default function Modal() {
   const [getSpectatorId, setSetSpectatorId] = useState<any>()
   const [specRoleId, setSpecRoleId] = useState<any>('');
 
+
   const [modal, setModal] = useState(false);
   const [formErrors, setFormErrors] = useState<FormCreate>({
     fullName: '',
@@ -46,7 +47,6 @@ export default function Modal() {
         method: 'GET',
         headers: { 'Authorization': `Bearer ${tokens}` }
       });
-      console.log(" allUsersData______", allUsersData)
       if (allUsersData.status === 200) {
         const allspectatorData = allUsersData?.data?.data;
         const filteredData = allspectatorData.filter((spectator: any) => {
@@ -67,7 +67,6 @@ export default function Modal() {
       setIsLoading(false);
     }
   };
-
 
   const deleteroomId = async (userUuid: any) => {
     try {
@@ -93,7 +92,6 @@ export default function Modal() {
 
     }
   };
-
 
   const toggleModal = (userid: string) => {
     setModal(!modal);
@@ -133,7 +131,6 @@ export default function Modal() {
 
   }
 
-
   useEffect(() => {
     getAllUsers();
     getSpecRoleid();
@@ -155,11 +152,7 @@ export default function Modal() {
     role: specRoleId
   };
 
-
-
-
   const [formData, setFormData] = useState<FormCreate>(initialFormData);
-
 
   useEffect(() => {
     if (getSpectatorId) {
@@ -175,9 +168,8 @@ export default function Modal() {
       };
       setFormData(initialFormData)
     }
-  }, [getSpectatorId])
+  }, [getSpectatorId, specRoleId])
 
-  console.log("FormData", formData)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
