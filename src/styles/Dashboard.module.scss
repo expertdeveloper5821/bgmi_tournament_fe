@@ -46,6 +46,11 @@
   justify-content: center;
 }
 
+.flex{
+  display: flex;
+  justify-content: space-between;
+}
+
 .update_button{
   border: transparent;
   width: 100%;
@@ -561,7 +566,7 @@ img.slides_image {
 
 .content_wrapper {
   display: flex;
-  width: 50%;
+  width: 100%;
   justify-content: space-around;
   align-items: center;
 }
@@ -1139,8 +1144,31 @@ img.slides_image {
   font-weight: 900;
 }
 
+.button_wrapper{
+  margin-right: 1rem ;
+  background-color: $bs-orange !important;
+  border-radius: 4px;
+  margin-left: 1rem;
+}
+
+
 body.activemodal {
   overflow-y: hidden;
+}
+
+.placeholder input{
+  background-color: $primary-color;
+  border: none;
+}
+
+
+.input_desc{
+  // border: 1px solid black;
+  display: flex;
+  width: 95%;
+  margin-top: 1.5rem;
+  margin-right: 3rem;
+  justify-content: flex-end;
 }
 
 .btnmodal {

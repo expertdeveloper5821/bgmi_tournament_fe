@@ -132,24 +132,14 @@ const TableData = (props: StudentProfilePropsType) => {
     }
   };
 
-  // const sortableColumnsMap = new Map<string, boolean>([
-  //   ['Created By', true],
-  //   ['Game Name', true],
-  //   ['Time', true],
-  //   ['Date', true],
-  //   ['FullName', true],
-  //   ['UserName', true],
-  //   ['Email', true]
-  // ]);
-
   const columns = [
-    { label: "Created By", key: "Created By", isSortable: true },
-    { label: "Game Name", key: "Game Name", isSortable: true },
-    { label: "Time", key: "Time", isSortable: true },
-    { label: "Date", key: "Date", isSortable: true },
+    { label: "Created By", key: "createdBy", isSortable: true },
+    { label: "Game Name", key: "gameName", isSortable: true },
+    { label: "Time", key: "time", isSortable: true },
+    { label: "Date", key: "date", isSortable: true },
     { label: "Full Name", key: "FullName", isSortable: true },
-    { label: "User Name", key: "User Name", isSortable: true },
-    { label: "Email", key: "Email", isSortable: true },
+    { label: "User Name", key: "UserName", isSortable: true },
+    { label: "Email", key: "email", isSortable: true },
   ];
 
 
@@ -251,21 +241,16 @@ const TableData = (props: StudentProfilePropsType) => {
                       {elm.version}
                     </TableCell>
                   )}
-                  {/* {elm.time && (
-                    <TableCell className={styles.table_cell}>
-                      {formatTime({ time: elm.time, format: 'LT' })}
-                    </TableCell>
-                  )} */}
-                  {window.location.href.includes("spectator") ? "" :
-                    <TableCell className={styles.table_cell}>
-                      {elm.time || "--"}
-                    </TableCell>
-                  }
-                  {window.location.href.includes("spectator") ? "" :
-                    <TableCell className={styles.table_cell}>
-                      {formatDate({ date: elm.date, format: 'l' })}
-                    </TableCell>
-                  }
+                  {!window.location.href.includes("spectator") && !window.location.href.includes("users") && (
+                    <>
+                      <TableCell className={styles.table_cell}>
+                        {formatTime({ time: elm.time, format: 'LT' })}
+                      </TableCell>
+                      <TableCell className={styles.table_cell}>
+                        {formatDate({ date: elm.date, format: 'l' })}
+                      </TableCell>
+                    </>
+                  )}
                   {elm.fullName && (
                     <TableCell className={styles.table_cell}>
                       {elm.fullName}
@@ -312,7 +297,6 @@ const TableData = (props: StudentProfilePropsType) => {
                               width={15}
                               height={15}
                               className={styles.table_icon}
-                              // onClick={() => deleteroomId(elm._id)}
                               onClick={() => props.deleteroomId(elm._id || elm.userUuid)}
                             />
                             <Image
@@ -343,8 +327,9 @@ const TableData = (props: StudentProfilePropsType) => {
                                   // onClick={() => props.deleteroomId(elm._id || elm.userUuid)}
                                   />
                                 </div>
-                                <div onClick={() => setIsModalOpen(true)}>
-                                  <div onClick={() => setIsShowData(!isShowData)}><Image src="/assests/eye.png" alt='show' width={15} height={15} /></div></div>
+                                {!window.location.href.includes('users') && (
+                                  <div onClick={() => setIsModalOpen(true)}>
+                                    <div onClick={() => setIsShowData(!isShowData)}><Image src="/assests/eye.png" alt='show' width={15} height={15} /></div></div>)}
                               </div>
                             )}
                             {deletModal ? (

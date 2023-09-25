@@ -8,12 +8,10 @@ import assignmentData from '../../../utils/CreateAssignment.json';
 import { Pagination } from 'technogetic-iron-smart-ui';
 import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
 import RequireAuthentication from '../../../utils/requireAuthentication';
-// import apiServices from '@/services/api/apiServices';
 import { sendRequest } from '@/services/auth/auth_All_Api';
 import { toast } from 'react-toastify';
 import Loader from '@/Components/Loader/Loader';
 import router from 'next/router';
-
 
 export interface IAppProps { }
 
@@ -26,23 +24,33 @@ function page() {
   const imageIcon: string = 'room';
 
   useEffect(() => {
-    // Simulate data loading or any async operation
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
   }, []);
 
-  const getAllTournaments = async () => {
+  const getAllTournaments = async (searchVal) => {
     const tokens = localStorage.getItem('jwtToken');
-    const tournamentResponse = await sendRequest('/room/rooms', {
-      method: 'GET',
-      headers: { 'Authorization': `Bearer ${tokens}` }
-    });
-    setRoomData(tournamentResponse.data);
+    try {
+      const tournamentResponse = await sendRequest(`/room/rooms?search=${searchVal}`, {
+        method: 'GET',
+        headers: { 'Authorization': `Bearer ${tokens}` }
+      });
+
+      if (tournamentResponse.status === 200) {
+        setRoomData(tournamentResponse.data);
+      } else {
+        setRoomData([]);
+        toast.error('No Data found');
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+      toast.error('An error occurred while fetching data.');
+    }
   }
 
   useEffect(() => {
-    getAllTournaments();
+    getAllTournaments('');
   }, [])
 
   const deleteroomId = async (_id: any) => {
@@ -53,17 +61,20 @@ function page() {
         method: 'delete',
         headers: { 'Authorization': `Bearer ${tokens}` }
       });
-      getAllTournaments();
-      if (response) {
+      if (response.status === 200) {
         const success = response.data.message;
         toast.success(success);
+        getAllTournaments('');
+      } else {
+        toast.error('Failed to delete the room.');
       }
     } catch (error) {
+      console.error('An error occurred:', error);
+      toast.error('An error occurred while deleting the room.');
     } finally {
       setIsLoading(false);
     }
   };
-
 
   const columns: string[] = [
     'Created By',
@@ -77,7 +88,6 @@ function page() {
     'Date',
   ];
 
-
   return (
     <>
       <RequireAuthentication>
@@ -85,8 +95,9 @@ function page() {
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
               <Navbar />
-              <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
-              {/* <SearchFilter /> */}
+              <div className={styles.flex}>
+                <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+                <SearchFilter handleSearch={getAllTournaments} /></div>
               {isLoading ? (
                 <Loader />
               ) : (
@@ -94,7 +105,15 @@ function page() {
                   imageIcon={imageIcon}
                   roomData={roomData}
                   columns={columns}
-                  showAdditionalButton={true} userData={[]} teamData={[]} spectatorData={[]} deleteroomId={deleteroomId} setSetSpectatorId={undefined} setModal={undefined} updateSpectatorByid={undefined} />
+                  showAdditionalButton={true}
+                  userData={[]}
+                  teamData={[]}
+                  spectatorData={[]}
+                  deleteroomId={deleteroomId}
+                  setSetSpectatorId={undefined}
+                  setModal={undefined}
+                  updateSpectatorByid={undefined}
+                />
               )}
             </div>
           </div>
@@ -103,8 +122,6 @@ function page() {
     </>
   );
 }
-
-
 
 export default page;
 
