@@ -967,6 +967,12 @@ img.slides_image {
 .slideContainer {
   display: flex;
   justify-content: center;
+
+  @media (max-width: $breakpoint-xSmall) {
+    padding-right: 5px;
+  }
+
+  
 }
 
 .prevButton,
