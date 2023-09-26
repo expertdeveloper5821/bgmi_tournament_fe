@@ -100,7 +100,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
             </div>
           </div>
           {
-            isOpen && <div className={styles.listitems}>
+            isOpen && <div className={`${styles.listitems} ${isOpen ? styles.open : ''}`}>
               {menuItem?.length > 0 ? (
                 menuItem.map((item: MenuItem, index: number) => (
                   <Link href={item.path} key={index} passHref>

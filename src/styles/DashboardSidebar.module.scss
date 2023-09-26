@@ -8,6 +8,7 @@
 }
 
 
+
 .sidebar {
   color: #fff;
   height: 100vh;
@@ -127,7 +128,9 @@
   padding-bottom: 3px;
   width: 150px;
   z-index: 1;
-  height: 90vh;
+  height: 100vh;
+
+  
   @media (max-width: $breakpoint-tab){
     margin-top: 60px;
     height: 100vh;
@@ -141,6 +144,9 @@
     height: 100vh;
   }
  
+}
+.open {
+  transform: translateX(0);
 }
 .mob_link_text {
   display: flex;
