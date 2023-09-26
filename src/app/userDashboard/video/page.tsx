@@ -31,9 +31,6 @@ const Page: React.FC = () => {
         <div className={styles.loader}> Please wait...</div>
       ) : (
         <div className={styles.main_container}>
-          <div>
-            <Navbar />
-          </div>
           <div className={styles.sub_container}>
             <div className={styles.header}>
               <h2>VIDEOS</h2>

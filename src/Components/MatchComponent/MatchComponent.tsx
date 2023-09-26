@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import styles from '@/styles/Dashboard.module.scss';
 import { AiOutlineDown, AiOutlineClose } from 'react-icons/ai';
+import { BsChevronDown } from 'react-icons/bs';
 import { useState } from 'react';
 
 const MatchComponent = ({
@@ -23,9 +24,9 @@ const MatchComponent = ({
       <div className={styles.winnings}>
         <div>
           <strong className={styles.winning_prize}>
-            Winning Prize
+            WINNING PRIZE
             <span className={styles.caret_down_style}>
-              <AiOutlineDown
+              <BsChevronDown
                 onClick={() => setPoolModal(true)}
                 style={{ verticleAllign: 'middle' }}
               />
@@ -101,7 +102,7 @@ const MatchComponent = ({
           </span>
         </div>
         <div>
-          <span className={styles.winning_prize}>Entry Fees</span>
+          <span className={styles.winning_prize}>ENTRY FEES</span>
           <span className={styles.survival_content}>
             <span className="rs_logo">
               <Image src="../assests/rupee-icon.svg" alt="rupeeIcon" width={12} height={12} />

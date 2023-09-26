@@ -81,6 +81,9 @@ function Login(): React.JSX.Element {
               name: response?.data?.userData?.fullName,
               email: response?.data?.userData?.email,
             };
+            if (response?.data?.userData) {
+              localStorage.setItem('userData', JSON.stringify(response.data?.userData));
+            }
             updateUserInfo(userDetails);
             localStorage.setItem('jwtToken', response?.data?.userData?.token);
 

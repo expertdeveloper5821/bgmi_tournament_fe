@@ -75,7 +75,6 @@ const regMatches = () => {
     <div className={styles.main_container} id="mainLayoutContainerInner">
       <div className={styles.abcd}>
         <div className={styles.sidebar_wrapper}>
-          <Navbar />
           <div className={styles.content}>
             <div className={styles.dashboard}>
               <span className={styles.head_desc}>Registered Matches</span>

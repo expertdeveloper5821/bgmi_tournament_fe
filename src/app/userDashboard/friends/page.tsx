@@ -147,9 +147,6 @@ const Friend = () => {
   return (
     <>
       <div className={styles.main_container}>
-        <div>
-          <Navbar />
-        </div>
         <div className={styles.sub_container}>
           <div className={styles.header}>
             <h2>Invite your friends</h2>
