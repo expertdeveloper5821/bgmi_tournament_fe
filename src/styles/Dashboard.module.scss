@@ -77,7 +77,7 @@
   }
 
   @media (max-width: $breakpoint-xs) {
-    margin-left: 18px;
+    margin-left: 4px;
   }
 }
 .heading {
@@ -128,6 +128,7 @@
 
 .reg_match_image_container {
   flex: 2 1 0;
+  margin-right: 5px;
   img{
     object-fit: contain;
     width: 100%;
@@ -204,33 +205,24 @@
   @media (max-width: $breakpoint-lg) {
     width: 50%;
   }
-
   @media (max-width: $breakpoint-ms) {
     width: 80%;
   }
-
   @media (max-width: $breakpoint-md) {
     width: 50%;
   }
-
   @media (max-width: $breakpoint-tab){
     width: 86% ;
   }
   @media (max-width: $breakpoint-sm) {
     width: 60% !important;
   }
-
   @media (max-width: $breakpoint-xs) {
     width: 306px !important;
   }
-
   @media (max-width: $breakpoint-xSmall) {
     width: 306px !important;
   }
-
-
-
-
 }
 
 @media (max-width: $breakpoint-xSmall) {
@@ -252,6 +244,7 @@
 }
 
 .container3_img {
+  margin-right: 10px;
   width: auto;
   height: 148px;
 }
@@ -275,6 +268,15 @@
   line-height: 20px;
   letter-spacing: 0.02em;
   margin-bottom: 8px;
+  @media (max-width: $breakpoint-sm) {
+    font-size: 10.5px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    font-size: 10.5px;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    font-size: 10.5px;
+  }
 }
 
 .winning_prize span,
@@ -285,6 +287,8 @@
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.02em;
+
+
 }
 
 .spot_line {
@@ -401,6 +405,7 @@ img.slides_image {
 
   @media (max-width: $breakpoint-xSmall) {
     display: inline-block !important;
+  
   }
 
   @media (max-width: $breakpoint-xs) {
@@ -414,11 +419,11 @@ img.slides_image {
   border-radius: 5px;
 
   @media (max-width: $breakpoint-xs) {
-    margin-left: 8%;
+    margin-left: 0%;
   }
 
   @media (max-width: $breakpoint-xSmall) {
-    margin-left: 8%;
+    margin-left: 0%;
   }
 }
 
@@ -962,6 +967,12 @@ img.slides_image {
 .slideContainer {
   display: flex;
   justify-content: center;
+
+  @media (max-width: $breakpoint-xSmall) {
+    padding-right: 5px;
+  }
+
+  
 }
 
 .prevButton,
