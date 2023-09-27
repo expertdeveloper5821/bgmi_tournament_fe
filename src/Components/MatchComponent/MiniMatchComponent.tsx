@@ -14,7 +14,7 @@ const MiniMatchComponent = ({ match, visibleRooms }: IMatchProps) => {
 
   return (
     <div className={styles.container3}>
-      <div className={styles.reg_match_image_container}>
+      <div className={styles.reg_match_image_container} style={{ position: 'relative' }}>
         <Image
           src={match?.mapImg || '../assests/registeredmatches.svg'}
           alt={`${styles.slide}`}
@@ -23,6 +23,16 @@ const MiniMatchComponent = ({ match, visibleRooms }: IMatchProps) => {
           height={100}
           onClick={() => regMatchRedirect(match?._id)}
         />
+        <div className={styles.gameCardFade}>
+          <p>{match.gameName}</p>
+          <p
+            className={styles.tvm_font}
+            style={{ color: 'rgba(255, 122, 0, 1)', cursor: 'pointer' }}
+            onClick={() => regMatchRedirect(match?._id)}
+          >
+            View more
+          </p>
+        </div>
       </div>
       <div className={styles.Tournaments}>
         <div className={styles.tournament_slider}>

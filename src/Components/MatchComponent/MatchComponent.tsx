@@ -25,11 +25,8 @@ const MatchComponent = ({
         <div>
           <strong className={styles.winning_prize}>
             WINNING PRIZE
-            <span className={styles.caret_down_style}>
-              <BsChevronDown
-                onClick={() => setPoolModal(true)}
-                style={{ verticleAllign: 'middle' }}
-              />
+            <span className={styles.caret_down_style} style={{ cursor: 'pointer' }}>
+              <BsChevronDown onClick={() => setPoolModal(true)} />
             </span>
           </strong>
           {poolModal ? (
@@ -86,7 +83,7 @@ const MatchComponent = ({
                   </p>
                 </div>
                 <p className={styles.pool_cancel_p} onClick={() => setPoolModal(false)}>
-                  <AiOutlineClose className={styles.cancel_icon} />
+                  <AiOutlineClose className={styles.cancel_icon} style={{ cursor: 'pointer' }} />
                 </p>
               </div>
             </div>

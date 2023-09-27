@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import CountdownTimer from '../../../Components/CountdownTimer/CountdownTimer';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
 import MatchComponent from '@/Components/MatchComponent/MatchComponent';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 export interface RegMatch {
   gameName: string;
@@ -44,8 +45,10 @@ const regMatches = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (resMatch.status === 200 || resMatch.status === 201) {
-        const formatDateTime = ` ${formatDate({ date: matchData?.dateAndTime })} and ${formatTime({
-          time: matchData?.dateAndTime,
+        const formatDateTime = ` ${formatDate({
+          date: resMatch?.data?.room?.dateAndTime,
+        })} at ${formatTime({
+          time: resMatch?.data?.room?.dateAndTime,
           format: 'LT',
         })}`;
         setMatchData({ ...resMatch.data.room, dateAndTime: formatDateTime });
@@ -78,7 +81,7 @@ const regMatches = () => {
           <div className={styles.content}>
             <div className={styles.dashboard}>
               <span className={styles.head_desc}>Registered Matches</span>
-              <h1 className={styles.subhead_desc}>Dashboard /registered matches</h1>
+              <Breadcrumb />
             </div>
             <div className={styles.sendmailbtnContainer}></div>
           </div>

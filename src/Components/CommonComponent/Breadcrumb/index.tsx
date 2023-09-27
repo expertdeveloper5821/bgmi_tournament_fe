@@ -1,34 +1,39 @@
+// components/Breadcrumb.tsx
 import Link from 'next/link';
-import React from 'react';
-import styles from '@/styles/Dashboard.module.scss';
+import { usePathname } from 'next/navigation';
 
-const Breadcrumb = () => {
-  const urls = window.location.pathname.split('/').filter((i) => i);
+const Breadcrumb: React.FC = () => {
+  const asPath = usePathname();
 
-  function getNames(name: string): string {
+  const pathSegments = asPath?.split('/').filter((segment) => segment);
+
+  const getNames = (name: string) => {
     switch (name) {
       case 'userDashboard':
         return 'Dashboard';
+      case 'registerMatches':
+        return 'Registered matches';
       case 'tournament':
-        return 'Upcoming Matches';
+        return 'Tournament'
       default:
         return name;
     }
-  }
+  };
 
-  return (
-    <div>
-      {urls.map((i, idx) => (
-        <Link
-          href={idx === 0 ? window.location.pathname : i}
-          key={i}
-          style={{ fontSize: '14px', fontWeight: '400', lineHeight: '16px' }}
-        >
-          {getNames(i)} {idx === urls.length - 1 ? '' : '/ '}
+  const breadcrumbs = pathSegments.map((segment, index) => {
+    const breadcrumbPath = `/${pathSegments.slice(0, index + 1).join('/')}`;
+
+    return (
+      <span key={breadcrumbPath}>
+        <Link href={breadcrumbPath} passHref>
+          {getNames(segment)}
         </Link>
-      ))}
-    </div>
-  );
+        {index < pathSegments.length - 1 && ' / '}
+      </span>
+    );
+  });
+
+  return <div>{breadcrumbs}</div>;
 };
 
 export default Breadcrumb;

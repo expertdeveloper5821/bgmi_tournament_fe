@@ -7,12 +7,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 32px;
-  margin: 22px 0px;
+  padding: 40px 24px;
+  background-color: $primary-color;
+  
+  @media (max-width: $breakpoint-md) {
+    padding: 40px 64px;
+  }
+  @media (max-width: $breakpoint-sm) {
+    height: 42px;
+  }
 
   @media (max-width: $breakpoint-xs) {
-    padding: 0 0 0 12px;
-    display: none;
+    padding: 40px 12px 40px 64px;
   }
 }
 
@@ -32,7 +38,7 @@
     font-size: 27px;
     font-weight: 700;
     @media (max-width: $breakpoint-xSmall) {
-      padding-left: 1rem;
+      // padding-left: 1rem;
       font-size: 19px;
     }
   }
@@ -48,7 +54,7 @@
 }
 
 .navitem {
-  margin-right: 20px;
+  // margin-right: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;

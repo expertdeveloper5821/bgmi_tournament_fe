@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Router from 'next/router';
+import Loader from '../CommonComponent/Loader/Loader';
 
 const withAuth = (WrappedComponent: any) => {
   const WithAuth = (props: any) => {
@@ -16,7 +16,11 @@ const withAuth = (WrappedComponent: any) => {
     }, []);
 
     if (loading) {
-      return <div style={{ width: '100%', textAlign: 'center' }}>Loading...</div>;
+      return (
+        <div style={{ width: '100%', textAlign: 'center' }}>
+          <Loader />
+        </div>
+      );
     }
 
     if (!user) {

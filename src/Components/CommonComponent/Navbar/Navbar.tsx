@@ -60,9 +60,11 @@ export function Navbar(props: INavbar) {
     <header>
       <nav className={styles.container}>
         <div className={styles.navbarbrand}>
-          <h1 className={styles.page_title}>
-            Welcome <span className={styles.fullname_title}>{nameData}</span>
-          </h1>
+          {/* {nameData && (
+            <h1 className={styles.page_title}>
+              Welcome <span className={styles.fullname_title}>{nameData}</span>
+            </h1>
+          )} */}
         </div>
         <ul className={styles.navbarnav}>
           {/* <li className={styles.navitem}>
@@ -135,21 +137,22 @@ export function Navbar(props: INavbar) {
               </Popover>
             </li> */}
           <li className={styles.navitem}>
-            <Popover
-              className={styles.popover_show}
-              isOpen={isPopOpen}
-              setIsOpen={setIsPopOpen}
-              content={
-                <div className={styles.myprofilesection}>
-                  <div className={styles.userdetails}>
-                    <p className={styles.dropdownprofileimage}>{initialsName}</p>
-                    <div className={styles.username_details}>
-                      <h1 className={styles.user_name_heading}>{nameData}</h1>
-                      <span className={styles.gmail}>{userData}</span>
+            {nameData && (
+              <Popover
+                className={styles.popover_show}
+                isOpen={isPopOpen}
+                setIsOpen={setIsPopOpen}
+                content={
+                  <div className={styles.myprofilesection}>
+                    <div className={styles.userdetails}>
+                      <p className={styles.dropdownprofileimage}>{initialsName}</p>
+                      <div className={styles.username_details}>
+                        <h1 className={styles.user_name_heading}>{nameData}</h1>
+                        <span className={styles.gmail}>{userData}</span>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* <div className={styles.profilesection}>
+                    {/* <div className={styles.profilesection}>
                       <div className={styles.flexcol}>
                         <Image
                           className={styles.profileicon}
@@ -181,33 +184,34 @@ export function Navbar(props: INavbar) {
                         <div className={styles.myprofile}>Notification</div>
                       </div>
                     </div> */}
-                  <div className={styles.logoutbutton}>
-                    <div className={styles.inner_logout} onClick={handleLogout}>
-                      <Image
-                        className={styles.logoutbuttonicon}
-                        src="../assests/logouticon.svg"
-                        alt="logouticon"
-                        onClick={handleLogout}
-                        width={20}
-                        height={20}
-                      />
-                      Logout
+                    <div className={styles.logoutbutton}>
+                      <div className={styles.inner_logout} onClick={handleLogout}>
+                        <Image
+                          className={styles.logoutbuttonicon}
+                          src="../assests/logouticon.svg"
+                          alt="logouticon"
+                          onClick={handleLogout}
+                          width={20}
+                          height={20}
+                        />
+                        Logout
+                      </div>
                     </div>
                   </div>
-                </div>
-              }
-              height="238px"
-              placement="bottom"
-              width="224px"
-            >
-              {pofile ? (
-                <Avatar src={pofile} onClick={() => setIsPopOpen(!isPopOpen)} />
-              ) : (
-                <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>
-                  {initialsName}
-                </p>
-              )}
-            </Popover>
+                }
+                height="238px"
+                placement="bottom"
+                width="224px"
+              >
+                {pofile ? (
+                  <Avatar src={pofile} onClick={() => setIsPopOpen(!isPopOpen)} />
+                ) : (
+                  <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>
+                    {initialsName}
+                  </p>
+                )}
+              </Popover>
+            )}
           </li>
           {/* <li className={styles.navitem}>
               <div className={styles.username_details}>

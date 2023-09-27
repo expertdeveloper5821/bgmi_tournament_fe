@@ -25,7 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
         const mainElem = document.getElementById('mainLayoutContainer');
         const mainElemInner = document.getElementById('mainLayoutContainerInner');
         if (mainElem) {
-          mainElem.style.width = !isOpen ? '73.5vw' : '96vw';
+          mainElem.style.width = !isOpen ? '100vw' : '100vw';
         }
 
         if (mainElemInner) {

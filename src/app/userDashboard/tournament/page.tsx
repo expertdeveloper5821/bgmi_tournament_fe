@@ -19,6 +19,8 @@ import {
   initialValues,
 } from '../constants';
 import MiniMatchComponent from '@/Components/MatchComponent/MiniMatchComponent';
+import { BiSolidChevronLeft, BiChevronRight } from 'react-icons/bi';
+import Loading from '../loading';
 
 function Tournament() {
   const [allRoomsData, setAllRoomsData] = useState<any>([]); //types
@@ -198,7 +200,6 @@ function Tournament() {
     }
   };
 
-  //info required
   const getIdPass = (dateAndTime: string, roomUuid: string) => {
     if (dateAndTime && roomUuid) {
       setInterval(() => {
@@ -213,12 +214,28 @@ function Tournament() {
     }
   };
 
+  // const getIdPass = (dateAndTime: string, roomUuid: string) => {
+  //   if (dateAndTime && roomUuid) {
+  //     setInterval(() => {
+  //       const currentTime = moment();
+
+  //       const itemTime = moment(dateAndTime);
+
+  //       const differenceInMinutes = itemTime.diff(currentTime, 'minutes');
+
+  //       if (differenceInMinutes >= 15 || !itemTime.isSame(currentTime, 'day')) {
+  //         setVisibleRooms([...visibleRooms, roomUuid]);
+  //       }
+  //     }, 60000);
+  //   }
+  // };
+
   return (
     <div className={styles.main_container} id="mainLayoutContainerInner">
+      {isLoading && <Loading />}
       <div className={styles.abcd}>
         <div className={styles.sidebar_wrapper}>
           <div className={styles.content}>
-            {/* one more generic component */}
             <div className={styles.dashboard}>
               <span className={styles.head_desc}>Upcoming Matches</span>
               <Breadcrumb />
@@ -257,13 +274,7 @@ function Tournament() {
                     />
                     <div className={styles.spot_line_sec}></div>
                     <div className={styles.winnings_sec_secton}>
-                      <div className={styles.spot_line}>
-                        {/* add new component */}
-                        {/* <span className={styles.bar_font}>
-                      Only 30 spots Left
-                    </span>
-                    <span className={styles.bar_font}>20/50</span> */}
-                      </div>
+                      <div className={styles.spot_line}></div>
                       <Button
                         disabled={isLoading}
                         className={styles.join_button}
@@ -275,13 +286,30 @@ function Tournament() {
                   </div>
                   <div className={styles.container2} style={{ padding: '0px' }}>
                     <div className={styles.inner_cont}>
-                      <button
-                        onClick={goToPrevSlide1}
-                        style={{ background: 'transparent', border: 'none' }}
-                        disabled={currentIndex1 === 0}
-                      >
-                        <AiOutlineLeft className={styles.outline_icon} />
-                      </button>
+                      {allRoomsData.length > 2 && (
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <button
+                            onClick={goToPrevSlide1}
+                            style={{
+                              background: 'transparent',
+                              border: 'none',
+                              height: '40px',
+                              width: '40px',
+                              marginRight: '-32px',
+                              zIndex: 10,
+                            }}
+                            disabled={currentIndex1 === 0}
+                          >
+                            <BiSolidChevronLeft className={styles.outline_icon} />
+                          </button>
+                        </div>
+                      )}
                       <div
                         className={styles.slideContainer}
                         style={{ width: '100%', overflow: 'hidden' }}
@@ -290,45 +318,85 @@ function Tournament() {
                           allRoomsData
                             .slice(currentIndex1, currentIndex1 + 2)
                             .map((match: ITournament, index: number) => {
+                              getIdPass(match.dateAndTime, match.roomId);
                               return (
-                                <Image
-                                  key={index}
-                                  width={100}
-                                  height={100}
-                                  className={styles.img_slider_one}
-                                  src={match?.mapImg || '../assests/cards.svg'}
-                                  alt="slides"
-                                  onClick={() => updateMainData(match)}
-                                />
+                                <div
+                                  style={{
+                                    position: 'relative',
+                                    overflow: 'hidden',
+                                    width: '50%',
+                                  }}
+                                >
+                                  <Image
+                                    key={index}
+                                    width={100}
+                                    height={100}
+                                    style={{ width: '100%' }}
+                                    className={styles.img_slider_one}
+                                    src={match?.mapImg || '../assests/cards.svg'}
+                                    alt="slides"
+                                    onClick={() => updateMainData(match)}
+                                  />
+                                  <p className={styles.gameCardFade}>{match.gameName}</p>
+                                </div>
                               );
                             })}
                       </div>
-                      <button
-                        onClick={goToNextSlide1}
-                        style={{ background: 'transparent', border: 'none' }}
-                        disabled={currentIndex1 === allRoomsData.length - 1}
-                      >
-                        <AiOutlineRight className={styles.outline_icon} />
-                      </button>
+                      {allRoomsData.length > 2 && (
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <button
+                            onClick={goToNextSlide1}
+                            style={{
+                              background: 'transparent',
+                              border: 'none',
+                              height: '40px',
+                              width: '40px',
+                              marginLeft: '-32px',
+                              zIndex: 10,
+                            }}
+                            disabled={currentIndex1 === allRoomsData.length - 1}
+                          >
+                            <BiChevronRight className={styles.outline_icon} />
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
               )}
             </div>
           </div>
-          <span className={styles.register_match_title}>Registered Matches</span>
+          <h1 className={styles.register_match_title}>Registered Matches</h1>
+
           {!regMatches.length ? (
             <div className={styles.register_match}>There is no Registered Match till now</div>
           ) : (
             <div className={styles.container2}>
               <div className={styles.inner_cont}>
-                <button
-                  onClick={goToPrevSlide}
-                  className={styles.prevButton}
-                  disabled={currentIndex === 0}
-                >
-                  <AiOutlineLeft className={styles.outline_icon} />
-                </button>
+                {regMatches?.length > 2 && (
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <button
+                      onClick={goToPrevSlide}
+                      style={{
+                        background: 'transparent',
+                        border: 'none',
+                        height: '40px',
+                        width: '40px',
+                        marginRight: '-32px',
+                        zIndex: 10,
+                      }}
+                      disabled={currentIndex === 0}
+                    >
+                      <BiSolidChevronLeft className={styles.outline_icon} />
+                    </button>
+                  </div>
+                )}
                 <div className={styles.slideContainer}>
                   {regMatches &&
                     regMatches
@@ -344,13 +412,25 @@ function Tournament() {
                         );
                       })}
                 </div>
-                <button
-                  onClick={goToNextSlide}
-                  className={styles.nextButton}
-                  disabled={currentIndex === regMatches.length - numItemsToShow}
-                >
-                  <AiOutlineRight className={styles.outline_icon} />
-                </button>
+
+                {regMatches?.length > 2 && (
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <button
+                      onClick={goToNextSlide}
+                      style={{
+                        background: 'transparent',
+                        border: 'none',
+                        height: '40px',
+                        width: '40px',
+                        marginLeft: '-32px',
+                        zIndex: 10,
+                      }}
+                      disabled={currentIndex === regMatches.length - numItemsToShow}
+                    >
+                      <BiChevronRight className={styles.outline_icon} />
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           )}
