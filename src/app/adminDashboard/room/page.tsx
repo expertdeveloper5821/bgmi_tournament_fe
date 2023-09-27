@@ -1,29 +1,35 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import styles from '../../../styles/Dashboard.module.scss';
-import { Navbar } from '../../../Components/Navbar/Navbar';
-import TableData, { RoomData } from '../../../Components/Table/Table'
-import assignmentData from '../../../utils/CreateAssignment.json';
 //@ts-ignore
-import { Pagination } from 'technogetic-iron-smart-ui';
-import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
-import RequireAuthentication from '../../../utils/requireAuthentication';
 // import apiServices from '@/services/api/apiServices';
-import { sendRequest } from '@/services/auth/auth_All_Api';
+import { sendRequest } from '@/utils/axiosInstanse';
 import { toast } from 'react-toastify';
-import Loader from '@/Components/Loader/Loader';
+import Loader from '@/Components/CommonComponent/Loader/Loader';
 import router from 'next/router';
+import styles from '@/styles/Dashboard.module.scss';
+import assignmentData from '../../../utils/CreateAssignmment.json';
+//@ts-ignore
+import TableData, { StudentProfile } from '@/Components/CommonComponent/Table/Table';
+import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
+import withAuth from '@/Components/HOC/WithAuthHoc';
 
-
-export interface IAppProps { }
+export interface IAppProps {}
 
 function page() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [paginatedData, setPaginatedData] = useState<RoomData[]>([]);
+  const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
   const rowPerPage = 8;
-  const [roomData, setRoomData] = useState<RoomData[]>([]);
+  const [roomData, setRoomData] = useState<StudentProfile[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const imageIcon: string = 'room';
+
+  const transformedStudentData = assignmentData.studentData.map((item: StudentProfile) => ({
+    StudentName: item.StudentName,
+    Student: item.Student,
+    studentID: item.studentID,
+    Mobile: item.Mobile,
+    Course: item.Course,
+  }));
 
   useEffect(() => {
     // Simulate data loading or any async operation
@@ -36,14 +42,14 @@ function page() {
     const tokens = localStorage.getItem('jwtToken');
     const tournamentResponse = await sendRequest('/room/rooms', {
       method: 'GET',
-      headers: { 'Authorization': `Bearer ${tokens}` }
+      headers: { Authorization: `Bearer ${tokens}` },
     });
     setRoomData(tournamentResponse.data);
-  }
+  };
 
   useEffect(() => {
     getAllTournaments();
-  }, [])
+  }, []);
 
   const deleteroomId = async (_id: any) => {
     setIsLoading(true);
@@ -51,7 +57,7 @@ function page() {
       const tokens = localStorage.getItem('jwtToken');
       const response = await sendRequest(`/room/rooms/${_id}`, {
         method: 'delete',
-        headers: { 'Authorization': `Bearer ${tokens}` }
+        headers: { Authorization: `Bearer ${tokens}` },
       });
       getAllTournaments();
       if (response) {
@@ -63,7 +69,6 @@ function page() {
       setIsLoading(false);
     }
   };
-
 
   const columns: string[] = [
     'Created By',
@@ -77,10 +82,8 @@ function page() {
     'Date',
   ];
 
-
   return (
     <>
-      <RequireAuthentication>
         <div className={styles.main_container} id="mainLayoutContainerInner">
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
@@ -90,22 +93,13 @@ function page() {
               {isLoading ? (
                 <Loader />
               ) : (
-                <TableData
-                  imageIcon={imageIcon}
-                  roomData={roomData}
-                  columns={columns}
-                  showAdditionalButton={true} userData={[]} teamData={[]} spectatorData={[]} deleteroomId={deleteroomId} setSetSpectatorId={undefined} setModal={undefined} updateSpectatorByid={undefined} />
+                <TableData studentData={roomData} columns={columns} showAdditionalButton={true} />
               )}
             </div>
           </div>
         </div>
-      </RequireAuthentication>
     </>
   );
 }
 
-
-
-export default page;
-
-
+export default withAuth(page);

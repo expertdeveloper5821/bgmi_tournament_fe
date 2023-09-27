@@ -1,6 +1,6 @@
-'use client'
+'use client';
 import React, { useState } from 'react';
-import styles from '../../../styles/glassCrack.module.scss';
+import styles from '@/styles/glassCrack.module.scss';
 
 const GlassCrack: React.FC = () => {
   const [cracks, setCracks] = useState<{ x: number; y: number }[]>([]);
@@ -48,4 +48,3 @@ const GlassCrack: React.FC = () => {
 };
 
 export default GlassCrack;
-

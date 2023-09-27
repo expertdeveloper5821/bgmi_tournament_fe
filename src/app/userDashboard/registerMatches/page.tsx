@@ -1,16 +1,16 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import styles from '../../../styles/Dashboard.module.scss';
-import { Navbar } from '../../../Components/Navbar/Navbar';
+import styles from '@/styles/Dashboard.module.scss';
+import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import Image from 'next/image';
-import { sendRequest } from '@/services/auth/auth_All_Api';
+import { sendRequest } from '@/utils/axiosInstanse';
 import { useSearchParams } from 'next/navigation';
 import { formatDate, formatTime } from '@/Components/CommonComponent/moment';
 import { toast } from 'react-toastify';
 import CountdownTimer from '../../../Components/CountdownTimer/CountdownTimer';
-import Loader from '@/Components/Loader/Loader';
+import Loader from '@/Components/CommonComponent/Loader/Loader';
 import MatchComponent from '@/Components/MatchComponent/MatchComponent';
-
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 export interface RegMatch {
   gameName: string;
@@ -24,9 +24,9 @@ export interface RegMatch {
   password: string;
   entryFee?: string;
   mapImg: string;
-  highestKill:string;
-  secondWin:string;
-  thirdWin:string;
+  highestKill: string;
+  secondWin: string;
+  thirdWin: string;
 }
 
 const regMatches = () => {
@@ -45,16 +45,20 @@ const regMatches = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (resMatch.status === 200 || resMatch.status === 201) {
-        const formatDateTime = ` ${formatDate({ date: matchData?.dateAndTime })} and ${formatTime({ time: matchData?.dateAndTime, format: 'LT' })}`;
-        setMatchData({ ...resMatch.data.room, dateAndTime: formatDateTime })
-        CountdownTimer(matchData?.dateAndTime, matchData?.roomUuid, setVisibleRooms)
+        const formatDateTime = ` ${formatDate({
+          date: resMatch?.data?.room?.dateAndTime,
+        })} at ${formatTime({
+          time: resMatch?.data?.room?.dateAndTime,
+          format: 'LT',
+        })}`;
+        setMatchData({ ...resMatch.data.room, dateAndTime: formatDateTime });
+        CountdownTimer(matchData?.dateAndTime, matchData?.roomUuid, setVisibleRooms);
         setIsLoading(false);
-      }
-      else {
+      } else {
         if (resMatch.status === 202) {
-         toast.success(resMatch.data.message);
+          toast.success(resMatch.data.message);
         } else {
-          throw Error()
+          throw Error();
         }
       }
     } catch (err) {
@@ -70,50 +74,65 @@ const regMatches = () => {
     getRegisterMatchWithId();
   }, []);
 
-
   return (
     <div className={styles.main_container} id="mainLayoutContainerInner">
       <div className={styles.abcd}>
         <div className={styles.sidebar_wrapper}>
-          <Navbar />
           <div className={styles.content}>
             <div className={styles.dashboard}>
               <span className={styles.head_desc}>Registered Matches</span>
-              <h1 className={styles.subhead_desc}>
-                Dashboard /registered matches
-              </h1>
+              <Breadcrumb />
             </div>
-            <div className={styles.sendmailbtnContainer}>
-            </div>
+            <div className={styles.sendmailbtnContainer}></div>
           </div>
           {isLoading ? (
-                <Loader />
-              ) : (
-          <div className={styles.room_wrapper}>
-            <div className={styles.room_container}>
-              <div className={styles.registeredmatches}>
-                <div className={styles.imgSection}>
-                  <Image
-                    src={matchData?.mapImg || "../assests/userdashboardbg.svg"}
-                    alt="userdashboardbg"
-                    className={styles.wrapperimg}
-                    width={200}
-                    height={200}
-                  />
+            <Loader />
+          ) : (
+            <div className={styles.room_wrapper}>
+              <div className={styles.room_container}>
+                <div className={styles.registeredmatches}>
+                  <div className={styles.imgSection}>
+                    <Image
+                      src={matchData?.mapImg || '../assests/userdashboardbg.svg'}
+                      alt="userdashboardbg"
+                      className={styles.wrapperimg}
+                      width={200}
+                      height={200}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className={styles.squad_match}>
-              <MatchComponent gameName={matchData?.gameName}  dateAndTime={matchData?.dateAndTime.toString()} lastSurvival={matchData?.lastSurvival}  entryFee={matchData?.entryFee} gameType={matchData?.gameType} version={matchData?.version} mapType={matchData?.mapType} highestKill={matchData?.highestKill}  secondWin={matchData?.secondWin} thirdWin={matchData?.thirdWin}/>
-                <div className={styles.winnings}>
-                <span>Room Id: {visibleRooms?.find(room => room === matchData.roomUuid) ? matchData.roomId : '*****'}</span>
-                <span>Room password: {visibleRooms?.find(room => room === matchData.roomUuid) ? matchData.password : '*****'}</span>
+                <div className={styles.squad_match}>
+                  <MatchComponent
+                    gameName={matchData?.gameName}
+                    dateAndTime={matchData?.dateAndTime.toString()}
+                    lastSurvival={matchData?.lastSurvival}
+                    entryFee={matchData?.entryFee}
+                    gameType={matchData?.gameType}
+                    version={matchData?.version}
+                    mapType={matchData?.mapType}
+                    highestKill={matchData?.highestKill}
+                    secondWin={matchData?.secondWin}
+                    thirdWin={matchData?.thirdWin}
+                  />
+                  <div className={styles.winnings}>
+                    <span>
+                      Room Id:{' '}
+                      {visibleRooms?.find((room) => room === matchData.roomUuid)
+                        ? matchData.roomId
+                        : '*****'}
+                    </span>
+                    <span>
+                      Room password:{' '}
+                      {visibleRooms?.find((room) => room === matchData.roomUuid)
+                        ? matchData.password
+                        : '*****'}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-              )}
-          <div>
-          </div>
+          )}
+          <div></div>
         </div>
       </div>
     </div>

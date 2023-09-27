@@ -11,10 +11,12 @@ $breakpoint-ms: 1024px;
 $breakpoint-lg: 1200px;
 $breakpoint-xlg: 1440px;
 
-
-
-//Font Family 
-$bs-body-font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
+//Font Family
+$bs-body-font-family:
+  Century Gothic,
+  CenturyGothic,
+  AppleGothic,
+  sans-serif;
 
 // Theme Color Variables
 $primary-color: rgba(0, 53, 84, 1);
@@ -49,7 +51,6 @@ $bs-sideBarTxt: #6c757d;
 $bg-errorScreen: rgba(249, 143, 143, 0.55);
 $bg-sidebar: rgba(205, 239, 255, 0.6);
 $bg-navbarBg: #858585;
-
 
 // Theme Color
 

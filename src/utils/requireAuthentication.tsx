@@ -1,6 +1,6 @@
 'use client';
-import {useRouter} from 'next/navigation';
-import {useEffect} from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const checkIfUserIsAuthenticated = () => {
   if (typeof window !== 'undefined') {
@@ -11,7 +11,7 @@ const checkIfUserIsAuthenticated = () => {
 };
 
 const RequireAuthentication = (props: any) => {
-  const {children} = props;
+  const { children } = props;
   const router = useRouter();
 
   useEffect(() => {

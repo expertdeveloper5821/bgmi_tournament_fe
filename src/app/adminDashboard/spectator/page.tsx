@@ -1,16 +1,14 @@
-
 'use client';
-import React, { useState, useEffect } from "react";
-import styles from "../../../styles/Dashboard.module.scss";
-import { sendRequest } from "@/services/auth/auth_All_Api";
+import React, { useState, useEffect } from 'react';
+import styles from '@/styles/Dashboard.module.scss';
+import { sendRequest } from '@/utils/axiosInstanse';
 //@ts-ignore
 import { Input, Button } from 'technogetic-iron-smart-ui';
-import { Navbar } from '../../../Components/Navbar/Navbar';
-import Loader from "@/Components/Loader/Loader";
-import TableData, { SpectatorData } from '../../../Components/Table/Table';
+import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
+import Loader from '@/Components/CommonComponent/Loader/Loader';
+import TableData, { StudentProfile } from '@/Components/CommonComponent/Table/Table';
 import { toast } from 'react-toastify';
-import Image from "next/image";
-
+import Image from 'next/image';
 
 interface FormCreate {
   fullName: string;
@@ -21,15 +19,12 @@ interface FormCreate {
 }
 
 export default function Modal() {
-  const [spectatorData, setSpectatorData] = useState<SpectatorData[]>([]);
+  const [spectatorData, setSpectatorData] = useState<StudentProfile[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isupdateData, setIsUpdateData] = useState<any>(null)
+  const [isupdateData, setIsUpdateData] = useState<any>(null);
   const imageIcon: string = 'spectator';
-  const [getSpectatorId, setSetSpectatorId] = useState<any>()
+  const [getSpectatorId, setSetSpectatorId] = useState<any>();
   const [specRoleId, setSpecRoleId] = useState<any>();
-
-
-
 
   const [modal, setModal] = useState(false);
   const [formErrors, setFormErrors] = useState<FormCreate>({
@@ -37,7 +32,7 @@ export default function Modal() {
     userName: '',
     email: '',
     password: '',
-    role: specRoleId
+    role: specRoleId,
   });
 
   const getAllUsers = async () => {
@@ -46,8 +41,7 @@ export default function Modal() {
       const tokens = localStorage.getItem('jwtToken');
       const allUsersData: any = await sendRequest('/user/getalluser', {
         method: 'GET',
-        headers: { 'Authorization': `Bearer ${tokens}` }
-
+        headers: { Authorization: `Bearer ${tokens}` },
       });
       if (allUsersData.status === 200) {
         const allspectatorData = allUsersData?.data?.data;
@@ -58,19 +52,15 @@ export default function Modal() {
 
         setIsLoading(false);
         setSpecRoleId(filteredData[0].role._id);
-      }
-      else {
+      } else {
         console.error('Failed to fetch users:', allUsersData.statusText);
       }
     } catch (error) {
-
       console.error('An error occurred:', error);
     } finally {
-
       setIsLoading(false);
     }
   };
-
 
   const deleteroomId = async (userUuid: any) => {
     try {
@@ -78,7 +68,7 @@ export default function Modal() {
       const tokens = localStorage.getItem('jwtToken');
       const response: any = await sendRequest(`/role/deleterole/${userUuid}`, {
         method: 'delete',
-        headers: { 'Authorization': `Bearer ${tokens}` }
+        headers: { Authorization: `Bearer ${tokens}` },
       });
 
       setIsLoading(false);
@@ -93,10 +83,8 @@ export default function Modal() {
       console.error('Error deleting room:', error);
       setIsLoading(false);
       toast.error('An error occurred while deleting the room.');
-
     }
   };
-
 
   const toggleModal = (userid: string) => {
     setModal(!modal);
@@ -109,46 +97,36 @@ export default function Modal() {
       setIsLoading(true);
       const token = localStorage.getItem('jwtToken');
       const response: any = await sendRequest(`/role/updaterole/${getSpectatorId.userUuid}`, {
-        method: "PUT",
+        method: 'PUT',
         headers: { Authorization: `Bearer ${token}` },
-        data: formData
+        data: formData,
       });
       getAllUsers();
       setSetSpectatorId(null);
     } catch (error) {
       console.error('Error deleting room', error);
     }
-
-  }
+  };
 
   useEffect(() => {
     getAllUsers();
   }, []);
 
-  const columns: string[] = [
-    'Full Name',
-    'User Name',
-    'Email',
-  ];
-
+  const columns: string[] = ['Full Name', 'User Name', 'Email'];
 
   const initialFormData: FormCreate = {
     fullName: getSpectatorId != null ? getSpectatorId?.fullName : '',
     userName: getSpectatorId != null ? getSpectatorId?.userName : '',
     email: getSpectatorId?.email || '',
     password: getSpectatorId?.password || '',
-    role: specRoleId
+    role: specRoleId,
   };
-
-
-
 
   const [formData, setFormData] = useState<FormCreate>(initialFormData);
 
-
   useEffect(() => {
     if (getSpectatorId) {
-      setFormData(initialFormData)
+      setFormData(initialFormData);
     }
     if (!getSpectatorId) {
       const initialFormData: FormCreate = {
@@ -156,13 +134,13 @@ export default function Modal() {
         userName: '',
         email: '',
         password: '',
-        role: specRoleId
+        role: specRoleId,
       };
-      setFormData(initialFormData)
+      setFormData(initialFormData);
     }
-  }, [getSpectatorId])
+  }, [getSpectatorId]);
 
-  console.log("FormData", formData)
+  console.log('FormData', formData);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -181,7 +159,7 @@ export default function Modal() {
         userName: formData.userName ? '' : 'Please Enter your User Name ',
         email: formData.email ? '' : 'Please Enter your Email ',
         password: formData.password ? '' : ' Please Enter your Password ',
-        role: ''
+        role: '',
       });
       return;
     }
@@ -191,34 +169,33 @@ export default function Modal() {
       userName: '',
       email: '',
       password: '',
-      role: specRoleId
+      role: specRoleId,
     });
 
     const token: any = localStorage.getItem('jwtToken');
     setFormData({ ...initialFormData, role: '64d5d42ee428f9561c3a125f' });
 
     try {
-      const response = await sendRequest("/role/spectator/Register", {
-        method: "POST",
+      const response = await sendRequest('/role/spectator/Register', {
+        method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
-        data: formData
+        data: formData,
       });
       if (response.status === 200) {
-        console.log("added Spectator Successfully");
+        console.log('added Spectator Successfully');
       } else {
-        console.log("Something Wrong, Please Try Again Later");
+        console.log('Something Wrong, Please Try Again Later');
       }
     } catch (error: any) {
-      console.log("Please try again.");
+      console.log('Please try again.');
     }
     console.log('Form data submitted:', formData);
-    setModal(false)
-    setSetSpectatorId(null)
+    setModal(false);
+    setSetSpectatorId(null);
   };
-  console.log(getSpectatorId)
+  console.log(getSpectatorId);
 
   return (
-
     <>
       <div className={styles.main_container} id="mainLayoutContainerInner">
         <div className={styles.abcd}>
@@ -226,23 +203,22 @@ export default function Modal() {
             <Navbar />
             <div className={styles.popupbutton}>
               <h1 className={styles.head}>Welcome to Admin Dashboard</h1>
-              <button onClick={() => { setModal(true) }} className={styles.btnmodal}>Create Spectator</button>
+              <button
+                onClick={() => {
+                  setModal(true);
+                }}
+                className={styles.btnmodal}
+              >
+                Create Spectator
+              </button>
             </div>
             {isLoading ? (
               <Loader />
             ) : (
               <TableData
-                imageIcon={imageIcon}
-                setSetSpectatorId={setSetSpectatorId}
-                updateSpectatorByid={updateSpectatorByid}
-                deleteroomId={deleteroomId}
-                spectatorData={spectatorData}
+                studentData={spectatorData}
                 columns={columns}
-                setModal={setModal}
                 showAdditionalButton={true}
-                userData={[]}
-                teamData={[]}
-                roomData={[]}
               />
             )}
           </div>
@@ -251,7 +227,13 @@ export default function Modal() {
 
       {modal && (
         <div className={styles.modal}>
-          <div onClick={() => { setModal(false); setSetSpectatorId(null) }} className={styles.overlay}></div>
+          <div
+            onClick={() => {
+              setModal(false);
+              setSetSpectatorId(null);
+            }}
+            className={styles.overlay}
+          ></div>
           <div className={styles.modalcontent}>
             <div>
               <form onSubmit={handleSubmit}>
@@ -278,7 +260,6 @@ export default function Modal() {
                     onChange={handleChange}
                   />
                   {formErrors.userName && <div className={styles.error}>{formErrors.userName}</div>}
-
                 </div>
                 <div className={styles.text}>
                   <label className={styles.name}>Email:</label>
@@ -307,9 +288,14 @@ export default function Modal() {
 
                 {getSpectatorId ? (
                   <div className={styles.flex_row}>
-                    <button onClick={updateSpectatorByid} className={styles.update_button}>Update</button></div>
+                    <button onClick={updateSpectatorByid} className={styles.update_button}>
+                      Update
+                    </button>
+                  </div>
                 ) : (
-                  <button type="submit" className={styles.register_button}>Register</button>
+                  <button type="submit" className={styles.register_button}>
+                    Register
+                  </button>
                 )}
               </form>
             </div>
@@ -320,18 +306,15 @@ export default function Modal() {
                 alt="close"
                 width={10}
                 height={10}
-                onClick={() => { setModal(false); setSetSpectatorId(null) }}
+                onClick={() => {
+                  setModal(false);
+                  setSetSpectatorId(null);
+                }}
               />
             </Button>
           </div>
         </div>
       )}
-
     </>
   );
 }
-
-
-
-
-

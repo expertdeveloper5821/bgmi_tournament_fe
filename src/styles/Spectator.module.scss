@@ -6,8 +6,8 @@
   display: flex;
   background-color: $darkblue;
   min-height: 100vh;
-  color:$bs-white;
-  transition:600ms linear;
+  color: $bs-white;
+  transition: 600ms linear;
   @media (max-width: $breakpoint-ms) {
     width: 100vw;
   }
@@ -20,7 +20,7 @@
     width: 100vw;
   }
 
-  @media (max-width:$breakpoint-tab) {
+  @media (max-width: $breakpoint-tab) {
     width: 100vw;
   }
 
@@ -36,19 +36,17 @@
   z-index: 99;
   height: auto;
 }
-.flex_col{
- 
+.flex_col {
   width: 50%;
   margin: 10px;
 }
 
-.main_form{
-  display: flex; 
+.main_form {
+  display: flex;
   height: 500px;
   overflow-y: scroll;
   flex-direction: column;
 }
-
 
 .r_main_title {
   color: aliceblue;
@@ -85,7 +83,7 @@
   justify-content: space-between;
   padding: 4px 26px;
 }
-.main_form_btn{
+.main_form_btn {
   background: #ff7a00;
   border: none;
   color: white;
@@ -101,7 +99,6 @@
 .form_spectator_cls {
   display: flex;
   padding: 15px 30px;
- 
 }
 button#btn_cls_st {
   background: #ff7a00;
@@ -117,7 +114,7 @@ button#btn_cls_st {
     margin: 8px 0px;
   }
 }
-.input_box{
+.input_box {
   display: flex;
   flex-direction: column;
 }
@@ -139,28 +136,28 @@ button#btn_cls_st {
     font-size: 13px;
   }
 }
-.optional{
+.optional {
   // border: 1px solid grey;
-  color:$bs-grey;
+  color: $bs-grey;
   font-weight: 700;
   font-size: 20px;
 }
 
 .btn_form_wrapper {
   padding: 20px 0px 20px 0px;
-  
+
   display: flex;
   justify-content: space-evenly;
 }
 .cancel_btn {
   border: none;
-  background:$bs-white;
+  background: $bs-white;
   font-size: 16px;
 }
 .cancel_btn {
   width: 30%;
   border: 1px solid $bs-orange !important;
-  color:$bs-orange !important;
+  color: $bs-orange !important;
 }
 .cancel_btn:hover {
   background: $bs-white !important;
@@ -290,11 +287,11 @@ button#btn_cls_st {
   padding: 8px;
 }
 
-.editbtn{
+.editbtn {
   border: none;
   background-color: transparent;
 }
-.flex{
+.flex {
   // border: 1px solid red;
   display: flex;
   justify-content: center;

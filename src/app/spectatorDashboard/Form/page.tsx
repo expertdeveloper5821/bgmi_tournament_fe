@@ -1,11 +1,11 @@
 'use client';
 import React, { useState, useEffect, useMemo } from 'react';
-import styles from '../../../styles/Spectator.module.scss';
+import styles from '@/styles/Spectator.module.scss';
 //@ts-ignore
 import { Button, Input, Select } from 'technogetic-iron-smart-ui';
 import { useFormik, FormikHelpers } from 'formik';
-import { validationSchema } from '../../../schemas/SignupSchemas';
-import { sendRequest } from '../../../services/auth/auth_All_Api';
+import { validationSchema } from '@/utils/schema';
+import { sendRequest } from '@/utils/axiosInstanse';
 import { ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
 interface FormCreate {
@@ -40,18 +40,27 @@ const initial: FormCreate = {
   secondWin: '',
   mapImg: '',
   entryFee: '',
-}
+};
 
 const Form = ({ ...props }) => {
-
-  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate } = props
+  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [image, setImage] = useState<File | null>(null);
-  const [initialValues, setInitialValues] = useState(initial)
+  const [initialValues, setInitialValues] = useState(initial);
 
-
-  const { roomId, gameName, gameType, mapType, version, lastSurvival, thirdWin, secondWin, highestKill, entryFee } = roomIdToUpdate || '';
+  const {
+    roomId,
+    gameName,
+    gameType,
+    mapType,
+    version,
+    lastSurvival,
+    thirdWin,
+    secondWin,
+    highestKill,
+    entryFee,
+  } = roomIdToUpdate || '';
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -61,93 +70,83 @@ const Form = ({ ...props }) => {
     });
   };
 
-  const {
-    values,
-    touched,
-    errors,
-    handleSubmit,
-    handleBlur,
-    setValues,
-    setFieldValue,
-  } = useFormik<FormCreate>({
-    initialValues,
-    validationSchema,
-    onSubmit: async (values: any, { resetForm }) => {
+  const { values, touched, errors, handleSubmit, handleBlur, setValues, setFieldValue } =
+    useFormik<FormCreate>({
+      initialValues,
+      validationSchema,
+      onSubmit: async (values: any, { resetForm }) => {
+        const dateTimeString = new Date(`${values.date} ${values.time}`);
+        values.dateAndTime = dateTimeString;
 
-      const dateTimeString = new Date(`${values.date} ${values.time}`);
-      values.dateAndTime = dateTimeString;
+        const form = new FormData();
+        form.append('mapImg', image);
+        for (const key in values) {
+          form.append(key, values[key]);
+        }
 
-      const form = new FormData();
-      form.append('mapImg', image);
-      for (const key in values) {
-        form.append(key, values[key]);
-      }
-
-      try {
-        setIsLoading(true)
-        const token = localStorage.getItem('jwtToken');
-        const response = await sendRequest(`room/rooms/${roomIdToUpdate ? roomIdToUpdate._id : ""}`, {
-          method: roomIdToUpdate ? "PUT" : 'POST',
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-          data: form,
-        });
-        if (response.status === 200) {
-          resetForm()
-          setIsLoading(false)
-          toast.success(response.data.message);
-          setShowModal(false);
-        } else {
-          setIsLoading(false)
-          setRoomIdToUpdate('')
+        try {
+          setIsLoading(true);
+          const token = localStorage.getItem('jwtToken');
+          const response = await sendRequest(
+            `room/rooms/${roomIdToUpdate ? roomIdToUpdate._id : ''}`,
+            {
+              method: roomIdToUpdate ? 'PUT' : 'POST',
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+              data: form,
+            },
+          );
+          if (response.status === 200) {
+            resetForm();
+            setIsLoading(false);
+            toast.success(response.data.message);
+            setShowModal(false);
+          } else {
+            setIsLoading(false);
+            setRoomIdToUpdate('');
+            setError('Failed to Add room. Please try again.');
+            toast.error('Failed to Add room. Please try again.');
+          }
+        } catch (error: any) {
+          setIsLoading(false);
+          setRoomIdToUpdate('');
           setError('Failed to Add room. Please try again.');
           toast.error('Failed to Add room. Please try again.');
         }
-      } catch (error: any) {
-        setIsLoading(false);
-        setRoomIdToUpdate('')
-        setError('Failed to Add room. Please try again.');
-        toast.error('Failed to Add room. Please try again.');
-      }
-    },
-  });
+      },
+    });
 
   useEffect(() => {
     for (const key in values) {
       if (key !== 'data' && key !== 'time') {
-        setFieldValue(key, (roomIdToUpdate[key] || ""))
+        setFieldValue(key, roomIdToUpdate[key] || '');
       }
-
     }
-
-
-  }, [roomIdToUpdate])
+  }, [roomIdToUpdate]);
   return (
     <>
       <div>
         <button
           className={styles.main_form_btn}
           onClick={() => {
-            setShowModal(true)
-            setRoomIdToUpdate("")
+            setShowModal(true);
+            setRoomIdToUpdate('');
           }}
         >
           CREATE ROOM ID
         </button>
         {showModal ? (
-
           <div className={styles.main_pop_cls}>
             <div className={styles.check_model}>
               <div className={styles.class_check}>
-                <h1 className={styles.pop_heading}>{roomIdToUpdate ? "Update Room" : "Create new room"}</h1>
+                <h1 className={styles.pop_heading}>
+                  {roomIdToUpdate ? 'Update Room' : 'Create new room'}
+                </h1>
               </div>
               <div className={styles.main_form}>
                 <div className={styles.check}>
-                  <form
-                    onSubmit={handleSubmit}
-                    className={styles.form_spectator_cls}
-                  >
+                  <form onSubmit={handleSubmit} className={styles.form_spectator_cls}>
                     {error && <div className={styles.error}>{error}</div>}
                     <div className={styles.flex_col}>
                       <div className={styles.input_box}>
@@ -200,7 +199,6 @@ const Form = ({ ...props }) => {
                           value={values.mapType}
                           onChange={handleChange}
                           onBlur={handleBlur}
-
                         />
                       </div>
                       {errors.mapType && touched.mapType && (
@@ -412,15 +410,14 @@ const Form = ({ ...props }) => {
                         />
                       </div>
                     </div>
-
                   </form>
 
                   <div className={styles.btn_form_wrapper}>
                     <Button
                       className={styles.cancel_btn}
                       onClick={() => {
-                        setShowModal(false)
-                        setRoomIdToUpdate("")
+                        setShowModal(false);
+                        setRoomIdToUpdate('');
                       }}
                     >
                       Cancel
@@ -452,16 +449,12 @@ const Form = ({ ...props }) => {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
-
-
-
         ) : (
           ''
         )}
-      </div >
+      </div>
     </>
   );
 };

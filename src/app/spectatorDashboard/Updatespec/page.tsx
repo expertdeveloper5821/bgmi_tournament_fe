@@ -1,20 +1,19 @@
 'use client';
 import React, { ChangeEvent, useState } from 'react';
-import { sendRequest } from '@/services/auth/auth_All_Api';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import { AiOutlineDelete } from 'react-icons/ai';
-import styles from '../../../styles/Spectator.module.scss';
+import styles from '@/styles/Spectator.module.scss';
 import { RoomData } from '../Room/page';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
+import { sendRequest } from '@/utils/axiosInstanse';
 
 // export interface UpdatespecProps {
 //   roomData: RoomData;
 //   getAllSpectator: () => void;
 //   updateRoom: () => void;
 // }
-
 const Updatespec = ({ roomData, getAllSpectator }: any) => {
   const [error, setError] = useState<string>('');
   const [editModal, setEditModal] = useState(false);
@@ -23,7 +22,6 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
   const updateRoom = async (e: any) => {
     e.preventDefault();
     const token = localStorage.getItem('jwtToken');
-
 
     const bodyData = {
       roomId: updateFormData.roomId,
@@ -37,7 +35,7 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
       lastSurvival: updateFormData.lastSurvival,
       highestKill: updateFormData.highestKill,
       secondWin: updateFormData.secondWin,
-      thirdWin: updateFormData.thirdWin
+      thirdWin: updateFormData.thirdWin,
     };
 
     try {
@@ -282,17 +280,10 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
                 </div>
               </form>
               <div className={styles.btn_form_wrapper}>
-                <Button
-                  className={styles.cancel_btn}
-                  onClick={() => setEditModal(false)}
-                >
+                <Button className={styles.cancel_btn} onClick={() => setEditModal(false)}>
                   Cancel
                 </Button>
-                <Button
-                  type="submit"
-                  className={styles.roombutton}
-                  onClick={updateRoom}
-                >
+                <Button type="submit" className={styles.roombutton} onClick={updateRoom}>
                   Update Room
                 </Button>
               </div>
