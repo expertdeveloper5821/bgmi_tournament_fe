@@ -1,5 +1,5 @@
-@import '../../../styles/mixins';
-@import '../../../styles/variable';
+@import '@/styles/mixins';
+@import '@/styles/variable';
 
 .main_container {
   @include main_container;

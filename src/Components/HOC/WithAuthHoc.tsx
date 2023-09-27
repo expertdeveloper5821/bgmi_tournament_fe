@@ -1,41 +1,45 @@
 import { useEffect, useState } from 'react';
-import Router from 'next/router';
+import Loader from '../CommonComponent/Loader/Loader';
 
 const withAuth = (WrappedComponent: any) => {
-const WithAuth = (props: any) => {
+  const WithAuth = (props: any) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [user, setUser] = useState<any>(null);
 
     useEffect(() => {
-        // Fetch user data here and set it using setUser
-        // For example:
-        const token = localStorage.getItem('jwtToken')
-        console.log("jwtToken", token)
-        setUser(token);
-        setLoading(false);
+      // Fetch user data here and set it using setUser
+      // For example:
+      const token = localStorage.getItem('jwtToken');
+      console.log('jwtToken', token);
+      setUser(token);
+      setLoading(false);
     }, []);
 
     if (loading) {
-        return <div style={{width: '100%', textAlign: 'center'}}>Loading...</div>;
+      return (
+        <div style={{ width: '100%', textAlign: 'center' }}>
+          <Loader />
+        </div>
+      );
     }
 
     if (!user) {
-        window.location.href = "/"
-        return null;
+      window.location.href = '/';
+      return null;
     }
 
     return <WrappedComponent {...props} />;
-};
+  };
 
-WithAuth.getInitialProps = async (ctx: any) => {
+  WithAuth.getInitialProps = async (ctx: any) => {
     const wrappedComponentInitialProps = WrappedComponent.getInitialProps
-        ? await WrappedComponent.getInitialProps(ctx)
-        : {};
+      ? await WrappedComponent.getInitialProps(ctx)
+      : {};
 
-       return { ...wrappedComponentInitialProps };
-    };
+    return { ...wrappedComponentInitialProps };
+  };
 
-   return WithAuth;
+  return WithAuth;
 };
 
 export default withAuth;

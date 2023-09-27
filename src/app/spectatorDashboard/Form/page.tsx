@@ -1,11 +1,11 @@
 'use client';
-import React, { useState } from 'react';
-import styles from '../../../styles/Spectator.module.scss';
+import React, { useState, useEffect, useMemo } from 'react';
+import styles from '@/styles/Spectator.module.scss';
 //@ts-ignore
 import { Button, Input, Select } from 'technogetic-iron-smart-ui';
 import { useFormik, FormikHelpers } from 'formik';
-import { validationSchema } from '../../../schemas/SignupSchemas';
-import { sendRequest } from '../../../services/auth/auth_All_Api';
+import { validationSchema } from '@/utils/schema';
+import { sendRequest } from '@/utils/axiosInstanse';
 import { ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
 interface FormCreate {
@@ -25,103 +25,128 @@ interface FormCreate {
   mapImg: any | null;
 }
 
-const Form = ({ getAllSpectator }: any) => {
-  const [showModal, setShowModal] = useState(false);
+const initial: FormCreate = {
+  roomId: '',
+  gameName: '',
+  gameType: '',
+  mapType: '',
+  password: '',
+  version: '',
+  date: '',
+  time: '',
+  lastSurvival: '',
+  thirdWin: '',
+  highestKill: '',
+  secondWin: '',
+  mapImg: '',
+  entryFee: '',
+};
+
+const Form = ({ ...props }) => {
+  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [image, setImage] = useState<File | null>(null);
-
-
-  const initialValues: FormCreate = {
-    roomId: '',
-    gameName: '',
-    gameType: '',
-    mapType: '',
-    password: '',
-    version: '',
-    date: '',
-    time: '',
-    lastSurvival: '',
-    thirdWin: '',
-    highestKill: '',
-    secondWin: '',
-    mapImg: '',
-    entryFee: ''
-  };
-
+  const [initialValues, setInitialValues] = useState(initial);
 
   const {
-    values,
-    touched,
-    errors,
-    handleSubmit,
-    handleChange,
-    handleBlur,
-    setFieldValue,
-  } = useFormik<FormCreate>({
-    initialValues,
-    validationSchema,
-    onSubmit: async (values: any, { resetForm }) => {
+    roomId,
+    gameName,
+    gameType,
+    mapType,
+    version,
+    lastSurvival,
+    thirdWin,
+    secondWin,
+    highestKill,
+    entryFee,
+  } = roomIdToUpdate || '';
 
-      const dateTimeString = new Date(`${values.date} ${values.time}`);
-      values.dateAndTime = dateTimeString;
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
 
-      const form = new FormData();
-      form.append('mapImg', image);
-      for (const key in values) {
-        form.append(key, values[key]);
-      }
-      try {
-        setIsLoading(true)
-        const token = localStorage.getItem('jwtToken');
-        const response = await sendRequest('room/rooms', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-          data: form,
-        });
-        if (response.status === 200) {
-          resetForm()
-          setIsLoading(false)
-          getAllSpectator();
-          toast.success(response.data.message);
-          setShowModal(false);
-        } else {
-          setIsLoading(false)
+  const { values, touched, errors, handleSubmit, handleBlur, setValues, setFieldValue } =
+    useFormik<FormCreate>({
+      initialValues,
+      validationSchema,
+      onSubmit: async (values: any, { resetForm }) => {
+        const dateTimeString = new Date(`${values.date} ${values.time}`);
+        values.dateAndTime = dateTimeString;
+
+        const form = new FormData();
+        form.append('mapImg', image);
+        for (const key in values) {
+          form.append(key, values[key]);
+        }
+
+        try {
+          setIsLoading(true);
+          const token = localStorage.getItem('jwtToken');
+          const response = await sendRequest(
+            `room/rooms/${roomIdToUpdate ? roomIdToUpdate._id : ''}`,
+            {
+              method: roomIdToUpdate ? 'PUT' : 'POST',
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+              data: form,
+            },
+          );
+          if (response.status === 200) {
+            resetForm();
+            setIsLoading(false);
+            toast.success(response.data.message);
+            setShowModal(false);
+          } else {
+            setIsLoading(false);
+            setRoomIdToUpdate('');
+            setError('Failed to Add room. Please try again.');
+            toast.error('Failed to Add room. Please try again.');
+          }
+        } catch (error: any) {
+          setIsLoading(false);
+          setRoomIdToUpdate('');
           setError('Failed to Add room. Please try again.');
           toast.error('Failed to Add room. Please try again.');
         }
-      } catch (error: any) {
-        setIsLoading(false);
-        setError('Failed to Add room. Please try again.');
-        toast.error('Failed to Add room. Please try again.');
-      }
-    },
-  });
+      },
+    });
 
+  useEffect(() => {
+    for (const key in values) {
+      if (key !== 'data' && key !== 'time') {
+        setFieldValue(key, roomIdToUpdate[key] || '');
+      }
+    }
+  }, [roomIdToUpdate]);
   return (
     <>
       <div>
         <button
           className={styles.main_form_btn}
-          onClick={() => setShowModal(true)}
+          onClick={() => {
+            setShowModal(true);
+            setRoomIdToUpdate('');
+          }}
         >
           CREATE ROOM ID
         </button>
         {showModal ? (
-
           <div className={styles.main_pop_cls}>
             <div className={styles.check_model}>
               <div className={styles.class_check}>
-                <h1 className={styles.pop_heading}>Create new room</h1>
+                <h1 className={styles.pop_heading}>
+                  {roomIdToUpdate ? 'Update Room' : 'Create new room'}
+                </h1>
               </div>
               <div className={styles.main_form}>
                 <div className={styles.check}>
-                  <form
-                    onSubmit={handleSubmit}
-                    className={styles.form_spectator_cls}
-                  >
+                  <form onSubmit={handleSubmit} className={styles.form_spectator_cls}>
                     {error && <div className={styles.error}>{error}</div>}
                     <div className={styles.flex_col}>
                       <div className={styles.input_box}>
@@ -160,7 +185,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.gameName && touched.gameName && (
                         <div className={styles.error}>{String(errors.gameName)}</div>
                       )}
-                      
+
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="password">
                           Game Map Name
@@ -173,9 +198,7 @@ const Form = ({ getAllSpectator }: any) => {
                           placeholder="Enter bgmi map"
                           value={values.mapType}
                           onChange={handleChange}
-
                           onBlur={handleBlur}
-
                         />
                       </div>
                       {errors.mapType && touched.mapType && (
@@ -236,7 +259,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.secondWin && touched.secondWin && (
                         <div className={styles.error}>{String(errors.secondWin)}</div>
                       )}
-                       <div className={styles.input_box}>
+                      <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="entryFee">
                           Entry Fee
                         </label>
@@ -257,7 +280,7 @@ const Form = ({ getAllSpectator }: any) => {
                     </div>
 
                     <div className={styles.flex_col}>
-                    <div className={styles.input_box}>
+                      <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="password">
                           Room Password
                         </label>
@@ -313,9 +336,9 @@ const Form = ({ getAllSpectator }: any) => {
                         <div className={styles.error}>{String(errors.version)}</div>
                       )}
                       <div className={styles.input_box}>
-                          <label className={styles.room_id} htmlFor="Date">
-                            Date
-                          </label>
+                        <label className={styles.room_id} htmlFor="Date">
+                          Date
+                        </label>
                         <Input
                           type="date"
                           className={`${styles.room_field_wrapper} ${styles.room_field_cls2}`}
@@ -329,7 +352,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.date && touched.date && (
                         <div className={styles.error}>{String(errors.date)}</div>
                       )}
-                      
+
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="highestKill">
                           Highest Kill
@@ -348,7 +371,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.highestKill && touched.highestKill && (
                         <div className={styles.error}>{String(errors.highestKill)}</div>
                       )}
-                    
+
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="thirdWin">
                           Third Win
@@ -367,7 +390,7 @@ const Form = ({ getAllSpectator }: any) => {
                       {errors.thirdWin && touched.thirdWin && (
                         <div className={styles.error}>{String(errors.thirdWin)}</div>
                       )}
-                     
+
                       <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="secondWin">
                           Image Upload
@@ -387,39 +410,51 @@ const Form = ({ getAllSpectator }: any) => {
                         />
                       </div>
                     </div>
-
                   </form>
 
                   <div className={styles.btn_form_wrapper}>
                     <Button
                       className={styles.cancel_btn}
-                      onClick={() => setShowModal(false)}
+                      onClick={() => {
+                        setShowModal(false);
+                        setRoomIdToUpdate('');
+                      }}
                     >
                       Cancel
                     </Button>
-                    <Button
-                      id="check"
-                      disabled={isLoading}
-                      className={styles.roombutton}
-                      variant="contained"
-                      type="submit"
-                      onClick={handleSubmit}
-                    >
-                      {isLoading ? 'Loading...' : 'Add Room'}
-                    </Button>
+
+                    {roomIdToUpdate ? (
+                      <Button
+                        id="update"
+                        disabled={isLoading}
+                        className={styles.roombutton}
+                        variant="contained"
+                        type="submit"
+                        onClick={handleSubmit}
+                      >
+                        {isLoading ? 'Updating...' : 'Update Room'}
+                      </Button>
+                    ) : (
+                      <Button
+                        id="add"
+                        disabled={isLoading}
+                        className={styles.roombutton}
+                        variant="contained"
+                        type="submit"
+                        onClick={handleSubmit}
+                      >
+                        {isLoading ? 'Loading...' : 'Add Room'}
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
-
-
-
         ) : (
           ''
         )}
-      </div >
+      </div>
     </>
   );
 };

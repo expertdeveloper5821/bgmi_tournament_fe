@@ -1,148 +1,141 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import styles from '../../../styles/Dashboard.module.scss';
-import RequireAuthentication from '../../../utils/requireAuthentication';
-import withAuth from '@/Components/HOC/WithAuthHoc';
-import { Navbar } from '../../../Components/Navbar/Navbar';
-//@ts-ignore
 import { Button } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
-import { sendRequest } from '@/services/auth/auth_All_Api';
-import {
-  AiOutlineDown,
-  AiOutlineClose,
-  AiOutlineLeft,
-  AiOutlineRight,
-} from 'react-icons/ai';
-import CountdownComponent from './CountdownComponent';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
-import { formatDate, formatTime } from '../../../Components/CommonComponent/moment';
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+import { sendRequest } from '@/utils/axiosInstanse';
+import styles from '@/styles/Dashboard.module.scss';
+import withAuth from '@/Components/HOC/WithAuthHoc';
 import { configData } from '@/utils/config';
-
-export interface tournament {
-  gameName: string;
-  gameType: string;
-  mapType: string;
-  version: string;
-  dateAndTime: Date | string;
-  roomId: string;
-  lastSurvival: string;
-  roomUuid: string;
-  mapImg: string;
-  entryFee?: string;
-  highestKill: string;
-  secondWin: string;
-  thirdWin: string;
-}
+import MatchComponent from '@/Components/MatchComponent/MatchComponent';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
+import { ITournament } from '../types';
+import {
+  CONTEST_SUCCESS_MESSAGE,
+  NETWORK_ERR_MESSAGE,
+  USER_REGISTERED_MESSAGE,
+  formatDateAndTime,
+  initialValues,
+} from '../constants';
+import MiniMatchComponent from '@/Components/MatchComponent/MiniMatchComponent';
+import { BiSolidChevronLeft, BiChevronRight } from 'react-icons/bi';
+import Loading from '../loading';
 
 function Tournament() {
-  const [poolModal, setPoolModal] = useState(false);
-  const [allRoomsData, setAllRoomsData] = useState<any>([]);
-  const [regMatches, setRegMatches] = useState<any>('');
+  const [allRoomsData, setAllRoomsData] = useState<any>([]); //types
+  const [regMatches, setRegMatches] = useState<any>(''); //types
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [visibleRooms, setVisibleRooms] = useState([])
-    const initialValues:tournament = {
-    gameName:"", 
-    mapType:"", 
-    gameType:"", 
-    version:"", 
-    roomUuid:"", 
-    dateAndTime:new Date(), 
-    lastSurvival:"" , 
-    roomId:"", 
-    mapImg:"",
-    entryFee: '',
-    highestKill: '',
-    secondWin: '',
-    thirdWin: ''
-
-  }
-  const [matchDetails , setMatchDetails] = useState<tournament>(initialValues)
-  const router = useRouter();
-  const regMatchRedirect = (matchID: string) => {
-
-    router.push(`/userDashboard/registerMatches?id=${matchID}`);
-  };
+  const [visibleRooms, setVisibleRooms] = useState([]);
+  const [matchDetails, setMatchDetails] = useState<ITournament>(initialValues);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex1, setCurrentIndex1] = useState(0);
+  const [numItemsToShow, setNumItemsToShow] = useState(1);
 
   const getAllTournaments = async () => {
+    setIsLoading(true);
     try {
-      const res = await sendRequest('room/rooms', {
+      const { status, data } = await sendRequest('room/rooms', {
         method: 'GET',
       });
-      console.log("res", res)
-      if(res.status === 200 || res.status === 201){
-        if(res.data.length > 0) {
-          const lastTournament = res.data[res.data.length - 1]
-          const formatDateTime =` ${formatDate({ date: lastTournament?.dateAndTime})} and ${formatTime({time: lastTournament?.dateAndTime, format : 'LT'})}`
-          setAllRoomsData(res.data);
-          // setMatchDetails({...res.data[0], dateAndTime: formatDateTime})
-        }
+      if ((status === 200 || status === 201) && data.length > 0) {
+        const firstTournament = data[0];
+        setAllRoomsData(data);
+        setMatchDetails({
+          ...data[0],
+          dateAndTime: formatDateAndTime(
+            firstTournament.dateAndTime,
+            firstTournament.dateAndTime,
+            'LT',
+          ),
+        });
+        setIsLoading(false);
       } else {
-        if(res.status === 204) {
-          setAllRoomsData([])
+        if (status === 204) {
+          setAllRoomsData([]);
+          setIsLoading(false);
         } else {
-          throw Error()
+          throw Error();
         }
       }
-  
-    } catch(err) {
-      console.error("Error in Get All Tournaments => ", err)
-      toast.error('Something went wrong, please try again later!', {
+    } catch (err) {
+      setIsLoading(false);
+      toast.error(NETWORK_ERR_MESSAGE, {
         position: 'top-right',
         autoClose: 2000,
         hideProgressBar: false,
       });
     }
-   
   };
 
   const getRegisteredMatches = async () => {
+    setIsLoading(true);
     try {
-      const registeredMatchesRes = await sendRequest('team/register-room ', {
+      const { status, data } = await sendRequest('team/register-room ', {
         method: 'GET',
       });
-      if(registeredMatchesRes.status === 200 || registeredMatchesRes.status === 201) {
-        setRegMatches(registeredMatchesRes.data.rooms);
+      if ((status === 200 || status === 201) && data) {
+        setRegMatches(data.rooms);
+        setIsLoading(false);
       } else {
-        if(registeredMatchesRes.status === 204) {
-          setRegMatches([])
+        if (status === 204) {
+          setRegMatches([]);
+          setIsLoading(false);
         } else {
-          throw Error()
+          throw Error();
         }
       }
-    } catch(err) {
-      console.error("Error in Get All Registered Tournaments => ", err)
-      toast.error('Something went wrong, please try again later!', {
+    } catch (err) {
+      setIsLoading(false);
+      toast.error(NETWORK_ERR_MESSAGE, {
         position: 'top-right',
         autoClose: 2000,
         hideProgressBar: false,
       });
     }
-  
-
   };
 
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setNumItemsToShow(2);
+      } else {
+        setNumItemsToShow(1);
+      }
+      if (window.innerWidth >= 1000) {
+        setNumItemsToShow(1);
+      } else {
+        setNumItemsToShow(1);
+      }
+      if (window.innerWidth >= 1280) {
+        setNumItemsToShow(2);
+      } else {
+        setNumItemsToShow(1);
+      }
+    };
+
     getAllTournaments();
     getRegisteredMatches();
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const updateMainData = (match: tournament
-  ) => {
-    const updatedformattedDandt = ` ${formatDate({ date: match?.dateAndTime })} and ${formatTime({ time: match?.dateAndTime  , format : 'LT' })}`;
+  const updateMainData = (match: ITournament) => {
+    const { dateAndTime } = match;
+    const updatedFormat = formatDateAndTime(dateAndTime, dateAndTime, 'LT');
     setMatchDetails({
       ...match,
-      dateAndTime: updatedformattedDandt
-    })
+      dateAndTime: updatedFormat,
+    });
   };
 
-  const addRegMatch = async (match: tournament) => {
-    console.log("tournament", match)
+  const addRegMatch = async (match: ITournament) => {
     setIsLoading(true);
     try {
       const userData: any = JSON.parse(localStorage.getItem('userData'));
-      const response = await sendRequest('payment/create-payment', {
+      const { status } = await sendRequest('payment/create-payment', {
         method: 'POST',
         data: {
           upiId: 'success@payment',
@@ -152,32 +145,28 @@ function Tournament() {
           roomid: match?.roomUuid,
         },
       });
-      
-      if (response.status === 200) {
+
+      if (status === 200) {
         getAllTournaments();
-        getRegisteredMatches()
-        toast.success('Contest Joined Successfully', {
+        getRegisteredMatches();
+        toast.success(CONTEST_SUCCESS_MESSAGE, {
           position: 'top-right',
           autoClose: 2000,
           hideProgressBar: false,
         });
-        setIsLoading(false)
+        setIsLoading(false);
       } else {
-        throw Error()
+        throw Error();
       }
     } catch (error: any) {
-        setIsLoading(false)
-        toast.error('Already registered', {
+      setIsLoading(false);
+      toast.error(USER_REGISTERED_MESSAGE, {
         position: 'top-right',
         autoClose: 2000,
         hideProgressBar: false,
       });
     }
   };
-  
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [numItemsToShow, setNumItemsToShow] = useState(1);
 
   const goToNextSlide = () => {
     const newIndex = currentIndex + 1;
@@ -193,413 +182,257 @@ function Tournament() {
     if (newIndex >= 0) {
       setCurrentIndex(newIndex);
     }
-
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setNumItemsToShow(2);
+  const goToNextSlide1 = () => {
+    const newIndex = currentIndex1 + 1;
 
-      } else {
-        setNumItemsToShow(1);
-
-      }
-      if (window.innerWidth >= 1000) {
-        setNumItemsToShow(1);
-
-      } else {
-        setNumItemsToShow(1);
-
-      }
-      if (window.innerWidth >= 1280) {
-        setNumItemsToShow(2);
-
-      } else {
-        setNumItemsToShow(1);
-
-      }
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-  
-  const getIdPass = ( dateAndTime: string, roomUuid: string) => {
-    if(dateAndTime && roomUuid) {
-      setInterval(() => {
-        const REDUCE_TIME = 15 * 60 * 1000;
-         const currentTime = new Date().getTime();
-        let dateNumber = new Date(dateAndTime).getTime();
-         const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
-         if (currentTime >= reducedTime) {
-            setVisibleRooms([...visibleRooms, roomUuid])
-         }
-      }, 60000)
+    if (newIndex < allRoomsData.length) {
+      setCurrentIndex1(newIndex);
     }
   };
 
+  const goToPrevSlide1 = () => {
+    const newIndex = currentIndex1 - 1;
+
+    if (newIndex >= 0) {
+      setCurrentIndex1(newIndex);
+    }
+  };
+
+  const getIdPass = (dateAndTime: string, roomUuid: string) => {
+    if (dateAndTime && roomUuid) {
+      setInterval(() => {
+        const REDUCE_TIME = 15 * 60 * 1000;
+        const currentTime = new Date().getTime();
+        let dateNumber = new Date(dateAndTime).getTime();
+        const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
+        if (currentTime >= reducedTime) {
+          setVisibleRooms([...visibleRooms, roomUuid]);
+        }
+      }, 60000);
+    }
+  };
+
+  // const getIdPass = (dateAndTime: string, roomUuid: string) => {
+  //   if (dateAndTime && roomUuid) {
+  //     setInterval(() => {
+  //       const currentTime = moment();
+
+  //       const itemTime = moment(dateAndTime);
+
+  //       const differenceInMinutes = itemTime.diff(currentTime, 'minutes');
+
+  //       if (differenceInMinutes >= 15 || !itemTime.isSame(currentTime, 'day')) {
+  //         setVisibleRooms([...visibleRooms, roomUuid]);
+  //       }
+  //     }, 60000);
+  //   }
+  // };
 
   return (
     <div className={styles.main_container} id="mainLayoutContainerInner">
+      {isLoading && <Loading />}
       <div className={styles.abcd}>
         <div className={styles.sidebar_wrapper}>
-          <Navbar />
           <div className={styles.content}>
             <div className={styles.dashboard}>
-              {/* <h1 className={styles.page_title}>Welcome <span className={styles.fullname_title}>{userName}</span></h1> */}
               <span className={styles.head_desc}>Upcoming Matches</span>
-              <small className={styles.subhead_desc}>
-                Dashboard / Upcoming Matches
-              </small>
+              <Breadcrumb />
             </div>
           </div>
           <div className={styles.room_wrapper}>
             <div className={styles.room_container}>
               <div className={styles.registeredmatches}>
-                <div className={styles.imgSection}>  
+                <div className={styles.imgSection}>
                   <Image
-                    src={matchDetails.mapImg || "../assests/userdashboardbg.svg"}
+                    src={matchDetails?.mapImg || '../assests/userdashboardbg.svg'}
                     alt="userdashboardbg"
                     className={styles.wrapperimg}
                     width={200}
                     height={200}
                   />
                 </div>
-              </div> 
-            
-              
-              {allRoomsData && allRoomsData.length === 0 ? ( 
-                <div className={styles.register_match_room}>
-                  There is no room created till now
-                </div>
+              </div>
+
+              {allRoomsData && allRoomsData.length === 0 ? (
+                <div className={styles.register_match_room}>There is no room created till now</div>
               ) : (
-              <div>
-                  <div className={styles.squad_match}>
-                    <div className={styles.inner_squad_match}>
-                      <span className={styles.register_match_gamename}>{matchDetails?.gameName}</span>
-                      <span className={styles.winning_prize}>
-                        Date & Time: {matchDetails?.dateAndTime.toString()} 
-                        
-                      </span>
-                      <div className={styles.winnings}>
-                        <div>
-                          <strong className={styles.winning_prize}>
-                            Winning Prize
-                            <span className={styles.caret_down_style}>
-                              <AiOutlineDown
-                                onClick={() => setPoolModal(true)}
-                                style={{verticleAllign: "middle"}}
-                              />
-                            </span>
-                          </strong>
-                          {poolModal ? (
-                            <div className={styles.main_winning_pool}>
-                              <div className={styles.inner_winning_pool}>
-                                <div className={styles.text_pool_cls}>
-                                  <h1 className={styles.pool_heading}>
-                                    Winning Prize Pool
-                                  </h1>
-                                  <p className={styles.pool_para}>
-                                    {matchDetails.gameName}
-                                  </p>
-                                </div>
-                                <div className={styles.pool_cancel_p}>
-                                  <p className={styles.pool_text_p}>
-                                    Last Survival: {matchDetails.lastSurvival}
-                                    <span className={styles.rs_pool_logo}>
-                                      <Image
-                                        src="../assests/rupee-icon.svg"
-                                        alt="rupeeIcon"
-                                        width={12}
-                                        height={12}
-                                      />
-                                    </span>
-
-                                  </p>
-                                  <p className={styles.pool_text_p}>
-                                    Highest kill: {matchDetails.highestKill}
-                                    <span className={styles.rs_pool_logo}>
-                                      <Image
-                                        src="../assests/rupee-icon.svg"
-                                        alt="rupeeIcon"
-                                        width={12}
-                                        height={12}
-                                      />
-                                    </span>
-                                  </p>
-                                  <p className={styles.pool_text_p}>
-                                    2nd Winner: {matchDetails.secondWin}
-                                    <span className={styles.rs_pool_logo}>
-                                      <Image
-                                        src="../assests/rupee-icon.svg"
-                                        alt="rupeeIcon"
-                                        width={12}
-                                        height={12}
-                                      />
-                                    </span>
-                                  </p>
-                                  <p className={styles.pool_text_p}>
-                                    3nd Winner: {matchDetails.thirdWin}
-                                    <span className={styles.rs_pool_logo}>
-                                      <Image
-                                        src="../assests/rupee-icon.svg"
-                                        alt="rupeeIcon"
-                                        width={12}
-                                        height={12}
-                                      />
-                                    </span>
-                                  </p>
-                                </div>
-                                <p
-                                  className={styles.pool_cancel_p}
-                                  onClick={() => setPoolModal(false)}
-                                >
-                                  <AiOutlineClose
-                                    className={styles.cancel_icon}
-                                  />
-                                </p>
-                              </div>
-                            </div>
-                          ) : (
-                            ''
-                          )}
-                          <span className={styles.survival_content}>
-                            Last Survival:
-                            <span className={styles.rs_logo}>
-                              <Image
-                                src="../assests/rupee-icon.svg"
-                                alt="rupeeIcon"
-                                width={12}
-                                height={12}
-                              />
-                            </span>
-                            {matchDetails?.lastSurvival}
-                          </span>
-                        </div>
-                        <div>
-                          <span className={styles.winning_prize}>
-                            Entry Fees
-                          </span>
-                          <span className={styles.survival_content}>
-
-                            <span className="rs_logo">
-                              <Image
-                                src="../assests/rupee-icon.svg"
-                                alt="rupeeIcon"
-                                width={12}
-                                height={12}
-                              />
-                            </span>
-                            {matchDetails?.entryFee}
-                          </span>
-                        </div>
-                      </div>
-                      <div className={styles.winnings}>
-                        <div>
-                          <span className={styles.winning_prize}>TYPE</span>
-                          <span
-                            className={styles.tvm_font}
-                            style={{ color: 'rgba(255, 214, 0, 1)' }}
-                          >
-                            {matchDetails?.gameType}
-                          </span>
-                        </div>
-                        <div>
-                          <span className={styles.winning_prize}>VERSION</span>
-                          <span
-                            className={styles.tvm_font}
-                            style={{ color: 'rgba(255, 214, 0, 1)' }}
-                          >
-                            {matchDetails?.version}
-                          </span>
-                        </div>
-                        <div>
-                          <span className={styles.winning_prize}>MAP</span>
-                          <span
-                            className={styles.tvm_font}
-                            style={{ color: 'rgba(255, 122, 0, 1)' }}
-                          >
-                            {matchDetails?.mapType}
-                          </span>
-                        </div>
-                      </div>
-                      <div className={styles.spot_line_sec}>
-
-                        {/* <progress
-                      className={styles.progress_cls}
-                      id="file"
-                      value="40"
-                      max="100"
-                    /> */}
-                      </div>
-                      <div className={styles.winnings_sec_secton}>
-                        <div className={styles.spot_line}>
-                          {/* <span className={styles.bar_font}>
-                        Only 30 spots Left
-                      </span>
-                      <span className={styles.bar_font}>20/50</span> */}
-                        </div>
-                        <Button
-                          disabled={isLoading}
-                          className={styles.join_button}
-                          onClick={() => addRegMatch(matchDetails)}
+                <div className={styles.squad_match}>
+                  <div className={styles.inner_squad_match}>
+                    <MatchComponent
+                      gameName={matchDetails?.gameName}
+                      dateAndTime={matchDetails?.dateAndTime.toString()}
+                      lastSurvival={matchDetails?.lastSurvival}
+                      highestKill={matchDetails?.highestKill}
+                      secondWin={matchDetails?.secondWin}
+                      thirdWin={matchDetails?.thirdWin}
+                      entryFee={matchDetails?.entryFee}
+                      gameType={matchDetails?.gameType}
+                      version={matchDetails?.version}
+                      mapType={matchDetails?.mapType}
+                    />
+                    <div className={styles.spot_line_sec}></div>
+                    <div className={styles.winnings_sec_secton}>
+                      <div className={styles.spot_line}></div>
+                      <Button
+                        disabled={isLoading}
+                        className={styles.join_button}
+                        onClick={() => addRegMatch(matchDetails)}
+                      >
+                        {isLoading ? 'Loading...' : 'Join'}
+                      </Button>
+                    </div>
+                  </div>
+                  <div className={styles.container2} style={{ padding: '0px' }}>
+                    <div className={styles.inner_cont}>
+                      {allRoomsData.length > 2 && (
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
                         >
-                          {isLoading ? 'Loading...' : 'Join'}
-                        </Button>
-                      </div>
-                    </div>
-                    <div className={styles.winnings_sec_slider}>
-
-                      <div className={styles.game_imgsection}>
+                          <button
+                            onClick={goToPrevSlide1}
+                            style={{
+                              background: 'transparent',
+                              border: 'none',
+                              height: '40px',
+                              width: '40px',
+                              marginRight: '-32px',
+                              zIndex: 10,
+                            }}
+                            disabled={currentIndex1 === 0}
+                          >
+                            <BiSolidChevronLeft className={styles.outline_icon} />
+                          </button>
+                        </div>
+                      )}
+                      <div
+                        className={styles.slideContainer}
+                        style={{ width: '100%', overflow: 'hidden' }}
+                      >
                         {allRoomsData &&
-                          allRoomsData.map((match: tournament, index: number) => (
-                                
-                            <Image
-                              key={index}
-                              width={100}
-                              height={100}
-                              className={styles.img_slider_one}
-                              src={match?.mapImg || "../assests/cards.svg"}
-                              alt="slides"
-                              onClick={() =>
-                                updateMainData(match)
-                              }
-                            />
-                          ))}
+                          allRoomsData
+                            .slice(currentIndex1, currentIndex1 + 2)
+                            .map((match: ITournament, index: number) => {
+                              getIdPass(match.dateAndTime, match.roomId);
+                              return (
+                                <div
+                                  style={{
+                                    position: 'relative',
+                                    overflow: 'hidden',
+                                    width: '50%',
+                                  }}
+                                >
+                                  <Image
+                                    key={index}
+                                    width={100}
+                                    height={100}
+                                    style={{ width: '100%' }}
+                                    className={styles.img_slider_one}
+                                    src={match?.mapImg || '../assests/cards.svg'}
+                                    alt="slides"
+                                    onClick={() => updateMainData(match)}
+                                  />
+                                  <p className={styles.gameCardFade}>{match.gameName}</p>
+                                </div>
+                              );
+                            })}
                       </div>
-
+                      {allRoomsData.length > 2 && (
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <button
+                            onClick={goToNextSlide1}
+                            style={{
+                              background: 'transparent',
+                              border: 'none',
+                              height: '40px',
+                              width: '40px',
+                              marginLeft: '-32px',
+                              zIndex: 10,
+                            }}
+                            disabled={currentIndex1 === allRoomsData.length - 1}
+                          >
+                            <BiChevronRight className={styles.outline_icon} />
+                          </button>
+                        </div>
+                      )}
                     </div>
-
                   </div>
                 </div>
               )}
             </div>
           </div>
-          <span className={styles.register_match_title}>Registered Matches</span>
+          <h1 className={styles.register_match_title}>Registered Matches</h1>
+
           {!regMatches.length ? (
-            <div className={styles.register_match}>
-              There is no Registered Match till now
-            </div>
+            <div className={styles.register_match}>There is no Registered Match till now</div>
           ) : (
-            <>
-              <div className={styles.container2}>
-                <div className={styles.inner_cont}>
-                  <button
-                    onClick={goToPrevSlide}
-                    className={styles.prevButton}
-                    disabled={currentIndex === 0}
-
-                  >
-                    <AiOutlineLeft className={styles.outline_icon} />
-                  </button>
-
-                  <div className={styles.slideContainer}>
-
-                    {regMatches &&
-                      regMatches
-                        .slice(currentIndex, currentIndex + numItemsToShow)
-                        .map((match: any, index: any) => {
-                          getIdPass(match.dateAndTime, match.roomUuid)
-                          return (
-                            <div className={styles.container3} key={index} >
-                              <div className={styles.reg_match_image_container}>
-                                <Image
-                                  src={match?.mapImg || "../assests/registeredmatches.svg"}
-                                  alt={`${styles.slide}`}
-                                  className={styles.container3_img}
-                                  width={100}
-                                  height={100}
-                                  onClick={() => regMatchRedirect(match?._id)}
-                                />
-                                </div>
-                              <div className={styles.Tournaments}>
-                                <div className={styles.tournament_slider}>
-                                  <div className={styles.winning_prize}>
-                                    <span> TYPE</span>
-                                    <span
-                                      className={styles.tvm_font}
-                                      style={{ color: 'rgba(255, 214, 0, 1)' }}
-                                    >
-                                      {match?.gameType}
-                                    </span>
-                                  </div>
-                                  <div className={styles.winning_prize}>
-                                    <span>Version</span>
-                                    <span
-                                      className={styles.tvm_font}
-                                      style={{ color: 'rgba(255, 214, 0, 1)' }}
-                                    >
-                                      {match?.version}
-                                    </span>
-                                  </div>
-                                  <div className={styles.winning_prize}>
-                                    <span>MAP</span>
-                                    <span
-                                      className={styles.tvm_font}
-                                      style={{ color: 'rgba(255, 122, 0, 1)' }}
-                                    >
-                                      {match?.mapType}
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className={styles.room_create}>
-                                  <div className={styles.winning_prize}>
-                                    <span> Match start Date </span>
-                                    <span>{formatDate({ date:match?.dateAndTime })}</span>
-                                  </div>
-                                  <div className={styles.winning_prize}>
-                                    <span>Time</span>
-                                    <span>{formatTime({ time: match?.dateAndTime , format : 'LT' })}</span>
-
-                                  </div>
-                                </div>
-                                <div className={styles.id_password}>
-                                
-                                  <span>Room Id: {visibleRooms?.find(room => room === match.roomUuid) ? match.roomId : '*****'}</span>
-                                  <span>Room password: {visibleRooms?.find(room => room === match.roomUuid) ? match.password : '*****'}</span>
-                                </div>
-
-                              </div>
-                              <div className={styles.container_btn}>
-                                <button
-                                  onClick={goToPrevSlide}
-                                  className={styles.prevButton_small}
-                                  disabled={currentIndex === 0}
-
-                                >
-                                  <AiOutlineLeft className={styles.outline_icon} />
-                                </button>
-                                <button
-                                  onClick={goToNextSlide}
-                                  className={styles.nextButton_small}
-                                  disabled={
-                                    currentIndex === regMatches.length - numItemsToShow
-                                  }
-                                >
-                                  <AiOutlineRight className={styles.outline_icon} />
-                                </button>
-                              </div>
-                            </div>
-                          )
-                        })}
+            <div className={styles.container2}>
+              <div className={styles.inner_cont}>
+                {regMatches?.length > 2 && (
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <button
+                      onClick={goToPrevSlide}
+                      style={{
+                        background: 'transparent',
+                        border: 'none',
+                        height: '40px',
+                        width: '40px',
+                        marginRight: '-32px',
+                        zIndex: 10,
+                      }}
+                      disabled={currentIndex === 0}
+                    >
+                      <BiSolidChevronLeft className={styles.outline_icon} />
+                    </button>
                   </div>
-                  <button
-                    onClick={goToNextSlide}
-                    className={styles.nextButton}
-                    disabled={
-                      currentIndex === regMatches.length - numItemsToShow
-                    }
-                  >
-                    <AiOutlineRight className={styles.outline_icon} />
-                  </button>
-
-
+                )}
+                <div className={styles.slideContainer}>
+                  {regMatches &&
+                    regMatches
+                      .slice(currentIndex, currentIndex + numItemsToShow)
+                      .map((match: ITournament, index: number) => {
+                        getIdPass(match.dateAndTime, match.roomUuid);
+                        return (
+                          <MiniMatchComponent
+                            visibleRooms={visibleRooms}
+                            match={match}
+                            key={index}
+                          />
+                        );
+                      })}
                 </div>
-              </div>
 
-            </>
+                {regMatches?.length > 2 && (
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <button
+                      onClick={goToNextSlide}
+                      style={{
+                        background: 'transparent',
+                        border: 'none',
+                        height: '40px',
+                        width: '40px',
+                        marginLeft: '-32px',
+                        zIndex: 10,
+                      }}
+                      disabled={currentIndex === regMatches.length - numItemsToShow}
+                    >
+                      <BiChevronRight className={styles.outline_icon} />
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           )}
         </div>
       </div>

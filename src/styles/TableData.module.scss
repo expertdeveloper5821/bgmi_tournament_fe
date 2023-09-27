@@ -9,6 +9,7 @@
 
 .filter {
   display: flex;
+  justify-content: center;
   align-items: center;
   font-size: 12px;
   font-weight: 700;
@@ -181,7 +182,7 @@ button#btn_cls_st {
   }
 }
 .room_id {
-  color:$darkblue !important;
+  color: $darkblue !important;
   font-weight: 700;
   font-size: 14px;
   line-height: 17.17px;
