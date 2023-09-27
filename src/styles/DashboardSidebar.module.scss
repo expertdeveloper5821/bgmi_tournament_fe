@@ -116,7 +116,8 @@
   align-items: center;
   position: absolute;
   color: #fff;
-  margin-top: 20px;
+  background-color: #003554;
+  margin-top: 10px;
   margin-left: 10px;
 }
 .listitems {
@@ -194,6 +195,7 @@
   color: #fff;
   font-size: x-large;
   font-weight: bold;
+  cursor: pointer;
   position: absolute;
   left: 195px;
   top: 30px;
