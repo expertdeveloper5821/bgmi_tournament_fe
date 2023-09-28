@@ -134,7 +134,7 @@ function Tournament() {
   const addRegMatch = async (match: ITournament) => {
     setIsLoading(true);
     try {
-      const userData: any = JSON.parse(localStorage.getItem('userData'));
+      const userData = JSON.parse(localStorage.getItem('userData'));
       const { status } = await sendRequest('payment/create-payment', {
         method: 'POST',
         data: {
