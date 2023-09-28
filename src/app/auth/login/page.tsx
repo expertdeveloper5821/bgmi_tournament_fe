@@ -27,7 +27,6 @@ function Login(): React.JSX.Element {
   const [error, setError] = useState<string>('');
   const [getToken, setGetToken] = useState<any>('');
   const { userInfo, updateUserInfo } = useUserContext();
-  console.log('usering=', userInfo);
   const router = useRouter();
 
   function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
@@ -92,7 +91,6 @@ function Login(): React.JSX.Element {
             setError('Invalid email or password');
           }
         } catch (error: any) {
-          console.log('Error in Login API => ', error);
           setIsLoading(false);
           setError('Login Failed, Please try again later');
         } finally {
@@ -104,7 +102,6 @@ function Login(): React.JSX.Element {
   const handleRedirect = (token: any) => {
     if (token) {
       const decodedToken: any = decodeJWt(token);
-      console.log('tokennnn', decodedToken.role.role);
       if (decodedToken.role.role === 'admin') {
         router.push('/adminDashboard/room');
       } else if (decodedToken.role.role === 'user') {
