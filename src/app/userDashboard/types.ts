@@ -18,5 +18,4 @@ export interface ITournament {
 
 export interface IMatchProps {
   match: ITournament;
-  visibleRooms: any;
 }

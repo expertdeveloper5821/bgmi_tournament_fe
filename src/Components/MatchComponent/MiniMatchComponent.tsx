@@ -4,21 +4,13 @@ import styles from '@/styles/Dashboard.module.scss';
 import { useRouter } from 'next/navigation';
 import { formatDate, formatTime } from '../CommonComponent/moment';
 import { IMatchProps } from '@/app/userDashboard/types';
-import moment from 'moment';
+import { getIdPass } from '@/app/userDashboard/constants';
 
-const MiniMatchComponent = ({ match, visibleRooms }: IMatchProps) => {
+const MiniMatchComponent = ({ match }: IMatchProps) => {
   const router = useRouter();
 
   const regMatchRedirect = (matchID: string) => {
     router.push(`/userDashboard/registerMatches?id=${matchID}`);
-  };
-
-  const getIdPass = (dateAndTime: string) => {
-    const REDUCE_TIME = 15 * 60 * 1000;
-    const currentTime = new Date().getTime();
-    let dateNumber = new Date(dateAndTime).getTime();
-    const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
-    return currentTime >= reducedTime;
   };
 
   return (

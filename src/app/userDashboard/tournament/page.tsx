@@ -27,7 +27,6 @@ function Tournament() {
   const [allRoomsData, setAllRoomsData] = useState<any>([]); //types
   const [regMatches, setRegMatches] = useState<any>(''); //types
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [visibleRooms, setVisibleRooms] = useState([]);
   const [matchDetails, setMatchDetails] = useState<ITournament>(initialValues);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentIndex1, setCurrentIndex1] = useState(0);
@@ -279,6 +278,7 @@ function Tournament() {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
+                            marginLeft:"-12px"
                           }}
                         >
                           <button
@@ -372,7 +372,7 @@ function Tournament() {
             <div className={styles.container2}>
               <div className={styles.inner_cont}>
                 {regMatches?.length > 2 && (
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft:"12px" }}>
                     <button
                       onClick={goToPrevSlide}
                       style={{
@@ -396,7 +396,6 @@ function Tournament() {
                       .map((match: ITournament, index: number) => {
                         return (
                           <MiniMatchComponent
-                            visibleRooms={visibleRooms}
                             match={match}
                             key={index}
                           />
@@ -413,7 +412,7 @@ function Tournament() {
                         border: 'none',
                         height: '40px',
                         width: '40px',
-                        marginLeft: '-24px',
+                        marginLeft: '-32px',
                         zIndex: 10,
                       }}
                       disabled={currentIndex === regMatches.length - numItemsToShow}

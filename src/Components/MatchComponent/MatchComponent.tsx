@@ -3,6 +3,7 @@ import styles from '@/styles/Dashboard.module.scss';
 import { AiOutlineDown, AiOutlineClose } from 'react-icons/ai';
 import { BsChevronDown } from 'react-icons/bs';
 import { useState } from 'react';
+import { formatDateAndTime } from '@/app/userDashboard/constants';
 
 const MatchComponent = ({
   gameName,
@@ -20,7 +21,9 @@ const MatchComponent = ({
   return (
     <>
       <span className={styles.register_match_gamename}>{gameName}</span>
-      <span className={styles.winning_prize}>Date & Time: {dateAndTime}</span>
+      <span className={styles.winning_prize}>
+        Date & Time: {formatDateAndTime(dateAndTime, dateAndTime, 'LT')}
+      </span>
       <div className={styles.winnings}>
         <div>
           <strong className={styles.winning_prize}>

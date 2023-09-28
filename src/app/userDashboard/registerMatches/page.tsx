@@ -11,6 +11,7 @@ import CountdownTimer from '../../../Components/CountdownTimer/CountdownTimer';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
 import MatchComponent from '@/Components/MatchComponent/MatchComponent';
 import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
+import { getIdPass } from '../constants';
 
 export interface RegMatch {
   gameName: string;
@@ -51,7 +52,7 @@ const regMatches = () => {
           time: resMatch?.data?.room?.dateAndTime,
           format: 'LT',
         })}`;
-        setMatchData({ ...resMatch.data.room, dateAndTime: formatDateTime });
+        setMatchData({ ...resMatch.data.room, dateAndTime: resMatch?.data?.room?.dateAndTime });
         CountdownTimer(matchData?.dateAndTime, matchData?.roomUuid, setVisibleRooms);
         setIsLoading(false);
       } else {
@@ -116,16 +117,11 @@ const regMatches = () => {
                   />
                   <div className={styles.winnings}>
                     <span>
-                      Room Id:{' '}
-                      {visibleRooms?.find((room) => room === matchData.roomUuid)
-                        ? matchData.roomId
-                        : '*****'}
+                      Room Id: {getIdPass(matchData.dateAndTime) ? matchData.roomId : '*****'}
                     </span>
                     <span>
                       Room password:{' '}
-                      {visibleRooms?.find((room) => room === matchData.roomUuid)
-                        ? matchData.password
-                        : '*****'}
+                      {getIdPass(matchData.dateAndTime) ? matchData.password : '****'}
                     </span>
                   </div>
                 </div>
