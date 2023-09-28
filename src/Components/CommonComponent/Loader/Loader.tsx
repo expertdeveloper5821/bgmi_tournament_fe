@@ -16,6 +16,7 @@ function Loader() {
         justifyContent: 'center',
         backdropFilter: 'blur(20px)',
         fontWeight: 'bold',
+        zIndex: 999
       }}
     >
       <Image src="/assests/spinner1.gif" height={120} width={120} alt="loading.." />

@@ -29,3 +29,11 @@ export const formatDateAndTime = (
 ): string => {
   return `${formatDate({ date })} at ${formatTime({ time, format })}`;
 };
+
+export const getIdPass = (dateAndTime: string) => {
+  const REDUCE_TIME = 15 * 60 * 1000;
+  const currentTime = new Date().getTime();
+  let dateNumber = new Date(dateAndTime).getTime();
+  const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
+  return currentTime >= reducedTime;
+};

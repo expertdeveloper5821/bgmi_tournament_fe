@@ -114,6 +114,7 @@
   width: 100%;
   @media (max-width: $breakpoint-md) {
     background-position: 50% 50%;
+    width: 100vw;
   }
 }
 
@@ -396,7 +397,7 @@ img.slides_image {
 }
 
 .container2 {
-  padding: 0px 10px;
+  padding: 0px 28px;
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -413,7 +414,7 @@ img.slides_image {
   }
 
   @media (max-width: $breakpoint-xSmall) {
-    padding: 28px 1px;
+    padding: 12px;
     width: 96%;
   }
 }
@@ -514,13 +515,14 @@ img.slides_image {
   // $breakpoint-lg
   // $breakpoint-ms
   @media (max-width: $breakpoint-md) {
-    margin-left: 116px;
+    // margin-left: 116px;
   }
   @media (max-width: $breakpoint-sm) {
-    margin-left: 109px;
+    font-size: 16px;
+    // margin-left: 109px;
   }
   @media (max-width: $breakpoint-tab) {
-    margin-left: 108px;
+    // margin-left: 108px;
   }
   @media (max-width: $breakpoint-xs) {
     margin-left: 8px;
@@ -542,11 +544,12 @@ img.slides_image {
   }
 
   @media (max-width: $breakpoint-xs) {
-    margin-left: 8px !important;
+    margin-left: 16px !important;
   }
 
   @media (max-width: $breakpoint-sm) {
     margin-left: 146px;
+    font-size: 18px;
   }
 
   @media (max-width: $breakpoint-md) {
@@ -1081,7 +1084,7 @@ img.slides_image {
 }
 
 .outline_icon {
-  font-size: 18px;
+  font-size: 32px;
   background: $bs-orange;
   border-radius: 18px;
 }

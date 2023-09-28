@@ -17,7 +17,7 @@ interface CustomPaginationProps {
 const VideoCard: React.FC<CustomPaginationProps> = ({ onDataUpdate }) => {
   const [data, setData] = useState<VideoInfo[]>([]);
   // will use spectator login token here
-  console.log(data);
+  // console.log(data);
   //   const accessToken =
   // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGQyM2NmZmYyZGU4ZDVhODM2OTVlOWYiLCJyb2xlIjpbeyJfaWQiOiI2NGM3ODE1M2QyYzhhODQzMWNjMzZiZjIiLCJyb2xlIjpbImFkbWluIl19XSwiaWF0IjoxNjkxNzM2MzcwLCJleHAiOjE2OTE5MDkxNzB9.GGAIOjgZs9q82XdLZNvR-TQ4JwALiIev8lfLBtajhE4'
   useEffect(() => {
@@ -34,7 +34,7 @@ const VideoCard: React.FC<CustomPaginationProps> = ({ onDataUpdate }) => {
         setData(responseData);
         onDataUpdate(responseData);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     fetchData();
