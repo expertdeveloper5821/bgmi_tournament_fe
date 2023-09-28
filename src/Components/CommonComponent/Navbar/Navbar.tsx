@@ -143,13 +143,13 @@ export function Navbar(props: INavbar) {
                 isOpen={isPopOpen}
                 setIsOpen={setIsPopOpen}
                 content={
-                  <div className={styles.myprofilesection}>
-                    <div className={styles.userdetails}>
-                      <p className={styles.dropdownprofileimage}>{initialsName}</p>
-                      <div className={styles.username_details}>
-                        <h1 className={styles.user_name_heading}>{nameData}</h1>
-                        <span className={styles.gmail}>{userData}</span>
-                      </div>
+                  <div>
+                    <div className={styles.profileContainer}>
+                      <h4 className={styles.profilename}>{nameData}</h4>
+                      <p className={styles.profileEmail}>{userData}</p>
+                      <button className={styles.logoutBtn} onClick={handleLogout}>
+                        Logout
+                      </button>
                     </div>
 
                     {/* <div className={styles.profilesection}>
@@ -184,8 +184,8 @@ export function Navbar(props: INavbar) {
                         <div className={styles.myprofile}>Notification</div>
                       </div>
                     </div> */}
-                    <div className={styles.logoutbutton}>
-                      <div className={styles.inner_logout} onClick={handleLogout}>
+                    {/* <div>
+                      <div onClick={handleLogout}>
                         <Image
                           className={styles.logoutbuttonicon}
                           src="../assests/logouticon.svg"
@@ -196,7 +196,7 @@ export function Navbar(props: INavbar) {
                         />
                         Logout
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 }
                 height="238px"

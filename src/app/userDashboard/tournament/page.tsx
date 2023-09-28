@@ -20,13 +20,13 @@ import {
 } from '../constants';
 import MiniMatchComponent from '@/Components/MatchComponent/MiniMatchComponent';
 import { BiSolidChevronLeft, BiChevronRight } from 'react-icons/bi';
+import { HiRefresh } from 'react-icons/hi';
 import Loading from '../loading';
 
 function Tournament() {
   const [allRoomsData, setAllRoomsData] = useState<any>([]); //types
   const [regMatches, setRegMatches] = useState<any>(''); //types
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [visibleRooms, setVisibleRooms] = useState([]);
   const [matchDetails, setMatchDetails] = useState<ITournament>(initialValues);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentIndex1, setCurrentIndex1] = useState(0);
@@ -55,7 +55,7 @@ function Tournament() {
           setAllRoomsData([]);
           setIsLoading(false);
         } else {
-          throw Error();
+          // throw Error();
         }
       }
     } catch (err) {
@@ -75,14 +75,16 @@ function Tournament() {
         method: 'GET',
       });
       if ((status === 200 || status === 201) && data) {
-        setRegMatches(data.rooms);
+        setRegMatches(
+          data.rooms?.sort((a, b) => +new Date(b.dateAndTime) - +new Date(a.dateAndTime)),
+        );
         setIsLoading(false);
       } else {
         if (status === 204) {
           setRegMatches([]);
           setIsLoading(false);
         } else {
-          throw Error();
+          // throw Error();
         }
       }
     } catch (err) {
@@ -156,7 +158,7 @@ function Tournament() {
         });
         setIsLoading(false);
       } else {
-        throw Error();
+        // throw Error();
       }
     } catch (error: any) {
       setIsLoading(false);
@@ -200,30 +202,14 @@ function Tournament() {
     }
   };
 
-  const getIdPass = (dateAndTime: string, roomUuid: string) => {
-    if (dateAndTime && roomUuid) {
-      setInterval(() => {
-        const REDUCE_TIME = 15 * 60 * 1000;
-        const currentTime = new Date().getTime();
-        let dateNumber = new Date(dateAndTime).getTime();
-        const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
-        if (currentTime >= reducedTime) {
-          setVisibleRooms([...visibleRooms, roomUuid]);
-        }
-      }, 60000);
-    }
-  };
-
   // const getIdPass = (dateAndTime: string, roomUuid: string) => {
   //   if (dateAndTime && roomUuid) {
   //     setInterval(() => {
-  //       const currentTime = moment();
-
-  //       const itemTime = moment(dateAndTime);
-
-  //       const differenceInMinutes = itemTime.diff(currentTime, 'minutes');
-
-  //       if (differenceInMinutes >= 15 || !itemTime.isSame(currentTime, 'day')) {
+  //       const REDUCE_TIME = 15 * 60 * 1000;
+  //       const currentTime = new Date().getTime();
+  //       let dateNumber = new Date(dateAndTime).getTime();
+  //       const reducedTime = new Date(dateNumber - REDUCE_TIME).getTime();
+  //       if (currentTime >= reducedTime) {
   //         setVisibleRooms([...visibleRooms, roomUuid]);
   //       }
   //     }, 60000);
@@ -292,6 +278,7 @@ function Tournament() {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
+                            marginLeft:"-12px"
                           }}
                         >
                           <button
@@ -318,7 +305,6 @@ function Tournament() {
                           allRoomsData
                             .slice(currentIndex1, currentIndex1 + 2)
                             .map((match: ITournament, index: number) => {
-                              getIdPass(match.dateAndTime, match.roomId);
                               return (
                                 <div
                                   style={{
@@ -357,7 +343,7 @@ function Tournament() {
                               border: 'none',
                               height: '40px',
                               width: '40px',
-                              marginLeft: '-32px',
+                              marginLeft: '-40px',
                               zIndex: 10,
                             }}
                             disabled={currentIndex1 === allRoomsData.length - 1}
@@ -372,7 +358,13 @@ function Tournament() {
               )}
             </div>
           </div>
-          <h1 className={styles.register_match_title}>Registered Matches</h1>
+          <h1 className={styles.register_match_title}>
+            Registered Matches{' '}
+            <HiRefresh
+              onClick={getRegisteredMatches}
+              style={{ cursor: 'pointer', color: 'orange', fontSize: "18px", marginLeft: "8px" }}
+            />
+          </h1>
 
           {!regMatches.length ? (
             <div className={styles.register_match}>There is no Registered Match till now</div>
@@ -380,7 +372,7 @@ function Tournament() {
             <div className={styles.container2}>
               <div className={styles.inner_cont}>
                 {regMatches?.length > 2 && (
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft:"12px" }}>
                     <button
                       onClick={goToPrevSlide}
                       style={{
@@ -388,7 +380,7 @@ function Tournament() {
                         border: 'none',
                         height: '40px',
                         width: '40px',
-                        marginRight: '-32px',
+                        marginRight: '-24px',
                         zIndex: 10,
                       }}
                       disabled={currentIndex === 0}
@@ -402,10 +394,8 @@ function Tournament() {
                     regMatches
                       .slice(currentIndex, currentIndex + numItemsToShow)
                       .map((match: ITournament, index: number) => {
-                        getIdPass(match.dateAndTime, match.roomUuid);
                         return (
                           <MiniMatchComponent
-                            visibleRooms={visibleRooms}
                             match={match}
                             key={index}
                           />

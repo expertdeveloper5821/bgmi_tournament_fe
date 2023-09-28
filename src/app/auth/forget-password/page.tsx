@@ -30,7 +30,6 @@ export default function ResetPassword(): JSX.Element {
       });
       router.push('/auth/mailpage');
 
-      console.log('Password recovery success:', response);
     } catch (error) {
       console.error('Password recovery error:', error);
     }

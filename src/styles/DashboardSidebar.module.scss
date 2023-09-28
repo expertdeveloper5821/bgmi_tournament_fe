@@ -131,7 +131,7 @@
   background: #003554;
   padding-bottom: 3px;
   width: 150px;
-  z-index: 1;
+  z-index: 999;
   height: 90vh;
   @media (max-width: $breakpoint-tab) {
     margin-top: 60px;
