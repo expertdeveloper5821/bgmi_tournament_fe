@@ -1,7 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
 import { configData } from './config';
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-const apiVersion = process.env.NEXT_PUBLIC_API_BASE_VER;
 export const axiosInstance: AxiosInstance = axios.create({
   baseURL: `${configData.api.url}/api/${configData.api.ver}`,
 });
