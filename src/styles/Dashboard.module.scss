@@ -28,9 +28,7 @@
     width: 100vw;
   }
 }
-.content__container {
-  // padding: 0 10px 0 10px;
-}
+
 .container {
   position: absolute;
 }
@@ -999,7 +997,7 @@ img.slides_image {
 }
 
 .gameCardFade {
-  content: "";
+  content: '';
   position: absolute;
   // z-index: 1;
   bottom: 0px;
