@@ -4,8 +4,9 @@ import styles from '@/styles/Dashboard.module.scss';
 import { useRouter } from 'next/navigation';
 import { formatDate, formatTime } from '../CommonComponent/moment';
 import { IMatchProps } from '@/app/userDashboard/types';
+import { getIdPass } from '@/app/userDashboard/constants';
 
-const MiniMatchComponent = ({ match, visibleRooms }: IMatchProps) => {
+const MiniMatchComponent = ({ match }: IMatchProps) => {
   const router = useRouter();
 
   const regMatchRedirect = (matchID: string) => {
@@ -66,14 +67,8 @@ const MiniMatchComponent = ({ match, visibleRooms }: IMatchProps) => {
           </div>
         </div>
         <div className={styles.id_password}>
-          <span>
-            Room Id:{' '}
-            {visibleRooms?.find((room) => room === match.roomUuid) ? match.roomId : '*****'}
-          </span>
-          <span>
-            Room password:{' '}
-            {visibleRooms?.find((room) => room === match.roomUuid) ? match.password : '*****'}
-          </span>
+          <span>Room Id: {getIdPass(match.dateAndTime) ? match.roomId : '*****'}</span>
+          <span>Room password: {getIdPass(match.dateAndTime) ? match.password : '****'}</span>
         </div>
       </div>
     </div>

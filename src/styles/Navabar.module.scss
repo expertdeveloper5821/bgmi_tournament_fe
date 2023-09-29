@@ -9,7 +9,7 @@
   align-items: center;
   padding: 40px 24px;
   background-color: $primary-color;
-  
+
   @media (max-width: $breakpoint-md) {
     padding: 40px 64px;
   }
@@ -21,7 +21,38 @@
     padding: 40px 12px 40px 64px;
   }
 }
-
+.profileContainer {
+  background: white;
+  border-radius: 8px;
+  color: black;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  width: 95%;
+  .profilename {
+    width: 100%;
+    text-align: center;
+    height: auto;
+    word-wrap: break-word;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .profileEmail {
+    width: 100%;
+    text-align: center;
+    height: auto;
+    font-size: 16px;
+    word-wrap: break-word;
+    font-size: 12px;
+  }
+  .logoutBtn {
+    border: none;
+    width: 100%;
+    padding: 4px 9px;
+    margin-top: 12px;
+  }
+}
 .navbarbrand {
   .page_title {
     font-size: 28px;
