@@ -228,7 +228,7 @@
   justify-content: flex-start;
   gap: 64px;
   margin: 10px 0px;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   width: 90%;
 
   @media (max-width: $breakpoint-lg) {
@@ -553,7 +553,7 @@ img.slides_image {
   }
 
   @media (max-width: $breakpoint-md) {
-    margin-left: 126px;
+    margin-left: 80px;
   }
 }
 
@@ -826,7 +826,7 @@ img.slides_image {
 }
 
 .main_winning_pool {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -836,7 +836,7 @@ img.slides_image {
   align-items: center;
   background-color: $bs-backgroundblurr;
   backdrop-filter: blur(8px);
-  z-index: 1;
+  z-index: 999;
 }
 
 .inner_winning_pool {
@@ -999,6 +999,7 @@ img.slides_image {
   align-items: center;
   padding: 12px 0px;
   width: 96%;
+  overflow: hidden;
 }
 
 .gameCardFade {

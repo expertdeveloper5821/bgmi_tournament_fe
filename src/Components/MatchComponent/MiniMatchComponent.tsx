@@ -15,7 +15,10 @@ const MiniMatchComponent = ({ match }: IMatchProps) => {
 
   return (
     <div className={styles.container3}>
-      <div className={styles.reg_match_image_container} style={{ position: 'relative' }}>
+      <div
+        className={styles.reg_match_image_container}
+        style={{ position: 'relative', overflow: 'hidden', borderRadius: '8px' }}
+      >
         <Image
           src={match?.mapImg || '../assests/registeredmatches.svg'}
           alt={`${styles.slide}`}

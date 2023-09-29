@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { sendRequest } from '@/utils/axiosInstanse';
 import styles from '@/styles/Dashboard.module.scss';
 import withAuth from '@/Components/HOC/WithAuthHoc';
@@ -15,7 +14,6 @@ import {
   CONTEST_SUCCESS_MESSAGE,
   NETWORK_ERR_MESSAGE,
   USER_REGISTERED_MESSAGE,
-  formatDateAndTime,
   initialValues,
 } from '../constants';
 import MiniMatchComponent from '@/Components/MatchComponent/MiniMatchComponent';
@@ -24,8 +22,8 @@ import { HiRefresh } from 'react-icons/hi';
 import Loading from '../loading';
 
 function Tournament() {
-  const [allRoomsData, setAllRoomsData] = useState<any>([]); //types
-  const [regMatches, setRegMatches] = useState<any>(''); //types
+  const [allRoomsData, setAllRoomsData] = useState<[ITournament] | []>([]);
+  const [regMatches, setRegMatches] = useState<[ITournament] | []>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [matchDetails, setMatchDetails] = useState<ITournament>(initialValues);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -39,24 +37,13 @@ function Tournament() {
         method: 'GET',
       });
       if ((status === 200 || status === 201) && data.length > 0) {
-        const firstTournament = data[0];
         setAllRoomsData(data);
-        setMatchDetails({
-          ...data[0],
-          dateAndTime: formatDateAndTime(
-            firstTournament.dateAndTime,
-            firstTournament.dateAndTime,
-            'LT',
-          ),
-        });
         setIsLoading(false);
+        setMatchDetails(data[0]);
       } else {
-        if (status === 204) {
-          setAllRoomsData([]);
-          setIsLoading(false);
-        } else {
-          // throw Error();
-        }
+        setMatchDetails(initialValues);
+        setAllRoomsData([]);
+        setIsLoading(false);
       }
     } catch (err) {
       setIsLoading(false);
@@ -125,18 +112,13 @@ function Tournament() {
   }, []);
 
   const updateMainData = (match: ITournament) => {
-    const { dateAndTime } = match;
-    const updatedFormat = formatDateAndTime(dateAndTime, dateAndTime, 'LT');
-    setMatchDetails({
-      ...match,
-      dateAndTime: updatedFormat,
-    });
+    setMatchDetails(match);
   };
 
   const addRegMatch = async (match: ITournament) => {
     setIsLoading(true);
     try {
-      const userData: any = JSON.parse(localStorage.getItem('userData'));
+      const userData = JSON.parse(localStorage.getItem('userData'));
       const { status } = await sendRequest('payment/create-payment', {
         method: 'POST',
         data: {
@@ -160,7 +142,7 @@ function Tournament() {
       } else {
         // throw Error();
       }
-    } catch (error: any) {
+    } catch (error) {
       setIsLoading(false);
       toast.error(USER_REGISTERED_MESSAGE, {
         position: 'top-right',
@@ -278,7 +260,7 @@ function Tournament() {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            marginLeft:"-12px"
+                            marginLeft: '-6px',
                           }}
                         >
                           <button
@@ -343,7 +325,7 @@ function Tournament() {
                               border: 'none',
                               height: '40px',
                               width: '40px',
-                              marginLeft: '-40px',
+                              marginLeft: '-44px',
                               zIndex: 10,
                             }}
                             disabled={currentIndex1 === allRoomsData.length - 1}
@@ -362,7 +344,7 @@ function Tournament() {
             Registered Matches{' '}
             <HiRefresh
               onClick={getRegisteredMatches}
-              style={{ cursor: 'pointer', color: 'orange', fontSize: "18px", marginLeft: "8px" }}
+              style={{ cursor: 'pointer', color: 'orange', fontSize: '18px', marginLeft: '8px' }}
             />
           </h1>
 
@@ -372,7 +354,14 @@ function Tournament() {
             <div className={styles.container2}>
               <div className={styles.inner_cont}>
                 {regMatches?.length > 2 && (
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft:"12px" }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginLeft: '12px',
+                    }}
+                  >
                     <button
                       onClick={goToPrevSlide}
                       style={{
@@ -392,14 +381,9 @@ function Tournament() {
                 <div className={styles.slideContainer}>
                   {regMatches &&
                     regMatches
-                      .slice(currentIndex, currentIndex + numItemsToShow)
+                      .slice(currentIndex, currentIndex + 2)
                       .map((match: ITournament, index: number) => {
-                        return (
-                          <MiniMatchComponent
-                            match={match}
-                            key={index}
-                          />
-                        );
+                        return <MiniMatchComponent match={match} key={index} />;
                       })}
                 </div>
 
@@ -412,7 +396,7 @@ function Tournament() {
                         border: 'none',
                         height: '40px',
                         width: '40px',
-                        marginLeft: '-32px',
+                        marginLeft: '-44px',
                         zIndex: 10,
                       }}
                       disabled={currentIndex === regMatches.length - numItemsToShow}
