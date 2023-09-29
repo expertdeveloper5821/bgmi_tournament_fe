@@ -22,7 +22,7 @@ const MatchComponent = ({
     <>
       <span className={styles.register_match_gamename}>{gameName}</span>
       <span className={styles.winning_prize}>
-        Date & Time: {formatDateAndTime(dateAndTime, dateAndTime, 'LT')}
+        Date & Time: {dateAndTime}
       </span>
       <div className={styles.winnings}>
         <div>
