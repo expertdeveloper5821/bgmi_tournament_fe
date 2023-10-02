@@ -20,8 +20,7 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-export async function sendRequest(path: string, opts: AxiosRequestConfig) {
-  // console.log('check opts-', {...opts.headers});
+export async function sendRequest(path: string, opts: AxiosRequestConfig = {}) {
   const headers = {
     ...opts?.headers,
     'Content-Type': 'application/json; charset=UTF-8',
@@ -34,11 +33,15 @@ export async function sendRequest(path: string, opts: AxiosRequestConfig) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const response = await axiosInstance({
-    method: opts.method,
-    url: path,
-    data: opts.data,
-    headers: headers,
-  });
-  return response;
+  try {
+    const response = await axiosInstance({
+      method: opts.method,
+      url: path,
+      data: opts.data,
+      headers: headers,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
 }

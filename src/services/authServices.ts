@@ -4,7 +4,7 @@ import { SignupFormValuesType } from '@/Components/pageComponents/auth/authInter
 
 export const signUpService = async (data: SignupFormValuesType) => {
   try {
-    const res: any = await sendRequest(serviceUrls.signup, {
+    const res = await sendRequest(serviceUrls.signup, {
       method: 'POST',
       data,
     });
@@ -12,7 +12,6 @@ export const signUpService = async (data: SignupFormValuesType) => {
       return res;
     } else throw Error();
   } catch (err) {
-    console.error('Error in signupService => ', err);
     return err;
   }
 };

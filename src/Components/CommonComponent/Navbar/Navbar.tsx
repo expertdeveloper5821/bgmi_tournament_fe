@@ -136,7 +136,7 @@ export function Navbar() {
                 isOpen={isPopOpen}
                 setIsOpen={setIsPopOpen}
                 content={
-                  <div>
+                  <div style={{ marginRight: '16px' }}>
                     <div className={styles.profileContainer}>
                       <h4 className={styles.profilename}>{nameData}</h4>
                       <p className={styles.profileEmail}>{userData}</p>
