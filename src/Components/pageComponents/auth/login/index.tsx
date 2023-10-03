@@ -1,18 +1,23 @@
 'use client';
-import React, { useState, useEffect, ChangeEvent, useContext } from 'react';
-import { useFormik, FormikErrors, FormikTouched, FormikValues, FormikHelpers } from 'formik';
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import styles from '@/styles/auth.module.scss';
+import { useFormik, FormikHelpers } from 'formik';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
-import styles from '@/styles/auth.module.scss';
 import { sendRequest } from '../../../../utils/axiosInstanse';
-import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
 import { decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
 import { LoginFormValuesType } from '../authInterfaces';
-import { SignupSchema, loginSchema } from '@/utils/schema';
+import { loginSchema } from '@/utils/schema';
+
+
+const initialValues: LoginFormValuesType = {
+    email: '',
+    password: '',
+};
 
 const LoginForm = () => {
     const [rememberMe, setRememberMe] = useState<boolean>(false);
@@ -21,7 +26,6 @@ const LoginForm = () => {
     const [error, setError] = useState<string>('');
     const [getToken, setGetToken] = useState<any>('');
     const { userInfo, updateUserInfo } = useUserContext();
-    console.log('usering=', userInfo);
     const router = useRouter();
 
     function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
@@ -36,12 +40,7 @@ const LoginForm = () => {
         if (token) {
             handleRedirect(token);
         }
-    });
-
-    const initialValues: LoginFormValuesType = {
-        email: '',
-        password: '',
-    };
+    }, []);
 
     const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
         useFormik({
@@ -98,12 +97,10 @@ const LoginForm = () => {
     const handleRedirect = (token: any) => {
         if (token) {
             const decodedToken: any = decodeJWt(token);
-            console.log('tokennnn', decodedToken.role.role);
             if (decodedToken.role.role === 'admin') {
                 router.push('/adminDashboard/room');
             } else if (decodedToken.role.role === 'user') {
                 router.push('/userDashboard/tournament');
-                // router.push(configData.web.cominSoonUrl)
             } else {
                 router.push('/spectatorDashboard');
             }
@@ -280,18 +277,6 @@ const LoginForm = () => {
                     {isLoading ? 'Loading...' : 'Log in'}
                 </Button>
             </div>
-            {/* <div className={styles.signin_withgoogle}>
-                <FcGoogle />
-                <Button
-                  disabled={isLoading}
-                  className={styles.googleButton}
-                  variant="primary"
-                  type="button"
-                  onClick={handleGoogleLogin}
-                >
-                  {isLoading ? 'Loading...' : 'Sign in with Google'}
-                </Button>
-              </div> */}
             <div className={styles.signin}>
                 <span className={styles.forgotDesc}>
                     <Link href="/auth/forget-password">Forget your Password?</Link>
