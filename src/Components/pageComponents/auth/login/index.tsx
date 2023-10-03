@@ -12,12 +12,11 @@ import { decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
 import { LoginFormValuesType } from '../authInterfaces';
 import { loginSchema } from '@/utils/schema';
+import { GOOGLE_CALLBACK_URL } from '@/services/serviceUrls'
+import { loginService } from '@/services/authServices';
 
 
-const initialValues: LoginFormValuesType = {
-    email: '',
-    password: '',
-};
+
 
 const LoginForm = () => {
     const [rememberMe, setRememberMe] = useState<boolean>(false);
@@ -28,20 +27,38 @@ const LoginForm = () => {
     const { userInfo, updateUserInfo } = useUserContext();
     const router = useRouter();
 
-    function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
-        setRememberMe(event.target.checked);
-    }
+    const initialValues: LoginFormValuesType = {
+        email: '',
+        password: '',
+    };
 
     useEffect(() => {
         const rememberMeValue = localStorage.getItem('rememberMe') === 'true';
         setRememberMe(rememberMeValue);
 
-        const token = localStorage.getItem('jwtToken');
-        if (token) {
-            handleRedirect(token);
+        const storedEmail = localStorage.getItem('email');
+        if (storedEmail && rememberMeValue) {
+            setFieldValue('email', storedEmail);
         }
     }, []);
 
+    function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
+        const checked = event.target.checked;
+        console.log("checked====>", checked)
+        setRememberMe(event.target.checked);
+
+        if (checked) {
+            localStorage.setItem('rememberMe', 'true');
+            console.log('rememberMe set to true');
+            localStorage.setItem('email', values.email);
+            console.log(`email set to ${values.email}`);
+        } else {
+            localStorage.removeItem('rememberMe');
+            console.log('rememberMe removed');
+            localStorage.removeItem('email');
+            console.log('email removed');
+        }
+    }
     const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
         useFormik({
             initialValues,
@@ -53,22 +70,16 @@ const LoginForm = () => {
                     const expirationDate = new Date();
                     expirationDate.setDate(expirationDate.getDate() + 30);
                     localStorage.setItem('email', email);
-                    localStorage.setItem('password', password);
                     localStorage.setItem('rememberMe', 'true');
                 } else {
                     localStorage.removeItem('email');
-                    localStorage.removeItem('password');
                     localStorage.removeItem('rememberMe');
                 }
 
                 // manual login
                 try {
-                    const response = await sendRequest('user/login', {
-                        method: 'POST',
-                        data: { email, password },
-                    });
+                    const response = await loginService({ email, password });
 
-                    setIsLoading(false);
                     if (response.status === 200) {
                         const userDetails = {
                             name: response?.data?.userData?.fullName,
@@ -85,7 +96,6 @@ const LoginForm = () => {
                         setError('Invalid email or password');
                     }
                 } catch (error: any) {
-                    console.log('Error in Login API => ', error);
                     setIsLoading(false);
                     setError('Login Failed, Please try again later');
                 } finally {
@@ -153,11 +163,10 @@ const LoginForm = () => {
         setIsLoading(true);
 
         try {
-            window.location.href = 'http://localhost:5000/auth/google/callback';
+            window.location.href = GOOGLE_CALLBACK_URL;
         } catch (error) {
             setIsLoading(false);
             setError('Google Sign-In failed');
-            console.error('Error during Google Sign-In:', error);
         }
     };
 
@@ -218,6 +227,7 @@ const LoginForm = () => {
                 </label>
                 <Input
                     id="email"
+                    disabled={isLoading}
                     className={styles.email_wrapper}
                     type="email"
                     name="email"
@@ -241,6 +251,7 @@ const LoginForm = () => {
                 </label>
                 <Input
                     id="password"
+                    disabled={isLoading}
                     className={styles.password_wrapper}
                     type="password"
                     name="password"
@@ -278,16 +289,16 @@ const LoginForm = () => {
                 </Button>
             </div>
             <div className={styles.signin}>
-                <span className={styles.forgotDesc}>
+                <div className={styles.forgotDesc}>
                     <Link href="/auth/forget-password">Forget your Password?</Link>
-                </span>
+                </div>
                 <div className={styles.sign_accout}>
-                    <span className={styles.accout_in}>Don't have an accout?</span>
-                    <span className={styles.forgotDescsec}>
+                    <div className={styles.accout_in}>Don't have an accout?</div>
+                    <div className={styles.forgotDescsec}>
                         <Link className={styles.link_sign} href="/auth/signup">
                             Signup
                         </Link>
-                    </span>
+                    </div>
                 </div>
             </div>
         </form>

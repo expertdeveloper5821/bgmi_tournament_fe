@@ -1,4 +1,3 @@
-
 'use client';
 import AuthContainer from '@/Components/pageComponents/auth/authContainer';
 import LoginForm from '@/Components/pageComponents/auth/login';
