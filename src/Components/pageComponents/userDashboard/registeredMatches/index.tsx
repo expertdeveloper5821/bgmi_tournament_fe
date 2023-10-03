@@ -18,8 +18,7 @@ const RegisteredMatch = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const token: string = localStorage.getItem('jwtToken');
-    dispatch(getMatchDetails({ matchID, token }));
+    dispatch(getMatchDetails({ matchID }));
   }, []);
 
   return (

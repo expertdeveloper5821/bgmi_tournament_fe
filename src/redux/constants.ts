@@ -33,7 +33,7 @@ export const matchDataInitialState = {
   thirdWin: '',
 };
 
-export const userDashboardinitialState: IUserDashboard = {
+export const userDashboardInitialState: IUserDashboard = {
   allRooms: [],
   allRoomsLoading: false,
   allRoomsError: null,

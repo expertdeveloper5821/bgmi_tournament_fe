@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { IRegRoomsResponse } from '../types';
-import { initialValues, userDashboardinitialState } from '../constants';
+import { initialValues, userDashboardInitialState } from '../constants';
 import {
   getAllRooms,
   getMatchDetails,
@@ -10,7 +9,7 @@ import {
 
 const userDashboardSlice = createSlice({
   name: 'userDashboard',
-  initialState: userDashboardinitialState,
+  initialState: userDashboardInitialState,
   reducers: {
     onSelectMatch(state, action) {
       state.selectedMatch = action.payload;
@@ -34,9 +33,9 @@ const userDashboardSlice = createSlice({
         state.allRoomsLoading = false;
         state.allRoomsError = null;
       })
-      .addCase(getAllRooms.rejected, (state) => {
+      .addCase(getAllRooms.rejected, (state, action) => {
         state.allRoomsLoading = false;
-        // state.allRoomsError = action.payload?.message || ""; //TODO: Add error message from api
+        state.allRoomsError = action.payload as string;
       })
       .addCase(getRegRooms.pending, (state) => {
         state.regRoomsLoading = true;
@@ -49,10 +48,9 @@ const userDashboardSlice = createSlice({
         state.regRoomsLoading = false;
         state.regRoomsError = null;
       })
-      .addCase(getRegRooms.rejected, (state) => {
+      .addCase(getRegRooms.rejected, (state, action) => {
         state.regRoomsLoading = false;
-        // const { message } = action.payload as IRegRoomsResponse;
-        // state.regRoomsError = message || "Something went wrong!";
+        state.regRoomsError = action.payload as string;
       })
       .addCase(joinMatch.pending, (state) => {
         state.joinMatchLoading = true;
@@ -63,9 +61,9 @@ const userDashboardSlice = createSlice({
         state.joinMatchLoading = false;
         state.joinMatchError = null;
       })
-      .addCase(joinMatch.rejected, (state) => {
+      .addCase(joinMatch.rejected, (state, action) => {
         state.joinMatchLoading = false;
-        // state.joinMatchError = action.payload;
+        state.joinMatchError = action.payload as string;
       })
       .addCase(getMatchDetails.pending, (state) => {
         state.matchDataLoading = true;
@@ -76,9 +74,9 @@ const userDashboardSlice = createSlice({
         state.matchDataLoading = false;
         state.matchDataError = null;
       })
-      .addCase(getMatchDetails.rejected, (state) => {
+      .addCase(getMatchDetails.rejected, (state, action) => {
         state.matchDataLoading = false;
-        // state.matchDataError = action.payload?.message
+        state.matchDataError = action.payload as string;
       });
   },
 });

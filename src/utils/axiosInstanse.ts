@@ -42,6 +42,6 @@ export async function sendRequest(path: string, opts: AxiosRequestConfig = {}) {
     });
     return response;
   } catch (error) {
-    return error;
+    return error?.message || error?.response?.data?.message;
   }
 }

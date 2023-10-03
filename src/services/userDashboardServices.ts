@@ -21,9 +21,8 @@ export const joinMatchService = async (data: IJoinMatchPayload) => {
   });
 };
 
-export const getMatchDetailsService = async (matchID: string, token: string) => {
+export const getMatchDetailsService = async (matchID: string) => {
   return await sendRequest(`${serviceUrls.allRooms}/${matchID}`, {
     method: 'GET',
-    headers: { Authorization: `Bearer ${token}` },
   });
 };
