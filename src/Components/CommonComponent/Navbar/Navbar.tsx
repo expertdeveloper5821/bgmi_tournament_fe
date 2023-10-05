@@ -26,7 +26,7 @@ export function Navbar(props: INavbar) {
   }
   const router = useRouter();
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     try {
       localStorage.removeItem('jwtToken')
       localStorage.removeItem('userData')

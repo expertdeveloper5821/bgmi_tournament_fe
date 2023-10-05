@@ -28,7 +28,6 @@ export function Navbar(props: INavbar) {
 
   const handleLogout = () => {
     try {
-      // localStorage.clear();
       localStorage.removeItem('jwtToken')
       localStorage.removeItem('userData')
 
@@ -39,9 +38,14 @@ export function Navbar(props: INavbar) {
     }
   };
 
+  // const handleLogout = () => {
+  //   localStorage.removeItem('jwtToken');
+  //   localStorage.removeItem('userData');
+  //   router.push('/');
+  // };
+
   const getAlldata = async () => {
     const userData = JSON.parse(localStorage.getItem('userData'));
-
     setUserData(userData.email);
     setNameData(userData.fullName);
     let initials = '';

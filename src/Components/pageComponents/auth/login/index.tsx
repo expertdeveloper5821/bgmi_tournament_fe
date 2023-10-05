@@ -16,8 +16,6 @@ import { GOOGLE_CALLBACK_URL } from '@/services/serviceUrls'
 import { loginService } from '@/services/authServices';
 
 
-
-
 const LoginForm = () => {
     const [rememberMe, setRememberMe] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -44,19 +42,14 @@ const LoginForm = () => {
 
     function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
         const checked = event.target.checked;
-        console.log("checked====>", checked)
         setRememberMe(event.target.checked);
 
         if (checked) {
             localStorage.setItem('rememberMe', 'true');
-            console.log('rememberMe set to true');
             localStorage.setItem('email', values.email);
-            console.log(`email set to ${values.email}`);
         } else {
             localStorage.removeItem('rememberMe');
-            console.log('rememberMe removed');
             localStorage.removeItem('email');
-            console.log('email removed');
         }
     }
     const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
