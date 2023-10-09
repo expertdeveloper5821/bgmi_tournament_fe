@@ -40,8 +40,6 @@ const Room = () => {
   const [Spect, setSpect] = useState<RoomData[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [roomIdToUpdate, setRoomIdToUpdate] = useState<any>({});
-  console.log("roomIdToUpdate==()=> ", roomIdToUpdate)
-  console.log("Spect", Spect);
 
   const columns: string[] = [
     'Room Id',
@@ -63,7 +61,6 @@ const Room = () => {
       const spectatorResponse = await sendRequest('room/user-rooms', {
         method: 'GET',
       });
-      console.log('check user ==>', spectatorResponse);
       setSpect(spectatorResponse.data);
     } catch (error: any) {
       console.log('check error', error);
@@ -86,9 +83,6 @@ const Room = () => {
               setShowModal={setShowModal}
               roomIdToUpdate={roomIdToUpdate}
               setRoomIdToUpdate={setRoomIdToUpdate}
-
-            // setSpect={setSpect}
-            // Spect={Spect}
             />
           </div>
 
