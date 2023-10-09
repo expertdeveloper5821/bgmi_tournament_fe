@@ -40,6 +40,9 @@ const Room = () => {
   const [Spect, setSpect] = useState<RoomData[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [roomIdToUpdate, setRoomIdToUpdate] = useState<any>({});
+  console.log("roomIdToUpdate==()=> ", roomIdToUpdate)
+  console.log("Spect", Spect);
+
   const columns: string[] = [
     'Room Id',
     'Game Name',
@@ -69,7 +72,8 @@ const Room = () => {
 
   useEffect(() => {
     getAllSpectator();
-  }, []);
+  }, [getAllSpectator]);
+
   return (
     <div className={styles.main_container} id="mainLayoutContainerInner">
       <div className={styles.inner_main_container}>
@@ -82,6 +86,9 @@ const Room = () => {
               setShowModal={setShowModal}
               roomIdToUpdate={roomIdToUpdate}
               setRoomIdToUpdate={setRoomIdToUpdate}
+
+            // setSpect={setSpect}
+            // Spect={Spect}
             />
           </div>
 
@@ -154,3 +161,4 @@ const Room = () => {
 };
 
 export default withAuth(Room);
+
