@@ -44,7 +44,7 @@ const initial: FormCreate = {
 };
 
 const Form = ({ ...props }) => {
-  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate, Spect, setSpect } = props;
+  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate, Spect, setSpect, callSpecatator } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [image, setImage] = useState<File | null>(null);
@@ -96,6 +96,7 @@ const Form = ({ ...props }) => {
           );
           if (response.status === 200) {
             resetForm();
+            callSpecatator();
             setIsLoading(false);
             toast.success(response.data.message);
             setShowModal(false);
@@ -113,6 +114,19 @@ const Form = ({ ...props }) => {
         }
       },
     });
+
+  const getAllSpectator = async () => {
+    try {
+      const spectatorResponse = await sendRequest('room/user-rooms', {
+        method: 'GET',
+      });
+      setSpect(spectatorResponse.data);
+    } catch (error: any) {
+      console.log('check error', error);
+    }
+  };
+
+
 
   useEffect(() => {
     if (roomIdToUpdate) {

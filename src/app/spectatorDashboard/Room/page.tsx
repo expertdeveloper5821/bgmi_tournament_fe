@@ -69,7 +69,7 @@ const Room = () => {
 
   useEffect(() => {
     getAllSpectator();
-  }, [getAllSpectator]);
+  }, []);
 
   return (
     <div className={styles.main_container} id="mainLayoutContainerInner">
@@ -83,6 +83,7 @@ const Room = () => {
               setShowModal={setShowModal}
               roomIdToUpdate={roomIdToUpdate}
               setRoomIdToUpdate={setRoomIdToUpdate}
+              callSpecatator={() => getAllSpectator()}
             />
           </div>
 
