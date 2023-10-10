@@ -2,16 +2,76 @@
 @import './variable.scss';
 
 .container {
-  border: none !important;
   width: auto;
   height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 40px 24px;
+  background-color: $primary-color;
+
+  @media (max-width: $breakpoint-md) {
+    padding: 40px 64px;
+  }
+  @media (max-width: $breakpoint-sm) {
+    height: 42px;
+  }
 
   @media (max-width: $breakpoint-xs) {
-    padding: 0 0 0 10px;
+    padding: 40px 12px 40px 64px;
+  }
+}
+.profileContainer {
+  background: white;
+  border-radius: 8px;
+  color: black;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  width: 95%;
+  .profilename {
+    width: 100%;
+    text-align: center;
+    height: auto;
+    word-wrap: break-word;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .profileEmail {
+    width: 100%;
+    text-align: center;
+    height: auto;
+    font-size: 16px;
+    word-wrap: break-word;
+    font-size: 12px;
+  }
+  .logoutBtn {
+    border: none;
+    width: 100%;
+    padding: 4px 9px;
+    margin-top: 12px;
+  }
+}
+.navbarbrand {
+  .page_title {
+    font-size: 28px;
+    font-weight: 800;
+    padding: 13px 0px;
+    @media (max-width: $breakpoint-xSmall) {
+      padding-left: 1rem;
+      font-size: 19px;
+    }
+  }
+
+  .fullname_title {
+    color: #ff7a00;
+    font-size: 27px;
+    font-weight: 700;
+    @media (max-width: $breakpoint-xSmall) {
+      // padding-left: 1rem;
+      font-size: 19px;
+    }
   }
 }
 
@@ -25,11 +85,10 @@
 }
 
 .navitem {
-  margin-right: 20px;
+  // margin-right: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
- 
 }
 
 .setting {
@@ -75,6 +134,7 @@
   font-size: 16px;
   font-family: Century Gothic;
   font-weight: 800;
+  text-transform: capitalize;
 }
 .user_name_title {
   color: $primary-color;
@@ -138,8 +198,8 @@
   flex-direction: column;
   margin: 5px 2px;
   background: white;
-    padding: 10px;
-    border-radius: 5px;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .gmail {
@@ -172,8 +232,8 @@
   text-align: center;
   margin-top: 1rem;
   font-size: 12px;
- // border-top: 1px solid #dcdcdc;
- // padding-top: 10px;
+  // border-top: 1px solid #dcdcdc;
+  // padding-top: 10px;
   color: $primary-color;
 }
 
@@ -202,33 +262,35 @@ h1 .user_name_heading {
   font-size: 16px;
   font-weight: 700;
   line-height: 19.62px;
+  text-transform: capitalize;
 }
 
 .inner_logout {
   cursor: pointer;
 }
-.navprofile{
-background: #898989;
-padding: 8px 12px;
-border-radius: 27px;
-cursor: pointer;
+.navprofile {
+  background: #898989;
+  padding: 8px 12px;
+  border-radius: 27px;
+  cursor: pointer;
 }
 
-.dropdownprofileimage{
+.dropdownprofileimage {
   background: #898989;
-border-radius: 24px;
-    width: 36px;
-    height: 36px;
-    text-align: center;
-    padding-top: 8px;}
+  border-radius: 24px;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  padding-top: 8px;
+}
 
-    .popover{
-height: 126px;
-    }
-
-    .popover_show{
-      div:nth-child(2) {
-        height: 15px !important;
-        background: none !important;
-      }
-    }
+.popover {
+  height: 126px;
+}
+.popover_show {
+  div:nth-child(2) {
+    height: 15px !important;
+    background: none !important;
+    left: -50px;
+  }
+}

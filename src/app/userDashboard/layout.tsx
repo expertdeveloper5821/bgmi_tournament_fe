@@ -1,15 +1,10 @@
 'use client';
-import {Inter} from 'next/font/google';
-import Sidebar from '@/Components/SideBar/Sidebar';
-import styles from '../../styles/Dashboard.module.scss';
-import {
-  FaTh,
-  FaUserAlt,
-  FaRegChartBar,
-  FaCommentAlt,
-  FaVideo,
-} from 'react-icons/fa';
-const inter = Inter({subsets: ['latin']});
+import { Inter } from 'next/font/google';
+import styles from '@/styles/Dashboard.module.scss';
+import { FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt, FaVideo } from 'react-icons/fa';
+import Sidebar from '@/Components/CommonComponent/SideBar/Sidebar';
+import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
+const inter = Inter({ subsets: ['latin'] });
 
 const dynamicMenuItems = [
   {
@@ -43,11 +38,15 @@ const dynamicMenuItems = [
   //   icon: <FaCommentAlt />,
   // },
 ];
-export default function RootLayout({children}: {children: React.ReactNode}) {
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={styles.main_container}>
+    <main className={styles.main_container} id="mainLayoutContainer">
       <Sidebar menuItem={dynamicMenuItems} />
-      {children}
-    </div>
+      <div>
+        <Navbar />
+        <div className={styles.content__container}>{children}</div>
+      </div>
+    </main>
   );
 }

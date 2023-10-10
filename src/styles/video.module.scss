@@ -94,29 +94,28 @@
     position: absolute;
     left: 580px;
     top: 42%;
-}
- 
+  }
 }
 .selectContainer {
   position: relative;
 }
-.sortIcon{
+.sortIcon {
   position: absolute;
   left: 13px;
   top: 16px;
 }
-.arrowicon{
+.arrowicon {
   position: absolute;
   right: 10px;
   top: 13px;
 }
-.reviewSection{
+.reviewSection {
   width: 30%;
 }
-.pagination{
+.pagination {
   display: flex;
-  justify-content:flex-end !important;
-  margin-top:6%;
+  justify-content: flex-end !important;
+  margin-top: 6%;
   color: #ff7a00;
   @media (max-width: $breakpoint-xs) {
     justify-content: center !important;

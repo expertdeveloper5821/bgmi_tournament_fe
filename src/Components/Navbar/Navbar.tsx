@@ -1,14 +1,14 @@
 'use client';
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import styles from '../../styles/Navabar.module.scss';
+import styles from '@/styles/Navabar.module.scss';
 import { useRouter } from 'next/navigation';
 // @ts-ignore
 import { Avatar, Popover } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
-import { sendRequest } from '@/services/auth/auth_All_Api';
+import { sendRequest } from '@/utils/axiosInstanse';
 
 interface INavbar {
-  setUserName?: Dispatch<SetStateAction<string>>
+  setUserName?: Dispatch<SetStateAction<string>>;
 }
 
 export function Navbar(props: INavbar) {
@@ -16,11 +16,10 @@ export function Navbar(props: INavbar) {
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const [useData, setUseData] = useState<string>('');
-  const [namData, setNamData] = useState<string>('');
+  const [userData, setUserData] = useState<string>('');
+  const [nameData, setNameData] = useState<string>('');
+  const [initialsName, setInitialsName] = useState<string>('');
   const [pofile, setPofile] = useState<string>('');
-
-  const { setUserName = () => { } } = props;
 
   function handleClosePopover() {
     setIsOpen(false);
@@ -38,31 +37,35 @@ export function Navbar(props: INavbar) {
   };
 
   const getAlldata = async () => {
-    const token = localStorage.getItem('jwtToken');
-   
-    const Response = await sendRequest('user/getuser', {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` },
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    setUserData(userData.email);
+    setNameData(userData.fullName);
+    let initials = '';
+    userData?.fullName?.split(' ')?.forEach((initial) => {
+      if (initials.length > 0) {
+        initials = `${initials} ${initial.charAt(0).toUpperCase()}`;
+      } else {
+        initials = initial.charAt(0).toUpperCase();
+      }
     });
-
-    setUseData(Response.data.data.email);
-    setNamData(Response.data.data.userName);
-    setUserName(Response.data.data.fullName);
-    setPofile(Response.data.data.profilePic);
-
+    setInitialsName(initials);
+    setPofile(userData.profilePic);
   };
 
   useEffect(() => {
     getAlldata();
   }, []);
-
   return (
     <header>
-      <div className={styles.maincontainer}>
-        <nav className={styles.container}>
-          <div className={styles.navbarbrand}></div>
-          <ul className={styles.navbarnav}>
-            <li className={styles.navitem}>
+      <nav className={styles.container}>
+        <div className={styles.navbarbrand}>
+          <h1 className={styles.page_title}>
+            Welcome <span className={styles.fullname_title}>{nameData}</span>
+          </h1>
+        </div>
+        <ul className={styles.navbarnav}>
+          {/* <li className={styles.navitem}>
               <Popover
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
@@ -121,32 +124,32 @@ export function Navbar(props: INavbar) {
                 width="300px"
                 height="350px"
               >
-                {/* <Image
+                <Image
                   className={styles.notification}
                   src="../assests/notification.svg"
                   alt="notification"
                   onClick={() => setIsOpen(true)}
                   width={20}
                   height={20}
-                /> */}
+                />
               </Popover>
-            </li>
-            <li className={styles.navitem}>
-              <Popover
+            </li> */}
+          <li className={styles.navitem}>
+            <Popover
               className={styles.popover_show}
-                isOpen={isPopOpen}
-                setIsOpen={setIsPopOpen}
-                content={
-                  <div className={styles.myprofilesection}>
-                    <div className={styles.userdetails}>
-                      <p className={styles.dropdownprofileimage}>{namData.charAt(0).toUpperCase()}</p>
-                      <div className={styles.username_details}>
-                        <h1 className={styles.user_name_heading}>{namData}</h1>
-                        <span className={styles.gmail}>{useData}</span>
-                      </div>
+              isOpen={isPopOpen}
+              setIsOpen={setIsPopOpen}
+              content={
+                <div className={styles.myprofilesection}>
+                  <div className={styles.userdetails}>
+                    <p className={styles.dropdownprofileimage}>{initialsName}</p>
+                    <div className={styles.username_details}>
+                      <h1 className={styles.user_name_heading}>{nameData}</h1>
+                      <span className={styles.gmail}>{userData}</span>
                     </div>
+                  </div>
 
-                    {/* <div className={styles.profilesection}>
+                  {/* <div className={styles.profilesection}>
                       <div className={styles.flexcol}>
                         <Image
                           className={styles.profileicon}
@@ -178,41 +181,41 @@ export function Navbar(props: INavbar) {
                         <div className={styles.myprofile}>Notification</div>
                       </div>
                     </div> */}
-                    <div className={styles.logoutbutton}>
-                      <div
-                        className={styles.inner_logout}
+                  <div className={styles.logoutbutton}>
+                    <div className={styles.inner_logout} onClick={handleLogout}>
+                      <Image
+                        className={styles.logoutbuttonicon}
+                        src="../assests/logouticon.svg"
+                        alt="logouticon"
                         onClick={handleLogout}
-                      >
-                        <Image
-                          className={styles.logoutbuttonicon}
-                          src="../assests/logouticon.svg"
-                          alt="logouticon"
-                          onClick={handleLogout}
-                          width={20}
-                          height={20}
-                        />
-                        Logout
-                      </div>
+                        width={20}
+                        height={20}
+                      />
+                      Logout
                     </div>
                   </div>
-                }
-                height="238px"
-                placement="bottom"
-                width="224px"
-              >
-                {pofile  ?   <Avatar src={pofile} /> :   <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>{namData.charAt(0).toUpperCase()}</p>}
-              
-              
-              </Popover>
-            </li>
-            <li className={styles.navitem}>
+                </div>
+              }
+              height="238px"
+              placement="bottom"
+              width="224px"
+            >
+              {pofile ? (
+                <Avatar src={pofile} onClick={() => setIsPopOpen(!isPopOpen)} />
+              ) : (
+                <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>
+                  {initialsName}
+                </p>
+              )}
+            </Popover>
+          </li>
+          {/* <li className={styles.navitem}>
               <div className={styles.username_details}>
-                <h1 className={styles.user_name_title}>{namData}</h1>
+                <h1 className={styles.user_name_title}>{nameData}</h1>
               </div>
-            </li>
-          </ul>
-        </nav>
-      </div>
+            </li> */}
+        </ul>
+      </nav>
     </header>
   );
 }

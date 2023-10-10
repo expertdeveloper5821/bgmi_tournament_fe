@@ -1,5 +1,4 @@
-
-"use client"
+'use client';
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 // Define the type for user information
@@ -16,8 +15,8 @@ interface UserContextType {
 
 // Create the context
 const UserContext = createContext<UserContextType>({
-  userInfo:null,
-  updateUserInfo:() => {}
+  userInfo: null,
+  updateUserInfo: () => {},
 });
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -27,9 +26,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setUserInfo(newUserInfo);
   };
   return (
-    <UserContext.Provider value={{ userInfo, updateUserInfo }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={{ userInfo, updateUserInfo }}>{children}</UserContext.Provider>
   );
 };
 

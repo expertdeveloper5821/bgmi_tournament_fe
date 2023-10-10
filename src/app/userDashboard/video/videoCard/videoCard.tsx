@@ -1,9 +1,9 @@
 'use client';
-import React, {useEffect, useState} from 'react';''
-import styles from '../../../../styles/videoCard.module.scss';
-import {sendRequest} from '@/services/auth/auth_All_Api';
+import React, { useEffect, useState } from 'react';
+('');
+import styles from '@/styles/card.module.scss';
+import { sendRequest } from '@/utils/axiosInstanse';
 import Image from 'next/image';
-
 
 interface VideoInfo {
   date: string;
@@ -14,10 +14,10 @@ interface CustomPaginationProps {
   onDataUpdate: (data: any) => void;
 }
 
-const VideoCard: React.FC<CustomPaginationProps> = ({onDataUpdate}) => {
+const VideoCard: React.FC<CustomPaginationProps> = ({ onDataUpdate }) => {
   const [data, setData] = useState<VideoInfo[]>([]);
-   // will use spectator login token here
-  console.log(data);
+  // will use spectator login token here
+  // console.log(data);
   //   const accessToken =
   // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGQyM2NmZmYyZGU4ZDVhODM2OTVlOWYiLCJyb2xlIjpbeyJfaWQiOiI2NGM3ODE1M2QyYzhhODQzMWNjMzZiZjIiLCJyb2xlIjpbImFkbWluIl19XSwiaWF0IjoxNjkxNzM2MzcwLCJleHAiOjE2OTE5MDkxNzB9.GGAIOjgZs9q82XdLZNvR-TQ4JwALiIev8lfLBtajhE4'
   useEffect(() => {
@@ -34,7 +34,7 @@ const VideoCard: React.FC<CustomPaginationProps> = ({onDataUpdate}) => {
         setData(responseData);
         onDataUpdate(responseData);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     fetchData();
@@ -46,7 +46,13 @@ const VideoCard: React.FC<CustomPaginationProps> = ({onDataUpdate}) => {
           return (
             <div className={styles.main_container} key={index}>
               <div className={styles.bannercontainer}>
-                <Image src="/assests/ytbanner.svg" alt='ytbanner' height={100} width={100} className={styles.ytbanner} />
+                <Image
+                  src="/assests/ytbanner.svg"
+                  alt="ytbanner"
+                  height={100}
+                  width={100}
+                  className={styles.ytbanner}
+                />
               </div>
               <div className={styles.gameInfo}>
                 <h1 className={styles.heading}>BGMI SQUAD MATCH</h1>

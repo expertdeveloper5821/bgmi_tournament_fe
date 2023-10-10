@@ -1,52 +1,51 @@
 'use client';
-import React, {useState} from 'react';
-import {sendRequest} from '../../../services/auth/auth_All_Api';
-import {AiOutlineDelete} from 'react-icons/ai';
-import styles from '../../../styles/Spectator.module.scss';
-import {toast} from 'react-toastify';
+import React, { useState } from 'react';
+import { AiOutlineDelete } from 'react-icons/ai';
+import styles from '@/styles/Spectator.module.scss';
+import { toast } from 'react-toastify';
+import { sendRequest } from '@/utils/axiosInstanse';
 
-const Deletespec = ({Id, getAllSpectator}: any) => {
-  const [deletModal, setDeleteModal] = useState(false);
+const Deletespec = ({ Id, getAllSpectator }: any) => {
+  const [deletModal, setDeleteModal] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleDelete = async () => {
-    const token = localStorage.getItem('jwtToken');
     try {
+      setIsLoading(true);
       const deleteResponse = await sendRequest(`room/rooms/${Id}`, {
         method: 'DELETE',
-        headers: {Authorization: `Bearer ${token}`},
       });
-      getAllSpectator();
-      if (deleteResponse) {
-        const success = deleteResponse.data.message;
-        toast.success(success);
+      if (deleteResponse.status === 200 || deleteResponse.status === 201) {
+        toast.success(deleteResponse.data.message);
+        getAllSpectator();
+        setIsLoading(false);
+      } else {
+        throw Error();
       }
     } catch (error: any) {
-      setMessage('data is not deleted');
+      toast.error('Something went wrong, please try again later!');
+      setMessage('Room not deleted, please try again later!');
+      setIsLoading(false);
     }
   };
 
   return (
     <>
       <p onClick={() => setDeleteModal(true)}>
-        <AiOutlineDelete style={{color: '#FFD600', size: '18'}} />
+        <AiOutlineDelete style={{ color: '#FFD600', size: '18' }} />
       </p>
       {deletModal ? (
         <div className={styles.main_del_sec}>
           <div className={styles.inner_del_sec}>
             <h4 className={styles.del_title}>Delete</h4>
             <div className={styles.sucess_msg}>{message}</div>
-            <p className={styles.sec_heading}>
-              Are you sure want to delete this room?
-            </p>
+            <p className={styles.sec_heading}>Are you sure want to delete this room?</p>
             <div className={styles.del_btn_sec}>
-              <button className={styles.dele_btn} onClick={handleDelete}>
-                Delete
+              <button className={styles.dele_btn} onClick={handleDelete} disabled={isLoading}>
+                {isLoading ? 'Loading...' : 'Delete'}
               </button>
-              <button
-                className={styles.canc_btn}
-                onClick={() => setDeleteModal(false)}
-              >
+              <button className={styles.canc_btn} onClick={() => setDeleteModal(false)}>
                 cancel
               </button>
             </div>

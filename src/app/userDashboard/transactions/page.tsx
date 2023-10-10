@@ -1,10 +1,7 @@
-
-import React from 'react'
+import React from 'react';
 
 const Transaction = () => {
-  return (
-    <div>Transaction</div>
-  )
-}
+  return <div>Transactions</div>;
+};
 
-export default Transaction
+export default Transaction;

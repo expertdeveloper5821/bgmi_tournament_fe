@@ -1,38 +1,37 @@
 'use client';
-import React, {useEffect, useState} from 'react';
-import styles from '../../styles/landingpage.module.scss';
+import React, { useEffect, useState } from 'react';
+import styles from '@/styles/landingpage.module.scss';
 import useWindowSize from '@/hooks/useWindowSize';
 import NavBar from './navBar/page';
 import Image from 'next/image';
-import {sendRequest} from '@/services/auth/auth_All_Api';
+import { sendRequest } from '@/utils/axiosInstanse';
+import { toast } from 'react-toastify';
 import CustomCursor from './customCursor/page';
 import Link from 'next/link';
 import { formatTime } from '@/Components/CommonComponent/moment';
-interface GameDetails{
-  createdAt : string
-createdBy : string
-dateAndTime:string
-entryFee: string
-gameName: string
-gameType: string
-highestKill:string
-lastSurvival:string
-mapImg:string
-mapType:string
-password:string
-roomId:string
-roomUuid: string
-secondWin:string
-thirdWin:string
-updatedAt:string
-version: string
-__v: number
-_id:string
+interface GameDetails {
+  createdAt: string;
+  createdBy: string;
+  dateAndTime: string;
+  entryFee: string;
+  gameName: string;
+  gameType: string;
+  highestKill: string;
+  lastSurvival: string;
+  mapImg: string;
+  mapType: string;
+  password: string;
+  roomId: string;
+  roomUuid: string;
+  secondWin: string;
+  thirdWin: string;
+  updatedAt: string;
+  version: string;
+  __v: number;
+  _id: string;
 }
 
-
 const page = () => {
-
   const [data, setData] = useState<GameDetails[]>();
   const [poolModal, setPoolModal] = useState<boolean>(false);
   const [id, setId] = useState<number>(0);
@@ -50,8 +49,7 @@ const page = () => {
         method: 'Get',
       });
       setData(response.data);
-    }; 
-
+    };
 
     fetchData();
   }, []);
@@ -109,12 +107,7 @@ const page = () => {
           />
         </div>
         <div className={styles.parashoot2}>
-          <Image
-            src="/assests/p.png"
-            alt="parashoot"
-            height={100}
-            width={100}
-          />
+          <Image src="/assests/p.png" alt="parashoot" height={100} width={100} />
         </div>
         <div className={styles.parashoot3}>
           <img
@@ -193,11 +186,10 @@ const page = () => {
         <div className={styles.upcoming_mathces}>
           <h3 className={styles.upComingHeading}>Upcoming Matches</h3>
           <p className={styles.upComingPara}>
-            Are you ready to take your BGMI gaming to the next level? Look no
-            further! BGMI Rewards brings you an exhilarating platform where your
-            gaming skills translate into real cash rewards. Join thousands of
-            enthusiastic players who have already unlocked the true potential of
-            their gaming passion.
+            Are you ready to take your BGMI gaming to the next level? Look no further! BGMI Rewards
+            brings you an exhilarating platform where your gaming skills translate into real cash
+            rewards. Join thousands of enthusiastic players who have already unlocked the true
+            potential of their gaming passion.
           </p>
         </div>
 
@@ -206,9 +198,7 @@ const page = () => {
             <div className={styles.banner_bgmi_img}>
               <img
                 src={
-                  data && data[id].mapImg
-                    ? data[id].mapImg
-                    : `${'./assests/eranglemapimage.svg'}`
+                  data && data[id].mapImg ? data[id].mapImg : `${'./assests/eranglemapimage.svg'}`
                 }
                 alt="bg"
                 className={styles.banner_image}
@@ -227,34 +217,23 @@ const page = () => {
                 <div className={styles.pool_cancel_p}>
                   <p className={styles.pool_text_p}>
                     Last Survival: {data[id].lastSurvival}
-                    <span className={styles.rs_pool_logo}>
-                    ₹
-                    </span>
+                    <span className={styles.rs_pool_logo}>₹</span>
                   </p>
                   <p className={styles.pool_text_p}>
                     Highest kill: {data[id].highestKill}
-                    <span className={styles.rs_pool_logo}>
-                    ₹
-                    </span>
+                    <span className={styles.rs_pool_logo}>₹</span>
                   </p>
                   <p className={styles.pool_text_p}>
                     2nd Winner: {data[id].secondWin}
-                    <span className={styles.rs_pool_logo}>
-                    ₹
-                    </span>
+                    <span className={styles.rs_pool_logo}>₹</span>
                   </p>
 
                   <p className={styles.pool_text_p}>
                     3rd Winner: {data[id].thirdWin}
-                    <span className={styles.rs_pool_logo}>
-                    ₹
-                    </span>
+                    <span className={styles.rs_pool_logo}>₹</span>
                   </p>
                 </div>
-                <p
-                  className={styles.pool_cancel_p}
-                  onClick={() => setPoolModal(false)}
-                >
+                <p className={styles.pool_cancel_p} onClick={() => setPoolModal(false)}>
                   <button className={styles.cancel_btn}>Cancel</button>
                 </p>
               </div>
@@ -264,11 +243,14 @@ const page = () => {
           )}
           <div className={styles.time_container}>
             {data && data?.length > 0 ? (
-             
               <>
                 <div className={styles.comingsooncontainer}>
-                  <h2>{data?.length > 0 && data[id].mapType + ' '+ data[id].gameType + ' '+ 'match'}</h2>
-                  <span>Time: {data.length > 0  &&  `${formatTime({ time: data[id].dateAndTime})}`}</span>
+                  <h2>
+                    {data?.length > 0 && data[id].mapType + ' ' + data[id].gameType + ' ' + 'match'}
+                  </h2>
+                  <span>
+                    Time: {data.length > 0 && `${formatTime({ time: data[id].dateAndTime })}`}
+                  </span>
                 </div>
                 <div className={styles.prizepool}>
                   <div className={styles.prize_container}>
@@ -289,9 +271,7 @@ const page = () => {
                     </h2>
                   </div>
                   <div className={styles.fee_container}>
-                    <span className={styles.commonspanprizesection}>
-                      ENTRY FEES
-                    </span>
+                    <span className={styles.commonspanprizesection}>ENTRY FEES</span>
                     <h2>
                       0<span className={styles.rsSign}>₹</span>
                     </h2>
@@ -300,38 +280,24 @@ const page = () => {
                 <div className={styles.gameInfo}>
                   <div className={styles.game}>
                     <span className={styles.commonspanprizesection}>TYPE</span>
-                    <span className={styles.gameYellowspan}>
-                      {data[id].gameType}
-                    </span>
+                    <span className={styles.gameYellowspan}>{data[id].gameType}</span>
                   </div>
                   <div className={styles.game}>
-                    <span className={styles.commonspanprizesection}>
-                      VERSION
-                    </span>
-                    <span className={styles.gameYellowspan}>
-                      {data[id].version}
-                    </span>
+                    <span className={styles.commonspanprizesection}>VERSION</span>
+                    <span className={styles.gameYellowspan}>{data[id].version}</span>
                   </div>
                   <div className={styles.game}>
                     <span className={styles.commonspanprizesection}>MAP</span>
-                    <span className={styles.gameOrangespan}>
-                      {data[id].mapType}
-                    </span>
+                    <span className={styles.gameOrangespan}>{data[id].mapType}</span>
                   </div>
                 </div>
                 <div className={styles.range_container}>
                   <div className={styles.range}>
                     <input type="range" value={50} />
-                    <span className={styles.commonspanprizesection}>
-                      Only 30 spots left 20/50
-                    </span>
+                    <span className={styles.commonspanprizesection}>Only 30 spots left 20/50</span>
                   </div>
                   <Link href="/auth/login">
-                    <button
-                      className={styles.joinbtn}                     
-                    >
-                      JOIN
-                    </button>
+                    <button className={styles.joinbtn}>JOIN</button>
                   </Link>
                 </div>
               </>
@@ -345,22 +311,16 @@ const page = () => {
         <div className={styles.rn_images_container}>
           {data?.length > 0 &&
             data?.map((gameDetails: GameDetails, index: number) => {
-            return (
+              return (
                 <>
                   <div className={styles.cardimg}>
                     <div className={styles.carddetails}>
                       <h2>{gameDetails.mapType}</h2>
-                      <span>
-                        {`${gameDetails.gameName}` +
-                          `${gameDetails.gameType}` +
-                          `Match`}
-                      </span>
+                      <span>{`${gameDetails.gameName}` + `${gameDetails.gameType}` + `Match`}</span>
                     </div>
                     <img
                       src={
-                        gameDetails.mapImg
-                          ? gameDetails.mapImg
-                          : `./assests/eranglemapimage.svg`
+                        gameDetails.mapImg ? gameDetails.mapImg : `./assests/eranglemapimage.svg`
                       }
                       className={styles.rn_images}
                       height={100}
@@ -395,11 +355,10 @@ const page = () => {
             <div className={styles.welcome_alingnment}>
               <h2>Welcome to Patt Se Headshot</h2>
               <p>
-                Are you ready to take your BGMI gaming to the next level? Look
-                no further! BGMI Rewards brings you an exhilarating platform
-                where your gaming skills translate into real cash rewards. Join
-                thousands of enthusiastic players who have already unlocked the
-                true potential of their gaming passion.
+                Are you ready to take your BGMI gaming to the next level? Look no further! BGMI
+                Rewards brings you an exhilarating platform where your gaming skills translate into
+                real cash rewards. Join thousands of enthusiastic players who have already unlocked
+                the true potential of their gaming passion.
               </p>
             </div>
           </div>
@@ -408,73 +367,68 @@ const page = () => {
           <div className={styles.choseSection}>
             <h2>Why Choose PATT SE HEADSHOT</h2>
             <p>
-              Join the ranks of those who have chosen us as their preferred
-              esports platform for BGMI. Experience the future of gaming
-              excellence and be part of our ever-growing success story.
+              Join the ranks of those who have chosen us as their preferred esports platform for
+              BGMI. Experience the future of gaming excellence and be part of our ever-growing
+              success story.
             </p>
             <img src={'../assests/directionindicator.svg'} />
           </div>
           <div className={styles.scopeSection}>
-          <div className={styles.radialGradientfooter}></div>
-              <div className={styles.gradientoverlayscopesection}></div>
-              <div className={styles.gradientoverlayscopesectionright}></div>
-              <div className={styles.gradientoverlayscopesectiontop}></div>
+            <div className={styles.radialGradientfooter}></div>
+            <div className={styles.gradientoverlayscopesection}></div>
+            <div className={styles.gradientoverlayscopesectionright}></div>
+            <div className={styles.gradientoverlayscopesectiontop}></div>
             <div className={styles.scopemaincontainer}>
-            <div className={styles.bulletcontainer}>
-              <Image
-                src="../assests/bullet2.svg"
-                alt="bullter"
-                height={100}
-                width={100}
-                className={styles.bullet}
-              />
-            </div>
-            <div className={styles.skills_maincontainer}>
-              <div className={styles.skillman}>
+              <div className={styles.bulletcontainer}>
                 <Image
-                  src="../assests/downperson2.svg"
-                  alt="person"
+                  src="../assests/bullet2.svg"
+                  alt="bullter"
                   height={100}
                   width={100}
-                  className={styles.clock_img}
+                  className={styles.bullet}
                 />
               </div>
-              <p className={styles.short_heading}>Skills</p>
-            </div>
-            <div className={styles.centerscope}>
-              
-              <Image
-                src="../assests/zoominimage.svg"
-                className={styles.bg_img_static}
-                height={100}
-                width={100}
-                alt="zoom in image"
-              />
-              <Image
-                src="../assests/newscope.svg"
-                alt="center scope"
-                height={100}
-                width={100}
-                className={styles.newscope}
-              />
-              <div
-                className={styles.gradientoverlayscopesectionscopenear}
-              ></div>
-              <div
-                className={styles.gradientoverlayscopesectionscopenear1}
-              ></div>
+              <div className={styles.skills_maincontainer}>
+                <div className={styles.skillman}>
+                  <Image
+                    src="../assests/downperson2.svg"
+                    alt="person"
+                    height={100}
+                    width={100}
+                    className={styles.clock_img}
+                  />
+                </div>
+                <p className={styles.short_heading}>Skills</p>
+              </div>
+              <div className={styles.centerscope}>
+                <Image
+                  src="../assests/zoominimage.svg"
+                  className={styles.bg_img_static}
+                  height={100}
+                  width={100}
+                  alt="zoom in image"
+                />
+                <Image
+                  src="../assests/newscope.svg"
+                  alt="center scope"
+                  height={100}
+                  width={100}
+                  className={styles.newscope}
+                />
+                <div className={styles.gradientoverlayscopesectionscopenear}></div>
+                <div className={styles.gradientoverlayscopesectionscopenear1}></div>
 
-              <Image
-                className={styles.scope_line}
-                src="../assests/scopeline.svg"
-                height={100}
-                width={100}
-                alt=" scope line"
-              />
+                <Image
+                  className={styles.scope_line}
+                  src="../assests/scopeline.svg"
+                  height={100}
+                  width={100}
+                  alt=" scope line"
+                />
 
-              <div className={styles.scope_target_text}>150 meters</div>
-              <div className={styles.scope_line_red_dot}></div>
-            </div>
+                <div className={styles.scope_target_text}>150 meters</div>
+                <div className={styles.scope_line_red_dot}></div>
+              </div>
             </div>
             <div className={styles.seam_main_container}>
               <div className={styles.seamlesstxn}>
@@ -528,8 +482,8 @@ const page = () => {
           </div>
           <div>
             <p className={styles.scope_text} id="changing-text">
-              Our dedicated support team is here to assist you around the clock,
-              ensuring a smooth and enjoyable gaming experience.
+              Our dedicated support team is here to assist you around the clock, ensuring a smooth
+              and enjoyable gaming experience.
             </p>
           </div>
           <div className={styles.guns}>
@@ -554,10 +508,9 @@ const page = () => {
         <div className={styles.mapSecDescription}>
           <h3 className={styles.mapSecHead}>How It Works</h3>
           <p>
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters,
+            It is a long established fact that a reader will be distracted by the readable content
+            of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
+            more-or-less normal distribution of letters,
           </p>
         </div>
       </section>
@@ -565,12 +518,7 @@ const page = () => {
       <section className={styles.mapBg}>
         {/* <div className={styles.signUpDiv} onMouseOver={handleButtonHover3}>
           <div className={styles.singUp}>
-            <Image
-              src="../assests/redLoction.svg"
-              height={20}
-              width={20}
-              alt="red_loction"
-            />
+            <Image src="../assests/redLoction.svg" height={20} width={20} alt="red_loction" />
           </div>
 
           <p>Sign Up</p>
@@ -667,9 +615,7 @@ const page = () => {
 
           <div className={styles.text_div}>
             <h3 className={styles.buggiSec_heading}>Play first game free</h3>
-            <p className={styles.buggiSec_para}>
-              Don’t waste your time Hurry up! Signup now
-            </p>
+            <p className={styles.buggiSec_para}>Don’t waste your time Hurry up! Signup now</p>
             <Link href="/auth/signup">
               <button className={styles.btnSingup}>Signup</button>
             </Link>
@@ -713,9 +659,7 @@ const page = () => {
             </Link>
           </div>
 
-          <p className={styles.footer_para}>
-            Let's connect for more information
-          </p>
+          <p className={styles.footer_para}>Let's connect for more information</p>
 
           <div className={styles.social_I}>
             <Link href="" className={styles.sociallink}>
@@ -766,10 +710,7 @@ const page = () => {
             </Link>
           </div>
 
-          <Link
-            href="mailto:support@pattseheadshot.com"
-            className={styles.support}
-          >
+          <Link href="mailto:support@pattseheadshot.com" className={styles.support}>
             Mail us: support@pattseheadshot.com
           </Link>
 
@@ -777,12 +718,7 @@ const page = () => {
             &#169; Battlefield Gaming Private Limited. All Rights Reserved.
           </p>
           <div className={styles.headsuparrow} onClick={scrollToTop}>
-            <Image
-              src="../assests/arrowheadup.svg"
-              height={35}
-              width={35}
-              alt="headuparrow"
-            />
+            <Image src="../assests/arrowheadup.svg" height={35} width={35} alt="headuparrow" />
           </div>
         </div>
       </footer>
