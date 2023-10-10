@@ -43,7 +43,7 @@ const page = () => {
     setId(id);
   };
 
-  const [width] = useWindowSize();
+  const width  = useWindowSize();
   useEffect(() => {
     const fetchData = async () => {
       const response = await sendRequest(`room/rooms`, {
@@ -74,25 +74,25 @@ const page = () => {
       behavior: 'smooth', // This creates a smooth scrolling effect
     });
   };
-  const handleButtonHover1 = () => {
-    setContent(
-      'Cash out your earnings with ease and enjoy the real benefits of your gaming talent',
-    );
-  };
-  const handleButtonHover2 = () => {
-    setContent(
-      'Dive into intense BGMI battles, showcase your skills, and climb the leaderboard to win cash rewards',
-    );
-  };
-  const handleButtonHover3 = () => {
-    setContent(
-      'Create your free account in just a few simple steps and join our ever-growing gaming community',
-    );
-  };
+  // const handleButtonHover1 = () => {
+  //   setContent(
+  //     'Cash out your earnings with ease and enjoy the real benefits of your gaming talent',
+  //   );
+  // };
+  // const handleButtonHover2 = () => {
+  //   setContent(
+  //     'Dive into intense BGMI battles, showcase your skills, and climb the leaderboard to win cash rewards',
+  //   );
+  // };
+  // const handleButtonHover3 = () => {
+  //   setContent(
+  //     'Create your free account in just a few simple steps and join our ever-growing gaming community',
+  //   );
+  // };
   
   return (
     <div className={styles.bodycolor}>
-      <CustomCursor />
+      {/* <CustomCursor /> */}
       {/* <GlassCrack /> */}
       <div className={styles.main_container}>
         <div>
@@ -342,8 +342,6 @@ const page = () => {
             )}
           </div>
         </div>
-        {/* <Slider {...settings}> */}
-
         <div className={styles.rn_images_container}>
           {data?.length > 0 &&
             data?.map((gameDetails: GameDetails, index: number) => {
@@ -385,9 +383,10 @@ const page = () => {
           <div className={styles.welcome_subcontainer}>
             <div className={styles.welcome_RightImg_container}>
               <div className={styles.radialGradient}></div>
+              <div className={styles.radialGradient2}></div>
               <Image
                 className={styles.welcome_RightImg}
-                src="../assests/Group20.svg"
+                src={`${width[0] <= 600 ? '../assests/mobilebannerstone.svg':'../assests/Group20.svg'}`}
                 height={700}
                 width={700}
                 alt="zoom in image"
@@ -564,7 +563,7 @@ const page = () => {
       </section>
 
       <section className={styles.mapBg}>
-        <div className={styles.signUpDiv} onMouseOver={handleButtonHover3}>
+        {/* <div className={styles.signUpDiv} onMouseOver={handleButtonHover3}>
           <div className={styles.singUp}>
             <Image
               src="../assests/redLoction.svg"
@@ -646,7 +645,7 @@ const page = () => {
             width={45}
             alt="resBlur"
           />
-        </div>
+        </div> */}
 
         <div className={styles.mapBgPara}>
           <p className={styles.mapP}>{content}</p>

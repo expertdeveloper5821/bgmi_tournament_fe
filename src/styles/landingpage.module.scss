@@ -7,13 +7,20 @@
   font-family: $bs-body-font-family;
 }
 .main_container {
-  background-image: url('../../public/assests/banner.svg');
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
   width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
+  background-image: url('../../public/assests/herosectiondesktop.svg');
+  @media (max-width: $breakpoint-md) {
+    background-image: url('../../public/assests/TabHerosection.svg');
+  }
+  // @media (max-width: $breakpoint-xs) {
+  //   background-image: url('../../public/assests/herosectionmobile.svg');
+  // }
+
 }
 .bannertextcontainer {
   display: flex;
@@ -241,7 +248,8 @@
     left: 0;
     width: 100%;
     margin-right: 10px;
-    background-color: #333;
+    background-color: #003554;
+    color: white;
     height: 20vh;
     padding: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -259,7 +267,7 @@
   }
 
   a {
-    color: #003554;
+    color: white;
     font-weight: 400;
     font-size: 16px;
     text-decoration: none;
@@ -494,7 +502,7 @@
   position: relative;
   width: 100%;
   height: 30%;
-  top: 100px;
+  top: 120px;
   @media (max-width: $breakpoint-xlg) {
     top: 55px;
   }
@@ -504,6 +512,19 @@
   @media (max-width: $breakpoint-sm) {
     top: 100px;
   }
+  @media only screen and (min-width: 320px)and (max-width:375px){
+    top: 85px;
+   }
+   @media only screen and (min-width: 376px) and (max-width:500px){
+    top: 120px;
+   }
+  
+   @media only screen and (min-width: 600px) and (max-width:900px) {
+    top: 58px;
+   }
+   @media only screen and (min-width: 1200px)and (max-width:1400px){
+    top: 40px;
+   }
 }
 .banner_center_text h1 {
   display: flex;
@@ -516,6 +537,10 @@
   @media (max-width: $breakpoint-sm) {
     font-weight: 900;
   }
+  @media only screen and (min-width: 600px)and (max-width:900px){
+    font-weight: 600;
+    font-size: 28px;
+   }
 }
 .banner_subheading {
   display: flex;
@@ -527,8 +552,10 @@
   letter-spacing: 29px;
   margin-top: 80px;
   @media (max-width: $breakpoint-tab) {
-    color: #003554;
-    margin-top: 40px;
+    color: #ffffff;
+    margin-top: 35px;
+    font-size: 25px;
+    
   }
   @media (max-width: $breakpoint-xs) {
     color: #ffffff;
@@ -537,30 +564,39 @@
 }
 .rn_text {
   position: absolute;
-  font-size: 20px;
+  font-size: 20px; 
   top: 85%;
   color: white;
   padding-top: 20px;
   letter-spacing: 10px;
-  animation: textmove 16s linear infinite;
+
+  @media (min-width: $breakpoint-lg) {
+    animation: textmove 16s linear infinite;
+  }
+  @media (max-width: $breakpoint-md) {
+  
+    letter-spacing: 2px;
+  
+  }
   @media (max-width: $breakpoint-tab) {
     font-size: 16px;
     letter-spacing: 5px;
+    text-align: center;
   }
   @media (max-width: $breakpoint-xSmall) {
-    font-size: 18px;
+    font-size: 16px;
     letter-spacing: 2px;
     text-align: center;
   }
 }
-@keyframes textmove {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
+// @keyframes textmove {
+//   0% {
+//     transform: translateX(100%);
+//   }
+//   100% {
+//     transform: translateX(0%);
+//   }
+// }
 
 .upcoming_mathces_container {
   background: black;
@@ -627,6 +663,7 @@
   @media (max-width: $breakpoint-xs) {
     margin-left: 0%;
     width: 95%;
+    height: 370px;
     border-radius: 15px;
   }
   
@@ -636,10 +673,11 @@
   justify-content: center;
   align-items: center;
   width: 100vw;
+  @media only screen and (min-width: 320px) and (max-width:450px) {
+    width: 80vw;
+    font-size: 10px;
+  }
   
-}
-.demo {
-  // display: flex;
 }
 .rn_images_container {
   display: flex;
@@ -822,9 +860,9 @@
   background: black;
   // background: linear-gradient(to right, rgba(0, 0, 0, 0.137), rgb(0, 0, 0));
   pointer-events: none;
-  @media (max-width: $breakpoint-md) {
-   display: none;
-  }
+  @media only screen and (max-width: 430px) {
+    display: block;
+   }
 }
 .gradientoverlayscopesectionright {
   position: absolute;
@@ -836,8 +874,8 @@
   filter: blur(31px);
   background: linear-gradient(to left, rgba(0, 0, 0, 0.137), rgb(0, 0, 0));
   pointer-events: none;
-  @media (max-width: $breakpoint-md) {
-    display: none;
+   @media only screen and (max-width: 430px) {
+    display: block;
    }
 }
 .gradientoverlayscopesectiontop {
@@ -849,8 +887,8 @@
   filter: blur(31px);
   background-color: black;
   pointer-events: none;
-  @media (max-width: $breakpoint-md) {
-    display: none;
+   @media only screen and (max-width: 430px) {
+    display: block;
    }
 }
 .gradientoverlayscopesectionscopenear{
@@ -863,10 +901,20 @@ right: 15%;
   filter: blur(21px);
   background-color: rgb(0, 0, 0);
   // background: linear-gradient(to left, rgba(0, 0, 0, 0.137), rgb(0, 0, 0));
-
   pointer-events: none;
-  @media (max-width: $breakpoint-xs) {
-    display: none;
+  @media (max-width: $breakpoint-md) {
+    margin-top: 316px;
+   }
+  @media (max-width: $breakpoint-tab) {
+    margin-top: 295px;
+   }
+   @media only screen and (max-width: 430px) {
+    display: block;
+    position: absolute;
+    width: 81vw;
+    margin-top: 280px;
+    height: 43%;
+    
    }
 }
 .gradientoverlayscopesectionscopenear1{
@@ -956,7 +1004,24 @@ right: 15%;
   @media (max-width: $breakpoint-lg) {
     left: 0%;
     width: 850px;
-    height: 72%
+    height: 58%;
+    top: 21%;
+}
+@media (max-width: $breakpoint-xs) {
+  // width: 500px;
+  // height: 50%;
+  display: none;
+}
+}
+.radialGradient2{
+  @media (max-width: $breakpoint-xs) {
+    display: none;
+    // right: 0%;
+    // width: 388px;
+    // height: 58%;
+    // position : absolute;
+    // background-image: radial-gradient(#87746e00, #000000 60%);
+
 }
 }
 .gradientoverlaytotopfooter {
@@ -979,8 +1044,8 @@ right: 15%;
   width: 100%;
   height: 100%;
   background-image: radial-gradient(#1000c000 30%, #000000 90%);
-  @media (max-width: $breakpoint-tab) {
-    display: none;
+  @media only screen and (max-width: 430px) {
+   display: block;
   }
 }
 .bannergradient {
@@ -1117,15 +1182,22 @@ right: 15%;
   background: url('../../public/assests/scopesectionbanner2.svg');
   background-size: cover;
   background-repeat: no-repeat;
+  @media only screen and (max-width: 430px) {
+    height: 55vh;
+  }
 }
 .scopemaincontainer{
   min-width: 478px;
   position: relative;
   min-height: 478px;
-  // background-color: red;
   border-radius: 50%;
   margin-left: 108px;
-  margin-top: 106px
+  margin-top: 106px;
+  @media (max-width: $breakpoint-xs) {
+    margin-top: 0px;
+    margin-left: 25px;
+  }
+  
 }
 
 .newscope {
@@ -1142,12 +1214,17 @@ right: 15%;
   //   left: 30.3%;
   // }
   @media (max-width: $breakpoint-md) {
-    min-width: 380px;
-    top: 23%;
-    left: 23.3%
+    min-width: 355px;
+    top: 0%;
+    left: 0.3%;
+  }
+  @media (max-width: $breakpoint-tab) {
+    min-width: 347px;
+    top: 0%;
+    left: 1.3%;
   }
   @media only screen and (max-width: 430px) {
-    top: 37%;
+    top: 13%;
     left: 19.3%;
     min-width: 260px
   }
@@ -1173,13 +1250,18 @@ right: 15%;
   //   left: 36.5%
   // }
   @media (max-width: $breakpoint-md) {
-    top: 24%;
-    left: 23.5%;
-    min-width: 378px
+    top: 1.5%;
+    left: 0.5%;
+    min-width: 350px;
+  }
+  @media (max-width: $breakpoint-tab) {
+    top: 1%;
+    left: 1.5%;
+    min-width: 345px;
   }
   @media only screen and (max-width: 430px) {
-    top: 38%;
-    left: 20.5%;
+    top: 15%;
+    left: 20%;
     min-width: 255px;
   }
 }
@@ -1219,13 +1301,18 @@ right: 15%;
   //   min-width: 200px;
   // }
   @media (max-width: $breakpoint-md) {
-    left: 32.5%;
-    top: 31.5%;
+    left: 14.5%;
+    top: 11.5%;
+    min-width: 219px;
+  }
+  @media (max-width: $breakpoint-tab) {
+    left: 13.5%;
+    top: 11.5%;
     min-width: 234px;
   }
   @media only screen and (max-width: 430px) {
-    left: 31.2%;
-    top: 42.5%;
+    left: 30.6%;
+    top: 23.5%;
     min-width: 155px;
   }
 }
@@ -1251,8 +1338,12 @@ right: 15%;
   //   top: 51.2%;
   // }
   @media (max-width: $breakpoint-md) {
-    left: 47%;
-    top: 45.8%;
+    left: 36%;
+    top: 34.4%;
+}
+@media (max-width: $breakpoint-tab) {
+  left: 37%;
+  top: 35.8%;
 }
 
   @media only screen and (max-width: 430px) {
@@ -1285,8 +1376,12 @@ right: 15%;
   //   top: 55%;
   // }
   @media (max-width: $breakpoint-md) {
-    left: 35.8%;
-    top: 50.5%;
+    left: 17.8%;
+    top: 41.5%;
+  }
+  @media (max-width: $breakpoint-tab) {
+    left: 18.8%;
+    top: 43.5%;
   }
   // @media (max-width: $breakpoint-tab) {
   //   left: 41.8%;
@@ -1312,19 +1407,30 @@ right: 15%;
   background-color: #ffffff3d;
   z-index: 1000;
   right: 80%;
-  // left: 680px;
   position: absolute;
+  @media (max-width: $breakpoint-md) {
+    right: 87%;
+    top: 0%;
+    width: 130px;
+    height: 130px;
+  }
   @media (max-width: $breakpoint-tab) {
-    top: 18%;
-    left: 16%;
+    top: -4%;
+    left: -15%;
   }
   @media only screen and (max-width: 430px) {
-    display: none;
+    top: 14%;
+    left: 16%;
+    width: 75px;
+  height: 75px;
   }
 }
 .bullet {
   height: auto;
   width: 100px;
+  @media only screen and (max-width: 430px) {
+   width: 63px;
+  }
 }
 .seam_main_container {
   display: flex;
@@ -1343,9 +1449,18 @@ right: 15%;
     top: 26%;
     right: 13%;
   }
-  @media (max-width: $breakpoint-xs) {
-    top: 20%;
+  @media (max-width: $breakpoint-md) {
+    top: 30%;
     right: 11%;
+  }
+  @media (max-width: $breakpoint-tab) {
+    top: 28%;
+    right: 10%;
+}
+  @media (max-width: $breakpoint-xs) {
+    // top: 20%;
+    // right: 11%;
+    display: none;
   }
   @media only screen and (max-width: 430px) {
     top: 14%;
@@ -1391,13 +1506,18 @@ right: 15%;
   left: 20%;
   gap: 15px;
   align-items: center;
+  @media (max-width: $breakpoint-md) {
+    top: 58%;
+    left: 9%;
+  }
   @media (max-width: $breakpoint-tab) {
-    top: 45%;
-    left: 5%;
+    top: 52%;
+    left: 7%;
   }
   @media only screen and (max-width: 430px) {
-    top: 14%;
-    left: 5%;
+    // top: 14%;
+    // left: 5%;
+    display: none;
   }
 }
 .clock {
@@ -1454,8 +1574,14 @@ right: 15%;
     bottom: 35%;
     right: 18%;
   }
+  @media (max-width: $breakpoint-md) {
+    bottom: 18%;
+    left: 97%;
+  }
   @media (max-width: $breakpoint-tab) {
-    right: 18%;
+    // right: 18%;
+    left: 86%;
+    bottom: 20%;
   }
   @media (max-width: $breakpoint-xs) {
     right: 14%;
@@ -1489,12 +1615,16 @@ right: 15%;
   align-items: center;
   z-index: 1000;
   text-align: center;
+  @media (max-width: $breakpoint-md) {
+    bottom: 4%;
+  }
   @media (max-width: $breakpoint-tab) {
     bottom: 9%;
     left: 17%;
   }
   @media only screen and (max-width: 430px) {
     left: 38%;
+    bottom: 0%;
   }
 }
 .trophy_container {
@@ -1528,13 +1658,17 @@ right: 15%;
   @media (max-width: $breakpoint-lg) {
     bottom: 6%;
   }
+  @media (max-width: $breakpoint-md) {
+    bottom: 6%;
+  }
   @media (max-width: $breakpoint-tab) {
     bottom: 13%;
     right: 18%;
   }
   @media only screen and (max-width: 430px) {
-    top: 5%;
-    right: 36%;
+    // top: 5%;
+    // right: 36%;
+    display: none;
   }
 }
 .money_container {
@@ -1565,6 +1699,9 @@ right: 15%;
   font-size: 20px;
   margin: 0 auto;
   padding-top: 80px;
+  @media only screen and (max-width: 450px) {
+    display: none;
+   }
 }
 .guns {
   display: flex;
@@ -1714,8 +1851,19 @@ right: 15%;
 
 .mapBg {
   color: #fdfafa;
-  background: url('../../public/assests/BGMAP.png');
   background-position: center;
+  background: url('../../public/assests/locatormapdesktop.svg');
+  @media (max-width: $breakpoint-ms) {
+    background: url('../../public/assests/locatormaptablet.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  @media (max-width: $breakpoint-xs) {
+    background: url('../../public/assests/locatormapmobile.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 55vh;
+  }
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
@@ -1728,6 +1876,9 @@ right: 15%;
   height: 85vh;
   align-items: end;
   color: #fdfafa;
+  @media (max-width: $breakpoint-xs) {
+    height: 50vh;
+  }
 }
 
 .mapP {
@@ -2064,10 +2215,11 @@ right: 15%;
     font-family: 'Grandstander';
     font-size: 70px;
     margin-bottom: 10px;
-    font-weight: 700;
-  }
-  .footer_para {
-    font-size: 22px;
+    font-weight: 700; .main_container {
+      background: url('../../public//assests/Banner\ for\ mobile\ 1.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
   }
   .social_I {
     margin: 15px 0px;
@@ -2155,7 +2307,7 @@ right: 15%;
   }
 }
 
-@media only screen and (min-width: 320px) and (max-width: 968px) {
+@media only screen and (min-width: 320px) and (max-width: 600px) {
   .parashoot {
     display: none;
   }
@@ -2182,7 +2334,7 @@ right: 15%;
     font-size: 18px;
     letter-spacing: 9px;
   }
-  .upcoming_mathces_container .rn_text {
+  .upcoming_mathces_container .rn_text{
     width: 500px;
     font-size: 15px;
     letter-spacing: 1px;
@@ -2211,10 +2363,14 @@ right: 15%;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
+   
   }
   .time_container span {
     font-size: 15px;
     margin-bottom: 10px;
+    @media only screen and (min-width: 320px) and (max-width:450px) {
+      margin-bottom: 0px;
+    }
   }
 
   .range_container {
@@ -2320,7 +2476,6 @@ right: 15%;
   letter-spacing: 0px;
     font-weight: 400;
     font-size: 18px;
-    padding-top: 125px;
     }
     
   }
