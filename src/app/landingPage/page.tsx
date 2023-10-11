@@ -35,14 +35,80 @@ const page = () => {
   const [data, setData] = useState<GameDetails[]>();
   const [poolModal, setPoolModal] = useState<boolean>(false);
   const [id, setId] = useState<number>(0);
-  const [content, setContent] = useState<string>(
-    'Create your free account in just a few simple steps and join our ever-growing gaming community',
-  );
+  const [activeGun, setActiveGun] = useState<number>(0);
+  const [activeMaptext, setActiveMaptext] = useState<number>(0);
+  const [contentcount, setContectcount] = useState<number>(0);
+  const [content, setContent] = useState<string>('');
+  const [supportText, setSupportText] = useState<string>('');
+  const[heading,setHeading] = useState<string>('')
   const handleData = (id: number) => {
     setId(id);
   };
+  useEffect(() => {
+    if (activeGun === 0) {
+      setSupportText(
+        'Participate in thrilling tournaments and compete against the best in the community for massive cash prizes and recognition.',
+      );
+    } else if (activeGun === 1) {
+      setSupportText(
+        'Play your favorite BGMI battles and win real cash rewards. The more you play, the more you earn!',
+      );
+    } else if (activeGun === 2) {
+      setSupportText(
+        'Our dedicated support team is here to assist you around the clock, ensuring a smooth and enjoyable gaming experience.',
+      );
+    } else if (activeGun === 3) {
+      setSupportText(
+        'Our secure payment system ensures hassle-free withdrawals so you can enjoy your rewards without any worries.',
+      );
+    }
+  }, [activeGun]);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setContectcount((prevCount) => (prevCount + 1) % 4);
+  //   }, 4000);
 
-  const width  = useWindowSize();
+  //   return () => clearInterval(interval);
+  // }, []);
+
+  // useEffect(() => {
+  //   if (contentcount === 0) {
+  //     setContent(
+  //       'Create your free account in just a few simple steps and join our ever-growing gaming community',
+  //     );
+  //     setHeading('Sign Up')
+  //   } else if (contentcount === 1) {
+  //     setContent(
+  //       'Dive into intense BGMI battles, showcase your skills, and climb the leaderboard to win cash rewards.',
+  //     );
+  //     setHeading('Play & Win')
+  //   } else if (contentcount === 2) {
+  //     setContent(
+  //       'Cash out your earnings with ease and enjoy the real benefits of your gaming talent.',
+  //     );
+  //     setHeading('Redeem Rewards')
+  //   }
+  // }, [contentcount]);
+  useEffect(() => {
+    if (activeMaptext === 0) {
+      setContent(
+        'Create your free account in just a few simple steps and join our ever-growing gaming community',
+      );
+      setHeading('Sign Up')
+    } else if (activeMaptext === 1) {
+      setContent(
+        'Dive into intense BGMI battles, showcase your skills, and climb the leaderboard to win cash rewards.',
+      );
+      setHeading('Play & Win')
+    } else if (activeMaptext === 2) {
+      setContent(
+        'Cash out your earnings with ease and enjoy the real benefits of your gaming talent.',
+      );
+      setHeading('Redeem Rewards')
+    }
+  }, [activeMaptext]);
+
+  const width = useWindowSize();
   useEffect(() => {
     const fetchData = async () => {
       const response = await sendRequest(`room/rooms`, {
@@ -69,7 +135,7 @@ const page = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth', // This creates a smooth scrolling effect
+      behavior: 'smooth',
     });
   };
   // const handleButtonHover1 = () => {
@@ -87,7 +153,13 @@ const page = () => {
   //     'Create your free account in just a few simple steps and join our ever-growing gaming community',
   //   );
   // };
-  
+
+  const handleDotClick = (index: number) => {
+    setActiveGun(index);
+  };
+   const handleMapDotClick = (index:number)=>{
+setActiveMaptext(index)
+   }
   return (
     <div className={styles.bodycolor}>
       {/* <CustomCursor /> */}
@@ -346,9 +418,11 @@ const page = () => {
               <div className={styles.radialGradient2}></div>
               <Image
                 className={styles.welcome_RightImg}
-                src={`${width[0] <= 600 ? '../assests/mobilebannerstone.svg':'../assests/Group20.svg'}`}
+                src={`${
+                  width[0] <= 600 ? '../assests/mobilebannerstone.svg' : '../assests/Group20.svg'
+                }`}
                 height={700}
-                width={700}
+                width={800}
                 alt="zoom in image"
               />
             </div>
@@ -365,7 +439,7 @@ const page = () => {
         </div>
         <div>
           <div className={styles.choseSection}>
-            <h2>Why Choose PATT SE HEADSHOT</h2>
+            <h2 className={styles.heading}>Why Choose PATT SE HEADSHOT</h2>
             <p>
               Join the ranks of those who have chosen us as their preferred esports platform for
               BGMI. Experience the future of gaming excellence and be part of our ever-growing
@@ -430,7 +504,12 @@ const page = () => {
                 <div className={styles.scope_line_red_dot}></div>
               </div>
             </div>
-            <div className={styles.seam_main_container}>
+            <div
+              //  className={styles.seam_main_container}
+              className={` ${
+                activeGun === 3 ? styles.seam_main_container : `${styles.seam_main_container_not}`
+              }`}
+            >
               <div className={styles.seamlesstxn}>
                 <Image
                   src="../assests/seamless2.svg"
@@ -443,7 +522,12 @@ const page = () => {
               <p className={styles.seam}>Seamless Transactions</p>
             </div>
 
-            <div className={styles.clock_maincontainer}>
+            <div
+              // className={styles.clock_maincontainer}
+              className={` ${
+                activeGun === 2 ? styles.clock_maincontainer : `${styles.clock_maincontainer_not}`
+              }`}
+            >
               <div className={styles.clock}>
                 <Image
                   src="../assests/clock2.svg"
@@ -455,7 +539,11 @@ const page = () => {
               </div>
               <p className={styles.short_heading}>24/7 Support</p>
             </div>
-            <div className={styles.tournament_maincontainer}>
+            <div
+              className={` ${
+                activeGun === 0 ? styles.tournament_maincontainer : `${styles.tournament_not}`
+              }`}
+            >
               <div className={styles.trophy_container}>
                 <Image
                   src="../assests/stamp.svg"
@@ -467,7 +555,11 @@ const page = () => {
               </div>
               <p className={styles.short_heading}>Exciting Tournaments</p>
             </div>
-            <div className={styles.prize_maincontainer}>
+            <div
+              className={` ${
+                activeGun === 1 ? styles.activeprizemainconatiner : `${styles.prize_maincontainer}`
+              }`}
+            >
               <div className={styles.money_container}>
                 <Image
                   src="../assests/moneycashback.svg"
@@ -480,27 +572,62 @@ const page = () => {
               <p className={styles.short_heading}>Cash Prizes</p>
             </div>
           </div>
-          <div>
-            <p className={styles.scope_text} id="changing-text">
-              Our dedicated support team is here to assist you around the clock, ensuring a smooth
-              and enjoyable gaming experience.
+          <div key={supportText} className={styles.supportText}>
+            <p className={styles.scope_text} id="changing-text" key={supportText}>
+              {supportText}
             </p>
           </div>
-          <div className={styles.guns}>
-            <Image
-              className={styles.gun}
-              src="../assests/newgun.svg"
-              height={100}
-              width={100}
-              alt="akm"
-            />
-            <Image
-              className={styles.gun1}
-              src="../assests/ak471.svg"
-              height={100}
-              width={100}
-              alt="akm"
-            />
+          <div className={`${width[0] <= 450 ? styles.gunsmob : styles.guns}`}>
+            <div>
+              {width[0] <= 450 ? (
+                <Image
+                  className={styles.gun}
+                  src={activeGun === 0 ? '../assests/newgun.svg' : '../assests/ak471.svg'}
+                  height={100}
+                  width={100}
+                  alt="akm"
+                />
+              ) : (
+                <div className={styles.Dgun}>
+                  <div>
+                    <Image
+                      className={styles.gun2}
+                      src="../assests/ak471.svg"
+                      height={100}
+                      width={100}
+                      alt="akm"
+                    />
+                  </div>
+                  <div>
+                    <Image
+                      className={styles.gun1}
+                      src="../assests/sniper.svg"
+                      height={100}
+                      width={100}
+                      alt="akm"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className={styles.dotContainer}>
+              <div
+                className={` ${activeGun === 0 ? styles.activedot : `${styles.dot}`}`}
+                onClick={() => handleDotClick(0)}
+              ></div>
+              <div
+                className={`${styles.dot} ${activeGun === 1 ? styles.activedot : `${styles.dot}`}`}
+                onClick={() => handleDotClick(1)}
+              ></div>
+              <div
+                className={`${styles.dot} ${activeGun === 2 ? styles.activedot : `${styles.dot}`}`}
+                onClick={() => handleDotClick(2)}
+              ></div>
+               <div
+                className={`${styles.dot} ${activeGun === 3 ? styles.activedot : `${styles.dot}`}`}
+                onClick={() => handleDotClick(3)}
+              ></div>
+            </div>
           </div>
         </div>
       </div>
@@ -595,9 +722,26 @@ const page = () => {
           />
         </div> */}
 
-        <div className={styles.mapBgPara}>
+        <div className={styles.mapBgPara} key={content}>
+          <div className={styles.mapContent}>
+          <h2>{heading} </h2>
           <p className={styles.mapP}>{content}</p>
+          </div>
         </div>
+          <div className={styles.dotContainerMap}>
+              <div
+                className={` ${activeMaptext === 0 ? styles.mapactivedot : `${styles.dot}`}`}
+                onClick={() => handleMapDotClick(0)}
+              ></div>
+              <div
+                className={`${styles.dot} ${activeMaptext === 1 ? styles.mapactivedot : `${styles.dot}`}`}
+                onClick={() => handleMapDotClick(1)}
+              ></div>
+              <div
+                className={`${styles.dot} ${activeMaptext === 2 ? styles.mapactivedot : `${styles.dot}`}`}
+                onClick={() => handleMapDotClick(2)}
+              ></div>
+            </div>
       </section>
 
       <section className={styles.buggiSec}>
