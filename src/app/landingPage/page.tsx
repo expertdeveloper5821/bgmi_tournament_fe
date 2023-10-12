@@ -439,7 +439,7 @@ const page = () => {
         </div>
         <div>
           <div className={styles.choseSection}>
-            <h2 className={styles.heading}>Why Choose PATT SE HEADSHOT</h2>
+            <div className={styles.choseSectionheader} id={styles.choseSectionheader}>Why Choose PATT SE HEADSHOT</div>
             <p>
               Join the ranks of those who have chosen us as their preferred esports platform for
               BGMI. Experience the future of gaming excellence and be part of our ever-growing
@@ -736,7 +736,7 @@ const page = () => {
           <div className={styles.mapContent}>
             {width[0] <= 450 ? (
               <div className={styles.locationimg}>
-                <Image src="../assests/whiteLocationIcon.svg" height={20} width={20} alt="location" />
+                <Image src="../assests/whiteLocationIcon.svg" height={15} width={15} alt="location" />
               </div>
             ) : (
               ''
