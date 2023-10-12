@@ -40,7 +40,7 @@ const page = () => {
   const [contentcount, setContectcount] = useState<number>(0);
   const [content, setContent] = useState<string>('');
   const [supportText, setSupportText] = useState<string>('');
-  const[heading,setHeading] = useState<string>('')
+  const [heading, setHeading] = useState<string>('');
   const handleData = (id: number) => {
     setId(id);
   };
@@ -94,17 +94,17 @@ const page = () => {
       setContent(
         'Create your free account in just a few simple steps and join our ever-growing gaming community',
       );
-      setHeading('Sign Up')
+      setHeading('Sign Up');
     } else if (activeMaptext === 1) {
       setContent(
         'Dive into intense BGMI battles, showcase your skills, and climb the leaderboard to win cash rewards.',
       );
-      setHeading('Play & Win')
+      setHeading('Play & Win');
     } else if (activeMaptext === 2) {
       setContent(
         'Cash out your earnings with ease and enjoy the real benefits of your gaming talent.',
       );
-      setHeading('Redeem Rewards')
+      setHeading('Redeem Rewards');
     }
   }, [activeMaptext]);
 
@@ -157,9 +157,9 @@ const page = () => {
   const handleDotClick = (index: number) => {
     setActiveGun(index);
   };
-   const handleMapDotClick = (index:number)=>{
-setActiveMaptext(index)
-   }
+  const handleMapDotClick = (index: number) => {
+    setActiveMaptext(index);
+  };
   return (
     <div className={styles.bodycolor}>
       {/* <CustomCursor /> */}
@@ -510,14 +510,12 @@ setActiveMaptext(index)
                 activeGun === 3 ? styles.seam_main_container : `${styles.seam_main_container_not}`
               }`}
             >
-              <div 
-               className={` ${
-                width[0]<=450 ?styles.seamlesstxn_mob : `${styles.seamlesstxn}`
-              }`}
+              <div
+                className={` ${width[0] <= 450 ? styles.seamlesstxn_mob : `${styles.seamlesstxn}`}`}
               >
                 <Image
                   src={` ${
-                    width[0]<=450 ?'../assests/withdraw.svg' : `../assests/seamless2.svg`
+                    width[0] <= 450 ? '../assests/withdraw.svg' : `../assests/seamless2.svg`
                   }`}
                   alt="bullter"
                   height={100}
@@ -532,15 +530,9 @@ setActiveMaptext(index)
                 activeGun === 2 ? styles.clock_maincontainer : `${styles.clock_maincontainer_not}`
               }`}
             >
-              <div
-               className={` ${
-                width[0]<=450 ?styles.clock_mob : `${styles.clock}`
-              }`}
-             >
+              <div className={` ${width[0] <= 450 ? styles.clock_mob : `${styles.clock}`}`}>
                 <Image
-                  src={` ${
-                    width[0]<=450 ?'../assests/clockmob.svg' : `../assests/clock2.svg`
-                  }`}
+                  src={` ${width[0] <= 450 ? '../assests/clockmob.svg' : `../assests/clock2.svg`}`}
                   alt="clock"
                   height={100}
                   width={100}
@@ -555,14 +547,12 @@ setActiveMaptext(index)
               }`}
             >
               <div
-              className={` ${
-                width[0]<=450 ?styles.trophy_container_mob : `${styles.trophy_container}`
-              }`}
+                className={` ${
+                  width[0] <= 450 ? styles.trophy_container_mob : `${styles.trophy_container}`
+                }`}
               >
                 <Image
-                 src = {` ${
-                  width[0]<=450 ? "./assests/tournament.svg" : `../assests/stamp.svg`
-                }`}
+                  src={` ${width[0] <= 450 ? './assests/tournament.svg' : `../assests/stamp.svg`}`}
                   alt="trophy"
                   height={100}
                   width={100}
@@ -576,14 +566,13 @@ setActiveMaptext(index)
                 activeGun === 1 ? styles.activeprizemainconatiner : `${styles.prize_maincontainer}`
               }`}
             >
-              <div 
-               className={` ${
-                width[0]<=450 ?styles.money_container_mob : `${styles.money_container}`
-              }`}>
-                <Image
-                src = {` ${
-                  width[0]<=450 ? "./assests/cash.svg" : `./assests/moneycashback.svg`
+              <div
+                className={` ${
+                  width[0] <= 450 ? styles.money_container_mob : `${styles.money_container}`
                 }`}
+              >
+                <Image
+                  src={` ${width[0] <= 450 ? './assests/cash.svg' : `./assests/moneycashback.svg`}`}
                   alt="trophy"
                   height={100}
                   width={100}
@@ -644,7 +633,7 @@ setActiveMaptext(index)
                 className={`${styles.dot} ${activeGun === 2 ? styles.activedot : `${styles.dot}`}`}
                 onClick={() => handleDotClick(2)}
               ></div>
-               <div
+              <div
                 className={`${styles.dot} ${activeGun === 3 ? styles.activedot : `${styles.dot}`}`}
                 onClick={() => handleDotClick(3)}
               ></div>
@@ -745,24 +734,36 @@ setActiveMaptext(index)
 
         <div className={styles.mapBgPara} key={content}>
           <div className={styles.mapContent}>
-          <h2>{heading} </h2>
-          <p className={styles.mapP}>{content}</p>
+            {width[0] <= 450 ? (
+              <div className={styles.locationimg}>
+                <Image src="../assests/whiteLocationIcon.svg" height={20} width={20} alt="location" />
+              </div>
+            ) : (
+              ''
+            )}
+
+            <h2>{heading} </h2>
+            <p className={styles.mapP}>{content}</p>
           </div>
         </div>
-          <div className={styles.dotContainerMap}>
-              <div
-                className={` ${activeMaptext === 0 ? styles.mapactivedot : `${styles.dot}`}`}
-                onClick={() => handleMapDotClick(0)}
-              ></div>
-              <div
-                className={`${styles.dot} ${activeMaptext === 1 ? styles.mapactivedot : `${styles.dot}`}`}
-                onClick={() => handleMapDotClick(1)}
-              ></div>
-              <div
-                className={`${styles.dot} ${activeMaptext === 2 ? styles.mapactivedot : `${styles.dot}`}`}
-                onClick={() => handleMapDotClick(2)}
-              ></div>
-            </div>
+        <div className={styles.dotContainerMap}>
+          <div
+            className={` ${activeMaptext === 0 ? styles.mapactivedot : `${styles.dot}`}`}
+            onClick={() => handleMapDotClick(0)}
+          ></div>
+          <div
+            className={`${styles.dot} ${
+              activeMaptext === 1 ? styles.mapactivedot : `${styles.dot}`
+            }`}
+            onClick={() => handleMapDotClick(1)}
+          ></div>
+          <div
+            className={`${styles.dot} ${
+              activeMaptext === 2 ? styles.mapactivedot : `${styles.dot}`
+            }`}
+            onClick={() => handleMapDotClick(2)}
+          ></div>
+        </div>
       </section>
 
       <section className={styles.buggiSec}>

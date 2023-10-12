@@ -32,7 +32,9 @@ const page = () => {
         <Link href="/">
           <div>
             <span className={styles.logo}>
-              <img src={'../assests/logo.svg'} />
+              <img 
+               src={scrolling ?  `../assests/logo.svg` :'./assests/logolightmode.svg'}
+              />
             </span>
           </div>
         </Link>

@@ -66,17 +66,6 @@
   justify-content: center;
   align-items: center;
 }
-
-@mixin heading {
-  display: flex;
-  justify-content: center;
-  color: #5c5c5c;
-  font-family: Century Gothic;
-  font-weight: 400;
-  margin-bottom: 0.5rem;
-  line-height: 22px;
-}
-
 @mixin input_box {
   font-style: var(--bs-font-style);
   font-weight: var(--bs-body-font-weight);
