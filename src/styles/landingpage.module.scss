@@ -1,4 +1,4 @@
-@import './mixins.scss';
+// @import './mixins.scss';
 @import './variable.scss';
 @import url('https://fonts.googleapis.com/css2?family=Grandstander:wght@300;400;700&display=swap');
 .bodycolor {
@@ -582,16 +582,39 @@
     letter-spacing: 2px;
   }
   @media (max-width: $breakpoint-tab) {
-    font-size: 16px;
+    // font-size: 16px;
     letter-spacing: 5px;
     text-align: center;
   }
   @media (max-width: $breakpoint-xSmall) {
-    font-size: 16px;
+    font-size: 20px;
     letter-spacing: 2px;
     text-align: center;
   }
 }
+.rn_text_header{
+  font-size: 20px;
+  color: white;
+  padding-top: 20px;
+  letter-spacing: 10px;
+  font-weight: bold;
+  @media (min-width: $breakpoint-lg) {
+    animation: textmove 16s linear infinite;
+  }
+  @media (max-width: $breakpoint-md) {
+    letter-spacing: 2px;
+  }
+  @media (max-width: $breakpoint-tab) {
+    letter-spacing: 5px;
+    text-align: center;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+}
+
 // @keyframes textmove {
 //   0% {
 //     transform: translateX(100%);
@@ -2088,9 +2111,11 @@ align-items: center;
   align-items: center;
   justify-content: center;
 }
-.mapContent h2{
+.mapContentHeader{
   @media (max-width: $breakpoint-xs) {
-    font-size: 16px;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 0px;
   }
  
 }

@@ -250,7 +250,7 @@ const page = () => {
           </Link>
         </div>
         <div className={styles.rn_text}>
-          <h2>EARN CASH REWARDS FOR CONQUERING</h2>
+          <h2 className={styles.rn_text_header}>EARN CASH REWARDS FOR CONQUERING</h2>
         </div>
       </div>
 
@@ -742,7 +742,7 @@ const page = () => {
               ''
             )}
 
-            <h2>{heading} </h2>
+            <h2 className={styles.mapContentHeader}>{heading} </h2>
             <p className={styles.mapP}>{content}</p>
           </div>
         </div>
