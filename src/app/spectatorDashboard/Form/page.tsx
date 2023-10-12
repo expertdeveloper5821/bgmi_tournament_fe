@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 //@ts-ignore
 import { Button, Input, Select } from 'technogetic-iron-smart-ui';
@@ -9,6 +9,8 @@ import { sendRequest } from '@/utils/axiosInstanse';
 import { ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
 import { formatDate, formatTime } from '../../../Components/CommonComponent/moment';
+import { get } from 'http';
+import { url } from 'inspector';
 interface FormCreate {
   roomId: string;
   gameName: string;
@@ -39,7 +41,7 @@ const initial: FormCreate = {
   thirdWin: '',
   highestKill: '',
   secondWin: '',
-  mapImg: null,
+  mapImg: '',
   entryFee: '',
 };
 
@@ -47,10 +49,11 @@ const Form = ({ ...props }) => {
   const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate, Spect, setSpect, callSpecatator } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const [images, setImages] = useState([]);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef(null);
   const [image, setImage] = useState<File | null>(null);
-  const [initialValues, setInitialValues] = useState(initial);
-  const [showImage, setShowImage] = useState(false);
-
+  const [thirdImage, setThirdImage] = useState(null);
 
   const {
     roomId,
@@ -68,18 +71,15 @@ const Form = ({ ...props }) => {
 
   const { values, touched, errors, handleSubmit, handleBlur, setValues, setFieldValue } =
     useFormik<FormCreate>({
-      initialValues,
+      initialValues: initial,
       validationSchema,
       onSubmit: async (values: any, { resetForm }) => {
 
         const dateTimeString = new Date(`${values.date} ${values.time}`);
         values.dateAndTime = dateTimeString;
 
-        const form = new FormData();
-        form.append('mapImg', image);
-        for (const key in values) {
-          form.append(key, values[key]);
-        }
+        const form = values;
+        form['mapImg'] = thirdImage;
 
         try {
           setIsLoading(true);
@@ -96,6 +96,8 @@ const Form = ({ ...props }) => {
           );
           if (response.status === 200) {
             resetForm();
+            setImages([]);
+            setValues(initial);
             callSpecatator();
             setIsLoading(false);
             toast.success(response.data.message);
@@ -115,19 +117,6 @@ const Form = ({ ...props }) => {
       },
     });
 
-  const getAllSpectator = async () => {
-    try {
-      const spectatorResponse = await sendRequest('room/user-rooms', {
-        method: 'GET',
-      });
-      setSpect(spectatorResponse.data);
-    } catch (error: any) {
-      console.log('check error', error);
-    }
-  };
-
-
-
   useEffect(() => {
     if (roomIdToUpdate) {
       const dateAndTimeParts = roomIdToUpdate.dateAndTime?.split('T');
@@ -136,6 +125,7 @@ const Form = ({ ...props }) => {
       const [hours, minutes] = timeValue.split(':');
       const formattedTime = `${hours}:${minutes}:${timeValue}.000Z`;
       const formattedTimeWithoutSeconds = formattedTime.split(':').slice(0, 2).join(':');
+      setImage(roomIdToUpdate.mapImg);
 
       setValues({
         roomId: roomIdToUpdate.roomId,
@@ -148,14 +138,17 @@ const Form = ({ ...props }) => {
         thirdWin: roomIdToUpdate.thirdWin,
         highestKill: roomIdToUpdate.highestKill,
         secondWin: roomIdToUpdate.secondWin,
-        mapImg: null,
+        mapImg: roomIdToUpdate.mapImg,
         entryFee: roomIdToUpdate.entryFee,
         time: formattedTimeWithoutSeconds,
         date: dateValue
       });
+
     }
 
   }, [roomIdToUpdate])
+
+
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -185,6 +178,70 @@ const Form = ({ ...props }) => {
     }
   };
 
+  const onDragOver = (event: any) => {
+    event.preventDefault();
+    setIsDragging(true);
+  };
+
+  const onDragLeave = (event: any) => {
+    event.preventDefault();
+    setIsDragging(false);
+  };
+
+
+  const onDrop = (event: any) => {
+    event.preventDefault();
+    setIsDragging(false);
+    const files = event.dataTransfer.files;
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].type.split('/')[0] !== 'image') continue;
+      if (!images.some((e) => e.name === files[i].name)) {
+        const newImage = {
+          name: files[i].name,
+          url: URL.createObjectURL(files[i]),
+        };
+        setImages((prevImages) => [...prevImages, newImage]);
+        setFieldValue('mapImg', newImage.url);
+      }
+    }
+  };
+
+  const onFileSelect = (event: any) => {
+    const files = event.target.files;
+    if (files.length === 0) {
+      return;
+    }
+    setThirdImage(files[0]);
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].type.split('/')[0] !== 'image') continue;
+      if (!images.some((e) => e.name === files[i].name)) {
+        const newImage = {
+          name: files[i].name,
+          url: URL.createObjectURL(files[i]),
+        };
+        setImages((prevImages) => [...prevImages, newImage]);
+        setFieldValue('mapImg', newImage.url);
+      }
+    }
+  };
+
+
+  const selectFiles = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const deleteImage = (index: number) => {
+    const newImages = [...images];
+    newImages.splice(index, 1);
+    setImages(newImages);
+    if (newImages.length === 0) {
+      setFieldValue('mapImg', null);
+    }
+  };
+
+  ;
 
   return (
     <>
@@ -452,14 +509,43 @@ const Form = ({ ...props }) => {
                       {errors.thirdWin && touched.thirdWin && (
                         <div className={styles.error}>{String(errors.thirdWin)}</div>
                       )}
-                      {/* <div>
-                        <button onClick={() => setShowImage(!showImage)}>Click me</button>
-                        {showImage && (
-                          <img src={mapImage} alt="mapImg" width={30} height={30} />
-                        )}
-                      </div> */}
+
 
                       <div className={styles.input_box}>
+                        <div className={styles.card}>
+                          <div className={styles.top}>
+                            <p>Drag & Drop Image Uploading</p>
+                          </div>
+                          <div className={styles.drag_area} onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}>
+                            {isDragging ? (
+                              <span className={styles.select}>Drop Image here</span>
+                            ) : (
+                              <>
+                                <div className={styles.drag_drop}> Drag and Drop image here or ,</div>
+                                <span className={styles.select} role='button' onClick={selectFiles}>Browse</span>
+                              </>
+                            )}
+
+                            <input name='file' type='file' className={styles.file} multiple ref={fileInputRef} onChange={onFileSelect}></input>
+                          </div>
+                          <div className={styles.container}>
+                            {
+                              images.map((image, index) => (
+                                <div className={styles.image} key={index} >
+                                  <span className={styles.delete} onClick={() => deleteImage(index)}>&times;</span>
+                                  <img src={image.url} alt={image.name}></img>
+                                </div>
+                              ))
+                            }
+                            {roomIdToUpdate && (
+                              <img src={roomIdToUpdate.mapImg} alt="Map Image" />
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+
+                      {/* <div className={styles.input_box}>
                         <label className={styles.room_id} htmlFor="secondWin">
                           Image Upload
                         </label>
@@ -477,7 +563,7 @@ const Form = ({ ...props }) => {
                           }}
                           onBlur={handleBlur}
                         />
-                      </div>
+                      </div> */}
                     </div>
                   </form>
 
@@ -485,6 +571,7 @@ const Form = ({ ...props }) => {
                     <Button
                       className={styles.cancel_btn}
                       onClick={() => {
+                        setValues(initial);
                         setShowModal(false);
                         setRoomIdToUpdate('');
                       }}
@@ -500,6 +587,7 @@ const Form = ({ ...props }) => {
                         variant="contained"
                         type="submit"
                         onClick={handleSubmit}
+
                       >
                         {isLoading ? 'Updating...' : 'Update Room'}
                       </Button>
@@ -511,6 +599,7 @@ const Form = ({ ...props }) => {
                         variant="contained"
                         type="submit"
                         onClick={handleSubmit}
+
                       >
                         {isLoading ? 'Loading...' : 'Add Room'}
                       </Button>
