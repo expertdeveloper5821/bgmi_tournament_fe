@@ -510,9 +510,15 @@ setActiveMaptext(index)
                 activeGun === 3 ? styles.seam_main_container : `${styles.seam_main_container_not}`
               }`}
             >
-              <div className={styles.seamlesstxn}>
+              <div 
+               className={` ${
+                width[0]<=450 ?styles.seamlesstxn_mob : `${styles.seamlesstxn}`
+              }`}
+              >
                 <Image
-                  src="../assests/seamless2.svg"
+                  src={` ${
+                    width[0]<=450 ?'../assests/withdraw.svg' : `../assests/seamless2.svg`
+                  }`}
                   alt="bullter"
                   height={100}
                   width={100}
@@ -521,16 +527,20 @@ setActiveMaptext(index)
               </div>
               <p className={styles.seam}>Seamless Transactions</p>
             </div>
-
             <div
-              // className={styles.clock_maincontainer}
               className={` ${
                 activeGun === 2 ? styles.clock_maincontainer : `${styles.clock_maincontainer_not}`
               }`}
             >
-              <div className={styles.clock}>
+              <div
+               className={` ${
+                width[0]<=450 ?styles.clock_mob : `${styles.clock}`
+              }`}
+             >
                 <Image
-                  src="../assests/clock2.svg"
+                  src={` ${
+                    width[0]<=450 ?'../assests/clockmob.svg' : `../assests/clock2.svg`
+                  }`}
                   alt="clock"
                   height={100}
                   width={100}
@@ -544,9 +554,15 @@ setActiveMaptext(index)
                 activeGun === 0 ? styles.tournament_maincontainer : `${styles.tournament_not}`
               }`}
             >
-              <div className={styles.trophy_container}>
+              <div
+              className={` ${
+                width[0]<=450 ?styles.trophy_container_mob : `${styles.trophy_container}`
+              }`}
+              >
                 <Image
-                  src="../assests/stamp.svg"
+                 src = {` ${
+                  width[0]<=450 ? "./assests/tournament.svg" : `../assests/stamp.svg`
+                }`}
                   alt="trophy"
                   height={100}
                   width={100}
@@ -560,9 +576,14 @@ setActiveMaptext(index)
                 activeGun === 1 ? styles.activeprizemainconatiner : `${styles.prize_maincontainer}`
               }`}
             >
-              <div className={styles.money_container}>
+              <div 
+               className={` ${
+                width[0]<=450 ?styles.money_container_mob : `${styles.money_container}`
+              }`}>
                 <Image
-                  src="../assests/moneycashback.svg"
+                src = {` ${
+                  width[0]<=450 ? "./assests/cash.svg" : `./assests/moneycashback.svg`
+                }`}
                   alt="trophy"
                   height={100}
                   width={100}

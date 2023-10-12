@@ -1510,7 +1510,23 @@
     height: 70px;
   }
 }
-
+.seamlesstxn_mob {
+  top: 34%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  background-color: none;
+  @media (max-width: $breakpoint-xlg) {
+    width: 80px;
+    height: 80px;
+  }
+  @media only screen and (max-width: 430px) {
+    width: 70px;
+    height: 70px;
+  }
+}
 .seamimg {
   height: auto;
   width: 40px;
@@ -1576,6 +1592,22 @@
   justify-content: center;
   align-items: center;
   background-color: #ffffff52;
+  @media (max-width: $breakpoint-xlg) {
+    width: 70px;
+    height: 70px;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    width: 60px;
+    height: 60px;
+  }
+}
+.clock_mob{
+  width: 90px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: none;
   @media (max-width: $breakpoint-xlg) {
     width: 70px;
     height: 70px;
@@ -1711,6 +1743,18 @@
     height: 70px;
   }
 }
+.trophy_container_mob {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: none;
+  @media only screen and (max-width: 430px) {
+    width: 70px;
+    height: 70px;
+  }
+}
 .prize_maincontainer {
   position: absolute;
   bottom: 8%;
@@ -1774,6 +1818,22 @@
     height: 60px;
   }
 }
+.money_container_mob {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: none;
+  @media (max-width: $breakpoint-xlg) {
+    width: 70px;
+    height: 70px;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    width: 60px;
+    height: 60px;
+  }
+}
 
 .supportText {
   animation: fadeInAnimation ease 2s;
@@ -1790,7 +1850,7 @@
   margin: 0 auto;
   padding-top: 80px;
   @media only screen and (max-width: 450px) {
-    margin-top: 90px;
+    margin-top: 25px;
   }
 }
 .guns {
@@ -1823,7 +1883,6 @@ align-items: center;
   }
 }
 .gun1 {
-  // height: auto;
   width: 200px;
   margin-left: 10px;
   @media (max-width: $breakpoint-xSmall) {
@@ -1831,7 +1890,6 @@ align-items: center;
   }
 }
 .gun2 {
-  // height: auto;
   width: 200px;
   margin-top: 20px;
   @media (max-width: $breakpoint-xSmall) {
