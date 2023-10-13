@@ -28,9 +28,7 @@
     width: 100vw;
   }
 }
-.content__container {
-  // padding: 0 10px 0 10px;
-}
+
 .container {
   position: absolute;
 }
@@ -1002,7 +1000,7 @@ img.slides_image {
 }
 
 .gameCardFade {
-  content: "";
+  content: '';
   position: absolute;
   // z-index: 1;
   bottom: 0px;
@@ -1272,4 +1270,137 @@ body.activemodal {
   line-height: 34px;
   letter-spacing: 0.02em;
   margin: 10px 0px 0px 0px;
+}
+
+//video module
+
+.dashboard_video {
+  // border: 5px solid black;
+  width: 100%;
+  padding-right: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.video_section {
+  width: 50%;
+  display: flex;
+  // border: 1px solid green;
+  flex-direction: column;
+}
+
+.sorting {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  // border: 1px solid green;
+}
+
+.select {
+  border: 1px solid #ff7a00;
+  padding: 10px 25px;
+  border-radius: 4px;
+  background-color: transparent;
+  color: #ff7a00;
+}
+
+.main_video {
+  padding-right: 20px;
+}
+
+.video_image {
+  border-radius: 14px;
+}
+.image_video {
+  position: relative;
+}
+
+.head {
+  position: absolute;
+  top: 75%;
+  left: 10%;
+  color: #ff7a00;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 32.93px;
+}
+
+.timeanddate {
+  position: absolute;
+  top: 80%;
+  left: 10%;
+}
+.copy_link {
+  position: absolute;
+  top: 81%;
+  width: 14px;
+  left: 31%;
+}
+
+.nextbutton {
+  position: absolute;
+  top: 82%;
+  width: 52px;
+  left: 35%;
+}
+.previousbutton {
+  position: absolute;
+  top: 82%;
+  width: 52px;
+  left: 40%;
+}
+
+.card {
+  display: flex;
+  // display: flex;
+  // gap: 16px;
+  // top: 74%;
+  // width: 40%;
+  // position: absolute;
+  // left: 48%;
+  // border-radius: 8px;
+}
+.card1 {
+  display: flex;
+  gap: 16px;
+  top: 74%;
+  width: 40%;
+  position: absolute;
+  left: 47%;
+  border-radius: 8px;
+}
+.card2 {
+  display: flex;
+  top: 88%;
+  color: #ff7a00;
+  width: 40%;
+  position: absolute;
+  justify-content: space-between;
+  gap: 20px;
+  left: 47%;
+  border-radius: 8px;
+}
+
+.card2 span {
+  font-size: 12px;
+}
+
+.card3 {
+  display: flex;
+  top: 90%;
+  width: 40%;
+  position: absolute;
+  justify-content: space-between;
+  gap: 20px;
+  left: 47%;
+  border-radius: 8px;
+}
+.card3 span {
+  font-size: 10px;
+}
+
+.cardImage {
+  border-radius: 8px;
 }

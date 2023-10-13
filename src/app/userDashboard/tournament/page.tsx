@@ -278,7 +278,7 @@ function Tournament() {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            marginLeft:"-12px"
+                            marginLeft: "-12px"
                           }}
                         >
                           <button
@@ -372,7 +372,7 @@ function Tournament() {
             <div className={styles.container2}>
               <div className={styles.inner_cont}>
                 {regMatches?.length > 2 && (
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft:"12px" }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: "12px" }}>
                     <button
                       onClick={goToPrevSlide}
                       style={{

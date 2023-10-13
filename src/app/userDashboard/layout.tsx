@@ -1,7 +1,8 @@
 'use client';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Dashboard.module.scss';
-import { FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt, FaVideo } from 'react-icons/fa';
+// import { FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt, FaVideo } from 'react-icons/fa';
+import { FaTh, FaVideo } from 'react-icons/fa';
 import Sidebar from '@/Components/CommonComponent/SideBar/Sidebar';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 const inter = Inter({ subsets: ['latin'] });
@@ -22,11 +23,11 @@ const dynamicMenuItems = [
   //   name: 'Friends',
   //   icon: <FaRegChartBar />,
   // },
-  // {
-  //   path: '/userDashboard/videos',
-  //   name: 'Videos',
-  //   icon: <FaVideo />,
-  // },
+  {
+    path: '/userDashboard/videos',
+    name: 'Videos',
+    icon: <FaVideo />,
+  },
   // {
   //   path: '/userDashboard/kyc',
   //   name: 'KYC',
