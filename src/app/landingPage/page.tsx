@@ -505,7 +505,6 @@ const page = () => {
               </div>
             </div>
             <div
-              //  className={styles.seam_main_container}
               className={` ${
                 activeGun === 3 ? styles.seam_main_container : `${styles.seam_main_container_not}`
               }`}

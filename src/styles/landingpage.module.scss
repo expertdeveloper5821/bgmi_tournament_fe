@@ -1816,6 +1816,10 @@
     bottom: 13%;
     right: 18%;
   }
+  @media only screen and (max-width: 821px) {
+    bottom: 8%;
+    right: 21%;
+  }
   @media only screen and (max-width: 430px) {
     // top: 5%;
     // right: 36%;
@@ -2722,6 +2726,9 @@ align-items: center;
 
   .footerLogo {
     width: 150px;
+    @media only screen and (max-width: 376px) {
+      margin-top: 53px;
+    }
   }
   .anchorTags {
     flex-direction: column;
