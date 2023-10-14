@@ -25,7 +25,14 @@ const page = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    const offsetTop = element.offsetTop;
+    window.scrollTo({
+      top: offsetTop,
+      behavior: 'smooth'
+    });
+  };
   return (
     <div className={styles.main_container}>
       <nav className={scrolling ? `${styles.scrollnav}` : `${styles.navbar}`}>
@@ -44,13 +51,13 @@ const page = () => {
               <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/about">About Us</Link>
+              <a onClick={() => scrollToSection('WelcomeSection')}>About Us</a>
             </li>
             <li>
-              <Link href="/about">Upcoming Matches</Link>
+              <a onClick={() => scrollToSection('UpcomingMatches')}>Upcoming Matches</a>
             </li>
             <li>
-              <Link href="/contact">Contact Us</Link>
+              <a onClick={() => scrollToSection('Footer')}>Contact Us</a>
             </li>
             <Link href="/auth/login">
               <button className={scrolling ? `${styles.scrollloginBtn}` : `${styles.loginBtn}`}>

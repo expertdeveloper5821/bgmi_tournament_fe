@@ -254,7 +254,7 @@ const page = () => {
         </div>
       </div>
 
-      <div className={styles.upcoming_mathces_container}>
+      <div className={styles.upcoming_mathces_container}  id="UpcomingMatches">
         <div className={styles.upcoming_mathces}>
           <h3 className={styles.upComingHeading}>Upcoming Matches</h3>
           <p className={styles.upComingPara}>
@@ -270,10 +270,11 @@ const page = () => {
             <div className={styles.banner_bgmi_img}>
               <img
                 src={
-                  data && data[id].mapImg ? data[id].mapImg : `${'./assests/eranglemapimage.svg'}`
+                  data && data[id].mapImg ? data[id].mapImg : `${'./assests/Eranglemapnewone.png'}`
                 }
                 alt="bg"
                 className={styles.banner_image}
+                id={styles.banner_image}
               />
             </div>
           )}
@@ -337,14 +338,14 @@ const page = () => {
                         onClick={() => setPoolModal(true)}
                       />
                     </span>
-                    <h2>
+                    <h2 className={styles.prize_container_heading}>
                       Last Survival: 200
                       <span className={styles.rsSign}>₹</span>
                     </h2>
                   </div>
                   <div className={styles.fee_container}>
                     <span className={styles.commonspanprizesection}>ENTRY FEES</span>
-                    <h2>
+                    <h2 className={styles.prize_container_heading}>
                       0<span className={styles.rsSign}>₹</span>
                     </h2>
                   </div>
@@ -381,6 +382,7 @@ const page = () => {
           </div>
         </div>
         <div className={styles.rn_images_container}>
+          
           {data?.length > 0 &&
             data?.map((gameDetails: GameDetails, index: number) => {
               return (
@@ -392,7 +394,7 @@ const page = () => {
                     </div>
                     <img
                       src={
-                        gameDetails.mapImg ? gameDetails.mapImg : `./assests/eranglemapimage.svg`
+                        ( gameDetails.mapImg && gameDetails.mapImg !== (null||undefined||'null'||'undefined') ) ? gameDetails.mapImg : `./assests/Eranglemapnewone.png`
                       }
                       className={styles.rn_images}
                       height={100}
@@ -407,7 +409,7 @@ const page = () => {
         </div>
 
         {/* </Slider> */}
-        <div className={styles.welcome_Container}>
+        <div className={styles.welcome_Container} id="WelcomeSection">
           <div className={styles.stone}>
             <img src="../assests/stone.svg" />
           </div>
@@ -426,7 +428,7 @@ const page = () => {
                 alt="zoom in image"
               />
             </div>
-            <div className={styles.welcome_alingnment}>
+            <div className={styles.welcome_alingnment} >
               <h2>Welcome to Patt Se Headshot</h2>
               <p>
                 Are you ready to take your BGMI gaming to the next level? Look no further! BGMI
@@ -788,7 +790,7 @@ const page = () => {
         </div>
       </section>
 
-      <footer className={styles.footer} id="contact">
+      <footer className={styles.footer} id="Footer">
         <div className={styles.footerDiv}>
           <div className={styles.gradientoverlaytotopfooter}></div>
           <Image
@@ -876,7 +878,7 @@ const page = () => {
           </div>
 
           <Link href="mailto:support@pattseheadshot.com" className={styles.support}>
-            Mail us: support@pattseheadshot.com
+            Mail us: <span className={styles.supporttext_span}>support@pattseheadshot.com </span>
           </Link>
 
           <p className={styles.footer_text}>
