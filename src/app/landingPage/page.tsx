@@ -438,7 +438,17 @@ const page = () => {
               />
             </div>
             <div className={styles.welcome_alingnment} >
+       <div className={styles.headerContainer}>
+            <Image
+                className={styles.welcome_star}
+                src='../assests/newshootingstar.svg'
+                
+                height={100}
+                width={100}
+                alt="zoom in image"
+              />
               <h2>Welcome to Patt Se Headshot</h2>
+       </div>
               <p>
                 Are you ready to take your BGMI gaming to the next level? Look no further! BGMI
                 Rewards brings you an exhilarating platform where your gaming skills translate into

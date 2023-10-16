@@ -581,9 +581,9 @@
   padding-top: 20px;
   letter-spacing: 10px;
   font-weight: bold;
-  @media (min-width: $breakpoint-lg) {
-    animation: textmove 16s linear infinite;
-  }
+  // @media (min-width: $breakpoint-lg) {
+  //   animation: textmove 16s linear infinite;
+  // }
   @media (max-width: $breakpoint-md) {
     letter-spacing: 2px;
   }
@@ -1112,6 +1112,9 @@
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.137), rgba(0, 0, 0, 0.931));
   pointer-events: none;
 }
+.headerContainer{
+position: relative;
+}
 .welcome_Container {
   position: relative;
   display: flex;
@@ -1123,6 +1126,13 @@
   @media (max-width: $breakpoint-ms) {
     flex-direction: column-reverse;
   }
+}
+.welcome_star{
+  position: absolute;
+  bottom: 10%;
+  bottom: 79%;
+  left: 25%;
+
 }
 .stone {
   flex: 0 1 49%;
