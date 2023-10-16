@@ -367,7 +367,16 @@ const page = () => {
                 <div className={styles.range_container}>
                   <div className={styles.range}>
                     <input type="range" value={50} />
+                    <div className={styles.headimgdiv}>
                     <span className={styles.commonspanprizesection}>Only 30 spots left 20/50</span>
+                    <Image
+                        src="../assests/downhead.svg"
+                        height={10}
+                        width={12}
+                        className={styles.downheadimgrange}
+                        alt="downhead"
+                      />
+                      </div>
                   </div>
                   <Link href="/auth/login">
                     <button className={styles.joinbtn}>JOIN</button>
@@ -564,7 +573,8 @@ const page = () => {
             </div>
             <div
               className={` ${
-                activeGun === 1 ? styles.activeprizemainconatiner : `${styles.prize_maincontainer}`
+                
+                (activeGun === 1  && width[0] <= 450 )? styles.activeprizemainconatiner : `${styles.prize_maincontainer}`
               }`}
             >
               <div
@@ -593,7 +603,7 @@ const page = () => {
               {width[0] <= 450 ? (
                 <Image
                   className={styles.gun}
-                  src={activeGun === 0 ? '../assests/newgun.svg' : '../assests/ak471.svg'}
+                  src={activeGun === 0 ? '../assests/finalsniper.svg' : '../assests/ak471.svg'}
                   height={100}
                   width={100}
                   alt="akm"
@@ -612,7 +622,7 @@ const page = () => {
                   <div>
                     <Image
                       className={styles.gun1}
-                      src="../assests/sniper.svg"
+                      src="../assests/finalsniper.svg"
                       height={100}
                       width={100}
                       alt="akm"

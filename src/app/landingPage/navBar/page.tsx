@@ -27,7 +27,7 @@ const page = () => {
   }, []);
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
-    const offsetTop = element.offsetTop;
+    const offsetTop = element.offsetTop -100;
     window.scrollTo({
       top: offsetTop,
       behavior: 'smooth'
