@@ -164,7 +164,7 @@ const page = () => {
     <div className={styles.bodycolor}>
       {/* <CustomCursor /> */}
       {/* <GlassCrack /> */}
-      <div className={styles.main_container}>
+      <div className={styles.main_container} id="bannerSection">
         <div>
           <NavBar />
         </div>
@@ -267,10 +267,11 @@ const page = () => {
 
         <div className={styles.upcoming_mathces_sub_container}>
           {data && data.length > 0 && (
+            
             <div className={styles.banner_bgmi_img}>
               <img
                 src={
-                  data && data[id].mapImg ? data[id].mapImg : `${'./assests/Eranglemapnewone.png'}`
+                  (data && data[id].mapImg && data[id].mapImg !== (null||"null")) ? data[id].mapImg : `${'./assests/Eranglemapnewone.png'}`
                 }
                 alt="bg"
                 className={styles.banner_image}
@@ -849,7 +850,7 @@ const page = () => {
           <p className={styles.footer_para}>Let's connect for more information</p>
 
           <div className={styles.social_I}>
-            <Link href="" className={styles.sociallink}>
+            <Link href="https://www.facebook.com/profile.php?id=100095239340085&is_tour_dismissed=true" className={styles.sociallink} target="_blank">
               <Image
                 className={styles.footerSocialIconfb}
                 src="../assests/fbiconfooterwhite.svg"
@@ -859,7 +860,7 @@ const page = () => {
               />
             </Link>
 
-            <Link href="" className={styles.sociallink}>
+            <Link href="https://www.instagram.com/pattseheadshotsj/" className={styles.sociallink} target="_blank">
               <Image
                 className={styles.footerSocialIconinsta}
                 src="../assests/instaiconfooterwhite.svg"
@@ -868,16 +869,16 @@ const page = () => {
                 alt="insta"
               />
             </Link>
-            <Link href="" className={styles.sociallink}>
+            <Link href="https://twitter.com/headshot_p4491" className={styles.sociallink} target="_blank">
               <Image
                 className={styles.footerSocialIcontwitter}
                 src="../assests/twittericonfooterwhite.svg"
                 width={19}
                 height={18}
-                alt="telegram"
+                alt="twitter"
               />
             </Link>
-            <Link href="" className={styles.sociallink}>
+            <Link href="https://www.youtube.com/channel/UC8GDIEtwWV_67Fxpxfa298Q" className={styles.sociallink} target="_blank">
               <Image
                 className={styles.footerSocialIconyt}
                 src="../assests/youtubeiconfooterwhite.svg"
@@ -886,7 +887,7 @@ const page = () => {
                 alt="youtube"
               />
             </Link>
-            <Link href="" className={styles.sociallink}>
+            <Link href="https://t.me/pattseheadshotsj" className={styles.sociallink} target="_blank">
               <Image
                 className={styles.footerSocialIcontelegram}
                 src="../assests/telegramfootericonwhite.svg"
@@ -898,7 +899,7 @@ const page = () => {
           </div>
 
           <Link href="mailto:support@pattseheadshot.com" className={styles.support}>
-            Mail us: <span className={styles.supporttext_span}>support@pattseheadshot.com </span>
+            Mail us: <span className={styles.supporttext_span}><Link href="support@pattseheadshot.com" target="_blank" >support@pattseheadshot.com</Link> </span>
           </Link>
 
           <p className={styles.footer_text}>

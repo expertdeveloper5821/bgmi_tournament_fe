@@ -48,7 +48,7 @@ const page = () => {
         {width >= 969 ? (
           <ul className={scrolling ? `${styles.scrollmenu}` : `${styles.menu}`}>
             <li>
-              <Link href="/">Home</Link>
+              <a onClick={() => scrollToSection('bannerSection')}>Home</a>
             </li>
             <li>
               <a onClick={() => scrollToSection('WelcomeSection')}>About Us</a>

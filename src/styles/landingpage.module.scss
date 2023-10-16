@@ -581,9 +581,10 @@
   padding-top: 20px;
   letter-spacing: 10px;
   font-weight: bold;
-  // @media (min-width: $breakpoint-lg) {
-  //   animation: textmove 16s linear infinite;
-  // }
+  @media (min-width: $breakpoint-lg) {
+    animation: textmove 16s linear infinite;
+    font-size: 27px;
+  }
   @media (max-width: $breakpoint-md) {
     letter-spacing: 2px;
   }
@@ -605,6 +606,7 @@
   font-weight: bold;
   @media (min-width: $breakpoint-lg) {
     font-weight: bold;
+    font-size: 27px;
   }
   @media (max-width: $breakpoint-md) {
     letter-spacing: 2px;
