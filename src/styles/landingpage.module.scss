@@ -76,6 +76,9 @@
     bottom: 1%;
     right: 7%;
   }
+  @media only screen and (max-width: 430px) {
+    bottom: 11%;
+  }
 }
 .navbar {
   position: fixed;
@@ -120,7 +123,7 @@
 
   100% {
     transform: scale(1);
-    top: 80%;
+    top: 60%;
   }
 }
 .parashoot2 {
@@ -188,7 +191,7 @@
 
   100% {
     transform: scale(1);
-    top: 100%;
+    top: 60%;
   }
 }
 
@@ -691,7 +694,8 @@
   left: 12%;
   background: linear-gradient(
     to bottom,
-    rgba(47, 185, 255, 0.5803921569) 0%,
+
+    rgba(0, 53, 84, 1) 0%,
     rgba(47, 185, 255, 0) 100%
   );
   pointer-events: none;
@@ -710,7 +714,8 @@
   border-radius: 22px;
   background: linear-gradient(
     to top,
-    rgba(47, 185, 255, 0.5803921569) 0%,
+
+    rgba(0, 53, 84, 1) 0%,
     rgba(47, 185, 255, 0) 100%
   );
   pointer-events: none;
@@ -724,12 +729,13 @@
   position: absolute;
   bottom: 4px;
   left: 5%;
-  height: 56%;
+  height: 95%;
   width: 100%;
   border-radius: 3%;
   background: linear-gradient(
     to top,
-    rgba(47, 185, 255, 0.5803921569) 0%,
+    
+rgba(0, 53, 84, 1) 0%,
     rgba(47, 185, 255, 0) 100%
   );
   pointer-events: none;
@@ -933,7 +939,7 @@
   accent-color: #ff7a00;
 }
 .joinbtn {
-  z-index: 90;
+  // z-index: 90;
   height: 35px;
   min-width: 90px;
   border-radius: 5px;
@@ -2171,7 +2177,7 @@
 }
 .mapSecDescription {
   text-align: center;
-  padding: 30px;
+  padding-top: 30px;
   background-color: black;
   margin: 0 auto;
   color: #fdfafa;
@@ -2528,9 +2534,6 @@
   @media (max-width: $breakpoint-tab) {
     gap: 30px;
   }
-  @media only screen and (max-width: 430px) {
-    align-items: flex-start;
-  }
 }
 
 .footer_para {
@@ -2559,16 +2562,24 @@
     font-size: 10px;
     padding-top: 30px;
   }
-  @media (min-width: $breakpoint-ms) {
-    padding: 0;
-    // top: 650px;
+  @media only screen and (max-width: 450px) {
+    top:460px
+  }
+  @media only screen and (min-width: 1360px) {
+    top: 515px;
+  }
+  @media only screen and (min-width: 1400px) {
     top: 560px;
   }
+
 }
 
 .social_I {
   display: flex;
   gap: 35px;
+  @media only screen and (max-width: 430px) {
+    gap: 20px;
+  }
 }
 .gradient {
   width: 100%;
@@ -2961,6 +2972,7 @@
   left: 16%;
   bottom: 10%;
   color: white;
+  z-index: 99;
 }
 .carddetails span {
   font-weight: 700;

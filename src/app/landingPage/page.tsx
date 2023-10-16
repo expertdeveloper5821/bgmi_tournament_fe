@@ -384,9 +384,11 @@ const page = () => {
                       />
                     </div>
                   </div>
+                  <div className={styles.joinbtn}>
                   <Link href="/auth/login">
                     <button className={styles.joinbtn}>JOIN</button>
                   </Link>
+                  </div>
                 </div>
               </>
             ) : (
@@ -441,7 +443,7 @@ const page = () => {
                 src={`${
                   width[0] <= 600 ? '../assests/mobilebannerstone.svg' : '../assests/Group20.svg'
                 }`}
-                height={700}
+                height={ width[0] <= 600 ? 600 :700}
                 width={800}
                 alt="zoom in image"
               />
