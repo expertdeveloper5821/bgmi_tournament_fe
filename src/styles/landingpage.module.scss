@@ -71,7 +71,7 @@
   position: absolute;
   bottom: 7%;
   right: 4%;
-  
+
   @media (min-width: $breakpoint-ms) {
     bottom: 1%;
     right: 7%;
@@ -683,7 +683,59 @@
     margin-left: 5%;
   }
 }
+.gradientupcomingbannertop {
+  position: absolute;
+  width: 75%;
+  border-radius: 22px;
+  height: 41%;
+  left: 12%;
+  background: linear-gradient(
+    to bottom,
+    rgba(47, 185, 255, 0.5803921569) 0%,
+    rgba(47, 185, 255, 0) 100%
+  );
+  pointer-events: none;
+  @media screen and (max-width: 680px) {
+    width: 95%;
+    border-radius: 15px;
+    left: 0%;
+  }
+}
+.gradientUpcomingbannerBottom {
+  position: absolute;
+  bottom: 4px;
+  left: 12%;
+  height: 75%;
+  width: 75%;
+  border-radius: 22px;
+  background: linear-gradient(
+    to top,
+    rgba(47, 185, 255, 0.5803921569) 0%,
+    rgba(47, 185, 255, 0) 100%
+  );
+  pointer-events: none;
+  @media screen and (max-width: 680px) {
+    width: 95%;
+    border-radius: 15px;
+    left: 0%;
+  }
+}
+.gradientscrollimages {
+  position: absolute;
+  bottom: 4px;
+  left: 5%;
+  height: 56%;
+  width: 100%;
+  border-radius: 3%;
+  background: linear-gradient(
+    to top,
+    rgba(47, 185, 255, 0.5803921569) 0%,
+    rgba(47, 185, 255, 0) 100%
+  );
+  pointer-events: none;
+}
 .banner_bgmi_img {
+  position: relative;
   width: 50%;
   @media (max-width: $breakpoint-md) {
     width: 100%;
@@ -834,7 +886,7 @@
   display: flex;
   flex-wrap: wrap;
   column-gap: 20%;
-  margin-top: 8%;
+  margin-top: 5%;
 }
 .game {
   display: flex;
@@ -866,11 +918,11 @@
   display: flex;
   flex-direction: column;
 }
-.headimgdiv{
+.headimgdiv {
   margin-top: 5%;
   display: flex;
 }
-.downheadimgrange{
+.downheadimgrange {
   margin-top: 15px;
   margin-left: 20px;
 }
@@ -1114,8 +1166,8 @@
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.137), rgba(0, 0, 0, 0.931));
   pointer-events: none;
 }
-.headerContainer{
-position: relative;
+.headerContainer {
+  position: relative;
 }
 .welcome_Container {
   position: relative;
@@ -1129,12 +1181,11 @@ position: relative;
     flex-direction: column-reverse;
   }
 }
-.welcome_star{
+.welcome_star {
   position: absolute;
   bottom: 10%;
   bottom: 79%;
   left: 25%;
-
 }
 .stone {
   flex: 0 1 49%;
@@ -1511,7 +1562,7 @@ position: relative;
   gap: 15px;
   align-items: center;
   text-align: center;
- 
+
   @media (max-width: $breakpoint-xlg) {
     top: 25%;
     right: 16%;
@@ -1572,7 +1623,7 @@ position: relative;
   @media screen and (min-width: 1440px) {
     top: 22%;
     right: 15%;
-   }
+  }
   @media only screen and (max-width: 430px) {
     top: 14%;
     right: 8%;
@@ -2478,7 +2529,7 @@ position: relative;
     gap: 30px;
   }
   @media only screen and (max-width: 430px) {
-   align-items: flex-start;
+    align-items: flex-start;
   }
 }
 
@@ -2535,7 +2586,7 @@ position: relative;
   left: 51%;
 }
 
-.supporttext_span{
+.supporttext_span {
   text-decoration: underline;
 }
 
@@ -2578,7 +2629,7 @@ position: relative;
     font-size: 70px;
     margin-bottom: 10px;
     font-weight: 700;
- 
+
     .main_container {
       background: url('../../public//assests/Banner\ for\ mobile\ 1.svg');
       background-size: cover;
@@ -2586,7 +2637,6 @@ position: relative;
     }
   }
   .social_I {
- 
     margin: 15px 0px;
   }
   .support {

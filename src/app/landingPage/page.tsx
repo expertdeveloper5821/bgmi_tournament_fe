@@ -254,7 +254,7 @@ const page = () => {
         </div>
       </div>
 
-      <div className={styles.upcoming_mathces_container}  id="UpcomingMatches">
+      <div className={styles.upcoming_mathces_container} id="UpcomingMatches">
         <div className={styles.upcoming_mathces}>
           <h3 className={styles.upComingHeading}>Upcoming Matches</h3>
           <p className={styles.upComingPara}>
@@ -267,16 +267,19 @@ const page = () => {
 
         <div className={styles.upcoming_mathces_sub_container}>
           {data && data.length > 0 && (
-            
             <div className={styles.banner_bgmi_img}>
+              <div className={styles.gradientupcomingbannertop}></div>
               <img
                 src={
-                  (data && data[id].mapImg && data[id].mapImg !== (null||"null")) ? data[id].mapImg : `${'./assests/Eranglemapnewone.png'}`
+                  data && data[id].mapImg && data[id].mapImg !== (null || 'null')
+                    ? data[id].mapImg
+                    : `${'./assests/Eranglemapnewone.png'}`
                 }
                 alt="bg"
                 className={styles.banner_image}
                 id={styles.banner_image}
               />
+              <div className={styles.gradientUpcomingbannerBottom}></div>
             </div>
           )}
 
@@ -369,15 +372,17 @@ const page = () => {
                   <div className={styles.range}>
                     <input type="range" value={50} />
                     <div className={styles.headimgdiv}>
-                    <span className={styles.commonspanprizesection}>Only 30 spots left 20/50</span>
-                    <Image
+                      <span className={styles.commonspanprizesection}>
+                        Only 30 spots left 20/50
+                      </span>
+                      <Image
                         src="../assests/downhead.svg"
                         height={10}
                         width={12}
                         className={styles.downheadimgrange}
                         alt="downhead"
                       />
-                      </div>
+                    </div>
                   </div>
                   <Link href="/auth/login">
                     <button className={styles.joinbtn}>JOIN</button>
@@ -392,7 +397,6 @@ const page = () => {
           </div>
         </div>
         <div className={styles.rn_images_container}>
-          
           {data?.length > 0 &&
             data?.map((gameDetails: GameDetails, index: number) => {
               return (
@@ -404,7 +408,10 @@ const page = () => {
                     </div>
                     <img
                       src={
-                        ( gameDetails.mapImg && gameDetails.mapImg !== (null||undefined||'null'||'undefined') ) ? gameDetails.mapImg : `./assests/Eranglemapnewone.png`
+                        gameDetails.mapImg &&
+                        gameDetails.mapImg !== (null || undefined || 'null' || 'undefined')
+                          ? gameDetails.mapImg
+                          : `./assests/Eranglemapnewone.png`
                       }
                       className={styles.rn_images}
                       height={100}
@@ -412,6 +419,7 @@ const page = () => {
                       alt={gameDetails.mapType}
                       onClick={() => handleData(index)}
                     />
+                    <div className={styles.gradientscrollimages}></div>
                   </div>
                 </>
               );
@@ -438,18 +446,17 @@ const page = () => {
                 alt="zoom in image"
               />
             </div>
-            <div className={styles.welcome_alingnment} >
-       <div className={styles.headerContainer}>
-            <Image
-                className={styles.welcome_star}
-                src='../assests/newshootingstar.svg'
-                
-                height={100}
-                width={100}
-                alt="zoom in image"
-              />
-              <h2>Welcome to Patt Se Headshot</h2>
-       </div>
+            <div className={styles.welcome_alingnment}>
+              <div className={styles.headerContainer}>
+                <Image
+                  className={styles.welcome_star}
+                  src="../assests/newshootingstar.svg"
+                  height={100}
+                  width={100}
+                  alt="zoom in image"
+                />
+                <h2>Welcome to Patt Se Headshot</h2>
+              </div>
               <p>
                 Are you ready to take your BGMI gaming to the next level? Look no further! BGMI
                 Rewards brings you an exhilarating platform where your gaming skills translate into
@@ -461,7 +468,9 @@ const page = () => {
         </div>
         <div>
           <div className={styles.choseSection}>
-            <div className={styles.choseSectionheader} id={styles.choseSectionheader}>Why Choose PATT SE HEADSHOT</div>
+            <div className={styles.choseSectionheader} id={styles.choseSectionheader}>
+              Why Choose PATT SE HEADSHOT
+            </div>
             <p>
               Join the ranks of those who have chosen us as their preferred esports platform for
               BGMI. Experience the future of gaming excellence and be part of our ever-growing
@@ -584,8 +593,9 @@ const page = () => {
             </div>
             <div
               className={` ${
-                
-                (activeGun === 1  && width[0] <= 450 )? styles.activeprizemainconatiner : `${styles.prize_maincontainer}`
+                activeGun === 1 && width[0] <= 450
+                  ? styles.activeprizemainconatiner
+                  : `${styles.prize_maincontainer}`
               }`}
             >
               <div
@@ -758,7 +768,12 @@ const page = () => {
           <div className={styles.mapContent}>
             {width[0] <= 450 ? (
               <div className={styles.locationimg}>
-                <Image src="../assests/whiteLocationIcon.svg" height={15} width={15} alt="location" />
+                <Image
+                  src="../assests/whiteLocationIcon.svg"
+                  height={15}
+                  width={15}
+                  alt="location"
+                />
               </div>
             ) : (
               ''
@@ -850,7 +865,11 @@ const page = () => {
           <p className={styles.footer_para}>Let's connect for more information</p>
 
           <div className={styles.social_I}>
-            <Link href="https://www.facebook.com/profile.php?id=100095239340085&is_tour_dismissed=true" className={styles.sociallink} target="_blank">
+            <Link
+              href="https://www.facebook.com/profile.php?id=100095239340085&is_tour_dismissed=true"
+              className={styles.sociallink}
+              target="_blank"
+            >
               <Image
                 className={styles.footerSocialIconfb}
                 src="../assests/fbiconfooterwhite.svg"
@@ -860,7 +879,11 @@ const page = () => {
               />
             </Link>
 
-            <Link href="https://www.instagram.com/pattseheadshotsj/" className={styles.sociallink} target="_blank">
+            <Link
+              href="https://www.instagram.com/pattseheadshotsj/"
+              className={styles.sociallink}
+              target="_blank"
+            >
               <Image
                 className={styles.footerSocialIconinsta}
                 src="../assests/instaiconfooterwhite.svg"
@@ -869,7 +892,11 @@ const page = () => {
                 alt="insta"
               />
             </Link>
-            <Link href="https://twitter.com/headshot_p4491" className={styles.sociallink} target="_blank">
+            <Link
+              href="https://twitter.com/headshot_p4491"
+              className={styles.sociallink}
+              target="_blank"
+            >
               <Image
                 className={styles.footerSocialIcontwitter}
                 src="../assests/twittericonfooterwhite.svg"
@@ -878,7 +905,11 @@ const page = () => {
                 alt="twitter"
               />
             </Link>
-            <Link href="https://www.youtube.com/channel/UC8GDIEtwWV_67Fxpxfa298Q" className={styles.sociallink} target="_blank">
+            <Link
+              href="https://www.youtube.com/channel/UC8GDIEtwWV_67Fxpxfa298Q"
+              className={styles.sociallink}
+              target="_blank"
+            >
               <Image
                 className={styles.footerSocialIconyt}
                 src="../assests/youtubeiconfooterwhite.svg"
@@ -887,7 +918,11 @@ const page = () => {
                 alt="youtube"
               />
             </Link>
-            <Link href="https://t.me/pattseheadshotsj" className={styles.sociallink} target="_blank">
+            <Link
+              href="https://t.me/pattseheadshotsj"
+              className={styles.sociallink}
+              target="_blank"
+            >
               <Image
                 className={styles.footerSocialIcontelegram}
                 src="../assests/telegramfootericonwhite.svg"
@@ -899,7 +934,12 @@ const page = () => {
           </div>
 
           <Link href="mailto:support@pattseheadshot.com" className={styles.support}>
-            Mail us: <span className={styles.supporttext_span}><Link href="support@pattseheadshot.com" target="_blank" >support@pattseheadshot.com</Link> </span>
+            Mail us:{' '}
+            <span className={styles.supporttext_span}>
+              <Link href="support@pattseheadshot.com" target="_blank">
+                support@pattseheadshot.com
+              </Link>{' '}
+            </span>
           </Link>
 
           <p className={styles.footer_text}>
