@@ -1275,7 +1275,6 @@ body.activemodal {
 //video module
 
 .dashboard_video {
-  // border: 5px solid black;
   width: 100%;
   padding-right: 20px;
   display: flex;
@@ -1285,7 +1284,6 @@ body.activemodal {
 .video_section {
   width: 50%;
   display: flex;
-  // border: 1px solid green;
   flex-direction: column;
 }
 
@@ -1294,8 +1292,6 @@ body.activemodal {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
-  // border: 1px solid green;
 }
 
 .select {
@@ -1307,7 +1303,9 @@ body.activemodal {
 }
 
 .main_video {
+  padding-top: 20px;
   padding-right: 20px;
+  overflow: hidden;
 }
 
 .video_image {
@@ -1315,92 +1313,98 @@ body.activemodal {
 }
 .image_video {
   position: relative;
+  border-radius: 14px;
+}
+
+.main_div {
+  position: absolute;
+  display: flex;
+  top: 70%;
+  width: 90%;
+  height: 20%;
+  left: 8%;
+}
+
+.col {
+  // border: 1px solid red;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .head {
-  position: absolute;
-  top: 75%;
-  left: 10%;
   color: #ff7a00;
   font-weight: 700;
-  font-size: 32px;
+  font-size: 28px;
   line-height: 32.93px;
 }
 
-.timeanddate {
-  position: absolute;
-  top: 80%;
-  left: 10%;
-}
-.copy_link {
-  position: absolute;
-  top: 81%;
-  width: 14px;
-  left: 31%;
-}
-
-.nextbutton {
-  position: absolute;
-  top: 82%;
-  width: 52px;
-  left: 35%;
-}
-.previousbutton {
-  position: absolute;
-  top: 82%;
-  width: 52px;
-  left: 40%;
-}
-
 .card {
+  padding-left: 10px;
+  width: 65%;
   display: flex;
-  // display: flex;
-  // gap: 16px;
-  // top: 74%;
-  // width: 40%;
-  // position: absolute;
-  // left: 48%;
-  // border-radius: 8px;
+  gap: 20px;
+  // border: 1px solid black;
 }
+
 .card1 {
   display: flex;
-  gap: 16px;
-  top: 74%;
-  width: 40%;
-  position: absolute;
-  left: 47%;
-  border-radius: 8px;
-}
-.card2 {
-  display: flex;
-  top: 88%;
-  color: #ff7a00;
-  width: 40%;
-  position: absolute;
-  justify-content: space-between;
-  gap: 20px;
-  left: 47%;
-  border-radius: 8px;
-}
-
-.card2 span {
-  font-size: 12px;
-}
-
-.card3 {
-  display: flex;
-  top: 90%;
-  width: 40%;
-  position: absolute;
-  justify-content: space-between;
-  gap: 20px;
-  left: 47%;
-  border-radius: 8px;
-}
-.card3 span {
-  font-size: 10px;
+  flex-direction: column;
+  width: 24%;
 }
 
 .cardImage {
+  width: 100%;
+  height: 70%;
   border-radius: 8px;
+}
+
+.timedate {
+  font-size: 10px;
+}
+
+.match_name {
+  color: #ff7a00;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.flex {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  width: 40px;
+}
+
+.flex_end {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  left: 20%;
+  top: 70%;
+}
+
+.flex_justify {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex_absolute {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 48%;
+  width: 13%;
+  margin-left: 10px;
+}
+
+.playicon {
+  width: 12px;
+}
+
+.time {
+  font-size: 12px;
 }

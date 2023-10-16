@@ -26,43 +26,76 @@ const Page: React.FC = () => {
                                     <select className={styles.select}>
 
                                         <option className={styles.sortByOption}> Sort By </option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
+                                        <option>Status Timeline</option>
+                                        <option>Match Type</option>
+                                        <option>Date</option>
                                     </select></div>
                             </div>
                             <div className={styles.main_video} style={{ width: "100%" }}>
                                 <div className={styles.image_video}>
                                     <img src="../assests/image.svg" alt="videoimage" className={styles.video_image} style={{ width: "100%", objectFit: "none" }} />
-                                    <div className={styles.col}>
-                                        <h1 className={styles.head}>BGMI SQUAD MATCH</h1>
-                                        <span className={styles.timeanddate}>Time: 02/08/2023 at 06:00 pm</span>
-                                        <img src="../assests/copylink.svg" alt="videoimage" className={styles.copy_link} />
 
-                                        <img src="../assests/arrow buttonnext.svg" alt="nextbutton" className={styles.nextbutton} />
-                                        <img src="../assests/arrow buttonprevious.svg" alt="previousbutton" className={styles.previousbutton} />
 
-                                        <div className={styles.card}>
-                                            <div className={styles.card1}>
-                                                <img src="../assests/cardimage1.svg" alt="cardImage" className={styles.cardImage} />
-                                                <img src="../assests/cardImge2.svg" alt="cardImage" className={styles.cardImage} />
-                                                <img src="../assests/cardimage1.svg" alt="cardImage" className={styles.cardImage} />
+                                    <div className={styles.main_div}>
+                                        <div className={styles.col}>
+                                            <h1 className={styles.head}>BGMI SQUAD MATCH</h1>
+                                            <div className={styles.flex}>
+                                                <span>Time: 02/08/2023 at 06:00 pm</span>
+                                                <img src="../assests/copylink.svg" alt="videoimage" className={styles.copy_link} />
                                             </div>
-                                            <div className={styles.card2}>
-                                                <span>BGMI Squad Match</span>
-                                                <span>BGMI Squad Match</span>
-                                                <span>BGMI Squad Match</span>
-                                            </div>
-                                            <div className={styles.card3}>
-                                                <span>Time: 02/08/2023 at 06:00 pm</span>
-                                                <span>Time: 02/08/2023 at 06:00 pm</span>
-                                                <span>Time: 02/08/2023 at 06:00 pm</span>
+                                            <div className={styles.flex_end}>
+                                                <img src="../assests/arrow buttonnext.svg" alt="nextbutton" className={styles.button} />
+                                                <img src="../assests/arrow buttonprevious.svg" alt="previousbutton" className={styles.button} />
                                             </div>
 
                                         </div>
 
-                                        <div>
+                                        <div className={styles.card}>
+                                            <div className={styles.card1}>
+                                                <img src="../assests/cardimage1.svg" alt="cardImage" className={styles.cardImage} />
+                                                <div className={styles.flex_absolute}>
+                                                    <img src="../assests/playicon.svg" alt="cardImage" className={styles.playicon} />
+                                                    <span className={styles.time}>8:00</span>
+                                                </div>
+                                                <div className={styles.flex_justify}>
+                                                    <span className={styles.match_name}>BGMI Squad Match</span>
+                                                    <img src="../assests/copy.svg" alt="videoimage" className={styles.copy_link} /></div>
+                                                <span className={styles.timedate}>Time: 02/08/2023 at 06:00 pm</span>
+                                            </div>
+                                            <div className={styles.card1}>
+                                                <img src="../assests/cardImge2.svg" alt="cardImage" className={styles.cardImage} />
+                                                <div className={styles.flex_absolute}>
+                                                    <img src="../assests/playicon.svg" alt="cardImage" className={styles.playicon} />
+                                                    <span className={styles.time}>8:00</span>
+                                                </div>
+                                                <div className={styles.flex_justify}>
+                                                    <span className={styles.match_name}>BGMI Squad Match</span>
+                                                    <img src="../assests/copy.svg" alt="videoimage" className={styles.copy_link} /></div>
+                                                <span className={styles.timedate}>Time: 02/08/2023 at 06:00 pm</span>
+                                            </div>
+                                            <div className={styles.card1}>
+                                                <img src="../assests/cardimage1.svg" alt="cardImage" className={styles.cardImage} />
+                                                <div className={styles.flex_absolute}>
+                                                    <img src="../assests/playicon.svg" alt="cardImage" className={styles.playicon} />
+                                                    <span className={styles.time}>8:00</span>
+                                                </div>
+                                                <div className={styles.flex_justify}>
+                                                    <span className={styles.match_name}>BGMI Squad Match</span>
+                                                    <img src="../assests/copy.svg" alt="videoimage" className={styles.copy_link} /></div>
+                                                <span className={styles.timedate}>Time: 02/08/2023 at 06:00 pm</span>
+                                            </div>
 
+                                            <div className={styles.card1}>
+                                                <img src="../assests/card4.svg" alt="cardImage" className={styles.cardImage} />
+                                                <div className={styles.flex_absolute}>
+                                                    <img src="../assests/playicon.svg" alt="cardImage" className={styles.playicon} />
+                                                    <span className={styles.time}>8:00</span>
+                                                </div>
+                                                <div className={styles.flex_justify}>
+                                                    <span className={styles.match_name}>BGMI Squad Match</span>
+                                                    <img src="../assests/copy.svg" alt="videoimage" className={styles.copy_link} /></div>
+                                                <span className={styles.timedate}>Time: 02/08/2023 at 06:00 pm</span>
+                                            </div>
                                         </div>
 
                                     </div>
