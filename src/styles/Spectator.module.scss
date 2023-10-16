@@ -1,7 +1,7 @@
 @import './mixins.scss';
 @import './variable.scss';
 
-.main_container {
+.main_container_spec {
   width: 96vw;
   display: flex;
   background-color: $darkblue;
@@ -76,7 +76,7 @@
 
 .main_pop_cls,
 .main_del_sec {
-  @include spectator_model;
+  @include spectator_model_mix;
 }
 .inner_specter_cls {
   display: flex;
@@ -93,7 +93,7 @@
 }
 
 .pop_heading {
-  @include spectator_model_heading;
+  @include spectator_model_heading_mix;
 }
 
 .form_spectator_cls {
@@ -164,7 +164,7 @@ button#btn_cls_st {
   color: $bs-orange !important;
 }
 .error {
-  @include error;
+  @include error_mix;
 }
 #gameName {
   color: #ff7a00;
@@ -247,11 +247,11 @@ button#btn_cls_st {
   }
 }
 .table_head_sectat {
-  @include tableheader;
+  @include tableheader_mix;
 }
 
 .table_row_cell {
-  @include tdbody;
+  @include tdbody_mix;
 }
 .tb_cell_body {
   color: #ff7a00 !important;

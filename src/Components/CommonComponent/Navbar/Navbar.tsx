@@ -58,7 +58,7 @@ export function Navbar(props: INavbar) {
   }, []);
   return (
     <header>
-      <nav className={styles.container}>
+      <nav className={styles.container_navbar}>
         <div className={styles.navbarbrand}>
           {/* {nameData && (
             <h1 className={styles.page_title}>

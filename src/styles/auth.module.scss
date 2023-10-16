@@ -1,13 +1,13 @@
 @import './mixins.scss';
 @import './variable.scss';
 
-.main_container {
-  @include main_container;
+.main_container_auth {
+  @include main_container_mix;
   // position: relative;
 }
 
-.background_container {
-  @include background_container;
+.background_container_auth {
+  @include background_container_mix;
   margin-top: 3rem;
   @media (max-width: $breakpoint-xSmall) {
     margin: 1rem 1rem;
@@ -29,8 +29,8 @@
   }
 }
 
-.container {
-  @include container;
+.container_auth {
+  @include container_mix;
   // padding: 2rem;
 
   @media (max-width: $breakpoint-xs) {
@@ -44,8 +44,8 @@
   }
 }
 
-.logo img {
-  @include logo;
+.logo_auth img {
+  @include logo_mix;
   display: flex;
   margin: 0px 46px;
 }
@@ -56,13 +56,13 @@
   letter-spacing: 1px;
 }
 
-.headDesc {
-  @include headDesc;
+.headDesc_auth {
+  @include headDesc_mix;
   margin: 0.5rem;
 }
 
-.heading {
-  @include heading;
+.heading_auth {
+  @include heading_mix;
   text-align: center;
   margin-bottom: 1rem;
 
@@ -79,7 +79,7 @@
 }
 
 .input_box {
-  @include input_box;
+  @include input_box_mix;
 
   border-bottom: 2px solid white;
 
@@ -88,30 +88,30 @@
   }
 }
 .email_wrapper {
-  @include email_wrapper;
+  @include email_wrapper_mix;
 }
 .password_wrapper {
-  @include email_wrapper;
+  @include email_wrapper_mix;
 }
 .email_wrapper ::placeholder {
-  @include email_wrapper;
+  @include email_wrapper_mix;
   width: 100%;
 }
 
 .password_wrapper ::placeholder {
-  @include email_wrapper;
+  @include email_wrapper_mix;
 }
 
 .checkbox_wrapper {
-  @include checkbox_wrapper;
+  @include checkbox_wrapper_mix;
 }
 
 .error {
-  @include error;
+  @include error_mix;
 }
 
 .forgetbutton {
-  @include button_wrapper;
+  @include button_wrapper_mix;
   margin-top: 18px;
   color: white !important;
   @media (max-width: $breakpoint-xSmall) {
@@ -121,7 +121,7 @@
 }
 
 .SignIn_button {
-  @include button_wrapper;
+  @include button_wrapper_mix;
   margin: 1.5rem 0rem;
 
   @media (max-width: $breakpoint-xs) {
@@ -137,7 +137,7 @@
   display: flex;
   justify-content: center;
   margin: 16px !important;
-  @include signin;
+  @include signin_mix;
   text-decoration-line: none;
   color: #003556 !important;
 }
@@ -146,7 +146,7 @@
   text-decoration-line: underline;
 }
 .signin {
-  @include signin;
+  @include signin_mix;
   text-decoration-line: none;
   color: #003556 !important;
   margin: 16px;
@@ -169,7 +169,7 @@
 }
 
 .error {
-  @include error;
+  @include error_mix;
 }
 
 .error_message {

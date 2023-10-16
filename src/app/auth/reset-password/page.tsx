@@ -54,15 +54,15 @@ const UpdateCredential: React.FC = () => {
   });
 
   return (
-    <div className={styles.main_container}>
-      <div className={styles.background_container}>
-        <div className={styles.container}>
-          <div className={styles.logo}>
+    <div>
+      <div className={styles.background_container_cred}>
+        <div className={styles.container_cred}>
+          <div className={styles.logo_cred}>
             <Image src="/assests/logoWithBg.svg" alt="bgmilogo" width={220} height={100} />
           </div>
           <div>
-            <h2 className={styles.headDesc}>Reset Password</h2>
-            <p className={styles.heading}>Please enter your password and confirm the password</p>
+            <h2 className={styles.headDesc_cred}>Reset Password</h2>
+            <p className={styles.heading_cred}>Please enter your password and confirm the password</p>
           </div>
           <div>
             <form onSubmit={handleSubmit}>

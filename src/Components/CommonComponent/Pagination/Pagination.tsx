@@ -36,7 +36,7 @@ const CustomPagination: React.FC<CustomPaginationProps> = ({ data }) => {
   };
 
   return (
-    <div className={styles.main_container}>
+    <div className={styles.main_container_pagination}>
       <ul className={styles.un_list}>
         <li>
           <a href="#" onClick={handlePrePage}>

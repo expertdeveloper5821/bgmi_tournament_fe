@@ -1,26 +1,26 @@
 @import './mixins.scss';
 @import './variable.scss';
 
-.main_container {
-  @include main_container;
+.main_container_mail {
+  @include main_container_mix;
 }
 
-.background_container {
-  @include background_container;
+.background_container_mail {
+  @include background_container_mix;
   margin-top: 3rem;
 }
 
 .email_wrapper {
-  @include email_wrapper;
+  @include email_wrapper_mix;
   border: 0px solid !important;
 }
 .password_wrapper {
-  @include email_wrapper;
+  @include email_wrapper_mix;
   border: 0px solid !important;
 }
 
-.container {
-  @include container;
+.container_mail {
+  @include container_mix;
   padding: 2rem;
 
   @media (max-width: $breakpoint-xs) {
@@ -37,8 +37,8 @@
   width: 100%;
 }
 
-.logo img {
-  @include logo;
+.logo_mail img {
+  @include logo_mix;
   display: flex;
   margin: 0px auto;
 
@@ -51,18 +51,18 @@
   }
 }
 
-.heading {
-  @include heading;
+.heading_mail {
+  @include heading_mix;
   margin: 0px;
   text-align: center;
 }
 
 .input_box {
-  @include input_box;
+  @include input_box_mix;
 }
 
 .forgetbutton {
-  @include button_wrapper;
+  @include button_wrapper_mix;
   background-color: #003456 !important;
 }
 

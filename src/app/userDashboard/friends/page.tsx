@@ -146,7 +146,7 @@ const Friend = () => {
   };
   return (
     <>
-      <div className={styles.main_container}>
+      <div className={styles.main_container_friends}>
         <div className={styles.sub_container}>
           <div className={styles.header}>
             <h2>Invite your friends</h2>

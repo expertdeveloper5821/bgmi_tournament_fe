@@ -6,7 +6,7 @@ import Image from 'next/image';
 const reviewSection = () => {
   return (
     <div>
-      <div className={styles.container}>
+      <div className={styles.container_winner}>
         <Image
           src="/assests/trophy.svg"
           alt="trophy"

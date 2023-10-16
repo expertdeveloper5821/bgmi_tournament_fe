@@ -41,7 +41,7 @@ const dynamicMenuItems = [
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className={styles.main_container} id="mainLayoutContainer">
+    <main className={styles.main_container_dashboard} id="mainLayoutContainer">
       <Sidebar menuItem={dynamicMenuItems} />
       <div>
         <Navbar />

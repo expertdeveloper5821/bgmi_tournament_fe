@@ -92,7 +92,7 @@ const page = () => {
     <div className={styles.bodycolor}>
       <CustomCursor />
       {/* <GlassCrack /> */}
-      <div className={styles.main_container}>
+      <div className={styles.main_container_landing}>
         <div>
           <NavBar />
         </div>

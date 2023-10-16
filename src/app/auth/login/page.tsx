@@ -216,14 +216,14 @@ function Login(): React.JSX.Element {
   }, []);
 
   return (
-    <div className={styles.main_container}>
-      <div className={styles.background_container}>
-        <div className={styles.container}>
-          <div className={styles.logo}>
+    <div className={styles.main_container_auth}>
+      <div className={styles.background_container_auth}>
+        <div className={styles.container_auth}>
+          <div className={styles.logo_auth}>
             <Image src="../assests/logoWithBg.svg" alt="Tg-logo" width={250} height={100} />
           </div>
           <div>
-            <p className={styles.heading}>Welcome back! Please enter your details</p>
+            <p className={styles.heading_auth}>Welcome back! Please enter your details</p>
           </div>
           <div>
             <form onSubmit={handleSubmit}>

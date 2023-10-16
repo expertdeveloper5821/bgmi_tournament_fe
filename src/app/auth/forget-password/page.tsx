@@ -41,15 +41,15 @@ export default function ResetPassword(): JSX.Element {
   };
 
   return (
-    <div className={styles.main_container}>
-      <div className={styles.background_container}>
-        <div className={styles.container}>
-          <div className={styles.logo}>
+    <div className={styles.main_container_auth}>
+      <div className={styles.background_container_auth}>
+        <div className={styles.container_auth}>
+          <div className={styles.logo_auth}>
             <Image src="/assests/logoWithBg.svg" alt="logo" width={250} height={100} />
           </div>
           <div>
-            <h2 className={styles.headDesc}>Forgot Password</h2>
-            <p className={styles.heading}>
+            <h2 className={styles.headDesc_auth}>Forgot Password</h2>
+            <p className={styles.heading_auth}>
               Please enter your registered email id or mobile to reset your password
             </p>
           </div>

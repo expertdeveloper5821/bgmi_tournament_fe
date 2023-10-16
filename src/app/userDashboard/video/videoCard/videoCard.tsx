@@ -44,7 +44,7 @@ const VideoCard: React.FC<CustomPaginationProps> = ({ onDataUpdate }) => {
       {data.length > 0 &&
         data.map((info: VideoInfo, index: number) => {
           return (
-            <div className={styles.main_container} key={index}>
+            <div key={index}>
               <div className={styles.bannercontainer}>
                 <Image
                   src="/assests/ytbanner.svg"
@@ -55,7 +55,7 @@ const VideoCard: React.FC<CustomPaginationProps> = ({ onDataUpdate }) => {
                 />
               </div>
               <div className={styles.gameInfo}>
-                <h1 className={styles.heading}>BGMI SQUAD MATCH</h1>
+                <h1>BGMI SQUAD MATCH</h1>
                 <h4 className={styles.time}>
                   Time :{info.date} at {info.time}{' '}
                 </h4>

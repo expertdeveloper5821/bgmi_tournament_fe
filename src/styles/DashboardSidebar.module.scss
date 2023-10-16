@@ -1,7 +1,7 @@
 @import './mixins.scss';
 @import './variable.scss';
 
-.container {
+.container_sidebar {
   display: flex;
   position: relative;
   box-shadow: 12px 4px 30px 0px #00000040;
@@ -27,7 +27,7 @@
   padding-left: 8px;
 }
 
-.logo {
+.logo_sidebar {
   font-size: 30px;
 }
 

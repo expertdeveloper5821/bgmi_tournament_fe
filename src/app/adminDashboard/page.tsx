@@ -40,7 +40,7 @@ function AdminDashboard() {
   return (
     <>
       <RequireAuthentication>
-        <div className={styles.main_container}>
+        <div className={styles.main_container_dashboard}>
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
               <Navbar />

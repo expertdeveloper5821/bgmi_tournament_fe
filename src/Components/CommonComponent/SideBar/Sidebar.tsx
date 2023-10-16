@@ -39,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
   return (
     <>
       {width > 768 ? (
-        <div className={styles.container}>
+        <div className={styles.container_sidebar}>
           <div style={{ width: isOpen ? '220px' : '50px' }} className={styles.sidebar}>
             <div className={styles.top_section}>
               <h1 style={{ display: isOpen ? 'block' : 'none' }} className={styles.logo}>
@@ -79,7 +79,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
       ) : (
         <div className={styles.mob_container}>
           <div className={styles.mobile_top_section}>
-            <h1 style={{ display: isOpen ? 'block' : 'none' }} className={styles.logo}>
+            <h1 style={{ display: isOpen ? 'block' : 'none' }} className={styles.logo_sidebar}>
               <img src="/assests/logo.svg" />
             </h1>
             <div className={isOpen ? `${styles.bars}` : `${styles.mob_bars}`}>

@@ -1,7 +1,7 @@
 @import './mixins.scss';
 @import './variable.scss';
 
-.main_container {
+.main_container_dashboard {
   width: 96vw;
   display: flex;
   background-color: $darkblue;
@@ -78,7 +78,7 @@
     margin-left: 18px;
   }
 }
-.heading {
+.heading_dashboard {
   font-weight: 700;
   font-size: 30px;
   margin: 2rem 0rem;
@@ -1120,7 +1120,7 @@ img.slides_image {
 }
 
 .main_tag_model {
-  @include spectator_model;
+  @include spectator_model_mix;
 }
 
 .check_model {

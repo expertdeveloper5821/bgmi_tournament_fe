@@ -16,15 +16,15 @@ const UpdateCredSuccess: React.FC<Props> = (props) => {
 
   return (
     <>
-      <div className={styles.main_container}>
-        <div className={styles.background_container}>
-          <div className={styles.container}>
-            <div className={styles.logo}>
+      <div className={styles.main_container_update}>
+        <div className={styles.background_container_cred}>
+          <div className={styles.container_cred}>
+            <div className={styles.logo_cred}>
               <Image src="/assests/logoWithBg.svg" alt="bgmilogo" width={250} height={100} />
             </div>
             <div className={styles.heading_wrapper}>
-              <h2 className={styles.headDesc}>Congratulations!!</h2>
-              <p className={styles.heading}>Hurrah! You have successfully updated your password</p>
+              <h2 className={styles.headDesc_cred}>Congratulations!!</h2>
+              <p className={styles.heading_cred}>Hurrah! You have successfully updated your password</p>
             </div>
             <div>
               <div className={styles.mail_success}>

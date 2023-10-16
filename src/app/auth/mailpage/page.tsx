@@ -14,17 +14,17 @@ export default function SentMail(props: SentMailProps): JSX.Element {
 
   return (
     <>
-      <div className={styles.main_container}>
-        <div className={styles.background_container}>
-          <div className={styles.container}>
+      <div className={styles.main_container_mail}>
+        <div className={styles.background_container_mail}>
+          <div className={styles.container_mail}>
             <div className={styles.mailsent_container}>
-              <div className={styles.logo}>
+              <div className={styles.logo_mail}>
                 <Image src="../assests/logoWithBg.svg" alt="Tg-logo" width={210} height={80} />
               </div>
 
               <div className={styles.email_wrapper}>
                 <h2 className={styles.mail_heading}>Check Your Email</h2>
-                <p className={styles.heading}>
+                <p className={styles.heading_mail}>
                   We have sent you a reset password link on your registered email.
                 </p>
 

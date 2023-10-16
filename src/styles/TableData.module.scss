@@ -21,12 +21,12 @@
 }
 
 .table_head {
-  @include tableheader;
+  @include tableheader_mix;
   text-align: center;
 }
 
 .room_header {
-  @include tableheader;
+  @include tableheader_mix;
   margin: 12px;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .table_rowdata {
-  @include tdbody;
+  @include tdbody_mix;
   font-weight: 800;
 }
 
@@ -127,7 +127,7 @@
 }
 .main_pop_cls,
 .main_del_sec {
-  @include spectator_model;
+  @include spectator_model_mix;
 }
 
 .main_del_sec {
@@ -155,7 +155,7 @@
 }
 
 .pop_heading {
-  @include spectator_model_heading;
+  @include spectator_model_heading_mix;
 }
 
 .form_spectator_cls {
@@ -208,7 +208,7 @@ button#btn_cls_st {
 }
 
 .error {
-  @include error;
+  @include error_mix;
 }
 
 #gameName {
@@ -291,11 +291,11 @@ button#btn_cls_st {
   }
 }
 .table_head_sectat {
-  @include tableheader;
+  @include tableheader_mix;
 }
 
 .table_row_cell {
-  @include tdbody;
+  @include tdbody_mix;
 }
 .tb_cell_body {
   color: $bs-orange !important;

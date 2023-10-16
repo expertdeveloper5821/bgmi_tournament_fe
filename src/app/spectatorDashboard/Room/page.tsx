@@ -71,8 +71,8 @@ const Room = () => {
     getAllSpectator();
   }, []);
   return (
-    <div className={styles.main_container} id="mainLayoutContainerInner">
-      <div className={styles.inner_main_container}>
+    <div className={styles.main_container_spec} id="mainLayoutContainerInner">
+      <div className={styles.main_container_spec}>
         <div className={styles.sidebar_wrapper}>
           <Navbar />
           <div className={styles.inner_specter_cls}>

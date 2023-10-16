@@ -30,7 +30,7 @@ const Page: React.FC = () => {
       {isLoading ? (
         <div className={styles.loader}> Please wait...</div>
       ) : (
-        <div className={styles.main_container}>
+        <div className={styles.main_container_video}>
           <div className={styles.sub_container}>
             <div className={styles.header}>
               <h2>VIDEOS</h2>
@@ -47,7 +47,7 @@ const Page: React.FC = () => {
               </select>
             </div>
           </div>
-          <div className={styles.container}>
+          <div className={styles.container_video}>
             <div className={styles.videoCard}>
               <VideoCard onDataUpdate={handleChildData} />
             </div>

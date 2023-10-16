@@ -217,7 +217,7 @@ function Tournament() {
   // };
 
   return (
-    <div className={styles.main_container} id="mainLayoutContainerInner">
+    <div className={styles.main_container_dashboard} id="mainLayoutContainerInner">
       {isLoading && <Loading />}
       <div className={styles.abcd}>
         <div className={styles.sidebar_wrapper}>

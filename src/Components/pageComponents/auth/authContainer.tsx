@@ -7,14 +7,14 @@ const AuthContainer = ({
   title = 'Welcome! Please enter your details',
 }: AuthContainerProps) => {
   return (
-    <div className={styles.main_container}>
-      <div className={styles.background_container}>
-        <div className={styles.container}>
-          <div className={styles.logo}>
+    <div className={styles.main_container_auth}>
+      <div className={styles.background_container_auth}>
+        <div className={styles.container_auth}>
+          <div className={styles.logo_auth}>
             <Image src="/assests/logoWithBg.svg" alt="Tg-logo" width={250} height={100} />
           </div>
           <div>
-            <p className={styles.heading}>{title}</p>
+            <p className={styles.heading_auth}>{title}</p>
           </div>
           <div>{children}</div>
         </div>

@@ -27,11 +27,11 @@ const page = () => {
   }, []);
 
   return (
-    <div className={styles.main_container}>
+    <div className={styles.main_container_landing}>
       <nav className={scrolling ? `${styles.scrollnav}` : `${styles.navbar}`}>
         <Link href="/">
           <div>
-            <span className={styles.logo}>
+            <span className={styles.logo_landing}>
               <img src={'../assests/logo.svg'} />
             </span>
           </div>

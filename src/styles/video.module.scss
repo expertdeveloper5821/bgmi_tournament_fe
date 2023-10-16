@@ -1,7 +1,7 @@
 @import './mixins.scss';
 @import './variable.scss';
 
-.main_container {
+.main_container_video {
   width: 100%;
   background-image: url('/assests/videobanner.svg');
   background-repeat: no-repeat;
@@ -57,7 +57,7 @@
   justify-content: center;
 }
 
-.container {
+.container_video {
   display: flex;
   // width: 100%;
   justify-content: space-between;

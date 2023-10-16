@@ -84,11 +84,11 @@ function page() {
 
   return (
     <>
-        <div className={styles.main_container} id="mainLayoutContainerInner">
+        <div className={styles.main_container_dashboard} id="mainLayoutContainerInner">
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
               <Navbar />
-              <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+              <h1 className={styles.heading_dashboard}>Welcome to Admin Dashboard</h1>
               {/* <SearchFilter /> */}
               {isLoading ? (
                 <Loader />

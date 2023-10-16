@@ -197,7 +197,7 @@ export default function Modal() {
 
   return (
     <>
-      <div className={styles.main_container} id="mainLayoutContainerInner">
+      <div className={styles.main_container_dashboard} id="mainLayoutContainerInner">
         <div className={styles.abcd}>
           <div className={styles.sidebar_wrapper}>
             <Navbar />

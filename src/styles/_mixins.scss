@@ -1,4 +1,4 @@
-@mixin main_container {
+@mixin main_container_mix {
   background-image: url('../../public/assests/backgroundimage.svg');
   display: flex;
   justify-content: center;
@@ -10,12 +10,12 @@
   background-size: cover;
 }
 
-@mixin logo {
+@mixin logo_mix {
   height: 100%;
   padding-left: 20px;
 }
 
-@mixin container {
+@mixin container_mix {
   opacity: 0.9;
   background-size: cover;
   display: flex;
@@ -45,7 +45,7 @@
     min-height: 100vh;
   }
 }
-@mixin headDesc {
+@mixin headDesc_mix {
   color: #003354;
   display: flex;
   justify-content: center;
@@ -61,13 +61,13 @@
   }
 }
 
-@mixin background_container {
+@mixin background_container_mix {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-@mixin heading {
+@mixin heading_mix {
   display: flex;
   justify-content: center;
   color: #5c5c5c;
@@ -77,7 +77,7 @@
   line-height: 22px;
 }
 
-@mixin input_box {
+@mixin input_box_mix {
   font-style: var(--bs-font-style);
   font-weight: var(--bs-body-font-weight);
   font-size: var(--bs-body-font-size);
@@ -101,7 +101,7 @@
   }
 }
 
-@mixin email_wrapper {
+@mixin email_wrapper_mix {
   color: #003354;
   font-style: var(--bs-font-style);
   font-weight: var(--bs-body-font-weight);
@@ -113,17 +113,17 @@
 }
 
 @mixin password_wrapper {
-  @include email_wrapper;
+  @include email_wrapper_mix;
 }
 
-@mixin button_wrapper {
+@mixin button_wrapper_mix {
   display: flex;
   width: 100%;
   justify-content: center;
   background-color: #003354 !important;
 }
 
-@mixin checkbox_wrapper {
+@mixin checkbox_wrapper_mix {
   font-style: var(--bs-font-style);
   font-weight: var(--bs-body-font-weight);
   font-size: var(--bs-font-size);
@@ -133,7 +133,7 @@
   position: relative;
 }
 
-@mixin signin {
+@mixin signin_mix {
   color: #003354;
   margin: 0.5rem;
   cursor: pointer;
@@ -144,7 +144,7 @@
   text-decoration-line: underline;
 }
 
-@mixin error {
+@mixin error_mix {
   color: #ca0000;
   font-weight: 600;
   font-size: 12px;
@@ -154,18 +154,18 @@
   }
 }
 
-@mixin tableheader {
+@mixin tableheader_mix {
   background: #003354;
   color: #ffff;
   font-family: Century Gothic;
   font-size: 16px;
   font-weight: 700;
 }
-@mixin tdbody {
+@mixin tdbody_mix {
   background-color: #002d47;
   border: 8px solid #003554;
 }
-@mixin spectator_model {
+@mixin spectator_model_mix {
   position: absolute;
   top: 0;
   left: 0;
@@ -176,7 +176,7 @@
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
 }
-@mixin spectator_model_heading {
+@mixin spectator_model_heading_mix {
   background: #ff7a00;
   text-align: center;
   padding: 26px;
