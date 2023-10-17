@@ -10,13 +10,15 @@ import RequireAuthentication from '../../../utils/requireAuthentication';
 import { sendRequest } from '@/utils/axiosInstanse';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
 import { toast } from 'react-toastify';
+import {SpectatorDataType} from '.././spectator/page';
 
 export interface IAppProps { }
 
+
 function page() {
-  const [ wholeUserData, setWholeUserData] = useState<any>();
-  const [userData, setUserData] = useState<any[]>([]);;
-  const [isLoading, setIsLoading] = useState(true);
+  const [ wholeUserData, setWholeUserData] = useState<SpectatorDataType[] | []>([]);
+  const [userData, setUserData] = useState<SpectatorDataType[] | []>([]);;
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const imageIcon: string = 'user';
   const columns: string[] = [
     'Full Name',
@@ -24,7 +26,7 @@ function page() {
     'Email',
   ];
 
-  const fetchTournaments = async (searchVal) => {
+  const fetchTournaments = async (searchVal:string) => {
     try {
       const token = localStorage.getItem('jwtToken');
       const response = await sendRequest(`/user/getalluser?search=${searchVal}`, {
@@ -34,7 +36,7 @@ function page() {
         },
       });
       if (response?.status === 200) {
-        const allUsersData = response?.data?.data;
+        const allUsersData:SpectatorDataType[]= response?.data?.data;
         const filteredData = allUsersData?.filter((user: any) => {
           return user?.role?.role === 'user';
         })
@@ -52,7 +54,7 @@ function page() {
     fetchTournaments('');
   }, []);
 
-  const deleteroomId = async (userUuid: any) => {
+  const deleteroomId = async (userUuid: string) => {
     setIsLoading(true);
     try {
       const token = localStorage.getItem('jwtToken');
@@ -70,7 +72,7 @@ function page() {
 
   const handleSearch = (e) => {
     const { name, value } = e.target;
-    const filteredResults = wholeUserData.filter((data) =>
+    const filteredResults = wholeUserData.filter((data:SpectatorDataType) =>
     data?.fullName
     ?.toLowerCase().includes(value.toLowerCase()) || data?.userName?.toLowerCase().includes(value.toLowerCase()) || data?.email
     ?.toLowerCase().includes(value.toLowerCase())

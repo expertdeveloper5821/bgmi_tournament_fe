@@ -10,43 +10,77 @@ import TableData from '@/Components/CommonComponent/Table/Table';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 
-interface FormCreate {
+interface formDataType {
   fullName: string;
   userName: string;
   email: string;
   password: string;
 }
 
+interface Role {
+  _id: string; 
+  role: string
+}
+
+export interface SpectatorDataType {
+  email: string;
+fullName: string;
+phoneNumber: string;
+profilePic: string;
+role: Role;
+upiId: string;
+userName: string;
+userUuid: string;
+}
+
+interface ModalType {
+  isOpen: boolean; 
+  buttonVal: string;
+}
+
+interface RoleType {
+role: string;
+userUuid: string;
+_id: string;
+}
+
+interface SpectatorEditDataType { 
+email:string;
+fullName: string;
+role: Role;
+userName: string;
+userUuid: string
+}
+
 export default function Modal() {
-  const [spectatorData, setSpectatorData] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [spectatorData, setSpectatorData] = useState<SpectatorDataType[] | []>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [getSpectatorId, setSetSpectatorId] = useState<any>();
-  const [modal, setModal] = useState({ isOpen: false, buttonVal: '' });
-  const [formErrors, setFormErrors] = useState<FormCreate>({
+  const [modal, setModal] = useState<ModalType>({ isOpen: false, buttonVal: '' });
+  const [formErrors, setFormErrors] = useState<formDataType>({
     fullName: '',
     userName: '',
     email: '',
     password: '',
   });
-  const [allspectatorData, setAllspectatorData] = useState<any>();
-  const [formData, setFormData] = useState<FormCreate | any>({
+  const [allspectatorData, setAllspectatorData] = useState<SpectatorDataType[] | []>([]);
+  const [formData, setFormData] = useState<formDataType | any>({
     fullName: '',
     userName: '',
     email: '',
     password: '',
   });
-  const [roles, setRoles] = useState<any>();
+  const [roles, setRoles] = useState<RoleType[] | undefined>();
   const [isDisabled, setDisabled] = useState<boolean>(false);
 
   const columns: string[] = ['Full Name', 'User Name', 'Email'];
-
 
   const getAllUsers = async () => {
 
     setIsLoading(true);
     try {
       const token = localStorage.getItem('jwtToken');
-      const allUsersData: any = await sendRequest('/user/getalluser', {
+      const allUsersData = await sendRequest('/user/getalluser', {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -88,11 +122,11 @@ export default function Modal() {
   },[formErrors,formData]);
 
   
-  const deleteroom = async (userUuid: any) => {
+  const deleteroom = async (userUuid: string) => {
     setIsLoading(true);
     try {
       const token = localStorage.getItem('jwtToken');
-      const response: any = await sendRequest(`/role/deleterole/${userUuid}`, {
+      const response = await sendRequest(`/role/deleterole/${userUuid}`, {
         method: 'delete',
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -109,7 +143,7 @@ export default function Modal() {
     try {
       setIsLoading(true);
       const token = localStorage.getItem('jwtToken');
-      const response: any = await sendRequest(`/role/updaterole/${getSpectatorId?.userUuid}`, {
+      const response = await sendRequest(`/role/updaterole/${getSpectatorId?.userUuid}`, {
         method: 'PUT',
         headers: { Authorization: `Bearer ${token}` },
         data: formData,
@@ -117,7 +151,7 @@ export default function Modal() {
       getAllUsers();
       setSetSpectatorId(null);
     } catch (error) {
-      console.error('Error deleting room', error);
+      toast.error(error.message);
     }
   };
 
@@ -256,7 +290,7 @@ export default function Modal() {
     setSetSpectatorId(null);
   };
 
-  const handleEdit = (studentData: any) => {
+  const handleEdit = (studentData: SpectatorEditDataType) => {
     setDisabled(true);
     if (studentData) {
       setModal({ isOpen: true, buttonVal: 'Assign' });
@@ -326,7 +360,6 @@ export default function Modal() {
         <div className={styles?.modal}>
           <div
             onClick={() => {
-              console.log('onClickHandler working');
               setModal({ isOpen: false, buttonVal: '' });
               setFormErrors({
                 fullName: '',
