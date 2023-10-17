@@ -4,8 +4,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Grandstander:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-
-
 /* teams & condition */
 
 .container2 {
@@ -31,15 +29,83 @@
 }
 
 .term_points {
-    text-align: left;
+  text-align: left;
 }
 .term_con_heading {
   font-size: 28px;
+  @media (max-width: $breakpoint-ms) {
+    font-size: 24px;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    font-size: 24px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 24px;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    font-size: 24px;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    font-size: 24px;
+  }
 }
 
 .term_con_subheading {
   font-size: 20px;
   margin: 10px 0px;
+  @media (max-width: $breakpoint-ms) {
+    .term_con_subheading {
+      font-size: 18px;
+    }
+
+    .term_con_subheading2 {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    .term_con_subheading {
+      font-size: 18px;
+    }
+
+    .term_con_subheading2 {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    .term_con_subheading {
+      font-size: 18px;
+    }
+
+    .term_con_subheading2 {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    .term_con_subheading {
+      font-size: 18px;
+    }
+
+    .term_con_subheading2 {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    .term_con_subheading {
+      font-size: 18px;
+    }
+
+    .term_con_subheading2 {
+      font-size: 18px;
+    }
+  }
 }
 
 .term_con_subheading2 {
@@ -52,6 +118,30 @@
   font-size: 16px;
   margin: 14px 0px;
   text-align: left;
+  @media (max-width: $breakpoint-ms) {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    font-size: 14px;
+    line-height: 22px;
+  }
 }
 
 .term_con_list {
@@ -86,6 +176,25 @@
   font-size: 14px;
   text-align: left;
   margin-bottom: 8px;
+  @media (max-width: $breakpoint-ms) {
+    line-height: 22px;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    line-height: 22px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    line-height: 22px;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    line-height: 22px;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    line-height: 22px;
+  }
 }
 
 .policy_list {
@@ -97,1363 +206,3 @@
 .policy_points {
   padding-left: 30px;
 }
-
-
-
-// /* custom section */
-
-
-// .buggi_imgDiv {
-//   max-width: 400px;
-//   width: 100%;
-// }
-
-// .buggiSec {
-//   text-align: center;
-
-//   color: white;
-//   width: 100%;
-//   height: 100vh;
-//   background: url("./assets/bg\ last\ section\ 1.svg");
-//   background-position: center;
-//   background-size: cover;
-//   background-repeat: no-repeat;
-// }
-
-// .spaceDiv {
-//   height: 200px;
-// }
-
-// .buggiDiv {
-//   display: flex;
-
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   height: 100vh;
-// }
-
-// .buggiSec_heading {
-//   font-size: 4rem;
-// }
-
-// .buggiSec_para {
-//   font-size: 1.5rem;
-//   margin-bottom: 1rem;
-// }
-
-
-// .anchorTags {
-//   text-align: center;
-//   padding: 10px;
-//   display: flex;
-//   flex-direction: row;
-//   gap: 20px;
-//   font-size: 1.5rem;
-// }
-
-
-
-// .support {
-//   text-align: center;
-// }
-
-// .btnSingup {
-//   cursor: pointer;
-//   border-radius: 10px;
-//   margin-top: 20px;
-//   width: 200px;
-//   padding: 0.5rem;
-//   background-color: black;
-//   color: white;
-//   border: 1px solid white;
-// }
-
-// .timer_desc {
-//   font-family: 'Grandstander', cursive;
-//   font-weight: 900;
-//   color: #ffffff;
-//   font-size: 50px;
-//   letter-spacing: 15px;
-//   margin-bottom: 20px;
-
-// }
-
-// .time_para {
-//   font-size: 24px;
-// }
-
-// .text_div {
-//   padding: 10px;
-// }
-
-
-
-// .facebookicon {
-//   border-radius: 50%;
-//   transform: scale(1);
-//   background-color: #ffffff;
-//   color: rgb(28, 115, 209);
-//   padding: 4px;
-// }
-
-// .instagramicon {
-//   border-radius: 50%;
-//   transform: scale(1);
-//   background-color: #ffffff;
-//   color: #F61732;
-//   padding: 4px;
-// }
-
-// .twittericon {
-//   border-radius: 50%;
-//   transform: scale(1);
-//   background-color: #ffffff;
-//   color: black;
-//   padding: 4px;
-// }
-
-// .youtubeicon {
-//   border-radius: 50%;
-//   transform: scale(1);
-//   background-color: #ffffff;
-//   color: #FF0101;
-//   padding: 4px;
-// }
-
-// .telegramicon {
-//   border-radius: 50%;
-//   transform: scale(1);
-//   color: rgb(0, 0, 0);
-//   background-color: #ffffff;
-//   color: rgb(28, 115, 209);
-//   padding: 4px;
-// }
-
-// .support {
-//   padding: 20px 0px;
-// }
-
-// @media screen and (min-width:1201px) and (max-width:1500px) {
-//   .map_line {
-//     display: none;
-//   }
-
-//   .gradient2 {
-//     height: 67vh;
-//   }
-// }
-
-// @media screen and (min-width:1025px) and (max-width:1200px) {
-//   .map_line {
-//     display: none;
-//   }
-
-//   .gradient2 {
-//     height: 73vh;
-//   }
-
-
-//   .backimga {
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     left: 0;
-//     bottom: 0;
-//     overflow: hidden;
-//   }
-
-//   .backimga img {
-//     width: 100%;
-//   }
-
-//   .main_down_person_div {
-//     right: 23%;
-//   }
-
-//   .main_cash_prize_div {
-//     right: 19%;
-//   }
-
-//   .main_seamless_div {
-//     right: 19%;
-//   }
-
-//   .map_line {
-//     width: 950px;
-//   }
-
-//   .main_red_circle_location_mark {
-//     bottom: 37%;
-//     left: 12.5%;
-//   }
-
-//   .main_circle_location_mark {
-//     bottom: 37%;
-//     left: 24.4%;
-//   }
-
-//   .main_circle_playwin_location_mark {
-
-//     bottom: 45%;
-//     right: 7.6%;
-//   }
-
-//   .location_mark {
-//     top: 42%;
-//     left: 67.4%;
-//   }
-// }
-
-// @media screen and (min-width:769px) and (max-width:1024px) {
-
-//   .gradient5,
-//   .gradient4,
-//   .parashoot,
-//   .map_line {
-//     display: none;
-//   }
-
-//   .backimga img {
-//     width: 100%;
-//   }
-
-//   .header {
-//     padding: 11px 49px;
-//   }
-
-//   .backimga {
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     left: 0;
-//     bottom: 0;
-//     overflow: hidden;
-//   }
-
-//   .main_circle_playwin_location_mark {
-//     bottom: 45%;
-//     right: 11%;
-//   }
-
-//   .banner_heading {
-//     top: 37%;
-//     font-size: 28px;
-//   }
-
-//   .gradient2 {
-//     height: 70vh;
-//   }
-
-//   .direction_indicator {
-//     width: 800px;
-//   }
-
-//   .scope_target {
-//     top: 23%;
-//     left: 32%;
-//   }
-
-//   .scope_back_img {
-//     display: block;
-//     width: 300px;
-//     left: 11%;
-//     top: 4%;
-//   }
-
-//   .main_clock_div {
-//     left: 17%;
-//   }
-
-//   .main_exciting_div {
-//     left: 23%;
-//   }
-
-//   .main_seamless_div {
-//     top: 26%;
-//     right: 17%;
-//   }
-
-//   .main_down_person_div {
-//     right: 20%;
-//   }
-
-//   .main_cash_prize_div {
-//     right: 17%;
-//     bottom: 11%;
-//   }
-
-//   .main_bullet_mark_div {
-//     left: 27%;
-//     top: 25%;
-//   }
-
-//   .bags_hel {
-//     width: 200px;
-//   }
-
-//   .map_line {
-//     width: 760px;
-//   }
-
-//   .location_mark {
-//     left: 64%;
-//     top: 39%;
-//   }
-
-//   .sign_up_text {
-//     left: 12.2%;
-//     top: 27%;
-//     font-size: 20px;
-//   }
-
-//   .circle_playwin_location_mark {
-//     right: 16%;
-//   }
-
-//   .redeem_text {
-//     font-size: 20px;
-//   }
-
-//   .play_text {
-//     font-size: 20px;
-//     right: 15%;
-//   }
-
-//   .circle_location_mark {
-//     bottom: 43%;
-//   }
-// }
-
-// @media screen and (min-width: 481px) and (max-width: 768px) {
-
-//   .about_left,
-//   .bullets,
-//   .gradient2,
-//   .map,
-//   .timer_parashoot2,
-//   .parashoot5,
-//   .parashoot,
-//   .parashoot3,
-//   .gradient4,
-//   .map_line {
-//     display: none;
-//   }
-
-
-//   .nav-links {
-//     display: none;
-//     flex-direction: column;
-//     position: absolute;
-//     top: 70px;
-//     left: 0;
-//     background-color: #333;
-//     width: 100%;
-//   }
-
-//   .nav-links.active {
-//     display: flex;
-//   }
-
-//   .burger {
-//     display: block;
-//     cursor: pointer;
-//     font-size: 24px;
-//   }
-
-//   .background_viedo {
-//     background: url('./assets/tablet banner.svg');
-//     background-repeat: no-repeat;
-//     background-size: cover;
-//     background-position: center;
-//   }
-
-//   .banner_heading {
-//     top: 41.5%;
-//     font-size: 30px;
-//   }
-
-//   .gradient {
-//     background-image: radial-gradient(transparent, black 75%, black);
-//   }
-
-//   .welcome {
-//     height: 50vh;
-//   }
-
-//   .welcome_text {
-//     left: 25%;
-//   }
-
-//   .about_right {
-//     flex: 0 1 100%;
-//   }
-
-//   .about_alignment {
-//     text-align: center;
-//     padding: 0px 30px;
-//   }
-
-//   .stone_div {
-//     opacity: 0.5;
-//   }
-
-//   .back_img {
-//     background-size: cover;
-//   }
-
-//   .scope_div {
-//     padding: 0px 30px;
-//   }
-
-//   .scope_target {
-//     width: 350px;
-//     left: 28%;
-//   }
-
-//   .scope_line {
-//     width: 190px;
-//     top: 17%;
-//     left: 21%;
-//   }
-
-//   .scope_line_red_dot {
-//     left: 50%;
-//   }
-
-//   .main_clock_div {
-//     left: 12%;
-//   }
-
-//   .main_exciting_div {
-//     bottom: 18%;
-//     left: 20%;
-//   }
-
-//   .main_seamless_div {
-//     top: 26%;
-//     right: 13%;
-//   }
-
-//   .main_down_person_div {
-//     bottom: 43%;
-//     right: 10%;
-//   }
-
-//   .main_cash_prize_div {
-//     bottom: 19%;
-//     right: 19%;
-//   }
-
-//   .main_bullet_mark_div {
-//     left: 20%;
-//     top: 20%;
-//   }
-
-//   .scope_back_img {
-//     display: block;
-//     width: 280px;
-//     top: 0;
-//     left: 10%;
-//   }
-
-//   .direction_indicator {
-//     display: flex;
-//   }
-
-//   .timer_parashoot1 {
-//     top: 25%;
-//     left: 30%;
-//   }
-
-//   #demo {
-//     font-size: 30px;
-//   }
-
-//   .gradient3 {
-//     top: 57%;
-//   }
-
-//   .bags_hel {
-//     width: 220px;
-//     top: 72%;
-//     left: 39%;
-//     opacity: 0.6;
-//   }
-
-//   .backimga {
-//     -webkit-mask-size: 275px 275px;
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     left: 0;
-//     bottom: 0;
-//     overflow: hidden;
-//   }
-
-//   .backimga img {
-//     width: 100%;
-//   }
-
-//   .bgmi_sec {
-//     flex-direction: column;
-//   }
-
-//   .header {
-//     padding: 0px;
-//   }
-
-//   .menu {
-//     flex-direction: column;
-//     align-items: center;
-//     position: absolute;
-//     background: rgba(0, 0, 0, 0.9);
-//     backdrop-filter: blur(60px);
-//     top: 80px;
-//     left: 0;
-//     width: 100%;
-//     z-index: 1;
-//     transform: scale(1, 0);
-//     transform-origin: top;
-//     transition: transform 0.3s ease-in-out;
-//     padding: 20px 10px;
-//   }
-
-//   .menu a {
-//     font-size: 18px;
-//   }
-
-//   .menu li {
-//     margin-bottom: 10px;
-//   }
-
-//   .menu-icon {
-//     display: block;
-//     color: #fff;
-//     font-size: 28px;
-//     cursor: pointer;
-//   }
-
-//   .login_button_div {
-//     margin: 0;
-//     padding: 0px;
-//     gap: 0;
-//     background-color: #003554;
-//   }
-
-//   .login_img {
-//     width: 21px;
-//     height: 21px;
-//   }
-
-//   .login_button_div a {
-//     padding: 4px 8px 4px 2px;
-//   }
-
-//   .login_button {
-//     left: 0;
-//   }
-
-//   .menu-icon {
-//     width: 36px;
-//   }
-
-//   .boxDiv {
-//     margin-top: 50px;
-//   }
-
-//   .coomingsoon_date {
-//     font-size: 44px;
-//   }
-
-//   .anchorTags {
-//     font-size: 20px;
-//   }
-
-//   .demo {
-//     flex-direction: column;
-//   }
-
-//   .box {
-//     height: auto;
-//     padding-top: 40px;
-//   }
-
-//   .comingsoon_img {
-//     width: 320px !important;
-//   }
-
-//   .middle {
-//     width: 75%;
-//   }
-
-//   .boxDiv {
-//     padding: 0px;
-//   }
-// }
-
-// @media screen and (min-width: 320px) and (max-width: 480px) {
-
-//   .main_bullet_mark_div,
-//   .parashoot,
-//   .parashoot3,
-//   .parashoot5,
-//   .scope_target_text,
-//   .main_down_person_div,
-//   .direction_indicator,
-//   .map_line,
-//   .gun2,
-//   .dropBox,
-//   .bags_hel,
-//   .timer_parashoot1,
-//   .timer_parashoot2,
-//   .location_mark4,
-//   .location_mark3,
-//   .location_mark,
-//   .gradient5 {
-//     display: none;
-//   }
-
-//   .background_viedo {
-//     background: url("./assets/mobile\ banner\ 2.svg");
-//     background-repeat: no-repeat;
-//     background-size: cover;
-//     background-position: center;
-//   }
-
-//   .welcome {
-//     object-fit: cover;
-//     height: 33vh;
-//   }
-
-//   .welcome_text {
-//     left: 0;
-//     top: 22%;
-//     padding: 10px;
-//     display: none;
-//   }
-
-//   .bgmi_about {
-//     flex-direction: column-reverse;
-//     padding-top: 20px;
-//   }
-
-//   .about_alignment {
-//     padding: 0px 16px;
-//     text-align: center;
-//   }
-
-//   .about_heading,
-//   .scope_heading {
-//     font-size: 20px;
-//   }
-
-//   .about_text {
-//     font-size: 11px;
-//     letter-spacing: 0px;
-//   }
-
-//   .bullets {
-//     left: 0;
-//     top: 40%;
-
-//   }
-
-//   .stone_div {
-//     padding-top: 60px;
-//   }
-
-//   .scope_div {
-//     padding: 0px 28px;
-//   }
-
-//   .back_img {
-//     background: url("./assets/scope\ new\ banner\ for\ mobile.svg");
-//     background-repeat: no-repeat;
-//     background-size: cover;
-//     background-position: center;
-//   }
-
-//   .scope_target {
-//     left: 16%;
-//     width: 270px;
-//   }
-
-//   .scope_back_img {
-//     display: block;
-//     top: -14%;
-//     left: 10%;
-//     width: 220px;
-//   }
-
-//   .scope_line {
-//     width: 160px;
-//     top: 16%;
-//     left: 19%;
-//   }
-
-//   .scope_line_red_dot {
-//     width: 6px;
-//     height: 7px;
-//     top: 49%;
-//     left: 49.8%;
-//   }
-
-//   .direction_indicator {
-//     width: 320px;
-//   }
-
-//   #scope_target_timmer {
-//     font-size: 13px;
-//     left: 58%;
-//   }
-
-//   .guns_bags {
-//     left: 4%;
-//     bottom: 17%;
-//     opacity: 0.6;
-//   }
-
-//   .scope_text {
-//     padding: 0px 16px;
-//     font-size: 14px;
-//     letter-spacing: 1px;
-//   }
-
-//   .guns {
-//     flex-direction: column;
-//     gap: 0;
-//     height: 200px;
-//   }
-
-//   .timer_parashoot1 {
-//     top: 8%;
-//     left: 10%;
-//     opacity: 0.7;
-//   }
-
-//   #demo {
-//     font-size: 28px;
-//   }
-
-
-
-//   .scope_parashoot {
-//     top: 10%;
-//   }
-
-//   .gradient3 {
-//     top: 40%;
-//     background-image: linear-gradient(transparent, black 67%, black);
-//     height: 60vh;
-//   }
-
-//   .bags_hel {
-//     width: 220px;
-//     top: 75%;
-//     left: 24%;
-//   }
-
-//   .gradient2 {
-//     background-image: linear-gradient(transparent, black 95%, black);
-//   }
-
-//   .banner_heading {
-//     font-size: 18px;
-//     letter-spacing: 8px;
-//     top: 40%;
-//     font-size: 22px;
-//   }
-
-//   .banner_subheading {
-//     font-size: 18px;
-//     letter-spacing: 6px;
-//     top: 46%;
-//   }
-
-//   .banner_para {
-//     font-size: 18px;
-//     letter-spacing: 4px;
-//     font-weight: 600;
-//   }
-
-//   .mobile_direction_indicator {
-//     padding-top: 40px;
-//     margin: 0 auto;
-//     display: block;
-//     width: 90%;
-//   }
-
-//   .main_bullet_mark_div {
-//     position: absolute;
-//     top: 38%;
-//     left: 13%;
-//   }
-
-//   .bullet_mark {
-//     border: 2px solid white;
-//     border-radius: 50%;
-//     padding: 18px 12px 6px 6px;
-//     width: 80px;
-//     height: 80px;
-//     background-color: #ffffff3d;
-//   }
-
-//   .main_exciting_div {
-//     bottom: 2%;
-//     left: 37%;
-//   }
-
-//   .exciting {
-//     border: 2px solid white;
-//     border-radius: 50px;
-//     padding: 14px;
-//     width: 55px;
-//     height: 55px;
-//     background-color: #ffffff52;
-//   }
-
-//   .short_heading {
-//     font-size: 14px;
-//   }
-
-//   .map_img {
-//     background: url('./assets/mobile\ map\ img.svg');
-//     background-repeat: no-repeat;
-//     background-size: 100% 100%;
-//     background-position: center;
-//   }
-
-//   .red_circle {
-//     width: 40px;
-//     height: 40px;
-//     top: 40%;
-//     left: 38%;
-//   }
-
-//   .red_location {
-//     display: block;
-//     position: absolute;
-//     width: 15px;
-//     height: 15px;
-//     left: 28%;
-//     top: 55%;
-//   }
-
-//   .red_location2 {
-//     display: block;
-//     position: absolute;
-//     width: 15px;
-//     height: 15px;
-//     left: 54%;
-//     top: 47.4%;
-//   }
-
-//   .red_location3 {
-//     display: block;
-//     position: absolute;
-//     width: 15px;
-//     height: 15px;
-//     left: 68%;
-//     top: 55%;
-//   }
-
-//   .circle_location_mark {
-//     background-color: #ff000063;
-//     left: 43%;
-//     bottom: 36%;
-//   }
-
-//   .redeem_text {
-//     bottom: 31%;
-//     left: 32%;
-//   }
-
-//   .map_text {
-//     margin-top: -15%;
-//     padding: 24px;
-//   }
-
-//   .stone_div2 {
-//     width: 100%;
-//     height: 100%;
-//   }
-
-//   .main_circle_location_mark {
-//     bottom: 19%;
-//     left: 39.4%;
-
-//   }
-
-//   .backimga {
-//     -webkit-mask-size: 220px 220px;
-//     position: absolute;
-//     left: 0;
-//     top: -1%;
-//     overflow: hidden;
-//   }
-
-//   .hover_img {
-//     width: 400px;
-//     height: 400px;
-//   }
-
-//   .backimga img {
-//     width: 100%;
-//   }
-
-//   .scope_img {
-//     width: 250px;
-//   }
-
-//   .gradient4 {
-//     top: 14%;
-//   }
-
-//   .clock,
-//   .cash_prize,
-//   .seamless {
-//     width: 55px;
-//     height: 55px;
-//   }
-
-//   .main_clock_div {
-//     top: 24%;
-//     left: 5%;
-//   }
-
-//   .main_seamless_div {
-//     left: 38%;
-//     top: 14%;
-//   }
-
-//   .main_cash_prize_div {
-//     top: 24%;
-//     right: 5%;
-//   }
-
-//   .main_circle_playwin_location_mark {
-//     right: 10%;
-//     bottom: 70%;
-//     width: 90px;
-//   }
-
-//   .circle_playwin_location_mark {
-//     margin-left: 6px;
-//   }
-
-//   .main_red_circle_location_mark {
-//     top: 15%;
-//   }
-
-//   .sign_up_text,
-//   .redeem_text,
-//   .play_text {
-//     margin-top: 10px;
-//     font-size: 18px;
-//   }
-
-//   .red_circle_location_mark,
-//   .circle_playwin_location_mark,
-//   .circle_location_mark {
-//     width: 55px;
-//     height: 55px;
-//     padding: 16px
-//   }
-
-//   .main_circle_playwin_location_mark {
-//     right: 9%;
-//     bottom: 68.4%;
-//   }
-
-//   .bgmi_sec {
-//     flex-direction: column;
-//   }
-
-//   .upComingPara {
-//     padding: 15px;
-//     text-align: justify;
-//   }
-
-//   .anchorTags {
-//     flex-direction: column;
-//   }
-
-//   .anchorTags {
-//     gap: 20px;
-//   }
-
-//   .text_color {
-//     font-size: 13px
-//   }
-
-//   .winning_Para {
-//     font-size: 15px;
-//   }
-
-//   .text_size {
-//     font-size: 12px
-//   }
-
-//   .rupee {
-//     width: 10px;
-//     height: 10px;
-//   }
-
-//   .typeandversion {
-//     gap: 34px;
-//   }
-
-//   .header {
-//     padding: 0px;
-//   }
-
-//   .menu {
-//     flex-direction: column;
-//     align-items: center;
-//     position: absolute;
-//     background: rgba(0, 0, 0, 0.9);
-//     backdrop-filter: blur(60px);
-//     top: 80px;
-//     left: 0;
-//     width: 100%;
-//     z-index: 1;
-//     transform: scale(1, 0);
-//     transform-origin: top;
-//     transition: transform 0.3s ease-in-out;
-//     padding: 20px 10px;
-//   }
-
-//   .menu a {
-//     font-size: 18px;
-//   }
-
-//   .menu li {
-//     margin-bottom: 10px;
-//   }
-
-//   .menu-icon {
-//     display: block;
-//     color: #fff;
-//     font-size: 28px;
-//     cursor: pointer;
-//   }
-
-//   .login_button_div {
-//     margin: 0;
-//     padding: 0px;
-//     gap: 0;
-//     background-color: #003554;
-//   }
-
-//   .login_img {
-//     width: 21px;
-//     height: 21px;
-//   }
-
-//   .login_button_div {
-//     padding: 10px;
-//   }
-
-//   .login_button {
-//     left: 0;
-//   }
-
-//   .text_map {
-//     font-size: 14px;
-//   }
-
-//   .menu-icon {
-//     width: 36px;
-//   }
-
-//   .heading {
-//     font-size: 20px;
-//   }
-
-//   .para2 {
-//     font-size: 14px;
-//     text-align: justify;
-//     letter-spacing: 2px;
-//   }
-
-//   .play_comingsoon_text {
-//     font-size: 24px;
-//     letter-spacing: 5px;
-//   }
-
-//   .coomingsoon_date {
-//     font-size: 38px;
-//   }
-
-//   .team_map {
-//     font-size: 16px;
-//   }
-
-//   .ancor {
-//     font-size: 16px;
-//   }
-
-
-//   .support {
-//     font-size: 16px;
-//   }
-
-
-//   .timer_desc {
-//     font-size: 30px;
-//     letter-spacing: 5px;
-//   }
-
-//   .time_para {
-//     padding: 10px;
-//     font-size: 20px;
-//   }
-
-//   .WiiningPoolSec {
-//     font-size: 14px;
-//   }
-
-//   .term_con_heading {
-//     font-size: 24px;
-//   }
-
-//   .term_con_subheading {
-//     font-size: 18px;
-//   }
-
-//   .term_con_subheading2 {
-//     font-size: 18px;
-//   }
-
-//   .term_con_para {
-//     font-size: 14px;
-//   }
-
-//   .term_con_lastheading {
-//     font-size: 18px;
-//   }
-
-//   .policy_heading {
-//     font-size: 24px;
-//   }
-
-//   .policy_main_subheading {
-//     font-size: 18px;
-//   }
-
-//   .policy_subheading {
-//     font-size: 18px;
-//   }
-
-//   .policy_para {
-//     font-size: 14px;
-//   }
-
-//   .policy_list {
-//     font-size: 12px;
-//   }
-
-//   .demo {
-//     flex-direction: column;
-//   }
-
-//   .box {
-//     height: auto;
-//     padding-top: 40px;
-//   }
-
-//   .comingsoon_img {
-//     width: 320px !important;
-//   }
-
-//   .middle {
-//     width: 70%;
-//   }
-
-//   .boxDiv {
-//     padding: 0px;
-//   }
-// }
-
-// /* .winning_sec_left{
-//   background-color: #FF7A00;
- 
-// } */
-
-// .orange {
-//   font-size: 20px;
-// }
-
-
-
-
-
-
-// .popup {
-//   display: none;
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   z-index: 9999;
-//   width: 100%;
-//   height: 100vh;
-//   background: rgba(0, 0, 0, .2);
-//   backdrop-filter: blur(10px);
-
-// }
-
-
-// .popup-content {
-//   color: black;
-//   /* padding: 20px; */
-//   text-align: center;
-//   background-color: transparent;
-//   width: 60%;
-//   max-width: 500px;
-//   margin: 10% auto;
-//   border: 2px solid black;
-//   border-radius: 5px;
-//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-//   position: relative;
-// }
-
-// .close {
-//   position: absolute;
-//   top: 10px;
-//   right: 15px;
-//   font-size: 24px;
-//   cursor: pointer;
-// }
-
-// .winningSec {
-//   background-color: #FF7A00;
-//   padding: 10px 0px;
-// }
-
-// .prizePool {
-//   color: #fff;
-//   padding: 10px 0px;
-// }
-
-// .fa-arrow-down {
-//   color: #FF7A00;
-//   font-size: 15px;
-// }
-
-// #openPopupBtn {
-//   background: none !important;
-//   border: none !important;
-// }
-
-// .demo {
-//   display: flex;
-//   justify-content: space-around;
-//   align-items: center;
-
-// }
-
-// .comingsoon_img {
-//   width: 400px;
-// }
-
-// .middle {
-//   width: 60%;
-// }
-
-// .ear {
-//   padding: 10px 0px;
-// }
-
-// .comingsoon_img img {
-//   box-shadow: 0px 6px 5px #ccc;
-
-//   border-radius: 190px
-// }
-
-// .room strong {
-//   color: #FF7A00;
-// }
-
-// .commingsoon_time_para {
-//   padding: 6px 0px;
-// }
-
-
-
-// .winnisec {
-
-//   color: white;
-// }
-
-// .center {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   flex-direction: column;
-//   gap: 10px;
-// }
-
-// .inLine_block {
-//   display: flex;
-//   flex-direction: row;
-//   gap: 20px;
-
-// }
-
-// .prize {
-//   text-decoration: underline;
-//   color: #FF7A00;
-// }
-
-// .miranmar {
-//   color: #FF7A00;
-// }
-
-// .tableSec {
-//   border-radius: 10px;
-//   padding: 10px;
-//   margin: 0 auto;
-//   width: 600px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   border: 1px solid white;
-//   display: flex;
-// }
-
-// .chicken_dinner {
-//   color: #FFC700 !important;
-//   font-size: 12px;
-// }
-
-// .most_kill {
-//   color: #00FF29 !important;
-//   font-size: 12px;
-// }
-// .rest{
-//   font-size: 12px;
-// }
-
-// table {
-//   margin-bottom: 10px;
-//   display: flex;
-//   flex-direction: row;
-
-
-// }
-
-// .table th {
-//   color: white;
-//   font-weight: 700;
-
-// }
-
-// .table td {
-//   color: white;
-//   font-weight: 700;
-// }
-
-// .winnings_img {
-//   width: 300px;
-// }
