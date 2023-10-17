@@ -5,71 +5,43 @@ import React, { useState, useEffect } from 'react';
 import { sendRequest } from '@/utils/axiosInstanse';
 import { toast } from 'react-toastify';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
-import router from 'next/router';
 import styles from '@/styles/Dashboard.module.scss';
-import assignmentData from '../../../utils/CreateAssignmment.json';
 //@ts-ignore
-import TableData, { StudentProfile } from '@/Components/CommonComponent/Table/Table';
+import TableData from '@/Components/CommonComponent/Table/Table';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import withAuth from '@/Components/HOC/WithAuthHoc';
+import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
 
 export interface IAppProps {}
 
+interface RoomsDataType {
+    availableSlots: number;
+    createdAt: string;
+    createdBy: string;
+    dateAndTime: string;
+    entryFee: string;
+    gameName: string;
+    gameType: string;
+    highestKill: string;
+    lastSurvival: string;
+    mapImg: string;
+    mapType: string;
+    password: string;
+    registerTeams: [];
+    roomId: string;
+    roomUuid: string;
+    secondWin: string;
+    thirdWin: string;
+    updatedAt: string;
+    version: string;
+    __v: number;
+    _id: string;
+}
+
 function page() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
-  const rowPerPage = 8;
-  const [roomData, setRoomData] = useState<StudentProfile[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const imageIcon: string = 'room';
-
-  const transformedStudentData = assignmentData.studentData.map((item: StudentProfile) => ({
-    StudentName: item.StudentName,
-    Student: item.Student,
-    studentID: item.studentID,
-    Mobile: item.Mobile,
-    Course: item.Course,
-  }));
-
-  useEffect(() => {
-    // Simulate data loading or any async operation
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
-
-  const getAllTournaments = async () => {
-    const tokens = localStorage.getItem('jwtToken');
-    const tournamentResponse = await sendRequest('/room/rooms', {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${tokens}` },
-    });
-    setRoomData(tournamentResponse.data);
-  };
-
-  useEffect(() => {
-    getAllTournaments();
-  }, []);
-
-  const deleteroomId = async (_id: any) => {
-    setIsLoading(true);
-    try {
-      const tokens = localStorage.getItem('jwtToken');
-      const response = await sendRequest(`/room/rooms/${_id}`, {
-        method: 'delete',
-        headers: { Authorization: `Bearer ${tokens}` },
-      });
-      getAllTournaments();
-      if (response) {
-        const success = response.data.message;
-        toast.success(success);
-      }
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
+  const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
+  const [roomData, setRoomData] = useState<RoomsDataType[] | []>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const columns: string[] = [
     'Created By',
     'Room Id',
@@ -81,19 +53,87 @@ function page() {
     'Time',
     'Date',
   ];
+  
+  const getAllTournaments = async () => {
+    const token = localStorage.getItem('jwtToken');
+    try {
+      const tournamentResponse = await sendRequest('/room/rooms', {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setWholeRoomData(tournamentResponse?.data);
+      setRoomData(tournamentResponse?.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error?.message);
+    }
+  };
+
+  useEffect(() => {
+    getAllTournaments();
+  }, []);
+
+  const deleteroom = async (_id:string) => {
+    setIsLoading(true);
+    try {
+      const token = localStorage.getItem('jwtToken');
+      const response = await sendRequest(`/room/rooms/${_id}`, {
+        method: 'delete',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      getAllTournaments();
+      toast.success(response?.data?.message);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error?.message);
+    } 
+  };
+
+  const fetchTournaments = async (searchVal:string) => {
+    try {
+      const token = localStorage.getItem('jwtToken');
+      const response = await sendRequest(`/room/rooms?search=${searchVal}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+      setWholeRoomData(response?.data);
+      setRoomData(response?.data);
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error?.message);
+      setIsLoading(false);
+    }
+  };
+  
+  const handleSearch = (e) => {
+    const { name, value } = e.target;
+    const filteredResults = wholeRoomData.filter((data:RoomsDataType) =>
+    data?.createdBy
+    ?.toLowerCase().includes(value.toLowerCase()) || data?.gameName?.toLowerCase().includes(value.toLowerCase()) || data?.gameType
+    ?.toLowerCase().includes(value.toLowerCase()) || data?.mapType
+    ?.toLowerCase().includes(value.toLowerCase()) || data?.version
+    ?.toLowerCase().includes(value.toLowerCase())
+    );
+    setRoomData(filteredResults);
+  };
 
   return (
     <>
-        <div className={styles.main_container} id="mainLayoutContainerInner">
-          <div className={styles.abcd}>
-            <div className={styles.sidebar_wrapper}>
+        <div className={styles?.main_container} id="mainLayoutContainerInner">
+          <div className={styles?.abcd}>
+            <div className={styles?.sidebar_wrapper}>
               <Navbar />
-              <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
-              {/* <SearchFilter /> */}
+              <div className={styles?.flex}>
+                <h1 className={styles?.heading}>Welcome to Admin Dashboard</h1>
+                <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} /></div>              
               {isLoading ? (
                 <Loader />
               ) : (
-                <TableData studentData={roomData} columns={columns} showAdditionalButton={true} />
+                <TableData studentData={roomData} columns={columns} showAdditionalButton={true} deleteroom={deleteroom} type={'ROOMS'} />
               )}
             </div>
           </div>
