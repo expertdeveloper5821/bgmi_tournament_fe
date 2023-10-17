@@ -865,10 +865,10 @@ const page = () => {
             alt="shootingStar"
           />
           <div className={styles.anchorTags}>
-            <Link className={styles.ancor} href="policy.html" target="_blank">
+            <Link className={styles.ancor} href="/landingPage/privacy" target="_blank">
               Privacy Policy
             </Link>
-            <Link className={styles.ancor} href="terms.html" target="_blank">
+            <Link className={styles.ancor} href="/landingPage/termsCondition" target="_blank">
               Terms & conditions
             </Link>
             <Link className={styles.ancor} href="">
