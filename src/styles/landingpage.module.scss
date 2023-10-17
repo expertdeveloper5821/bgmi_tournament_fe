@@ -605,6 +605,7 @@
   padding-top: 20px;
   letter-spacing: 10px;
   font-weight: bold;
+  text-align: center;
   @media (min-width: $breakpoint-lg) {
     font-weight: bold;
     font-size: 27px;
@@ -1306,7 +1307,7 @@ rgba(0, 53, 84, 1) 0%,
   color: white;
 }
 .choseSection img {
-  margin-top: 7%;
+  margin-top: 6%;
   z-index: 99;
   @media (max-width: $breakpoint-xs) {
     margin-top: 5%;
