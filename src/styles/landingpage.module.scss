@@ -1143,7 +1143,7 @@ rgba(0, 53, 84, 1) 0%,
   left: 0%;
   right: 30%;
   width: 100%;
-  height: 30%;
+  height: 88%;
 
   background: linear-gradient(to top, rgba(0, 0, 0, 0), rgb(0, 0, 0));
   pointer-events: none;
@@ -2544,6 +2544,7 @@ rgba(0, 53, 84, 1) 0%,
   font-weight: 700;
   text-decoration: underline;
   font-size: 1.5rem;
+  z-index: 99;
   @media (max-width: $breakpoint-tab) {
     gap: 30px;
   }
@@ -2553,6 +2554,7 @@ rgba(0, 53, 84, 1) 0%,
   padding: 30px;
   font-weight: 400;
   font-size: 18px;
+  z-index: 99;
 }
 .support {
   text-align: center;
@@ -2593,6 +2595,7 @@ rgba(0, 53, 84, 1) 0%,
 .social_I {
   display: flex;
   gap: 35px;
+  z-index: 99;
   @media only screen and (max-width: 430px) {
     gap: 20px;
   }
@@ -2748,6 +2751,9 @@ rgba(0, 53, 84, 1) 0%,
     left: 18rem;
   }
 }
+.footerLogo{
+  z-index: 99;
+}
 
 @media only screen and (min-width: 320px) and (max-width: 600px) {
   .parashoot {
@@ -2897,7 +2903,6 @@ rgba(0, 53, 84, 1) 0%,
 
   .footerLogo {
     width: 150px;
-    z-index: 99;
     @media only screen and (max-width: 376px) {
       margin-top: 53px;
     }
