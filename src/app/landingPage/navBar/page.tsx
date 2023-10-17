@@ -77,16 +77,16 @@ const page = () => {
                 </div>
                 <ul className={scrolling ? `${styles.scrollmenumob}` : `${styles.menumob}`}>
                   <li>
-                    <Link href="/">Home</Link>
+                    <a onClick={() => scrollToSection('bannerSection')}>Home</a>
                   </li>
                   <li>
-                    <Link href="/about">About Us</Link>
+                    <a onClick={() => scrollToSection('WelcomeSection')}>About Us</a>
                   </li>
                   <li>
-                    <Link href="/about">Upcoming Matches</Link>
+                    <a onClick={() => scrollToSection('UpcomingMatches')}>Upcoming Matches</a>
                   </li>
                   <li>
-                    <Link href="/contact">Contact Us</Link>
+                    <a onClick={() => scrollToSection('Footer')}>Contact Us</a>
                   </li>
                   <Link href="/auth/login">
                     <button

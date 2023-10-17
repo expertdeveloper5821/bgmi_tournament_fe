@@ -92,7 +92,7 @@
 }
 .scrollnav {
   position: fixed;
-  width: 100%;
+  width: 101%;
   opacity: 10;
   display: flex;
   justify-content: space-between;
@@ -1570,8 +1570,8 @@ rgba(0, 53, 84, 1) 0%,
   text-align: center;
 
   @media (max-width: $breakpoint-xlg) {
-    top: 25%;
-    right: 16%;
+    top: 22%;
+    right: 15%;
   }
   @media (max-width: $breakpoint-lg) {
     top: 26%;
@@ -2497,10 +2497,11 @@ rgba(0, 53, 84, 1) 0%,
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  height: 80vh;
   background-image: radial-gradient(#1000c000 30%, #000000 100%),
     url('../../public/assests/sunrisedesktop.svg');
   @media (min-width: $breakpoint-ms) {
-    height: 75vh;
+   
   }
   @media (max-width: $breakpoint-tab) {
     background-image: radial-gradient(#1000c000 30%, #000000 100%),
@@ -2518,7 +2519,7 @@ rgba(0, 53, 84, 1) 0%,
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  height: 80vh;
   margin-top: 200px;
 }
 .anchorTags {
@@ -2562,18 +2563,18 @@ rgba(0, 53, 84, 1) 0%,
     font-size: 10px;
     padding-top: 30px;
   }
-  @media only screen and (max-width: 450px) {
-    top:460px
-  }
-  @media only screen and (min-width: 1200px) {
-    top:460px
-  }
-  @media only screen and (min-width: 1360px) {
-    top: 515px;
-  }
-  @media only screen and (min-width: 1400px) {
-    top: 560px;
-  }
+  // @media only screen and (max-width: 450px) {
+  //   top:460px
+  // }
+  // @media only screen and (min-width: 1200px) {
+  //   top:460px
+  // }
+  // @media only screen and (min-width: 1360px) {
+  //   top: 515px;
+  // }
+  // @media only screen and (min-width: 1400px) {
+  //   top: 560px;
+  // }
 
 }
 
@@ -2953,7 +2954,9 @@ rgba(0, 53, 84, 1) 0%,
   top: 10%;
   right: 15%;
   @media only screen and (max-width: 430px) {
-    right: 0;
+    right: 7%;
+   top: -13%;
+    width: 62px;
   }
 }
 .shootingstarsmall {
@@ -2961,7 +2964,9 @@ rgba(0, 53, 84, 1) 0%,
   top: 10%;
   left: 13%;
   @media only screen and (max-width: 430px) {
-    left: 0;
+    left: 5%;
+    top: -10%;
+    width: 41px;
   }
 }
 
