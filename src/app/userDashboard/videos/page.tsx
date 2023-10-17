@@ -5,6 +5,7 @@ import styles from '@/styles/Dashboard.module.scss';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination';
 import { sendRequest } from '@/utils/axiosInstanse';
+import { BiSolidChevronLeft, BiChevronRight } from 'react-icons/bi';
 import Image from 'next/image';
 
 interface VideoInfo {
@@ -34,13 +35,14 @@ const Page: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [data, setData] = useState<VideoInfo[]>([]);
     console.log("data---->", data)
-
+    const maxCards = 4;
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
     // Function to go to the previous card
     const goToPreviousCard = () => {
         if (currentCardIndex > 0) {
             setCurrentCardIndex(currentCardIndex - 1);
+            console.log('Previous button clicked');
         }
     };
 
@@ -48,6 +50,7 @@ const Page: React.FC = () => {
     const goToNextCard = () => {
         if (currentCardIndex < data.length - 1) {
             setCurrentCardIndex(currentCardIndex + 1);
+            console.log('Next button clicked');
         }
     };
 
@@ -73,6 +76,9 @@ const Page: React.FC = () => {
         };
         fetchData();
     }, []);
+
+
+    const visibleCards = data.slice(currentCardIndex, currentCardIndex + maxCards);
 
     return (
         <>
@@ -103,24 +109,57 @@ const Page: React.FC = () => {
 
                                     <div className={styles.main_div}>
                                         <div className={styles.col}>
-                                            <h1 className={styles.head}>BGMI SQUAD MATCH</h1>
+                                            <h1 className={styles.head}>{data[currentCardIndex]?.title}</h1>
                                             <div className={styles.flex}>
 
-                                                <span>Time</span>
+                                                <span> {formatDateTime(data[currentCardIndex]?.dateAndTime)}</span>
 
                                                 <img src="../assests/copylink.svg" alt="videoimage" className={styles.copy_link} />
 
                                                 {/* <img src="../assests/copylink.svg" alt="videoimage" className={styles.copy_link} /> */}
                                             </div>
-                                            <div className={styles.flex_end}>
+                                            {/* <div className={styles.flex_end}>
                                                 <img src="../assests/arrow buttonnext.svg" alt="nextbutton" className={styles.button} onClick={goToPreviousCard} />
                                                 <img src="../assests/arrow buttonprevious.svg" alt="previousbutton" className={styles.button} onClick={goToNextCard} />
+                                            </div> */}
+                                            <div className={styles.flex_end}>
+                                                <button
+                                                    onClick={goToPreviousCard}
+                                                    style={{
+                                                        background: 'transparent',
+                                                        border: 'none',
+                                                        height: '40px',
+                                                        width: '40px',
+                                                        marginRight: '-32px',
+                                                        zIndex: 10,
+                                                    }}
+                                                    disabled={currentCardIndex === 0}
+                                                >
+                                                    <BiSolidChevronLeft className={styles.outline_icon} />
+                                                </button>
+
+                                                <button
+                                                    onClick={goToNextCard}
+                                                    style={{
+                                                        background: 'transparent',
+                                                        border: 'none',
+                                                        height: '40px',
+                                                        width: '40px',
+                                                        marginRight: '-32px',
+                                                        zIndex: 10,
+                                                    }}
+                                                    disabled={currentCardIndex === data.length - 1}
+                                                >
+                                                    <BiChevronRight className={styles.outline_icon} />
+                                                </button>
                                             </div>
+
+
 
                                         </div>
 
                                         <div className={styles.card}>
-                                            {data.map((item) => (
+                                            {visibleCards.map((item) => (
                                                 <>
                                                     <div className={styles.card1}>
                                                         <img src="../assests/cardimage1.svg" alt="cardImage" className={styles.cardImage} />
@@ -147,7 +186,7 @@ const Page: React.FC = () => {
 
                     </div>
                 </div>
-            </div>
+            </div >
 
         </>
     );
