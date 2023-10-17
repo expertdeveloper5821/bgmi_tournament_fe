@@ -336,7 +336,6 @@
     width: 100%;
     margin-right: 10px;
     background-color: #003554;
-    height: 22vh;
     padding: 1rem;
     z-index: 999;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -374,7 +373,6 @@
     width: 100%;
     margin-right: 10px;
     background-color: #000000;
-    height: 21vh;
     padding: 1rem;
     z-index: 999;
     box-shadow: 0 0 10px #000000;
@@ -613,6 +611,7 @@
   }
   @media (max-width: $breakpoint-md) {
     letter-spacing: 2px;
+    text-align: center;
   }
   @media (max-width: $breakpoint-tab) {
     letter-spacing: 5px;
@@ -2520,6 +2519,7 @@ rgba(0, 53, 84, 1) 0%,
       url('../../public/assests/sunrisetablet.svg');
   }
   @media only screen and (max-width: 430px) {
+    height: auto;
     background-image: radial-gradient(#1000c000 30%, #000000 100%),
       url('../../public/assests/sunrisemobile.svg');
   }
@@ -2532,6 +2532,10 @@ rgba(0, 53, 84, 1) 0%,
   align-items: center;
   height: 75vh;
   margin-top: 200px;
+  @media only screen and (max-width: 430px) {
+    height: auto;
+    margin-top: 100px;
+  }
 }
 .anchorTags {
   text-align: center;
@@ -2970,7 +2974,7 @@ rgba(0, 53, 84, 1) 0%,
   right: 15%;
   @media only screen and (max-width: 430px) {
     right: 7%;
-   top: -13%;
+    top: 0%;
     width: 62px;
   }
 }
@@ -2980,7 +2984,7 @@ rgba(0, 53, 84, 1) 0%,
   left: 13%;
   @media only screen and (max-width: 430px) {
     left: 5%;
-    top: -10%;
+    top: 0%;
     width: 41px;
   }
 }
