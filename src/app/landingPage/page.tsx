@@ -210,7 +210,7 @@ const page = () => {
         </div>
 
         <div className={styles.social_Icons_header}>
-          <Link href="">
+          <Link href="https://www.facebook.com/profile.php?id=100095239340085&is_tour_dismissed=true" target="_blank">
             <Image
               className={styles.footerSocialIcon}
               src="../assests/facebookiconblack.svg"
@@ -220,7 +220,7 @@ const page = () => {
             />
           </Link>
 
-          <Link href="">
+          <Link href="https://www.instagram.com/pattseheadshotsj/" target="_blank">
             <Image
               className={styles.footerSocialIcon}
               src="../assests/instaiconblack.svg"
@@ -229,7 +229,7 @@ const page = () => {
               alt="insta"
             />
           </Link>
-          <Link href="">
+          <Link href="https://twitter.com/headshot_p4491" target="_blank">
             <Image
               className={styles.footerSocialIcon}
               src="../assests/twittericonblack.svg"
@@ -239,7 +239,7 @@ const page = () => {
             />
           </Link>
 
-          <Link href="">
+          <Link href="https://www.youtube.com/channel/UC8GDIEtwWV_67Fxpxfa298Q" target="_blank">
             <Image
               className={styles.footerSocialIcon}
               src="../assests/youtubeiconblack.svg"
