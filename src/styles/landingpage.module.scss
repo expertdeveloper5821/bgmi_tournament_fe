@@ -8,6 +8,7 @@
 .main_container {
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center !important;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -2210,12 +2211,11 @@
 
 .mapBg {
   color: #fdfafa;
-  background-position: center;
+  background-position: center !important;
   background: url('../../public/assests/mapdesktopimage.svg');
   @media (max-width: $breakpoint-ms) {
     background: url('../../public/assests/tabletmapimage.svg');
     background-repeat: no-repeat;
-    background-position: center;
   }
   @media (max-width: $breakpoint-xs) {
     background: url('../../public/assests/locatormapmobile.svg');
