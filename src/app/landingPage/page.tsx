@@ -385,9 +385,9 @@ const page = () => {
                     </div>
                   </div>
                   <div className={styles.joinbtn}>
-                  <Link href="/auth/login">
-                    <button className={styles.joinbtn}>JOIN</button>
-                  </Link>
+                    <Link href="/auth/login">
+                      <button className={styles.joinbtn}>JOIN</button>
+                    </Link>
                   </div>
                 </div>
               </>
@@ -443,7 +443,7 @@ const page = () => {
                 src={`${
                   width[0] <= 600 ? '../assests/mobilebannerstone.svg' : '../assests/Group20.svg'
                 }`}
-                height={ width[0] <= 600 ? 600 :700}
+                height={width[0] <= 600 ? 600 : 700}
                 width={800}
                 alt="zoom in image"
               />
@@ -470,6 +470,18 @@ const page = () => {
         </div>
         <div>
           <div className={styles.choseSection}>
+            {width[0] <= 430 ? (
+              <Image
+                className={styles.choose_section_star}
+                src="../assests/newshootingstar.svg"
+                height={50}
+                width={50}
+                alt="zoom in image"
+              />
+            ) : (
+              ''
+            )}
+
             <div className={styles.choseSectionheader} id={styles.choseSectionheader}>
               Why Choose PATT SE HEADSHOT
             </div>
