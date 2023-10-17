@@ -441,7 +441,7 @@ const page = () => {
               <Image
                 className={styles.welcome_RightImg}
                 src={`${
-                  width[0] <= 600 ? '../assests/mobilebannerstone.svg' : '../assests/Group20.svg'
+                  width[0] <= 600 ? '../assests/stonegunmix.svg' : '../assests/Group20.svg'
                 }`}
                 height={width[0] <= 600 ? 600 : 700}
                 width={800}
