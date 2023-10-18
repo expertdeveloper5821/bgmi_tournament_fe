@@ -10,3 +10,8 @@ export interface SignupFormValuesType {
   password: string;
   upiId: string;
 }
+
+export interface LoginFormValuesType {
+  email: string;
+  password: string;
+}

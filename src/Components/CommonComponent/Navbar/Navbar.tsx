@@ -26,9 +26,10 @@ export function Navbar(props: INavbar) {
   }
   const router = useRouter();
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     try {
-      localStorage.clear();
+      localStorage.removeItem('jwtToken')
+      localStorage.removeItem('userData')
       router.push('/');
     } catch (error) {
       setIsLoading(false);
