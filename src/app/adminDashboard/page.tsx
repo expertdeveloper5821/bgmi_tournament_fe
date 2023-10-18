@@ -9,7 +9,6 @@ import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import TableData, { StudentProfile } from '@/Components/CommonComponent/Table/Table';
 import withAuth from '@/Components/HOC/WithAuthHoc';
 
-export interface IAppProps {}
 
 function AdminDashboard() {
   const [currentPage, setCurrentPage] = useState(1);
