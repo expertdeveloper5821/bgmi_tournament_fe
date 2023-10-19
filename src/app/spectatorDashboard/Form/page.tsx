@@ -148,35 +148,15 @@ const Form = ({ ...props }) => {
 
   }, [roomIdToUpdate])
 
-
-
-  const handleChange = (e: any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (roomIdToUpdate) {
-      if (name === 'date') {
-        setValues({
-          ...values,
-          [name]: value,
-        });
-      } else if (name === 'time') {
-        setValues({
-          ...values,
-          [name]: value,
-        });
-      }
-      else {
-        setValues({
-          ...values,
-          [name]: value,
-        });
-      }
-    } else {
-      setValues({
-        ...values,
-        [name]: value,
-      });
-    }
+
+    setValues({
+      ...values,
+      [name]: value,
+    });
   };
+
 
   const onDragOver = (event: any) => {
     event.preventDefault();
@@ -240,8 +220,6 @@ const Form = ({ ...props }) => {
       setFieldValue('mapImg', null);
     }
   };
-
-  ;
 
   return (
     <>
@@ -543,27 +521,6 @@ const Form = ({ ...props }) => {
                           </div>
                         </div>
                       </div>
-
-
-                      {/* <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="secondWin">
-                          Image Upload
-                        </label>
-                        <Input
-                          id="file"
-                          className={styles.room_field_wrapper}
-                          type="file"
-                          name="mapImg"
-                          // value={roomIdToUpdate ? mapImage : null}
-                          accept="image/*"
-                          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                            if (e.target.files && e.target.files.length > 0) {
-                              setImage(e.target.files[0]);
-                            }
-                          }}
-                          onBlur={handleBlur}
-                        />
-                      </div> */}
                     </div>
                   </form>
 

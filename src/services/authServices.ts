@@ -1,6 +1,7 @@
 import { sendRequest } from '@/utils/axiosInstanse';
 import { serviceUrls } from './serviceUrls';
 import { SignupFormValuesType } from '@/Components/pageComponents/auth/authInterfaces';
+import { RoomData } from '@/Components/pageComponents/auth/authInterfaces';
 
 export const signUpService = async (data: SignupFormValuesType) => {
   try {
@@ -13,6 +14,21 @@ export const signUpService = async (data: SignupFormValuesType) => {
     } else throw Error();
   } catch (err) {
     console.error('Error in signupService => ', err);
+    return err;
+  }
+};
+
+export const getAllSpectator = async (data: RoomData) => {
+  try {
+    const res: any = await sendRequest(serviceUrls.rooms, {
+      method: 'GET',
+      data,
+    });
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (err) {
+    console.error('Error in roomservice => ', err);
     return err;
   }
 };

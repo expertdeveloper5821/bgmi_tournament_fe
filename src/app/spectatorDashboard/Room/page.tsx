@@ -71,6 +71,8 @@ const Room = () => {
     getAllSpectator();
   }, []);
 
+
+
   return (
     <div className={styles.main_container} id="mainLayoutContainerInner">
       <div className={styles.inner_main_container}>
