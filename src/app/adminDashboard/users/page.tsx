@@ -15,7 +15,6 @@ function page() {
   const [wholeUserData, setWholeUserData] = useState<SpectatorDataType[] | []>([]);
   const [userData, setUserData] = useState<SpectatorDataType[] | []>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const imageIcon: string = 'user';
   const columns: string[] = ['Full Name', 'User Name', 'Email'];
 
   const fetchTournaments = async (searchVal: string) => {
@@ -55,7 +54,7 @@ function page() {
   };
 
   const handleSearch = (e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     const filteredResults = wholeUserData.filter(
       (data: SpectatorDataType) =>
         data?.fullName?.toLowerCase().includes(value.toLowerCase()) ||
@@ -81,9 +80,8 @@ function page() {
               ) : (
                 <TableData
                   deleteroom={deleteroomId}
-                  studentData={userData}
+                  data={userData}
                   columns={columns}
-                  showAdditionalButton={true}
                   type={'USERS'}
                 />
               )}

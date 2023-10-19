@@ -4,9 +4,8 @@ import styles from '../../styles/Dashboard.module.scss';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 
-
-export function SearchFilter({ handleSearch, onChange }: any) {
-  const [searchFilter, setSearchFilter] = useState('');
+export function SearchFilter({ handleSearch, onChange }) {
+  const [searchFilter, setSearchFilter] = useState<string>('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e);

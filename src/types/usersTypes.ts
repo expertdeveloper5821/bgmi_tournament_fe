@@ -1,4 +1,4 @@
-export interface GetAllFilteredUsersValuesType {
+export interface GetAllFilteredValuesType {
   searchVal: string;
   token: string;
 }

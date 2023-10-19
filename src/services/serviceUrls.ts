@@ -6,4 +6,5 @@ export const serviceUrls = {
   registerSpectator: '/role/spectator/Register',
   updateRole: 'role/updaterole/',
   roomsRelatedUrl: '/room/rooms',
+  filteredRoomsList: '/room/rooms?search=',
 };

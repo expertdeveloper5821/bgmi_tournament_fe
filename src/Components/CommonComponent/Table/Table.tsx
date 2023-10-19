@@ -12,6 +12,7 @@ import {
   IconButton,
 } from 'technogetic-iron-smart-ui';
 import moment from 'moment';
+import { TableDataType, TablePropsType } from '@/types/tableTypes';
 export interface StudentProfile {
   Course: string;
   Mobile: string;
@@ -20,32 +21,12 @@ export interface StudentProfile {
   studentID: string;
 }
 
-interface StudentProfilePropsType {
-  studentData: any;
-  showAdditionalButton?: boolean;
-  columns: string[];
-  deleteroom?: any;
-  type?: string;
-  handleEdit?: any;
-}
-
-interface studentData {
-  [key: string]: string;
-}
-
-const TableData = ({
-  studentData,
-  columns,
-  showAdditionalButton,
-  deleteroom,
-  type,
-  handleEdit,
-}: StudentProfilePropsType) => {
-  const [sortedData, setSortedData] = useState([]);
+const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsType) => {
+  const [sortedData, setSortedData] = useState<TableDataType[] | []>([]);
 
   useEffect(() => {
-    setSortedData(studentData);
-  }, [studentData]);
+    setSortedData(data);
+  }, [data]);
 
   function toCamelCase(inputString) {
     return inputString
@@ -54,25 +35,25 @@ const TableData = ({
         if (index === 0) {
           return word.toLowerCase();
         } else {
-          return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+          return word?.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
         }
       })
       .join('');
   }
 
-  const handleSort = (key: string, arrow: any) => {
+  const handleSort = (key: string, arrow: string) => {
     const newKey = toCamelCase(key);
     let newSortedData;
     if (type !== 'ROOMS') {
       if (arrow === 'upArrow') {
         newSortedData = [
-          ...sortedData.sort((a, b) =>
+          ...sortedData.sort((a:TableDataType, b:TableDataType) =>
             a[newKey].localeCompare(b[newKey], 'fr', { ignorePunctuation: true }),
           ),
         ];
       } else if (arrow === 'downArrow') {
         newSortedData = [
-          ...sortedData.sort((a, b) =>
+          ...sortedData.sort((a:TableDataType, b:TableDataType) =>
             b[newKey].localeCompare(a[newKey], 'fr', { ignorePunctuation: true }),
           ),
         ];
@@ -89,13 +70,13 @@ const TableData = ({
       ) {
         if (arrow === 'upArrow') {
           newSortedData = [
-            ...sortedData.sort((a, b) =>
+            ...sortedData.sort((a:TableDataType, b:TableDataType) =>
               a[newKey].localeCompare(b[newKey], 'fr', { ignorePunctuation: true }),
             ),
           ];
         } else if (arrow === 'downArrow') {
           newSortedData = [
-            ...sortedData.sort((a, b) =>
+            ...sortedData.sort((a:TableDataType, b:TableDataType) =>
               b[newKey].localeCompare(a[newKey], 'fr', { ignorePunctuation: true }),
             ),
           ];
@@ -105,7 +86,7 @@ const TableData = ({
     }
   };
 
-  const getFormattedDateOrTime = (dateAndTime: any, Type: string) => {
+  const getFormattedDateOrTime = (dateAndTime: string, Type: string) => {
     const momentObj = moment(dateAndTime);
     if (Type === 'Date') {
       const formattedDate = momentObj?.format('M/D/YYYY');
@@ -147,34 +128,34 @@ const TableData = ({
         </TableHeader>
 
         <TableBody className={styles.table_body}>
-          {sortedData?.map((studentData: any, index: number) => {
+          {sortedData?.map((data: TableDataType, index: number) => {
             if (type === 'ROOMS') {
               return (
                 <TableRow className={styles.table_rowdata} key={index}>
-                  <TableCell className={styles.table_cell}>{studentData?.createdBy}</TableCell>
-                  <TableCell className={styles.table_cell}>{studentData?.roomId}</TableCell>
-                  <TableCell className={styles.table_cell}>{studentData?.password}</TableCell>
-                  <TableCell className={styles.table_cell}>{studentData?.gameName}</TableCell>
-                  <TableCell className={styles.table_cell}>{studentData?.gameType}</TableCell>
-                  <TableCell className={styles.table_cell}>{studentData?.mapType}</TableCell>
-                  <TableCell className={styles.table_cell}>{studentData?.version}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.createdBy}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.roomId}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.password}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.gameName}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.gameType}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.mapType}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.version}</TableCell>
                   <TableCell className={styles.table_cell}>
-                    {getFormattedDateOrTime(studentData?.dateAndTime, 'Time')}
+                    {getFormattedDateOrTime(data?.dateAndTime, 'Time')}
                   </TableCell>
                   <TableCell className={styles.table_cell}>
-                    {getFormattedDateOrTime(studentData?.dateAndTime, 'Date')}
+                    {getFormattedDateOrTime(data?.dateAndTime, 'Date')}
                   </TableCell>
                   <TableCell className={styles.table_cell}>
                     {
                       <>
-                        <IconButton onClick={() => deleteroom(studentData?._id)}>
+                        <IconButton onClick={() => deleteroom(data?._id)}>
                           <img
                             src="/assests/Tabledelete.svg"
                             alt="studentProfileDelete"
                             className={styles.cell_icon}
                           ></img>
                         </IconButton>
-                        <IconButton onClick={() => handleEdit(studentData)}>
+                        <IconButton >
                           <img
                             src="/assests/eye.png"
                             alt="studentProfile"
@@ -189,15 +170,13 @@ const TableData = ({
             } else if (type === 'SPECTATOR' || type === 'USERS') {
               return (
                 <TableRow className={styles.table_rowdata} key={index}>
-                  <TableCell className={styles.table_cell}>{studentData?.fullName}</TableCell>
-                  <TableCell className={styles.table_cell}>
-                    {studentData?.userName || '--'}
-                  </TableCell>
-                  <TableCell className={styles.table_cell}>{studentData?.email}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.fullName}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.userName || '--'}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.email}</TableCell>
                   <TableCell className={styles.table_cell}>
                     <>
                       {type === 'SPECTATOR' && (
-                        <IconButton onClick={() => handleEdit(studentData)}>
+                        <IconButton onClick={() => handleEdit(data)}>
                           <img
                             src="/assests/editIcon.svg"
                             alt="studentProfileEdit"
@@ -207,7 +186,7 @@ const TableData = ({
                       )}
                       <IconButton
                         onClick={() => {
-                          deleteroom(studentData?.userUuid);
+                          deleteroom(data?.userUuid);
                         }}
                       >
                         <img

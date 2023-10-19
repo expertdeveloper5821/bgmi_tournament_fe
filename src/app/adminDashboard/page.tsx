@@ -6,15 +6,23 @@ import assignmentData from '../../utils/CreateAssignmment.json';
 import { Pagination } from 'technogetic-iron-smart-ui';
 import RequireAuthentication from '../../utils/requireAuthentication';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
-import TableData, { StudentProfile } from '@/Components/CommonComponent/Table/Table';
+import TableData from '@/Components/CommonComponent/Table/Table';
 import withAuth from '@/Components/HOC/WithAuthHoc';
 
+export interface StudentProfile {
+  Course: string;
+  Mobile: string;
+  Student: string;
+  StudentName: string;
+  studentID: string;
+}
 
 function AdminDashboard() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
+  const [paginatedData, setPaginatedData] = useState([]);
   const rowPerPage = 8;
 
+  
   const transformedStudentData = assignmentData.studentData.map((item: StudentProfile) => ({
     StudentName: item.StudentName,
     Student: item.Student,
@@ -45,9 +53,8 @@ function AdminDashboard() {
               <Navbar />
               <h1>Welcome to Admin Dashboard</h1>
               <TableData
-                studentData={paginatedData}
+                data={paginatedData}
                 columns={columns}
-                showAdditionalButton={true}
               />
               <Pagination
                 currentPage={currentPage}

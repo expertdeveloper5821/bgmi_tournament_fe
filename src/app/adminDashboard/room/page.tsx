@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 //@ts-ignore
-import { sendRequest } from '@/utils/axiosInstanse';
 import { toast } from 'react-toastify';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
 import styles from '@/styles/Dashboard.module.scss';
@@ -10,7 +9,7 @@ import TableData from '@/Components/CommonComponent/Table/Table';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import withAuth from '@/Components/HOC/WithAuthHoc';
 import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
-import { deleteRoomService, getAllRoomsService } from '@/services/authServices';
+import { deleteRoomService, getAllFilteredRoomsListService, getAllRoomsService } from '@/services/authServices';
 import { RoomsDataType } from '@/types/roomsTypes';
 
 function page() {
@@ -32,7 +31,7 @@ function page() {
   const getAllTournaments = async () => {
     const token = localStorage.getItem('jwtToken');
     try {
-      const response: any = await getAllRoomsService(token);
+      const response = await getAllRoomsService(token);
       setWholeRoomData(response?.data);
       setRoomData(response?.data);
       setIsLoading(false);
@@ -62,13 +61,7 @@ function page() {
   const fetchTournaments = async (searchVal: string) => {
     try {
       const token = localStorage.getItem('jwtToken');
-      const response = await sendRequest(`/room/rooms?search=${searchVal}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
+      const response = await getAllFilteredRoomsListService({token,searchVal})
       setWholeRoomData(response?.data);
       setRoomData(response?.data);
       setIsLoading(false);
@@ -79,7 +72,7 @@ function page() {
   };
 
   const handleSearch = (e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     const filteredResults = wholeRoomData.filter(
       (data: RoomsDataType) =>
         data?.createdBy?.toLowerCase().includes(value.toLowerCase()) ||
@@ -104,13 +97,7 @@ function page() {
             {isLoading ? (
               <Loader />
             ) : (
-              <TableData
-                studentData={roomData}
-                columns={columns}
-                showAdditionalButton={true}
-                deleteroom={deleteroom}
-                type={'ROOMS'}
-              />
+              <TableData data={roomData} columns={columns} deleteroom={deleteroom} type={'ROOMS'} />
             )}
           </div>
         </div>

@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import { emailRegex, passwordRegex } from './pattern';
+import { FormDataType } from '@/types/spectatorTypes';
 
 const SignupSchema = Yup.object().shape({
   fullName: Yup.string().required('Please enter your Full Name'),
@@ -62,4 +63,85 @@ const SendInviteSchema = Yup.object().shape({
     .required('Please enter your email')
     .matches(emailRegex, 'Invalid email'),
 });
-export { SignupSchema, loginSchema, ResetPasswordSchema, validationSchema, SendInviteSchema };
+
+const addFormValidations = (name, value, setFormErrors) => {
+  if (name === 'fullName') {
+    if (value?.length < 3) {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          fullName: 'Username must be at least 3 characters long.',
+        };
+      });
+    } else {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          fullName: '',
+        };
+      });
+    }
+  } else if (name === 'userName') {
+    const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
+    if (!usernameRegex.test(value)) {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          userName:
+            'Username must be at least 3 characters long and can only contain letters, numbers, and underscores.',
+        };
+      });
+    } else {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          userName: '',
+        };
+      });
+    }
+  } else if (name === 'email') {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          email: 'Invalid email address. Please enter a valid email address.',
+        };
+      });
+    } else {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          email: '',
+        };
+      });
+    }
+  } else if (name === 'password') {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(value)) {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          password:
+            'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one numeric digit, and one special character.',
+        };
+      });
+    } else {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          password: '',
+        };
+      });
+    }
+  }
+};
+
+export {
+  SignupSchema,
+  loginSchema,
+  ResetPasswordSchema,
+  validationSchema,
+  SendInviteSchema,
+  addFormValidations,
+};

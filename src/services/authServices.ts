@@ -2,12 +2,12 @@ import { sendRequest } from '@/utils/axiosInstanse';
 import { serviceUrls } from './serviceUrls';
 import { SignupFormValuesType } from '@/Components/pageComponents/auth/authInterfaces';
 import { RegisterSpectatorValuesType, updateRoleValuesType } from '@/types/spectatorTypes';
-import { DeleteRoleValuesType, GetAllFilteredUsersValuesType } from '@/types/usersTypes';
+import { DeleteRoleValuesType, GetAllFilteredValuesType } from '@/types/usersTypes';
 import { deleteRoomValuesType } from '@/types/roomsTypes';
 
 export const signUpService = async (data: SignupFormValuesType) => {
   try {
-    const res: any = await sendRequest(serviceUrls.signup, {
+    const res = await sendRequest(serviceUrls.signup, {
       method: 'POST',
       data,
     });
@@ -19,7 +19,7 @@ export const signUpService = async (data: SignupFormValuesType) => {
   }
 };
 
-export const getAllFilteredUsersListService = async (data: GetAllFilteredUsersValuesType) => {
+export const getAllFilteredUsersListService = async (data: GetAllFilteredValuesType) => {
   try {
     const res = await sendRequest(`${serviceUrls.filteredUsersList}${data.searchVal}`, {
       method: 'GET',
@@ -122,3 +122,21 @@ export const deleteRoomService = async (data: deleteRoomValuesType) => {
     return error;
   }
 };
+
+export const getAllFilteredRoomsListService = async (data: GetAllFilteredValuesType) => {
+  try {
+    const res = await sendRequest(`${serviceUrls.filteredRoomsList}${data.searchVal}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${data.token}`,
+      },
+    });
+
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (error) {
+    return error;
+  }
+}
+

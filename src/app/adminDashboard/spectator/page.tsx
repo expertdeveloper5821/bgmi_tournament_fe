@@ -2,12 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import styles from '@/styles/Dashboard.module.scss';
 //@ts-ignore
-import { Input, Button } from 'technogetic-iron-smart-ui';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
 import TableData from '@/Components/CommonComponent/Table/Table';
 import { toast } from 'react-toastify';
-import Image from 'next/image';
 import {
   deleteRoleService,
   getAllUsersDataService,
@@ -21,6 +19,8 @@ import {
   SpectatorDataType,
   SpectatorEditDataType,
 } from '@/types/spectatorTypes';
+import { addFormValidations } from '@/utils/schema';
+import { CreateSpectatorOrAssignRoleForm } from '@/Components/Forms/CreateSpectatorOrAssignRoleForm';
 
 export default function Modal() {
   const [spectatorData, setSpectatorData] = useState<SpectatorDataType[] | []>([]);
@@ -51,7 +51,7 @@ export default function Modal() {
       const response = await getAllUsersDataService(token);
       const allspectatorData = response?.data?.data;
       setAllspectatorData(allspectatorData);
-      const filteredData = allspectatorData.filter((spectator: any) => {
+      const filteredData = allspectatorData.filter((spectator: SpectatorDataType) => {
         return spectator?.role?.role === 'spectator';
       });
       setSpectatorData(filteredData);
@@ -106,83 +106,10 @@ export default function Modal() {
     }
   };
 
-  const addFormValidations = (name, value) => {
-    if (name === 'fullName') {
-      if (value?.length < 3) {
-        setFormErrors((prevError: any) => {
-          return {
-            ...prevError,
-            fullName: 'Username must be at least 3 characters long.',
-          };
-        });
-      } else {
-        setFormErrors((prevError: any) => {
-          return {
-            ...prevError,
-            fullName: '',
-          };
-        });
-      }
-    } else if (name === 'userName') {
-      const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
-      if (!usernameRegex.test(value)) {
-        setFormErrors((prevError: any) => {
-          return {
-            ...prevError,
-            userName:
-              'Username must be at least 3 characters long and can only contain letters, numbers, and underscores.',
-          };
-        });
-      } else {
-        setFormErrors((prevError: any) => {
-          return {
-            ...prevError,
-            userName: '',
-          };
-        });
-      }
-    } else if (name === 'email') {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(value)) {
-        setFormErrors((prevError: any) => {
-          return {
-            ...prevError,
-            email: 'Invalid email address. Please enter a valid email address.',
-          };
-        });
-      } else {
-        setFormErrors((prevError: any) => {
-          return {
-            ...prevError,
-            email: '',
-          };
-        });
-      }
-    } else if (name === 'password') {
-      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-      if (!passwordRegex.test(value)) {
-        setFormErrors((prevError: any) => {
-          return {
-            ...prevError,
-            password:
-              'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one numeric digit, and one special character.',
-          };
-        });
-      } else {
-        setFormErrors((prevError: any) => {
-          return {
-            ...prevError,
-            password: '',
-          };
-        });
-      }
-    }
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     if (modal?.buttonVal === 'Create') {
-      addFormValidations(name, value);
+      addFormValidations(name, value, setFormErrors);
       setFormData((prevData) => ({
         ...prevData,
         [name]: value,
@@ -213,19 +140,18 @@ export default function Modal() {
       password: '',
     });
 
-    const token: any = localStorage.getItem('jwtToken');
+    const token: string = localStorage.getItem('jwtToken');
 
     if (spectatorData?.length) {
       try {
-        let response;
         if (modal?.buttonVal === 'Create') {
-          response = await registerSpectatorService({ token, formData, spectatorData });
+            await registerSpectatorService({ token, formData, spectatorData });
         } else if (modal?.buttonVal === 'Assign') {
-          response = await updateRoleService({ token, formData });
+            await updateRoleService({ token, formData });
         }
         setIsLoading(false);
         getAllUsers();
-      } catch (error: any) {
+      } catch (error) {
         setIsLoading(false);
         toast.error(error?.message);
       }
@@ -233,33 +159,33 @@ export default function Modal() {
     setModal({ isOpen: false, buttonVal: '' });
   };
 
-  const handleEdit = (studentData: SpectatorEditDataType) => {
+  const handleEdit = (spectatorData: SpectatorEditDataType) => {
     setDisabled(true);
-    if (studentData) {
+    if (spectatorData) {
       setModal({ isOpen: true, buttonVal: 'Assign' });
       setRoles([
         {
           role: 'spectator',
-          _id: allspectatorData.find((spec: any) => spec?.role?.role === 'spectator')?.role?._id,
-          userUuid: studentData?.userUuid,
+          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'spectator')?.role?._id,
+          userUuid: spectatorData?.userUuid,
         },
         {
           role: 'admin',
-          _id: allspectatorData.find((spec: any) => spec?.role?.role === 'admin')?.role?._id,
-          userUuid: studentData?.userUuid,
+          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'admin')?.role?._id,
+          userUuid: spectatorData?.userUuid,
         },
         {
           role: 'user',
-          _id: allspectatorData.find((spec: any) => spec?.role?.role === 'user')?.role?._id,
-          userUuid: studentData?.userUuid,
+          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'user')?.role?._id,
+          userUuid: spectatorData?.userUuid,
         },
       ]);
 
       setFormData({
         role: {
-          _id: studentData?.role?._id,
-          role: studentData?.role?.role,
-          userUuid: studentData?.userUuid,
+          _id: spectatorData?.role?._id,
+          role: spectatorData?.role?.role,
+          userUuid: spectatorData?.userUuid,
         },
       });
     }
@@ -287,9 +213,8 @@ export default function Modal() {
               <Loader />
             ) : (
               <TableData
-                studentData={spectatorData}
+                data={spectatorData}
                 columns={columns}
-                showAdditionalButton={true}
                 type={'SPECTATOR'}
                 deleteroom={deleteroom}
                 handleEdit={handleEdit}
@@ -319,122 +244,18 @@ export default function Modal() {
             }}
             className={styles.overlay}
           ></div>
-
-          <div className={styles.modalcontent}>
-            <div>
-              <form
-                onSubmit={handleSubmit}
-                className={modal.buttonVal === 'Create' && styles.create_spectator_form}
-              >
-                {modal.buttonVal === 'Create' && (
-                  <>
-                    <div className={styles.text}>
-                      <label className={styles.name}>Full Name:</label>
-                      <Input
-                        type="text"
-                        name="fullName"
-                        placeholder="Enter Fullname"
-                        className={styles.email_wrapper}
-                        value={formData?.fullName}
-                        onChange={handleChange}
-                      />
-                      {formErrors?.fullName && (
-                        <div className={styles.error_message}>{formErrors?.fullName}</div>
-                      )}
-                    </div>
-                    <div className={styles.text}>
-                      <label className={styles.name}>User Name:</label>
-                      <Input
-                        type="text"
-                        name="userName"
-                        placeholder="Enter Username"
-                        className={styles.email_wrapper}
-                        value={formData?.userName}
-                        onChange={handleChange}
-                      />
-                      {formErrors?.userName && (
-                        <div className={styles.error_message}>{formErrors?.userName}</div>
-                      )}
-                    </div>
-                    <div className={styles.text}>
-                      <label className={styles.name}>Email:</label>
-                      <Input
-                        type="email"
-                        name="email"
-                        className={styles.email_wrapper}
-                        placeholder="Enter Email"
-                        value={formData?.email}
-                        onChange={handleChange}
-                      />
-                      {formErrors?.email && (
-                        <div className={styles.error_message}>{formErrors?.email}</div>
-                      )}
-                    </div>
-                    <div className={styles.text}>
-                      <label className={styles.name}>Password:</label>
-                      <Input
-                        type="password"
-                        name="password"
-                        placeholder="Enter Password"
-                        className={styles.email_wrapper}
-                        value={formData?.password}
-                        onChange={handleChange}
-                      />
-                      {formErrors?.password && (
-                        <div className={styles.error_message}>{formErrors?.password}</div>
-                      )}
-                    </div>
-                  </>
-                )}
-                {modal.buttonVal === 'Assign' && (
-                  <>
-                    <label htmlFor="role" className={styles.role_Label}>
-                      Choose Role:
-                    </label>
-                    <select
-                      name="role"
-                      id="role"
-                      onChange={handleChange}
-                      className={styles.role_select}
-                    >
-                      {roles?.map((role) => <option value={role?._id}>{role?.role}</option>)}
-                    </select>
-                  </>
-                )}
-                <button
-                  type="submit"
-                  disabled={isDisabled}
-                  className={isDisabled ? styles.disabled_register_button : styles.register_button}
-                >
-                  {modal?.buttonVal}
-                </button>
-              </form>
-            </div>
-            <Button className={styles.closemodal}>
-              <Image
-                className={styles.close}
-                src="../assests/cross.svg"
-                alt="close"
-                width={10}
-                height={10}
-                onClick={() => {
-                  setModal({ isOpen: false, buttonVal: '' });
-                  setFormErrors({
-                    fullName: '',
-                    userName: '',
-                    email: '',
-                    password: '',
-                  });
-                  setFormData({
-                    fullName: '',
-                    userName: '',
-                    email: '',
-                    password: '',
-                  });
-                }}
-              />
-            </Button>
-          </div>
+          <CreateSpectatorOrAssignRoleForm
+            setModal={setModal}
+            setFormErrors={setFormErrors}
+            setFormData={setFormData}
+            handleSubmit={handleSubmit}
+            modal={modal}
+            formData={formData}
+            handleChange={handleChange}
+            formErrors={formErrors}
+            roles={roles}
+            isDisabled={isDisabled}
+          />
         </div>
       )}
     </>

@@ -17,14 +17,14 @@ export interface FormDataType {
 }
 
 export interface SpectatorDataType {
-  email: string;
-  fullName: string;
-  phoneNumber: string;
-  profilePic: string;
-  role: Role;
-  upiId: string;
-  userName: string;
-  userUuid: string;
+  email?: string;
+  fullName?: string;
+  phoneNumber?: string;
+  profilePic?: string;
+  role?: Role;
+  upiId?: string;
+  userName?: string;
+  userUuid?: string;
 }
 
 export interface ModalType {
@@ -33,11 +33,11 @@ export interface ModalType {
 }
 
 export interface SpectatorEditDataType {
-  email: string;
-  fullName: string;
-  role: Role;
-  userName: string;
-  userUuid: string;
+  email?: string;
+  fullName?: string;
+  role?: Role;
+  userName?: string;
+  userUuid?: string;
 }
 
 export interface RegisterSpectatorValuesType {
