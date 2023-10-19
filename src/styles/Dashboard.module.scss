@@ -1310,10 +1310,18 @@ body.activemodal {
 
 .video_image {
   border-radius: 14px;
+
+  @media (max-width: $breakpoint-sm) {
+    height: 100vh;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    height: 100vh;
+  }
 }
 .image_video {
   position: relative;
   border-radius: 14px;
+  box-shadow: 5px 4px 34px 0px #0000003b;
 }
 
 .main_div {
@@ -1323,6 +1331,19 @@ body.activemodal {
   width: 90%;
   height: 20%;
   left: 8%;
+  // border: 1px solid red;
+  @media (max-width: $breakpoint-sm) {
+    flex-direction: column;
+    left: 4%;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    flex-direction: column;
+    left: 4%;
+  }
+  @media (max-width: $breakpoint-md) {
+    flex-direction: column;
+    left: 4%;
+  }
 }
 
 .col {
@@ -1338,6 +1359,21 @@ body.activemodal {
   font-weight: 700;
   font-size: 28px;
   line-height: 32.93px;
+  @media (max-width: $breakpoint-md) {
+    font-size: 21px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    width: 380px;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    width: 530px;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    width: 346px;
+  }
 }
 
 .card {
@@ -1345,13 +1381,34 @@ body.activemodal {
   width: 65%;
   display: flex;
   gap: 20px;
-  // border: 1px solid black;
+  @media (max-width: $breakpoint-sm) {
+    width: 100%;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    width: 100%;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    width: 100%;
+  }
 }
 
 .card1 {
   display: flex;
   flex-direction: column;
   width: 24%;
+  @media (max-width: $breakpoint-sm) {
+    width: 100%;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    width: 100%;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    width: 100%;
+  }
 }
 
 .cardImage {
@@ -1362,17 +1419,55 @@ body.activemodal {
 
 .timedate {
   font-size: 10px;
+  @media (max-width: $breakpoint-sm) {
+    font-size: 8px;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    font-size: 8px;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    font-size: 8px;
+  }
 }
 
 .match_name {
   color: #ff7a00;
   font-size: 12px;
   font-weight: 700;
+  @media (max-width: $breakpoint-sm) {
+    font-size: 8px;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    font-size: 8px;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    font-size: 8px;
+  }
 }
 
 .flex {
   display: flex;
   gap: 10px;
+
+  @media (max-width: $breakpoint-md) {
+    font-size: 21px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    width: 380px;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    width: 530px;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    width: 346px;
+  }
 }
 
 .button {
@@ -1385,6 +1480,26 @@ body.activemodal {
   position: absolute;
   left: 20%;
   top: 70%;
+
+  @media (max-width: $breakpoint-md) {
+    top: 170x;
+    left: 75px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    top: 170px;
+    left: 75px;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    top: 250px;
+    left: 225px;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    top: 170px;
+    left: 75px;
+  }
 }
 
 .flex_justify {
@@ -1407,4 +1522,61 @@ body.activemodal {
 
 .time {
   font-size: 12px;
+}
+
+.description {
+  @media (max-width: $breakpoint-md) {
+    font-size: 14px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 14px;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    font-size: 14px;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    font-size: 14px;
+  }
+}
+.outline_icon {
+  @media (max-width: $breakpoint-md) {
+    position: absolute;
+    top: 20%;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    position: absolute;
+    top: 20%;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    position: absolute;
+    top: 20%;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    position: absolute;
+    top: 20%;
+  }
+}
+
+.outline_icon {
+  @media (max-width: $breakpoint-md) {
+    font-size: 14px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 14px;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    font-size: 14px;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    font-size: 14px;
+  }
 }

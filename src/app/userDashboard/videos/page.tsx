@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Loading from '../loading';
 import styles from '@/styles/Dashboard.module.scss';
+import { Select, Popover } from "technogetic-iron-smart-ui"
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination';
 import { sendRequest } from '@/utils/axiosInstanse';
@@ -35,8 +36,11 @@ const Page: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [data, setData] = useState<VideoInfo[]>([]);
     console.log("data---->", data)
-    const maxCards = 4;
+    const isMobile = window.innerWidth <= 768; // Define your own mobile breakpoint
+    const maxCards = isMobile ? 2 : 4;
+    // const maxCards = 4;
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
+
 
     // Function to go to the previous card
     const goToPreviousCard = () => {
@@ -53,9 +57,6 @@ const Page: React.FC = () => {
             console.log('Next button clicked');
         }
     };
-
-
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -93,35 +94,29 @@ const Page: React.FC = () => {
                                     <span className={styles.description}>Dashboard / Videos</span>
                                 </div>
                                 <div className={styles.sorting}>
-                                    {/* <Image className={styles.sort_image} src='../assests/sorting.svg' alt='sorting' width={20} height={20} /> */}
-                                    <select className={styles.select}>
-
-                                        <option className={styles.sortByOption}> Sort By </option>
-                                        <option>Status Timeline</option>
-                                        <option>Match Type</option>
-                                        <option>Date</option>
-                                    </select></div>
+                                    <Select className={styles.sort}
+                                        onChange={function noRefCheck() { }}
+                                        option={[
+                                            'orange',
+                                            'apple',
+                                            'mango'
+                                        ]}
+                                        placeholder="Sort by"
+                                    />
+                                </div>
                             </div>
                             <div className={styles.main_video} style={{ width: "100%" }}>
                                 <div className={styles.image_video}>
                                     <img src="../assests/image.svg" alt="videoimage" className={styles.video_image} style={{ width: "100%", objectFit: "none" }} />
 
-
                                     <div className={styles.main_div}>
                                         <div className={styles.col}>
                                             <h1 className={styles.head}>{data[currentCardIndex]?.title}</h1>
                                             <div className={styles.flex}>
-
                                                 <span> {formatDateTime(data[currentCardIndex]?.dateAndTime)}</span>
-
                                                 <img src="../assests/copylink.svg" alt="videoimage" className={styles.copy_link} />
-
-                                                {/* <img src="../assests/copylink.svg" alt="videoimage" className={styles.copy_link} /> */}
                                             </div>
-                                            {/* <div className={styles.flex_end}>
-                                                <img src="../assests/arrow buttonnext.svg" alt="nextbutton" className={styles.button} onClick={goToPreviousCard} />
-                                                <img src="../assests/arrow buttonprevious.svg" alt="previousbutton" className={styles.button} onClick={goToNextCard} />
-                                            </div> */}
+
                                             <div className={styles.flex_end}>
                                                 <button
                                                     onClick={goToPreviousCard}
@@ -133,6 +128,7 @@ const Page: React.FC = () => {
                                                         marginRight: '-32px',
                                                         zIndex: 10,
                                                     }}
+                                                    // className={styles.button_prev}
                                                     disabled={currentCardIndex === 0}
                                                 >
                                                     <BiSolidChevronLeft className={styles.outline_icon} />
@@ -148,20 +144,20 @@ const Page: React.FC = () => {
                                                         marginRight: '-32px',
                                                         zIndex: 10,
                                                     }}
-                                                    disabled={currentCardIndex === data.length - 1}
+                                                    // className={styles.button_next}
+                                                    disabled={isMobile ? currentCardIndex >= data.length - maxCards : currentCardIndex === data.length - 1}
+                                                // disabled={currentCardIndex === data.length - 1}
                                                 >
                                                     <BiChevronRight className={styles.outline_icon} />
                                                 </button>
                                             </div>
-
-
-
                                         </div>
 
+
                                         <div className={styles.card}>
-                                            {visibleCards.map((item) => (
+                                            {visibleCards.map((item, index) => (
                                                 <>
-                                                    <div className={styles.card1}>
+                                                    <div key={item._id} className={`${styles.card1} ${isMobile && index !== 0 ? styles.hideOnMobile : ''}`}>
                                                         <img src="../assests/cardimage1.svg" alt="cardImage" className={styles.cardImage} />
                                                         <div className={styles.flex_absolute}>
                                                             <img src="../assests/playicon.svg" alt="cardImage" className={styles.playicon} />
@@ -176,6 +172,7 @@ const Page: React.FC = () => {
                                                 </>
                                             ))}
                                         </div>
+
 
                                     </div>
                                 </div>
