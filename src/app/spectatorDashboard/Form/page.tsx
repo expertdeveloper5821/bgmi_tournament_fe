@@ -45,7 +45,7 @@ const initial: FormCreate = {
   entryFee: '',
 };
 
-const Form = ({ ...props }) => {
+const Form = (props: any) => {
   const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate, Spect, setSpect, callSpecatator } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');

@@ -37,7 +37,8 @@ export function Navbar(props: INavbar) {
   };
 
   const getAlldata = async () => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userData = JSON.parse(localStorage.getItem('userData') || "")
+
 
     setUserData(userData.email);
     setNameData(userData.fullName);
