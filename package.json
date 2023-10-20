@@ -63,7 +63,7 @@
     "@types/react": "18.2.20",
     "@types/react-slick": "^0.23.10",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
-    "eslint": "^8.49.0",
+    "es lint": "^8.49.0",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3"
