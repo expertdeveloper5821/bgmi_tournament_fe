@@ -2,6 +2,7 @@
 const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
+  ignoreDuringBuilds: true,
   async redirects() {
     return [
       {
@@ -16,4 +17,6 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+// module.exports = nextConfig;
+
+export default nextConfig;
