@@ -49,9 +49,11 @@ const Form = ({ ...props }) => {
   const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate, Spect, setSpect, callSpecatator } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<{ name: string; url: string }[]>([]);
+  // const [images, setImages] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  // const fileInputRef = useRef(null);
   const [image, setImage] = useState<File | null>(null);
   const [thirdImage, setThirdImage] = useState(null);
 
