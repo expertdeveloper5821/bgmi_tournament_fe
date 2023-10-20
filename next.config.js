@@ -2,7 +2,7 @@
 const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
-  ignoreDuringBuilds: true,
+  eslint: { ignoreDuringBuilds: true },
   async redirects() {
     return [
       {
