@@ -7,4 +7,6 @@ export const serviceUrls = {
   updateRole: 'role/updaterole/',
   roomsRelatedUrl: '/room/rooms',
   filteredRoomsList: '/room/rooms?search=',
+  updateUserDetails: '/user/updateuser',
+  sendInvite:'/user/send-invite'
 };

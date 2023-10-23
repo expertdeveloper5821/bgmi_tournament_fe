@@ -4,7 +4,7 @@ import { FormDataType } from '@/types/spectatorTypes';
 
 const SignupSchema = Yup.object().shape({
   fullName: Yup.string().required('Please enter your Full Name'),
-  userName: Yup.string().required('Please enter your  Username'),
+  // userName: Yup.string().required('Please enter your  Username'),
   email: Yup.string()
     .email('Invalid email')
     .required('Please enter your email')
@@ -54,14 +54,17 @@ const validationSchema = Yup.object().shape({
   lastSurvival: Yup.number().required('Please enter lastSurvival winner prize'),
   highestKill: Yup.number().required('Please enter highestKill winner prize'),
   thirdWin: Yup.number().required('Please enter Third winner prize '),
-  entryFee: Yup.number().required('Please enter entry Fee'),
 });
 
-const SendInviteSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Invalid email')
-    .required('Please enter your email')
-    .matches(emailRegex, 'Invalid email'),
+const personDetailSchema = Yup.object().shape({
+  player: Yup.string()
+    .required('player Id or username is Required')
+    .min(8, 'playerId or username must be min 8 ').max(12, "playerId or username must be max 12"),
+  upi: Yup.string()
+    .required('UPI is needed'),
+    // whatsapp:  Yup.string()
+    // .matches(/^\+\d{1,3}\d{6,14}$/, 'Invalid WhatsApp number')
+    // .required('Phone number is required'),
 });
 
 const addFormValidations = (name, value, setFormErrors) => {
@@ -142,6 +145,6 @@ export {
   loginSchema,
   ResetPasswordSchema,
   validationSchema,
-  SendInviteSchema,
+  personDetailSchema,
   addFormValidations,
 };

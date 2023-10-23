@@ -12,317 +12,217 @@ import Image from 'next/image';
 import { decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
 import { SignupSchema, loginSchema } from '@/utils/schema';
+import AuthHoc from '@/Components/HOC/AuthHoc';
+import { LoginForm } from '@/Components/Forms/AuthForms/LoginForm';
 
-interface LoginProps {}
+// interface LoginProps {}
 
-interface FormValues {
-  email: string;
-  password: string;
-}
+// interface FormValues {
+//   email: string;
+//   password: string;
+// }
 
 function Login(): React.JSX.Element {
-  const [rememberMe, setRememberMe] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [role, setRole] = useState<string>('');
-  const [error, setError] = useState<string>('');
-  const [getToken, setGetToken] = useState<any>('');
-  const { userInfo, updateUserInfo } = useUserContext();
-  const router = useRouter();
+  // const [rememberMe, setRememberMe] = useState<boolean>(false);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [role, setRole] = useState<string>('');
+  // const [error, setError] = useState<string>('');
+  // const [getToken, setGetToken] = useState<any>('');
+  // const { userInfo, updateUserInfo } = useUserContext();
+  // const router = useRouter();
 
-  function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
-    setRememberMe(event.target.checked);
-  }
+  // function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
+  //   setRememberMe(event.target.checked);
+  // }
 
-  useEffect(() => {
-    const rememberMeValue = localStorage.getItem('rememberMe') === 'true';
-    setRememberMe(rememberMeValue);
+  // useEffect(() => {
+  //   const rememberMeValue = localStorage.getItem('rememberMe') === 'true';
+  //   setRememberMe(rememberMeValue);
 
-    const token = localStorage.getItem('jwtToken');
-    if (token) {
-      handleRedirect(token);
-    }
-  });
+  //   const token = localStorage.getItem('jwtToken');
+  //   if (token) {
+  //     handleRedirect(token);
+  //   }
+  // });
 
-  const initialValues: FormValues = {
-    email: '',
-    password: '',
-  };
+  // const initialValues: FormValues = {
+  //   email: '',
+  //   password: '',
+  // };
 
-  const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
-    useFormik({
-      initialValues,
-      validationSchema: loginSchema,
-      onSubmit: async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
-        setIsLoading(true);
-        const { email, password } = values;
-        if (rememberMe) {
-          const expirationDate = new Date();
-          expirationDate.setDate(expirationDate.getDate() + 30);
-          localStorage.setItem('email', email);
-          localStorage.setItem('password', password);
-          localStorage.setItem('rememberMe', 'true');
-        } else {
-          localStorage.removeItem('email');
-          localStorage.removeItem('password');
-          localStorage.removeItem('rememberMe');
-        }
+  // console.log('currentStep 4 ');
 
-        // manual login
-        try {
-          const response = await sendRequest('user/login', {
-            method: 'POST',
-            data: { email, password },
-          });
+  // const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
+  //   useFormik({
+  //     initialValues,
+  //     validationSchema: loginSchema,
+  //     onSubmit: async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
+  //       setIsLoading(true);
+  //       const { email, password } = values;
+  //       if (rememberMe) {
+  //         const expirationDate = new Date();
+  //         expirationDate.setDate(expirationDate.getDate() + 30);
+  //         localStorage.setItem('email', email);
+  //         localStorage.setItem('password', password);
+  //         localStorage.setItem('rememberMe', 'true');
+  //       } else {
+  //         localStorage.removeItem('email');
+  //         localStorage.removeItem('password');
+  //         localStorage.removeItem('rememberMe');
+  //       }
 
-          setIsLoading(false);
-          if (response.status === 200) {
-            const userDetails = {
-              name: response?.data?.userData?.fullName,
-              email: response?.data?.userData?.email,
-            };
-            if (response?.data?.userData) {
-              localStorage.setItem('userData', JSON.stringify(response.data?.userData));
-            }
-            updateUserInfo(userDetails);
-            localStorage.setItem('jwtToken', response?.data?.userData?.token);
+  //       // manual login
+  //       try {
+  //         const response: any = await sendRequest('user/login', {
+  //           method: 'POST',
+  //           data: { email, password },
+  //         });
 
-            handleRedirect(response?.data?.userData?.token);
-          } else {
-            setError('Invalid email or password');
-          }
-        } catch (error: any) {
-          setIsLoading(false);
-          setError('Login Failed, Please try again later');
-        } finally {
-          setSubmitting(false);
-        }
-      },
-    });
+  //         setIsLoading(false);
+  //         if (response.status === 200) {
+  //           const userDetails = {
+  //             name: response?.data?.userData?.fullName,
+  //             email: response?.data?.userData?.email,
+  //           };
+  //           if (response?.data?.userData) {
+  //             localStorage.setItem('userData', JSON.stringify(response.data?.userData));
+  //           }
+  //           updateUserInfo(userDetails);
+  //           localStorage.setItem('jwtToken', response?.data?.userData?.token);
 
-  const handleRedirect = (token: any) => {
-    if (token) {
-      const decodedToken: any = decodeJWt(token);
-      if (decodedToken.role.role === 'admin') {
-        router.push('/adminDashboard/room');
-      } else if (decodedToken.role.role === 'user') {
-        router.push('/userDashboard/tournament');
-        // router.push(configData.web.cominSoonUrl)
-      } else {
-        router.push('/spectatorDashboard');
-      }
-    } else {
-      router.push('/auth/401');
-    }
-  };
+  //           handleRedirect(response?.data?.userData?.token);
+  //         } else {
+  //           setError('Invalid email or password');
+  //         }
+  //       } catch (error: any) {
+  //         setIsLoading(false);
+  //         setError('Login Failed, Please try again later');
+  //       } finally {
+  //         setSubmitting(false);
+  //       }
+  //     },
+  //   });
 
-  useEffect(() => {
-    const storedEmail = localStorage.getItem('email');
-    const storedPassword = localStorage.getItem('password');
-    if (storedEmail) {
-      setFieldValue('email', storedEmail);
-    }
-    if (storedPassword) {
-      setFieldValue('password', storedPassword);
-    }
-  }, [setFieldValue]);
+  // const handleRedirect = (token: any) => {
+  //   if (token) {
+  //     const decodedToken: any = decodeJWt(token);
+  //     if (decodedToken?.role?.role === 'admin') {
+  //       router.push('/adminDashboard');
+  //     } else if (decodedToken?.role?.role === 'user') {
+  //       router.push('/userDashboard');
+  //       // router.push(configData.web.cominSoonUrl)
+  //     } else {
+  //       router.push('/spectatorDashboard');
+  //     }
+  //   } else {
+  //     router.push('/auth/401');
+  //   }
+  // };
 
-  // verify token
-  const handleVerifyToken = async (token: string) => {
-    setIsLoading(true);
-    try {
-      const verifyResponse = await sendRequest('/auth/verify', {
-        method: 'GET',
-        data: {
-          token: token,
-        },
-      });
+  // useEffect(() => {
+  //   const storedEmail = localStorage.getItem('email');
+  //   const storedPassword = localStorage.getItem('password');
+  //   if (storedEmail) {
+  //     setFieldValue('email', storedEmail);
+  //   }
+  //   if (storedPassword) {
+  //     setFieldValue('password', storedPassword);
+  //   }
+  // }, [setFieldValue]);
 
-      setIsLoading(false);
+  // // verify token
+  // const handleVerifyToken = async (token: string) => {
+  //   setIsLoading(true);
+  //   try {
+  //     const verifyResponse = await sendRequest('/auth/verify', {
+  //       method: 'GET',
+  //       data: {
+  //         token: token,
+  //       },
+  //     });
 
-      if (verifyResponse.status === 200) {
-        router.push('/adminDashboard/room');
-      } else {
-        setError('Google Sign-In failed');
-      }
-      if (verifyResponse.status === 200) {
-        router.push('/userDashboard');
-      } else {
-        setError('Google Sign-In failed');
-      }
-    } catch (error) {
-      setIsLoading(false);
-      setError('Google Sign-In failed');
-    }
-  };
+  //     setIsLoading(false);
 
-  const handleGoogleLogin = () => {
-    setIsLoading(true);
+  //     if (verifyResponse.status === 200) {
+  //       router.push('/adminDashboard/room');
+  //     } else {
+  //       setError('Google Sign-In failed');
+  //     }
+  //     if (verifyResponse.status === 200) {
+  //       router.push('/userDashboard');
+  //     } else {
+  //       setError('Google Sign-In failed');
+  //     }
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //     setError('Google Sign-In failed');
+  //   }
+  // };
 
-    try {
-      window.location.href = 'http://localhost:5000/auth/google/callback';
-    } catch (error) {
-      setIsLoading(false);
-      setError('Google Sign-In failed');
-      console.error('Error during Google Sign-In:', error);
-    }
-  };
+  // const handleGoogleLogin = () => {
+  //   setIsLoading(true);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const token = urlParams.get('token');
-      if (token) {
-        handleVerifyToken(token);
-      }
-    }
-  }, []);
+  //   try {
+  //     window.location.href = 'http://localhost:5000/auth/google/callback';
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //     setError('Google Sign-In failed');
+  //   }
+  // };
 
-  // loader
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     const urlParams = new URLSearchParams(window.location.search);
+  //     const token = urlParams.get('token');
+  //     if (token) {
+  //       handleVerifyToken(token);
+  //     }
+  //   }
+  // }, []);
 
-  const [isLoadingData, setLoadingData] = useState<boolean>(false);
-  const [errorData, showErrorData] = useState<string>('');
+  // // loader
 
-  const handleVerifyTokenInLogin = async (token: string) => {
-    setLoadingData(true);
-    try {
-      const verifyResponse = await sendRequest(`auth/verify/?token=${token}`, {
-        method: 'GET',
-      });
+  // const [isLoadingData, setLoadingData] = useState<boolean>(false);
+  // const [errorData, showErrorData] = useState<string>('');
 
-      setLoadingData(false);
+  // const handleVerifyTokenInLogin = async (token: string) => {
+  //   setLoadingData(true);
+  //   try {
+  //     const verifyResponse = await sendRequest(`auth/verify/?token=${token}`, {
+  //       method: 'GET',
+  //     });
 
-      if (verifyResponse.status === 200) {
-        router.push('/adminDashboard/room');
-      } else {
-        showErrorData('Google Sign-In failed');
-      }
-    } catch (errorData) {
-      setLoadingData(false);
-      showErrorData('Google Sign-In failed');
-    }
-  };
+  //     setLoadingData(false);
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
-    const isLogin = urlParams.get('isLogin');
-    if (isLogin == 'deny') {
-      localStorage.clear();
-      router.push('/');
-    } else if (token) {
-      localStorage.setItem('jwtToken', token);
-      handleVerifyTokenInLogin(token);
-    }
-  }, []);
+  //     if (verifyResponse.status === 200) {
+  //       router.push('/adminDashboard/room');
+  //     } else {
+  //       showErrorData('Google Sign-In failed');
+  //     }
+  //   } catch (errorData) {
+  //     setLoadingData(false);
+  //     showErrorData('Google Sign-In failed');
+  //   }
+  // };
 
+  // useEffect(() => {
+  //   const urlParams = new URLSearchParams(window.location.search);
+  //   const token = urlParams.get('token');
+  //   const isLogin = urlParams.get('isLogin');
+  //   if (isLogin == 'deny') {
+  //     localStorage.clear();
+  //     router.push('/');
+  //   } else if (token) {
+  //     localStorage.setItem('jwtToken', token);
+  //     handleVerifyTokenInLogin(token);
+  //   }
+  // }, []);
+
+  console.log("INSIDE LOGIN")
   return (
-    <div className={styles.main_container}>
-      <div className={styles.background_container}>
-        <div className={styles.container}>
-          <div className={styles.logo}>
-            <Image src="../assests/logoWithBg.svg" alt="Tg-logo" width={250} height={100} />
-          </div>
-          <div>
-            <p className={styles.heading}>Welcome back! Please enter your details</p>
-          </div>
-          <div>
-            <form onSubmit={handleSubmit}>
-              {error && <div className={styles.error}>{error}</div>}
-              <div className={styles.input_box}>
-                <label className={styles.email} htmlFor="email">
-                  <Image src="../assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
-                </label>
-                <Input
-                  id="email"
-                  className={styles.email_wrapper}
-                  type="email"
-                  name="email"
-                  autoComplete="off"
-                  placeholder="Enter email"
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-              </div>
-              {errors.email && touched.email && <div className={styles.error}>{errors.email}</div>}
-
-              <div className={styles.input_box}>
-                <label className={styles.password} htmlFor="password">
-                  <Image
-                    src="../assests/passwordlogo.svg"
-                    alt="passwordlogo"
-                    width={30}
-                    height={20}
-                  />
-                </label>
-                <Input
-                  id="password"
-                  className={styles.password_wrapper}
-                  type="password"
-                  name="password"
-                  autoComplete="off"
-                  placeholder="Enter password"
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-              </div>
-              {errors.password && touched.password && (
-                <div className={styles.error}>{errors.password}</div>
-              )}
-
-              <div className={styles.checkbox_wrapper}>
-                <input
-                  type="checkbox"
-                  id="rememberMe"
-                  name="rememberMe"
-                  onChange={handleRememberMe}
-                />
-                <label htmlFor="rememberMe" className={styles.rememberMe}>
-                  Remember Me
-                </label>
-              </div>
-
-              <div className={styles.button_wrapper}>
-                <Button
-                  disabled={isLoading}
-                  className={styles.forgetbutton}
-                  variant="contained"
-                  onClick={handleSubmit}
-                >
-                  {isLoading ? 'Loading...' : 'Log in'}
-                </Button>
-              </div>
-              {/* <div className={styles.signin_withgoogle}>
-                <FcGoogle />
-                <Button
-                  disabled={isLoading}
-                  className={styles.googleButton}
-                  variant="primary"
-                  type="button"
-                  onClick={handleGoogleLogin}
-                >
-                  {isLoading ? 'Loading...' : 'Sign in with Google'}
-                </Button>
-              </div> */}
-              <div className={styles.signin}>
-                <span className={styles.forgotDesc}>
-                  <Link href="/auth/forget-password">Forget your Password?</Link>
-                </span>
-                <div className={styles.sign_accout}>
-                  <span className={styles.accout_in}>Don't have an accout?</span>
-                  <span className={styles.forgotDescsec}>
-                    <Link className={styles.link_sign} href="/auth/signup">
-                      Signup
-                    </Link>
-                  </span>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    <AuthHoc heading={'Sign In'} subheading={"Sign In! Please enter your details"}>
+      <LoginForm />
+    </AuthHoc>
   );
 }
 

@@ -22,6 +22,7 @@ import MiniMatchComponent from '@/Components/MatchComponent/MiniMatchComponent';
 import { BiSolidChevronLeft, BiChevronRight } from 'react-icons/bi';
 import { HiRefresh } from 'react-icons/hi';
 import Loading from '../loading';
+import jwtDecode from 'jwt-decode';
 
 function Tournament() {
   const [allRoomsData, setAllRoomsData] = useState<any>([]); //types
@@ -35,10 +36,10 @@ function Tournament() {
   const getAllTournaments = async () => {
     setIsLoading(true);
     try {
-      const { status, data } = await sendRequest('room/rooms', {
+      const { status, data }:any = await sendRequest('room/rooms', {
         method: 'GET',
       });
-      if ((status === 200 || status === 201) && data.length > 0) {
+      if ((status === 200 || status === 201) && data?.length > 0) {
         const firstTournament = data[0];
         setAllRoomsData(data);
         setMatchDetails({
@@ -71,12 +72,12 @@ function Tournament() {
   const getRegisteredMatches = async () => {
     setIsLoading(true);
     try {
-      const { status, data } = await sendRequest('team/register-room ', {
+      const { status, data }:any = await sendRequest('team/register-room ', {
         method: 'GET',
       });
       if ((status === 200 || status === 201) && data) {
         setRegMatches(
-          data.rooms?.sort((a, b) => +new Date(b.dateAndTime) - +new Date(a.dateAndTime)),
+          data?.rooms?.sort((a, b) => +new Date(b.dateAndTime) - +new Date(a.dateAndTime)),
         );
         setIsLoading(false);
       } else {
@@ -136,7 +137,10 @@ function Tournament() {
   const addRegMatch = async (match: ITournament) => {
     setIsLoading(true);
     try {
-      const userData: any = JSON.parse(localStorage.getItem('userData'));
+      // const userData: any = JSON.parse(localStorage.getItem('userData'));
+      const userData: any = jwtDecode(localStorage.getItem('jwtToken'));
+
+      console.log("userDataaaaa =>",userData);
       const { status } = await sendRequest('payment/create-payment', {
         method: 'POST',
         data: {

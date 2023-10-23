@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { Avatar, Popover } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
+import jwtDecode from 'jwt-decode';
+import { useUserContext } from '@/utils/contextProvider';
 
 interface INavbar {
   setUserName?: Dispatch<SetStateAction<string>>;
@@ -20,6 +22,8 @@ export function Navbar(props: INavbar) {
   const [nameData, setNameData] = useState<string>('');
   const [initialsName, setInitialsName] = useState<string>('');
   const [pofile, setPofile] = useState<string>('');
+  const {triggerHandleLogout} = useUserContext();
+
 
   function handleClosePopover() {
     setIsOpen(false);
@@ -28,6 +32,7 @@ export function Navbar(props: INavbar) {
 
   const handleLogout = async () => {
     try {
+      triggerHandleLogout();
       localStorage.clear();
       router.push('/');
     } catch (error) {
@@ -37,7 +42,10 @@ export function Navbar(props: INavbar) {
   };
 
   const getAlldata = async () => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    // const userData = JSON.parse(localStorage.getItem('userData'));
+    const userData: any = jwtDecode(localStorage.getItem('jwtToken'));
+    
+    console.log("userDataaaaa =>",userData);
 
     setUserData(userData.email);
     setNameData(userData.fullName);

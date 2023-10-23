@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -6,11 +7,17 @@ import { useFormik, FormikHelpers } from 'formik';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import { SignupSchema } from '@/utils/schema';
-import { FormDefaultPropsType, SignupFormValuesType } from '../authInterfaces';
+// import { FormDefaultPropsType, SignupFormValuesType } from '../authInterfaces';
 import { signUpService } from '@/services/authServices';
 import styles from '@/styles/auth.module.scss';
+import {
+  FormDefaultPropsType,
+  SignupFormValuesType,
+} from '@/Components/pageComponents/auth/authInterfaces';
+import { decodeJWt } from '@/utils/globalfunctions';
 
-const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => {
+// export const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => {
+export const SignupForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -23,6 +30,33 @@ const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => 
     password: '',
   };
 
+  // New Functionality.
+  const handleRedirect = (token: any) => {
+    if (token) {
+      const decodedToken: any = decodeJWt(token);
+      if (decodedToken && decodedToken?.role?.role === 'user') {
+        if (decodedToken?.upiId && decodedToken?.userName && decodedToken?.phoneNumber) {
+          router.push('/userDashboard');
+        } else {
+          router.push('/auth/personaldetails');
+        }
+      } else if (decodedToken && decodedToken?.role?.role === 'admin') {
+        router.push('/adminDashboard');
+      } else if (decodedToken && decodedToken?.role?.role === 'spectator') {
+        router.push('/spectatorDashboard');
+      }
+    } else {
+      router.push('/auth/401');
+    }
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwtToken');
+    if (token) {
+      handleRedirect(token);
+    }
+  }, []);
+
   const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
     useFormik({
       initialValues,
@@ -34,7 +68,7 @@ const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => 
         console.log('In SUbmit');
         setIsLoading(true);
         const { fullName, email, password } = values;
-        console.log("fullName, email, password currentStep 1",fullName, email, password,currentStep);
+        console.log('fullName, email, password 1', fullName, email, password);
 
         if (rememberMe) {
           const expirationDate = new Date();
@@ -45,9 +79,9 @@ const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => 
           const response = await signUpService({ fullName, email, password });
 
           if (response.status === 200) {
-          localStorage.setItem('data', response.userName);
-          handleStepChange(currentStep + 1);
-          router.push(`/auth/login`);
+            //   localStorage.setItem('data', response.userName);
+            //   handleStepChange(currentStep + 1);
+            router.push(`/auth/login`);
           } else {
             setIsLoading(false);
             setError('Failed to sign up. Please try again.');
@@ -160,12 +194,10 @@ const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => 
         <span className={styles.forgotDesc}>Already have an account ?</span>
         <span className={styles.forgotDescsec}>
           <Link className={styles.link_sign} href="/auth/login">
-            Sign up
+            Sign in
           </Link>
         </span>
       </div>
     </form>
   );
 };
-
-export default SignupForm;

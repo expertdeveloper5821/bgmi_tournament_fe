@@ -140,3 +140,33 @@ export const getAllFilteredRoomsListService = async (data: GetAllFilteredValuesT
   }
 }
 
+export const updateUserDetailsService = async (data:any) => {
+  try {
+    const res = await sendRequest(`${serviceUrls.updateUserDetails}`,{
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${data.token}` },
+      data: data.data
+    })
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (error) {
+        return error;
+  }
+};
+
+export const sendInviteService = async (data:any) => {
+  try {
+    const res = await sendRequest(`${serviceUrls.sendInvite}`,{
+      method: 'POST',
+      headers: { Authorization: `Bearer ${data.token}` },
+      data: data.data
+    })
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (error) {
+        return error;
+  }
+} 
+

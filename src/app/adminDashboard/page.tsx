@@ -42,6 +42,7 @@ function AdminDashboard() {
     setCurrentPage(page);
   };
 
+  console.log("ADMIN_DASHBOARD")
   const columns: string[] = ['Squad', 'Room Id', 'Spectator Id', 'Date and Time', 'Map'];
 
   return (

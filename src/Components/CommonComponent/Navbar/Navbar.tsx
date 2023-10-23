@@ -1,11 +1,13 @@
 'use client';
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useState, Dispatch, SetStateAction, useContext } from 'react';
 import styles from '@/styles/Navabar.module.scss';
 import { useRouter } from 'next/navigation';
 // @ts-ignore
 import { Avatar, Popover } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
+import jwtDecode from 'jwt-decode';
+import { useUserContext } from '@/utils/contextProvider';
 
 interface INavbar {
   setUserName?: Dispatch<SetStateAction<string>>;
@@ -20,6 +22,7 @@ export function Navbar(props: INavbar) {
   const [nameData, setNameData] = useState<string>('');
   const [initialsName, setInitialsName] = useState<string>('');
   const [pofile, setPofile] = useState<string>('');
+  const {triggerHandleLogout} = useUserContext();
 
   function handleClosePopover() {
     setIsOpen(false);
@@ -29,6 +32,7 @@ export function Navbar(props: INavbar) {
   const handleLogout = async () => {
     try {
       localStorage.clear();
+      triggerHandleLogout();
       router.push('/');
     } catch (error) {
       setIsLoading(false);
@@ -37,10 +41,13 @@ export function Navbar(props: INavbar) {
   };
 
   const getAlldata = async () => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    // const userData = JSON.parse(localStorage.getItem('userData'));
+    const userData: any = jwtDecode(localStorage.getItem('jwtToken'));
 
-    setUserData(userData.email);
-    setNameData(userData.fullName);
+    console.log("userDataaaaa =>",userData);
+
+    setUserData(userData?.email);
+    setNameData(userData?.fullName);
     let initials = '';
     userData?.fullName?.split(' ')?.forEach((initial) => {
       if (initials.length > 0) {
