@@ -8,7 +8,7 @@
     "no-console": "warn",
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/strict-boolean-expressions": [
-      0,
+      2,
       {
         "allowString": false,
         "allowNumber": false
