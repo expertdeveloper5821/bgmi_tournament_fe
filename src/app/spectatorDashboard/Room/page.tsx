@@ -14,6 +14,8 @@ import Deletespec from '../Deletespec/page';
 import Updatespec from '../Updatespec/page';
 import { sendRequest } from '@/utils/axiosInstanse';
 import withAuth from '@/Components/HOC/WithAuthHoc';
+import { useRouter } from 'next/navigation';
+
 
 export interface RoomData {
   roomId: string;
@@ -40,6 +42,10 @@ const Room = () => {
   const [Spect, setSpect] = useState<RoomData[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [roomIdToUpdate, setRoomIdToUpdate] = useState<any>({});
+  const router = useRouter();
+
+
+
   const columns: string[] = [
     'Room Id',
     'Game Name',
@@ -70,6 +76,17 @@ const Room = () => {
   useEffect(() => {
     getAllSpectator();
   }, []);
+
+
+  const handleButtonClick = () => {
+    router.push('/spectatorDashboard/Postwinners');
+  }
+
+  const handleButtonEdit = () => {
+    router.push('/spectatorDashboard/Matchhistory')
+  }
+
+
   return (
     <div className={styles.main_container} id="mainLayoutContainerInner">
       <div className={styles.inner_main_container}>
@@ -84,7 +101,6 @@ const Room = () => {
               setRoomIdToUpdate={setRoomIdToUpdate}
             />
           </div>
-
           <div>
             <Table className={styles.table_content}>
               <TableHeader className={styles.tableHeader}>
@@ -140,8 +156,26 @@ const Room = () => {
                           {' '}
                           <Image src="assests/update.svg" alt="Image" width={12} height={12} />
                         </button>
+
+
+                        <div>
+                          <button className={styles.addbutton} onClick={handleButtonClick}>
+                            <Image src="assests/add.svg" alt="Image" width={22} height={22} />
+                          </button>
+                        </div>
+
+                        <div>
+                          <button className={styles.addbutton} onClick={handleButtonEdit}>
+                            <span>Edit</span>
+                          </button>
+                        </div>
                       </div>
                     </TableCell>
+
+
+
+
+
                   </TableRow>
                 ))}
               </TableBody>

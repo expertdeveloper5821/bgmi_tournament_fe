@@ -297,3 +297,135 @@ button#btn_cls_st {
   justify-content: center;
   align-items: center;
 }
+
+.addbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+}
+
+.checkbox_round {
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.checkbox_round:checked {
+  background-color: #ff7a00;
+}
+
+.table_data {
+  color: #fff;
+  text-align: center;
+  padding: 8px 36px;
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 8px 36px;
+    font-size: 10px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    padding: 8px 36px;
+    font-size: 10px;
+  }
+  @media (max-width: $breakpoint-sm) {
+    padding: 8px 36px;
+    font-size: 10px;
+  }
+}
+
+.button_wrapper {
+  display: flex;
+  gap: 15px;
+  justify-content: end;
+  margin-right: 20px;
+}
+
+.cancel_button {
+  border: none;
+  background: $bs-white;
+  font-size: 16px;
+}
+.cancel_button {
+  width: 15%;
+  border: 1px solid $bs-orange !important;
+  color: $bs-orange !important;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 23%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    width: 23%;
+  }
+  @media (max-width: $breakpoint-sm) {
+    width: 23%;
+  }
+}
+.cancel_button:hover {
+  background: $bs-white !important;
+  color: $bs-orange !important;
+}
+
+.submitbutton {
+  background: #ff7a00 !important;
+  width: 15%;
+  color: white !important;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 23%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    width: 23%;
+  }
+  @media (max-width: $breakpoint-sm) {
+    width: 23%;
+  }
+}
+
+//matchDetails
+.match_details {
+  display: flex;
+  width: 100%;
+  // border: 1px solid white;
+  padding: 18px 30px;
+  gap: 20px;
+}
+
+.match_details1 {
+  width: 50%;
+  border: 1px solid #ff7a00;
+  padding: 18px 30px;
+  border-radius: 4px;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+.match_details2 {
+  width: 50%;
+  border: 1px solid #ff7a00;
+  padding: 18px 30px;
+  border-radius: 4px;
+}
+.row {
+  display: flex;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.flex_row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
