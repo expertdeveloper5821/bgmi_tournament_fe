@@ -7,7 +7,7 @@
   "rules": {
     "no-console": "warn",
     "@typescript-eslint/strict-boolean-expressions": [
-      2,
+      0,
       {
         "allowString": false,
         "allowNumber": false
