@@ -42,7 +42,7 @@ const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => 
         }
 
         try {
-          const response = await signUpService({ fullName, email, password });
+          const response:any = await signUpService({ fullName, email, password });
 
           if (response.status === 200) {
           localStorage.setItem('data', response.userName);

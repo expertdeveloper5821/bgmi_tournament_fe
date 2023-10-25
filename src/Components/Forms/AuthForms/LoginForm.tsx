@@ -12,6 +12,8 @@ import Image from 'next/image';
 import { decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
 import { SignupSchema, loginSchema } from '@/utils/schema';
+import { toast } from 'react-toastify';
+
 
 interface LoginProps {}
 
@@ -79,6 +81,7 @@ export function LoginForm(): React.JSX.Element {
               'expirationTime',
               expirationTime,
             );
+
             if (rememberMe) {
               localStorage.setItem('rememberMe', rememberMe.toString());
               localStorage.setItem('email', email);
@@ -88,13 +91,15 @@ export function LoginForm(): React.JSX.Element {
             }
             localStorage.setItem('jwtToken', response?.data?.userData?.token);
             localStorage.setItem('expirationTime', expirationTime.toString());
+            toast.success(response?.data?.message);
             handleRedirect(response?.data?.userData?.token);
           } else {
             setError('Invalid email or password');
           }
         } catch (error: any) {
+          console.log("inside catch error", error);
           setIsLoading(false);
-          setError('Login Failed, Please try again later');
+          toast.error(error?.message);
         } finally {
           setSubmitting(false);
         }

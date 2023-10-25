@@ -15,7 +15,7 @@ export const signUpService = async (data: SignupFormValuesType) => {
       return res;
     } else throw Error();
   } catch (err) {
-    return err;
+    throw err;
   }
 };
 

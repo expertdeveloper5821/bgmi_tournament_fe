@@ -22,7 +22,19 @@ const loginSchema = Yup.object().shape({
     .email('Invalid email')
     .required('Please enter your email')
     .matches(emailRegex, 'Invalid email'),
-  password: Yup.string().required('Please enter your password'),
+  password: Yup.string()
+    .required('Please enter your password')
+    .matches(
+      passwordRegex,
+      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
+    ),
+});
+
+const forgetPasswordSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Please enter your email')
+    .matches(emailRegex, 'Invalid email')
 });
 
 const ResetPasswordSchema = Yup.object().shape({
@@ -59,12 +71,12 @@ const validationSchema = Yup.object().shape({
 const personDetailSchema = Yup.object().shape({
   player: Yup.string()
     .required('player Id or username is Required')
-    .min(8, 'playerId or username must be min 8 ').max(12, "playerId or username must be max 12"),
-  upi: Yup.string()
-    .required('UPI is needed'),
-    // whatsapp:  Yup.string()
-    // .matches(/^\+\d{1,3}\d{6,14}$/, 'Invalid WhatsApp number')
-    // .required('Phone number is required'),
+    .min(8, 'playerId or username must be min 8 ')
+    .max(12, 'playerId or username must be max 12'),
+  upi: Yup.string().required('UPI is needed'),
+  // whatsapp:  Yup.string()
+  // .matches(/^\+\d{1,3}\d{6,14}$/, 'Invalid WhatsApp number')
+  // .required('Phone number is required'),
 });
 
 const addFormValidations = (name, value, setFormErrors) => {
@@ -146,5 +158,6 @@ export {
   ResetPasswordSchema,
   validationSchema,
   personDetailSchema,
+  forgetPasswordSchema,
   addFormValidations,
 };

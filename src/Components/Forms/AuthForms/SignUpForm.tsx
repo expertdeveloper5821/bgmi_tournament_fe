@@ -15,6 +15,7 @@ import {
   SignupFormValuesType,
 } from '@/Components/pageComponents/auth/authInterfaces';
 import { decodeJWt } from '@/utils/globalfunctions';
+import { toast } from 'react-toastify';
 
 // export const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => {
 export const SignupForm = () => {
@@ -76,11 +77,13 @@ export const SignupForm = () => {
         }
 
         try {
-          const response = await signUpService({ fullName, email, password });
+          const response:any = await signUpService({ fullName, email, password });
 
           if (response.status === 200) {
             //   localStorage.setItem('data', response.userName);
             //   handleStepChange(currentStep + 1);
+            console.log("response ====>",response);
+            toast.success(response.data.message);
             router.push(`/auth/login`);
           } else {
             setIsLoading(false);
@@ -88,6 +91,8 @@ export const SignupForm = () => {
           }
         } catch (error: any) {
           setIsLoading(false);
+          console.log("error  ==>",error)
+          toast.error(error?.message);
           setError('user with email already exists.');
         } finally {
           setIsLoading(false);
