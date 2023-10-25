@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Avatar, Popover } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
+import jwtDecode from 'jwt-decode';
 
 interface INavbar {
   setUserName?: Dispatch<SetStateAction<string>>;
@@ -37,7 +38,8 @@ export function Navbar(props: INavbar) {
   };
 
   const getAlldata = async () => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userData: any = jwtDecode(localStorage.getItem('jwtToken'));
+    // const userData = JSON.parse(localStorage.getItem('userData'));
 
     setUserData(userData.email);
     setNameData(userData.fullName);

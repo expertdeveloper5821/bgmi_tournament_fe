@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React from 'react'
 import styles from '@/styles/Spectator.module.scss';
 import { Navbar } from '@/Components/Navbar/Navbar';
@@ -90,7 +90,7 @@ const matchHistory = () => {
                                 <span>Team Name  : gkh887</span>
                                 <div className={styles.flex_row}>
                                     <span>Map Name : Squad</span>
-                                    <Image src="/assests/team members.svg" alt="Image" width={20} height={20} />
+                                    <Image src="/assests/team members.svg" alt="Image" width={30} height={50} />
                                 </div>
                             </div>
                         </div>

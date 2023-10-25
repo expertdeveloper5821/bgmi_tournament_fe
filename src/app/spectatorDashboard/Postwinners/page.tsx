@@ -42,73 +42,73 @@ const postWinners = () => {
                         <TableBody>
                             <TableRow className={styles.table_row_cell}>
                                 <TableCell className={styles.table_data}>Rockers</TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Chicken_dinner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Highest_kill" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Second_winner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Third_winner" className={styles.checkbox_round} /></TableCell>
                             </TableRow>
                         </TableBody>
                         <TableBody>
                             <TableRow className={styles.table_row_cell}>
                                 <TableCell className={styles.table_data}>Rockers</TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Chicken_dinner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Highest_kill" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Second_winner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Third_winner" className={styles.checkbox_round} /></TableCell>
                             </TableRow>
                         </TableBody>
                         <TableBody>
                             <TableRow className={styles.table_row_cell}>
                                 <TableCell className={styles.table_data}>Spider</TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Chicken_dinner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Highest_kill" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Second_winner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Third_winner" className={styles.checkbox_round} /></TableCell>
                             </TableRow>
                         </TableBody>
                         <TableBody>
                             <TableRow className={styles.table_row_cell}>
                                 <TableCell className={styles.table_data}>Naughty</TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Chicken_dinner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Highest_kill" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Second_winner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Third_winner" className={styles.checkbox_round} /></TableCell>
                             </TableRow>
                         </TableBody>
                         <TableBody>
                             <TableRow className={styles.table_row_cell}>
                                 <TableCell className={styles.table_data}>Mens</TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}> <input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Chicken_dinner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}> <input type="radio" name="Highest_kill" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Second_winner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Third_winner" className={styles.checkbox_round} /></TableCell>
                             </TableRow>
                         </TableBody>
                         <TableBody>
                             <TableRow className={styles.table_row_cell}>
                                 <TableCell className={styles.table_data}>Shouter</TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Chicken_dinner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Highest_kill" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Second_winner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Third_winner" className={styles.checkbox_round} /></TableCell>
                             </TableRow>
                         </TableBody>
                         <TableBody>
                             <TableRow className={styles.table_row_cell}>
                                 <TableCell className={styles.table_data}>Rockers</TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Chicken_dinner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Highest_kill" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Second_winner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Third_winner" className={styles.checkbox_round} /></TableCell>
                             </TableRow>
                         </TableBody>
                         <TableBody>
                             <TableRow className={styles.table_row_cell}>
                                 <TableCell className={styles.table_data}>Rockers</TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
-                                <TableCell className={styles.table_data}><input type="checkbox" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Chicken_dinner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Highest_kill" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Second_winner" className={styles.checkbox_round} /></TableCell>
+                                <TableCell className={styles.table_data}><input type="radio" name="Third_winner" className={styles.checkbox_round} /></TableCell>
                             </TableRow>
                         </TableBody>
 
