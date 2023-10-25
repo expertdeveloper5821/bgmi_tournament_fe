@@ -18,6 +18,7 @@ interface LoginProps {}
 interface FormValues {
   email: string;
   password: string;
+  rememberMe: boolean;
 }
 
 export function LoginForm(): React.JSX.Element {
@@ -26,29 +27,16 @@ export function LoginForm(): React.JSX.Element {
   const [role, setRole] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [getToken, setGetToken] = useState<any>('');
-  const { userInfo, updateUserInfo,updateToken } = useUserContext();
+  const { userInfo, updateUserInfo, updateToken } = useUserContext();
   const router = useRouter();
-
-  function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
-    setRememberMe(event.target.checked);
-  }
-
-  useEffect(() => {
-    const rememberMeValue = localStorage.getItem('rememberMe') === 'true';
-    setRememberMe(rememberMeValue);
-
-    const token = localStorage.getItem('jwtToken');
-    if (token) {
-      handleRedirect(token);
-    }
-  }, []);
+  const [isLoadingData, setLoadingData] = useState<boolean>(false);
+  const [errorData, showErrorData] = useState<string>('');
 
   const initialValues: FormValues = {
     email: '',
     password: '',
+    rememberMe: rememberMe,
   };
-
-  console.log('currentStep 4 ');
 
   const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
     useFormik({
@@ -57,19 +45,7 @@ export function LoginForm(): React.JSX.Element {
       onSubmit: async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
         setIsLoading(true);
         const { email, password } = values;
-        if (rememberMe) {
-          const expirationDate = new Date();
-          expirationDate.setDate(expirationDate.getDate() + 30);
-          localStorage.setItem('email', email);
-          localStorage.setItem('password', password);
-          localStorage.setItem('rememberMe', 'true');
-        } else {
-          localStorage.removeItem('email');
-          localStorage.removeItem('password');
-          localStorage.removeItem('rememberMe');
-        }
 
-        // manual login
         try {
           const response: any = await sendRequest('user/login', {
             method: 'POST',
@@ -80,21 +56,38 @@ export function LoginForm(): React.JSX.Element {
           const decodedToken: any = decodeJWt(response?.data?.userData?.token);
 
           if (response.status === 200) {
-            const userDetails = {
-              name: decodedToken?.fullName,
-              email: decodedToken?.email,
-            };
-         
-            updateUserInfo(userDetails);
-            updateToken(decodedToken);
+            // Below need to figure out why we want this.
+
+            // const userDetails = {
+            //   name: decodedToken?.fullName,
+            //   email: decodedToken?.email,
+            // };
+
+            // updateUserInfo(userDetails);
+            // updateToken(decodedToken);
 
             const date = new Date();
-            const expirationTime =  date.setHours(date.getHours() + 1);
+            const expirationTime = date.setHours(date.getHours() + 1);
             // Below line is for testing Purpose only.
             // const expirationTime =  date.setMinutes(date.getMinutes() + 1);
-            console.log('resonseeeeee 0==>', response, 'decodedToken', decodedToken,"expirationTime",expirationTime);
+
+            console.log(
+              'resonseeeeee 0==>',
+              response,
+              'decodedToken',
+              decodedToken,
+              'expirationTime',
+              expirationTime,
+            );
+            if (rememberMe) {
+              localStorage.setItem('rememberMe', rememberMe.toString());
+              localStorage.setItem('email', email);
+            } else {
+              localStorage.setItem('rememberMe', rememberMe.toString());
+              localStorage.removeItem('email');
+            }
             localStorage.setItem('jwtToken', response?.data?.userData?.token);
-            localStorage.setItem("expirationTime",expirationTime.toString())
+            localStorage.setItem('expirationTime', expirationTime.toString());
             handleRedirect(response?.data?.userData?.token);
           } else {
             setError('Invalid email or password');
@@ -108,9 +101,75 @@ export function LoginForm(): React.JSX.Element {
       },
     });
 
+  function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
+    console.log('REMEMBER ME ===>', event.target.checked);
+    setRememberMe(event.target.checked);
+  }
+
+  useEffect(() => {
+    let rememberMeValue: any = localStorage.getItem('rememberMe');
+    if (rememberMeValue) {
+      console.log('rememberMeValue 1==>', rememberMeValue);
+      if (rememberMeValue === 'true') {
+        setRememberMe(true);
+      } else if (rememberMeValue === 'false') {
+        setRememberMe(false);
+      }
+
+      console.log('rememberMeValue 2==>', rememberMeValue);
+      // if (rememberMeValue) {
+      //   setFieldValue('email', localStorage.getItem('email'));
+      // }
+    }
+    console.log('lets check value of rememberMeValue ==>', rememberMeValue);
+
+    const token = localStorage.getItem('jwtToken');
+    if (token) {
+      handleRedirect(token);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (rememberMe) {
+      setFieldValue('rememberMe', true);
+      if(values.email){
+        setFieldValue('email', values.email);
+      }else if(localStorage.getItem('email')){
+        setFieldValue('email', localStorage.getItem('email'));
+
+      }
+    } else if (!rememberMe) {
+      setFieldValue('rememberMe', false);
+    }
+  },[rememberMe])
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get('token');
+      if (token) {
+        handleVerifyToken(token);
+      }
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   const storedEmail = localStorage.getItem('email');
+  //   const storedPassword = localStorage.getItem('password');
+  //   if (storedEmail) {
+  //     setFieldValue('email', storedEmail);
+  //   }
+  //   if (storedPassword) {
+  //     setFieldValue('password', storedPassword);
+  //   }
+  // }, [setFieldValue]);
+
+  console.log('currentStep 4 ');
+
   const handleRedirect = (token: any) => {
     if (token) {
       const decodedToken: any = decodeJWt(token);
+
       if (decodedToken && decodedToken?.role?.role === 'user') {
         if (decodedToken?.upiId && decodedToken?.userName && decodedToken?.phoneNumber) {
           router.push('/userDashboard');
@@ -126,17 +185,6 @@ export function LoginForm(): React.JSX.Element {
       router.push('/auth/401');
     }
   };
-
-  useEffect(() => {
-    const storedEmail = localStorage.getItem('email');
-    const storedPassword = localStorage.getItem('password');
-    if (storedEmail) {
-      setFieldValue('email', storedEmail);
-    }
-    if (storedPassword) {
-      setFieldValue('password', storedPassword);
-    }
-  }, [setFieldValue]);
 
   // verify token
   const handleVerifyToken = async (token: string) => {
@@ -177,19 +225,6 @@ export function LoginForm(): React.JSX.Element {
       setError('Google Sign-In failed');
     }
   };
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const token = urlParams.get('token');
-      if (token) {
-        handleVerifyToken(token);
-      }
-    }
-  }, []);
-
-  const [isLoadingData, setLoadingData] = useState<boolean>(false);
-  const [errorData, showErrorData] = useState<string>('');
 
   const handleVerifyTokenInLogin = async (token: string) => {
     setLoadingData(true);
@@ -264,7 +299,13 @@ export function LoginForm(): React.JSX.Element {
       {errors.password && touched.password && <div className={styles.error}>{errors.password}</div>}
 
       <div className={styles.checkbox_wrapper}>
-        <input type="checkbox" id="rememberMe" name="rememberMe" onChange={handleRememberMe} />
+        <input
+          type="checkbox"
+          id="rememberMe"
+          name="rememberMe"
+          onChange={handleRememberMe}
+          checked={values.rememberMe}
+        />
         <label htmlFor="rememberMe" className={styles.rememberMe}>
           Remember Me
         </label>

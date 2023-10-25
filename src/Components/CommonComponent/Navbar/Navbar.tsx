@@ -31,7 +31,9 @@ export function Navbar(props: INavbar) {
 
   const handleLogout = async () => {
     try {
-      localStorage.clear();
+      // localStorage.clear();
+      localStorage.removeItem('jwtToken');
+      localStorage.removeItem('expirationTime');
       triggerHandleLogout();
       router.push('/');
     } catch (error) {

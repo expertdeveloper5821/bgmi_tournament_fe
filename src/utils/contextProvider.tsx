@@ -33,7 +33,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const router = useRouter();
 
-  console.log('DEBUGGING 4', userInfo);
+  console.log('DEBUGGING 4', userInfo,"children",children);
   const updateUserInfo = (newUserInfo: UserInfo) => {
     setUserInfo(newUserInfo);
   };
