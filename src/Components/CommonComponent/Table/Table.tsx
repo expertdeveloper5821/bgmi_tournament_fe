@@ -107,7 +107,6 @@ const TableData = (props: StudentProfilePropsType) => {
             return (
               <TableRow className={styles.table_rowdata} key={index}>
                 <TableCell className={styles.table_cell}>{studentData.StudentName}</TableCell>
-
                 <TableCell className={styles.table_cell}>{studentData.Student}</TableCell>
                 <TableCell className={styles.table_cell}>{studentData.studentID}</TableCell>
                 <TableCell className={styles.table_cell}>{studentData.Mobile}</TableCell>

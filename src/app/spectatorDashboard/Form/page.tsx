@@ -518,7 +518,7 @@ const Form = (props: any) => {
                               ))
                             }
                             {roomIdToUpdate && (
-                              <img src={roomIdToUpdate.mapImg} alt="Map Image" />
+                              <img src={roomIdToUpdate.mapImg} alt="Map Image" width={280} height={120} />
                             )}
                           </div>
                         </div>
