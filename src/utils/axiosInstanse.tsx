@@ -1,12 +1,11 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { configData } from './config';
-import { ApiResponse, Optionstype } from '@/types/axiosInstanceType';
 
 export const axiosInstance: AxiosInstance = axios.create({
   baseURL: `${configData.api.url}/api/${configData.api.ver}`,
 });
 
-export async function sendRequest<T>(path: string, opts: Optionstype<T>) {
+export async function sendRequest(path: string, opts: AxiosRequestConfig = {}) {
   const headers = {
     ...opts.headers,
     'Content-Type': 'application/json; charset=UTF-8',
@@ -22,7 +21,8 @@ export async function sendRequest<T>(path: string, opts: Optionstype<T>) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const response: AxiosResponse<ApiResponse<T>> = await axiosInstance({
+
+  const response: AxiosResponse = await axiosInstance({
     method: opts.method,
     url: path,
     data: opts.data,

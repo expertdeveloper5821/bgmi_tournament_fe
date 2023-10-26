@@ -1,3 +1,5 @@
+import {  AxiosRequestHeaders } from "axios";
+
 export interface ApiResponse<T> {
   code?: T;
   config?: T;
@@ -8,7 +10,11 @@ export interface ApiResponse<T> {
 }
 
 export interface Optionstype<T> {
-  headers?: T;
+  headers?: AxiosRequestHeaders
   method?: string;
   data?: T;
 }
+
+
+
+

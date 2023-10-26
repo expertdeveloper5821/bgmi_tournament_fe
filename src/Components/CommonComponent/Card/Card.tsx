@@ -7,23 +7,25 @@ interface CardProps {
   toOpen: (value: boolean) => void;
   forwardModalOpen: (value: boolean) => void;
   teamData: (value: any[]) => void;
-  fwdindex: (value: any) => void;
+  fwdindex: (value: number) => void;
 }
 const Card: React.FC<CardProps> = ({ fwdindex, toOpen, forwardModalOpen, teamData }) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [forwardModal, setForwardModal] = useState<boolean>(false);
   const [res, setRes] = useState<any>();
 
-  const handleOpenModal = (index: any) => {
+  const handleOpenModal = (index: number) => {
     setDeleteModal(true);
     toOpen(deleteModal);
     fwdindex(index);
   };
-  const openForwardModal = (index: any) => {
+
+  const openForwardModal = (index: number) => {
     setForwardModal(true);
     forwardModalOpen(forwardModal);
     fwdindex(index);
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,10 +40,11 @@ const Card: React.FC<CardProps> = ({ fwdindex, toOpen, forwardModalOpen, teamDat
     };
     fetchData();
   }, []);
+  
   return (
     <>
       {res &&
-        res.map((data: any, index: any) => {
+        res.map((data: any, index: number) => {
           const shortEmail = data.email.slice(0, 20);
           return (
             <div className={styles.reviewsContainer} key={index}>

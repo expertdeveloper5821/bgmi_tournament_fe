@@ -15,8 +15,9 @@ const Friend = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [emailList, setEmailList] = useState<string[]>([]);
-  const [fwdId, setFwdId] = useState<any>();
+  const [fwdId, setFwdId] = useState<number>();
 
+  console.log("inside userdashboard friends page component ==>")
   const handleModal = (value: boolean) => {
     setOpen(value);
   };
@@ -40,7 +41,7 @@ const Friend = () => {
       setInputValue('');
     }
   };
-  const handleForwardIndex = (value: any) => {
+  const handleForwardIndex = (value: number) => {
     setFwdId(value);
   };
   const handleOpenFwdModal = () => {
@@ -119,10 +120,11 @@ const Friend = () => {
       const accessToken = localStorage.getItem('jwttoken');
       const response = await sendRequest('/team/send-invite', {
         method: 'POST',
+        data:userData,
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-        body: userData,
+        
       });
 
       if (response.data.code) {
@@ -132,7 +134,7 @@ const Friend = () => {
           window.location.reload();
         }, 2000);
       }
-    } catch (error: any) {
+    } catch (error) {
       setEmailList([]);
       setMessage(error.response.data.message);
       setTimeout(() => {
