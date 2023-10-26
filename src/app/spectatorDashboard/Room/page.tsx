@@ -98,8 +98,8 @@ const Room = () => {
               </TableHeader>
 
               <TableBody>
-                {Spect?.map((spec, index) => (
-                  <TableRow key={index} className={styles.table_row_cell}>
+                {Spect?.map((spec: RoomData) => (
+                  <TableRow key={spec._id} className={styles.table_row_cell}>
                     <TableCell className={styles.el_tb_cell}>{spec?.roomId ?? '--'}</TableCell>
                     <TableCell className={styles.tb_cell_body}>{spec?.gameName ?? '--'}</TableCell>
                     <TableCell className={styles.el_tb_cell}>{spec?.gameType ?? '--'}</TableCell>
@@ -129,7 +129,7 @@ const Room = () => {
 
                     <TableCell className={styles.tb_cell_action}>
                       <div className={styles.flex}>
-                        <Deletespec Id={spec._id} getAllSpectator={getAllSpectator} />
+                        <Deletespec specId={spec._id} getAllSpectator={getAllSpectator} />
                         <button
                           className={styles.editbtn}
                           onClick={() => {

@@ -6,11 +6,11 @@ import { toast } from 'react-toastify';
 import { sendRequest } from '@/utils/axiosInstanse';
 
 interface DeleteProps {
-  Id: string;
+  specId: string;
   getAllSpectator: () => void;
 }
 
-const Deletespec = ({ Id, getAllSpectator }: DeleteProps) => {
+const Deletespec = ({ specId, getAllSpectator }: DeleteProps) => {
   const [deletModal, setDeleteModal] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -18,7 +18,7 @@ const Deletespec = ({ Id, getAllSpectator }: DeleteProps) => {
   const handleDelete = async () => {
     try {
       setIsLoading(true);
-      const deleteResponse = await sendRequest(`room/rooms/${Id}`, {
+      const deleteResponse = await sendRequest(`room/rooms/${specId}`, {
         method: 'DELETE',
       });
       if (deleteResponse.status === 200 || deleteResponse.status === 201) {
