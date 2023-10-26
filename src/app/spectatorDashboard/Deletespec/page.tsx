@@ -5,7 +5,12 @@ import styles from '@/styles/Spectator.module.scss';
 import { toast } from 'react-toastify';
 import { sendRequest } from '@/utils/axiosInstanse';
 
-const Deletespec = () => {
+interface DeleteSpecProps {
+  specId: string | number;
+  getAllSpectator: () => void;
+}
+
+const Deletespec = ({ specId, getAllSpectator }: DeleteSpecProps) => {
   const [deletModal, setDeleteModal] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -13,12 +18,12 @@ const Deletespec = () => {
   const handleDelete = async () => {
     try {
       setIsLoading(true);
-      const deleteResponse = await sendRequest(`room/rooms/test`, {
+      const deleteResponse = await sendRequest(`room/rooms/${specId}`, {
         method: 'DELETE',
       });
       if (deleteResponse.status === 200 || deleteResponse.status === 201) {
         toast.success(deleteResponse.data.message);
-        // getAllSpectator();
+        getAllSpectator();
         setIsLoading(false);
       } else {
         throw Error();
