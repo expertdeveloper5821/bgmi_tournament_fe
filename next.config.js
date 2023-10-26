@@ -4,6 +4,9 @@ const withPWA = require('next-pwa');
 const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   async redirects() {
     return [
       {
