@@ -14,11 +14,12 @@ const Deletespec = ({ specId, getAllSpectator }: DeleteSpecProps) => {
   const [deletModal, setDeleteModal] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [id] = useState<string | number>(specId);
 
   const handleDelete = async () => {
     try {
       setIsLoading(true);
-      const deleteResponse = await sendRequest(`room/rooms/${specId}`, {
+      const deleteResponse = await sendRequest(`room/rooms/${id}`, {
         method: 'DELETE',
       });
       if (deleteResponse.status === 200 || deleteResponse.status === 201) {

@@ -129,7 +129,7 @@ const Room = () => {
 
                     <TableCell className={styles.tb_cell_action}>
                       <div className={styles.flex}>
-                        <Deletespec />
+                        <Deletespec specId={spec?._id} getAllSpectator={getAllSpectator} />
                         <button
                           className={styles.editbtn}
                           onClick={() => {
