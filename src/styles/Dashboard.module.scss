@@ -1344,6 +1344,14 @@ body.activemodal {
   margin: 15px 0px;
   width: 100%;
 }
+.disabled_register_button{
+  background-color: #ea9373  !important;
+  cursor: no-drop;
+  border: transparent;
+  color: white !important;
+  margin: 15px 0px;
+  width: 100%;
+}
 
 .register_match_gamename {
   font-size: 22px;
@@ -1351,4 +1359,62 @@ body.activemodal {
   line-height: 34px;
   letter-spacing: 0.02em;
   margin: 10px 0px 0px 0px;
+}
+
+// search filter css
+
+.content_wrapper {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+}
+
+.input_desc{
+  // border: 1px solid black;
+  display: flex;
+  width: 95%;
+  margin-top: 1.5rem;
+  margin-right: 3rem;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+.button_wrapper{
+  margin-right: 1rem ;
+  background-color: $bs-orange !important;
+  border-radius: 4px;
+  margin-left: 1rem;
+}
+
+.role_Label{
+  display: block;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+.role_select{
+  display: block;
+    width: 200px;
+    border: 1px solid black;
+    margin: 20px auto;
+}
+
+.error_message{
+  color: red;
+}
+
+.create_spectator_form{
+  width: 25vw;
+}
+
+.search_input_box > input{
+  background: transparent;
+  border: none;
+  color: white;
+}
+
+.search_input_box > input::placeholder {
+  color: white;
 }

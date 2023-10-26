@@ -1,21 +1,26 @@
 'use client';
 import React, { useState } from 'react';
 import styles from '@/styles/friends.module.scss';
-Navbar;
 import { sendRequest } from '@/utils/axiosInstanse';
 import Image from 'next/image';
-import Card from '@/Components/CommonComponent/Card/Card';
-import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
-import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination';
+import Card, { UserTeamMember } from '@/Components/CommonComponent/Card/Card';
+import withAuth from '@/Components/HOC/WithAuthHoc';
+import { toast } from 'react-toastify';
+import { decodeJWt } from '@/utils/globalfunctions';
 
 const Friend = () => {
   const [open, setOpen] = useState(false);
   const [forwardModal, setForwardModal] = useState(false);
-  const [teamData, setTeamData] = useState([]);
+  const [, setTeamData] = useState<UserTeamMember[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [emailList, setEmailList] = useState<string[]>([]);
-  const [fwdId, setFwdId] = useState<number | undefined>();
+  const [, setFwdId] = useState<number>();
+  const [query, setQuery] = useState<string>('');
+  const [userMail, setUserMail] = useState<string>('');
+  const [newTeamName, setNewTeamName] = useState<string>('');
+  const token = localStorage.getItem('jwtToken');
+  const { teamName } = decodeJWt(token);
 
   const handleModal = (value: boolean) => {
     setOpen(value);
@@ -24,12 +29,15 @@ const Friend = () => {
   const handleCloseModal = () => {
     setOpen(false);
   };
+
   const handleCloseForwardModal = () => {
     setForwardModal(false);
   };
-  const handleTeamData = (value) => {
+
+  const handleTeamData = (value: UserTeamMember[]) => {
     setTeamData(value);
   };
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -40,94 +48,51 @@ const Friend = () => {
       setInputValue('');
     }
   };
-  const handleForwardIndex = (value) => {
+
+  const handleForwardIndex = (value: number) => {
     setFwdId(value);
   };
+
   const handleOpenFwdModal = () => {
     setForwardModal(true);
   };
+
   const handleForwardModal = (value: boolean) => {
     setForwardModal(value);
   };
-  const handleDelete = async () => {
+
+  const handleDeleteUser = async () => {
     try {
-      const data = teamData[fwdId];
-      const id = data.id;
-      const accessToken = localStorage.getItem('jwttoken');
-      const response = await sendRequest(`/team/deleteteam/${id}`, {
-        method: 'Delete',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
+      const response = await sendRequest(`/team/remove-team-mate`, {
+        method: 'DELETE',
+        data: {
+          teammateEmail: userMail,
         },
       });
-      if (response.data.code === 200) {
-        window.location.reload();
-      }
+      toast.success(response.data.message);
+      setOpen(false);
     } catch (error) {
-      // console.log(error);
+      toast.error('Something went worng');
     }
   };
 
-  // send email
-  // const sendEmail = async () => {
-  //   console.log(teamData[fwdId]);
-  //   try {
-  //     const data = teamData[fwdId];
-  //     const userData = {
-  //       leadPlayer: data.leadPlayer,
-  //       id: data.uuid,
-  //       emails: emailList,
-  //     };
-  //     console.log(userData);
-
-  //     const accessToken = localStorage.getItem('jwttoken');
-  //     const response = await sendRequest('/api/v1/team/addteam', {
-  //       method: 'POST',
-  //       headers: {
-  //         Authorization: `Bearer ${accessToken}`,
-  //       },
-  //       body: userData,
-  //     });
-  //     if (response.data.code === 200) {
-  //       setMessage(response.data.message)
-  //       setEmailList([]);
-  //       toast(response.data.message, {
-  //         position: 'top-center',
-  //       });
-  //       setTimeout(() => {
-  //         window.location.reload()
-  //       }, 2000);
-  //     }
-  //         } catch (error: any) {
-  //     setEmailList([]);
-  //     setMessage(error.response.data.message)
-  //     toast.error(error.response.data.message, {
-  //       position: 'top-center',
-  //     });
-  //     setTimeout(() => {
-  //       window.location.reload()
-  //     }, 2000);
-  //   }
-  // };
   const sendInviteByEmail = async () => {
     try {
       setForwardModal(true);
       const userData = {
+        teamName: teamName || newTeamName,
         emails: emailList,
       };
-
-      const accessToken = localStorage.getItem('jwttoken');
-      const response = await sendRequest('/team/send-invite', {
+      const response = await sendRequest('/user/send-invite', {
         method: 'POST',
         data: userData,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
       });
 
       if (response.data.code) {
         setMessage('Friends added Successfully');
         setEmailList([]);
+        setForwardModal(false);
+        toast.success(response.data.message);
         setTimeout(() => {
           window.location.reload();
         }, 2000);
@@ -144,99 +109,117 @@ const Friend = () => {
     const updatedEmailList = emailList.filter((_, index) => index !== indexToDelete);
     setEmailList(updatedEmailList);
   };
+
+  const handleSelect = () => {};
+
+  const handleSearch = (event) => {
+    const { value } = event.target;
+    setQuery(value);
+  };
+
+  const handleTeamName = ({ target }) => {
+    setNewTeamName(target.value);
+  };
+
   return (
-    <>
+    <div className={styles.friendsParentContainder}>
       <div className={styles.main_container}>
         <div className={styles.sub_container}>
           <div className={styles.header}>
             <h2>Invite your friends</h2>
             <span>Dashboard /invite your friends</span>
           </div>
-          <div className={styles.inputContainer}>
-            <input type="search" id="search" name="search" placeholder="Search by Name" />
-
-            <Image
-              src="/assests/search.svg"
-              alt="search"
-              height={20}
-              width={20}
-              className={styles.searchIcon}
-            />
+          <div className={styles.searchBar}>
+            <div className={styles.inputContainer}>
+              <input
+                type="search"
+                id="search"
+                name="search"
+                placeholder="Search by username"
+                onChange={handleSearch}
+              />
+              <Image
+                src="/assests/search.svg"
+                alt="search"
+                height={20}
+                width={20}
+                className={styles.searchIcon}
+              />
+            </div>
+            <div className={styles.btnContainer}>
+              <div>
+                <button className={styles.sendMailBtn} onClick={handleOpenFwdModal}>
+                  SEND INVITE BY EMAIL
+                </button>
+              </div>
+            </div>
           </div>
-          <div className={styles.btnContainer}>
+        </div>
+        <div className={styles.mainContainer}>
+          <div className={styles.filterTab}>
+            <h2>Your friend list</h2>
             <div className={styles.selectContainer}>
               <Image
                 src="/assests/sort.svg"
                 alt="sort"
-                height={10}
-                width={10}
+                height={22}
+                width={22}
                 className={styles.sortIcon}
               />
               <Image
-                src="/assests/downarrow.svg"
+                src="/assests/icons/downarrow.svg"
                 alt="arrow"
-                height={20}
-                width={20}
+                height={12}
+                width={12}
                 className={styles.arrowicon}
               />
-              <select className={styles.select}>
-                <option className={styles.sortByOption}> Sort By</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
+              <select className={styles.select} defaultValue={'Sort By'} onChange={handleSelect}>
+                <option className={styles.sortByOption}>Sort By</option>
+                <option value="active">Active first</option>
+                <option value="inactive">Inactive first</option>
+                <option value="atoz">A to Z</option>
+                <option value="ztoa">Z to A</option>
               </select>
             </div>
-            <div>
-              <button className={styles.sendMailBtn} onClick={handleOpenFwdModal}>
-                SEND INVITE BY EMAIL
-              </button>
-            </div>
           </div>
-        </div>
-        <div className={styles.cardContainer}>
+
           <div className={styles.card}>
             <Card
               fwdindex={handleForwardIndex}
               toOpen={handleModal}
               forwardModalOpen={handleForwardModal}
               teamData={handleTeamData}
-            />
-          </div>
-          <div className={styles.bannerContainer}>
-            <Image
-              src="/assests/friendsherobanner.svg"
-              alt="banner"
-              className={styles.cardbannerimg}
-              height={100}
-              width={100}
+              query={query}
+              setUserMail={setUserMail}
+              handleOpenFwdModal={handleOpenFwdModal}
             />
           </div>
         </div>
-        <div className={styles.pagination}>
-          <CustomPagination data={teamData} />
-        </div>
+        <div className={styles.pagination}>{/* <CustomPagination data={teamData} /> */}</div>
       </div>
       {/* deleteModal here */}
       {open ? (
         <div className={styles.modalBackground}>
           <div className={styles.modalContainer}>
-            <div className={styles.titleCloseBtn}>
-              <Image
-                src="/assests/delcancel.svg"
-                alt="delete"
-                height={100}
-                width={100}
-                onClick={handleCloseModal}
-              />
-            </div>
-            <div className={styles.title}>
-              <h1>Delete</h1>
+            <div className={styles.deleteModalHeader}>
+              <div className={styles.titleCloseBtn}>
+                <Image
+                  src="/assests/delcancel.svg"
+                  alt="delete"
+                  height={100}
+                  width={100}
+                  onClick={handleCloseModal}
+                />
+              </div>
+              <div className={styles.title}>
+                <h1>Delete</h1>
+              </div>
             </div>
             <div className={styles.body}>
               <p>Are you sure want to delete this?</p>
             </div>
             <div className={styles.footer}>
-              <button className={styles.deletebtn} onClick={handleDelete}>
+              <button className={styles.deletebtn} onClick={handleDeleteUser}>
                 Delete
               </button>
               <button className={styles.cancelbtn} onClick={handleCloseModal}>
@@ -257,15 +240,30 @@ const Friend = () => {
               <h1> {`<`} Invite your friends</h1>
             </div>
             <div className={styles.forwardModalbody}>
-              <input
-                type="search"
-                id="search"
-                name="search"
-                value={inputValue}
-                placeholder="Enter email press enter and send invitation"
-                onChange={handleInputChange}
-                onKeyDown={handleKeyPress}
-              />
+              {!teamName && (
+                <label>
+                  Enter you team name
+                  <input
+                    type="text"
+                    value={newTeamName}
+                    placeholder="Enter TeamName"
+                    onChange={handleTeamName}
+                    className={styles.teamName}
+                  />
+                </label>
+              )}
+              <label>
+                Enter your friends email
+                <input
+                  type="search"
+                  id="search"
+                  name="search"
+                  value={inputValue}
+                  placeholder="Enter email press enter and send invitation"
+                  onChange={handleInputChange}
+                  onKeyDown={handleKeyPress}
+                />
+              </label>
               {emailList.length > 0 &&
                 emailList.map((email, index) => {
                   const truncatedEmail = email.length > 15 ? email.substring(0, 15) + '...' : email;
@@ -304,8 +302,8 @@ const Friend = () => {
       ) : (
         ''
       )}
-    </>
+    </div>
   );
 };
 
-export default Friend;
+export default withAuth(Friend);

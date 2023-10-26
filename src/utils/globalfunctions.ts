@@ -10,8 +10,6 @@ interface userInfo {
 const decodeJWt = (token: string): userInfo | null => {
   if (token) {
     return jwt_decode(token);
-  } else {
-    return;
   }
 };
 

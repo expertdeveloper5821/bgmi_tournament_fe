@@ -1,4 +1,4 @@
-export const getIdPass = (dateAndTime: string) => {
+export const getIdPass = (dateAndTime) => {
   const REDUCE_TIME = 15 * 60 * 1000;
   const currentTime = new Date().getTime();
   const dateNumber = new Date(dateAndTime).getTime();
@@ -6,7 +6,7 @@ export const getIdPass = (dateAndTime: string) => {
   return currentTime >= reducedTime;
 };
 
-export const getPageName = (path: string) => {
+export const getPageName = (path) => {
   switch (path) {
     case 'registerMatches':
       return 'Registered Matches';
@@ -17,3 +17,14 @@ export const getPageName = (path: string) => {
       return '';
   }
 };
+
+export function debounce(func, delay) {
+  let timeoutId;
+
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}

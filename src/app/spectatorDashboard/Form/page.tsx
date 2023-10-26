@@ -1,9 +1,9 @@
 'use client';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 //@ts-ignore
-import { Button, Input, Select } from 'technogetic-iron-smart-ui';
-import { useFormik, FormikHelpers } from 'formik';
+import { Button, Input } from 'technogetic-iron-smart-ui';
+import { useFormik } from 'formik';
 import { validationSchema } from '@/utils/schema';
 import { sendRequest } from '@/utils/axiosInstanse';
 import { ChangeEvent } from 'react';
@@ -22,7 +22,7 @@ interface FormCreate {
   highestKill: string;
   secondWin: string;
   entryFee: string;
-  mapImg: any | null;
+  mapImg: string | null;
 }
 
 const initial: FormCreate = {
@@ -47,22 +47,9 @@ const Form = ({ ...props }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [image, setImage] = useState<File | null>(null);
-  const [initialValues, setInitialValues] = useState(initial);
+  const [initialValues] = useState(initial);
 
-  const {
-    roomId,
-    gameName,
-    gameType,
-    mapType,
-    version,
-    lastSurvival,
-    thirdWin,
-    secondWin,
-    highestKill,
-    entryFee,
-  } = roomIdToUpdate || '';
-
-  const handleChange = (e: any) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({
       ...values,
@@ -74,6 +61,8 @@ const Form = ({ ...props }) => {
     useFormik<FormCreate>({
       initialValues,
       validationSchema,
+      // TODO add type for this
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onSubmit: async (values: any, { resetForm }) => {
         const dateTimeString = new Date(`${values.date} ${values.time}`);
         values.dateAndTime = dateTimeString;
@@ -86,13 +75,13 @@ const Form = ({ ...props }) => {
 
         try {
           setIsLoading(true);
-          const token = localStorage.getItem('jwtToken');
           const response = await sendRequest(
             `room/rooms/${roomIdToUpdate ? roomIdToUpdate._id : ''}`,
             {
               method: roomIdToUpdate ? 'PUT' : 'POST',
               headers: {
                 'Content-Type': 'multipart/form-data',
+                Authorization: '',
               },
               data: form,
             },
@@ -108,7 +97,7 @@ const Form = ({ ...props }) => {
             setError('Failed to Add room. Please try again.');
             toast.error('Failed to Add room. Please try again.');
           }
-        } catch (error: any) {
+        } catch (error) {
           setIsLoading(false);
           setRoomIdToUpdate('');
           setError('Failed to Add room. Please try again.');

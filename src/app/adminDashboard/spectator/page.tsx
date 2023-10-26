@@ -1,110 +1,65 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import styles from '@/styles/Dashboard.module.scss';
-import { sendRequest } from '@/utils/axiosInstanse';
 //@ts-ignore
-import { Input, Button } from 'technogetic-iron-smart-ui';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
-import TableData, { StudentProfile } from '@/Components/CommonComponent/Table/Table';
+import TableData from '@/Components/CommonComponent/Table/Table';
 import { toast } from 'react-toastify';
-import Image from 'next/image';
-
-interface FormCreate {
-  fullName: string;
-  userName: string;
-  email: string;
-  password: string;
-  role: any;
-}
+import {
+  deleteRoleService,
+  getAllUsersDataService,
+  registerSpectatorService,
+  updateRoleService,
+} from '@/services/authServices';
+import {
+  FormDataType,
+  ModalType,
+  RoleType,
+  SpectatorDataType,
+  SpectatorEditDataType,
+} from '@/types/spectatorTypes';
+import { addFormValidations } from '@/utils/schema';
+import { CreateSpectatorOrAssignRoleForm } from '@/Components/Forms/CreateSpectatorOrAssignRoleForm';
 
 export default function Modal() {
-  const [spectatorData, setSpectatorData] = useState<StudentProfile[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isupdateData, setIsUpdateData] = useState<any>(null);
-  const imageIcon: string = 'spectator';
-  const [getSpectatorId, setSetSpectatorId] = useState<any>();
-  const [specRoleId, setSpecRoleId] = useState<any>();
-
-  const [modal, setModal] = useState(false);
-  const [formErrors, setFormErrors] = useState<FormCreate>({
+  const [spectatorData, setSpectatorData] = useState<SpectatorDataType[] | []>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [modal, setModal] = useState<ModalType>({ isOpen: false, buttonVal: '' });
+  const [formErrors, setFormErrors] = useState<FormDataType>({
     fullName: '',
     userName: '',
     email: '',
     password: '',
-    role: specRoleId,
   });
+  const [allspectatorData, setAllspectatorData] = useState<SpectatorDataType[] | []>([]);
+  const [formData, setFormData] = useState<FormDataType>({
+    fullName: '',
+    userName: '',
+    email: '',
+    password: '',
+  });
+  const [roles, setRoles] = useState<RoleType[] | undefined>();
+  const [isDisabled, setDisabled] = useState<boolean>(false);
+
+  const columns: string[] = ['Full Name', 'User Name', 'Email'];
 
   const getAllUsers = async () => {
     setIsLoading(true);
     try {
-      const tokens = localStorage.getItem('jwtToken');
-      const allUsersData: any = await sendRequest('/user/getalluser', {
-        method: 'GET',
-        headers: { Authorization: `Bearer ${tokens}` },
-      });
-      if (allUsersData.status === 200) {
-        const allspectatorData = allUsersData?.data?.data;
-        const filteredData = allspectatorData.filter((spectator: any) => {
-          return spectator.role.role === 'spectator';
-        });
-        setSpectatorData(filteredData);
-
-        setIsLoading(false);
-        setSpecRoleId(filteredData[0].role._id);
-      } else {
-        console.error('Failed to fetch users:', allUsersData.statusText);
-      }
-    } catch (error) {
-      console.error('An error occurred:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const deleteroomId = async (userUuid: any) => {
-    try {
-      setIsLoading(true);
-      const tokens = localStorage.getItem('jwtToken');
-      const response: any = await sendRequest(`/role/deleterole/${userUuid}`, {
-        method: 'delete',
-        headers: { Authorization: `Bearer ${tokens}` },
-      });
-
-      setIsLoading(false);
-      getAllUsers();
-
-      if (response) {
-        const success = response.data.message;
-        toast.success(success);
-      }
-      setSpectatorData(spectatorData);
-    } catch (error) {
-      console.error('Error deleting room:', error);
-      setIsLoading(false);
-      toast.error('An error occurred while deleting the room.');
-    }
-  };
-
-  const toggleModal = (userid: string) => {
-    setModal(!modal);
-    setSetSpectatorId(userid || null);
-    setFormData(initialFormData);
-  };
-
-  const updateSpectatorByid = async () => {
-    try {
-      setIsLoading(true);
       const token = localStorage.getItem('jwtToken');
-      const response: any = await sendRequest(`/role/updaterole/${getSpectatorId.userUuid}`, {
-        method: 'PUT',
-        headers: { Authorization: `Bearer ${token}` },
-        data: formData,
+      const response = await getAllUsersDataService(token);
+      const allspectatorData = response?.data?.data;
+      setAllspectatorData(allspectatorData);
+      const filteredData = allspectatorData.filter((spectator: SpectatorDataType) => {
+        return spectator?.role?.role === 'spectator';
       });
-      getAllUsers();
-      setSetSpectatorId(null);
+      setSpectatorData(filteredData);
+
+      setIsLoading(false);
     } catch (error) {
-      console.error('Error deleting room', error);
+      toast.error(error?.message);
+      setIsLoading(false);
     }
   };
 
@@ -112,88 +67,133 @@ export default function Modal() {
     getAllUsers();
   }, []);
 
-  const columns: string[] = ['Full Name', 'User Name', 'Email'];
+  useEffect(() => {
+    if (modal?.buttonVal === 'Create') {
+      if (
+        formErrors?.fullName?.length ||
+        !formData?.fullName?.length ||
+        formErrors?.userName?.length ||
+        !formData?.userName?.length ||
+        formErrors?.email?.length ||
+        !formData?.email?.length ||
+        formErrors?.password?.length ||
+        !formData?.password?.length
+      ) {
+        setDisabled(true);
+      } else {
+        setDisabled(false);
+      }
+    } else if (modal?.buttonVal === 'Assign') {
+      if (formData?.role?.role !== 'spectator') {
+        setDisabled(false);
+      } else {
+        setDisabled(true);
+      }
+    }
+  }, [formErrors, formData]);
 
-  const initialFormData: FormCreate = {
-    fullName: getSpectatorId != null ? getSpectatorId?.fullName : '',
-    userName: getSpectatorId != null ? getSpectatorId?.userName : '',
-    email: getSpectatorId?.email || '',
-    password: getSpectatorId?.password || '',
-    role: specRoleId,
+  const deleteroom = async (userUuid: string) => {
+    setIsLoading(true);
+    try {
+      const token = localStorage.getItem('jwtToken');
+      const response = await deleteRoleService({ userUuid, token });
+      setIsLoading(false);
+      getAllUsers();
+      toast.success(response?.data?.message);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error?.message);
+    }
   };
 
-  const [formData, setFormData] = useState<FormCreate>(initialFormData);
-
-  useEffect(() => {
-    if (getSpectatorId) {
-      setFormData(initialFormData);
-    }
-    if (!getSpectatorId) {
-      const initialFormData: FormCreate = {
-        fullName: '',
-        userName: '',
-        email: '',
-        password: '',
-        role: specRoleId,
-      };
-      setFormData(initialFormData);
-    }
-  }, [getSpectatorId]);
-
-  console.log('FormData', formData);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    if (modal?.buttonVal === 'Create') {
+      addFormValidations(name, value, setFormErrors);
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    } else if (modal?.buttonVal === 'Assign') {
+      roles.forEach((role) => {
+        if (role?._id === value) {
+          setFormData({ role: { _id: role?._id, role: role?.role, userUuid: role?.userUuid } });
+        }
+      });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!formData.fullName || !formData.userName || !formData.email || !formData.password) {
-      setFormErrors({
-        fullName: formData.fullName ? '' : 'Please Enter your FullName',
-        userName: formData.userName ? '' : 'Please Enter your User Name ',
-        email: formData.email ? '' : 'Please Enter your Email ',
-        password: formData.password ? '' : ' Please Enter your Password ',
-        role: '',
-      });
-      return;
-    }
-
+    setIsLoading(true);
     setFormErrors({
       fullName: '',
       userName: '',
       email: '',
       password: '',
-      role: specRoleId,
     });
 
-    const token: any = localStorage.getItem('jwtToken');
-    setFormData({ ...initialFormData, role: '64d5d42ee428f9561c3a125f' });
+    setFormData({
+      fullName: '',
+      userName: '',
+      email: '',
+      password: '',
+    });
 
-    try {
-      const response = await sendRequest('/role/spectator/Register', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
-        data: formData,
-      });
-      if (response.status === 200) {
-        console.log('added Spectator Successfully');
-      } else {
-        console.log('Something Wrong, Please Try Again Later');
+    const token: string = localStorage.getItem('jwtToken');
+
+    if (spectatorData?.length) {
+      try {
+        if (modal?.buttonVal === 'Create') {
+          await registerSpectatorService({ token, formData, spectatorData });
+        } else if (modal?.buttonVal === 'Assign') {
+          await updateRoleService({ token, formData });
+        }
+        setIsLoading(false);
+        getAllUsers();
+      } catch (error) {
+        setIsLoading(false);
+        toast.error(error?.message);
       }
-    } catch (error: any) {
-      console.log('Please try again.');
     }
-    console.log('Form data submitted:', formData);
-    setModal(false);
-    setSetSpectatorId(null);
+    setModal({ isOpen: false, buttonVal: '' });
   };
-  console.log(getSpectatorId);
+
+  const handleEdit = (spectatorData: SpectatorEditDataType) => {
+    setDisabled(true);
+    if (spectatorData) {
+      setModal({ isOpen: true, buttonVal: 'Assign' });
+      setRoles([
+        {
+          role: 'spectator',
+          _id: allspectatorData.find(
+            (spec: SpectatorEditDataType) => spec?.role?.role === 'spectator',
+          )?.role?._id,
+          userUuid: spectatorData?.userUuid,
+        },
+        {
+          role: 'admin',
+          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'admin')
+            ?.role?._id,
+          userUuid: spectatorData?.userUuid,
+        },
+        {
+          role: 'user',
+          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'user')
+            ?.role?._id,
+          userUuid: spectatorData?.userUuid,
+        },
+      ]);
+
+      setFormData({
+        role: {
+          _id: spectatorData?.role?._id,
+          role: spectatorData?.role?.role,
+          userUuid: spectatorData?.userUuid,
+        },
+      });
+    }
+  };
 
   return (
     <>
@@ -205,7 +205,8 @@ export default function Modal() {
               <h1 className={styles.head}>Welcome to Admin Dashboard</h1>
               <button
                 onClick={() => {
-                  setModal(true);
+                  setModal({ isOpen: true, buttonVal: 'Create' });
+                  setDisabled(true);
                 }}
                 className={styles.btnmodal}
               >
@@ -216,103 +217,49 @@ export default function Modal() {
               <Loader />
             ) : (
               <TableData
-                studentData={spectatorData}
+                data={spectatorData}
                 columns={columns}
-                showAdditionalButton={true}
+                type={'SPECTATOR'}
+                deleteroom={deleteroom}
+                handleEdit={handleEdit}
               />
             )}
           </div>
         </div>
       </div>
 
-      {modal && (
+      {modal?.isOpen && (
         <div className={styles.modal}>
           <div
             onClick={() => {
-              setModal(false);
-              setSetSpectatorId(null);
+              setModal({ isOpen: false, buttonVal: '' });
+              setFormErrors({
+                fullName: '',
+                userName: '',
+                email: '',
+                password: '',
+              });
+              setFormData({
+                fullName: '',
+                userName: '',
+                email: '',
+                password: '',
+              });
             }}
             className={styles.overlay}
           ></div>
-          <div className={styles.modalcontent}>
-            <div>
-              <form onSubmit={handleSubmit}>
-                <div className={styles.text}>
-                  <label className={styles.name}>Full Name:</label>
-                  <Input
-                    type="text"
-                    name="fullName"
-                    placeholder="Enter Fullname"
-                    className={styles.email_wrapper}
-                    value={formData.fullName}
-                    onChange={handleChange}
-                  />
-                  {formErrors.fullName && <div className={styles.error}>{formErrors.fullName}</div>}
-                </div>
-                <div className={styles.text}>
-                  <label className={styles.name}>User Name:</label>
-                  <Input
-                    type="text"
-                    name="userName"
-                    placeholder="Enter Username"
-                    className={styles.email_wrapper}
-                    value={formData.userName}
-                    onChange={handleChange}
-                  />
-                  {formErrors.userName && <div className={styles.error}>{formErrors.userName}</div>}
-                </div>
-                <div className={styles.text}>
-                  <label className={styles.name}>Email:</label>
-                  <Input
-                    type="email"
-                    name="email"
-                    className={styles.email_wrapper}
-                    placeholder="Enter Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                  />
-                  {formErrors.email && <div className={styles.error}>{formErrors.email}</div>}
-                </div>
-                <div className={styles.text}>
-                  <label className={styles.name}>Password:</label>
-                  <Input
-                    type="password"
-                    name="password"
-                    placeholder="Enter Password"
-                    className={styles.email_wrapper}
-                    value={formData.password}
-                    onChange={handleChange}
-                  />
-                  {formErrors.password && <div className={styles.error}>{formErrors.password}</div>}
-                </div>
-
-                {getSpectatorId ? (
-                  <div className={styles.flex_row}>
-                    <button onClick={updateSpectatorByid} className={styles.update_button}>
-                      Update
-                    </button>
-                  </div>
-                ) : (
-                  <button type="submit" className={styles.register_button}>
-                    Register
-                  </button>
-                )}
-              </form>
-            </div>
-            <Button className={styles.closemodal}>
-              <Image
-                className={styles.close}
-                src="../assests/cross.svg"
-                alt="close"
-                width={10}
-                height={10}
-                onClick={() => {
-                  setModal(false);
-                  setSetSpectatorId(null);
-                }}
-              />
-            </Button>
-          </div>
+          <CreateSpectatorOrAssignRoleForm
+            setModal={setModal}
+            setFormErrors={setFormErrors}
+            setFormData={setFormData}
+            handleSubmit={handleSubmit}
+            modal={modal}
+            formData={formData}
+            handleChange={handleChange}
+            formErrors={formErrors}
+            roles={roles}
+            isDisabled={isDisabled}
+          />
         </div>
       )}
     </>
