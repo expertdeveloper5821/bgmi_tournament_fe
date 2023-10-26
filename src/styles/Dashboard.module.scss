@@ -143,6 +143,7 @@
 .reg_match_image_container {
   // flex: 2 1 0;
   max-width: 100%;
+  border: 1px solid #003554;
   img {
     object-fit: cover;
     width: 100%;
@@ -325,7 +326,7 @@
   overflow: hidden;
   border-radius: 8px;
   cursor: pointer;
-  min-width: 200px;
+  width: 260px;
 }
 
 .join_button {

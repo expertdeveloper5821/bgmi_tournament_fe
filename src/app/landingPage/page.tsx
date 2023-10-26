@@ -1,11 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/landingpage.module.scss';
-import useWindowSize from '@/hooks/useWindowSize';
 import NavBar from './navBar/page';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
-import { toast } from 'react-toastify';
 import CustomCursor from './customCursor/page';
 import Link from 'next/link';
 import { formatTime } from '@/Components/CommonComponent/moment';
@@ -42,7 +40,6 @@ const page = () => {
     setId(id);
   };
 
-  const [width] = useWindowSize();
   useEffect(() => {
     const fetchData = async () => {
       const response = await sendRequest(`room/rooms`, {
@@ -80,11 +77,6 @@ const page = () => {
   const handleButtonHover2 = () => {
     setContent(
       'Dive into intense BGMI battles, showcase your skills, and climb the leaderboard to win cash rewards',
-    );
-  };
-  const handleButtonHover3 = () => {
-    setContent(
-      'Create your free account in just a few simple steps and join our ever-growing gaming community',
     );
   };
 
@@ -644,10 +636,10 @@ const page = () => {
             alt="shootingStar"
           />
           <div className={styles.anchorTags}>
-            <Link className={styles.ancor} href="policy.html" target="_blank">
+            <Link className={styles.ancor} href="/landingPage/privacy" target="_blank">
               Privacy Policy
             </Link>
-            <Link className={styles.ancor} href="terms.html" target="_blank">
+            <Link className={styles.ancor} href="/landingPage/termsCondition" target="_blank">
               Terms & conditions
             </Link>
             <Link className={styles.ancor} href="">

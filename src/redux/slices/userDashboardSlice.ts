@@ -14,9 +14,6 @@ const userDashboardSlice = createSlice({
     onSelectMatch(state, action) {
       state.selectedMatch = action.payload;
     },
-    onResetJoinMessage(state, action) {
-      state.joinMatchMessage = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -35,7 +32,7 @@ const userDashboardSlice = createSlice({
       })
       .addCase(getAllRooms.rejected, (state, action) => {
         state.allRoomsLoading = false;
-        state.allRoomsError = action.payload as string;
+        state.allRoomsError = action.error.message;
       })
       .addCase(getRegRooms.pending, (state) => {
         state.regRoomsLoading = true;
@@ -50,20 +47,19 @@ const userDashboardSlice = createSlice({
       })
       .addCase(getRegRooms.rejected, (state, action) => {
         state.regRoomsLoading = false;
-        state.regRoomsError = action.payload as string;
+        state.regRoomsError = action.payload;
       })
       .addCase(joinMatch.pending, (state) => {
         state.joinMatchLoading = true;
         state.joinMatchError = null;
       })
-      .addCase(joinMatch.fulfilled, (state, action) => {
-        state.joinMatchMessage = action.payload?.message;
+      .addCase(joinMatch.fulfilled, (state) => {
         state.joinMatchLoading = false;
         state.joinMatchError = null;
       })
       .addCase(joinMatch.rejected, (state, action) => {
         state.joinMatchLoading = false;
-        state.joinMatchError = action.payload as string;
+        state.joinMatchError = action.error.message;
       })
       .addCase(getMatchDetails.pending, (state) => {
         state.matchDataLoading = true;
@@ -76,11 +72,11 @@ const userDashboardSlice = createSlice({
       })
       .addCase(getMatchDetails.rejected, (state, action) => {
         state.matchDataLoading = false;
-        state.matchDataError = action.payload as string;
+        state.matchDataError = action.error.message;
       });
   },
 });
 
-export const { onSelectMatch, onResetJoinMessage } = userDashboardSlice.actions;
+export const { onSelectMatch } = userDashboardSlice.actions;
 
 export default userDashboardSlice.reducer;

@@ -51,7 +51,6 @@ export interface IUserDashboard {
   regRoomsLoading: boolean;
   regRoomsError: string | unknown;
   joinMatchLoading: boolean;
-  joinMatchMessage: null | string;
   joinMatchError: null | string;
   matchData: IMatchData | Record<string, string>;
   matchDataLoading: boolean;

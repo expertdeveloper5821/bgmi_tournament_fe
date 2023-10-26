@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { configData } from './config';
+import { toast } from 'react-toastify';
 // const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 // const apiVersion = process.env.NEXT_PUBLIC_API_BASE_VER;
 export const axiosInstance: AxiosInstance = axios.create({
@@ -12,7 +13,8 @@ axiosInstance.interceptors.response.use(
   },
   function (error) {
     if (error.response.status === 401) {
-      //logout
+      // logout if 401 token expire
+      toast.error('Session expired');
       localStorage.clear();
       window.location.href = '/';
     }
@@ -42,6 +44,6 @@ export async function sendRequest(path: string, opts: AxiosRequestConfig = {}) {
     });
     return response;
   } catch (error) {
-    return error?.message || error?.response?.data?.message;
+    return error;
   }
 }

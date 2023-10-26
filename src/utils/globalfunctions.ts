@@ -1,6 +1,13 @@
 import jwt_decode from 'jwt-decode';
 
-const decodeJWt = (token: string): void => {
+interface userInfo {
+  fullName: string;
+  teamName: string;
+  userId: string;
+  userUuid: string;
+  email: string;
+}
+const decodeJWt = (token: string): userInfo | null => {
   if (token) {
     return jwt_decode(token);
   } else {
