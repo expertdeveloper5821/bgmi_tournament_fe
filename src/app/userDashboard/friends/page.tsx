@@ -11,11 +11,11 @@ import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination
 const Friend = () => {
   const [open, setOpen] = useState(false);
   const [forwardModal, setForwardModal] = useState(false);
-  const [teamData, setTeamData] = useState<any[]>([]);
+  const [teamData, setTeamData] = useState([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [emailList, setEmailList] = useState<string[]>([]);
-  const [fwdId, setFwdId] = useState<any>();
+  const [fwdId, setFwdId] = useState<number | undefined>();
 
   const handleModal = (value: boolean) => {
     setOpen(value);
@@ -27,7 +27,7 @@ const Friend = () => {
   const handleCloseForwardModal = () => {
     setForwardModal(false);
   };
-  const handleTeamData = (value: any) => {
+  const handleTeamData = (value) => {
     setTeamData(value);
   };
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +40,7 @@ const Friend = () => {
       setInputValue('');
     }
   };
-  const handleForwardIndex = (value: any) => {
+  const handleForwardIndex = (value) => {
     setFwdId(value);
   };
   const handleOpenFwdModal = () => {
@@ -119,10 +119,10 @@ const Friend = () => {
       const accessToken = localStorage.getItem('jwttoken');
       const response = await sendRequest('/team/send-invite', {
         method: 'POST',
+        data: userData,
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-        body: userData,
       });
 
       if (response.data.code) {
@@ -132,7 +132,7 @@ const Friend = () => {
           window.location.reload();
         }, 2000);
       }
-    } catch (error: any) {
+    } catch (error) {
       setEmailList([]);
       setMessage(error.response.data.message);
       setTimeout(() => {
