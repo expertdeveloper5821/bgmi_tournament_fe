@@ -10,7 +10,6 @@ const withAuth = (WrappedComponent: any) => {
       // Fetch user data here and set it using setUser
       // For example:
       const token = localStorage.getItem('jwtToken');
-      console.log('jwtToken', token);
       setUser(token);
       setLoading(false);
     }, []);

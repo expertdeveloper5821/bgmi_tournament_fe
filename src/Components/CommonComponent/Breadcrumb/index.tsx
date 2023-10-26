@@ -14,7 +14,7 @@ const Breadcrumb: React.FC = () => {
       case 'registerMatches':
         return 'Registered matches';
       case 'tournament':
-        return 'Tournament'
+        return 'Tournament';
       default:
         return name;
     }

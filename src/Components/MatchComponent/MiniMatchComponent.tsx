@@ -1,10 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
-import styles from '@/styles/Dashboard.module.scss';
 import { useRouter } from 'next/navigation';
 import { formatDate, formatTime } from '../CommonComponent/moment';
-import { IMatchProps } from '@/app/userDashboard/types';
-import { getIdPass } from '@/app/userDashboard/constants';
+import { IMatchProps } from '@/redux/types';
+import { getIdPass } from '@/utils/commonFunction';
+import styles from '@/styles/Dashboard.module.scss';
 
 const MiniMatchComponent = ({ match }: IMatchProps) => {
   const router = useRouter();
@@ -15,7 +15,10 @@ const MiniMatchComponent = ({ match }: IMatchProps) => {
 
   return (
     <div className={styles.container3}>
-      <div className={styles.reg_match_image_container} style={{ position: 'relative' }}>
+      <div
+        className={styles.reg_match_image_container}
+        style={{ position: 'relative', overflow: 'hidden', borderRadius: '8px' }}
+      >
         <Image
           src={match?.mapImg || '../assests/registeredmatches.svg'}
           alt={`${styles.slide}`}
