@@ -17,21 +17,6 @@ interface FormValues {
   password: string;
 }
 
-export interface DecodedToken {
-  email: string;
-  exp: number;
-  fullName: string;
-  iat: number;
-  role: {
-    _id: number;
-    role: string;
-  };
-  teamName: null;
-  userId: string;
-  userName: string;
-  userUuid: string;
-}
-
 function Login(): React.JSX.Element {
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -110,7 +95,8 @@ function Login(): React.JSX.Element {
 
   const handleRedirect = (token: string) => {
     if (token) {
-      const decodedToken: DecodedToken = decodeJWt(token);
+      const decodedToken = decodeJWt(token);
+      console.log(decodedToken, 'token');
       if (decodedToken?.role?.role === 'admin') {
         router.push('/adminDashboard/room');
       } else if (decodedToken.role.role === 'user') {

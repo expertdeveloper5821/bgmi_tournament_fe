@@ -1,13 +1,21 @@
 import jwt_decode from 'jwt-decode';
 
-interface userInfo {
-  fullName: string;
-  teamName: string;
-  userId: string;
-  userUuid: string;
+export interface DecodedToken {
   email: string;
+  exp: number;
+  fullName: string;
+  iat: number;
+  role: {
+    _id: number;
+    role: string;
+  };
+  teamName: null;
+  userId: string;
+  userName: string;
+  userUuid: string;
 }
-const decodeJWt = (token: string): userInfo | null => {
+
+const decodeJWt = (token: string): DecodedToken | null => {
   if (token) {
     return jwt_decode(token);
   }
