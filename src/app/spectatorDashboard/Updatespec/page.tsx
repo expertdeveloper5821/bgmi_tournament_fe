@@ -13,10 +13,11 @@ import { sendRequest } from '@/utils/axiosInstanse';
 //   getAllSpectator: () => void;
 //   updateRoom: () => void;
 // }
-const Updatespec = ({ roomData, getAllSpectator }) => {
+// Todo Fix this
+const Updatespec = () => {
   const [error, setError] = useState<string>('');
   const [editModal, setEditModal] = useState(false);
-  const [updateFormData, setUpdateFormData] = useState<RoomData>(roomData);
+  const [updateFormData, setUpdateFormData] = useState<RoomData>();
 
   const updateRoom = async (e) => {
     e.preventDefault();
@@ -38,7 +39,8 @@ const Updatespec = ({ roomData, getAllSpectator }) => {
     };
 
     try {
-      const updateResponse = await sendRequest(`room/rooms/${roomData._id}`, {
+      // Fix this
+      const updateResponse = await sendRequest(`room/rooms/test`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -48,7 +50,6 @@ const Updatespec = ({ roomData, getAllSpectator }) => {
       });
 
       if (updateResponse) {
-        getAllSpectator();
         toast.success(updateResponse.data.message);
         setEditModal(false);
       }
