@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 export interface RoomData {
   dateAndTime: string;
   roomId: string;
-  _id: string;
+  _id: string | number;
   password: string;
   gameName: string;
   gameType: string;
