@@ -79,6 +79,20 @@ const personDetailSchema = Yup.object().shape({
   // .required('Phone number is required'),
 });
 
+const teamsDetailsSchema =Yup.object().shape({
+  teamName:Yup.string().required('Team name must contain at least three letters or digits.').matches(/^[a-zA-Z0-9]{3,}$/, {
+    message: 'Team name must contain at least three letters or digits.',
+  }),
+  // emails: Yup.string()
+  // .email('Invalid email')
+  // .required('Please enter your email')
+  // .matches(emailRegex, 'Invalid email')
+  emails:Yup.array().of(
+    Yup.string().email('Invalid email').matches(emailRegex, 'Invalid email')
+  ).min(1, 'At least one valid email is required')
+});
+
+
 const addFormValidations = (name, value, setFormErrors) => {
   if (name === 'fullName') {
     if (value?.length < 3) {
@@ -159,5 +173,6 @@ export {
   validationSchema,
   personDetailSchema,
   forgetPasswordSchema,
+  teamsDetailsSchema,
   addFormValidations,
 };

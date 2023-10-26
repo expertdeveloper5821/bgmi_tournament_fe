@@ -95,20 +95,20 @@
 }
 
 @media (max-width: $breakpoint-xs) {
- .google_finsh{
-  width: 100%;
- }
+  .google_finsh {
+    width: 100%;
+  }
 }
 @media (max-width: $breakpoint-sm) {
   .editBtn {
-display: none;
+    display: none;
   }
 }
 @media (max-width: $breakpoint-md) {
   .google_btn {
     width: 100%;
   }
-  
+
   .editBtn {
     bottom: 30rem;
     display: none;
@@ -179,4 +179,10 @@ display: none;
 }
 .error {
   color: red !important;
+}
+
+.multiple_emails_input > input {
+  width: 100%;
+  border: none;
+  background-color: rgb(205, 224, 237);
 }

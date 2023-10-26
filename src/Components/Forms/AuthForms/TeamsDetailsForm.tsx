@@ -1,94 +1,87 @@
 'use client';
 import Image from 'next/image';
 
-import { Dispatch, SetStateAction } from 'react';
 import styles from '@/styles/personal_detail.module.scss';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
-// import { FormDefaultPropsType } from '../authInterfaces';
-import React, { useState, KeyboardEvent } from 'react';
-import { useFormik } from 'formik';
+import React, { useState } from 'react';
+import { FormikHelpers, useFormik } from 'formik';
 import { sendInviteService } from '@/services/authServices';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import { teamsDetailsSchema } from '@/utils/schema';
+import { TeamsDetailsFormValues } from '@/types/formsTypes';
 
-// export const TeamsDetailsForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => {
+const initialValues: TeamsDetailsFormValues = {
+  teamName: '',
+  emails: [],
+};
+
 export const TeamsDetailsForm = () => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [items, setItems] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
+  const [emailList, setEmailList] = useState<string[]>([]);
   const router = useRouter();
 
-  const handleEnterKey = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (items.length === 3) {
-      return;
-    }
-    console.log(items);
-    if (event.key === 'Enter' && inputValue.trim() !== '') {
-      setItems([...items, inputValue]);
-      setInputValue('');
-    }
-  };
+  const {
+    values,
+    touched,
+    errors,
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    isSubmitting,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    validationSchema: teamsDetailsSchema,
+    onSubmit: async (values: TeamsDetailsFormValues, { setSubmitting }: FormikHelpers<TeamsDetailsFormValues>) => {
+      setSubmitting(true);
+      const { teamName, emails } = values;
+      const token = localStorage.getItem('jwtToken');
+
+      try {
+        const response = await sendInviteService({
+          token,
+          data: {
+            teamName,
+            emails: emails,
+          },
+        });
+        if (response.status === 200) {
+          setSubmitting(false);
+          router.push('/userDashboard');
+        }
+        setSubmitting(false);
+      } catch (error) {
+        toast.error(error.message);
+      } finally {
+        setSubmitting(false);
+      }
+    },
+  });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
-  const handleRemoveItem = (index: number) => {
-    const updatedItems = [...items];
-    updatedItems.splice(index, 1);
-    setItems(updatedItems);
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (event.key === 'Enter' && emailRegex.test(inputValue)) {
+      setEmailList([...emailList, inputValue.trim()]);
+      setFieldValue('emails', [...emailList, inputValue.trim()]);
+      setInputValue('');
+    }
   };
 
-  const initialValues: any = {
-    teamName: '',
-    emails: [],
+  const handleDeleteEmail = (indexToDelete: number) => {
+    const updatedEmailList = emailList.filter((_, index) => index !== indexToDelete);
+    setFieldValue('emails', updatedEmailList);
+    setEmailList(updatedEmailList);
   };
-
-  const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
-    useFormik({
-      initialValues,
-      // TODO: Need to add validation for this form.
-      // validationSchema: personDetailSchema,
-      onSubmit: async (values: any, { setSubmitting }: any) => {
-        console.log('yes');
-        setIsLoading(true);
-        setSubmitting(true);
-        const { teamName, emails } = values;
-        const token = localStorage.getItem('jwtToken');
-
-        let emailsOutput = emails.trim();
-
-        if(emailsOutput.includes(',')){
-          emailsOutput = emailsOutput.split(',').filter((email) => email.trim().length);
-        }else if(emailsOutput.includes(' ')){
-          emailsOutput = emailsOutput.split(' ').filter((email) => email.trim().length);
-        }
-        console.log('teamName ==>', teamName, 'email', emails.split(',').map((email) => email.trim()), 'token', token,"emailsOutput",emailsOutput);
-
-        try {
-          const response = await sendInviteService({
-            token,
-            data: {
-              teamName,
-              emails: emailsOutput,
-            },
-          });
-          if(response.status === 200){
-              router.push('/userDashboard');
-          }
-        } catch (error) {
-          setError(error.message);
-        } finally {
-          setIsLoading(false);
-          setSubmitting(false);
-        }
-      },
-    });
 
   return (
     <>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="teamName">
             <Image src="/assests/teams.svg" alt="mailogo" width={30} height={20} />
@@ -105,49 +98,51 @@ export const TeamsDetailsForm = () => {
             onBlur={handleBlur}
           />
         </div>
+        {errors.teamName && touched.teamName && (
+          <div className={styles.error}>{errors.teamName}</div>
+        )}
 
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="emails">
             <Image src="/assests/maillogo.svg" alt="mailogo" width={30} height={20} />
           </label>
           <Input
-            id="emails"
-            className={styles.email_wrapper}
             type="email"
+            id="emails"
             name="emails"
-            autoComplete="off"
-            placeholder="Invite Friends Via Mail"
-            value={values.UPI_Id}
-            onChange={handleChange}
-            onKeyPress={handleEnterKey}
-            onBlur={handleBlur}
+            className={`${styles.email_wrapper} ${styles.multiple_emails_input}`}
+            value={inputValue}
+            placeholder="Enter email press enter and send invitation"
+            onChange={handleInputChange}
+            onKeyDown={handleKeyPress}
           />
-          {/* <p className={styles.option}>(optional)</p> */}
         </div>
-
-        {Boolean(items.length) &&
-          items.map((email: string, index: number) => (
-            <>
-              <div className={styles.tags}>
-                <div className={styles.names}>
-                  <h4 className={styles.tagName}>{email}</h4>
+        {errors.emails && touched.emails && <div className={styles.error}>{errors.emails}</div>}
+        {emailList.length > 0 &&
+          emailList.map((email, index) => {
+            const truncatedEmail = email.length > 15 ? email.substring(0, 15) + '...' : email;
+            return (
+              <div key={index} className={styles.inputemail_container}>
+                <div className={styles.inputemail}>
+                  {truncatedEmail}
                   <Image
-                    src="/assests/cancle.svg"
-                    alt="mailogo"
-                    width={15}
-                    height={15}
-                    onClick={() => handleRemoveItem(index)}
+                    src="/assests/orangecross.svg"
+                    alt="search"
+                    height={10}
+                    width={10}
+                    className={styles.cancelsvg}
+                    onClick={() => handleDeleteEmail(index)}
                   />
                 </div>
               </div>
-            </>
-          ))}
+            );
+          })}
 
-        <Button className={styles.google_finsh} onClick={handleSubmit}>
-          {isLoading ? 'Loading...' : <span className={styles.nextArrow}>Finish</span>}
+        <Button disabled={isSubmitting} className={styles.google_finsh} onClick={handleSubmit}>
+          {isSubmitting ? 'Loading...' : <span className={styles.nextArrow}>Finish</span>}
         </Button>
 
-        <Button className={styles.finish} onClick={() => router.push('/userDashboard')} >
+        <Button className={styles.finish} onClick={() => router.push('/userDashboard')}>
           <span className={styles.nextArrow}>Skip</span>
         </Button>
       </form>
