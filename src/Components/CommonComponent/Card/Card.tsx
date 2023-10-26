@@ -3,20 +3,26 @@ import React, { useEffect, useState } from 'react';
 import styles from '@/styles/card.module.scss';
 import { sendRequest } from '@/utils/axiosInstanse';
 import { toast } from 'react-toastify';
-import { FaUserFriends } from 'react-icons/fa';
 import { debounce } from '@/utils/commonFunction';
-import Loader from '../Loader/Loader';
 import Image from 'next/image';
 
+export interface UserTeamMember {
+  email: string;
+  fullName: string;
+  _id: string;
+  profilePic?: string;
+  userName?: string;
+}
 interface CardProps {
   toOpen: (value: boolean) => void;
   forwardModalOpen: (value: boolean) => void;
-  teamData: (value: any[]) => void;
+  teamData: (value: UserTeamMember[]) => void;
   fwdindex: (value: number) => void;
-  setUserMail: (value: any) => void;
-  handleOpenFwdModal: (value: any) => void;
+  setUserMail: (value: string) => void;
+  handleOpenFwdModal: () => void;
   query?: string;
 }
+
 const Card: React.FC<CardProps> = ({
   fwdindex,
   toOpen,
@@ -28,18 +34,18 @@ const Card: React.FC<CardProps> = ({
 }) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [forwardModal, setForwardModal] = useState<boolean>(false);
-  const [addFriend, setAddFriend] = useState(false);
+  const [addFriend, setAddFriend] = useState<boolean>(false);
 
-  const [res, setRes] = useState<any>();
+  const [res, setRes] = useState<UserTeamMember[]>();
 
   const profileImg =
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
 
   useEffect(() => {
     if (query.length > 0) {
-      res?.map((obj: any) => {
-        let s = obj.fullName.toLocaleLowerCase();
-        let q = query.toLocaleLowerCase();
+      res?.map((obj: UserTeamMember) => {
+        const s = obj.fullName.toLocaleLowerCase();
+        const q = query.toLocaleLowerCase();
         if (s.includes(q)) {
           setAddFriend(true);
         }
@@ -49,13 +55,13 @@ const Card: React.FC<CardProps> = ({
     }
   }, [query]);
 
-  const handleOpenModal = (index: any) => {
+  const handleOpenModal = (index: number) => {
     setDeleteModal(true);
     toOpen(deleteModal);
     fwdindex(index);
   };
 
-  const openForwardModal = (index: any) => {
+  const openForwardModal = (index: number) => {
     setForwardModal(true);
     forwardModalOpen(forwardModal);
     fwdindex(index);
@@ -88,7 +94,7 @@ const Card: React.FC<CardProps> = ({
       {res && (
         <div className={styles.cardContainer}>
           <div className={`${styles.reviewsContainer} ${addFriend && styles.addFriendContainer}`}>
-            {res?.map((elm: any, index: number) => {
+            {res?.map((elm: UserTeamMember, index: number) => {
               return addFriend ? (
                 <div className={`${styles.reviewCard} ${styles.borderNone}`}>
                   <div className={styles.reviews}>

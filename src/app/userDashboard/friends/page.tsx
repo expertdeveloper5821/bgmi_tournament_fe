@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import styles from '@/styles/friends.module.scss';
 import { sendRequest } from '@/utils/axiosInstanse';
 import Image from 'next/image';
-import Card from '@/Components/CommonComponent/Card/Card';
-import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination';
+import Card, { UserTeamMember } from '@/Components/CommonComponent/Card/Card';
 import withAuth from '@/Components/HOC/WithAuthHoc';
 import { toast } from 'react-toastify';
 import { decodeJWt } from '@/utils/globalfunctions';
@@ -12,18 +11,17 @@ import { decodeJWt } from '@/utils/globalfunctions';
 const Friend = () => {
   const [open, setOpen] = useState(false);
   const [forwardModal, setForwardModal] = useState(false);
-  const [teamData, setTeamData] = useState<any[]>([]);
+  const [, setTeamData] = useState<UserTeamMember[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [emailList, setEmailList] = useState<string[]>([]);
-  const [fwdId, setFwdId] = useState<any>();
+  const [, setFwdId] = useState<number>();
   const [query, setQuery] = useState<string>('');
   const [userMail, setUserMail] = useState<string>('');
   const [newTeamName, setNewTeamName] = useState<string>('');
   const token = localStorage.getItem('jwtToken');
-  const { teamName }: any = decodeJWt(token);
+  const { teamName } = decodeJWt(token);
 
-  console.log("inside userdashboard friends page component ==>")
   const handleModal = (value: boolean) => {
     setOpen(value);
   };
@@ -36,7 +34,7 @@ const Friend = () => {
     setForwardModal(false);
   };
 
-  const handleTeamData = (value: any) => {
+  const handleTeamData = (value: UserTeamMember[]) => {
     setTeamData(value);
   };
 
@@ -51,7 +49,7 @@ const Friend = () => {
     }
   };
 
-  const handleForwardIndex = (value: any) => {
+  const handleForwardIndex = (value: number) => {
     setFwdId(value);
   };
 
@@ -112,17 +110,14 @@ const Friend = () => {
     setEmailList(updatedEmailList);
   };
 
-  const handleSelect = (event: any) => {
-    const { value } = event.target.value;
-    console.log(value);
-  };
+  const handleSelect = () => {};
 
-  const handleSearch = (event: any) => {
+  const handleSearch = (event) => {
     const { value } = event.target;
     setQuery(value);
   };
 
-  const handleTeamName = ({ target }: any) => {
+  const handleTeamName = ({ target }) => {
     setNewTeamName(target.value);
   };
 
