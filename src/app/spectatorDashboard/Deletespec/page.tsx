@@ -5,7 +5,12 @@ import styles from '@/styles/Spectator.module.scss';
 import { toast } from 'react-toastify';
 import { sendRequest } from '@/utils/axiosInstanse';
 
-const Deletespec = ({ specId, getAllSpectator }) => {
+interface DeleteSpecProps {
+  specId: string | number;
+  getAllSpectator: () => void;
+}
+
+const Deletespec = ({ specId, getAllSpectator }: DeleteSpecProps) => {
   const [deletModal, setDeleteModal] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
