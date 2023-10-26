@@ -1,29 +1,24 @@
 'use client';
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Navabar.module.scss';
 import { useRouter } from 'next/navigation';
 // @ts-ignore
 import { Avatar, Popover } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
-import { sendRequest } from '@/utils/axiosInstanse';
 
-interface INavbar {
-  setUserName?: Dispatch<SetStateAction<string>>;
-}
-
-export function Navbar(props: INavbar) {
-  const [isOpen, setIsOpen] = useState(false);
+export function Navbar() {
+  // const [isOpen, setIsOpen] = useState(false);
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [error, setError] = useState<string>('');
   const [userData, setUserData] = useState<string>('');
   const [nameData, setNameData] = useState<string>('');
   const [initialsName, setInitialsName] = useState<string>('');
   const [pofile, setPofile] = useState<string>('');
 
-  function handleClosePopover() {
-    setIsOpen(false);
-  }
+  // function handleClosePopover() {
+  //   setIsOpen(false);
+  // }
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -31,8 +26,8 @@ export function Navbar(props: INavbar) {
       localStorage.clear();
       router.push('/');
     } catch (error) {
-      setIsLoading(false);
-      setError('Logout failed');
+      // setIsLoading(false);
+      // setError('Logout failed');
     }
   };
 

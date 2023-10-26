@@ -1,15 +1,16 @@
 'use client';
 import React, { useState, ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
-import { useFormik, FormikHelpers } from 'formik';
+import { useFormik } from 'formik';
 //@ts-ignore
-import { Button, Input, Select } from 'technogetic-iron-smart-ui';
+import { Button, Input } from 'technogetic-iron-smart-ui';
 
 import { validationSchema } from '@/utils/schema';
 import { sendRequest } from '@/utils/axiosInstanse';
 import styles from '@/styles/Spectator.module.scss';
 
 interface FormCreate {
+  dateAndTime: string | Date;
   roomId: string;
   gameName: string;
   gameType: string;
@@ -23,10 +24,10 @@ interface FormCreate {
   highestKill: string;
   secondWin: string;
   entryFee: string;
-  mapImg: any | null;
+  mapImg: string | null;
 }
 
-const RoomFormModal = ({ getAllSpectator }: any) => {
+const RoomFormModal = ({ getAllSpectator }) => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -47,13 +48,14 @@ const RoomFormModal = ({ getAllSpectator }: any) => {
     secondWin: '',
     mapImg: '',
     entryFee: '',
+    dateAndTime: '',
   };
 
-  const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
-    useFormik<FormCreate>({
+  const { values, touched, errors, handleSubmit, handleChange, handleBlur } = useFormik<FormCreate>(
+    {
       initialValues,
       validationSchema,
-      onSubmit: async (values: any, { resetForm }) => {
+      onSubmit: async (values, { resetForm }) => {
         const dateTimeString = new Date(`${values.date} ${values.time}`);
         values.dateAndTime = dateTimeString;
 
@@ -82,13 +84,14 @@ const RoomFormModal = ({ getAllSpectator }: any) => {
             setError('Failed to Add room. Please try again.');
             toast.error('Failed to Add room. Please try again.');
           }
-        } catch (error: any) {
+        } catch (error) {
           setIsLoading(false);
           setError('Failed to Add room. Please try again.');
           toast.error('Failed to Add room. Please try again.');
         }
       },
-    });
+    },
+  );
 
   return (
     <>

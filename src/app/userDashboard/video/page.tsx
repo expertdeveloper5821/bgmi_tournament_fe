@@ -4,14 +4,13 @@ import styles from '@/styles/video.module.scss';
 import VideoCard from './videoCard/videoCard';
 import CenterText from './videoCard/centerText';
 import ReviewSection from './videoCard/reviewSection';
-import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination';
 
 const Page: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [receivedData, setReceivedData] = useState<any[]>([]);
+  const [receivedData, setReceivedData] = useState([]);
 
-  const handleChildData = (data: any[]) => {
+  const handleChildData = (data) => {
     setReceivedData(data);
   };
   useEffect(() => {

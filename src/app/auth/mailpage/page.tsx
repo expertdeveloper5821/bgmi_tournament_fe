@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 export interface SentMailProps {}
 
-export default function SentMail(props: SentMailProps): JSX.Element {
+export default function SentMail(): JSX.Element {
   const handleClick = () => {
     window.open('https://mail.google.com/mail/u/0/#inbox', '_blank');
   };

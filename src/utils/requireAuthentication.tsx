@@ -10,7 +10,7 @@ const checkIfUserIsAuthenticated = () => {
   return false;
 };
 
-const RequireAuthentication = (props: any) => {
+const RequireAuthentication = (props) => {
   const { children } = props;
   const router = useRouter();
 

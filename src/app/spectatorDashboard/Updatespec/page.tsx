@@ -2,7 +2,6 @@
 import React, { ChangeEvent, useState } from 'react';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
-import { AiOutlineDelete } from 'react-icons/ai';
 import styles from '@/styles/Spectator.module.scss';
 import { RoomData } from '../Room/page';
 import Image from 'next/image';
@@ -14,12 +13,12 @@ import { sendRequest } from '@/utils/axiosInstanse';
 //   getAllSpectator: () => void;
 //   updateRoom: () => void;
 // }
-const Updatespec = ({ roomData, getAllSpectator }: any) => {
+const Updatespec = ({ roomData, getAllSpectator }) => {
   const [error, setError] = useState<string>('');
   const [editModal, setEditModal] = useState(false);
   const [updateFormData, setUpdateFormData] = useState<RoomData>(roomData);
 
-  const updateRoom = async (e: any) => {
+  const updateRoom = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('jwtToken');
 
@@ -53,7 +52,7 @@ const Updatespec = ({ roomData, getAllSpectator }: any) => {
         toast.success(updateResponse.data.message);
         setEditModal(false);
       }
-    } catch (error: any) {
+    } catch (error) {
       setError(error.message);
       setError('room not update');
     }

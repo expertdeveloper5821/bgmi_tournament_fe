@@ -5,7 +5,7 @@ import styles from '@/styles/Spectator.module.scss';
 import { toast } from 'react-toastify';
 import { sendRequest } from '@/utils/axiosInstanse';
 
-const Deletespec = ({ Id, getAllSpectator }: any) => {
+const Deletespec = ({ Id, getAllSpectator }) => {
   const [deletModal, setDeleteModal] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -23,7 +23,7 @@ const Deletespec = ({ Id, getAllSpectator }: any) => {
       } else {
         throw Error();
       }
-    } catch (error: any) {
+    } catch (error) {
       toast.error('Something went wrong, please try again later!');
       setMessage('Room not deleted, please try again later!');
       setIsLoading(false);

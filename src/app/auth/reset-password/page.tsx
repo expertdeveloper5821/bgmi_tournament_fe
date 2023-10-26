@@ -8,6 +8,7 @@ import { Button, Input } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
 import { ResetPasswordSchema } from '@/utils/schema';
+import { toast } from 'react-toastify';
 
 interface FormValues {
   newPassword: string;
@@ -45,10 +46,10 @@ const UpdateCredential: React.FC = () => {
         if (response.status === 200) {
           router.push('/auth/reset-password/updateCredSuccess');
         } else {
-          console.error('Password update failed');
+          toast.error('Password update failed');
         }
-      } catch (error: any) {
-        console.error('Password update error:', error);
+      } catch (error) {
+        toast.error('Password update failed');
       }
     },
   });

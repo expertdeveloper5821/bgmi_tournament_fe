@@ -96,7 +96,6 @@ function Login(): React.JSX.Element {
   const handleRedirect = (token: string) => {
     if (token) {
       const decodedToken = decodeJWt(token);
-      console.log(decodedToken, 'token');
       if (decodedToken?.role?.role === 'admin') {
         router.push('/adminDashboard/room');
       } else if (decodedToken.role.role === 'user') {
