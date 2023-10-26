@@ -1,5 +1,5 @@
 'use client';
-import { FaTh } from 'react-icons/fa';
+import { FaRegChartBar, FaTh } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
 import Sidebar from '@/Components/CommonComponent/SideBar/Sidebar';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
@@ -20,11 +20,11 @@ const dynamicMenuItems = [
   //   name: 'Transactions',
   //   icon: <FaUserAlt />,
   // },
-  // {
-  //   path: '/userDashboard/friends',
-  //   name: 'Friends',
-  //   icon: <FaRegChartBar />,
-  // },
+  {
+    path: '/userDashboard/friends',
+    name: 'Friends',
+    icon: <FaRegChartBar />,
+  },
   // {
   //   path: '/userDashboard/videos',
   //   name: 'Videos',
