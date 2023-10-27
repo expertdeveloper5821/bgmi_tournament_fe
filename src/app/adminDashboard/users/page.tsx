@@ -66,7 +66,7 @@ function page() {
 
   return (
     <>
-      <RequireAuthentication>
+      {/* <RequireAuthentication> */}
         <div className={styles.main_container} id="mainLayoutContainerInner">
           <div className={styles.abcd}>
             <div className={styles.sidebar_wrapper}>
@@ -88,7 +88,7 @@ function page() {
             </div>
           </div>
         </div>
-      </RequireAuthentication>
+      {/* </RequireAuthentication> */}
     </>
   );
 }

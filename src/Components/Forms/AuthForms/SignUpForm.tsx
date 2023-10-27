@@ -128,7 +128,7 @@ export const SignupForm = () => {
   // TODO: NEED TO CHECK BELOW FUNCTION CHERRY PICKED FROM SUBMIT ANOTHER PR.
   const googleAuth = () =>{
     console.log("Inside Google Auth")
-    window.open(`${process.env.NEXT_PUBLIC_API_BASE_URL}auth/google`, 'self');
+    window.open(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`, 'self');
   }
 
   return (
@@ -199,8 +199,8 @@ export const SignupForm = () => {
         </Button>
       </div>
 
-      <Button className={styles.btnStyle}>
-        <Image src="/assests/google.svg" alt="passwordlogo" width={20} height={20} onClick={googleAuth} />
+      <Button className={styles.btnStyle} onClick={googleAuth}>
+        <Image src="/assests/google.svg" alt="passwordlogo" width={20} height={20}  />
         <span className={styles.googleIcon}>Sign in with Google</span>
       </Button>
 

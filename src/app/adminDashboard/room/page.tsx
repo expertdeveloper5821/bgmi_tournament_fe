@@ -15,7 +15,6 @@ import {
   getAllRoomsService,
 } from '@/services/authServices';
 import { RoomsDataType } from '@/types/roomsTypes';
-
 function page() {
   const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
   const [roomData, setRoomData] = useState<RoomsDataType[] | []>([]);
@@ -31,6 +30,7 @@ function page() {
     'Time',
     'Date',
   ];
+
 
   const getAllTournaments = async () => {
     const token = localStorage.getItem('jwtToken');

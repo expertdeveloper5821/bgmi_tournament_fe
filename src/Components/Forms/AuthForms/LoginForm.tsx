@@ -14,7 +14,6 @@ import { useUserContext } from '@/utils/contextProvider';
 import { SignupSchema, loginSchema } from '@/utils/schema';
 import { toast } from 'react-toastify';
 
-
 interface LoginProps {}
 
 interface FormValues {
@@ -98,7 +97,7 @@ export function LoginForm(): React.JSX.Element {
             setError('Invalid email or password');
           }
         } catch (error: any) {
-          console.log("inside catch error", error);
+          console.log('inside catch error', error);
           setIsLoading(false);
           toast.error(error?.message);
         } finally {
@@ -138,21 +137,21 @@ export function LoginForm(): React.JSX.Element {
   useEffect(() => {
     if (rememberMe) {
       setFieldValue('rememberMe', true);
-      if(values.email){
+      if (values.email) {
         setFieldValue('email', values.email);
-      }else if(localStorage.getItem('email')){
+      } else if (localStorage.getItem('email')) {
         setFieldValue('email', localStorage.getItem('email'));
-
       }
     } else if (!rememberMe) {
       setFieldValue('rememberMe', false);
     }
-  },[rememberMe])
+  }, [rememberMe]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get('token');
+      console.log('tokenurlParams ====>', token, 'urlParams', urlParams);
       if (token) {
         handleVerifyToken(token);
       }
@@ -265,6 +264,12 @@ export function LoginForm(): React.JSX.Element {
     }
   }, []);
 
+  const googleAuth = () => {
+    console.log('Inside Google Auth');
+    window.open(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`, 'self');
+    handleGoogleLogin();
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       {error && <div className={styles.error}>{error}</div>}
@@ -327,18 +332,24 @@ export function LoginForm(): React.JSX.Element {
           {isLoading ? 'Loading...' : 'Log in'}
         </Button>
       </div>
+
       {/* <div className={styles.signin_withgoogle}>
-                <FcGoogle />
-                <Button
-                  disabled={isLoading}
-                  className={styles.googleButton}
-                  variant="primary"
-                  type="button"
-                  onClick={handleGoogleLogin}
-                >
-                  {isLoading ? 'Loading...' : 'Sign in with Google'}
-                </Button>
-              </div> */}
+        <FcGoogle />
+        <Button
+          disabled={isLoading}
+          className={styles.googleButton}
+          variant="primary"
+          type="button"
+          onClick={googleAuth}
+        >
+          {isLoading ? 'Loading...' : 'Sign in with Google'}
+        </Button>
+      </div> */}
+
+      <Button className={styles.btnStyle} onClick={googleAuth}>
+        <Image src="/assests/google.svg" alt="passwordlogo" width={20} height={20} />
+        <span className={styles.googleIcon}>Sign in with Google</span>
+      </Button>
       <div className={styles.signin}>
         <span className={styles.forgotDesc}>
           <Link href="/auth/forget-password">Forget your Password?</Link>
