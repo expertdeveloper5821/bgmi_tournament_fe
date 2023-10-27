@@ -9,7 +9,11 @@ import TableData from '@/Components/CommonComponent/Table/Table';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import withAuth from '@/Components/HOC/WithAuthHoc';
 import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
-import { deleteRoomService, getAllFilteredRoomsListService, getAllRoomsService } from '@/services/authServices';
+import {
+  deleteRoomService,
+  getAllFilteredRoomsListService,
+  getAllRoomsService,
+} from '@/services/authServices';
 import { RoomsDataType } from '@/types/roomsTypes';
 
 function page() {
@@ -61,7 +65,7 @@ function page() {
   const fetchTournaments = async (searchVal: string) => {
     try {
       const token = localStorage.getItem('jwtToken');
-      const response = await getAllFilteredRoomsListService({token,searchVal})
+      const response = await getAllFilteredRoomsListService({ token, searchVal });
       setWholeRoomData(response?.data);
       setRoomData(response?.data);
       setIsLoading(false);

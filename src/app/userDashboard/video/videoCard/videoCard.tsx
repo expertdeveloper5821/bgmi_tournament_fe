@@ -11,7 +11,7 @@ interface VideoInfo {
   videoLink: string;
 }
 interface CustomPaginationProps {
-  onDataUpdate: (data: any) => void;
+  onDataUpdate: (data) => void;
 }
 
 const VideoCard: React.FC<CustomPaginationProps> = ({ onDataUpdate }) => {

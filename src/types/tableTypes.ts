@@ -37,5 +37,5 @@ export interface TablePropsType {
   columns?: string[];
   deleteroom?: (_id: string) => Promise<void>;
   type?: string;
-  handleEdit?: (spectatorData:SpectatorEditDataType) => void;
+  handleEdit?: (spectatorData: SpectatorEditDataType) => void;
 }

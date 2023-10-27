@@ -22,7 +22,6 @@ function AdminDashboard() {
   const [paginatedData, setPaginatedData] = useState([]);
   const rowPerPage = 8;
 
-  
   const transformedStudentData = assignmentData.studentData.map((item: StudentProfile) => ({
     StudentName: item.StudentName,
     Student: item.Student,
@@ -53,10 +52,7 @@ function AdminDashboard() {
             <div className={styles.sidebar_wrapper}>
               <Navbar />
               <h1>Welcome to Admin Dashboard</h1>
-              <TableData
-                data={paginatedData}
-                columns={columns}
-              />
+              <TableData data={paginatedData} columns={columns} />
               <Pagination
                 currentPage={currentPage}
                 totalPages={Math.ceil(transformedStudentData.length / rowPerPage)}

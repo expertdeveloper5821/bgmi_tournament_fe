@@ -1,64 +1,224 @@
+@import './mixins.scss';
+@import './variable.scss';
+
 .reviewsContainer {
-  margin-top: 30px;
+  position: relative;
   padding-left: 2%;
+  display: flex;
+  gap: 1rem;
+
+  width: 65vw;
+  flex-flow: row wrap;
 }
+
+.addFriendContainer {
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
 .reviewCard {
-  margin-top: 40px;
+  box-sizing: border-box;
   color: white;
-  border: 1px solid #ff7a00;
-  border-radius: 5px;
-  padding: 10px;
-  width: 330px;
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 14px;
+  min-width: 200px;
+  height: 112px;
+  display: flex;
+  align-items: center;
+  flex: 0 1 45%;
+  position: relative;
+  gap: 1rem;
+  overflow: hidden;
 }
+
+.sendMailBtn {
+  text-align: center;
+  max-width: 244px;
+  width: 244px;
+  height: 44px;
+  border-radius: 4px;
+  border: none;
+  font-size: 16px;
+  background-color: #ff7a00;
+  color: white;
+  font-weight: 700;
+  margin: 1rem auto;
+}
+
+.reviewCard:hover {
+  border: 1px solid #ff7a00;
+}
+
+.borderNone {
+  border: none;
+}
+
 .profile {
   margin-left: 5px;
   border-radius: 10px;
   height: 70%;
 }
+
 .reviews {
   display: flex;
+  gap: 1rem;
+
+  img {
+    width: 82px;
+    height: 74px
+  }
 }
+
 .reviewer {
-  padding-left: 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
+
 .name h2 {
   color: #ff7a00;
   font-size: 20px;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
+
 .name {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
 }
+
 .reviewer p {
   font-weight: 300;
   font-size: 15px;
   margin-top: 5px;
+  text-overflow: ellipsis;
 }
+
 .reviewer span {
   display: flex;
   justify-content: flex-end;
   margin-right: 10px;
 }
-.sendinvite {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
+
+
 .sendinvite span {
   color: #ffc700;
   font-weight: 600;
 }
-.sendinvite img {
-  height: 10px;
-  width: 10px;
-  margin-right: 5px;
-}
+
 .greenCircle {
-  height: 10px;
-  width: 10px;
+  height: 6px;
+  width: 6px;
   border-radius: 50%;
   background: green;
 }
+
+.addFriendBtn {
+  background-color: transparent;
+  color: #ff7a00;
+  border: 1px solid #ff7a00;
+  min-width: 136px;
+}
+
+.deleteBtn {
+  color: #ffc700;
+  position: absolute;
+  font-weight: 500;
+  right: 13px;
+  top: 13px;
+  width: 22px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.cardContainer {
+  display: flex;
+
+  @media (max-width: $breakpoint-md) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.bannerContainer {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+
+
+  @media (max-width: $breakpoint-md) {
+    width: 100%;
+  }
+}
+
+.cardbannerimg {
+  width: 40vw;
+  height: 35vw;
+  margin-top: -64px;
+
+  @media (max-width: $breakpoint-md) {
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+}
+
+
+.noDataCard {
+  text-align: center;
+  font-family: Century Gothic;
+  line-height: 4;
+  position: absolute;
+  top: 30vh;
+  right: 32%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+
+  @media (max-width: $breakpoint-md) {
+    right: 25%;
+  }
+
+
+  img {
+    width: 30vh;
+    margin: 0 auto;
+
+    @media (max-width: $breakpoint-md) {
+      width: 25vh;
+      height: 35vh;
+    }
+  }
+
+  strong {
+    height: 60px;
+    font-size: 6rem;
+    font-weight: 700;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 4rem;
+    }
+  }
+
+  h2 {
+    font-size: 2rem;
+    width: 500px;
+    line-height: 1.2;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 1.5rem;
+    }
+  }
+}
+
 // delete modal

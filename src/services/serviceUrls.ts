@@ -7,6 +7,9 @@ export const serviceUrls = {
   updateRole: 'role/updaterole/',
   roomsRelatedUrl: '/room/rooms',
   filteredRoomsList: '/room/rooms?search=',
+  allRooms: 'room/rooms',
+  regRooms: 'team/register-room', //registered rooms
+  joinMatch: 'payment/create-payment',
   updateUserDetails: '/user/updateuser',
   sendInvite:'/user/send-invite'
 };

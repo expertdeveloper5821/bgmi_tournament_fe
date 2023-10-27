@@ -1,13 +1,12 @@
 'use client';
-import React, { useState, useEffect, ChangeEvent, useContext } from 'react';
-import { useFormik, FormikErrors, FormikTouched, FormikValues, FormikHelpers } from 'formik';
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import { useFormik, FormikHelpers } from 'formik';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import styles from '@/styles/auth.module.scss';
 import { sendRequest } from '../../../utils/axiosInstanse';
-import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
 import { decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';

@@ -47,13 +47,13 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
     if (type !== 'ROOMS') {
       if (arrow === 'upArrow') {
         newSortedData = [
-          ...sortedData.sort((a:TableDataType, b:TableDataType) =>
+          ...sortedData.sort((a: TableDataType, b: TableDataType) =>
             a[newKey].localeCompare(b[newKey], 'fr', { ignorePunctuation: true }),
           ),
         ];
       } else if (arrow === 'downArrow') {
         newSortedData = [
-          ...sortedData.sort((a:TableDataType, b:TableDataType) =>
+          ...sortedData.sort((a: TableDataType, b: TableDataType) =>
             b[newKey].localeCompare(a[newKey], 'fr', { ignorePunctuation: true }),
           ),
         ];
@@ -70,13 +70,13 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
       ) {
         if (arrow === 'upArrow') {
           newSortedData = [
-            ...sortedData.sort((a:TableDataType, b:TableDataType) =>
+            ...sortedData.sort((a: TableDataType, b: TableDataType) =>
               a[newKey].localeCompare(b[newKey], 'fr', { ignorePunctuation: true }),
             ),
           ];
         } else if (arrow === 'downArrow') {
           newSortedData = [
-            ...sortedData.sort((a:TableDataType, b:TableDataType) =>
+            ...sortedData.sort((a: TableDataType, b: TableDataType) =>
               b[newKey].localeCompare(a[newKey], 'fr', { ignorePunctuation: true }),
             ),
           ];
@@ -155,7 +155,7 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                             className={styles.cell_icon}
                           ></img>
                         </IconButton>
-                        <IconButton >
+                        <IconButton>
                           <img
                             src="/assests/eye.png"
                             alt="studentProfile"

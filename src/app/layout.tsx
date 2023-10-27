@@ -16,7 +16,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <ToastContainer />
           <Analytics />
-
         </UserProvider>
       </body>
     </html>

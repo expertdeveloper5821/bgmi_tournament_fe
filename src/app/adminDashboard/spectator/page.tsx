@@ -145,9 +145,9 @@ export default function Modal() {
     if (spectatorData?.length) {
       try {
         if (modal?.buttonVal === 'Create') {
-            await registerSpectatorService({ token, formData, spectatorData });
+          await registerSpectatorService({ token, formData, spectatorData });
         } else if (modal?.buttonVal === 'Assign') {
-            await updateRoleService({ token, formData });
+          await updateRoleService({ token, formData });
         }
         setIsLoading(false);
         getAllUsers();
@@ -166,17 +166,21 @@ export default function Modal() {
       setRoles([
         {
           role: 'spectator',
-          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'spectator')?.role?._id,
+          _id: allspectatorData.find(
+            (spec: SpectatorEditDataType) => spec?.role?.role === 'spectator',
+          )?.role?._id,
           userUuid: spectatorData?.userUuid,
         },
         {
           role: 'admin',
-          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'admin')?.role?._id,
+          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'admin')
+            ?.role?._id,
           userUuid: spectatorData?.userUuid,
         },
         {
           role: 'user',
-          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'user')?.role?._id,
+          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'user')
+            ?.role?._id,
           userUuid: spectatorData?.userUuid,
         },
       ]);

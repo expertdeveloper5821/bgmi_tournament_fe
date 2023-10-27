@@ -16,7 +16,6 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [menuItems, setMenuItems] = useState<MenuItem[]>(menuItem);
   const [selectedItemIndex, setSelectedItemIndex] = useState<number>(-1); // Initialize as -1, no item selected
   const [width] = useWindowSize();
   const toggle = () => {

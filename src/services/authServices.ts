@@ -168,5 +168,4 @@ export const sendInviteService = async (data:any) => {
   } catch (error) {
         return error;
   }
-} 
-
+};

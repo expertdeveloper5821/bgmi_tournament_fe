@@ -12,6 +12,9 @@
 /.next/
 /out/
 
+sw**
+workbox**
+
 # production
 /build
 

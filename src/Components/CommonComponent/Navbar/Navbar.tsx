@@ -2,7 +2,6 @@
 import React, { useEffect, useState, Dispatch, SetStateAction, useContext } from 'react';
 import styles from '@/styles/Navabar.module.scss';
 import { useRouter } from 'next/navigation';
-// @ts-ignore
 import { Avatar, Popover } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
@@ -13,20 +12,20 @@ interface INavbar {
   setUserName?: Dispatch<SetStateAction<string>>;
 }
 
-export function Navbar(props: INavbar) {
-  const [isOpen, setIsOpen] = useState(false);
+export function Navbar() {
+  // const [, setIsOpen] = useState(false);
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
+  // const [, setIsLoading] = useState<boolean>(false);
+  // const [, setError] = useState<string>('');
   const [userData, setUserData] = useState<string>('');
   const [nameData, setNameData] = useState<string>('');
   const [initialsName, setInitialsName] = useState<string>('');
   const [pofile, setPofile] = useState<string>('');
   const {triggerHandleLogout} = useUserContext();
 
-  function handleClosePopover() {
-    setIsOpen(false);
-  }
+  // function handleClosePopover() {
+  //   setIsOpen(false);
+  // }
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -37,8 +36,8 @@ export function Navbar(props: INavbar) {
       triggerHandleLogout();
       router.push('/');
     } catch (error) {
-      setIsLoading(false);
-      setError('Logout failed');
+      // setIsLoading(false);
+      // setError('Logout failed');
     }
   };
 
@@ -152,7 +151,7 @@ export function Navbar(props: INavbar) {
                 isOpen={isPopOpen}
                 setIsOpen={setIsPopOpen}
                 content={
-                  <div>
+                  <div style={{ marginRight: '16px' }}>
                     <div className={styles.profileContainer}>
                       <h4 className={styles.profilename}>{nameData}</h4>
                       <p className={styles.profileEmail}>{userData}</p>

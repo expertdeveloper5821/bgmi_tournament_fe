@@ -5,7 +5,9 @@
   "parserOptions": { "project": ["./tsconfig.json"] },
   "plugins": ["@typescript-eslint"],
   "rules": {
+    "@typescript-eslint/ban-ts-comment": "off",
     "no-console": "warn",
+    "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/strict-boolean-expressions": [
       0,
       {
@@ -13,6 +15,10 @@
         "allowNumber": false
       }
     ]
+  },
+  "env" : {
+    "browser": true,
+    "node": true
   },
   "ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"]
 }
