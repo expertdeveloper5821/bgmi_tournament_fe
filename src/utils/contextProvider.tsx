@@ -14,7 +14,7 @@ interface UserContextType {
   updateUserInfo: (newUserInfo: UserInfo) => void;
   updateToken: (token: string) => void;
   token: string;
-  triggerHandleLogout:() => void;
+  triggerHandleLogout: () => void;
 }
 
 // Create the context
@@ -33,7 +33,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const router = useRouter();
 
-  console.log('DEBUGGING 4', userInfo,"children",children);
+  console.log('DEBUGGING 4', userInfo, 'children', children);
   const updateUserInfo = (newUserInfo: UserInfo) => {
     setUserInfo(newUserInfo);
   };
@@ -43,11 +43,11 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const triggerHandleLogout = () => {
-    console.log("triggerHandleLogout timeOutId ==>",timeOutId)
+    console.log('triggerHandleLogout timeOutId ==>', timeOutId);
     clearTimeout(timeOutId);
-  }
+  };
 
-  console.log("GREATCHECK 0 timeOutId",timeOutId)
+  console.log('GREATCHECK 0 timeOutId', timeOutId);
   useEffect(() => {
     const stringifyExpirationTime = localStorage.getItem('expirationTime');
     console.log(
@@ -67,15 +67,16 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           console.log('GREATCHECK 3 deep inside remainingTime ==>', remainingTime);
           const timeOut = setTimeout(() => {
             console.log('GREATCHECK 4 deep inside remainingTime ==>', remainingTime);
-
-            localStorage.clear();
+            localStorage.removeItem('jwtToken');
+            localStorage.removeItem('expirationTime');
             router.push('/auth/login');
           }, remainingTime);
-          console.log("GREATCHECK 5 timeOutId",timeOut)
+          console.log('GREATCHECK 5 timeOutId', timeOut);
 
           setTimeOutId(timeOut);
         } else {
-          localStorage.clear();
+          localStorage.removeItem('jwtToken');
+          localStorage.removeItem('expirationTime');
           router.push('/auth/login');
         }
       }
@@ -83,7 +84,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [token]);
 
   return (
-    <UserContext.Provider value={{ userInfo, updateUserInfo, updateToken, token,triggerHandleLogout }}>
+    <UserContext.Provider
+      value={{ userInfo, updateUserInfo, updateToken, token, triggerHandleLogout }}
+    >
       {children}
     </UserContext.Provider>
   );

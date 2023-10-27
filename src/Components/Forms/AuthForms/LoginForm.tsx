@@ -92,6 +92,7 @@ export function LoginForm(): React.JSX.Element {
             localStorage.setItem('jwtToken', response?.data?.userData?.token);
             localStorage.setItem('expirationTime', expirationTime.toString());
             toast.success(response?.data?.message);
+            updateToken(decodedToken);
             handleRedirect(response?.data?.userData?.token);
           } else {
             setError('Invalid email or password');

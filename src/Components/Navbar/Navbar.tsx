@@ -9,9 +9,9 @@ import { sendRequest } from '@/utils/axiosInstanse';
 import jwtDecode from 'jwt-decode';
 import { useUserContext } from '@/utils/contextProvider';
 
-interface INavbar {
-  setUserName?: Dispatch<SetStateAction<string>>;
-}
+// interface INavbar {
+//   setUserName?: Dispatch<SetStateAction<string>>;
+// }
 
 export function Navbar() {
   // const [isOpen, setIsOpen] = useState(false);
