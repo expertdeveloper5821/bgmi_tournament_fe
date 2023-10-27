@@ -10,7 +10,7 @@ const CustomPagination: React.FC<CustomPaginationProps> = ({ data }) => {
   const recordsPerPage = 3;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = data?.slice(firstIndex, lastIndex);
+  const records = typeof data === 'object' ? data?.slice(firstIndex, lastIndex) : '';
 
   const nPage = Math.ceil(data?.length / recordsPerPage);
   const numbers: number[] = [];

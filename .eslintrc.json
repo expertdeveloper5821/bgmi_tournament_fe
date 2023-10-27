@@ -6,13 +6,18 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "no-console": "warn",
+    "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/strict-boolean-expressions": [
-      2,
+      0,
       {
         "allowString": false,
         "allowNumber": false
       }
     ]
+  },
+  "env" : {
+    "browser": true,
+    "node": true
   },
   "ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"]
 }

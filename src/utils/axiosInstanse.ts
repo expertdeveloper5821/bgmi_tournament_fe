@@ -1,14 +1,28 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { configData } from './config';
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-const apiVersion = process.env.NEXT_PUBLIC_API_BASE_VER;
+// const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+// const apiVersion = process.env.NEXT_PUBLIC_API_BASE_VER;
 export const axiosInstance: AxiosInstance = axios.create({
   baseURL: `${configData.api.url}/api/${configData.api.ver}`,
 });
-export async function sendRequest(path: string, opts: any = {}) {
-  // console.log('check opts-', {...opts.headers});
+
+axiosInstance.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    if (error.response.status === 401) {
+      //logout
+      localStorage.clear();
+      window.location.href = '/';
+    }
+    return Promise.reject(error);
+  },
+);
+
+export async function sendRequest(path: string, opts: AxiosRequestConfig = {}) {
   const headers = {
-    ...opts.headers,
+    ...opts?.headers,
     'Content-Type': 'application/json; charset=UTF-8',
   };
   if (opts.headers && opts.headers['Content-Type']) {
@@ -18,6 +32,7 @@ export async function sendRequest(path: string, opts: any = {}) {
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
+
   try {
     const response = await axiosInstance({
       method: opts.method,
@@ -27,7 +42,6 @@ export async function sendRequest(path: string, opts: any = {}) {
     });
     return response;
   } catch (error) {
-    console.error('Error making request:', error);
-    throw error;
+    return error?.message || error?.response?.data?.message;
   }
 }

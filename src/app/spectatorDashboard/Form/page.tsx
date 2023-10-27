@@ -2,8 +2,8 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 //@ts-ignore
-import { Button, Input, Select } from 'technogetic-iron-smart-ui';
-import { useFormik, FormikHelpers } from 'formik';
+import { Button, Input } from 'technogetic-iron-smart-ui';
+import { useFormik } from 'formik';
 import { validationSchema } from '@/utils/schema';
 import { sendRequest } from '@/utils/axiosInstanse';
 import { ChangeEvent } from 'react';
@@ -25,7 +25,7 @@ interface FormCreate {
   highestKill: string;
   secondWin: string;
   entryFee: string;
-  mapImg: any | null;
+  mapImg: string | null;
 }
 
 const initial: FormCreate = {
@@ -85,13 +85,13 @@ const Form = (props: any) => {
 
         try {
           setIsLoading(true);
-          const token = localStorage.getItem('jwtToken');
           const response = await sendRequest(
             `room/rooms/${roomIdToUpdate ? roomIdToUpdate._id : ''}`,
             {
               method: roomIdToUpdate ? 'PUT' : 'POST',
               headers: {
                 'Content-Type': 'multipart/form-data',
+                Authorization: ""
               },
               data: form,
             },
@@ -110,7 +110,7 @@ const Form = (props: any) => {
             setError('Failed to Add room. Please try again.');
             toast.error('Failed to Add room. Please try again.');
           }
-        } catch (error: any) {
+        } catch (error) {
           setIsLoading(false);
           setRoomIdToUpdate('');
           setError('Failed to Add room. Please try again.');

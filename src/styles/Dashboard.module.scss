@@ -228,7 +228,7 @@
   justify-content: flex-start;
   gap: 64px;
   margin: 10px 0px;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   width: 90%;
 
   @media (max-width: $breakpoint-lg) {
@@ -319,6 +319,15 @@
   gap: 100px;
 }
 
+.upcomingSliderCard {
+  position: relative;
+  margin: 0px 4px;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 200px;
+}
+
 .join_button {
   background-color: $bs-orange !important;
   color: $bs-white !important;
@@ -328,6 +337,7 @@
   justify-content: center;
   align-items: center;
   padding: 6px;
+  min-width: fit-content;
 
   @media (max-width: $breakpoint-xSmall) {
     width: 16%;
@@ -422,15 +432,31 @@ img.slides_image {
 .container3 {
   display: flex !important;
   width: 100%;
-
+  padding: 4px;
   @media (max-width: $breakpoint-xSmall) {
     display: inline-block !important;
     width: 100%;
+    flex-direction: column;
   }
 
   @media (max-width: $breakpoint-xs) {
-    display: inline-block !important;
-    width: 100%;
+    display: flex !important;
+    width: 95%;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.sliderImageContainer {
+  position: relative;
+  overflow: hidden;
+  .sliderImageText {
+    position: absolute;
+    bottom: 0px;
+    padding: 8px;
+    overflow: hidden;
+    backdrop-filter: blur(4px);
+    border-radius: 0px 8px 0px 8px;
   }
 }
 
@@ -454,6 +480,7 @@ img.slides_image {
   font-weight: 400;
   font-size: 16px;
   flex: 3, 1, 0;
+  max-width: 300px;
 }
 
 .content .dashboard {
@@ -553,7 +580,7 @@ img.slides_image {
   }
 
   @media (max-width: $breakpoint-md) {
-    margin-left: 126px;
+    margin-left: 80px;
   }
 }
 
@@ -826,7 +853,7 @@ img.slides_image {
 }
 
 .main_winning_pool {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -836,9 +863,15 @@ img.slides_image {
   align-items: center;
   background-color: $bs-backgroundblurr;
   backdrop-filter: blur(8px);
-  z-index: 1;
+  z-index: 999;
 }
-
+.sliderStyles {
+  padding: 2rem 5rem;
+  border-width: 90%;
+  @media (max-width: $breakpoint-md) {
+    padding: 2rem 2.5rem;
+  }
+}
 .inner_winning_pool {
   background: linear-gradient(
     131.26deg,
@@ -920,15 +953,15 @@ img.slides_image {
   box-shadow: 0px 4px 18px 0px #00000040;
   border: 1px solid #00000025;
   border-radius: 4px;
-  @media (max-width: $breakpoint-xSmall) {
-    height: 86px;
-  }
-  @media (max-width: $breakpoint-xs) {
-    height: 86px;
-  }
+  // @media (max-width: $breakpoint-xSmall) {
+  //   height: 86px;
+  // }
+  // @media (max-width: $breakpoint-xs) {
+  //   height: 86px;
+  // }
 
-  @media (max-width: $breakpoint-sm) {
-  }
+  // @media (max-width: $breakpoint-sm) {
+  // }
 }
 
 .winnings_sec_slider {
@@ -999,10 +1032,11 @@ img.slides_image {
   align-items: center;
   padding: 12px 0px;
   width: 96%;
+  overflow: hidden;
 }
 
 .gameCardFade {
-  content: "";
+  content: '';
   position: absolute;
   // z-index: 1;
   bottom: 0px;
@@ -1014,7 +1048,7 @@ img.slides_image {
   padding: 8px 8px;
   font-weight: bold;
   border-radius: 0px 0px 8px 8px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(4px);
   // background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255, 1) 90%);
   width: 100%;
 }
@@ -1084,9 +1118,53 @@ img.slides_image {
 }
 
 .outline_icon {
-  font-size: 32px;
   background: $bs-orange;
-  border-radius: 18px;
+}
+.tournamentContainer {
+  display: flex;
+  width: 100%;
+  padding: 0px 16px;
+  margin-bottom: 32px;
+  gap: 24px;
+  @media (max-width: $breakpoint-ms) {
+    flex-direction: column;
+    gap: 0px;
+    padding: 0px 0px 0px 3rem;
+  }
+  @media (max-width: $breakpoint-tab) {
+    padding: 2rem;
+  }
+  @media (max-width: $breakpoint-tab) {
+    padding: 1rem;
+  }
+  .tCardContainer {
+    width: 50%;
+    @media (max-width: $breakpoint-ms) {
+      width: 100%;
+      margin: 12px;
+    }
+  }
+  .tMiniContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    @media (max-width: $breakpoint-ms) {
+      width: 100%;
+      gap: 0px !important;
+    }
+    .tSliderContainer {
+      width: 90%;
+      padding: 0px 16px;
+      @media (max-width: $breakpoint-ms) {
+        width: 90%;
+        height: 160px;
+        overflow: hidden;
+        padding: 0px 24px;
+        margin: 0 auto;
+      }
+    }
+  }
 }
 
 /*****add send invite friend code ***/
@@ -1265,6 +1343,14 @@ body.activemodal {
   margin: 15px 0px;
   width: 100%;
 }
+.disabled_register_button{
+  background-color: #ea9373  !important;
+  cursor: no-drop;
+  border: transparent;
+  color: white !important;
+  margin: 15px 0px;
+  width: 100%;
+}
 
 .register_match_gamename {
   font-size: 22px;
@@ -1272,4 +1358,62 @@ body.activemodal {
   line-height: 34px;
   letter-spacing: 0.02em;
   margin: 10px 0px 0px 0px;
+}
+
+// search filter css
+
+.content_wrapper {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+}
+
+.input_desc{
+  // border: 1px solid black;
+  display: flex;
+  width: 95%;
+  margin-top: 1.5rem;
+  margin-right: 3rem;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+.button_wrapper{
+  margin-right: 1rem ;
+  background-color: $bs-orange !important;
+  border-radius: 4px;
+  margin-left: 1rem;
+}
+
+.role_Label{
+  display: block;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+.role_select{
+  display: block;
+    width: 200px;
+    border: 1px solid black;
+    margin: 20px auto;
+}
+
+.error_message{
+  color: red;
+}
+
+.create_spectator_form{
+  width: 25vw;
+}
+
+.search_input_box > input{
+  background: transparent;
+  border: none;
+  color: white;
+}
+
+.search_input_box > input::placeholder {
+  color: white;
 }
