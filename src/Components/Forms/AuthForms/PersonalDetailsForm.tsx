@@ -1,7 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 import styles from '@/styles/personal_detail.module.scss';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
@@ -11,43 +10,36 @@ import { personDetailSchema } from '@/utils/schema';
 import { useFormik, FormikHelpers } from 'formik';
 import { updateUserDetailsService } from '@/services/authServices';
 import { decodeJWt } from '@/utils/globalfunctions';
-import { details } from '@/Components/pageComponents/auth/authInterfaces';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import { PersonalDetailsValue } from '@/types/formsTypes';
 
-// const PersonalDetail = ({ handleStepChange, currentStep }: FormDefaultPropsType) => {
+const initialValues: PersonalDetailsValue = {
+  player: '',
+  upi: '',
+  whatsapp: '',
+};
+
 export const PersonalDetail = () => {
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const initialValues: details = {
-    player: '',
-    upi: '',
-    whatsapp: '',
-  };
-
-  console.log("PersonalDetail ==>");
+  console.log('PersonalDetail ==>');
   const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
     useFormik({
       initialValues,
       validationSchema: personDetailSchema,
-      onSubmit: async (values: details, { setSubmitting }: FormikHelpers<details>) => {
+      onSubmit: async (
+        values: PersonalDetailsValue,
+        { setSubmitting }: FormikHelpers<PersonalDetailsValue>,
+      ) => {
         console.log('yes');
         setIsLoading(true);
         setSubmitting(true);
         const { player, upi, whatsapp } = values;
         const token = localStorage.getItem('jwtToken');
-        const decodedToken: any = decodeJWt(token);
-        console.log(
-          'player, upi, whatsapp,decodedToken,values',
-          player,
-          upi,
-          whatsapp,
-          decodedToken,
-          values,
-        );
         // We need bgmiId later here when user want to update from inside application.
-        const bgmiId = decodedToken?.userId;
         try {
           const response = await updateUserDetailsService({
             token,
@@ -57,13 +49,14 @@ export const PersonalDetail = () => {
               phoneNumber: whatsapp,
             },
           });
-          console.log('response ===>', response);
           if (response.status === 200) {
-              router.push('/auth/teamsdetails');
+            toast.success('successfully updated');
+            router.push('/auth/teamsdetails');
           }
-
         } catch (error) {
-          setError(error.message);
+          setIsLoading(false);
+          setError(error?.response?.data?.message);
+          toast.error(error?.response?.data?.message);
         } finally {
           setIsLoading(false);
           setSubmitting(false);
@@ -153,15 +146,16 @@ export const PersonalDetail = () => {
           </Tooltip> */}
         </div>
 
-        {/* {errors.whatsapp && touched.whatsapp && <div className={styles.error}>{errors.whatsapp}</div>} */}
+        {errors.whatsapp && touched.whatsapp && (
+          <div className={styles.error}>{errors.whatsapp}</div>
+        )}
       </form>
       <Button className={styles.google_btn} type="submit" onClick={handleSubmit}>
         {isLoading ? (
           'Loading...'
         ) : (
-        //   <span onClick={() => handleStepChange(errors.upi !== '' && currentStep + 1)}>Next</span>
-        <span>Next</span>
-
+          //   <span onClick={() => handleStepChange(errors.upi !== '' && currentStep + 1)}>Next</span>
+          <span>Next</span>
         )}
       </Button>
 

@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,34 +7,24 @@ import { useFormik, FormikHelpers } from 'formik';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import { SignupSchema } from '@/utils/schema';
-// import { FormDefaultPropsType, SignupFormValuesType } from '../authInterfaces';
 import { signUpService } from '@/services/authServices';
 import styles from '@/styles/auth.module.scss';
-import {
-  FormDefaultPropsType,
-  SignupFormValuesType,
-} from '@/Components/pageComponents/auth/authInterfaces';
-import { decodeJWt } from '@/utils/globalfunctions';
+import { SignupFormValuesType } from '@/Components/pageComponents/auth/authInterfaces';
+import { DecodedToken, decodeJWt } from '@/utils/globalfunctions';
 import { toast } from 'react-toastify';
 
-// export const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => {
-export const SignupForm = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [rememberMe, setRememberMe] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
+const initialValues: SignupFormValuesType = {
+  fullName: '',
+  email: '',
+  password: '',
+};
 
+export const SignupForm = () => {
   const router = useRouter();
 
-  const initialValues: SignupFormValuesType = {
-    fullName: '',
-    email: '',
-    password: '',
-  };
-
-  // New Functionality.
-  const handleRedirect = (token: any) => {
+  const handleRedirect = (token: string) => {
     if (token) {
-      const decodedToken: any = decodeJWt(token);
+      const decodedToken: DecodedToken = decodeJWt(token);
       if (decodedToken && decodedToken?.role?.role === 'user') {
         if (decodedToken?.upiId && decodedToken?.userName && decodedToken?.phoneNumber) {
           router.push('/userDashboard');
@@ -58,7 +48,7 @@ export const SignupForm = () => {
     }
   }, []);
 
-  const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
+  const { values, touched, errors, handleSubmit, handleChange, handleBlur, isSubmitting } =
     useFormik({
       initialValues,
       validationSchema: SignupSchema,
@@ -66,70 +56,26 @@ export const SignupForm = () => {
         values: SignupFormValuesType,
         { setSubmitting }: FormikHelpers<SignupFormValuesType>,
       ) => {
-        console.log('In SUbmit');
-        setIsLoading(true);
+        setSubmitting(true);
         const { fullName, email, password } = values;
-        console.log('fullName, email, password 1', fullName, email, password);
-
-        if (rememberMe) {
-          const expirationDate = new Date();
-          expirationDate.setDate(expirationDate.getDate() + 30);
-        }
-
         try {
-          const response:any = await signUpService({ fullName, email, password });
-
+          const response = await signUpService({ fullName, email, password });
           if (response.status === 200) {
-            //   localStorage.setItem('data', response.userName);
-            //   handleStepChange(currentStep + 1);
-            console.log("response ====>",response);
             toast.success(response.data.message);
             router.push(`/auth/login`);
-          } else {
-            setIsLoading(false);
-            setError('Failed to sign up. Please try again.');
           }
-        } catch (error: any) {
-          setIsLoading(false);
-          console.log("error  ==>",error)
-          toast.error(error?.message);
-          setError('user with email already exists.');
+        } catch (error) {
+          toast.error(error?.response?.data?.message);
         } finally {
-          setIsLoading(false);
           setSubmitting(false);
         }
       },
     });
 
-  useEffect(() => {
-    const storedFullname = localStorage.getItem('fullName');
-    const storedPlayerId = localStorage.getItem('userName');
-    const storedEmail = localStorage.getItem('email');
-    const storedPassword = localStorage.getItem('password');
-
-    if (storedFullname) {
-      setFieldValue('fullName', storedFullname);
-    }
-
-    if (storedPlayerId) {
-      setFieldValue('userName', storedPlayerId);
-    }
-    
-    // if (storedEmail) {
-    //   setFieldValue('email', storedEmail);
-    // }
-
-    if (storedPassword) {
-      setFieldValue('password', storedPassword);
-    }
-  }, [setFieldValue]);
-  console.log('Error', error);
-
   // TODO: NEED TO CHECK BELOW FUNCTION CHERRY PICKED FROM SUBMIT ANOTHER PR.
-  const googleAuth = () =>{
-    console.log("Inside Google Auth")
+  const googleAuth = () => {
     window.open(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`, 'self');
-  }
+  };
 
   return (
     <form>
@@ -189,18 +135,17 @@ export const SignupForm = () => {
 
       <div className={styles.button_wrapper}>
         <Button
-          disabled={isLoading}
+          disabled={isSubmitting}
           className={styles.forgetbutton}
-          // variant="contained"
           type="submit"
           onClick={handleSubmit}
         >
-          {isLoading ? 'Loading...' : 'Next'}
+          {isSubmitting ? 'Loading...' : 'Next'}
         </Button>
       </div>
 
       <Button className={styles.btnStyle} onClick={googleAuth}>
-        <Image src="/assests/google.svg" alt="passwordlogo" width={20} height={20}  />
+        <Image src="/assests/google.svg" alt="passwordlogo" width={20} height={20} />
         <span className={styles.googleIcon}>Sign in with Google</span>
       </Button>
 

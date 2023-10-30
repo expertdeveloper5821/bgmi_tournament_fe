@@ -8,6 +8,8 @@ import { Button, Input } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
 import { ResetPasswordSchema } from '@/utils/schema';
+import { resetPasswordService } from '@/services/authServices';
+import { toast } from 'react-toastify';
 
 interface FormValues {
   newPassword: string;
@@ -37,18 +39,13 @@ export const ResetPasswordForm: React.FC = () => {
     onSubmit: async (values: FormValues) => {
       const { newPassword, confirmPassword } = values;
       try {
-        const response = await sendRequest(`user/reset-password?token=${token}`, {
-          method: 'POST',
-          data: { newPassword, confirmPassword },
-        });
+        const response = await resetPasswordService({token, newPassword,confirmPassword});
 
         if (response.status === 200) {
           router.push('/auth/updateCredSuccess');
-        } else {
-          console.error('Password update failed');
-        }
-      } catch (error: any) {
-        console.error('Password update error:', error);
+        } 
+      } catch (error) {
+        toast.error(error?.response?.data?.message);
       }
     },
   });

@@ -42,8 +42,9 @@ export async function sendRequest(path: string, opts: AxiosRequestConfig = {}) {
       data: opts.data,
       headers: headers,
     });
+    
     return response;
   } catch (error) {
-    return error;
+    throw error;
   }
 }

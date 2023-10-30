@@ -31,6 +31,7 @@ export const TeamsDetailsForm = () => {
     handleBlur,
     isSubmitting,
     setFieldValue,
+    setFieldError
   } = useFormik({
     initialValues,
     validationSchema: teamsDetailsSchema,
@@ -49,11 +50,12 @@ export const TeamsDetailsForm = () => {
         });
         if (response.status === 200) {
           setSubmitting(false);
+          toast.success(response?.data?.message)
           router.push('/userDashboard');
         }
         setSubmitting(false);
       } catch (error) {
-        toast.error(error.message);
+        toast.error(error?.response?.data?.error);
       } finally {
         setSubmitting(false);
       }
@@ -65,11 +67,13 @@ export const TeamsDetailsForm = () => {
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     if (event.key === 'Enter' && emailRegex.test(inputValue)) {
       setEmailList([...emailList, inputValue.trim()]);
       setFieldValue('emails', [...emailList, inputValue.trim()]);
       setInputValue('');
+    }else if(event.key === 'Enter' && !emailRegex.test(inputValue)){
+      setFieldError('emails',"Please enter a valid email")
     }
   };
 

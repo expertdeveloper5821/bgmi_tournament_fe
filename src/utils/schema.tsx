@@ -77,6 +77,9 @@ const personDetailSchema = Yup.object().shape({
   // whatsapp:  Yup.string()
   // .matches(/^\+\d{1,3}\d{6,14}$/, 'Invalid WhatsApp number')
   // .required('Phone number is required'),
+  whatsapp: Yup.string().required('whatsapp number id is required').matches(/^(\+91|\\+)?[1-9][0-9]{9}$/, {
+    message: 'Invalid phone number. Please enter a valid 10-digit phone number or that can starts with +91.',
+  })
 });
 
 const teamsDetailsSchema =Yup.object().shape({

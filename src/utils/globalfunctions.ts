@@ -13,6 +13,9 @@ export interface DecodedToken {
   userId: string;
   userName: string;
   userUuid: string;
+  phoneNumber?: string;
+  profilePic?: string;
+  upiId?: string;
 }
 
 const decodeJWt = (token: string): DecodedToken | null => {

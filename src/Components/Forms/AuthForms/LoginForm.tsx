@@ -1,39 +1,30 @@
 'use client';
-import React, { useState, useEffect, ChangeEvent, useContext } from 'react';
-import { useFormik, FormikErrors, FormikTouched, FormikValues, FormikHelpers } from 'formik';
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import { useFormik, FormikHelpers } from 'formik';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import styles from '@/styles/auth.module.scss';
 import { sendRequest } from '../../../utils/axiosInstanse';
-import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
 import { decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
-import { SignupSchema, loginSchema } from '@/utils/schema';
+import { loginSchema } from '@/utils/schema';
 import { toast } from 'react-toastify';
-
-interface LoginProps {}
-
-interface FormValues {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-}
+import { loginService } from '@/services/authServices';
+import { LoginFormValues } from '@/types/formsTypes';
 
 export function LoginForm(): React.JSX.Element {
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [role, setRole] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const [getToken, setGetToken] = useState<any>('');
-  const { userInfo, updateUserInfo, updateToken } = useUserContext();
+  const {  updateToken } = useUserContext();
   const router = useRouter();
   const [isLoadingData, setLoadingData] = useState<boolean>(false);
   const [errorData, showErrorData] = useState<string>('');
 
-  const initialValues: FormValues = {
+  const initialValues: LoginFormValues = {
     email: '',
     password: '',
     rememberMe: rememberMe,
@@ -43,27 +34,25 @@ export function LoginForm(): React.JSX.Element {
     useFormik({
       initialValues,
       validationSchema: loginSchema,
-      onSubmit: async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
+      onSubmit: async (
+        values: LoginFormValues,
+        { setSubmitting }: FormikHelpers<LoginFormValues>,
+      ) => {
         setIsLoading(true);
         const { email, password } = values;
 
         try {
-          const response: any = await sendRequest('user/login', {
-            method: 'POST',
-            data: { email, password },
-          });
-
+          const response: any = await loginService({ email, password });
           setIsLoading(false);
           const decodedToken: any = decodeJWt(response?.data?.userData?.token);
+          console.log('decodedToken ==>', decodedToken);
 
           if (response.status === 200) {
             // Below need to figure out why we want this.
-
             // const userDetails = {
             //   name: decodedToken?.fullName,
             //   email: decodedToken?.email,
             // };
-
             // updateUserInfo(userDetails);
             // updateToken(decodedToken);
 
@@ -99,7 +88,8 @@ export function LoginForm(): React.JSX.Element {
         } catch (error: any) {
           console.log('inside catch error', error);
           setIsLoading(false);
-          toast.error(error?.message);
+          setError(error?.response?.data?.message);
+          toast.error(error?.response?.data?.message);
         } finally {
           setSubmitting(false);
         }

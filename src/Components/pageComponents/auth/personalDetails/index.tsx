@@ -1,19 +1,18 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { Dispatch, SetStateAction } from 'react';
+import {  useState } from 'react';
+
 import styles from '@/styles/personal_detail.module.scss';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 // TODO: Commented ToolTip code and its import statements because producing errors need to figure out later.
 // import { Tooltip } from '@nextui-org/react';
-import { FormDefaultPropsType, details } from '../authInterfaces';
+import {  details } from '../authInterfaces';
 import { personDetailSchema } from '@/utils/schema';
 import { useFormik, FormikHelpers } from 'formik';
 import { updateUserDetailsService } from '@/services/authServices';
-import { decodeJWt } from '@/utils/globalfunctions';
+import { toast } from 'react-toastify';
 
-const PersonalDetail = ({ handleStepChange, currentStep }: FormDefaultPropsType) => {
-  const [error, setError] = useState<string>('');
+const PersonalDetail = ({ handleStepChange, currentStep }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const initialValues: details = {
     player: '',
@@ -21,31 +20,25 @@ const PersonalDetail = ({ handleStepChange, currentStep }: FormDefaultPropsType)
     whatsapp: '',
   };
 
-  console.log('currentStep 4 currentStep ==>', currentStep);
 
-  const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
+  const { values, touched, errors, handleSubmit, handleChange, handleBlur } =
     useFormik({
       initialValues,
       validationSchema: personDetailSchema,
       onSubmit: async (values: details, { setSubmitting }: FormikHelpers<details>) => {
-        console.log('yes');
         setIsLoading(true);
         setSubmitting(true);
         const { player, upi, whatsapp } = values;
         const token = localStorage.getItem('jwtToken');
-        const decodedToken: any = decodeJWt(token);
-        console.log('player, upi, whatsapp,decodedToken,values', player, upi, whatsapp, decodedToken,values);
         // We need bgmiId later here when user want to update from inside application.
-        const bgmiId = decodedToken?.userId;
         try {
-          const response = await updateUserDetailsService({ token,data:{
+          await updateUserDetailsService({ token,data:{
             userName: player,
             upiId: upi,
             phoneNumber: whatsapp
           }});
-          console.log("response ===>",response);
         } catch (error) {
-          setError(error.message);
+          toast.error(error.message);
         } finally {
           setIsLoading(false);
           setSubmitting(false);

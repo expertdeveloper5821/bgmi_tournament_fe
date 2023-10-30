@@ -1,16 +1,15 @@
 'use client';
 import React from 'react';
-import Link from 'next/link';
 import styles from '@/styles/auth.module.scss';
 import { useRouter } from 'next/navigation';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
-import { sendRequest } from '@/utils/axiosInstanse';
 import { FormikHelpers, useFormik } from 'formik';
 import { forgetPasswordSchema } from '@/utils/schema';
 import { toast } from 'react-toastify';
 import { ForgetFormValues } from '@/types/formsTypes';
+import { forgetPasswordService } from '@/services/authServices';
 
 const initialValues: ForgetFormValues = {
   email: '',
@@ -32,10 +31,12 @@ export function ForgetPasswordForm(): JSX.Element {
         const { email } = values;
 
         try {
-          const response: any = await sendRequest('user/forget-password', {
-            method: 'POST',
-            data: { email },
-          });
+          // const response: any = await sendRequest('user/forget-password', {
+          //   method: 'POST',
+          //   data: { email },
+          // });
+
+          const response = await forgetPasswordService(email);
 
           if (response.status === 200) {
             toast.success(response.data.message);
