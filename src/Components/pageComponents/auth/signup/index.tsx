@@ -13,7 +13,6 @@ import styles from '@/styles/auth.module.scss';
 const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [rememberMe] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
 
   const router = useRouter();
 
@@ -31,30 +30,30 @@ const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => 
         values: SignupFormValuesType,
         { setSubmitting }: FormikHelpers<SignupFormValuesType>,
       ) => {
-        console.log('In SUbmit');
         setIsLoading(true);
         const { fullName, email, password } = values;
-        console.log("fullName, email, password currentStep 1",fullName, email, password,currentStep);
 
         if (rememberMe) {
           const expirationDate = new Date();
           expirationDate.setDate(expirationDate.getDate() + 30);
         }
 
+        interface ResponseType {
+          userName?: string;
+          status: number;
+        }
         try {
-          const response:any = await signUpService({ fullName, email, password });
+          const response: ResponseType = await signUpService({ fullName, email, password });
 
           if (response.status === 200) {
-          localStorage.setItem('data', response.userName);
-          handleStepChange(currentStep + 1);
-          router.push(`/auth/login`);
+            localStorage.setItem('data', response.userName);
+            handleStepChange(currentStep + 1);
+            router.push(`/auth/login`);
           } else {
             setIsLoading(false);
-            setError('Failed to sign up. Please try again.');
           }
         } catch (error) {
           setIsLoading(false);
-          setError('user with email already exists.');
         } finally {
           setIsLoading(false);
           setSubmitting(false);
@@ -82,7 +81,6 @@ const SignupForm = ({ handleStepChange, currentStep }: FormDefaultPropsType) => 
       setFieldValue('password', storedPassword);
     }
   }, [setFieldValue]);
-  console.log('Error', error);
   return (
     <form>
       <div className={styles.input_box}>

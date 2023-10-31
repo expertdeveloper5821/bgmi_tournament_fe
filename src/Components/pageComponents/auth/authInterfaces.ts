@@ -11,13 +11,17 @@ export interface SignupFormValuesType {
 }
 
 export interface onbStepType {
-  id: number
-  title: string
-  subTitle: string
+  id: number;
+  title: string;
+  subTitle: string;
 }
 export interface details {
-  player: string
-  upi: string
-  whatsapp: string
+  player: string;
+  upi: string;
+  whatsapp: string;
 }
 
+export interface FormDefaultPropsType {
+  currentStep: number;
+  handleStepChange: (stepId: number) => void;
+}
