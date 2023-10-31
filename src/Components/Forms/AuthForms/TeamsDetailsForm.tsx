@@ -31,11 +31,14 @@ export const TeamsDetailsForm = () => {
     handleBlur,
     isSubmitting,
     setFieldValue,
-    setFieldError
+    setFieldError,
   } = useFormik({
     initialValues,
     validationSchema: teamsDetailsSchema,
-    onSubmit: async (values: TeamsDetailsFormValues, { setSubmitting }: FormikHelpers<TeamsDetailsFormValues>) => {
+    onSubmit: async (
+      values: TeamsDetailsFormValues,
+      { setSubmitting }: FormikHelpers<TeamsDetailsFormValues>,
+    ) => {
       setSubmitting(true);
       const { teamName, emails } = values;
       const token = localStorage.getItem('jwtToken');
@@ -50,7 +53,7 @@ export const TeamsDetailsForm = () => {
         });
         if (response.status === 200) {
           setSubmitting(false);
-          toast.success(response?.data?.message)
+          toast.success(response?.data?.message);
           router.push('/userDashboard');
         }
         setSubmitting(false);
@@ -72,8 +75,8 @@ export const TeamsDetailsForm = () => {
       setEmailList([...emailList, inputValue.trim()]);
       setFieldValue('emails', [...emailList, inputValue.trim()]);
       setInputValue('');
-    }else if(event.key === 'Enter' && !emailRegex.test(inputValue)){
-      setFieldError('emails',"Please enter a valid email")
+    } else if (event.key === 'Enter' && !emailRegex.test(inputValue)) {
+      setFieldError('emails', 'Please enter a valid email');
     }
   };
 

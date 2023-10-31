@@ -4,7 +4,7 @@ import React from 'react';
 
 function teamsDetails() {
   return (
-    <AuthHoc heading={'Teams Details'} subheading={"To proceed further! Please enter all details"}>
+    <AuthHoc heading={'Teams Details'} subheading={'To proceed further! Please enter all details'}>
       <TeamsDetailsForm />
     </AuthHoc>
   );

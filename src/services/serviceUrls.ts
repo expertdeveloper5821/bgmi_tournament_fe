@@ -11,8 +11,8 @@ export const serviceUrls = {
   regRooms: 'team/register-room', //registered rooms
   joinMatch: 'payment/create-payment',
   updateUserDetails: '/user/updateuser',
-  sendInvite:'/user/send-invite',
+  sendInvite: '/user/send-invite',
   forgetPassword: 'user/forget-password',
   login: 'user/login',
-  resetPassword: 'user/reset-password?token='
+  resetPassword: 'user/reset-password?token=',
 };

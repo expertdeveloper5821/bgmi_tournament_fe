@@ -217,7 +217,7 @@ export const loginService = async (data: LoginServiceValuesType) => {
 
 export const resetPasswordService = async (data: resetPasswordValuesType) => {
   try {
-    const res = await sendRequest(`user/reset-password?token=${data.token}`, {
+    const res = await sendRequest(`${serviceUrls.resetPassword}${data.token}`, {
       method: 'POST',
       data: { newPassword: data.newPassword, confirmPassword: data.confirmPassword },
     });

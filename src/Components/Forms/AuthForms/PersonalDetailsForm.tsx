@@ -23,41 +23,40 @@ export const PersonalDetail = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const { values, touched, errors, handleSubmit, handleChange, handleBlur } =
-    useFormik({
-      initialValues,
-      validationSchema: personDetailSchema,
-      onSubmit: async (
-        values: PersonalDetailsValue,
-        { setSubmitting }: FormikHelpers<PersonalDetailsValue>,
-      ) => {
-        setIsLoading(true);
-        setSubmitting(true);
-        const { player, upi, whatsapp } = values;
-        const token = localStorage.getItem('jwtToken');
-        // We need bgmiId later here when user want to update from inside application.
-        try {
-          const response = await updateUserDetailsService({
-            token,
-            data: {
-              userName: player,
-              upiId: upi,
-              phoneNumber: whatsapp,
-            },
-          });
-          if (response.status === 200) {
-            toast.success('successfully updated');
-            router.push('/auth/teamsdetails');
-          }
-        } catch (error) {
-          setIsLoading(false);
-          toast.error(error?.response?.data?.message);
-        } finally {
-          setIsLoading(false);
-          setSubmitting(false);
+  const { values, touched, errors, handleSubmit, handleChange, handleBlur } = useFormik({
+    initialValues,
+    validationSchema: personDetailSchema,
+    onSubmit: async (
+      values: PersonalDetailsValue,
+      { setSubmitting }: FormikHelpers<PersonalDetailsValue>,
+    ) => {
+      setIsLoading(true);
+      setSubmitting(true);
+      const { player, upi, whatsapp } = values;
+      const token = localStorage.getItem('jwtToken');
+      // We need bgmiId later here when user want to update from inside application.
+      try {
+        const response = await updateUserDetailsService({
+          token,
+          data: {
+            userName: player,
+            upiId: upi,
+            phoneNumber: whatsapp,
+          },
+        });
+        if (response.status === 200) {
+          toast.success('successfully updated');
+          router.push('/auth/teamsdetails');
         }
-      },
-    });
+      } catch (error) {
+        setIsLoading(false);
+        toast.error(error?.response?.data?.message);
+      } finally {
+        setIsLoading(false);
+        setSubmitting(false);
+      }
+    },
+  });
 
   return (
     <div>
