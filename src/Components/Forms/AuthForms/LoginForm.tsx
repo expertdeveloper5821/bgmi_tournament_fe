@@ -141,10 +141,9 @@ export function LoginForm(): React.JSX.Element {
   //   }
   // }, [setFieldValue]);
 
-
-  const handleRedirect = (token: any) => {
+  const handleRedirect = (token: string) => {
     if (token) {
-      const decodedToken: any = decodeJWt(token);
+      const decodedToken: DecodedToken = decodeJWt(token);
 
       if (decodedToken && decodedToken?.role?.role === 'user') {
         if (decodedToken?.upiId && decodedToken?.userName && decodedToken?.phoneNumber) {
@@ -207,7 +206,6 @@ export function LoginForm(): React.JSX.Element {
       const verifyResponse = await sendRequest(`auth/verify/?token=${token}`, {
         method: 'GET',
       });
-
 
       if (verifyResponse.status === 200) {
         router.push('/adminDashboard/room');
