@@ -25,11 +25,10 @@ export function Navbar() {
 
   const handleLogout = async () => {
     try {
-      // localStorage.clear();
       localStorage.removeItem('jwtToken');
       localStorage.removeItem('expirationTime');
       triggerHandleLogout();
-      router.push('/');
+      router.push('/auth/login');
     } catch (error) {
       // setIsLoading(false);
       // setError('Logout failed');

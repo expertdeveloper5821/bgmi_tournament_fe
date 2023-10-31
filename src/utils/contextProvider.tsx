@@ -63,7 +63,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const triggerHandleLogout = () => {
-    console.log('triggerHandleLogout timeOutId ==>', timeOutId);
     clearTimeout(timeOutId);
   };
 
