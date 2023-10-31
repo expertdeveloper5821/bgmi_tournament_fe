@@ -33,13 +33,10 @@ const Signup = () => {
   });
 
   const handleStepChange = (stepId: number) => {
-    console.log("currentStep 2 stepId==>",stepId);
     setCurrentStep(onbStepData.find((curStep: onbStepType) => curStep.id === stepId));
   };
 
   const renderOnboardingForm = (curStep: number) => {
-    console.log("currentStep 3 curStep==>",curStep)
-    console.log("DEBUGGING STEPPER 3 curStep",curStep);
 
     if(curStep > 3){
       return <h1>Thanks for the resitration</h1>
@@ -55,9 +52,6 @@ const Signup = () => {
         return ;
     }
   };
-
-  console.log("currentStep 4 curStep==>",currentStep)
-  console.log("DEBUGGING STEPPER 2 currentStep",currentStep);
 
   return (
     <AuthContainer title={currentStep?.title} subTitle={currentStep?.subTitle}>

@@ -5,9 +5,8 @@ import styles from '@/styles/mail.module.scss';
 import { Button } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 
-export interface SentMailProps {}
 
-export function MailPageForm(props: SentMailProps): JSX.Element {
+export function MailPageForm(): JSX.Element {
   const handleClick = () => {
     window.open('https://mail.google.com/mail/u/0/#inbox', '_blank');
   };

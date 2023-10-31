@@ -7,8 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
-
-interface ResetPasswordProps {}
+import { toast } from 'react-toastify';
 
 export default function ResetPassword(): JSX.Element {
   const [email, setEmail] = useState<string>('');
@@ -24,14 +23,13 @@ export default function ResetPassword(): JSX.Element {
 
   const sendEmail = async () => {
     try {
-      const response = await sendRequest('user/forget-password', {
+      await sendRequest('user/forget-password', {
         method: 'POST',
         data: { email },
       });
       router.push('/auth/mailpage');
-
     } catch (error) {
-      console.error('Password recovery error:', error);
+      toast.error(error.message);
     }
   };
 

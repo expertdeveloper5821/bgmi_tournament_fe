@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 interface Props {}
 
-export const UpdateCredSuccessForm: React.FC<Props> = (props) => {
+export const UpdateCredSuccessForm: React.FC<Props> = () => {
   const router = useRouter();
   const handleClick = () => {
     router.push('/auth/login');

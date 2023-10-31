@@ -23,7 +23,7 @@ export const PersonalDetail = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
+  const { values, touched, errors, handleSubmit, handleChange, handleBlur } =
     useFormik({
       initialValues,
       validationSchema: personDetailSchema,
@@ -31,7 +31,6 @@ export const PersonalDetail = () => {
         values: PersonalDetailsValue,
         { setSubmitting }: FormikHelpers<PersonalDetailsValue>,
       ) => {
-        console.log('yes');
         setIsLoading(true);
         setSubmitting(true);
         const { player, upi, whatsapp } = values;

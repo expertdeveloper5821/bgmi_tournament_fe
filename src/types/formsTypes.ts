@@ -50,3 +50,9 @@ export interface ResetFormValues {
   confirmPassword: string;
 }
 
+export interface AuthLoginFormValues {
+  email: string;
+  password: string;
+}
+
+

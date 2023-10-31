@@ -1,3 +1,5 @@
+import { DecodedToken } from "@/utils/globalfunctions";
+
 export interface GetAllFilteredValuesType {
   searchVal: string;
   token: string;
@@ -15,7 +17,7 @@ export interface UserInfo {
 export interface UserContextType {
   userInfo: UserInfo | null;
   updateUserInfo: (newUserInfo: UserInfo) => void;
-  updateToken: (token: string) => void;
-  token: string;
+  updateToken: (token: DecodedToken) => void;
+  token: null | DecodedToken;
   triggerHandleLogout: () => void;
 }

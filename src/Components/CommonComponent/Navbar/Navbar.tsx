@@ -1,17 +1,15 @@
 'use client';
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Navabar.module.scss';
 import { useRouter } from 'next/navigation';
 import { Avatar, Popover } from 'technogetic-iron-smart-ui';
 import jwtDecode from 'jwt-decode';
 import { useUserContext } from '@/utils/contextProvider';
+import { DecodedToken } from '@/utils/globalfunctions';
 
 
 export function Navbar() {
-  // const [, setIsOpen] = useState(false);
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
-  // const [, setIsLoading] = useState<boolean>(false);
-  // const [, setError] = useState<string>('');
   const [userData, setUserData] = useState<string>('');
   const [nameData, setNameData] = useState<string>('');
   const [initialsName, setInitialsName] = useState<string>('');
@@ -36,7 +34,7 @@ export function Navbar() {
   };
 
   const getAlldata = async () => {
-    const userData: any = jwtDecode(localStorage.getItem('jwtToken'));
+    const userData: DecodedToken = jwtDecode(localStorage.getItem('jwtToken'));
 
     setUserData(userData?.email);
     setNameData(userData?.fullName);

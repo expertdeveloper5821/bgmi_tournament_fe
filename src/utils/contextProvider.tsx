@@ -5,6 +5,7 @@ import jwt_decode from 'jwt-decode';
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { checkAuthentication } from './checkAuthentication';
 import { UserContextType, UserInfo } from '@/types/usersTypes';
+import { DecodedToken } from './globalfunctions';
 
 // Create the context
 const UserContext = createContext<UserContextType>({
@@ -17,20 +18,18 @@ const UserContext = createContext<UserContextType>({
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-  const [token, setToken] = useState<any>(null);
-  const [timeOutId, setTimeOutId] = useState<any>(null);
+  const [token, setToken] = useState<null | DecodedToken>(null);
+  const [timeOutId, setTimeOutId] = useState<null | NodeJS.Timeout>(null);
 
   const router = useRouter();
 
   if (typeof window !== 'undefined') {
     const pathname = window.location.pathname;
-    console.log('window ==>', window.location, 'pathname', pathname);
 
     if (!pathname.includes('landingPage')) {
       const isAuthenticated = checkAuthentication();
       if (!isAuthenticated) {
         if (pathname === '/auth/signup') {
-          console.log('DEBUGGINGGGGG');
           router.push('/auth/signup');
         } else if (pathname === '/auth/reset-password') {
           router.push('/auth/reset-password');
@@ -41,13 +40,11 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
       } else {
         const token = localStorage.getItem('jwtToken');
-        const decodedToken: any = jwt_decode(token);
-        console.log('decodedToken ==>', decodedToken);
+        const decodedToken: DecodedToken = jwt_decode(token);
         if (
           decodedToken?.role?.role !== 'user' &&
           (pathname === '/auth/personaldetails' || pathname === '/auth/teamsdetails')
         ) {
-          console.log('inside decodedToken?.role?.role', decodedToken);
           router.push('/auth/login');
         }
       }
@@ -58,7 +55,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setUserInfo(newUserInfo);
   };
 
-  const updateToken = (token: any) => {
+  const updateToken = (token: DecodedToken) => {
     setToken(token);
   };
 
@@ -74,7 +71,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         const expirationTime = Number(stringifyExpirationTime);
         const remainingTime = expirationTime - now;
         if (remainingTime) {
-          const timeOut = setTimeout(() => {
+          const timeOut:NodeJS.Timeout = setTimeout(() => {
             localStorage.removeItem('jwtToken');
             localStorage.removeItem('expirationTime');
             router.push('/auth/login');

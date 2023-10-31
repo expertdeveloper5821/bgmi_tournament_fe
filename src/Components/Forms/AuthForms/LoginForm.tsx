@@ -8,7 +8,7 @@ import { Button, Input } from 'technogetic-iron-smart-ui';
 import styles from '@/styles/auth.module.scss';
 import { sendRequest } from '../../../utils/axiosInstanse';
 import Image from 'next/image';
-import { decodeJWt } from '@/utils/globalfunctions';
+import { DecodedToken, decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
 import { loginSchema } from '@/utils/schema';
 import { toast } from 'react-toastify';
@@ -40,10 +40,9 @@ export function LoginForm(): React.JSX.Element {
         const { email, password } = values;
 
         try {
-          const response: any = await loginService({ email, password });
+          const response = await loginService({ email, password });
           setIsLoading(false);
-          const decodedToken: any = decodeJWt(response?.data?.userData?.token);
-          console.log('decodedToken ==>', decodedToken);
+          const decodedToken: DecodedToken = decodeJWt(response?.data?.userData?.token);
 
           if (response.status === 200) {
             // Below need to figure out why we want this.
@@ -74,8 +73,7 @@ export function LoginForm(): React.JSX.Element {
           } else {
             setError('Invalid email or password');
           }
-        } catch (error: any) {
-          console.log('inside catch error', error);
+        } catch (error) {
           setIsLoading(false);
           setError(error?.response?.data?.message);
           toast.error(error?.response?.data?.message);
@@ -86,26 +84,22 @@ export function LoginForm(): React.JSX.Element {
     });
 
   function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
-    console.log('REMEMBER ME ===>', event.target.checked);
     setRememberMe(event.target.checked);
   }
 
   useEffect(() => {
-    let rememberMeValue: any = localStorage.getItem('rememberMe');
+    const rememberMeValue = localStorage.getItem('rememberMe');
     if (rememberMeValue) {
-      console.log('rememberMeValue 1==>', rememberMeValue);
       if (rememberMeValue === 'true') {
         setRememberMe(true);
       } else if (rememberMeValue === 'false') {
         setRememberMe(false);
       }
 
-      console.log('rememberMeValue 2==>', rememberMeValue);
       // if (rememberMeValue) {
       //   setFieldValue('email', localStorage.getItem('email'));
       // }
     }
-    console.log('lets check value of rememberMeValue ==>', rememberMeValue);
 
     const token = localStorage.getItem('jwtToken');
     if (token) {
@@ -130,7 +124,6 @@ export function LoginForm(): React.JSX.Element {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get('token');
-      console.log('tokenurlParams ====>', token, 'urlParams', urlParams);
       if (token) {
         handleVerifyToken(token);
       }
@@ -148,7 +141,6 @@ export function LoginForm(): React.JSX.Element {
   //   }
   // }, [setFieldValue]);
 
-  console.log('currentStep 4 ');
 
   const handleRedirect = (token: any) => {
     if (token) {
@@ -241,7 +233,6 @@ export function LoginForm(): React.JSX.Element {
   }, []);
 
   const googleAuth = () => {
-    console.log('Inside Google Auth');
     window.open(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`, 'self');
     handleGoogleLogin();
   };

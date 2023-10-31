@@ -1,32 +1,28 @@
 'use client';
-import React, { useState, useEffect, ChangeEvent, useContext } from 'react';
-import { useFormik, FormikErrors, FormikTouched, FormikValues, FormikHelpers } from 'formik';
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import { useFormik, FormikHelpers } from 'formik';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import styles from '@/styles/auth.module.scss';
-import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
 import { decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
-import { SignupSchema, loginSchema } from '@/utils/schema';
+import { loginSchema } from '@/utils/schema';
 import { sendRequest } from '@/utils/axiosInstanse';
+import { AuthLoginFormValues } from '@/types/formsTypes';
 
-interface LoginProps {}
-
-interface FormValues {
-  email: string;
-  password: string;
-}
+const initialValues: AuthLoginFormValues = {
+  email: '',
+  password: '',
+};
 
 function Login(): React.JSX.Element {
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [role, setRole] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const [getToken, setGetToken] = useState<any>('');
-  const { userInfo, updateUserInfo } = useUserContext();
+  const { updateUserInfo } = useUserContext();
   const router = useRouter();
 
   function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
@@ -43,18 +39,14 @@ function Login(): React.JSX.Element {
     }
   });
 
-  const initialValues: FormValues = {
-    email: '',
-    password: '',
-  };
-
-  console.log('currentStep 4 ');
-
   const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
     useFormik({
       initialValues,
       validationSchema: loginSchema,
-      onSubmit: async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
+      onSubmit: async (
+        values: AuthLoginFormValues,
+        { setSubmitting }: FormikHelpers<AuthLoginFormValues>,
+      ) => {
         setIsLoading(true);
         const { email, password } = values;
         if (rememberMe) {
@@ -71,7 +63,7 @@ function Login(): React.JSX.Element {
 
         // manual login
         try {
-          const response: any = await sendRequest('user/login', {
+          const response = await sendRequest('user/login', {
             method: 'POST',
             data: { email, password },
           });
@@ -101,7 +93,7 @@ function Login(): React.JSX.Element {
       },
     });
 
-  const handleRedirect = (token: any) => {
+  const handleRedirect = (token: string) => {
     if (token) {
       const decodedToken: any = decodeJWt(token);
       if (decodedToken?.role?.role === 'admin') {

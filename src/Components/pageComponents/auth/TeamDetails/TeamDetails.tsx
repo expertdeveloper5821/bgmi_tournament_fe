@@ -1,6 +1,5 @@
 import Image from 'next/image';
 
-import { Dispatch, SetStateAction } from 'react';
 import styles from '@/styles/personal_detail.module.scss';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
@@ -47,16 +46,13 @@ const TeamsDetails = ({ handleStepChange, currentStep }: FormDefaultPropsType) =
       // TODO: Need to add validation for this form.
       // validationSchema: personDetailSchema,
       onSubmit: async (values: any, { setSubmitting }: any) => {
-        console.log('yes');
         setIsLoading(true);
         setSubmitting(true);
         const { teamName, emails } = values;
         const token = localStorage.getItem('jwtToken');
 
-        console.log('teamName ==>', teamName, 'email', emails, 'token', token);
-
         try {
-          const response = await sendInviteService({
+          await sendInviteService({
             token,
             data: {
               teamName,
