@@ -45,3 +45,8 @@ export interface resetPasswordValuesType {
   confirmPassword: string;
 }
 
+export interface ResetFormValues {
+  newPassword: string;
+  confirmPassword: string;
+}
+

@@ -9,7 +9,6 @@ import { Button, Input } from 'technogetic-iron-smart-ui';
 import { personDetailSchema } from '@/utils/schema';
 import { useFormik, FormikHelpers } from 'formik';
 import { updateUserDetailsService } from '@/services/authServices';
-import { decodeJWt } from '@/utils/globalfunctions';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { PersonalDetailsValue } from '@/types/formsTypes';
@@ -21,11 +20,9 @@ const initialValues: PersonalDetailsValue = {
 };
 
 export const PersonalDetail = () => {
-  const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  console.log('PersonalDetail ==>');
   const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
     useFormik({
       initialValues,
@@ -55,7 +52,6 @@ export const PersonalDetail = () => {
           }
         } catch (error) {
           setIsLoading(false);
-          setError(error?.response?.data?.message);
           toast.error(error?.response?.data?.message);
         } finally {
           setIsLoading(false);

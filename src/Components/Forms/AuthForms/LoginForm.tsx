@@ -19,7 +19,7 @@ export function LoginForm(): React.JSX.Element {
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const {  updateToken } = useUserContext();
+  const { updateToken } = useUserContext();
   const router = useRouter();
   const [isLoadingData, setLoadingData] = useState<boolean>(false);
   const [errorData, showErrorData] = useState<string>('');
@@ -60,15 +60,6 @@ export function LoginForm(): React.JSX.Element {
             const expirationTime = date.setHours(date.getHours() + 1);
             // Below line is for testing Purpose only.
             // const expirationTime =  date.setMinutes(date.getMinutes() + 1);
-
-            console.log(
-              'resonseeeeee 0==>',
-              response,
-              'decodedToken',
-              decodedToken,
-              'expirationTime',
-              expirationTime,
-            );
 
             if (rememberMe) {
               localStorage.setItem('rememberMe', rememberMe.toString());

@@ -6,20 +6,15 @@ import { useFormik } from 'formik';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
-import { sendRequest } from '@/utils/axiosInstanse';
 import { ResetPasswordSchema } from '@/utils/schema';
 import { resetPasswordService } from '@/services/authServices';
 import { toast } from 'react-toastify';
-
-interface FormValues {
-  newPassword: string;
-  confirmPassword: string;
-}
+import { ResetFormValues } from '@/types/formsTypes';
 
 export const ResetPasswordForm: React.FC = () => {
   const [token, setToken] = useState<string>('');
   const router = useRouter();
-  console.log('router', router);
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const searchParams = new URLSearchParams(window.location.search);
@@ -28,7 +23,7 @@ export const ResetPasswordForm: React.FC = () => {
     }
   }, []);
 
-  const initialValues: FormValues = {
+  const initialValues: ResetFormValues = {
     newPassword: '',
     confirmPassword: '',
   };
@@ -36,14 +31,14 @@ export const ResetPasswordForm: React.FC = () => {
   const { values, touched, errors, handleSubmit, handleChange, handleBlur } = useFormik({
     initialValues,
     validationSchema: ResetPasswordSchema,
-    onSubmit: async (values: FormValues) => {
+    onSubmit: async (values: ResetFormValues) => {
       const { newPassword, confirmPassword } = values;
       try {
-        const response = await resetPasswordService({token, newPassword,confirmPassword});
+        const response = await resetPasswordService({ token, newPassword, confirmPassword });
 
         if (response.status === 200) {
           router.push('/auth/updateCredSuccess');
-        } 
+        }
       } catch (error) {
         toast.error(error?.response?.data?.message);
       }

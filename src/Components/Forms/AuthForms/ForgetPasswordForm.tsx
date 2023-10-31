@@ -31,11 +31,6 @@ export function ForgetPasswordForm(): JSX.Element {
         const { email } = values;
 
         try {
-          // const response: any = await sendRequest('user/forget-password', {
-          //   method: 'POST',
-          //   data: { email },
-          // });
-
           const response = await forgetPasswordService(email);
 
           if (response.status === 200) {

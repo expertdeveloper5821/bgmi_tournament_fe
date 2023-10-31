@@ -69,28 +69,17 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   useEffect(() => {
     const stringifyExpirationTime = localStorage.getItem('expirationTime');
-    console.log(
-      'GREATCHECK 1 tokenssss ==>',
-      token,
-      'stringifyExpirationTime',
-      stringifyExpirationTime,
-    );
     if (token || stringifyExpirationTime) {
-      console.log('GREATCHECK 1.1 stringifyExpirationTime', stringifyExpirationTime);
       if (stringifyExpirationTime) {
         const now = new Date().getTime();
         const expirationTime = Number(stringifyExpirationTime);
-        console.log('GREATCHECK 2 expirationTime, now', expirationTime, now);
         const remainingTime = expirationTime - now;
         if (remainingTime) {
-          console.log('GREATCHECK 3 deep inside remainingTime ==>', remainingTime);
           const timeOut = setTimeout(() => {
-            console.log('GREATCHECK 4 deep inside remainingTime ==>', remainingTime);
             localStorage.removeItem('jwtToken');
             localStorage.removeItem('expirationTime');
             router.push('/auth/login');
           }, remainingTime);
-          console.log('GREATCHECK 5 timeOutId', timeOut);
 
           setTimeOutId(timeOut);
         } else {
