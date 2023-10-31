@@ -21,8 +21,6 @@ export function LoginForm(): React.JSX.Element {
   const [error, setError] = useState<string>('');
   const { updateToken } = useUserContext();
   const router = useRouter();
-  const [isLoadingData, setLoadingData] = useState<boolean>(false);
-  const [errorData, showErrorData] = useState<string>('');
 
   const initialValues: LoginFormValues = {
     email: '',
@@ -213,22 +211,19 @@ export function LoginForm(): React.JSX.Element {
   };
 
   const handleVerifyTokenInLogin = async (token: string) => {
-    setLoadingData(true);
     try {
       const verifyResponse = await sendRequest(`auth/verify/?token=${token}`, {
         method: 'GET',
       });
 
-      setLoadingData(false);
 
       if (verifyResponse.status === 200) {
         router.push('/adminDashboard/room');
       } else {
-        showErrorData('Google Sign-In failed');
+        setError('Google Sign-In failed');
       }
     } catch (errorData) {
-      setLoadingData(false);
-      showErrorData('Google Sign-In failed');
+      setError('Google Sign-In failed');
     }
   };
 

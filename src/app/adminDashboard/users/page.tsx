@@ -5,7 +5,6 @@ import { Navbar } from '../../../Components/Navbar/Navbar';
 import TableData from '@/Components/CommonComponent/Table/Table';
 //@ts-ignore
 import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
-import RequireAuthentication from '../../../utils/requireAuthentication';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
 import { toast } from 'react-toastify';
 import { deleteRoleService, getAllFilteredUsersListService } from '@/services/authServices';
