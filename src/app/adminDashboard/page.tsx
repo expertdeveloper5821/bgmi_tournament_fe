@@ -4,7 +4,6 @@ import styles from '@/styles/Dashboard.module.scss';
 import assignmentData from '../../utils/CreateAssignmment.json';
 //@ts-ignore
 import { Pagination } from 'technogetic-iron-smart-ui';
-import RequireAuthentication from '../../utils/requireAuthentication';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import TableData from '@/Components/CommonComponent/Table/Table';
 import withAuth from '@/Components/HOC/WithAuthHoc';
@@ -41,27 +40,24 @@ function AdminDashboard() {
     setCurrentPage(page);
   };
 
-  console.log("ADMIN_DASHBOARD")
   const columns: string[] = ['Squad', 'Room Id', 'Spectator Id', 'Date and Time', 'Map'];
 
   return (
     <>
-      {/* <RequireAuthentication> */}
-        <div className={styles.main_container}>
-          <div className={styles.abcd}>
-            <div className={styles.sidebar_wrapper}>
-              <Navbar />
-              <h1>Welcome to Admin Dashboard</h1>
-              <TableData data={paginatedData} columns={columns} />
-              <Pagination
-                currentPage={currentPage}
-                totalPages={Math.ceil(transformedStudentData.length / rowPerPage)}
-                onPageChange={onPageChange}
-              />
-            </div>
+      <div className={styles.main_container}>
+        <div className={styles.abcd}>
+          <div className={styles.sidebar_wrapper}>
+            <Navbar />
+            <h1>Welcome to Admin Dashboard</h1>
+            <TableData data={paginatedData} columns={columns} />
+            <Pagination
+              currentPage={currentPage}
+              totalPages={Math.ceil(transformedStudentData.length / rowPerPage)}
+              onPageChange={onPageChange}
+            />
           </div>
         </div>
-      {/* </RequireAuthentication> */}
+      </div>
     </>
   );
 }
