@@ -94,7 +94,7 @@ const Page: React.FC = () => {
                                     <span className={styles.description}>Dashboard / Videos</span>
                                 </div>
                                 <div className={styles.sorting}>
-                                    <Select className={styles.sort}
+                                    <Select className={styles.demo}
                                         onChange={function noRefCheck() { }}
                                         option={[
                                             'orange',
