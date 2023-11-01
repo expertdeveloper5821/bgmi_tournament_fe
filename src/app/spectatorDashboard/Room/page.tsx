@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 import Form from '../Form/page';
-import RequireAuthentication from '../../../utils/requireAuthentication';
+// import RequireAuthentication from '../../../utils/requireAuthentication';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 //@ts-ignore
 import { Table, TableBody, TableCell } from 'technogetic-iron-smart-ui';
@@ -10,12 +10,15 @@ import { Table, TableBody, TableCell } from 'technogetic-iron-smart-ui';
 import { TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
 import { formatDate, formatTime } from '../../../Components/CommonComponent/moment';
 import Image from 'next/image';
-import Deletespec from '../Deletespec/page';
-import Updatespec from '../Updatespec/page';
+// import DeleteSpec from '../Deletespec/page';
+// DeleteSpecProps
+
 import { sendRequest } from '@/utils/axiosInstanse';
 import withAuth from '@/Components/HOC/WithAuthHoc';
+import DeleteSpec from '../deletespec/page';
 
 export interface RoomData {
+  dateAndTime: string;
   roomId: string;
   _id: string;
   password: string;
@@ -39,7 +42,8 @@ export interface RoomData {
 const Room = () => {
   const [Spect, setSpect] = useState<RoomData[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const [roomIdToUpdate, setRoomIdToUpdate] = useState<any>({});
+  const [roomIdToUpdate, setRoomIdToUpdate] = useState({});
+
 
   const columns: string[] = [
     'Room Id',
@@ -62,7 +66,7 @@ const Room = () => {
         method: 'GET',
       });
       setSpect(spectatorResponse.data);
-    } catch (error: any) {
+    } catch (error) {
       console.log('check error', error);
     }
   };
@@ -102,7 +106,8 @@ const Room = () => {
               </TableHeader>
 
               <TableBody>
-                {Spect?.map((spec: any, index) => (
+                {Spect?.map((spec: RoomData, index) => (
+                  console.log("spec", spec),
                   <TableRow key={index} className={styles.table_row_cell}>
                     <TableCell className={styles.el_tb_cell}>{spec?.roomId ?? '--'}</TableCell>
                     <TableCell className={styles.tb_cell_body}>{spec?.gameName ?? '--'}</TableCell>
@@ -133,7 +138,7 @@ const Room = () => {
 
                     <TableCell className={styles.tb_cell_action}>
                       <div className={styles.flex}>
-                        <Deletespec Id={spec._id} getAllSpectator={getAllSpectator} />
+                        <DeleteSpec Id={spec._id} getAllSpectator={getAllSpectator} />
                         <button
                           className={styles.editbtn}
                           onClick={() => {

@@ -47,7 +47,7 @@ export default function Modal() {
   const getAllUsers = async () => {
     setIsLoading(true);
     try {
-      const token = localStorage.getItem('jwtToken');
+      const token = localStorage.getItem('jwtToken') || '';
       const response = await getAllUsersDataService(token);
       const allspectatorData = response?.data?.data;
       setAllspectatorData(allspectatorData);
@@ -95,7 +95,7 @@ export default function Modal() {
   const deleteroom = async (userUuid: string) => {
     setIsLoading(true);
     try {
-      const token = localStorage.getItem('jwtToken');
+      const token = localStorage.getItem('jwtToken') || '';
       const response = await deleteRoleService({ userUuid, token });
       setIsLoading(false);
       getAllUsers();
@@ -115,11 +115,13 @@ export default function Modal() {
         [name]: value,
       }));
     } else if (modal?.buttonVal === 'Assign') {
-      roles.forEach((role) => {
-        if (role?._id === value) {
-          setFormData({ role: { _id: role?._id, role: role?.role, userUuid: role?.userUuid } });
-        }
-      });
+      if (roles) {
+        roles.forEach((role) => {
+          if (role?._id === value) {
+            setFormData({ role: { _id: role?._id, role: role?.role, userUuid: role?.userUuid } });
+          }
+        });
+      }
     }
   };
 
@@ -140,14 +142,14 @@ export default function Modal() {
       password: '',
     });
 
-    const token: string = localStorage.getItem('jwtToken');
+    const token: string = localStorage.getItem('jwtToken') || '';
 
     if (spectatorData?.length) {
       try {
         if (modal?.buttonVal === 'Create') {
-            await registerSpectatorService({ token, formData, spectatorData });
+          await registerSpectatorService({ token, formData, spectatorData });
         } else if (modal?.buttonVal === 'Assign') {
-            await updateRoleService({ token, formData });
+          await updateRoleService({ token, formData });
         }
         setIsLoading(false);
         getAllUsers();
@@ -166,26 +168,26 @@ export default function Modal() {
       setRoles([
         {
           role: 'spectator',
-          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'spectator')?.role?._id,
-          userUuid: spectatorData?.userUuid,
+          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'spectator')?.role?._id || '',
+          userUuid: spectatorData?.userUuid || '',
         },
         {
           role: 'admin',
-          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'admin')?.role?._id,
-          userUuid: spectatorData?.userUuid,
+          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'admin')?.role?._id || '',
+          userUuid: spectatorData?.userUuid || '',
         },
         {
           role: 'user',
-          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'user')?.role?._id,
-          userUuid: spectatorData?.userUuid,
+          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'user')?.role?._id || '',
+          userUuid: spectatorData?.userUuid || '',
         },
       ]);
 
       setFormData({
         role: {
-          _id: spectatorData?.role?._id,
-          role: spectatorData?.role?.role,
-          userUuid: spectatorData?.userUuid,
+          _id: spectatorData?.role?._id || '',
+          role: spectatorData?.role?.role || '',
+          userUuid: spectatorData?.userUuid || '',
         },
       });
     }

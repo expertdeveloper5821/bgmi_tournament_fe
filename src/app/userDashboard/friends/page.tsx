@@ -19,7 +19,7 @@ const Friend = () => {
   const [query, setQuery] = useState<string>('');
   const [userMail, setUserMail] = useState<string>('');
   const [newTeamName, setNewTeamName] = useState<string>('');
-  const token = localStorage.getItem('jwtToken');
+  const token = localStorage.getItem('jwtToken') || '';
   const { teamName } = decodeJWt(token);
 
   const handleModal = (value: boolean) => {
@@ -110,7 +110,7 @@ const Friend = () => {
     setEmailList(updatedEmailList);
   };
 
-  const handleSelect = () => {};
+  const handleSelect = () => { };
 
   const handleSearch = (event) => {
     const { value } = event.target;

@@ -2,7 +2,15 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Navabar.module.scss';
 import { useRouter } from 'next/navigation';
+// @ts-ignore
 import { Avatar, Popover } from 'technogetic-iron-smart-ui';
+import { decodeJWt } from '@/utils/globalfunctions';
+
+// interface INavbar {
+//   setUserName?: Dispatch<SetStateAction<string>>;
+// }
+
+
 
 export function Navbar() {
   // const [, setIsOpen] = useState(false);
@@ -12,7 +20,7 @@ export function Navbar() {
   const [userData, setUserData] = useState<string>('');
   const [nameData, setNameData] = useState<string>('');
   const [initialsName, setInitialsName] = useState<string>('');
-  const [pofile, setPofile] = useState<string>('');
+  const [pofile, setPofile] = useState<string | undefined>('');
 
   // function handleClosePopover() {
   //   setIsOpen(false);
@@ -29,10 +37,10 @@ export function Navbar() {
     }
   };
 
-  const getAlldata = async () => {
-    const jwtToken = localStorage.getItem('jwtToken');
-    const userData: any = jwtToken ? jwtDecode(jwtToken) : null;
 
+  const getAlldata = async () => {
+
+    const userData = decodeJWt(localStorage.getItem('jwtToken')!)
 
     setUserData(userData.email);
     setNameData(userData.fullName);
@@ -45,7 +53,7 @@ export function Navbar() {
       }
     });
     setInitialsName(initials);
-    setPofile(userData.profilePic);
+    setPofile(userData?.profilePic);
   };
 
   useEffect(() => {

@@ -4,8 +4,15 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import styles from '@/styles/Spectator.module.scss';
 import { toast } from 'react-toastify';
 import { sendRequest } from '@/utils/axiosInstanse';
+// import { NextPage } from 'next';
 
-const Deletespec = ({ Id, getAllSpectator }: any) => {
+interface DeleteSpecProps {
+  Id: string;
+  getAllSpectator: () => void;
+}
+
+export default function DeleteSpec({ Id, getAllSpectator }: DeleteSpecProps) {
+
   const [deletModal, setDeleteModal] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -23,7 +30,7 @@ const Deletespec = ({ Id, getAllSpectator }: any) => {
       } else {
         throw Error();
       }
-    } catch (error: any) {
+    } catch (error) {
       toast.error('Something went wrong, please try again later!');
       setMessage('Room not deleted, please try again later!');
       setIsLoading(false);
@@ -56,6 +63,4 @@ const Deletespec = ({ Id, getAllSpectator }: any) => {
       )}
     </>
   );
-};
-
-export default Deletespec;
+}

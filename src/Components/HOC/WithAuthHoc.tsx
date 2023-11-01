@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import Loader from '../CommonComponent/Loader/Loader';
 
-const withAuth = (WrappedComponent: any) => {
-  const WithAuth = (props: any) => {
+const withAuth = (WrappedComponent) => {
+  const WithAuth = (props) => {
     const [loading, setLoading] = useState<boolean>(true);
-    const [user, setUser] = useState<any>(null);
+    // const [user, setUser] = useState(null);
+    const [user, setUser] = useState<string | null>(null);
 
     useEffect(() => {
       // Fetch user data here and set it using setUser
@@ -30,7 +31,7 @@ const withAuth = (WrappedComponent: any) => {
     return <WrappedComponent {...props} />;
   };
 
-  WithAuth.getInitialProps = async (ctx: any) => {
+  WithAuth.getInitialProps = async (ctx) => {
     const wrappedComponentInitialProps = WrappedComponent.getInitialProps
       ? await WrappedComponent.getInitialProps(ctx)
       : {};

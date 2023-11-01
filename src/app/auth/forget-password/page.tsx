@@ -8,8 +8,6 @@ import { Button, Input } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
 
-interface ResetPasswordProps {}
-
 export default function ResetPassword(): JSX.Element {
   const [email, setEmail] = useState<string>('');
   const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
@@ -29,6 +27,7 @@ export default function ResetPassword(): JSX.Element {
         data: { email },
       });
       router.push('/auth/mailpage');
+      console.log("response", response)
 
     } catch (error) {
       console.error('Password recovery error:', error);

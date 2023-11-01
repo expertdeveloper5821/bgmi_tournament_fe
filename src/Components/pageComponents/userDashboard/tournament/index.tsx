@@ -45,7 +45,7 @@ function Tournament() {
   }, [joinMatchMessage]);
 
   const addRegMatch = async (match: ITournament) => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userData = JSON.parse(localStorage.getItem('userData')!);
     const data = {
       upiId: 'success@payment',
       matchAmount: 60,

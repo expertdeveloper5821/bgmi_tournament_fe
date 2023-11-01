@@ -12,6 +12,7 @@ import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
 import { deleteRoomService, getAllFilteredRoomsListService, getAllRoomsService } from '@/services/authServices';
 import { RoomsDataType } from '@/types/roomsTypes';
 
+
 function page() {
   const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
   const [roomData, setRoomData] = useState<RoomsDataType[] | []>([]);
@@ -29,16 +30,18 @@ function page() {
   ];
 
   const getAllTournaments = async () => {
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem('jwtToken') || '';
     try {
       const response = await getAllRoomsService(token);
       setWholeRoomData(response?.data);
       setRoomData(response?.data);
       setIsLoading(false);
-    } catch (error) {
+    }
+    catch (error) {
       setIsLoading(false);
       toast.error(error?.message);
     }
+
   };
 
   useEffect(() => {
@@ -47,8 +50,9 @@ function page() {
 
   const deleteroom = async (_id: string) => {
     setIsLoading(true);
+
     try {
-      const token = localStorage.getItem('jwtToken');
+      const token = localStorage.getItem('jwtToken') || '';
       const response = await deleteRoomService({ _id, token });
       getAllTournaments();
       toast.success(response?.data?.message);
@@ -60,8 +64,8 @@ function page() {
 
   const fetchTournaments = async (searchVal: string) => {
     try {
-      const token = localStorage.getItem('jwtToken');
-      const response = await getAllFilteredRoomsListService({token,searchVal})
+      const token = localStorage.getItem('jwtToken') || '';
+      const response = await getAllFilteredRoomsListService({ token, searchVal })
       setWholeRoomData(response?.data);
       setRoomData(response?.data);
       setIsLoading(false);
@@ -101,6 +105,7 @@ function page() {
             )}
           </div>
         </div>
+
       </div>
     </>
   );

@@ -24,9 +24,15 @@ export interface StudentProfile {
 const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsType) => {
   const [sortedData, setSortedData] = useState<TableDataType[] | []>([]);
 
+  // useEffect(() => {
+  //   setSortedData(data);
+  // }, [data]);
   useEffect(() => {
-    setSortedData(data);
+    if (data) {
+      setSortedData(data as TableDataType[]);
+    }
   }, [data]);
+
 
   function toCamelCase(inputString) {
     return inputString
@@ -86,7 +92,7 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
     }
   };
 
-  const getFormattedDateOrTime = (dateAndTime: string, Type: string) => {
+  const getFormattedDateOrTime = (dateAndTime: string | undefined, Type: string) => {
     const momentObj = moment(dateAndTime);
     if (Type === 'Date') {
       const formattedDate = momentObj?.format('M/D/YYYY');
@@ -129,6 +135,7 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
 
         <TableBody className={styles.table_body}>
           {sortedData?.map((data: TableDataType, index: number) => {
+            console.log("data", data)
             if (type === 'ROOMS') {
               return (
                 <TableRow className={styles.table_rowdata} key={index}>
@@ -140,15 +147,19 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                   <TableCell className={styles.table_cell}>{data?.mapType}</TableCell>
                   <TableCell className={styles.table_cell}>{data?.version}</TableCell>
                   <TableCell className={styles.table_cell}>
-                    {getFormattedDateOrTime(data?.dateAndTime, 'Time')}
+                    {getFormattedDateOrTime(data?.dateAndTime, 'Time')!}
                   </TableCell>
                   <TableCell className={styles.table_cell}>
-                    {getFormattedDateOrTime(data?.dateAndTime, 'Date')}
+                    {getFormattedDateOrTime(data?.dateAndTime, 'Date')!}
                   </TableCell>
                   <TableCell className={styles.table_cell}>
                     {
                       <>
-                        <IconButton onClick={() => deleteroom(data?._id)}>
+                        <IconButton onClick={() => {
+                          if (deleteroom) {
+                            deleteroom(data._id);
+                          }
+                        }}>
                           <img
                             src="/assests/Tabledelete.svg"
                             alt="studentProfileDelete"
@@ -176,7 +187,11 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                   <TableCell className={styles.table_cell}>
                     <>
                       {type === 'SPECTATOR' && (
-                        <IconButton onClick={() => handleEdit(data)}>
+                        <IconButton onClick={() => {
+                          if (handleEdit) {
+                            handleEdit(data);
+                          }
+                        }}>
                           <img
                             src="/assests/editIcon.svg"
                             alt="studentProfileEdit"
@@ -186,7 +201,10 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                       )}
                       <IconButton
                         onClick={() => {
-                          deleteroom(data?.userUuid);
+                          if (deleteroom) {
+                            deleteroom(data?.userUuid);
+                          }
+                          // deleteroom(data?.userUuid);
                         }}
                       >
                         <img

@@ -5,6 +5,7 @@ const TournamentPage = () => {
   return (
     <>
       <Tournament />
+
     </>
   );
 };

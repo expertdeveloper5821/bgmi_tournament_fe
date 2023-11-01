@@ -41,8 +41,21 @@ const Card: React.FC<CardProps> = ({
   const profileImg =
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
 
+  // useEffect(() => {
+  //   if (query.length > 0) {
+  //     res?.map((obj: UserTeamMember) => {
+  //       const s = obj.fullName.toLocaleLowerCase();
+  //       const q = query.toLocaleLowerCase();
+  //       if (s.includes(q)) {
+  //         setAddFriend(true);
+  //       }
+  //     });
+  //   } else {
+  //     setAddFriend(false);
+  //   }
+  // }, [query]);
   useEffect(() => {
-    if (query.length > 0) {
+    if (query && query.length > 0) {
       res?.map((obj: UserTeamMember) => {
         const s = obj.fullName.toLocaleLowerCase();
         const q = query.toLocaleLowerCase();
@@ -54,6 +67,7 @@ const Card: React.FC<CardProps> = ({
       setAddFriend(false);
     }
   }, [query]);
+
 
   const handleOpenModal = (index: number) => {
     setDeleteModal(true);
@@ -73,7 +87,7 @@ const Card: React.FC<CardProps> = ({
         const response = await sendRequest(`/team/user-teams?search=${query}`, {
           method: 'GET',
         });
-        if (query.length > 0) {
+        if (query && query.length > 0) {
           setRes(response?.data?.data?.teamMates);
         } else {
           setRes(response?.data?.data?.yourTeam?.teamMates);
@@ -155,7 +169,7 @@ const Card: React.FC<CardProps> = ({
                 height={400}
                 src="/assests/lamp.svg"
                 alt="banner"
-                // className={styles.cardbannerimg}
+              // className={styles.cardbannerimg}
               />
               <strong>SORRY!</strong>
               <h2>We couldn’t find your friend. Send invite your friend by email</h2>

@@ -143,7 +143,7 @@ export const getAllFilteredRoomsListService = async (data: GetAllFilteredValuesT
 
 export const getAllSpectator = async (data: RoomData) => {
   try {
-    const res: any = await sendRequest(serviceUrls.rooms, {
+    const res = await sendRequest(serviceUrls.rooms, {
       method: 'GET',
       data,
     });

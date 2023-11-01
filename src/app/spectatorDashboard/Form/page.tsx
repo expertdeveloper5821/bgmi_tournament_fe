@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
@@ -8,9 +8,9 @@ import { validationSchema } from '@/utils/schema';
 import { sendRequest } from '@/utils/axiosInstanse';
 import { ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
-import { formatDate, formatTime } from '../../../Components/CommonComponent/moment';
-import { get } from 'http';
-import { url } from 'inspector';
+// import { formatDate, formatTime } from '../../../Components/CommonComponent/moment';
+// import { get } from 'http';
+// import { url } from 'inspector';
 interface FormCreate {
   roomId: string;
   gameName: string;
@@ -26,6 +26,7 @@ interface FormCreate {
   secondWin: string;
   entryFee: string;
   mapImg: string | null;
+
 }
 
 const initial: FormCreate = {
@@ -43,10 +44,11 @@ const initial: FormCreate = {
   secondWin: '',
   mapImg: '',
   entryFee: '',
+
 };
 
-const Form = (props: any) => {
-  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate, Spect, setSpect, callSpecatator } = props;
+const Form = (props) => {
+  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate, callSpecatator } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [images, setImages] = useState<{ name: string; url: string }[]>([]);
@@ -54,34 +56,39 @@ const Form = (props: any) => {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   // const fileInputRef = useRef(null);
-  const [image, setImage] = useState<File | null>(null);
-  const [thirdImage, setThirdImage] = useState(null);
+  //const [image, setImage] = useState<File | null>(null);
+  // console.log("image", image)
+  // const [thirdImage, setThirdImage] = useState(null);
+  const [thirdImage, setThirdImage] = useState<File | null>(null);
 
-  const {
-    roomId,
-    gameName,
-    gameType,
-    mapType,
-    version,
-    lastSurvival,
-    thirdWin,
-    secondWin,
-    highestKill,
-    entryFee,
-  } = roomIdToUpdate || '';
+
+  // const {
+  //   roomId,
+  //   gameName,
+  //   gameType,
+  //   mapType,
+  //   version,
+  //   lastSurvival,
+  //   thirdWin,
+  //   secondWin,
+  //   highestKill,
+  //   entryFee,
+  // } = roomIdToUpdate || '';
 
 
   const { values, touched, errors, handleSubmit, handleBlur, setValues, setFieldValue } =
     useFormik<FormCreate>({
       initialValues: initial,
       validationSchema,
-      onSubmit: async (values: any, { resetForm }) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      onSubmit: async (values, { resetForm }) => {
+        // console.log("values", values)
 
         const dateTimeString = new Date(`${values.date} ${values.time}`);
-        values.dateAndTime = dateTimeString;
+        // values.dateAndTime = dateTimeString;
 
         const form = values;
-        form['mapImg'] = thirdImage;
+        // form['mapImg'] = thirdImage;
 
         try {
           setIsLoading(true);
@@ -93,7 +100,7 @@ const Form = (props: any) => {
                 'Content-Type': 'multipart/form-data',
                 Authorization: ""
               },
-              data: form,
+              data: { ...form, dateAndTime: dateTimeString, mapImg: thirdImage },
             },
           );
           if (response.status === 200) {
@@ -127,7 +134,7 @@ const Form = (props: any) => {
       const [hours, minutes] = timeValue.split(':');
       const formattedTime = `${hours}:${minutes}:${timeValue}.000Z`;
       const formattedTimeWithoutSeconds = formattedTime.split(':').slice(0, 2).join(':');
-      setImage(roomIdToUpdate.mapImg);
+      //setImage(roomIdToUpdate.mapImg);
 
       setValues({
         roomId: roomIdToUpdate.roomId,
@@ -160,18 +167,18 @@ const Form = (props: any) => {
   };
 
 
-  const onDragOver = (event: any) => {
+  const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragging(true);
   };
 
-  const onDragLeave = (event: any) => {
+  const onDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragging(false);
   };
 
 
-  const onDrop = (event: any) => {
+  const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragging(false);
     const files = event.dataTransfer.files;
@@ -188,24 +195,28 @@ const Form = (props: any) => {
     }
   };
 
-  const onFileSelect = (event: any) => {
+
+  const onFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (files.length === 0) {
-      return;
-    }
-    setThirdImage(files[0]);
-    for (let i = 0; i < files.length; i++) {
-      if (files[i].type.split('/')[0] !== 'image') continue;
-      if (!images.some((e) => e.name === files[i].name)) {
-        const newImage = {
-          name: files[i].name,
-          url: URL.createObjectURL(files[i]),
-        };
-        setImages((prevImages) => [...prevImages, newImage]);
-        setFieldValue('mapImg', newImage.url);
+    if (files) {
+      if (files.length === 0) {
+        return;
+      }
+      setThirdImage(files[0]);
+      for (let i = 0; i < files.length; i++) {
+        if (files[i].type.split('/')[0] !== 'image') continue;
+        if (!images.some((e) => e.name === files[i].name)) {
+          const newImage = {
+            name: files[i].name,
+            url: URL.createObjectURL(files[i]),
+          };
+          setImages((prevImages) => [...prevImages, newImage]);
+          setFieldValue('mapImg', newImage.url);
+        }
       }
     }
   };
+
 
 
   const selectFiles = () => {

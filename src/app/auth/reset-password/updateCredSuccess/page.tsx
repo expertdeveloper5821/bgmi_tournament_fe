@@ -6,9 +6,9 @@ import { Button } from 'technogetic-iron-smart-ui';
 import React from 'react';
 import Image from 'next/image';
 
-interface Props {}
+interface Props { }
 
-const UpdateCredSuccess: React.FC<Props> = (props) => {
+const UpdateCredSuccess: React.FC<Props> = () => {
   const router = useRouter();
   const handleClick = () => {
     router.push('/auth/login');
