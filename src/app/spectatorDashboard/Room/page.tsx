@@ -15,7 +15,7 @@ import Image from 'next/image';
 
 import { sendRequest } from '@/utils/axiosInstanse';
 import withAuth from '@/Components/HOC/WithAuthHoc';
-import DeleteSpec from '../deletespec/page';
+import DeleteSpectator from '../deleteSpectator/page';
 
 export interface RoomData {
   dateAndTime: string;
@@ -106,7 +106,7 @@ const Room = () => {
               </TableHeader>
 
               <TableBody>
-                {Spect?.map((spec: RoomData, index) => (
+                {Spect?.map((spec, index) => (
                   console.log("spec", spec),
                   <TableRow key={index} className={styles.table_row_cell}>
                     <TableCell className={styles.el_tb_cell}>{spec?.roomId ?? '--'}</TableCell>
@@ -138,7 +138,7 @@ const Room = () => {
 
                     <TableCell className={styles.tb_cell_action}>
                       <div className={styles.flex}>
-                        <DeleteSpec Id={spec._id} getAllSpectator={getAllSpectator} />
+                        <DeleteSpectator Id={spec._id} getAllSpectator={getAllSpectator} />
                         <button
                           className={styles.editbtn}
                           onClick={() => {

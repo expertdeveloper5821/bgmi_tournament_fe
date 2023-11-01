@@ -6,13 +6,12 @@ import { toast } from 'react-toastify';
 import { sendRequest } from '@/utils/axiosInstanse';
 // import { NextPage } from 'next';
 
-interface DeleteSpecProps {
+export type DeleteSpecProps = {
   Id: string;
   getAllSpectator: () => void;
-}
+};
 
-export default function DeleteSpec({ Id, getAllSpectator }: DeleteSpecProps) {
-
+const DeleteSpectator: React.FC<DeleteSpecProps> = ({ Id, getAllSpectator }) => {
   const [deletModal, setDeleteModal] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -63,4 +62,5 @@ export default function DeleteSpec({ Id, getAllSpectator }: DeleteSpecProps) {
       )}
     </>
   );
-}
+};
+export default DeleteSpectator;
