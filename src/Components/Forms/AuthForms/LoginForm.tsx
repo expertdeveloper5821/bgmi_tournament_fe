@@ -86,6 +86,19 @@ export function LoginForm(): React.JSX.Element {
     if (token) {
       handleRedirect(token);
     }
+
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      const extractedToken = url.searchParams.get('token');
+
+      if (extractedToken) {
+        localStorage.setItem('jwtToken', extractedToken);
+        const date = new Date();
+        const expirationTime = date.setHours(date.getHours() + 1);
+        localStorage.setItem('expirationTime', expirationTime.toString());
+        handleVerifyTokenInLogin(extractedToken);
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -101,15 +114,29 @@ export function LoginForm(): React.JSX.Element {
     }
   }, [rememberMe]);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const token = urlParams.get('token');
-      if (token) {
-        handleVerifyToken(token);
-      }
-    }
-  }, []);
+  // TODO:BOTH BELOW USEEFFECTS WITH EMPTY DEPENDENCIES WILL NEED TO CONFIRM, SEEMS LIKE BOTH ARE FOR THE SIGN IN WITH GOOGLE FUNCTIONALITY
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     const urlParams = new URLSearchParams(window.location.search);
+  //     const token = urlParams.get('token');
+  //     if (token) {
+  //       handleVerifyToken(token);
+  //     }
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   const urlParams = new URLSearchParams(window.location.search);
+  //   const token = urlParams.get('token');
+  //   const isLogin = urlParams.get('isLogin');
+  //   if (isLogin == 'deny') {
+  //     localStorage.clear();
+  //     router.push('/');
+  //   } else if (token) {
+  //     localStorage.setItem('jwtToken', token);
+  //     handleVerifyTokenInLogin(token);
+  //   }
+  // }, []);
 
   const handleRedirect = (token: string) => {
     if (token) {
@@ -132,44 +159,33 @@ export function LoginForm(): React.JSX.Element {
   };
 
   // verify token
-  const handleVerifyToken = async (token: string) => {
-    setIsLoading(true);
-    try {
-      const verifyResponse = await sendRequest('/auth/verify', {
-        method: 'GET',
-        data: {
-          token: token,
-        },
-      });
+  // const handleVerifyToken = async (token: string) => {
+  //   setIsLoading(true);
+  //   try {
+  //     const verifyResponse = await sendRequest('/auth/verify', {
+  //       method: 'GET',
+  //       data: {
+  //         token: token,
+  //       },
+  //     });
 
-      setIsLoading(false);
+  //     setIsLoading(false);
 
-      if (verifyResponse.status === 200) {
-        router.push('/adminDashboard/room');
-      } else {
-        setError('Google Sign-In failed');
-      }
-      if (verifyResponse.status === 200) {
-        router.push('/userDashboard');
-      } else {
-        setError('Google Sign-In failed');
-      }
-    } catch (error) {
-      setIsLoading(false);
-      setError('Google Sign-In failed');
-    }
-  };
-
-  const handleGoogleLogin = () => {
-    setIsLoading(true);
-
-    try {
-      window.location.href = 'http://localhost:5000/auth/google/callback';
-    } catch (error) {
-      setIsLoading(false);
-      setError('Google Sign-In failed');
-    }
-  };
+  //     if (verifyResponse.status === 200) {
+  //       router.push('/adminDashboard/room');
+  //     } else {
+  //       setError('Google Sign-In failed');
+  //     }
+  //     if (verifyResponse.status === 200) {
+  //       router.push('/userDashboard');
+  //     } else {
+  //       setError('Google Sign-In failed');
+  //     }
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //     setError('Google Sign-In failed');
+  //   }
+  // };
 
   const handleVerifyTokenInLogin = async (token: string) => {
     try {
@@ -178,31 +194,30 @@ export function LoginForm(): React.JSX.Element {
       });
 
       if (verifyResponse.status === 200) {
-        router.push('/adminDashboard/room');
-      } else {
-        setError('Google Sign-In failed');
+        handleRedirect(token);
       }
     } catch (errorData) {
+      localStorage.removeItem('jwtToken');
+      localStorage.removeItem('expirationTime');
       setError('Google Sign-In failed');
+      toast.error(errorData.message);
     }
   };
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
-    const isLogin = urlParams.get('isLogin');
-    if (isLogin == 'deny') {
-      localStorage.clear();
-      router.push('/');
-    } else if (token) {
-      localStorage.setItem('jwtToken', token);
-      handleVerifyTokenInLogin(token);
-    }
-  }, []);
+  // const handleGoogleLogin = () => {
+  //   setIsLoading(true);
+
+  //   try {
+  //     window.location.href = 'http://localhost:5000/auth/google/callback';
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //     setError('Google Sign-In failed');
+  //   }
+  // };
 
   const googleAuth = () => {
-    window.open(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`, 'self');
-    handleGoogleLogin();
+    window.open(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`, '_self');
+    // handleGoogleLogin();
   };
 
   return (
