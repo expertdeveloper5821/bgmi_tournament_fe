@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '@/styles/auth.module.scss';
 import { useRouter } from 'next/navigation';
 //@ts-ignore
@@ -17,6 +17,7 @@ const initialValues: ForgetFormValues = {
 
 export function ForgetPasswordForm(): JSX.Element {
   const router = useRouter();
+  const [error, setError] = useState<string>('');
 
   const { values, touched, errors, handleSubmit, handleChange, handleBlur, isSubmitting } =
     useFormik({
@@ -33,20 +34,20 @@ export function ForgetPasswordForm(): JSX.Element {
         try {
           const response = await forgetPasswordService(email);
 
-          if (response.status === 200) {
-            toast.success(response.data.message);
-            router.push('/auth/mailpage');
-          }
+          toast.success(response.data.message);
+          router.push('/auth/mailpage');
           setSubmitting(false);
         } catch (error) {
           setSubmitting(false);
-          toast.error(error.message);
+          setError(error?.response?.data?.message);
+          toast.error(error?.response?.data?.message);
         }
       },
     });
 
   return (
     <form onSubmit={handleSubmit}>
+      {error && <div className={styles.error}>{error}</div>}
       <div className={styles.input_box}>
         <label className={styles.email} htmlFor="email">
           <Image src="../assests/fullnameicon.svg" alt="fullname" width={30} height={20} />

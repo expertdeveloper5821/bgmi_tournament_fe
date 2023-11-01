@@ -13,6 +13,7 @@ import { ResetFormValues } from '@/types/formsTypes';
 
 export const ResetPasswordForm: React.FC = () => {
   const [token, setToken] = useState<string>('');
+  const [error, setError] = useState<string>('');
   const router = useRouter();
 
   useEffect(() => {
@@ -34,12 +35,11 @@ export const ResetPasswordForm: React.FC = () => {
     onSubmit: async (values: ResetFormValues) => {
       const { newPassword, confirmPassword } = values;
       try {
-        const response = await resetPasswordService({ token, newPassword, confirmPassword });
+        await resetPasswordService({ token, newPassword, confirmPassword });
 
-        if (response.status === 200) {
-          router.push('/auth/updateCredSuccess');
-        }
+        router.push('/auth/updateCredSuccess');
       } catch (error) {
+        setError(error?.response?.data?.message);
         toast.error(error?.response?.data?.message);
       }
     },
@@ -47,6 +47,7 @@ export const ResetPasswordForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      {error && <div className={styles.error}>{error}</div>}
       <div className={styles.input_box}>
         <label htmlFor="newPassword" className={styles.password}>
           <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />

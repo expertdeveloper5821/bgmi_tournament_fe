@@ -35,16 +35,12 @@ export async function sendRequest(path: string, opts: AxiosRequestConfig = {}) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  try {
-    const response = await axiosInstance({
-      method: opts.method,
-      url: path,
-      data: opts.data,
-      headers: headers,
-    });
-    
-    return response;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance({
+    method: opts.method,
+    url: path,
+    data: opts.data,
+    headers: headers,
+  });
+
+  return response;
 }

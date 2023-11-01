@@ -43,36 +43,21 @@ export function LoginForm(): React.JSX.Element {
           const response = await loginService({ email, password });
           setIsLoading(false);
           const decodedToken: DecodedToken = decodeJWt(response?.data?.userData?.token);
+          const date = new Date();
+          const expirationTime = date.setHours(date.getHours() + 1);
 
-          if (response.status === 200) {
-            // Below need to figure out why we want this.
-            // const userDetails = {
-            //   name: decodedToken?.fullName,
-            //   email: decodedToken?.email,
-            // };
-            // updateUserInfo(userDetails);
-            // updateToken(decodedToken);
-
-            const date = new Date();
-            const expirationTime = date.setHours(date.getHours() + 1);
-            // Below line is for testing Purpose only.
-            // const expirationTime =  date.setMinutes(date.getMinutes() + 1);
-
-            if (rememberMe) {
-              localStorage.setItem('rememberMe', rememberMe.toString());
-              localStorage.setItem('email', email);
-            } else {
-              localStorage.setItem('rememberMe', rememberMe.toString());
-              localStorage.removeItem('email');
-            }
-            localStorage.setItem('jwtToken', response?.data?.userData?.token);
-            localStorage.setItem('expirationTime', expirationTime.toString());
-            toast.success(response?.data?.message);
-            updateToken(decodedToken);
-            handleRedirect(response?.data?.userData?.token);
+          if (rememberMe) {
+            localStorage.setItem('rememberMe', rememberMe.toString());
+            localStorage.setItem('email', email);
           } else {
-            setError('Invalid email or password');
+            localStorage.setItem('rememberMe', rememberMe.toString());
+            localStorage.removeItem('email');
           }
+          localStorage.setItem('jwtToken', response?.data?.userData?.token);
+          localStorage.setItem('expirationTime', expirationTime.toString());
+          toast.success(response?.data?.message);
+          updateToken(decodedToken);
+          handleRedirect(response?.data?.userData?.token);
         } catch (error) {
           setIsLoading(false);
           setError(error?.response?.data?.message);
@@ -95,10 +80,6 @@ export function LoginForm(): React.JSX.Element {
       } else if (rememberMeValue === 'false') {
         setRememberMe(false);
       }
-
-      // if (rememberMeValue) {
-      //   setFieldValue('email', localStorage.getItem('email'));
-      // }
     }
 
     const token = localStorage.getItem('jwtToken');
@@ -129,17 +110,6 @@ export function LoginForm(): React.JSX.Element {
       }
     }
   }, []);
-
-  // useEffect(() => {
-  //   const storedEmail = localStorage.getItem('email');
-  //   const storedPassword = localStorage.getItem('password');
-  //   if (storedEmail) {
-  //     setFieldValue('email', storedEmail);
-  //   }
-  //   if (storedPassword) {
-  //     setFieldValue('password', storedPassword);
-  //   }
-  // }, [setFieldValue]);
 
   const handleRedirect = (token: string) => {
     if (token) {

@@ -21,6 +21,7 @@ const initialValues: PersonalDetailsValue = {
 
 export const PersonalDetail = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
   const router = useRouter();
 
   const { values, touched, errors, handleSubmit, handleChange, handleBlur } = useFormik({
@@ -34,9 +35,8 @@ export const PersonalDetail = () => {
       setSubmitting(true);
       const { player, upi, whatsapp } = values;
       const token = localStorage.getItem('jwtToken');
-      // We need bgmiId later here when user want to update from inside application.
       try {
-        const response = await updateUserDetailsService({
+        await updateUserDetailsService({
           token,
           data: {
             userName: player,
@@ -44,12 +44,11 @@ export const PersonalDetail = () => {
             phoneNumber: whatsapp,
           },
         });
-        if (response.status === 200) {
-          toast.success('successfully updated');
-          router.push('/auth/teamsdetails');
-        }
+        toast.success('successfully updated');
+        router.push('/auth/teamsdetails');
       } catch (error) {
         setIsLoading(false);
+        setError(error?.response?.data?.message);
         toast.error(error?.response?.data?.message);
       } finally {
         setIsLoading(false);
@@ -60,6 +59,7 @@ export const PersonalDetail = () => {
 
   return (
     <div>
+      {error && <div className={styles.error}>{error}</div>}
       <form className={styles.form}>
         <div className={styles.profile_sec}>
           <div className={styles.round}>

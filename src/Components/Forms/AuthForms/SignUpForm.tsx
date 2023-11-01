@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,6 +21,7 @@ const initialValues: SignupFormValuesType = {
 
 export const SignupForm = () => {
   const router = useRouter();
+  const [error, setError] = useState<string>('');
 
   const handleRedirect = (token: string) => {
     if (token) {
@@ -60,11 +61,10 @@ export const SignupForm = () => {
         const { fullName, email, password } = values;
         try {
           const response = await signUpService({ fullName, email, password });
-          if (response.status === 200) {
-            toast.success(response.data.message);
-            router.push(`/auth/login`);
-          }
+          toast.success(response.data.message);
+          router.push(`/auth/login`);
         } catch (error) {
+          setError(error?.response?.data?.message);
           toast.error(error?.response?.data?.message);
         } finally {
           setSubmitting(false);
@@ -79,6 +79,7 @@ export const SignupForm = () => {
 
   return (
     <form>
+      {error && <div className={styles.error}>{error}</div>}
       <div className={styles.input_box}>
         <label className={styles.email} htmlFor="Fullname">
           <Image src="/assests/fullnameicon.svg" alt="fullname" width={30} height={20} />

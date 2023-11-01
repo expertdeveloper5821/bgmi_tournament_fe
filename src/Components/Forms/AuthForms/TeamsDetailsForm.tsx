@@ -20,6 +20,7 @@ const initialValues: TeamsDetailsFormValues = {
 export const TeamsDetailsForm = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [emailList, setEmailList] = useState<string[]>([]);
+  const [error, setError] = useState<string>('');
   const router = useRouter();
 
   const {
@@ -51,13 +52,11 @@ export const TeamsDetailsForm = () => {
             emails: emails,
           },
         });
-        if (response.status === 200) {
-          setSubmitting(false);
-          toast.success(response?.data?.message);
-          router.push('/userDashboard');
-        }
         setSubmitting(false);
+        toast.success(response?.data?.message);
+        router.push('/userDashboard');
       } catch (error) {
+        setError(error?.response?.data?.message);
         toast.error(error?.response?.data?.error);
       } finally {
         setSubmitting(false);
@@ -89,6 +88,7 @@ export const TeamsDetailsForm = () => {
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmit}>
+        {error && <div className={styles.error}>{error}</div>}
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="teamName">
             <Image src="/assests/teams.svg" alt="mailogo" width={30} height={20} />
