@@ -18,9 +18,9 @@ export const ResetPasswordForm: React.FC = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const searchParams = new URLSearchParams(window.location.search);
-      const tokenParam = searchParams.get('token');
-      setToken(tokenParam || '');
+      const url = new URL(window.location.href);
+      const extractedToken = url.searchParams.get('token');
+      setToken(extractedToken);
     }
   }, []);
 
@@ -36,7 +36,6 @@ export const ResetPasswordForm: React.FC = () => {
       const { newPassword, confirmPassword } = values;
       try {
         await resetPasswordService({ token, newPassword, confirmPassword });
-
         router.push('/auth/updateCredSuccess');
       } catch (error) {
         setError(error?.response?.data?.message);
