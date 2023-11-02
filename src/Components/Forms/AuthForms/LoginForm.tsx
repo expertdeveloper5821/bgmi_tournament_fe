@@ -6,9 +6,9 @@ import Link from 'next/link';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import styles from '@/styles/auth.module.scss';
-import { sendRequest2 } from '../../../utils/axiosInstanse';
+import { sendRequest } from '../../../utils/axiosInstanse';
 import Image from 'next/image';
-import { DecodedToken, VerifiedToken, decodeJWt } from '@/utils/globalfunctions';
+import { DecodedToken, decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
 import { loginSchema } from '@/utils/schema';
 import { toast } from 'react-toastify';
@@ -131,26 +131,23 @@ export function LoginForm(): React.JSX.Element {
 
   const handleVerifyTokenInLogin = async (token: string) => {
     try {
-      const verifyResponse = await sendRequest2(`auth/verify/?token=${token}`, {
-        method: 'GET',
-      });
+      const verifyResponse = await sendRequest(
+        `auth/verify/?token=${token}`,
+        {
+          method: 'GET',
+        },
+        true,
+      );
 
       if (verifyResponse.status === 200) {
-        const VerifiedToken: VerifiedToken = decodeJWt(token);
-        if (VerifiedToken?.user?.role?.role === 'user') {
+        const VerifiedToken = decodeJWt(token);
+
+        if (VerifiedToken?.role?.role === 'user') {
           const date = new Date();
           const expirationTime = date.setHours(date.getHours() + 1);
           localStorage.setItem('jwtToken', token);
           localStorage.setItem('expirationTime', expirationTime.toString());
-          if (
-            VerifiedToken?.user?.upiId &&
-            VerifiedToken?.user?.userName &&
-            VerifiedToken?.user?.phoneNumber
-          ) {
-            router.push('/userDashboard');
-          } else {
-            router.push('/auth/personaldetails');
-          }
+          handleRedirect(token);
         }
       }
     } catch (errorData) {
@@ -160,18 +157,6 @@ export function LoginForm(): React.JSX.Element {
       toast.error(errorData.message);
     }
   };
-
-  // TODO: ONCE SIGN IN WITH GOOGLE COMPLETELY IMPLEMENTED NEED TO REMOVE THIS.
-  // const handleGoogleLogin = () => {
-  //   setIsLoading(true);
-
-  //   try {
-  //     window.location.href = 'http://localhost:5000/auth/google/callback';
-  //   } catch (error) {
-  //     setIsLoading(false);
-  //     setError('Google Sign-In failed');
-  //   }
-  // };
 
   const googleAuth = () => {
     window.open(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`, '_self');

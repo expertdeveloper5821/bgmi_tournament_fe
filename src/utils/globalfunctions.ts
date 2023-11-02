@@ -8,6 +8,8 @@ export interface DecodedToken {
   role: {
     _id: number;
     role: string;
+    __v?: number;
+    uuid?: string;
   };
   teamName: null;
   userId: string;
@@ -16,29 +18,6 @@ export interface DecodedToken {
   phoneNumber?: string;
   profilePic?: string;
   upiId?: string;
-}
-
-export interface VerifiedToken {
-  exp: number;
-  iat: number;
-  user?: {
-    email: string;
-    fullName: string;
-    isOnline: boolean;
-    provider: string;
-    userName: string;
-    userUuid: string;
-    role: {
-      role: string;
-      uuid: string;
-      __v: number;
-      _id: string;
-    };
-    upiId?: string;
-    phoneNumber?: string;
-    __v: number;
-    _id: string;
-  };
 }
 
 const decodeJWt = (token: string): DecodedToken | null => {

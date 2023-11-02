@@ -158,12 +158,12 @@ export const PersonalDetail = () => {
       //   <Image src="/assests/rightArrow.svg" alt="mailogo" width={12} height={12} />
       // </Button> */}
 
-      <div className={styles.flexGap}>
+      {/* <div className={styles.flexGap}>
         <div className={styles.rounded}></div>
         <div className={styles.rounded}></div>
         <div className={styles.rounded}></div>
         <div className={styles.rounded}></div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -41,7 +41,11 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-export async function sendRequest(path: string, opts: AxiosRequestConfig = {}) {
+export async function sendRequest(
+  path: string,
+  opts: AxiosRequestConfig = {},
+  isVerify?: boolean | undefined,
+) {
   const headers = {
     ...opts?.headers,
     'Content-Type': 'application/json; charset=UTF-8',
@@ -54,35 +58,44 @@ export async function sendRequest(path: string, opts: AxiosRequestConfig = {}) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const response = await axiosInstance({
-    method: opts.method,
-    url: path,
-    data: opts.data,
-    headers: headers,
-  });
-
+  let response;
+  if (!isVerify) {
+    response = await axiosInstance({
+      method: opts.method,
+      url: path,
+      data: opts.data,
+      headers: headers,
+    });
+  } else {
+    response = await axiosInstance2({
+      method: opts.method,
+      url: path,
+      data: opts.data,
+      headers: headers,
+    });
+  }
   return response;
 }
 
-export async function sendRequest2(path: string, opts: AxiosRequestConfig = {}) {
-  const headers = {
-    ...opts?.headers,
-    'Content-Type': 'application/json; charset=UTF-8',
-  };
-  if (opts.headers && opts.headers['Content-Type']) {
-    headers['Content-Type'] = opts.headers['Content-Type'];
-  }
-  const token: string | null = localStorage.getItem('jwtToken');
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
+// export async function sendRequest2(path: string, opts: AxiosRequestConfig = {}) {
+//   const headers = {
+//     ...opts?.headers,
+//     'Content-Type': 'application/json; charset=UTF-8',
+//   };
+//   if (opts.headers && opts.headers['Content-Type']) {
+//     headers['Content-Type'] = opts.headers['Content-Type'];
+//   }
+//   const token: string | null = localStorage.getItem('jwtToken');
+//   if (token) {
+//     headers['Authorization'] = `Bearer ${token}`;
+//   }
 
-  const response = await axiosInstance2({
-    method: opts.method,
-    url: path,
-    data: opts.data,
-    headers: headers,
-  });
+//   const response = await axiosInstance2({
+//     method: opts.method,
+//     url: path,
+//     data: opts.data,
+//     headers: headers,
+//   });
 
-  return response;
-}
+//   return response;
+// }

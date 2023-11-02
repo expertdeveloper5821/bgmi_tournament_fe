@@ -154,12 +154,12 @@ export const TeamsDetailsForm = () => {
         </Button>
       </form>
 
-      <div className={styles.flexGap}>
+      {/* <div className={styles.flexGap}>
         <div className={styles.rounded}></div>
         <div className={styles.rounded}></div>
         <div className={styles.rounded}></div>
         <div className={styles.rounded}></div>
-      </div>
+      </div> */}
     </>
   );
 };

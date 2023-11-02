@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '@/styles/credential.module.scss';
 import { useRouter } from 'next/navigation';
-import { useFormik } from 'formik';
+import { FormikHelpers, useFormik } from 'formik';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
@@ -29,20 +29,28 @@ export const ResetPasswordForm: React.FC = () => {
     confirmPassword: '',
   };
 
-  const { values, touched, errors, handleSubmit, handleChange, handleBlur } = useFormik({
-    initialValues,
-    validationSchema: ResetPasswordSchema,
-    onSubmit: async (values: ResetFormValues) => {
-      const { newPassword, confirmPassword } = values;
-      try {
-        await resetPasswordService({ token, newPassword, confirmPassword });
-        router.push('/auth/updateCredSuccess');
-      } catch (error) {
-        setError(error?.response?.data?.message);
-        toast.error(error?.response?.data?.message);
-      }
-    },
-  });
+  const { values, touched, errors, handleSubmit, handleChange, handleBlur, isSubmitting } =
+    useFormik({
+      initialValues,
+      validationSchema: ResetPasswordSchema,
+      onSubmit: async (
+        values: ResetFormValues,
+        { setSubmitting }: FormikHelpers<ResetFormValues>,
+      ) => {
+        setSubmitting(true);
+        const { newPassword, confirmPassword } = values;
+        try {
+          await resetPasswordService({ token, newPassword, confirmPassword });
+          console.log('why not redirecting 2==>');
+          setSubmitting(false);
+          router.push('/auth/updateCredSuccess');
+        } catch (error) {
+          setSubmitting(false);
+          setError(error?.response?.data?.message);
+          toast.error(error?.response?.data?.message);
+        }
+      },
+    });
 
   return (
     <form onSubmit={handleSubmit}>
@@ -91,7 +99,7 @@ export const ResetPasswordForm: React.FC = () => {
       </div>
       <div className={styles.button_wrapper}>
         <Button varient="contained" className={styles.forgetbutton} onClick={handleSubmit}>
-          Update
+          {isSubmitting ? 'Loading...' : 'Update'}
         </Button>
       </div>
     </form>
