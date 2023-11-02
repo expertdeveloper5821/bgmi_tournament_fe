@@ -343,6 +343,7 @@ button#btn_cls_st {
 
 .button_wrapper {
   display: flex;
+  margin-top: 10px;
   gap: 15px;
   justify-content: end;
   margin-right: 20px;
@@ -394,6 +395,15 @@ button#btn_cls_st {
   // border: 1px solid white;
   padding: 18px 30px;
   gap: 20px;
+  @media (max-width: $breakpoint-xSmall) {
+    flex-direction: column;
+  }
+  @media (max-width: $breakpoint-xs) {
+    flex-direction: column;
+  }
+  @media (max-width: $breakpoint-sm) {
+    flex-direction: column;
+  }
 }
 
 .match_details1 {
@@ -401,6 +411,15 @@ button#btn_cls_st {
   border: 1px solid #ff7a00;
   padding: 18px 30px;
   border-radius: 4px;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 100%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    width: 100%;
+  }
+  @media (max-width: $breakpoint-sm) {
+    width: 100%;
+  }
 }
 
 .flex {
@@ -414,6 +433,15 @@ button#btn_cls_st {
   border: 1px solid #ff7a00;
   padding: 18px 30px;
   border-radius: 4px;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 100%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    width: 100%;
+  }
+  @media (max-width: $breakpoint-sm) {
+    width: 100%;
+  }
 }
 .row {
   display: flex;
@@ -441,4 +469,35 @@ button#btn_cls_st {
   @media (max-width: $breakpoint-sm) {
     font-size: 11px;
   }
+}
+.team_members {
+  position: relative;
+  top: -30%;
+  left: 5%;
+}
+.team_member1 {
+  position: absolute;
+  top: 0%;
+  left: 76%;
+  z-index: 4;
+}
+
+.team_member2 {
+  position: absolute;
+  top: 0%;
+  left: 80%;
+  z-index: 3;
+}
+.team_member3 {
+  position: absolute;
+  top: 0%;
+  left: 84%;
+  z-index: 2;
+}
+
+.team_member4 {
+  position: absolute;
+  top: 0%;
+  left: 88%;
+  z-index: 1;
 }

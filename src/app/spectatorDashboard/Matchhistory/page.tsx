@@ -29,9 +29,20 @@ const matchHistory = () => {
                                 <span>Match Name : BGMI</span>
                                 <span>Match Type : Squad</span>
                                 <span>Team Name  : Rockers</span>
-                                <div className={styles.flex_row}>
-                                    <span>Map Name : Squad</span>
-                                    <Image src="/assests/team members.svg" alt="Image" width={20} height={20} />
+                                <span>Map Name : Squad</span>
+                            </div>
+                            <div className={styles.team_members}>
+                                <div className={styles.team_member1}>
+                                    <Image src="/assests/teammember1.svg" alt="Image" width={55} height={65} />
+                                </div>
+                                <div className={styles.team_member2}>
+                                    <Image src="/assests/teammember2.svg" alt="Image" width={50} height={60} />
+                                </div>
+                                <div className={styles.team_member3}>
+                                    <Image src="/assests/teammember3.svg" alt="Image" width={50} height={60} />
+                                </div>
+                                <div className={styles.team_member4}>
+                                    <Image src="/assests/teammember4.svg" alt="Image" width={50} height={60} />
                                 </div>
                             </div>
                         </div>
@@ -48,9 +59,20 @@ const matchHistory = () => {
                                 <span>Match Name : BGMI</span>
                                 <span>Match Type : Squad</span>
                                 <span>Team Name  : Ro@#dsrs</span>
-                                <div className={styles.flex_row}>
-                                    <span>Map Name : Squad</span>
-                                    <Image src="/assests/team members.svg" alt="Image" width={20} height={20} />
+                                <span>Map Name : Squad</span>
+                            </div>
+                            <div className={styles.team_members}>
+                                <div className={styles.team_member1}>
+                                    <Image src="/assests/teammember1.svg" alt="Image" width={55} height={65} />
+                                </div>
+                                <div className={styles.team_member2}>
+                                    <Image src="/assests/teammember2.svg" alt="Image" width={50} height={60} />
+                                </div>
+                                <div className={styles.team_member3}>
+                                    <Image src="/assests/teammember3.svg" alt="Image" width={50} height={60} />
+                                </div>
+                                <div className={styles.team_member4}>
+                                    <Image src="/assests/teammember4.svg" alt="Image" width={50} height={60} />
                                 </div>
                             </div>
                         </div>
@@ -69,9 +91,20 @@ const matchHistory = () => {
                                 <span>Match Name : BGMI</span>
                                 <span>Match Type : Squad</span>
                                 <span>Team Name  : hary%5%rs</span>
-                                <div className={styles.flex_row}>
-                                    <span>Map Name : Squad</span>
-                                    <Image src="/assests/team members.svg" alt="Image" width={20} height={20} />
+                                <span>Map Name : Squad</span>
+                            </div>
+                            <div className={styles.team_members}>
+                                <div className={styles.team_member1}>
+                                    <Image src="/assests/teammember1.svg" alt="Image" width={55} height={65} />
+                                </div>
+                                <div className={styles.team_member2}>
+                                    <Image src="/assests/teammember2.svg" alt="Image" width={50} height={60} />
+                                </div>
+                                <div className={styles.team_member3}>
+                                    <Image src="/assests/teammember3.svg" alt="Image" width={50} height={60} />
+                                </div>
+                                <div className={styles.team_member4}>
+                                    <Image src="/assests/teammember4.svg" alt="Image" width={50} height={60} />
                                 </div>
                             </div>
                         </div>
@@ -88,13 +121,25 @@ const matchHistory = () => {
                                 <span>Match Name : BGMI </span>
                                 <span>Match Type : Squad</span>
                                 <span>Team Name  : gkh887</span>
-                                <div className={styles.flex_row}>
-                                    <span>Map Name : Squad</span>
-                                    <Image src="/assests/team members.svg" alt="Image" width={30} height={50} />
+                                <span>Map Name : Squad</span>
+                            </div>
+                            <div className={styles.team_members}>
+                                <div className={styles.team_member1}>
+                                    <Image src="/assests/teammember1.svg" alt="Image" width={55} height={65} />
+                                </div>
+                                <div className={styles.team_member2}>
+                                    <Image src="/assests/teammember2.svg" alt="Image" width={50} height={60} />
+                                </div>
+                                <div className={styles.team_member3}>
+                                    <Image src="/assests/teammember3.svg" alt="Image" width={50} height={60} />
+                                </div>
+                                <div className={styles.team_member4}>
+                                    <Image src="/assests/teammember4.svg" alt="Image" width={50} height={60} />
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
