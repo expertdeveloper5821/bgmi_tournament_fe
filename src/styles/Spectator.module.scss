@@ -474,6 +474,18 @@ button#btn_cls_st {
   position: relative;
   top: -30%;
   left: 5%;
+  @media (max-width: $breakpoint-xSmall) {
+    top: -45px;
+    left: 0%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    top: -45px;
+    left: 0%;
+  }
+  @media (max-width: $breakpoint-sm) {
+    top: -45px;
+    left: 0%;
+  }
 }
 .team_member1 {
   position: absolute;
