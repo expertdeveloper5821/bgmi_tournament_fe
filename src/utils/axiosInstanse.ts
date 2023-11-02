@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 // const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 // const apiVersion = process.env.NEXT_PUBLIC_API_BASE_VER;
 export const axiosInstance: AxiosInstance = axios.create({
-  baseURL: `${configData.api.url}/`,
+  baseURL: `${configData.api.url}/api/${configData.api.ver}`,
 });
 
 axiosInstance.interceptors.response.use(
@@ -23,7 +23,7 @@ axiosInstance.interceptors.response.use(
 );
 
 export const axiosInstance2: AxiosInstance = axios.create({
-  baseURL: `${configData.api.url}/api/${configData.api.ver}`,
+  baseURL: `${configData.api.url}/`,
 });
 
 axiosInstance.interceptors.response.use(
@@ -77,7 +77,7 @@ export async function sendRequest2(path: string, opts: AxiosRequestConfig = {}) 
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const response = await axiosInstance({
+  const response = await axiosInstance2({
     method: opts.method,
     url: path,
     data: opts.data,
