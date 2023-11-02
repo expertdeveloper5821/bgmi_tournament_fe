@@ -18,6 +18,29 @@ export interface DecodedToken {
   upiId?: string;
 }
 
+export interface VerifiedToken {
+  exp: number;
+  iat: number;
+  user?: {
+    email: string;
+    fullName: string;
+    isOnline: boolean;
+    provider: string;
+    userName: string;
+    userUuid: string;
+    role: {
+      role: string;
+      uuid: string;
+      __v: number;
+      _id: string;
+    };
+    upiId?: string;
+    phoneNumber?: string;
+    __v: number;
+    _id: string;
+  };
+}
+
 const decodeJWt = (token: string): DecodedToken | null => {
   if (token) {
     return jwt_decode(token);

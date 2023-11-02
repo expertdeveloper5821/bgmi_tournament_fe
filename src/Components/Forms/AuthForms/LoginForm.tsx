@@ -6,9 +6,9 @@ import Link from 'next/link';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import styles from '@/styles/auth.module.scss';
-import { sendRequest } from '../../../utils/axiosInstanse';
+import { sendRequest2 } from '../../../utils/axiosInstanse';
 import Image from 'next/image';
-import { DecodedToken, decodeJWt } from '@/utils/globalfunctions';
+import { DecodedToken, VerifiedToken, decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
 import { loginSchema } from '@/utils/schema';
 import { toast } from 'react-toastify';
@@ -90,12 +90,7 @@ export function LoginForm(): React.JSX.Element {
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
       const extractedToken = url.searchParams.get('token');
-
       if (extractedToken) {
-        localStorage.setItem('jwtToken', extractedToken);
-        const date = new Date();
-        const expirationTime = date.setHours(date.getHours() + 1);
-        localStorage.setItem('expirationTime', expirationTime.toString());
         handleVerifyTokenInLogin(extractedToken);
       }
     }
@@ -113,30 +108,6 @@ export function LoginForm(): React.JSX.Element {
       setFieldValue('rememberMe', false);
     }
   }, [rememberMe]);
-
-  // TODO:BOTH BELOW USEEFFECTS WITH EMPTY DEPENDENCIES WILL NEED TO CONFIRM, SEEMS LIKE BOTH ARE FOR THE SIGN IN WITH GOOGLE FUNCTIONALITY
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     const urlParams = new URLSearchParams(window.location.search);
-  //     const token = urlParams.get('token');
-  //     if (token) {
-  //       handleVerifyToken(token);
-  //     }
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   const urlParams = new URLSearchParams(window.location.search);
-  //   const token = urlParams.get('token');
-  //   const isLogin = urlParams.get('isLogin');
-  //   if (isLogin == 'deny') {
-  //     localStorage.clear();
-  //     router.push('/');
-  //   } else if (token) {
-  //     localStorage.setItem('jwtToken', token);
-  //     handleVerifyTokenInLogin(token);
-  //   }
-  // }, []);
 
   const handleRedirect = (token: string) => {
     if (token) {
@@ -158,43 +129,29 @@ export function LoginForm(): React.JSX.Element {
     }
   };
 
-  // verify token
-  // const handleVerifyToken = async (token: string) => {
-  //   setIsLoading(true);
-  //   try {
-  //     const verifyResponse = await sendRequest('/auth/verify', {
-  //       method: 'GET',
-  //       data: {
-  //         token: token,
-  //       },
-  //     });
-
-  //     setIsLoading(false);
-
-  //     if (verifyResponse.status === 200) {
-  //       router.push('/adminDashboard/room');
-  //     } else {
-  //       setError('Google Sign-In failed');
-  //     }
-  //     if (verifyResponse.status === 200) {
-  //       router.push('/userDashboard');
-  //     } else {
-  //       setError('Google Sign-In failed');
-  //     }
-  //   } catch (error) {
-  //     setIsLoading(false);
-  //     setError('Google Sign-In failed');
-  //   }
-  // };
-
   const handleVerifyTokenInLogin = async (token: string) => {
     try {
-      const verifyResponse = await sendRequest(`auth/verify/?token=${token}`, {
+      const verifyResponse = await sendRequest2(`auth/verify/?token=${token}`, {
         method: 'GET',
       });
 
       if (verifyResponse.status === 200) {
-        handleRedirect(token);
+        const VerifiedToken: VerifiedToken = decodeJWt(token);
+        if (VerifiedToken?.user?.role?.role === 'user') {
+          const date = new Date();
+          const expirationTime = date.setHours(date.getHours() + 1);
+          localStorage.setItem('jwtToken', token);
+          localStorage.setItem('expirationTime', expirationTime.toString());
+          if (
+            VerifiedToken?.user?.upiId &&
+            VerifiedToken?.user?.userName &&
+            VerifiedToken?.user?.phoneNumber
+          ) {
+            router.push('/userDashboard');
+          } else {
+            router.push('/auth/personaldetails');
+          }
+        }
       }
     } catch (errorData) {
       localStorage.removeItem('jwtToken');
@@ -204,6 +161,7 @@ export function LoginForm(): React.JSX.Element {
     }
   };
 
+  // TODO: ONCE SIGN IN WITH GOOGLE COMPLETELY IMPLEMENTED NEED TO REMOVE THIS.
   // const handleGoogleLogin = () => {
   //   setIsLoading(true);
 
@@ -217,7 +175,6 @@ export function LoginForm(): React.JSX.Element {
 
   const googleAuth = () => {
     window.open(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`, '_self');
-    // handleGoogleLogin();
   };
 
   return (
