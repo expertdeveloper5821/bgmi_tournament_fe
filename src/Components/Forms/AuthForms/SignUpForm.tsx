@@ -77,6 +77,10 @@ export const SignupForm = () => {
     window.open(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`, '_self');
   };
 
+  const handlePaste = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <form>
       {error && <div className={styles.error}>{error}</div>}
@@ -130,6 +134,7 @@ export const SignupForm = () => {
           value={values.password}
           onChange={handleChange}
           onBlur={handleBlur}
+          onPaste={handlePaste}
         />
       </div>
       {errors.password && touched.password && <div className={styles.error}>{errors.password}</div>}

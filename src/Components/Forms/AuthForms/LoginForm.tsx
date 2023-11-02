@@ -162,6 +162,10 @@ export function LoginForm(): React.JSX.Element {
     window.open(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`, '_self');
   };
 
+  const handlePaste = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       {error && <div className={styles.error}>{error}</div>}
@@ -197,6 +201,7 @@ export function LoginForm(): React.JSX.Element {
           value={values.password}
           onChange={handleChange}
           onBlur={handleBlur}
+          onPaste={handlePaste}
         />
       </div>
       {errors.password && touched.password && <div className={styles.error}>{errors.password}</div>}

@@ -52,6 +52,10 @@ export const ResetPasswordForm: React.FC = () => {
       },
     });
 
+  const handlePaste = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       {error && <div className={styles.error}>{error}</div>}
@@ -90,6 +94,7 @@ export const ResetPasswordForm: React.FC = () => {
           value={values.confirmPassword}
           onChange={handleChange}
           onBlur={handleBlur}
+          onPaste={handlePaste}
         ></Input>
       </div>
       <div className={styles.error}>

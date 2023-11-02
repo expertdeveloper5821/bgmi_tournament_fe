@@ -36,7 +36,7 @@ export const PersonalDetail = () => {
       const { player, upi, whatsapp } = values;
       const token = localStorage.getItem('jwtToken');
       try {
-        await updateUserDetailsService({
+        const response = await updateUserDetailsService({
           token,
           data: {
             userName: player,
@@ -44,6 +44,12 @@ export const PersonalDetail = () => {
             phoneNumber: whatsapp,
           },
         });
+
+        const date = new Date();
+        const expirationTime = date.setHours(date.getHours() + 1);
+        localStorage.setItem('jwtToken', response?.data?.token);
+        localStorage.setItem('expirationTime', expirationTime.toString());
+
         toast.success('successfully updated');
         router.push('/auth/teamsdetails');
       } catch (error) {
