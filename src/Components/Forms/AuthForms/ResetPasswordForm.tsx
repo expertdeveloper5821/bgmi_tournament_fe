@@ -73,6 +73,7 @@ export const ResetPasswordForm: React.FC = () => {
           value={values.newPassword}
           onChange={handleChange}
           onBlur={handleBlur}
+          onPaste={handlePaste}
         ></Input>
       </div>
       <div className={styles.error}>
