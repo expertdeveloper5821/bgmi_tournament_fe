@@ -71,7 +71,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         const expirationTime = Number(stringifyExpirationTime);
         const remainingTime = expirationTime - now;
         if (remainingTime) {
-          const timeOut:NodeJS.Timeout = setTimeout(() => {
+          const timeOut: NodeJS.Timeout = setTimeout(() => {
             localStorage.removeItem('jwtToken');
             localStorage.removeItem('expirationTime');
             router.push('/auth/login');

@@ -120,7 +120,7 @@ export function LoginForm(): React.JSX.Element {
           router.push('/auth/personaldetails');
         }
       } else if (decodedToken && decodedToken?.role?.role === 'admin') {
-        router.push('/adminDashboard');
+        router.push('/adminDashboard/room');
       } else if (decodedToken && decodedToken?.role?.role === 'spectator') {
         router.push('/spectatorDashboard');
       }
