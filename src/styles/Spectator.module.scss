@@ -513,3 +513,60 @@ button#btn_cls_st {
   left: 88%;
   z-index: 1;
 }
+
+.boldText {
+  font-weight: bold;
+  color: #ff7a00;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+//tooltip
+
+.tooltip {
+  cursor: default;
+  position: relative;
+  border: 1px solid black;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: none;
+  background-color: transparent;
+  color: #f7f7f7;
+  max-width: 200px;
+  cursor: pointer;
+}
+
+.tooltip:hover {
+  border: none;
+  background-color: transparent;
+  // background-color: #5bc0de;
+  color: #292b2c;
+}
+
+.tooltip:hover::before {
+  position: absolute;
+  content: attr(data-title);
+  background-color: #000;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 11px;
+  color: #fff;
+  top: -25px;
+  right: 50%;
+  padding: 3px 8px;
+  transform: translate(50%, -50%);
+  white-space: nowrap;
+  overflow-wrap: break-word;
+}
+
+.tooltip:hover::after {
+  position: absolute;
+  content: '\25BC';
+  height: 1.25rem;
+  color: #000;
+  top: -12px;
+  left: 50%;
+  transform: scale(1.8, 1) translate(-33%, -50%);
+}

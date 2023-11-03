@@ -24,12 +24,12 @@ const matchHistory = () => {
                             <div className={styles.col}>
                                 <div className={styles.row}>
                                     <Image src="/assests/trophie.svg" alt="Image" width={22} height={22} />
-                                    <span>Prize Pool : Chicken Dinner</span>
+                                    <span>Prize Pool : <span className={styles.boldText}>Chicken Dinner</span></span>
                                 </div>
-                                <span>Match Name : BGMI</span>
-                                <span>Match Type : Squad</span>
-                                <span>Team Name  : Rockers</span>
-                                <span>Map Name : Squad</span>
+                                <span>Match Name : <span className={styles.bold}>BGMI</span></span>
+                                <span>Match Type : <span className={styles.bold}>Squad</span></span>
+                                <span>Team Name  : <span className={styles.bold}> Rockers</span></span>
+                                <span>Map Name : <span className={styles.bold}>Squad </span></span>
                             </div>
                             <div className={styles.team_members}>
                                 <div className={styles.team_member1}>
@@ -54,12 +54,12 @@ const matchHistory = () => {
                             <div className={styles.col}>
                                 <div className={styles.row}>
                                     <Image src="/assests/trophie.svg" alt="Image" width={22} height={22} />
-                                    <span>Prize Pool : Highest Kill</span>
+                                    <span>Prize Pool : <span className={styles.boldText}>Highest Kill</span></span>
                                 </div>
-                                <span>Match Name : BGMI</span>
-                                <span>Match Type : Squad</span>
-                                <span>Team Name  : Ro@#dsrs</span>
-                                <span>Map Name : Squad</span>
+                                <span>Match Name : <span className={styles.bold}>BGMI</span></span>
+                                <span>Match Type : <span className={styles.bold}>Squad</span></span>
+                                <span>Team Name  : <span className={styles.bold}> Ro@#dsrs </span></span>
+                                <span>Map Name :   <span className={styles.bold}> Squad</span></span>
                             </div>
                             <div className={styles.team_members}>
                                 <div className={styles.team_member1}>
@@ -86,12 +86,12 @@ const matchHistory = () => {
                             <div className={styles.col}>
                                 <div className={styles.row}>
                                     <Image src="/assests/trophie.svg" alt="Image" width={22} height={22} />
-                                    <span>Prize Pool : 2nd Winner</span>
+                                    <span>Prize Pool :<span className={styles.boldText}> 2nd Winner </span></span>
                                 </div>
-                                <span>Match Name : BGMI</span>
-                                <span>Match Type : Squad</span>
-                                <span>Team Name  : hary%5%rs</span>
-                                <span>Map Name : Squad</span>
+                                <span>Match Name :  <span className={styles.bold}>BGMI</span></span>
+                                <span>Match Type :  <span className={styles.bold}>Squad</span></span>
+                                <span>Team Name  : <span className={styles.bold}>hary%5%rs</span></span>
+                                <span>Map Name :  <span className={styles.bold}>Squad</span></span>
                             </div>
                             <div className={styles.team_members}>
                                 <div className={styles.team_member1}>
@@ -116,12 +116,12 @@ const matchHistory = () => {
                             <div className={styles.col}>
                                 <div className={styles.row}>
                                     <Image src="/assests/trophie.svg" alt="Image" width={22} height={22} />
-                                    <span>Prize Pool : 3rd Winner</span>
+                                    <span>Prize Pool : <span className={styles.boldText}> 3nd Winner </span></span>
                                 </div>
-                                <span>Match Name : BGMI </span>
-                                <span>Match Type : Squad</span>
-                                <span>Team Name  : gkh887</span>
-                                <span>Map Name : Squad</span>
+                                <span>Match Name : <span className={styles.bold}>BGMI</span></span>
+                                <span>Match Type :  <span className={styles.bold}>Squad</span></span>
+                                <span>Team Name  : <span className={styles.bold}>gkh887 </span></span>
+                                <span>Map Name : <span className={styles.bold}> Squad </span></span>
                             </div>
                             <div className={styles.team_members}>
                                 <div className={styles.team_member1}>

@@ -16,7 +16,6 @@ import { sendRequest } from '@/utils/axiosInstanse';
 import withAuth from '@/Components/HOC/WithAuthHoc';
 import { useRouter } from 'next/navigation';
 
-
 export interface RoomData {
   roomId: string;
   _id: string;
@@ -165,17 +164,12 @@ const Room = () => {
                         </div>
 
                         <div>
-                          <button className={styles.addbutton} onClick={handleButtonEdit}>
-                            <span>Edit</span>
+                          <button className={styles.tooltip} data-title="Match History" onClick={handleButtonEdit}>
+                            <Image src="assests/trophy.svg" alt="Image" width={22} height={22} />
                           </button>
                         </div>
                       </div>
                     </TableCell>
-
-
-
-
-
                   </TableRow>
                 ))}
               </TableBody>
