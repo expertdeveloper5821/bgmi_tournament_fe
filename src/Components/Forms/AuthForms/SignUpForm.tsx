@@ -72,7 +72,6 @@ export const SignupForm = () => {
       },
     });
 
-  // TODO: NEED TO CHECK BELOW FUNCTION CHERRY PICKED FROM SUBMIT ANOTHER PR.
   const googleAuth = () => {
     window.open(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`, '_self');
   };

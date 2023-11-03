@@ -230,19 +230,6 @@ export function LoginForm(): React.JSX.Element {
         </Button>
       </div>
 
-      {/* <div className={styles.signin_withgoogle}>
-        <FcGoogle />
-        <Button
-          disabled={isLoading}
-          className={styles.googleButton}
-          variant="primary"
-          type="button"
-          onClick={googleAuth}
-        >
-          {isLoading ? 'Loading...' : 'Sign in with Google'}
-        </Button>
-      </div> */}
-
       <Button className={styles.btnStyle} onClick={googleAuth}>
         <Image src="/assests/google.svg" alt="passwordlogo" width={20} height={20} />
         <span className={styles.googleIcon}>Sign in with Google</span>

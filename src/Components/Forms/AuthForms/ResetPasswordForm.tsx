@@ -41,7 +41,6 @@ export const ResetPasswordForm: React.FC = () => {
         const { newPassword, confirmPassword } = values;
         try {
           await resetPasswordService({ token, newPassword, confirmPassword });
-          console.log('why not redirecting 2==>');
           setSubmitting(false);
           router.push('/auth/updateCredSuccess');
         } catch (error) {
@@ -76,11 +75,9 @@ export const ResetPasswordForm: React.FC = () => {
           onPaste={handlePaste}
         ></Input>
       </div>
-      <div className={styles.error}>
-        {errors.newPassword && touched.newPassword ? (
-          <p>{(errors.newPassword = 'Password must be at least 6 characters')}</p>
-        ) : null}
-      </div>
+      {errors.newPassword && touched.newPassword && (
+        <div className={styles.error}>{errors.newPassword}</div>
+      )}
       <div className={styles.input_box}>
         <label htmlFor="confirmPassword" className={styles.password}>
           <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
@@ -98,11 +95,9 @@ export const ResetPasswordForm: React.FC = () => {
           onPaste={handlePaste}
         ></Input>
       </div>
-      <div className={styles.error}>
-        {errors.confirmPassword && touched.confirmPassword ? (
-          <p>{(errors.confirmPassword = 'Both passwords must match')}</p>
-        ) : null}
-      </div>
+      {errors.confirmPassword && touched.confirmPassword && (
+        <div className={styles.error}>{errors.confirmPassword}</div>
+      )}
       <div className={styles.button_wrapper}>
         <Button varient="contained" className={styles.forgetbutton} onClick={handleSubmit}>
           {isSubmitting ? 'Loading...' : 'Update'}
