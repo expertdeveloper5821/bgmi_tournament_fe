@@ -19,7 +19,8 @@ const initialValues: TeamsDetailsFormValues = {
 
 export const TeamsDetailsForm = () => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [emailList, setEmailList] = useState<string[]>([]);
+  const [emailList, setEmailList] = useState([]);
+  const [emailDisplayList, setEmailDisplayList] = useState([]);
   const [error, setError] = useState<string>('');
   const router = useRouter();
 
@@ -70,9 +71,29 @@ export const TeamsDetailsForm = () => {
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
     if (event.key === 'Enter' && emailRegex.test(inputValue)) {
-      setEmailList([...emailList, inputValue.trim()]);
-      setFieldValue('emails', [...emailList, inputValue.trim()]);
+      const trimmedInputValue = inputValue.trim();
+      const designedValue = (
+        <span
+          style={{
+            backgroundColor: 'rgb(144 194 219)',
+            padding: '7px 8px',
+            borderRadius: '5px',
+            border: '1px solid rgb(59 173 231)',
+            boxShadow: '1px 2px 6px 1px #9e9e9e',
+          }}
+        >
+          {trimmedInputValue.length > 15
+            ? trimmedInputValue.substring(0, 15) + '...'
+            : trimmedInputValue}
+        </span>
+      );
+      setEmailDisplayList([...emailDisplayList, designedValue]);
+      setEmailList([...emailList, trimmedInputValue]);
+
+      setFieldValue('emails', [...emailList, trimmedInputValue]);
+
       setInputValue('');
     } else if (event.key === 'Enter' && !emailRegex.test(inputValue)) {
       setFieldError('emails', 'Please enter a valid email');
@@ -81,7 +102,9 @@ export const TeamsDetailsForm = () => {
 
   const handleDeleteEmail = (indexToDelete: number) => {
     const updatedEmailList = emailList.filter((_, index) => index !== indexToDelete);
+    const updatedDisplayEmailList = emailDisplayList.filter((_, index) => index !== indexToDelete);
     setFieldValue('emails', updatedEmailList);
+    setEmailDisplayList(updatedDisplayEmailList);
     setEmailList(updatedEmailList);
   };
 
@@ -125,25 +148,33 @@ export const TeamsDetailsForm = () => {
           />
         </div>
         {errors.emails && touched.emails && <div className={styles.error}>{errors.emails}</div>}
-        {emailList.length > 0 &&
-          emailList.map((email, index) => {
-            const truncatedEmail = email.length > 15 ? email.substring(0, 15) + '...' : email;
-            return (
-              <div key={index} className={styles.inputemail_container}>
-                <div className={styles.inputemail}>
-                  {truncatedEmail}
-                  <Image
-                    src="/assests/orangecross.svg"
-                    alt="search"
-                    height={10}
-                    width={10}
-                    className={styles.cancelsvg}
-                    onClick={() => handleDeleteEmail(index)}
-                  />
+        {emailDisplayList.length > 0 && (
+          <div
+            style={{
+              padding: '10px 2px',
+              display: 'flex',
+              flexWrap: 'wrap',
+            }}
+          >
+            {emailDisplayList.map((email, index) => {
+              return (
+                <div key={index} className={styles.inputemail_container}>
+                  <div className={styles.inputemail}>
+                    {email}
+                    <Image
+                      src="/assests/orangecross.svg"
+                      alt="search"
+                      height={10}
+                      width={10}
+                      className={styles.cancelsvg}
+                      onClick={() => handleDeleteEmail(index)}
+                    />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+        )}
 
         <Button disabled={isSubmitting} className={styles.google_finsh} onClick={handleSubmit}>
           {isSubmitting ? 'Loading...' : <span className={styles.nextArrow}>Finish</span>}
