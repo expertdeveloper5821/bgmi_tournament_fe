@@ -186,3 +186,30 @@
   border: none;
   background-color: rgb(205, 224, 237);
 }
+
+.email_container {
+  padding: 10px 2px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.single_email_maincontainer {
+  margin: 2px;
+}
+
+.single_email_subcontainer {
+  padding: 7px 14px 7px 0px;
+  border-radius: 5px;
+  background-color: rgb(144 194 219);
+  border: 1px solid rgb(59 173 231);
+  box-shadow: 1px 2px 6px 1px #9e9e9e;
+}
+
+.single_email_subsubconatiner {
+  padding: 7px 8px;
+  border-radius: 5px;
+}
+
+.cancelsvg {
+  cursor: pointer;
+}

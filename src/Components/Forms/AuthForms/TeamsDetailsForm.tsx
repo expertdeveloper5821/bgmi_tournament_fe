@@ -75,25 +75,15 @@ export const TeamsDetailsForm = () => {
     if (event.key === 'Enter' && emailRegex.test(inputValue)) {
       const trimmedInputValue = inputValue.trim();
       const designedValue = (
-        <span
-          style={{
-            backgroundColor: 'rgb(144 194 219)',
-            padding: '7px 8px',
-            borderRadius: '5px',
-            border: '1px solid rgb(59 173 231)',
-            boxShadow: '1px 2px 6px 1px #9e9e9e',
-          }}
-        >
-          {trimmedInputValue.length > 15
-            ? trimmedInputValue.substring(0, 15) + '...'
+        <span className={styles.single_email_subsubconatiner}>
+          {trimmedInputValue.length > 11
+            ? trimmedInputValue.substring(0, 11) + '...'
             : trimmedInputValue}
         </span>
       );
       setEmailDisplayList([...emailDisplayList, designedValue]);
       setEmailList([...emailList, trimmedInputValue]);
-
       setFieldValue('emails', [...emailList, trimmedInputValue]);
-
       setInputValue('');
     } else if (event.key === 'Enter' && !emailRegex.test(inputValue)) {
       setFieldError('emails', 'Please enter a valid email');
@@ -149,20 +139,14 @@ export const TeamsDetailsForm = () => {
         </div>
         {errors.emails && touched.emails && <div className={styles.error}>{errors.emails}</div>}
         {emailDisplayList.length > 0 && (
-          <div
-            style={{
-              padding: '10px 2px',
-              display: 'flex',
-              flexWrap: 'wrap',
-            }}
-          >
+          <div className={styles.email_container}>
             {emailDisplayList.map((email, index) => {
               return (
-                <div key={index} className={styles.inputemail_container}>
-                  <div className={styles.inputemail}>
+                <div key={index} className={styles.single_email_maincontainer}>
+                  <div className={styles.single_email_subcontainer}>
                     {email}
                     <Image
-                      src="/assests/orangecross.svg"
+                      src="/assests/bluecross.svg"
                       alt="search"
                       height={10}
                       width={10}
