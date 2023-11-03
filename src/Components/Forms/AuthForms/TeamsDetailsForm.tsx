@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { teamsDetailsSchema } from '@/utils/schema';
 import { TeamsDetailsFormValues } from '@/types/formsTypes';
+import { emailRegex } from '@/utils/pattern';
 
 const initialValues: TeamsDetailsFormValues = {
   teamName: '',
@@ -70,8 +71,6 @@ export const TeamsDetailsForm = () => {
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-
     if (event.key === 'Enter' && emailRegex.test(inputValue)) {
       const trimmedInputValue = inputValue.trim();
       const designedValue = (
