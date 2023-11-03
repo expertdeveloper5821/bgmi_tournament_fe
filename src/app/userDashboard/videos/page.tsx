@@ -97,9 +97,9 @@ const Page: React.FC = () => {
                                     <Select className={styles.demo}
                                         onChange={function noRefCheck() { }}
                                         option={[
-                                            'orange',
-                                            'apple',
-                                            'mango'
+                                            'Status Timeline',
+                                            'Match Type',
+                                            'Date'
                                         ]}
                                         placeholder="Sort by"
                                     />
