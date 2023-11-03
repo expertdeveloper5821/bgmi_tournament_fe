@@ -54,6 +54,17 @@
   font-weight: 700;
   font-family: Century Gothic;
   line-height: 36.78px;
+  @media (max-width: $breakpoint-ms) {
+    font-size: 15px;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    font-size: 15px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 15px;
+  }
 }
 .check_model {
   background: white;
@@ -329,15 +340,15 @@ button#btn_cls_st {
   padding: 8px 36px;
   @media (max-width: $breakpoint-xSmall) {
     padding: 8px 36px;
-    font-size: 10px;
+    font-size: 8px;
   }
   @media (max-width: $breakpoint-xs) {
     padding: 8px 36px;
-    font-size: 10px;
+    font-size: 8px;
   }
   @media (max-width: $breakpoint-sm) {
     padding: 8px 36px;
-    font-size: 10px;
+    font-size: 8px;
   }
 }
 
@@ -569,4 +580,34 @@ button#btn_cls_st {
   top: -12px;
   left: 50%;
   transform: scale(1.8, 1) translate(-33%, -50%);
+}
+
+.upload_button {
+  // border: 1px solid red;
+  text-align: center;
+  margin-right: 20px;
+  border-radius: 4px;
+  padding: 8px 40px;
+  background-color: #ff7a00;
+  @media (max-width: $breakpoint-ms) {
+    padding: 6px 24px;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    padding: 6px 24px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 6px 24px;
+  }
+}
+.gap {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  // border: 1px solid red;
+}
+.video_card {
+  border-radius: 4px;
+  filter: drop-shadow(0 0 0.75rem grey);
 }

@@ -153,19 +153,19 @@ const Room = () => {
                           }}
                         >
                           {' '}
-                          <Image src="assests/update.svg" alt="Image" width={12} height={12} />
+                          <Image src="/assests/update.svg" alt="Image" width={12} height={12} />
                         </button>
 
 
                         <div>
                           <button className={styles.addbutton} onClick={handleButtonClick}>
-                            <Image src="assests/add.svg" alt="Image" width={22} height={22} />
+                            <Image src="/assests/add.svg" alt="Image" width={22} height={22} />
                           </button>
                         </div>
 
                         <div>
                           <button className={styles.tooltip} data-title="Match History" onClick={handleButtonEdit}>
-                            <Image src="assests/trophy.svg" alt="Image" width={22} height={22} />
+                            <Image src="/assests/trophy.svg" alt="Image" width={22} height={22} />
                           </button>
                         </div>
                       </div>
