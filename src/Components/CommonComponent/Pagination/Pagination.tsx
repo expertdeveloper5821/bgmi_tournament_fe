@@ -8,9 +8,6 @@ interface CustomPaginationProps {
 const CustomPagination: React.FC<CustomPaginationProps> = ({ data }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const recordsPerPage = 3;
-  const lastIndex = currentPage * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
-  const records = data?.slice(firstIndex, lastIndex);
 
   const nPage = Math.ceil(data?.length / recordsPerPage);
   const numbers: number[] = [];
@@ -59,5 +56,4 @@ const CustomPagination: React.FC<CustomPaginationProps> = ({ data }) => {
     </div>
   );
 };
-
 export default CustomPagination;

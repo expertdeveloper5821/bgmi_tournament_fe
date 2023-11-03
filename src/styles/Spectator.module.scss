@@ -8,6 +8,7 @@
   min-height: 100vh;
   color: $bs-white;
   transition: 600ms linear;
+
   @media (max-width: $breakpoint-ms) {
     width: 100vw;
   }
@@ -28,14 +29,17 @@
     width: 100vw;
   }
 }
+
 .inner_main_container {
   width: 100%;
   height: 100%;
 }
+
 .sidebar_wrapper {
   z-index: 99;
   height: auto;
 }
+
 .flex_col {
   width: 50%;
   margin: 10px;
@@ -55,20 +59,25 @@
   font-family: Century Gothic;
   line-height: 36.78px;
 }
+
 .check_model {
   background: white;
   height: auto;
   width: 50%;
   border-radius: 15px;
+
   @media (max-width: $breakpoint-xSmall) {
     width: 90% !important;
   }
+
   @media (max-width: $breakpoint-xs) {
     width: 90% !important;
   }
+
   @media (max-width: $breakpoint-sm) {
     width: 50%;
   }
+
   @media (max-width: $breakpoint-md) {
     width: 50%;
   }
@@ -78,11 +87,13 @@
 .main_del_sec {
   @include spectator_model;
 }
+
 .inner_specter_cls {
   display: flex;
   justify-content: space-between;
   padding: 4px 26px;
 }
+
 .main_form_btn {
   background: #ff7a00;
   border: none;
@@ -100,20 +111,25 @@
   display: flex;
   padding: 15px 30px;
 }
+
 button#btn_cls_st {
   background: #ff7a00;
 }
+
 .roombutton {
   background: #ff7a00 !important;
   width: 30%;
   color: white !important;
 }
+
 .room_field_wrapper {
   @include spectator_modelfield;
+
   @media (max-width: $breakpoint-xs) {
     margin: 8px 0px;
   }
 }
+
 .input_box {
   display: flex;
   flex-direction: column;
@@ -122,6 +138,7 @@ button#btn_cls_st {
 .input_box input {
   color: $bs-black;
 }
+
 .input_box input[password] {
   color: $bs-black;
 }
@@ -132,10 +149,12 @@ button#btn_cls_st {
   font-size: 14px;
   line-height: 17.17px;
   font-family: Century Gothic;
+
   @media (max-width: $breakpoint-xs) {
     font-size: 13px;
   }
 }
+
 .optional {
   // border: 1px solid grey;
   color: $bs-grey;
@@ -149,45 +168,56 @@ button#btn_cls_st {
   display: flex;
   justify-content: space-evenly;
 }
+
 .cancel_btn {
   border: none;
   background: $bs-white;
   font-size: 16px;
 }
+
 .cancel_btn {
   width: 30%;
   border: 1px solid $bs-orange !important;
   color: $bs-orange !important;
 }
+
 .cancel_btn:hover {
   background: $bs-white !important;
   color: $bs-orange !important;
 }
+
 .error {
   @include error;
 }
+
 #gameName {
   color: #ff7a00;
 }
+
 .inner_del_sec {
   background: white;
   height: auto;
   width: 30%;
   border-radius: 15px;
   padding: 16px;
+
   @media (max-width: $breakpoint-xSmall) {
     width: 90% !important;
   }
+
   @media (max-width: $breakpoint-xs) {
     width: 90% !important;
   }
+
   @media (max-width: $breakpoint-sm) {
     width: 90%;
   }
+
   @media (max-width: $breakpoint-md) {
     width: 50%;
   }
 }
+
 .sec_heading {
   color: #6c757d;
   font-size: 16px;
@@ -197,9 +227,11 @@ button#btn_cls_st {
   padding: 12px;
   text-align: center;
 }
+
 .del_btn_sec {
   text-align: center;
 }
+
 .del_title {
   color: #ff7a00;
   text-align: center;
@@ -207,6 +239,7 @@ button#btn_cls_st {
   font-weight: 700;
   font-family: Century Gothic;
 }
+
 .dele_btn {
   border: none;
   background: #ff7a00;
@@ -214,6 +247,7 @@ button#btn_cls_st {
   width: 102px;
   margin-right: 6px;
 }
+
 .canc_btn {
   border: 1px solid #ff7a00;
   background: #fff;
@@ -225,27 +259,34 @@ button#btn_cls_st {
 .update_form {
   padding: 18px 30px;
 }
+
 .room_field_cls2 {
   width: 100%;
 }
+
 //new tabel code
 .table_content {
   border: none;
   overflow: hidden;
   padding-top: 26px;
+
   @media (max-width: $breakpoint-xSmall) {
     overflow: scroll;
   }
+
   @media (max-width: $breakpoint-xs) {
     overflow: scroll;
   }
+
   @media (max-width: $breakpoint-sm) {
     overflow: scroll;
   }
+
   @media (max-width: $breakpoint-md) {
     overflow: scroll;
   }
 }
+
 .table_head_sectat {
   @include tableheader;
 }
@@ -253,192 +294,58 @@ button#btn_cls_st {
 .table_row_cell {
   @include tdbody;
 }
+
 .tb_cell_body {
   color: #ff7a00 !important;
   text-align: center;
   padding: 3px 3px;
+
   @media (max-width: $breakpoint-xSmall) {
     padding: 7px 38px;
   }
+
   @media (max-width: $breakpoint-xs) {
     padding: 7px 38px;
   }
+
   @media (max-width: $breakpoint-sm) {
     padding: 7px 38px;
   }
 }
+
 .el_tb_cell {
   color: #fff;
   text-align: center;
   padding: 3px 6px;
+
   @media (max-width: $breakpoint-xSmall) {
     padding: 8px 36px;
   }
+
   @media (max-width: $breakpoint-xs) {
     padding: 8px 36px;
   }
+
   @media (max-width: $breakpoint-sm) {
     padding: 8px 36px;
   }
 }
+
 .tb_cell_action {
-  display: flex !important;
-  justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   padding: 8px;
-}
-
-.editbtn {
-  border: none;
-  background-color: transparent;
-}
-.flex {
-  // border: 1px solid red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.addbutton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  background-color: transparent;
-}
-
-.checkbox_round {
-  width: 10px;
-  height: 10px;
-  background-color: white;
-  border-radius: 50%;
-  vertical-align: middle;
-  border: 1px solid #ddd;
-  appearance: none;
-  -webkit-appearance: none;
-  outline: none;
-  cursor: pointer;
-}
-
-.checkbox_round:checked {
-  background-color: #ff7a00;
-}
-
-.table_data {
-  color: #fff;
-  text-align: center;
-  padding: 8px 36px;
-  @media (max-width: $breakpoint-xSmall) {
-    padding: 8px 36px;
-    font-size: 10px;
-  }
-  @media (max-width: $breakpoint-xs) {
-    padding: 8px 36px;
-    font-size: 10px;
-  }
-  @media (max-width: $breakpoint-sm) {
-    padding: 8px 36px;
-    font-size: 10px;
-  }
-}
-
-.button_wrapper {
-  display: flex;
-  gap: 15px;
-  justify-content: end;
-  margin-right: 20px;
-}
-
-.cancel_button {
-  border: none;
-  background: $bs-white;
-  font-size: 16px;
-}
-.cancel_button {
-  width: 15%;
-  border: 1px solid $bs-orange !important;
-  color: $bs-orange !important;
-  @media (max-width: $breakpoint-xSmall) {
-    width: 23%;
-  }
-  @media (max-width: $breakpoint-xs) {
-    width: 23%;
-  }
-  @media (max-width: $breakpoint-sm) {
-    width: 23%;
-  }
-}
-.cancel_button:hover {
-  background: $bs-white !important;
-  color: $bs-orange !important;
-}
-
-.submitbutton {
-  background: #ff7a00 !important;
-  width: 15%;
-  color: white !important;
-  @media (max-width: $breakpoint-xSmall) {
-    width: 23%;
-  }
-  @media (max-width: $breakpoint-xs) {
-    width: 23%;
-  }
-  @media (max-width: $breakpoint-sm) {
-    width: 23%;
-  }
-}
-
-//matchDetails
-.match_details {
-  display: flex;
-  width: 100%;
-  // border: 1px solid white;
-  padding: 18px 30px;
-  gap: 20px;
-}
-
-.match_details1 {
-  width: 50%;
-  border: 1px solid #ff7a00;
-  padding: 18px 30px;
-  border-radius: 4px;
-}
-
-.flex {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 10px;
-}
-
-.match_details2 {
-  width: 50%;
-  border: 1px solid #ff7a00;
-  padding: 18px 30px;
-  border-radius: 4px;
-}
-.row {
-  display: flex;
-}
-.col {
-  display: flex;
-  flex-direction: column;
   gap: 10px;
+  height: 80px;
 }
 
-.flex_row {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
+.winnder_btn {
+  text-align: center;
 }
 
-.filter {
+.edit_btn {
+  color: #ff7a00;
   font-weight: 700;
-  @media (max-width: $breakpoint-xSmall) {
-    font-size: 11px;
-  }
-  @media (max-width: $breakpoint-xs) {
-    font-size: 11px;
-  }
-  @media (max-width: $breakpoint-sm) {
-    font-size: 11px;
-  }
 }

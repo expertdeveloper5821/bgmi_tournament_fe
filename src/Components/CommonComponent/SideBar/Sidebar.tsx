@@ -16,7 +16,6 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [menuItems, setMenuItems] = useState<MenuItem[]>(menuItem);
   const [selectedItemIndex, setSelectedItemIndex] = useState<number>(-1); // Initialize as -1, no item selected
   const [width] = useWindowSize();
   const toggle = () => {
@@ -42,9 +41,13 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
         <div className={styles.container}>
           <div style={{ width: isOpen ? '220px' : '50px' }} className={styles.sidebar}>
             <div className={styles.top_section}>
-              <h1 style={{ display: isOpen ? 'block' : 'none' }} className={styles.logo}>
-                <img src="/assests/logo.svg" />
-              </h1>
+              <Link
+                href={'/'}
+                style={{ display: isOpen ? 'block' : 'none' }}
+                className={styles.logo}
+              >
+                <img src="/assests/logo.svg" alt="Brand Logo" />
+              </Link>
               <div style={{ marginLeft: isOpen ? '100px' : '10px' }} className={styles.bars}>
                 {isOpen ? (
                   <div onClick={toggle} className={styles.lap_sidebar_cancel}>
@@ -71,7 +74,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
                   </Link>
                 ))
               ) : (
-                <div>No Data Found</div>
+                <></>
               )}
             </div>
           </div>
@@ -110,7 +113,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
                   </Link>
                 ))
               ) : (
-                <div>No Data Found</div>
+                <></>
               )}
             </div>
           )}

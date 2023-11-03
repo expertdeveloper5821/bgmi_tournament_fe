@@ -1,13 +1,16 @@
 'use client';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 //@ts-ignore
-import { Button, Input, Select } from 'technogetic-iron-smart-ui';
-import { useFormik, FormikHelpers } from 'formik';
+import { Button, Input } from 'technogetic-iron-smart-ui';
+import { useFormik } from 'formik';
 import { validationSchema } from '@/utils/schema';
 import { sendRequest } from '@/utils/axiosInstanse';
 import { ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
+// import { formatDate, formatTime } from '../../../Components/CommonComponent/moment';
+// import { get } from 'http';
+// import { url } from 'inspector';
 interface FormCreate {
   roomId: string;
   gameName: string;
@@ -22,7 +25,7 @@ interface FormCreate {
   highestKill: string;
   secondWin: string;
   entryFee: string;
-  mapImg: any | null;
+  mapImg: string | null;
 }
 
 const initial: FormCreate = {
@@ -42,63 +45,38 @@ const initial: FormCreate = {
   entryFee: '',
 };
 
-const Form = ({ ...props }) => {
-  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate } = props;
+const Form = (props) => {
+  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate, callSpecatator } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const [image, setImage] = useState<File | null>(null);
-  const [initialValues, setInitialValues] = useState(initial);
-
-  const {
-    roomId,
-    gameName,
-    gameType,
-    mapType,
-    version,
-    lastSurvival,
-    thirdWin,
-    secondWin,
-    highestKill,
-    entryFee,
-  } = roomIdToUpdate || '';
-
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
+  const [images, setImages] = useState<{ name: string; url: string }[]>([]);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [thirdImage, setThirdImage] = useState<File | null>(null);
 
   const { values, touched, errors, handleSubmit, handleBlur, setValues, setFieldValue } =
     useFormik<FormCreate>({
-      initialValues,
+      initialValues: initial,
       validationSchema,
-      onSubmit: async (values: any, { resetForm }) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      onSubmit: async (values, { resetForm }) => {
         const dateTimeString = new Date(`${values.date} ${values.time}`);
-        values.dateAndTime = dateTimeString;
-
-        const form = new FormData();
-        form.append('mapImg', image);
-        for (const key in values) {
-          form.append(key, values[key]);
-        }
-
+        const roomId = roomIdToUpdate ? roomIdToUpdate._id : '';
         try {
           setIsLoading(true);
-          const token = localStorage.getItem('jwtToken');
-          const response = await sendRequest(
-            `room/rooms/${roomIdToUpdate ? roomIdToUpdate._id : ''}`,
-            {
-              method: roomIdToUpdate ? 'PUT' : 'POST',
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-              data: form,
+          const response = await sendRequest(`room/rooms/${roomId}`, {
+            method: roomIdToUpdate ? 'PUT' : 'POST',
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: '',
             },
-          );
+            data: { ...values, dateAndTime: dateTimeString, mapImg: thirdImage },
+          });
           if (response.status === 200) {
             resetForm();
+            setImages([]);
+            setValues(initial);
+            callSpecatator();
             setIsLoading(false);
             toast.success(response.data.message);
             setShowModal(false);
@@ -108,7 +86,7 @@ const Form = ({ ...props }) => {
             setError('Failed to Add room. Please try again.');
             toast.error('Failed to Add room. Please try again.');
           }
-        } catch (error: any) {
+        } catch (error) {
           setIsLoading(false);
           setRoomIdToUpdate('');
           setError('Failed to Add room. Please try again.');
@@ -118,12 +96,105 @@ const Form = ({ ...props }) => {
     });
 
   useEffect(() => {
-    for (const key in values) {
-      if (key !== 'data' && key !== 'time') {
-        setFieldValue(key, roomIdToUpdate[key] || '');
-      }
+    if (roomIdToUpdate) {
+      const dateAndTimeParts = roomIdToUpdate.dateAndTime?.split('T');
+      const dateValue = dateAndTimeParts ? dateAndTimeParts[0] : '';
+      const timeValue = dateAndTimeParts ? dateAndTimeParts[1] : '';
+      const [hours, minutes] = timeValue.split(':');
+      const formattedTime = `${hours}:${minutes}:${timeValue}.000Z`;
+      const formattedTimeWithoutSeconds = formattedTime.split(':').slice(0, 2).join(':');
+
+      setValues({
+        roomId: roomIdToUpdate.roomId,
+        gameName: roomIdToUpdate.gameName,
+        gameType: roomIdToUpdate.gameType,
+        mapType: roomIdToUpdate.mapType,
+        password: roomIdToUpdate.password,
+        version: roomIdToUpdate.version,
+        lastSurvival: roomIdToUpdate.lastSurvival,
+        thirdWin: roomIdToUpdate.thirdWin,
+        highestKill: roomIdToUpdate.highestKill,
+        secondWin: roomIdToUpdate.secondWin,
+        mapImg: roomIdToUpdate.mapImg,
+        entryFee: roomIdToUpdate.entryFee,
+        time: formattedTimeWithoutSeconds,
+        date: dateValue,
+      });
     }
   }, [roomIdToUpdate]);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+
+  const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragging(true);
+  };
+
+  const onDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragging(false);
+  };
+
+  const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragging(false);
+    const files = event.dataTransfer.files;
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].type.split('/')[0] !== 'image') continue;
+      if (!images.some((e) => e.name === files[i].name)) {
+        const newImage = {
+          name: files[i].name,
+          url: URL.createObjectURL(files[i]),
+        };
+        setImages((prevImages) => [...prevImages, newImage]);
+        setFieldValue('mapImg', newImage.url);
+      }
+    }
+  };
+
+  const onFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      if (files.length === 0) {
+        return;
+      }
+      setThirdImage(files[0]);
+      for (let i = 0; i < files.length; i++) {
+        if (files[i].type.split('/')[0] !== 'image') continue;
+        if (!images.some((e) => e.name === files[i].name)) {
+          const newImage = {
+            name: files[i].name,
+            url: URL.createObjectURL(files[i]),
+          };
+          setImages((prevImages) => [...prevImages, newImage]);
+          setFieldValue('mapImg', newImage.url);
+        }
+      }
+    }
+  };
+
+  const selectFiles = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const deleteImage = (index: number) => {
+    const newImages = [...images];
+    newImages.splice(index, 1);
+    setImages(newImages);
+    if (newImages.length === 0) {
+      setFieldValue('mapImg', null);
+    }
+  };
+
   return (
     <>
       <div>
@@ -215,7 +286,7 @@ const Form = ({ ...props }) => {
                           type="time"
                           name="time"
                           placeholder="Enter time"
-                          value={values?.time}
+                          value={values.time}
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
@@ -392,22 +463,58 @@ const Form = ({ ...props }) => {
                       )}
 
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="secondWin">
-                          Image Upload
-                        </label>
-                        <Input
-                          id="file"
-                          className={styles.room_field_wrapper}
-                          type="file"
-                          name="mapImg"
-                          accept="image/*"
-                          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                            if (e.target.files && e.target.files.length > 0) {
-                              setImage(e.target.files[0]);
-                            }
-                          }}
-                          onBlur={handleBlur}
-                        />
+                        <div className={styles.card}>
+                          <div className={styles.top}>
+                            <p>Drag & Drop Image Uploading</p>
+                          </div>
+                          <div
+                            className={styles.drag_area}
+                            onDragOver={onDragOver}
+                            onDragLeave={onDragLeave}
+                            onDrop={onDrop}
+                          >
+                            {isDragging ? (
+                              <span className={styles.select}>Drop Image here</span>
+                            ) : (
+                              <>
+                                <div className={styles.drag_drop}>
+                                  {' '}
+                                  Drag and Drop image here or ,
+                                </div>
+                                <span className={styles.select} role="button" onClick={selectFiles}>
+                                  Browse
+                                </span>
+                              </>
+                            )}
+
+                            <input
+                              name="file"
+                              type="file"
+                              className={styles.file}
+                              multiple
+                              ref={fileInputRef}
+                              onChange={onFileSelect}
+                            ></input>
+                          </div>
+                          <div className={styles.container}>
+                            {images.map((image, index) => (
+                              <div className={styles.image} key={index}>
+                                <span className={styles.delete} onClick={() => deleteImage(index)}>
+                                  &times;
+                                </span>
+                                <img src={image.url} alt={image.name}></img>
+                              </div>
+                            ))}
+                            {roomIdToUpdate && (
+                              <img
+                                src={roomIdToUpdate.mapImg}
+                                alt="Map Image"
+                                width={280}
+                                height={120}
+                              />
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </form>
@@ -416,6 +523,7 @@ const Form = ({ ...props }) => {
                     <Button
                       className={styles.cancel_btn}
                       onClick={() => {
+                        setValues(initial);
                         setShowModal(false);
                         setRoomIdToUpdate('');
                       }}

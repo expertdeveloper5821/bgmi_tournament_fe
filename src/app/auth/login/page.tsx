@@ -1,32 +1,45 @@
 'use client';
-import React, { useState, useEffect, ChangeEvent, useContext } from 'react';
-import { useFormik, FormikErrors, FormikTouched, FormikValues, FormikHelpers } from 'formik';
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import { useFormik, FormikHelpers } from 'formik';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import styles from '@/styles/auth.module.scss';
 import { sendRequest } from '../../../utils/axiosInstanse';
-import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
 import { decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
-import { SignupSchema, loginSchema } from '@/utils/schema';
-
-interface LoginProps {}
+import { loginSchema } from '@/utils/schema';
 
 interface FormValues {
   email: string;
   password: string;
 }
 
+export interface DecodedToken {
+  email: string;
+  exp: number;
+  fullName: string;
+  iat: number;
+  role: {
+    _id: number;
+    role: string;
+  };
+  teamName: null;
+  userId: string;
+  userName: string;
+  userUuid: string;
+  phoneNumber?: string;
+  profilePic?: string;
+  upiId?: string;
+}
+
 function Login(): React.JSX.Element {
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [role, setRole] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const [getToken, setGetToken] = useState<any>('');
-  const { userInfo, updateUserInfo } = useUserContext();
+  const { updateUserInfo } = useUserContext();
   const router = useRouter();
 
   function handleRememberMe(event: ChangeEvent<HTMLInputElement>) {
@@ -67,7 +80,6 @@ function Login(): React.JSX.Element {
           localStorage.removeItem('rememberMe');
         }
 
-        // manual login
         try {
           const response = await sendRequest('user/login', {
             method: 'POST',
@@ -90,7 +102,7 @@ function Login(): React.JSX.Element {
           } else {
             setError('Invalid email or password');
           }
-        } catch (error: any) {
+        } catch (error) {
           setIsLoading(false);
           setError('Login Failed, Please try again later');
         } finally {
@@ -99,14 +111,13 @@ function Login(): React.JSX.Element {
       },
     });
 
-  const handleRedirect = (token: any) => {
+  const handleRedirect = (token: string) => {
     if (token) {
-      const decodedToken: any = decodeJWt(token);
-      if (decodedToken.role.role === 'admin') {
+      const decodedToken: DecodedToken = decodeJWt(token);
+      if (decodedToken?.role?.role === 'admin') {
         router.push('/adminDashboard/room');
       } else if (decodedToken.role.role === 'user') {
         router.push('/userDashboard/tournament');
-        // router.push(configData.web.cominSoonUrl)
       } else {
         router.push('/spectatorDashboard');
       }
@@ -155,18 +166,6 @@ function Login(): React.JSX.Element {
     }
   };
 
-  const handleGoogleLogin = () => {
-    setIsLoading(true);
-
-    try {
-      window.location.href = 'http://localhost:5000/auth/google/callback';
-    } catch (error) {
-      setIsLoading(false);
-      setError('Google Sign-In failed');
-      console.error('Error during Google Sign-In:', error);
-    }
-  };
-
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
@@ -177,10 +176,8 @@ function Login(): React.JSX.Element {
     }
   }, []);
 
-  // loader
-
-  const [isLoadingData, setLoadingData] = useState<boolean>(false);
-  const [errorData, showErrorData] = useState<string>('');
+  const [, setLoadingData] = useState<boolean>(false);
+  const [, showErrorData] = useState<string>('');
 
   const handleVerifyTokenInLogin = async (token: string) => {
     setLoadingData(true);

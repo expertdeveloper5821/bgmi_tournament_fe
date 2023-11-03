@@ -1,11 +1,8 @@
+import { DecodedToken } from '@/app/auth/login/page';
 import jwt_decode from 'jwt-decode';
 
-const decodeJWt = (token: string): void => {
-  if (token) {
-    return jwt_decode(token);
-  } else {
-    return;
-  }
+const decodeJWt = (token: string): DecodedToken => {
+  return jwt_decode(token);
 };
 
 const getTokenFromLS = () => {
