@@ -8,44 +8,10 @@ import { validationSchema } from '@/utils/schema';
 import { sendRequest } from '@/utils/axiosInstanse';
 import { ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
-// import { formatDate, formatTime } from '../../../Components/CommonComponent/moment';
-// import { get } from 'http';
-// import { url } from 'inspector';
-interface FormCreate {
-  roomId: string;
-  gameName: string;
-  gameType: string;
-  mapType: string;
-  password: string;
-  version: string;
-  date: string;
-  time: string;
-  lastSurvival: string;
-  thirdWin: string;
-  highestKill: string;
-  secondWin: string;
-  entryFee: string;
-  mapImg: string | null;
-}
+import { CreateRoomFormType } from '@/types/roomsTypes';
+import { initialValueCreateRoom } from '@/utils/constant';
 
-const initial: FormCreate = {
-  roomId: '',
-  gameName: '',
-  gameType: '',
-  mapType: '',
-  password: '',
-  version: '',
-  date: '',
-  time: '',
-  lastSurvival: '',
-  thirdWin: '',
-  highestKill: '',
-  secondWin: '',
-  mapImg: '',
-  entryFee: '',
-};
-
-const Form = (props) => {
+const CreateRoomForm = (props) => {
   const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate, callSpecatator } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -55,8 +21,8 @@ const Form = (props) => {
   const [thirdImage, setThirdImage] = useState<File | null>(null);
 
   const { values, touched, errors, handleSubmit, handleBlur, setValues, setFieldValue } =
-    useFormik<FormCreate>({
-      initialValues: initial,
+    useFormik<CreateRoomFormType>({
+      initialValues: initialValueCreateRoom,
       validationSchema,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onSubmit: async (values, { resetForm }) => {
@@ -75,7 +41,7 @@ const Form = (props) => {
           if (response.status === 200) {
             resetForm();
             setImages([]);
-            setValues(initial);
+            setValues(initialValueCreateRoom);
             callSpecatator();
             setIsLoading(false);
             toast.success(response.data.message);
@@ -221,11 +187,8 @@ const Form = (props) => {
                     {error && <div className={styles.error}>{error}</div>}
                     <div className={styles.flex_col}>
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="room_id">
-                          Room ID
-                        </label>
+                        <label className={styles.labelStyle}>Room ID</label>
                         <Input
-                          id="roomId"
                           className={styles.room_field_wrapper}
                           type="text"
                           name="roomId"
@@ -239,11 +202,8 @@ const Form = (props) => {
                         <div className={styles.error}>{String(errors?.roomId)}</div>
                       )}
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="password">
-                          Game Name
-                        </label>
+                        <label className={styles.labelStyle}>Game Name</label>
                         <Input
-                          id="gameName"
                           className={styles.room_field_wrapper}
                           type="text"
                           name="gameName"
@@ -258,11 +218,8 @@ const Form = (props) => {
                       )}
 
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="password">
-                          Game Map Name
-                        </label>
+                        <label className={styles.labelStyle}>Game Map Name</label>
                         <Input
-                          id="mapType"
                           className={styles.room_field_wrapper}
                           type="text"
                           name="mapType"
@@ -277,11 +234,8 @@ const Form = (props) => {
                       )}
 
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="password">
-                          Time
-                        </label>
+                        <label className={styles.labelStyle}>Time</label>
                         <Input
-                          id="time"
                           className={`${styles.room_field_wrapper} ${styles.room_field_cls2}`}
                           type="time"
                           name="time"
@@ -295,11 +249,8 @@ const Form = (props) => {
                         <div className={styles.error}>{String(errors.time)}</div>
                       )}
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="secondWin">
-                          Last Survival
-                        </label>
+                        <label className={styles.labelStyle}>Last Survival</label>
                         <Input
-                          id="lastSurvival"
                           className={styles.room_field_wrapper}
                           type="text"
                           name="lastSurvival"
@@ -313,11 +264,8 @@ const Form = (props) => {
                         <div className={styles.error}>{String(errors.lastSurvival)}</div>
                       )}
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="secondWin">
-                          Second Win
-                        </label>
+                        <label className={styles.labelStyle}>Second Win</label>
                         <Input
-                          id="secondWin"
                           className={styles.room_field_wrapper}
                           type="text"
                           name="secondWin"
@@ -331,11 +279,8 @@ const Form = (props) => {
                         <div className={styles.error}>{String(errors.secondWin)}</div>
                       )}
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="entryFee">
-                          Entry Fee
-                        </label>
+                        <label className={styles.labelStyle}>Entry Fee</label>
                         <Input
-                          id="entryFee"
                           className={styles.room_field_wrapper}
                           type="text"
                           name="entryFee"
@@ -352,11 +297,8 @@ const Form = (props) => {
 
                     <div className={styles.flex_col}>
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="password">
-                          Room Password
-                        </label>
+                        <label className={styles.labelStyle}>Room Password</label>
                         <Input
-                          id="password"
                           className={styles.room_field_wrapper}
                           type="password"
                           name="password"
@@ -370,11 +312,8 @@ const Form = (props) => {
                         <div className={styles.error}>{String(errors.password)}</div>
                       )}
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="password">
-                          No. Of Players (Game Type)
-                        </label>
+                        <label className={styles.labelStyle}>No. Of Players (Game Type)</label>
                         <Input
-                          id="gameType"
                           className={styles.room_field_wrapper}
                           type="text"
                           name="gameType"
@@ -388,11 +327,8 @@ const Form = (props) => {
                         <div className={styles.error}>{String(errors.gameType)}</div>
                       )}
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="password">
-                          Version
-                        </label>
+                        <label className={styles.labelStyle}>Version</label>
                         <Input
-                          id="version"
                           className={styles.room_field_wrapper}
                           type="text"
                           name="version"
@@ -407,13 +343,10 @@ const Form = (props) => {
                         <div className={styles.error}>{String(errors.version)}</div>
                       )}
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="Date">
-                          Date
-                        </label>
+                        <label className={styles.labelStyle}>Date</label>
                         <Input
                           type="date"
                           className={`${styles.room_field_wrapper} ${styles.room_field_cls2}`}
-                          id="gameid"
                           name="date"
                           value={values.date}
                           onChange={handleChange}
@@ -425,11 +358,8 @@ const Form = (props) => {
                       )}
 
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="highestKill">
-                          Highest Kill
-                        </label>
+                        <label className={styles.labelStyle}>Highest Kill</label>
                         <Input
-                          id="highestKill"
                           className={styles.room_field_wrapper}
                           type="text"
                           name="highestKill"
@@ -444,11 +374,8 @@ const Form = (props) => {
                       )}
 
                       <div className={styles.input_box}>
-                        <label className={styles.room_id} htmlFor="thirdWin">
-                          Third Win
-                        </label>
+                        <label className={styles.labelStyle}>Third Win</label>
                         <Input
-                          id="thirdWin"
                           className={styles.room_field_wrapper}
                           type="text"
                           name="thirdWin"
@@ -478,7 +405,6 @@ const Form = (props) => {
                             ) : (
                               <>
                                 <div className={styles.drag_drop}>
-                                  {' '}
                                   Drag and Drop image here or ,
                                 </div>
                                 <span className={styles.select} role="button" onClick={selectFiles}>
@@ -497,9 +423,9 @@ const Form = (props) => {
                             ></input>
                           </div>
                           <div className={styles.container}>
-                            {images.map((image, index) => (
-                              <div className={styles.image} key={index}>
-                                <span className={styles.delete} onClick={() => deleteImage(index)}>
+                            {images.map((image, i) => (
+                              <div className={styles.image} key={i}>
+                                <span className={styles.delete} onClick={() => deleteImage(i)}>
                                   &times;
                                 </span>
                                 <img src={image.url} alt={image.name}></img>
@@ -523,7 +449,7 @@ const Form = (props) => {
                     <Button
                       className={styles.cancel_btn}
                       onClick={() => {
-                        setValues(initial);
+                        setValues(initialValueCreateRoom);
                         setShowModal(false);
                         setRoomIdToUpdate('');
                       }}
@@ -567,4 +493,4 @@ const Form = (props) => {
   );
 };
 
-export default Form;
+export default CreateRoomForm;

@@ -3,16 +3,14 @@ import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import { sendRequest } from '@/utils/axiosInstanse';
-import Form from './Form/page';
 import RoomTable from '@/Components/spectatorDashboard/rooms/Table';
-import { SpectatorRoomDataType } from '@/utils/types';
-import useWindowSize from '@/hooks/useWindowSize';
+import { SpectatorRoomDataType } from '@/types/roomsTypes';
+import CreateRoomForm from '@/Components/spectatorDashboard/rooms/RoomForm';
 
 function spectatorDashboard() {
   const [showModal, setShowModal] = useState(false);
   const [roomIdToUpdate, setRoomIdToUpdate] = useState({});
   const [Spect, setSpect] = useState<SpectatorRoomDataType[]>([]);
-  const [width] = useWindowSize();
 
   const getAllSpectator = async () => {
     const spectatorResponse = await sendRequest('room/user-rooms');
@@ -30,10 +28,10 @@ function spectatorDashboard() {
       <div className={styles.inner_main_container}>
         <div className={styles.sidebar_wrapper}>
           <Navbar />
-          <div style={{ marginLeft: `${width > 768 ? '9vh' : ''}` }}>
+          <div>
             <div className={styles.inner_specter_cls}>
               <h1 className={styles.r_main_title}>Rooms</h1>
-              <Form
+              <CreateRoomForm
                 showModal={showModal}
                 setShowModal={setShowModal}
                 roomIdToUpdate={roomIdToUpdate}

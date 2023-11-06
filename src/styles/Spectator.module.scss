@@ -2,31 +2,36 @@
 @import './variable.scss';
 
 .main_container {
-  width: 96vw;
   display: flex;
+  flex: 0 1 100%;
   background-color: $darkblue;
   min-height: 100vh;
   color: $bs-white;
   transition: 600ms linear;
 
   @media (max-width: $breakpoint-ms) {
-    width: 100vw;
+    flex: 0 1 100%;
+    overflow: auto;
   }
 
   @media (max-width: $breakpoint-md) {
-    width: 100vw;
+    flex: 0 1 100%;
+    overflow: auto;
   }
 
   @media (max-width: $breakpoint-sm) {
-    width: 100vw;
+    flex: 0 1 100%;
+    overflow: auto;
   }
 
   @media (max-width: $breakpoint-tab) {
-    width: 100vw;
+    flex: 0 1 100%;
+    overflow: auto;
   }
 
   @media (max-width: $breakpoint-xs) {
-    width: 100vw;
+    width: 100%;
+    overflow: auto;
   }
 }
 
@@ -143,7 +148,7 @@ button#btn_cls_st {
   color: $bs-black;
 }
 
-.room_id {
+.labelStyle {
   color: #003554 !important;
   font-weight: 700;
   font-size: 14px;
@@ -267,7 +272,7 @@ button#btn_cls_st {
 //new tabel code
 .table_content {
   border: none;
-  overflow: hidden;
+  overflow: auto;
   padding-top: 26px;
 
   @media (max-width: $breakpoint-xSmall) {
@@ -279,6 +284,10 @@ button#btn_cls_st {
   }
 
   @media (max-width: $breakpoint-sm) {
+    overflow: scroll;
+  }
+
+  @media (max-width: $breakpoint-ms) {
     overflow: scroll;
   }
 
@@ -348,4 +357,14 @@ button#btn_cls_st {
 .edit_btn {
   color: #ff7a00;
   font-weight: 700;
+}
+
+
+.postWinnerTbody {
+  .table_row_winner {
+
+    td {
+      text-align: center;
+    }
+  }
 }

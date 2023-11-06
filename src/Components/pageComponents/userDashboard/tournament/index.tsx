@@ -46,12 +46,18 @@ function Tournament() {
 
   const addRegMatch = async (match: ITournament) => {
     const userData = JSON.parse(localStorage.getItem('userData')!);
-    const data = {
+    const data: {
+      upiId: string;
+      matchAmount: number;
+      name: string;
+      id: string | undefined;
+      roomid: string;
+    } = {
       upiId: 'success@payment',
       matchAmount: 60,
       name: userData.fullName,
-      id: configData.paymentID,
-      roomid: match?.roomUuid,
+      id: configData?.paymentID,
+      roomid: match.roomUuid,
     };
     dispatch(joinMatch(data)).then(() => {
       dispatch(getAllRooms());

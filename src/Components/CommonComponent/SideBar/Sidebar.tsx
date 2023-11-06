@@ -24,11 +24,11 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
         const mainElem = document.getElementById('mainLayoutContainer');
         const mainElemInner = document.getElementById('mainLayoutContainerInner');
         if (mainElem) {
-          mainElem.style.width = !isOpen ? '100vw' : '100vw';
+          mainElem.style.flex = !isOpen ? '0 1 100%' : '0 1 100%';
         }
 
         if (mainElemInner) {
-          mainElemInner.style.width = !isOpen ? '85vw' : '96vw';
+          mainElemInner.style.flex = !isOpen ? '0 1 80%' : '0 1 96%';
         }
       }
       return !isOpen;

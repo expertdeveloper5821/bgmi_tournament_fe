@@ -11,7 +11,7 @@ export type DeleteSpecProps = {
   getAllSpectator: () => void;
 };
 
-const DeleteSpectator: React.FC<DeleteSpecProps> = ({ Id, getAllSpectator }) => {
+const DeleteSpectatorModal: React.FC<DeleteSpecProps> = ({ Id, getAllSpectator }) => {
   const [deletModal, setDeleteModal] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -63,4 +63,4 @@ const DeleteSpectator: React.FC<DeleteSpecProps> = ({ Id, getAllSpectator }) => 
     </>
   );
 };
-export default DeleteSpectator;
+export default DeleteSpectatorModal;

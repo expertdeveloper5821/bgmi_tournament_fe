@@ -5,11 +5,11 @@ import { Table, TableBody, TableCell } from 'technogetic-iron-smart-ui';
 //@ts-ignore
 import { TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
 import { formatDate, formatTime } from '@/Components/CommonComponent/moment';
-import DeleteSpectator from '@/app/spectatorDashboard/deleteSpectator/page';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { specRoomColumns } from '@/utils/constant';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
+import DeleteSpectatorModal from '@/Components/spectatorDashboard/rooms/DeleteSpectatorModal';
 
 const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSpectator }) => {
   const router: AppRouterInstance = useRouter();
@@ -60,7 +60,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
             <TableCell className={styles.el_tb_cell}>{spec?.entryFee ?? '--'}</TableCell>
 
             <TableCell className={styles.tb_cell_action}>
-              <DeleteSpectator Id={spec._id} getAllSpectator={getAllSpectator} />
+              <DeleteSpectatorModal Id={spec._id} getAllSpectator={getAllSpectator} />
               <div
                 onClick={() => {
                   setShowModal(!showModal);
