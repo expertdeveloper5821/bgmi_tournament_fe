@@ -35,14 +35,11 @@ interface CustomPaginationProps {
 const Page: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [data, setData] = useState<VideoInfo[]>([]);
-    console.log("data---->", data)
-    const isMobile = window.innerWidth <= 768; // Define your own mobile breakpoint
+    const isMobile = window.innerWidth <= 768;
     const maxCards = isMobile ? 2 : 4;
-    // const maxCards = 4;
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
 
-    // Function to go to the previous card
     const goToPreviousCard = () => {
         if (currentCardIndex > 0) {
             setCurrentCardIndex(currentCardIndex - 1);
@@ -50,7 +47,6 @@ const Page: React.FC = () => {
         }
     };
 
-    // Function to go to the next card
     const goToNextCard = () => {
         if (currentCardIndex < data.length - 1) {
             setCurrentCardIndex(currentCardIndex + 1);
@@ -72,7 +68,6 @@ const Page: React.FC = () => {
                 setData(responseData);
                 console.log("response===>", response)
             } catch (error) {
-                // console.log(error);
             }
         };
         fetchData();
@@ -101,7 +96,9 @@ const Page: React.FC = () => {
                                             'Match Type',
                                             'Date'
                                         ]}
+
                                         placeholder="Sort by"
+                                        optionClassName={styles.popdown}
                                     />
                                 </div>
                             </div>
@@ -128,7 +125,6 @@ const Page: React.FC = () => {
                                                         marginRight: '-32px',
                                                         zIndex: 10,
                                                     }}
-                                                    // className={styles.button_prev}
                                                     disabled={currentCardIndex === 0}
                                                 >
                                                     <BiSolidChevronLeft className={styles.outline_icon} />
@@ -144,9 +140,8 @@ const Page: React.FC = () => {
                                                         marginRight: '-32px',
                                                         zIndex: 10,
                                                     }}
-                                                    // className={styles.button_next}
+
                                                     disabled={isMobile ? currentCardIndex >= data.length - maxCards : currentCardIndex === data.length - 1}
-                                                // disabled={currentCardIndex === data.length - 1}
                                                 >
                                                     <BiChevronRight className={styles.outline_icon} />
                                                 </button>

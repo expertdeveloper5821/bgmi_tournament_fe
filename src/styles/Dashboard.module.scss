@@ -1290,7 +1290,7 @@ body.activemodal {
 .sorting {
   width: 50%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-end;
 }
 
@@ -1589,3 +1589,9 @@ body.activemodal {
 // span.menuItem-label {
 //   color: #fff !important;
 // }
+
+.popdown {
+  // border: 1px solid red;
+  margin-top: 35px;
+  color: rgba(0, 53, 84, 1) !important;
+}
