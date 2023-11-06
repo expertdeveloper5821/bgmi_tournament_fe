@@ -13,7 +13,7 @@ import styles from '@/styles/auth.module.scss';
 
 const SignupForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [rememberMe, setRememberMe] = useState<boolean>(false);
+  const [rememberMe] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
   const router = useRouter();
@@ -51,7 +51,7 @@ const SignupForm = () => {
             setIsLoading(false);
             setError('Failed to sign up. Please try again.');
           }
-        } catch (error: any) {
+        } catch (error) {
           setIsLoading(false);
           setError('user with email already exists.');
         } finally {

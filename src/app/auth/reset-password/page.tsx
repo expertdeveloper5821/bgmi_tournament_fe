@@ -47,7 +47,7 @@ const UpdateCredential: React.FC = () => {
         } else {
           console.error('Password update failed');
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Password update error:', error);
       }
     },

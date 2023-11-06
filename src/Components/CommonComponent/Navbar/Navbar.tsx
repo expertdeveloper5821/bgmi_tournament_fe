@@ -1,29 +1,28 @@
 'use client';
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Navabar.module.scss';
 import { useRouter } from 'next/navigation';
 // @ts-ignore
 import { Avatar, Popover } from 'technogetic-iron-smart-ui';
-import Image from 'next/image';
-import { sendRequest } from '@/utils/axiosInstanse';
+import { decodeJWt } from '@/utils/globalfunctions';
 
-interface INavbar {
-  setUserName?: Dispatch<SetStateAction<string>>;
-}
+// interface INavbar {
+//   setUserName?: Dispatch<SetStateAction<string>>;
+// }
 
-export function Navbar(props: INavbar) {
-  const [isOpen, setIsOpen] = useState(false);
+export function Navbar() {
+  // const [, setIsOpen] = useState(false);
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
+  // const [, setIsLoading] = useState<boolean>(false);
+  // const [, setError] = useState<string>('');
   const [userData, setUserData] = useState<string>('');
   const [nameData, setNameData] = useState<string>('');
   const [initialsName, setInitialsName] = useState<string>('');
-  const [pofile, setPofile] = useState<string>('');
+  const [pofile, setPofile] = useState<string | undefined>('');
 
-  function handleClosePopover() {
-    setIsOpen(false);
-  }
+  // function handleClosePopover() {
+  //   setIsOpen(false);
+  // }
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -31,13 +30,14 @@ export function Navbar(props: INavbar) {
       localStorage.clear();
       router.push('/');
     } catch (error) {
-      setIsLoading(false);
-      setError('Logout failed');
+      // setIsLoading(false);
+      // setError('Logout failed');
     }
   };
 
   const getAlldata = async () => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userData = decodeJWt(localStorage.getItem('jwtToken')!);
+    // const userData: any = jwtDecode(localStorage.getItem('jwtToken'));
 
     setUserData(userData.email);
     setNameData(userData.fullName);
@@ -50,7 +50,7 @@ export function Navbar(props: INavbar) {
       }
     });
     setInitialsName(initials);
-    setPofile(userData.profilePic);
+    setPofile(userData?.profilePic);
   };
 
   useEffect(() => {
@@ -143,7 +143,7 @@ export function Navbar(props: INavbar) {
                 isOpen={isPopOpen}
                 setIsOpen={setIsPopOpen}
                 content={
-                  <div>
+                  <div style={{ marginRight: '16px' }}>
                     <div className={styles.profileContainer}>
                       <h4 className={styles.profilename}>{nameData}</h4>
                       <p className={styles.profileEmail}>{userData}</p>

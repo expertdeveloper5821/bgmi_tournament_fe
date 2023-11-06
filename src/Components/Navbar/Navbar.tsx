@@ -1,29 +1,31 @@
 'use client';
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Navabar.module.scss';
 import { useRouter } from 'next/navigation';
 // @ts-ignore
 import { Avatar, Popover } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
-import { sendRequest } from '@/utils/axiosInstanse';
 
-interface INavbar {
-  setUserName?: Dispatch<SetStateAction<string>>;
-}
+import jwtDecode from 'jwt-decode';
+import { DecodedTokenType } from '@/types/decodedTokenType';
 
-export function Navbar(props: INavbar) {
-  const [isOpen, setIsOpen] = useState(false);
+// interface INavbar {
+//   setUserName?: Dispatch<SetStateAction<string>>;
+// }
+
+export function Navbar() {
+  // const [isOpen, setIsOpen] = useState(false);
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [error, setError] = useState<string>('');
   const [userData, setUserData] = useState<string>('');
   const [nameData, setNameData] = useState<string>('');
   const [initialsName, setInitialsName] = useState<string>('');
-  const [pofile, setPofile] = useState<string>('');
+  const [pofile, setPofile] = useState<string | undefined | null>(null);
 
-  function handleClosePopover() {
-    setIsOpen(false);
-  }
+  // function handleClosePopover() {
+  //   setIsOpen(false);
+  // }
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -31,18 +33,19 @@ export function Navbar(props: INavbar) {
       localStorage.clear();
       router.push('/');
     } catch (error) {
-      setIsLoading(false);
-      setError('Logout failed');
+      // setIsLoading(false);
+      // setError('Logout failed');
     }
   };
 
   const getAlldata = async () => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
-
-    setUserData(userData.email);
-    setNameData(userData.fullName);
+    const userData: DecodedTokenType = jwtDecode(localStorage.getItem('jwtToken')!);
+    // const userData = JSON.parse(localStorage.getItem('userData'));
+    const { email, fullName, profilePic } = userData;
+    setUserData(email);
+    setNameData(fullName);
     let initials = '';
-    userData?.fullName?.split(' ')?.forEach((initial) => {
+    fullName?.split(' ')?.forEach((initial) => {
       if (initials.length > 0) {
         initials = `${initials} ${initial.charAt(0).toUpperCase()}`;
       } else {
@@ -50,7 +53,7 @@ export function Navbar(props: INavbar) {
       }
     });
     setInitialsName(initials);
-    setPofile(userData.profilePic);
+    setPofile(profilePic);
   };
 
   useEffect(() => {
