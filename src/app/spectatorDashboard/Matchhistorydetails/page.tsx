@@ -1,17 +1,27 @@
 'use client';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 import { Navbar } from '@/Components/Navbar/Navbar';
-import { TextArea, Select, Input, Button, } from "technogetic-iron-smart-ui"
+import { useFormik, FormikHelpers } from 'formik';
+import { TextArea, Select, Input, Button } from "technogetic-iron-smart-ui";
 import Image from 'next/image';
-// import { useState } from 'react';
+import { validationSchema } from '@/utils/schema';
+import { sendRequest } from '@/utils/axiosInstanse';
+import { toast } from 'react-toastify';
 
+interface FormValues {
+    title: string;
+    videoLink: string;
+
+}
 
 const matchHistoryDetails = () => {
-    const [thumbnailURL, setThumbnailURL] = useState('');
-    const [showThumbnail, setShowThumbnail] = useState(false);
+    const [thumbnailURL, setThumbnailURL] = useState<string>('');
+    const [showThumbnail, setShowThumbnail] = useState<boolean>(false);
+    // const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
 
-    const handleImageUpload = (e) => {
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files[0];
         if (file) {
             const imageURL = URL.createObjectURL(file);
@@ -20,7 +30,43 @@ const matchHistoryDetails = () => {
         }
     };
 
+    const initialValues: FormValues = {
+        title: '',
+        videoLink: '',
+    };
 
+    const { values, touched, errors, handleSubmit, handleChange, handleBlur } = useFormik<FormValues>({
+        initialValues,
+        validationSchema,
+        onSubmit: async (values, { resetForm }: FormikHelpers<FormValues>) => {
+            try {
+                // setIsLoading(true);
+                // Log the values for debugging
+                console.log('Form Values:', values);
+
+                const response = await sendRequest('role/videolink/e3893e50-19e5-4458-a300-52252afcbf46', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                    data: values,
+                });
+                if (response.status === 200) {
+                    resetForm();
+                    toast.success(response.data.message);
+                } else {
+
+                    setError('Failed to Add room. Please try again.');
+                    toast.error('Failed to Add room. Please try again.');
+                }
+            } catch (error) {
+
+                setError('Failed to Add room. Please try again.');
+                toast.error('Failed to Add room. Please try again.');
+                console.error('API Error:', error); // Log the API error for debugging
+            }
+        },
+    });
 
     return (
         <div className={styles.main_container} id="mainLayoutContainerInner">
@@ -34,27 +80,25 @@ const matchHistoryDetails = () => {
                         <div className={styles.textArea}>
                             <span className={styles.textDetails}>Details</span>
                             <TextArea
-                                onChange={function noRefCheck() { }}
+                                name="title"
                                 placeholder="Title (required)"
+                                value={values.title}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
                                 className={styles.text_Area_context}
                             />
                             <span className={styles.typeofmatch}>Match Type</span>
                             <span className={styles.select_match_type}>Please select match type. It can help viewers discover your content faster.</span>
-
                             <Select
-                                className={styles.select}
-                                onChange={function noRefCheck() { }}
+                                name="matchType"
+                                // value={values.matchType}
+                                onChange={handleChange}
                                 placeholder="Select"
-                                option={[
-                                    'orange',
-                                    'apple',
-                                    'mango'
-                                ]}
+                                options={['orange', 'apple', 'mango']}
+                                className={styles.select}
                             />
-
                             <span className={styles.Uploadthumbnail}>Upload Thumbnail</span>
-                            <span className={styles.select_match_type}>Select and upload a picture that shows what in your video. Your thumbnail stands out and grab viewers attention.</span>
-
+                            <span className={styles.select_match_type}>Select and upload a picture that shows what's in your video. Your thumbnail stands out and grabs viewers' attention.</span>
                             <div className={styles.upload}>
                                 <input
                                     type="file"
@@ -72,48 +116,39 @@ const matchHistoryDetails = () => {
                                 <img src={thumbnailURL} className={styles.thumbnailPreview} width={160} height={120} />
                             </div>
                         </div>
-
                         <div className={styles.video_section}>
                             <div className={styles.videos_copy}>
                                 <span className={styles.typeofmatch}>Video Link</span>
                                 <div className={styles.spc_btw}>
                                     <Input
                                         label="Hello, world"
-                                        onChange={function noRefCheck() { }}
-                                        placeholder="Type and paste Video URL"
                                         type="text"
+                                        name="videoLink"
+                                        placeholder="Type and paste Video URL"
+                                        value={values.videoLink}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
                                         className={styles.video_url}
                                     />
                                     <div className={styles.copy_link_videos}>
-                                        <Image src="/assests/copylink.svg" alt="uploadImg" width={20} height={20} /></div>
+                                        <Image src="/assests/copylink.svg" alt="uploadImg" width={20} height={20} />
+                                    </div>
                                 </div>
                             </div>
-
                             <div className={styles.btn_form_wrapper}>
-                                <Button
-                                    className={styles.cancel}
-                                >
-                                    Cancel
-                                </Button>
-
-
-                                <Button
-                                    className={styles.publish}
-                                    type="button"
-                                >
-                                    Publish
-                                </Button>
+                                <Button className={styles.cancel}>Cancel</Button>
+                                <Button className={styles.publish} type="button" onClick={handleSubmit}>Publish</Button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    )
-
+    );
 };
 
 export default matchHistoryDetails;
+
 
 
 
