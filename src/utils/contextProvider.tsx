@@ -46,6 +46,20 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           (pathname === '/auth/personaldetails' || pathname === '/auth/teamsdetails')
         ) {
           router.push('/auth/login');
+        } else if (decodedToken?.role?.role === 'admin' && !pathname.includes('adminDashboard')) {
+          router.push('/adminDashboard/room');
+        } else if (
+          decodedToken?.role?.role === 'user' &&
+          !pathname.includes('userDashboard') &&
+          !pathname.includes('personaldetails') &&
+          !pathname.includes('teamsdetails')
+        ) {
+          router.push('/userDashboard');
+        } else if (
+          decodedToken?.role?.role === 'spectator' &&
+          !pathname.includes('spectatorDashboard')
+        ) {
+          router.push('/spectatorDashboard');
         }
       }
     }

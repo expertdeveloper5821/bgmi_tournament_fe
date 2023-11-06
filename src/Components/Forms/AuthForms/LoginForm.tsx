@@ -112,7 +112,6 @@ export function LoginForm(): React.JSX.Element {
   const handleRedirect = (token: string) => {
     if (token) {
       const decodedToken: DecodedToken = decodeJWt(token);
-
       if (decodedToken && decodedToken?.role?.role === 'user') {
         if (decodedToken?.upiId && decodedToken?.userName && decodedToken?.phoneNumber) {
           router.push('/userDashboard');
