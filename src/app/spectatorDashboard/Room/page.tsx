@@ -85,6 +85,10 @@ const Room = () => {
     router.push('/spectatorDashboard/Matchhistory')
   }
 
+  const handleButtonPostWinners = () => {
+    router.push('/spectatorDashboard/Matchhistorydetails')
+  }
+
 
   return (
     <div className={styles.main_container} id="mainLayoutContainerInner">
@@ -165,6 +169,12 @@ const Room = () => {
 
                         <div>
                           <button className={styles.tooltip} data-title="Match History" onClick={handleButtonEdit}>
+                            <Image src="/assests/trophy.svg" alt="Image" width={22} height={22} />
+                          </button>
+                        </div>
+
+                        <div>
+                          <button className={styles.tooltip} onClick={handleButtonPostWinners}>
                             <Image src="/assests/trophy.svg" alt="Image" width={22} height={22} />
                           </button>
                         </div>
