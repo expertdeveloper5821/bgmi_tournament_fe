@@ -33,6 +33,10 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           router.push('/auth/reset-password');
         } else if (pathname === '/auth/forget-password') {
           router.push('/auth/forget-password');
+        } else if (pathname === '/auth/mailpage') {
+          router.push('/auth/mailpage');
+        } else if (pathname === '/auth/updateCredSuccess') {
+          router.push('/auth/updateCredSuccess');
         } else {
           router.push('/auth/login');
         }
