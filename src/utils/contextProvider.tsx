@@ -1,5 +1,5 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import jwt_decode from 'jwt-decode';
 
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
@@ -20,12 +20,10 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [token, setToken] = useState<null | DecodedToken>(null);
   const [timeOutId, setTimeOutId] = useState<null | NodeJS.Timeout>(null);
-
   const router = useRouter();
+  const pathname = usePathname();
 
   if (typeof window !== 'undefined') {
-    const pathname = window.location.pathname;
-
     if (!pathname.includes('landingPage')) {
       const isAuthenticated = checkAuthentication();
       if (!isAuthenticated) {
@@ -50,6 +48,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           router.push('/adminDashboard/room');
         } else if (
           decodedToken?.role?.role === 'user' &&
+          decodedToken?.upiId &&
+          decodedToken?.userName &&
+          decodedToken?.phoneNumber &&
           !pathname.includes('userDashboard') &&
           !pathname.includes('personaldetails') &&
           !pathname.includes('teamsdetails')
