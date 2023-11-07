@@ -23,3 +23,11 @@ export const formatTime = ({
 }): string => {
   return moment(time).format(format);
 };
+
+export const formatDateAndTime = (
+  date: string | Date,
+  time: string | Date,
+  format: string,
+): string => {
+  return `${formatDate({ date })} at ${formatTime({ time, format })}`;
+};
