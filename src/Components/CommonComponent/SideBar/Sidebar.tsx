@@ -24,11 +24,11 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
         const mainElem = document.getElementById('mainLayoutContainer');
         const mainElemInner = document.getElementById('mainLayoutContainerInner');
         if (mainElem) {
-          mainElem.style.width = !isOpen ? '100vw' : '100vw';
+          mainElem.style.flex = !isOpen ? '0 1 100%' : '0 1 100%';
         }
 
         if (mainElemInner) {
-          mainElemInner.style.width = !isOpen ? '85vw' : '96vw';
+          mainElemInner.style.flex = !isOpen ? '0 1 80%' : '0 1 96%';
         }
       }
       return !isOpen;
@@ -41,9 +41,13 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
         <div className={styles.container}>
           <div style={{ width: isOpen ? '220px' : '50px' }} className={styles.sidebar}>
             <div className={styles.top_section}>
-              <h1 style={{ display: isOpen ? 'block' : 'none' }} className={styles.logo}>
-                <img src="/assests/logo.svg" />
-              </h1>
+              <Link
+                href={'/'}
+                style={{ display: isOpen ? 'block' : 'none' }}
+                className={styles.logo}
+              >
+                <img src="/assests/logo.svg" alt="Brand Logo" />
+              </Link>
               <div style={{ marginLeft: isOpen ? '100px' : '10px' }} className={styles.bars}>
                 {isOpen ? (
                   <div onClick={toggle} className={styles.lap_sidebar_cancel}>
@@ -70,7 +74,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
                   </Link>
                 ))
               ) : (
-                <div>No Data Found</div>
+                <></>
               )}
             </div>
           </div>
@@ -109,7 +113,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
                   </Link>
                 ))
               ) : (
-                <div>No Data Found</div>
+                <></>
               )}
             </div>
           )}

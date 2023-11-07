@@ -62,6 +62,6 @@ export interface IJoinMatchPayload {
   upiId: string;
   matchAmount: number;
   name: string;
-  id: string;
+  id: string | undefined;
   roomid: string;
 }

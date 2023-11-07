@@ -32,6 +32,7 @@ const RoomFormModal = ({ getAllSpectator }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [image, setImage] = useState<File | null>(null);
+  console.log('image', image);
 
   const initialValues: FormCreate = {
     roomId: '',
@@ -60,7 +61,8 @@ const RoomFormModal = ({ getAllSpectator }) => {
         values.dateAndTime = dateTimeString;
 
         const form = new FormData();
-        form.append('mapImg', image);
+        // form.append('mapImg', image);
+
         for (const key in values) {
           form.append(key, values[key]);
         }

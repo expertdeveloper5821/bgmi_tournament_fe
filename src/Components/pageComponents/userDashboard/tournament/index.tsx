@@ -14,7 +14,6 @@ import RegisteredMatchSlider from '@/Components/CommonComponent/Slider/Registere
 import Loading from '@/app/userDashboard/loading';
 import styles from '@/styles/Dashboard.module.scss';
 import { ITournament } from '@/redux/types';
-import { decodeJWt } from '@/utils/globalfunctions';
 import { toast } from 'react-toastify';
 
 function Tournament() {
@@ -35,14 +34,19 @@ function Tournament() {
   }, []);
 
   const addRegMatch = async (match: ITournament) => {
-    const userData = JSON.parse(localStorage.getItem('userData'))?.token;
-    const userInfo = decodeJWt(userData);
-    const data = {
+    const userData = JSON.parse(localStorage.getItem('userData')!);
+    const data: {
+      upiId: string;
+      matchAmount: number;
+      name: string;
+      id: string | undefined;
+      roomid: string;
+    } = {
       upiId: 'success@payment',
       matchAmount: 60,
-      name: userInfo?.fullName,
-      id: configData.paymentID,
-      roomid: match?.roomUuid,
+      name: userData.fullName,
+      id: configData?.paymentID,
+      roomid: match.roomUuid,
     };
     dispatch(joinMatch(data)).then((res) => {
       if (res.payload?._id) {

@@ -4,6 +4,7 @@ import { SignupFormValuesType } from '@/Components/pageComponents/auth/authInter
 import { RegisterSpectatorValuesType, updateRoleValuesType } from '@/types/spectatorTypes';
 import { DeleteRoleValuesType, GetAllFilteredValuesType } from '@/types/usersTypes';
 import { deleteRoomValuesType } from '@/types/roomsTypes';
+import { RoomData } from '@/Components/pageComponents/auth/authInterfaces';
 
 export const signUpService = async (data: SignupFormValuesType) => {
   try {
@@ -137,5 +138,20 @@ export const getAllFilteredRoomsListService = async (data: GetAllFilteredValuesT
     } else throw Error();
   } catch (error) {
     return error;
+  }
+};
+
+export const getAllSpectator = async (data: RoomData) => {
+  try {
+    const res = await sendRequest(serviceUrls.rooms, {
+      method: 'GET',
+      data,
+    });
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (err) {
+    console.error('Error in roomservice => ', err);
+    return err;
   }
 };

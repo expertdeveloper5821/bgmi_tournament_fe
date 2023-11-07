@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { configData } from './config';
 import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 // const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 // const apiVersion = process.env.NEXT_PUBLIC_API_BASE_VER;
 export const axiosInstance: AxiosInstance = axios.create({
