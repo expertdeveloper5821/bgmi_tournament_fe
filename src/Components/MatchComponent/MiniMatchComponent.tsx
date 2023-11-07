@@ -25,14 +25,16 @@ const MiniMatchComponent = ({ match }: IMatchProps) => {
           className={styles.container3_img}
           width={100}
           height={100}
-          onClick={() => regMatchRedirect(match?._id)}
+          // onClick={() => regMatchRedirect(match?._id)}
+          onClick={() => match?._id && regMatchRedirect(match._id)}
         />
         <div className={styles.gameCardFade}>
           <p>{match.gameName}</p>
           <p
             className={styles.tvm_font}
             style={{ color: 'rgba(255, 122, 0, 1)', cursor: 'pointer' }}
-            onClick={() => regMatchRedirect(match?._id)}
+            // onClick={() => regMatchRedirect(match?._id)}
+            onClick={() => match?._id && regMatchRedirect(match._id)}
           >
             View more
           </p>

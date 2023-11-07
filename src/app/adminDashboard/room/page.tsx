@@ -13,6 +13,11 @@ import {
   getAllFilteredRoomsListService,
   getAllRoomsService,
 } from '@/services/authServices';
+import {
+  deleteRoomService,
+  getAllFilteredRoomsListService,
+  getAllRoomsService,
+} from '@/services/authServices';
 import { RoomsDataType } from '@/types/roomsTypes';
 function page() {
   const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
@@ -31,7 +36,7 @@ function page() {
   ];
 
   const getAllTournaments = async () => {
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem('jwtToken') || '';
     try {
       const response = await getAllRoomsService(token);
       setWholeRoomData(response?.data);
@@ -49,8 +54,9 @@ function page() {
 
   const deleteroom = async (_id: string) => {
     setIsLoading(true);
+
     try {
-      const token = localStorage.getItem('jwtToken');
+      const token = localStorage.getItem('jwtToken') || '';
       const response = await deleteRoomService({ _id, token });
       getAllTournaments();
       toast.success(response?.data?.message);

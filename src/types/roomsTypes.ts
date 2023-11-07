@@ -26,3 +26,42 @@ export interface deleteRoomValuesType {
   _id: string;
   token: string;
 }
+
+export interface CreateRoomFormType {
+  roomId: string;
+  gameName: string;
+  gameType: string;
+  mapType: string;
+  password: string;
+  version: string;
+  date: string;
+  time: string;
+  lastSurvival: string;
+  thirdWin: string;
+  highestKill: string;
+  secondWin: string;
+  entryFee: string;
+  mapImg: string | null;
+}
+
+export interface SpectatorRoomDataType {
+  dateAndTime: string;
+  roomId: string;
+  _id: string;
+  password: string;
+  gameName: string;
+  gameType: string;
+  mapType: string;
+  version: string;
+  highestKill: string;
+  lastSurvival: string;
+  thirdWin: string;
+  secondWin: string;
+  time: string;
+  date: string;
+  createdBy: number;
+  updatedAt: number;
+  createdAt: number;
+  entryFee: string;
+  mapImg: string;
+}

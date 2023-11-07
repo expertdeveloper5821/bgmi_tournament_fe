@@ -1,5 +1,6 @@
 export const serviceUrls = {
   signup: '/user/signup',
+  rooms: '/room/user-rooms',
   filteredUsersList: '/user/getalluser?search=',
   deleteRole: '/role/deleterole/',
   getAllUsers: '/user/getalluser',

@@ -1,6 +1,6 @@
-import { IConfig } from './types';
+// import { IConfig } from './types';
 
-export const configData: IConfig = {
+export const configData = {
   api: {
     url: process.env.NEXT_PUBLIC_API_BASE_URL,
     ver: process.env.NEXT_PUBLIC_API_BASE_VER,

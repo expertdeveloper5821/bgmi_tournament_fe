@@ -18,7 +18,7 @@ const Friend = () => {
   const [query, setQuery] = useState<string>('');
   const [userMail, setUserMail] = useState<string>('');
   const [newTeamName, setNewTeamName] = useState<string>('');
-  const token = localStorage.getItem('jwtToken');
+  const token = localStorage.getItem('jwtToken') || '';
   const { teamName } = decodeJWt(token);
 
   const handleModal = (value: boolean) => {

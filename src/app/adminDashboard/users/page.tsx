@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import styles from '../../../styles/Dashboard.module.scss';
-import { Navbar } from '../../../Components/Navbar/Navbar';
+import { Navbar } from '../../../Components/CommonComponent/Navbar/Navbar';
 import TableData from '@/Components/CommonComponent/Table/Table';
 //@ts-ignore
 import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
@@ -18,7 +18,7 @@ function page() {
 
   const fetchTournaments = async (searchVal: string) => {
     try {
-      const token = localStorage.getItem('jwtToken');
+      const token = localStorage.getItem('jwtToken') || '';
       const response = await getAllFilteredUsersListService({ searchVal, token });
 
       const allUsersData: SpectatorDataType[] = response?.data?.data;
@@ -42,7 +42,7 @@ function page() {
   const deleteroomId = async (userUuid: string) => {
     setIsLoading(true);
     try {
-      const token = localStorage.getItem('jwtToken');
+      const token = localStorage.getItem('jwtToken') || '';
       const response = await deleteRoleService({ userUuid, token });
       fetchTournaments('');
       toast.success(response?.data?.message);
@@ -66,27 +66,27 @@ function page() {
   return (
     <>
       {/* <RequireAuthentication> */}
-        <div className={styles.main_container} id="mainLayoutContainerInner">
-          <div className={styles.abcd}>
-            <div className={styles.sidebar_wrapper}>
-              <Navbar />
-              <div className={styles.flex}>
-                <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
-                <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
-              </div>
-              {isLoading ? (
-                <Loader />
-              ) : (
-                <TableData
-                  deleteroom={deleteroomId}
-                  data={userData}
-                  columns={columns}
-                  type={'USERS'}
-                />
-              )}
+      <div className={styles.main_container} id="mainLayoutContainerInner">
+        <div className={styles.abcd}>
+          <div className={styles.sidebar_wrapper}>
+            <Navbar />
+            <div className={styles.flex}>
+              <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+              <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
             </div>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <TableData
+                deleteroom={deleteroomId}
+                data={userData}
+                columns={columns}
+                type={'USERS'}
+              />
+            )}
           </div>
         </div>
+      </div>
       {/* </RequireAuthentication> */}
     </>
   );

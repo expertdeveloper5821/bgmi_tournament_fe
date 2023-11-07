@@ -4,7 +4,8 @@ import Loader from '../CommonComponent/Loader/Loader';
 const withAuth = (WrappedComponent) => {
   const WithAuth = (props) => {
     const [loading, setLoading] = useState<boolean>(true);
-    const [user, setUser] = useState(null);
+    // const [user, setUser] = useState(null);
+    const [user, setUser] = useState<string | null>(null);
 
     useEffect(() => {
       // Fetch user data here and set it using setUser

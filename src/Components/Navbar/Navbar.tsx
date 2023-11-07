@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 // @ts-ignore
 import { Avatar, Popover } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
+
 import jwtDecode from 'jwt-decode';
-import { useUserContext } from '@/utils/contextProvider';
-import { DecodedToken } from '@/utils/globalfunctions';
+import { DecodedTokenType } from '@/types/decodedTokenType';
 
 // interface INavbar {
 //   setUserName?: Dispatch<SetStateAction<string>>;
@@ -21,9 +21,7 @@ export function Navbar() {
   const [userData, setUserData] = useState<string>('');
   const [nameData, setNameData] = useState<string>('');
   const [initialsName, setInitialsName] = useState<string>('');
-  const [pofile, setPofile] = useState<string>('');
-  const {triggerHandleLogout} = useUserContext();
-
+  const [pofile, setPofile] = useState<string | undefined | null>(null);
 
   // function handleClosePopover() {
   //   setIsOpen(false);
@@ -43,11 +41,13 @@ export function Navbar() {
   };
 
   const getAlldata = async () => {
-    const userData:DecodedToken = jwtDecode(localStorage.getItem('jwtToken'));
-    setUserData(userData.email);
-    setNameData(userData.fullName);
+    const userData: DecodedTokenType = jwtDecode(localStorage.getItem('jwtToken')!);
+    // const userData = JSON.parse(localStorage.getItem('userData'));
+    const { email, fullName, profilePic } = userData;
+    setUserData(email);
+    setNameData(fullName);
     let initials = '';
-    userData?.fullName?.split(' ')?.forEach((initial) => {
+    fullName?.split(' ')?.forEach((initial) => {
       if (initials.length > 0) {
         initials = `${initials} ${initial.charAt(0).toUpperCase()}`;
       } else {
@@ -55,7 +55,7 @@ export function Navbar() {
       }
     });
     setInitialsName(initials);
-    setPofile(userData.profilePic);
+    setPofile(profilePic);
   };
 
   useEffect(() => {

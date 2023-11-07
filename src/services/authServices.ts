@@ -10,6 +10,7 @@ import {
   resetPasswordValuesType,
   sendInviteServiceValuesType,
 } from '@/types/formsTypes';
+import { RoomData } from '@/Components/pageComponents/auth/authInterfaces';
 
 export const signUpService = async (data: SignupFormValuesType) => {
   const res = await sendRequest(serviceUrls.signup, {
@@ -188,5 +189,35 @@ export const resetPasswordService = async (data: resetPasswordValuesType) => {
     return res;
   } else {
     throw res;
+  }
+};
+
+export const getAllSpectator = async (data: RoomData) => {
+  try {
+    const res = await sendRequest(serviceUrls.rooms, {
+      method: 'GET',
+      data,
+    });
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (err) {
+    console.error('Error in roomservice => ', err);
+    return err;
+  }
+};
+
+export const getAllSpectator = async (data: RoomData) => {
+  try {
+    const res = await sendRequest(serviceUrls.rooms, {
+      method: 'GET',
+      data,
+    });
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (err) {
+    console.error('Error in roomservice => ', err);
+    return err;
   }
 };
