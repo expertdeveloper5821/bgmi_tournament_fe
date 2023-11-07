@@ -37,8 +37,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           router.push('/auth/mailpage');
         } else if (pathname === '/auth/updateCredSuccess') {
           router.push('/auth/updateCredSuccess');
-        } else {
-          router.push('/auth/login');
         }
       } else {
         const token = localStorage.getItem('jwtToken');
@@ -48,7 +46,12 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           (pathname === '/auth/personaldetails' || pathname === '/auth/teamsdetails')
         ) {
           router.push('/auth/login');
-        } else if (decodedToken?.role?.role === 'admin' && !pathname.includes('adminDashboard')) {
+        } else if (
+          decodedToken?.role?.role === 'admin' &&
+          !pathname.includes('adminDashboard') &&
+          (pathname.split('/')[1] === 'userDashboard' ||
+            pathname.split('/')[1] === 'spectatorDashboard')
+        ) {
           router.push('/adminDashboard/room');
         } else if (
           decodedToken?.role?.role === 'user' &&
@@ -57,12 +60,16 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           decodedToken?.phoneNumber &&
           !pathname.includes('userDashboard') &&
           !pathname.includes('personaldetails') &&
-          !pathname.includes('teamsdetails')
+          !pathname.includes('teamsdetails') &&
+          (pathname.split('/')[1] === 'adminDashboard' ||
+            pathname.split('/')[1] === 'spectatorDashboard')
         ) {
           router.push('/userDashboard');
         } else if (
           decodedToken?.role?.role === 'spectator' &&
-          !pathname.includes('spectatorDashboard')
+          !pathname.includes('spectatorDashboard') &&
+          (pathname.split('/')[1] === 'adminDashboard' ||
+            pathname.split('/')[1] === 'userDashboard')
         ) {
           router.push('/spectatorDashboard');
         }

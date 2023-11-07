@@ -4,7 +4,6 @@ import styles from '@/styles/friends.module.scss';
 import { sendRequest } from '@/utils/axiosInstanse';
 import Image from 'next/image';
 import Card, { UserTeamMember } from '@/Components/CommonComponent/Card/Card';
-import withAuth from '@/Components/HOC/WithAuthHoc';
 import { toast } from 'react-toastify';
 import { decodeJWt } from '@/utils/globalfunctions';
 
@@ -306,4 +305,4 @@ const Friend = () => {
   );
 };
 
-export default withAuth(Friend);
+export default Friend;

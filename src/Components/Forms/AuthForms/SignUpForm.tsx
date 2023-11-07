@@ -37,9 +37,10 @@ export const SignupForm = () => {
       } else if (decodedToken && decodedToken?.role?.role === 'spectator') {
         router.push('/spectatorDashboard');
       }
-    } else {
-      router.push('/auth/401');
     }
+    // else {
+    //   router.push('/auth/401');
+    // }
   };
 
   useEffect(() => {

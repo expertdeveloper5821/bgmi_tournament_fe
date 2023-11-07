@@ -11,7 +11,6 @@ import { formatDate, formatTime } from '../../../Components/CommonComponent/mome
 import Image from 'next/image';
 import Deletespec from '../Deletespec/page';
 import { sendRequest } from '@/utils/axiosInstanse';
-import withAuth from '@/Components/HOC/WithAuthHoc';
 import { toast } from 'react-toastify';
 
 export interface RoomData {
@@ -153,4 +152,4 @@ const Room = () => {
   );
 };
 
-export default withAuth(Room);
+export default Room;

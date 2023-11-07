@@ -123,8 +123,6 @@ export function LoginForm(): React.JSX.Element {
       } else if (decodedToken && decodedToken?.role?.role === 'spectator') {
         router.push('/spectatorDashboard');
       }
-    } else {
-      router.push('/auth/401');
     }
   };
 

@@ -7,7 +7,6 @@ import styles from '@/styles/Dashboard.module.scss';
 //@ts-ignore
 import TableData from '@/Components/CommonComponent/Table/Table';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
-import withAuth from '@/Components/HOC/WithAuthHoc';
 import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
 import {
   deleteRoomService,
@@ -30,7 +29,6 @@ function page() {
     'Time',
     'Date',
   ];
-
 
   const getAllTournaments = async () => {
     const token = localStorage.getItem('jwtToken');
@@ -110,4 +108,4 @@ function page() {
   );
 }
 
-export default withAuth(page);
+export default page;
