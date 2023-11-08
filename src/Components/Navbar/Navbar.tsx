@@ -8,6 +8,7 @@ import Image from 'next/image';
 
 import jwtDecode from 'jwt-decode';
 import { DecodedTokenType } from '@/types/decodedTokenType';
+import { useUserContext } from '@/utils/contextProvider';
 
 // interface INavbar {
 //   setUserName?: Dispatch<SetStateAction<string>>;
@@ -22,6 +23,7 @@ export function Navbar() {
   const [nameData, setNameData] = useState<string>('');
   const [initialsName, setInitialsName] = useState<string>('');
   const [pofile, setPofile] = useState<string | undefined | null>(null);
+  const { triggerHandleLogout } = useUserContext();
 
   // function handleClosePopover() {
   //   setIsOpen(false);

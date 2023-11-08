@@ -21,8 +21,9 @@ import {
 } from '@/types/spectatorTypes';
 import { addFormValidations } from '@/utils/schema';
 import { CreateSpectatorOrAssignRoleForm } from '@/Components/Forms/CreateSpectatorOrAssignRoleForm';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 
-export default function Modal() {
+function Page() {
   const [spectatorData, setSpectatorData] = useState<SpectatorDataType[] | []>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [modal, setModal] = useState<ModalType>({ isOpen: false, buttonVal: '' });
@@ -200,7 +201,7 @@ export default function Modal() {
   };
 
   return (
-    <>
+    <IsAuthenticatedHoc>
       <div className={styles.main_container} id="mainLayoutContainerInner">
         <div className={styles.abcd}>
           <div className={styles.sidebar_wrapper}>
@@ -266,6 +267,8 @@ export default function Modal() {
           />
         </div>
       )}
-    </>
+    </IsAuthenticatedHoc>
   );
 }
+
+export default Page;

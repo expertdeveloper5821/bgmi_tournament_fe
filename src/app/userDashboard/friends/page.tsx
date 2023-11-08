@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Card, { UserTeamMember } from '@/Components/CommonComponent/Card/Card';
 import { toast } from 'react-toastify';
 import { decodeJWt } from '@/utils/globalfunctions';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 
 const Friend = () => {
   const [open, setOpen] = useState(false);
@@ -19,7 +20,7 @@ const Friend = () => {
   const [userMail, setUserMail] = useState<string>('');
   const [newTeamName, setNewTeamName] = useState<string>('');
   const token = localStorage.getItem('jwtToken') || '';
-  const { teamName } = decodeJWt(token);
+  const { teamName } = decodeJWt(token)!;
 
   const handleModal = (value: boolean) => {
     setOpen(value);
@@ -121,187 +122,190 @@ const Friend = () => {
   };
 
   return (
-    <div className={styles.friendsParentContainder}>
-      <div className={styles.main_container}>
-        <div className={styles.sub_container}>
-          <div className={styles.header}>
-            <h2>Invite your friends</h2>
-            <span>Dashboard /invite your friends</span>
-          </div>
-          <div className={styles.searchBar}>
-            <div className={styles.inputContainer}>
-              <input
-                type="search"
-                id="search"
-                name="search"
-                placeholder="Search by username"
-                onChange={handleSearch}
-              />
-              <Image
-                src="/assests/search.svg"
-                alt="search"
-                height={20}
-                width={20}
-                className={styles.searchIcon}
-              />
+    <IsAuthenticatedHoc>
+      <div className={styles.friendsParentContainder}>
+        <div className={styles.main_container}>
+          <div className={styles.sub_container}>
+            <div className={styles.header}>
+              <h2>Invite your friends</h2>
+              <span>Dashboard /invite your friends</span>
             </div>
-            <div className={styles.btnContainer}>
-              <div>
-                <button className={styles.sendMailBtn} onClick={handleOpenFwdModal}>
-                  SEND INVITE BY EMAIL
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className={styles.mainContainer}>
-          <div className={styles.filterTab}>
-            <h2>Your friend list</h2>
-            <div className={styles.selectContainer}>
-              <Image
-                src="/assests/sort.svg"
-                alt="sort"
-                height={22}
-                width={22}
-                className={styles.sortIcon}
-              />
-              <Image
-                src="/assests/icons/downarrow.svg"
-                alt="arrow"
-                height={12}
-                width={12}
-                className={styles.arrowicon}
-              />
-              <select className={styles.select} defaultValue={'Sort By'} onChange={handleSelect}>
-                <option className={styles.sortByOption}>Sort By</option>
-                <option value="active">Active first</option>
-                <option value="inactive">Inactive first</option>
-                <option value="atoz">A to Z</option>
-                <option value="ztoa">Z to A</option>
-              </select>
-            </div>
-          </div>
-
-          <div className={styles.card}>
-            <Card
-              fwdindex={handleForwardIndex}
-              toOpen={handleModal}
-              forwardModalOpen={handleForwardModal}
-              teamData={handleTeamData}
-              query={query}
-              setUserMail={setUserMail}
-              handleOpenFwdModal={handleOpenFwdModal}
-            />
-          </div>
-        </div>
-        <div className={styles.pagination}>{/* <CustomPagination data={teamData} /> */}</div>
-      </div>
-      {/* deleteModal here */}
-      {open ? (
-        <div className={styles.modalBackground}>
-          <div className={styles.modalContainer}>
-            <div className={styles.deleteModalHeader}>
-              <div className={styles.titleCloseBtn}>
-                <Image
-                  src="/assests/delcancel.svg"
-                  alt="delete"
-                  height={100}
-                  width={100}
-                  onClick={handleCloseModal}
-                />
-              </div>
-              <div className={styles.title}>
-                <h1>Delete</h1>
-              </div>
-            </div>
-            <div className={styles.body}>
-              <p>Are you sure want to delete this?</p>
-            </div>
-            <div className={styles.footer}>
-              <button className={styles.deletebtn} onClick={handleDeleteUser}>
-                Delete
-              </button>
-              <button className={styles.cancelbtn} onClick={handleCloseModal}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : (
-        ''
-      )}
-
-      {/* forwarding modal here */}
-      {forwardModal ? (
-        <div className={styles.modalBackground}>
-          <div className={styles.forwardmodalContainer}>
-            <div className={styles.forwardModaltitle}>
-              <h1> {`<`} Invite your friends</h1>
-            </div>
-            <div className={styles.forwardModalbody}>
-              {!teamName && (
-                <label>
-                  Enter you team name
-                  <input
-                    type="text"
-                    value={newTeamName}
-                    placeholder="Enter TeamName"
-                    onChange={handleTeamName}
-                    className={styles.teamName}
-                  />
-                </label>
-              )}
-              <label>
-                Enter your friends email
+            <div className={styles.searchBar}>
+              <div className={styles.inputContainer}>
                 <input
                   type="search"
                   id="search"
                   name="search"
-                  value={inputValue}
-                  placeholder="Enter email press enter and send invitation"
-                  onChange={handleInputChange}
-                  onKeyDown={handleKeyPress}
+                  placeholder="Search by username"
+                  onChange={handleSearch}
                 />
-              </label>
-              {emailList.length > 0 &&
-                emailList.map((email, index) => {
-                  const truncatedEmail = email.length > 15 ? email.substring(0, 15) + '...' : email;
-                  return (
-                    <div key={index} className={styles.inputemail_container}>
-                      <div className={styles.inputemail}>
-                        {truncatedEmail}
-                        <Image
-                          src="/assests/orangecross.svg"
-                          alt="search"
-                          height={10}
-                          width={10}
-                          className={styles.cancelsvg}
-                          onClick={() => handleDeleteEmail(index)}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              <div className={styles.resMsg}>{message}</div>
-            </div>
-            <div className={styles.forwardcheckbox}>
-              <input type="checkbox" />
-              <span>Notify Please</span>
-            </div>
-            <div className={styles.forwardModalfooter}>
-              <button onClick={handleCloseForwardModal} className={styles.cancelbtn}>
-                Cancel
-              </button>
-              <button className={styles.sendbtn} onClick={sendInviteByEmail}>
-                Send
-              </button>
+                <Image
+                  src="/assests/search.svg"
+                  alt="search"
+                  height={20}
+                  width={20}
+                  className={styles.searchIcon}
+                />
+              </div>
+              <div className={styles.btnContainer}>
+                <div>
+                  <button className={styles.sendMailBtn} onClick={handleOpenFwdModal}>
+                    SEND INVITE BY EMAIL
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
+          <div className={styles.mainContainer}>
+            <div className={styles.filterTab}>
+              <h2>Your friend list</h2>
+              <div className={styles.selectContainer}>
+                <Image
+                  src="/assests/sort.svg"
+                  alt="sort"
+                  height={22}
+                  width={22}
+                  className={styles.sortIcon}
+                />
+                <Image
+                  src="/assests/icons/downarrow.svg"
+                  alt="arrow"
+                  height={12}
+                  width={12}
+                  className={styles.arrowicon}
+                />
+                <select className={styles.select} defaultValue={'Sort By'} onChange={handleSelect}>
+                  <option className={styles.sortByOption}>Sort By</option>
+                  <option value="active">Active first</option>
+                  <option value="inactive">Inactive first</option>
+                  <option value="atoz">A to Z</option>
+                  <option value="ztoa">Z to A</option>
+                </select>
+              </div>
+            </div>
+
+            <div className={styles.card}>
+              <Card
+                fwdindex={handleForwardIndex}
+                toOpen={handleModal}
+                forwardModalOpen={handleForwardModal}
+                teamData={handleTeamData}
+                query={query}
+                setUserMail={setUserMail}
+                handleOpenFwdModal={handleOpenFwdModal}
+              />
+            </div>
+          </div>
+          <div className={styles.pagination}>{/* <CustomPagination data={teamData} /> */}</div>
         </div>
-      ) : (
-        ''
-      )}
-    </div>
+        {/* deleteModal here */}
+        {open ? (
+          <div className={styles.modalBackground}>
+            <div className={styles.modalContainer}>
+              <div className={styles.deleteModalHeader}>
+                <div className={styles.titleCloseBtn}>
+                  <Image
+                    src="/assests/delcancel.svg"
+                    alt="delete"
+                    height={100}
+                    width={100}
+                    onClick={handleCloseModal}
+                  />
+                </div>
+                <div className={styles.title}>
+                  <h1>Delete</h1>
+                </div>
+              </div>
+              <div className={styles.body}>
+                <p>Are you sure want to delete this?</p>
+              </div>
+              <div className={styles.footer}>
+                <button className={styles.deletebtn} onClick={handleDeleteUser}>
+                  Delete
+                </button>
+                <button className={styles.cancelbtn} onClick={handleCloseModal}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
+
+        {/* forwarding modal here */}
+        {forwardModal ? (
+          <div className={styles.modalBackground}>
+            <div className={styles.forwardmodalContainer}>
+              <div className={styles.forwardModaltitle}>
+                <h1> {`<`} Invite your friends</h1>
+              </div>
+              <div className={styles.forwardModalbody}>
+                {!teamName && (
+                  <label>
+                    Enter you team name
+                    <input
+                      type="text"
+                      value={newTeamName}
+                      placeholder="Enter TeamName"
+                      onChange={handleTeamName}
+                      className={styles.teamName}
+                    />
+                  </label>
+                )}
+                <label>
+                  Enter your friends email
+                  <input
+                    type="search"
+                    id="search"
+                    name="search"
+                    value={inputValue}
+                    placeholder="Enter email press enter and send invitation"
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyPress}
+                  />
+                </label>
+                {emailList.length > 0 &&
+                  emailList.map((email, index) => {
+                    const truncatedEmail =
+                      email.length > 15 ? email.substring(0, 15) + '...' : email;
+                    return (
+                      <div key={index} className={styles.inputemail_container}>
+                        <div className={styles.inputemail}>
+                          {truncatedEmail}
+                          <Image
+                            src="/assests/orangecross.svg"
+                            alt="search"
+                            height={10}
+                            width={10}
+                            className={styles.cancelsvg}
+                            onClick={() => handleDeleteEmail(index)}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                <div className={styles.resMsg}>{message}</div>
+              </div>
+              <div className={styles.forwardcheckbox}>
+                <input type="checkbox" />
+                <span>Notify Please</span>
+              </div>
+              <div className={styles.forwardModalfooter}>
+                <button onClick={handleCloseForwardModal} className={styles.cancelbtn}>
+                  Cancel
+                </button>
+                <button className={styles.sendbtn} onClick={sendInviteByEmail}>
+                  Send
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
+      </div>
+    </IsAuthenticatedHoc>
   );
 };
 

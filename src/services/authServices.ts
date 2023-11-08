@@ -206,18 +206,3 @@ export const getAllSpectator = async (data: RoomData) => {
     return err;
   }
 };
-
-export const getAllSpectator = async (data: RoomData) => {
-  try {
-    const res = await sendRequest(serviceUrls.rooms, {
-      method: 'GET',
-      data,
-    });
-    if (res.status === 200) {
-      return res;
-    } else throw Error();
-  } catch (err) {
-    console.error('Error in roomservice => ', err);
-    return err;
-  }
-};

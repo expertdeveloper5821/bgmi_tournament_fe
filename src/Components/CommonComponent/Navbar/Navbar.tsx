@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 // @ts-ignore
 import { Avatar, Popover } from 'technogetic-iron-smart-ui';
 import { decodeJWt } from '@/utils/globalfunctions';
+import { useUserContext } from '@/utils/contextProvider';
 
 // interface INavbar {
 //   setUserName?: Dispatch<SetStateAction<string>>;
@@ -12,10 +13,11 @@ import { decodeJWt } from '@/utils/globalfunctions';
 
 export function Navbar() {
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
-  const [userData, setUserData] = useState<string>('');
-  const [nameData, setNameData] = useState<string>('');
+  const [userData, setUserData] = useState<string | undefined>('');
+  const [nameData, setNameData] = useState<string | undefined>('');
   const [initialsName, setInitialsName] = useState<string>('');
   const [pofile, setPofile] = useState<string | undefined>('');
+  const { triggerHandleLogout } = useUserContext();
 
   // function handleClosePopover() {
   //   setIsOpen(false);

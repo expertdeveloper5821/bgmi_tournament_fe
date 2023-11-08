@@ -9,6 +9,7 @@ import Loader from '@/Components/CommonComponent/Loader/Loader';
 import { toast } from 'react-toastify';
 import { deleteRoleService, getAllFilteredUsersListService } from '@/services/authServices';
 import { SpectatorDataType } from '@/types/spectatorTypes';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 
 function page() {
   const [wholeUserData, setWholeUserData] = useState<SpectatorDataType[] | []>([]);
@@ -64,8 +65,7 @@ function page() {
   };
 
   return (
-    <>
-      {/* <RequireAuthentication> */}
+    <IsAuthenticatedHoc>
       <div className={styles.main_container} id="mainLayoutContainerInner">
         <div className={styles.abcd}>
           <div className={styles.sidebar_wrapper}>
@@ -87,8 +87,7 @@ function page() {
           </div>
         </div>
       </div>
-      {/* </RequireAuthentication> */}
-    </>
+    </IsAuthenticatedHoc>
   );
 }
 

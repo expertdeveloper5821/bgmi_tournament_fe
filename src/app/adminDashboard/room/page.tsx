@@ -13,12 +13,8 @@ import {
   getAllFilteredRoomsListService,
   getAllRoomsService,
 } from '@/services/authServices';
-import {
-  deleteRoomService,
-  getAllFilteredRoomsListService,
-  getAllRoomsService,
-} from '@/services/authServices';
 import { RoomsDataType } from '@/types/roomsTypes';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 function page() {
   const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
   const [roomData, setRoomData] = useState<RoomsDataType[] | []>([]);
@@ -68,7 +64,7 @@ function page() {
 
   const fetchTournaments = async (searchVal: string) => {
     try {
-      const token = localStorage.getItem('jwtToken');
+      const token = localStorage.getItem('jwtToken')!;
       const response = await getAllFilteredRoomsListService({ token, searchVal });
       setWholeRoomData(response?.data);
       setRoomData(response?.data);
@@ -93,7 +89,7 @@ function page() {
   };
 
   return (
-    <>
+    <IsAuthenticatedHoc>
       <div className={styles.main_container} id="mainLayoutContainerInner">
         <div className={styles.abcd}>
           <div className={styles.sidebar_wrapper}>
@@ -110,7 +106,7 @@ function page() {
           </div>
         </div>
       </div>
-    </>
+    </IsAuthenticatedHoc>
   );
 }
 
