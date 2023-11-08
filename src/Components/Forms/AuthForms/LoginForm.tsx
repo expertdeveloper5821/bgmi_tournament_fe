@@ -42,7 +42,7 @@ export function LoginForm(): React.JSX.Element {
         try {
           const response = await loginService({ email, password });
           setIsLoading(false);
-          const decodedToken: DecodedToken = decodeJWt(response?.data?.userData?.token);
+          const decodedToken: DecodedToken = decodeJWt(response?.data?.userData?.token)!;
           const date = new Date();
           const expirationTime = date.setHours(date.getHours() + 1);
 
@@ -111,7 +111,7 @@ export function LoginForm(): React.JSX.Element {
 
   const handleRedirect = (token: string) => {
     if (token) {
-      const decodedToken: DecodedToken = decodeJWt(token);
+      const decodedToken: DecodedToken = decodeJWt(token)!;
       if (decodedToken && decodedToken?.role?.role === 'user') {
         if (decodedToken?.upiId && decodedToken?.userName && decodedToken?.phoneNumber) {
           router.push('/userDashboard');
