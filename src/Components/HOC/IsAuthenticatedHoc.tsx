@@ -17,18 +17,13 @@ function IsAuthenticatedHoc(props) {
       const token = localStorage.getItem('jwtToken')!;
       const decodedToken: DecodedToken = jwt_decode(token);
       if (
-        decodedToken?.role?.role !== 'user' &&
-        (pathname === '/auth/personaldetails' || pathname === '/auth/teamsdetails')
-      ) {
-        router.push('/auth/login');
-      } else if (
         decodedToken?.role?.role === 'user' &&
-        decodedToken?.upiId &&
-        decodedToken?.userName &&
-        decodedToken?.phoneNumber &&
-        (pathname === '/auth/personaldetails' || pathname === '/auth/teamsdetails')
+        !decodedToken?.upiId &&
+        !decodedToken?.userName &&
+        !decodedToken?.phoneNumber &&
+        pathname === '/auth/personaldetails'
       ) {
-        router.push('/auth/login');
+        return <>{props.children}</>;
       } else if (decodedToken?.role?.role === 'user' && !pathname.includes('userDashboard')) {
         router.push('/auth/login');
       } else if (decodedToken?.role?.role === 'admin' && !pathname.includes('adminDashboard')) {
