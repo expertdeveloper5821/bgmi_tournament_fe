@@ -16,12 +16,21 @@ function IsAuthenticatedHoc(props) {
     } else {
       const token = localStorage.getItem('jwtToken')!;
       const decodedToken: DecodedToken = jwt_decode(token);
+
       if (
         decodedToken?.role?.role === 'user' &&
         !decodedToken?.upiId &&
         !decodedToken?.userName &&
         !decodedToken?.phoneNumber &&
         pathname === '/auth/personaldetails'
+      ) {
+        return <>{props.children}</>;
+      } else if (
+        decodedToken?.role?.role === 'user' &&
+        decodedToken?.upiId &&
+        decodedToken?.userName &&
+        decodedToken?.phoneNumber &&
+        pathname === '/auth/teamsdetails'
       ) {
         return <>{props.children}</>;
       } else if (decodedToken?.role?.role === 'user' && !pathname.includes('userDashboard')) {
