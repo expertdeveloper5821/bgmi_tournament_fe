@@ -40,7 +40,7 @@ export function CreateSpectatorOrAssignRoleForm({
         <div>
           <form
             onSubmit={handleSubmit}
-            className={modal.buttonVal === 'Create' && styles.create_spectator_form}
+            className={modal.buttonVal === 'Create' ? styles.create_spectator_form : ''}
           >
             {modal.buttonVal === 'Create' && (
               <>

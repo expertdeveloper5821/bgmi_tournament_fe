@@ -18,8 +18,8 @@ export const ResetPasswordForm: React.FC = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const url = new URL(window.location.href);
-      const extractedToken = url.searchParams.get('token');
+      const url = new URL(window?.location?.href);
+      const extractedToken = url.searchParams.get('token')!;
       setToken(extractedToken);
     }
   }, []);

@@ -59,7 +59,7 @@ const userDashboardSlice = createSlice({
       })
       .addCase(joinMatch.rejected, (state, action) => {
         state.joinMatchLoading = false;
-        state.joinMatchError = action.error.message;
+        state.joinMatchError = action.error.message!;
       })
       .addCase(getMatchDetails.pending, (state) => {
         state.matchDataLoading = true;
@@ -72,7 +72,7 @@ const userDashboardSlice = createSlice({
       })
       .addCase(getMatchDetails.rejected, (state, action) => {
         state.matchDataLoading = false;
-        state.matchDataError = action.error.message;
+        state.matchDataError = action.error.message!;
       });
   },
 });

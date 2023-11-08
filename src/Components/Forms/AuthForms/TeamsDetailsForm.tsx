@@ -20,8 +20,8 @@ const initialValues: TeamsDetailsFormValues = {
 
 export const TeamsDetailsForm = () => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [emailList, setEmailList] = useState([]);
-  const [emailDisplayList, setEmailDisplayList] = useState([]);
+  const [emailList, setEmailList] = useState<[] | string[]>([]);
+  const [emailDisplayList, setEmailDisplayList] = useState<[] | React.JSX.Element[]>([]);
   const [error, setError] = useState<string>('');
   const router = useRouter();
 
@@ -44,7 +44,7 @@ export const TeamsDetailsForm = () => {
     ) => {
       setSubmitting(true);
       const { teamName, emails } = values;
-      const token = localStorage.getItem('jwtToken');
+      const token = localStorage.getItem('jwtToken')!;
 
       try {
         const response = await sendInviteService({

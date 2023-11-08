@@ -88,7 +88,7 @@ export function LoginForm(): React.JSX.Element {
     }
 
     if (typeof window !== 'undefined') {
-      const url = new URL(window.location.href);
+      const url = new URL(window?.location?.href);
       const extractedToken = url.searchParams.get('token');
       if (extractedToken) {
         handleVerifyTokenInLogin(extractedToken);

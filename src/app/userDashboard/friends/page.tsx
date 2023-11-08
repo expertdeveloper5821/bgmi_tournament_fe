@@ -94,14 +94,14 @@ const Friend = () => {
         setForwardModal(false);
         toast.success(response.data.message);
         setTimeout(() => {
-          window.location.reload();
+          window?.location?.reload();
         }, 2000);
       }
     } catch (error) {
       setEmailList([]);
       setMessage(error.response.data.message);
       setTimeout(() => {
-        window.location.reload();
+        window?.location?.reload();
       }, 2000);
     }
   };

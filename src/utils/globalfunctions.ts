@@ -24,6 +24,7 @@ const decodeJWt = (token: string): DecodedToken | null => {
   if (token) {
     return jwt_decode(token);
   }
+  return null;
 };
 
 const getTokenFromLS = () => {

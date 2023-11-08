@@ -25,7 +25,7 @@ export const SignupForm = () => {
 
   const handleRedirect = (token: string) => {
     if (token) {
-      const decodedToken: DecodedToken = decodeJWt(token);
+      const decodedToken: DecodedToken = decodeJWt(token)!;
       if (decodedToken && decodedToken?.role?.role === 'user') {
         if (decodedToken?.upiId && decodedToken?.userName && decodedToken?.phoneNumber) {
           router.push('/userDashboard');
