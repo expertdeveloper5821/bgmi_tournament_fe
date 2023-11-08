@@ -10,16 +10,20 @@ import { useRouter } from 'next/navigation';
 import { specRoomColumns } from '@/utils/constant';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
 import DeleteSpectatorModal from '@/Components/spectatorDashboard/rooms/DeleteSpectatorModal';
+import { setItemToLS } from '@/utils/globalfunctions';
 
 const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSpectator }) => {
   const router: AppRouterInstance = useRouter();
   const [isWinner, setIsWinnder] = useState<boolean>(true);
 
-  const handleRedirectPostWinner = () => {
+  const handleRedirectPostWinner = (id: string, roomUuid: string) => {
+    setItemToLS('roomId', id);
+    setItemToLS('roomUuid', roomUuid);
     router.push('/spectatorDashboard/Postwinners');
   };
 
-  const handleEditMatch = () => {
+  const handleEditMatch = (id: string) => {
+    setItemToLS('roomId', id);
     router.push('/spectatorDashboard/Matchhistory');
   };
 
@@ -72,11 +76,11 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
             </TableCell>
             <TableCell onClick={() => setIsWinnder(!isWinner)} className={styles.winnder_btn}>
               {isWinner ? (
-                <div onClick={handleRedirectPostWinner}>
+                <div onClick={() => handleRedirectPostWinner(spec._id, spec.roomUuid)}>
                   <Image src="assests/add.svg" alt="Image" width={22} height={22} />
                 </div>
               ) : (
-                <span className={styles.edit_btn} onClick={handleEditMatch}>
+                <span className={styles.edit_btn} onClick={() => handleEditMatch(spec._id)}>
                   Edit
                 </span>
               )}

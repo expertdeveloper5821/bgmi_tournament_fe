@@ -25,6 +25,7 @@ const DeleteSpectatorModal: React.FC<DeleteSpecProps> = ({ Id, getAllSpectator }
       if (deleteResponse.status === 200 || deleteResponse.status === 201) {
         toast.success(deleteResponse.data.message);
         getAllSpectator();
+        setDeleteModal(false);
         setIsLoading(false);
       } else {
         throw Error();

@@ -428,7 +428,12 @@ const CreateRoomForm = (props) => {
                                 <span className={styles.delete} onClick={() => deleteImage(i)}>
                                   &times;
                                 </span>
-                                <img src={image.url} alt={image.name}></img>
+                                <img
+                                  width={280}
+                                  height={150}
+                                  src={image.url}
+                                  alt={image.name}
+                                ></img>
                               </div>
                             ))}
                             {roomIdToUpdate && (
@@ -436,7 +441,7 @@ const CreateRoomForm = (props) => {
                                 src={roomIdToUpdate.mapImg}
                                 alt="Map Image"
                                 width={280}
-                                height={120}
+                                height={150}
                               />
                             )}
                           </div>

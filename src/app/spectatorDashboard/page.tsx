@@ -6,21 +6,24 @@ import { sendRequest } from '@/utils/axiosInstanse';
 import RoomTable from '@/Components/spectatorDashboard/rooms/Table';
 import { SpectatorRoomDataType } from '@/types/roomsTypes';
 import CreateRoomForm from '@/Components/spectatorDashboard/rooms/RoomForm';
+import LoaderSm from '@/Components/CommonComponent/LoaderSm';
+import { toast } from 'react-toastify';
 
 function spectatorDashboard() {
   const [showModal, setShowModal] = useState(false);
   const [roomIdToUpdate, setRoomIdToUpdate] = useState({});
-  const [Spect, setSpect] = useState<SpectatorRoomDataType[]>([]);
+  const [spect, setSpect] = useState<null | SpectatorRoomDataType[]>(null);
 
   const getAllSpectator = async () => {
     const spectatorResponse = await sendRequest('room/user-rooms');
     setSpect(spectatorResponse?.data);
+    if (spectatorResponse.status !== 200) {
+      toast.error('Something went wrong, Try again');
+    }
   };
 
   useEffect(() => {
-    return () => {
-      getAllSpectator();
-    };
+    getAllSpectator();
   }, []);
 
   return (
@@ -40,13 +43,17 @@ function spectatorDashboard() {
               />
             </div>
             <div>
-              <RoomTable
-                Spect={Spect}
-                showModal={showModal}
-                setShowModal={setShowModal}
-                setRoomIdToUpdate={setRoomIdToUpdate}
-                getAllSpectator={getAllSpectator}
-              />
+              {!spect ? (
+                <LoaderSm />
+              ) : (
+                <RoomTable
+                  Spect={spect}
+                  showModal={showModal}
+                  setShowModal={setShowModal}
+                  setRoomIdToUpdate={setRoomIdToUpdate}
+                  getAllSpectator={getAllSpectator}
+                />
+              )}
             </div>
           </div>
         </div>

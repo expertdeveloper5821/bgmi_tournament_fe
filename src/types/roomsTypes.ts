@@ -65,3 +65,13 @@ export interface SpectatorRoomDataType {
   entryFee: string;
   mapImg: string;
 }
+
+export interface winnerFormType {
+  [key: string]: {
+    teamName: string;
+    chickenDinner: number;
+    highestKill: number;
+    firstWinner: number;
+    secondWinner: number;
+  };
+}

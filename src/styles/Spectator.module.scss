@@ -4,6 +4,7 @@
 .main_container {
   display: flex;
   flex: 0 1 100%;
+  width: -webkit-fill-available;
   background-color: $darkblue;
   min-height: 100vh;
   color: $bs-white;
@@ -33,6 +34,10 @@
     width: 100%;
     overflow: auto;
   }
+}
+
+.mapImg {
+  max-width: 200px;
 }
 
 .inner_main_container {
@@ -91,6 +96,14 @@
 .main_pop_cls,
 .main_del_sec {
   @include spectator_model;
+}
+
+.noData {
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+  padding: 2rem;
+
 }
 
 .inner_specter_cls {
@@ -274,30 +287,30 @@ button#btn_cls_st {
   border: none;
   overflow: auto;
   padding-top: 26px;
+}
 
-  @media (max-width: $breakpoint-xSmall) {
-    overflow: scroll;
-  }
+.table_content::-webkit-scrollbar {
+  width: 5px
+}
 
-  @media (max-width: $breakpoint-xs) {
-    overflow: scroll;
-  }
+.table_content::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: white;
+}
 
-  @media (max-width: $breakpoint-sm) {
-    overflow: scroll;
-  }
-
-  @media (max-width: $breakpoint-ms) {
-    overflow: scroll;
-  }
-
-  @media (max-width: $breakpoint-md) {
-    overflow: scroll;
-  }
+.table_content::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px #ff7a00;
+  background-color: #ff7a00
 }
 
 .table_head_sectat {
   @include tableheader;
+  height: 47px;
+
+  div {
+    font-weight: 700 !important;
+    font-size: 1.1rem
+  }
 }
 
 .table_row_cell {
@@ -359,12 +372,42 @@ button#btn_cls_st {
   font-weight: 700;
 }
 
+.table_row_winner {
 
-.postWinnerTbody {
-  .table_row_winner {
+  .table_data {
+    text-align: center;
+    padding: 5px 10px;
+    font-family: 'Roboto';
+    height: 47px;
 
-    td {
-      text-align: center;
+    input[type='radio'] {
+      accent-color: #ff7a00;
     }
+
   }
+
+}
+
+.button_wrapper_winner {
+  text-align: right;
+
+  button {
+    width: 100%;
+    max-width: 199px;
+    min-width: 100px;
+    margin: 1rem 10px;
+    font-weight: 700;
+  }
+
+  .submitbutton {
+    background-color: #ff7a00;
+  }
+
+  .cancel_button {
+    border: 1px solid #ff7a00;
+    color: #ff7a00;
+    background-color: none;
+
+  }
+
 }
