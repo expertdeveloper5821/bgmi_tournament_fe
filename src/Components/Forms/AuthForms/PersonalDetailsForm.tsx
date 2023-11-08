@@ -34,7 +34,7 @@ export const PersonalDetail = () => {
       setIsLoading(true);
       setSubmitting(true);
       const { player, upi, whatsapp } = values;
-      const token = localStorage.getItem('jwtToken');
+      const token = localStorage.getItem('jwtToken')!;
       try {
         const response = await updateUserDetailsService({
           token,
