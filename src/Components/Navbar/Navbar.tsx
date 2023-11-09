@@ -9,25 +9,16 @@ import Image from 'next/image';
 import jwtDecode from 'jwt-decode';
 import { DecodedTokenType } from '@/types/decodedTokenType';
 import { useUserContext } from '@/utils/contextProvider';
-
-// interface INavbar {
-//   setUserName?: Dispatch<SetStateAction<string>>;
-// }
+import { toast } from 'react-toastify';
 
 export function Navbar() {
-  // const [isOpen, setIsOpen] = useState(false);
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
-  // const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const [error, setError] = useState<string>('');
   const [userData, setUserData] = useState<string>('');
   const [nameData, setNameData] = useState<string>('');
   const [initialsName, setInitialsName] = useState<string>('');
   const [pofile, setPofile] = useState<string | undefined | null>(null);
   const { triggerHandleLogout } = useUserContext();
 
-  // function handleClosePopover() {
-  //   setIsOpen(false);
-  // }
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -37,14 +28,12 @@ export function Navbar() {
       triggerHandleLogout();
       router.push('/auth/login');
     } catch (error) {
-      // setIsLoading(false);
-      // setError('Logout failed');
+      toast.error(error.message);
     }
   };
 
   const getAlldata = async () => {
     const userData: DecodedTokenType = jwtDecode(localStorage.getItem('jwtToken')!);
-    // const userData = JSON.parse(localStorage.getItem('userData'));
     const { email, fullName, profilePic } = userData;
     setUserData(email);
     setNameData(fullName);
@@ -72,75 +61,6 @@ export function Navbar() {
           </h1>
         </div>
         <ul className={styles.navbarnav}>
-          {/* <li className={styles.navitem}>
-              <Popover
-                isOpen={isOpen}
-                setIsOpen={setIsOpen}
-                content={
-                  <div>
-                    <div className={styles.notification}>
-                      Notification
-                      <Image
-                        className={styles.close}
-                        src="../assests/cross.svg"
-                        alt="close"
-                        width={20}
-                        height={20}
-                        onClick={handleClosePopover}
-                      />
-                    </div>
-                    <div className={styles.dropdown}>
-                      <Avatar
-                        onClick={() => { }}
-                        size={20}
-                        src="../assests/avatar.png"
-                      />
-                      <div className={styles.notify}>
-                        John Doe added new task Create navbar with html/css
-                        <div className={styles.time}>4 mins ago</div>
-                      </div>
-                    </div>
-                    <div className={styles.dropdown}>
-                      <Avatar
-                        onClick={() => { }}
-                        size={20}
-                        src="../assests/avatar.png"
-                      />
-                      <div className={styles.notify}>
-                        John Doe added new task Create navbar with html/css
-                        <div className={styles.time}>4 mins ago</div>
-                      </div>
-                    </div>
-                    <div className={styles.dropdown}>
-                      <Avatar
-                        onClick={() => { }}
-                        size={20}
-                        src="../assests/avatar.png"
-                      />
-                      <div className={styles.notify}>
-                        John Doe added new task Create navbar with html/css
-                        <div className={styles.time}>4 mins ago</div>
-                      </div>
-                    </div>
-                    <div className={styles.allnotification}>
-                      View all Notifications
-                    </div>
-                  </div>
-                }
-                placement="bottom"
-                width="300px"
-                height="350px"
-              >
-                <Image
-                  className={styles.notification}
-                  src="../assests/notification.svg"
-                  alt="notification"
-                  onClick={() => setIsOpen(true)}
-                  width={20}
-                  height={20}
-                />
-              </Popover>
-            </li> */}
           <li className={styles.navitem}>
             <Popover
               className={styles.popover_show}
@@ -155,39 +75,6 @@ export function Navbar() {
                       <span className={styles.gmail}>{userData}</span>
                     </div>
                   </div>
-
-                  {/* <div className={styles.profilesection}>
-                      <div className={styles.flexcol}>
-                        <Image
-                          className={styles.profileicon}
-                          src="../assests/profile.svg"
-                          alt="profile"
-                          width={20}
-                          height={20}
-                        />
-                        <div className={styles.myprofile}>My Account</div>
-                      </div>
-                      <div className={styles.flexcol}>
-                        <Image
-                          className={styles.settingicon}
-                          src="../assests/settings.svg"
-                          alt="setting"
-                          width={20}
-                          height={20}
-                        />
-                        <div className={styles.myprofile}>Settings</div>
-                      </div>
-                      <div className={styles.flexcol}>
-                        <img
-                          className={styles.notification_icon}
-                          src="../assests/notification.svg"
-                          alt="notification"
-                          width={20}
-                          height={20}
-                        />
-                        <div className={styles.myprofile}>Notification</div>
-                      </div>
-                    </div> */}
                   <div className={styles.logoutbutton}>
                     <div className={styles.inner_logout} onClick={handleLogout}>
                       <Image
@@ -216,11 +103,6 @@ export function Navbar() {
               )}
             </Popover>
           </li>
-          {/* <li className={styles.navitem}>
-              <div className={styles.username_details}>
-                <h1 className={styles.user_name_title}>{nameData}</h1>
-              </div>
-            </li> */}
         </ul>
       </nav>
     </header>
