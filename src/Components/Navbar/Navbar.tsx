@@ -9,7 +9,6 @@ import Image from 'next/image';
 import jwtDecode from 'jwt-decode';
 import { DecodedTokenType } from '@/types/decodedTokenType';
 import { useUserContext } from '@/utils/contextProvider';
-import { toast } from 'react-toastify';
 
 export function Navbar() {
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
@@ -22,14 +21,10 @@ export function Navbar() {
   const router = useRouter();
 
   const handleLogout = async () => {
-    try {
-      localStorage.removeItem('jwtToken');
-      localStorage.removeItem('expirationTime');
-      triggerHandleLogout();
-      router.push('/auth/login');
-    } catch (error) {
-      toast.error(error.message);
-    }
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('expirationTime');
+    triggerHandleLogout();
+    router.push('/auth/login');
   };
 
   const getAlldata = async () => {
