@@ -81,10 +81,13 @@ const validationSchema = Yup.object().shape({
 const personDetailSchema = Yup.object().shape({
   player: Yup.string()
     .required('player Id or username is Required')
-    .min(3, 'playerId or username must be min 3')
-    .max(12, 'playerId or username must be max 12'),
+    .min(4, 'playerId or username must be min 4 and max 20')
+    .max(20, 'playerId or username must be min 4 and max 20'),
 
-  upi: Yup.string().required('UPI ID is required').min(3, 'Invalid UPI ID format'),
+  upi: Yup.string()
+    .required('UPI ID is required')
+    .min(10, 'Invalid UPI ID format, must be min 10 and max 20 length')
+    .max(20, 'Invalid UPI ID format, must be min 10 and max 20 length'),
 
   whatsapp: Yup.string()
     .required('whatsapp number id is required')
