@@ -1,9 +1,6 @@
 import { DecodedToken, decodeJWt } from './globalfunctions';
-import { useRouter } from 'next/navigation';
 
-export const handleRedirect = (token: string) => {
-  const router = useRouter();
-
+export const handleRedirect = (token: string, router) => {
   if (token) {
     const decodedToken: DecodedToken = decodeJWt(token)!;
     if (decodedToken && decodedToken?.role?.role === 'user') {

@@ -26,7 +26,7 @@ export const SignupForm = () => {
   useEffect(() => {
     const token = localStorage.getItem('jwtToken');
     if (token) {
-      handleRedirect(token);
+      handleRedirect(token, router);
     }
   }, []);
 

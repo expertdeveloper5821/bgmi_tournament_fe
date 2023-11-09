@@ -14,12 +14,14 @@ import { toast } from 'react-toastify';
 import { loginService } from '@/services/authServices';
 import { LoginFormValues } from '@/types/formsTypes';
 import { handleRedirect } from '@/utils/handleRedirect';
+import { useRouter } from 'next/navigation';
 
 export function LoginForm(): React.JSX.Element {
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const { updateToken } = useUserContext();
+  const router = useRouter();
 
   const initialValues: LoginFormValues = {
     email: '',
@@ -55,7 +57,7 @@ export function LoginForm(): React.JSX.Element {
           localStorage.setItem('expirationTime', expirationTime.toString());
           toast.success(response?.data?.message);
           updateToken(decodedToken);
-          handleRedirect(response?.data?.userData?.token);
+          handleRedirect(response?.data?.userData?.token, router);
         } catch (error) {
           setIsLoading(false);
           setError(error?.response?.data?.message);
@@ -82,7 +84,7 @@ export function LoginForm(): React.JSX.Element {
 
     const token = localStorage.getItem('jwtToken');
     if (token) {
-      handleRedirect(token);
+      handleRedirect(token, router);
     }
 
     if (typeof window !== 'undefined') {
@@ -125,7 +127,7 @@ export function LoginForm(): React.JSX.Element {
           const expirationTime = date.setHours(date.getHours() + 1);
           localStorage.setItem('jwtToken', token);
           localStorage.setItem('expirationTime', expirationTime.toString());
-          handleRedirect(token);
+          handleRedirect(token, router);
         }
       }
     } catch (errorData) {
@@ -190,7 +192,7 @@ export function LoginForm(): React.JSX.Element {
           id="rememberMe"
           name="rememberMe"
           onChange={handleRememberMe}
-          checked={values.rememberMe}
+          checked={rememberMe}
         />
         <label htmlFor="rememberMe" className={styles.rememberMe}>
           Remember Me
