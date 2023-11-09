@@ -1,3 +1,4 @@
+'use client';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import React from 'react';
 

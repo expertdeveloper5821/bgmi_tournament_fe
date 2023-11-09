@@ -10,8 +10,8 @@ import { SignupSchema } from '@/utils/schema';
 import { signUpService } from '@/services/authServices';
 import styles from '@/styles/auth.module.scss';
 import { SignupFormValuesType } from '@/Components/pageComponents/auth/authInterfaces';
-import { DecodedToken, decodeJWt } from '@/utils/globalfunctions';
 import { toast } from 'react-toastify';
+import { handleRedirect } from '@/utils/handleRedirect';
 
 const initialValues: SignupFormValuesType = {
   fullName: '',
@@ -22,26 +22,6 @@ const initialValues: SignupFormValuesType = {
 export const SignupForm = () => {
   const router = useRouter();
   const [error, setError] = useState<string>('');
-
-  const handleRedirect = (token: string) => {
-    if (token) {
-      const decodedToken: DecodedToken = decodeJWt(token)!;
-      if (decodedToken && decodedToken?.role?.role === 'user') {
-        if (decodedToken?.upiId && decodedToken?.userName && decodedToken?.phoneNumber) {
-          router.push('/userDashboard');
-        } else {
-          router.push('/auth/personaldetails');
-        }
-      } else if (decodedToken && decodedToken?.role?.role === 'admin') {
-        router.push('/adminDashboard/room');
-      } else if (decodedToken && decodedToken?.role?.role === 'spectator') {
-        router.push('/spectatorDashboard');
-      }
-    }
-    // else {
-    //   router.push('/auth/401');
-    // }
-  };
 
   useEffect(() => {
     const token = localStorage.getItem('jwtToken');

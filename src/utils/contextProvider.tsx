@@ -1,11 +1,9 @@
 'use client';
 import { useRouter } from 'next/navigation';
-
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { UserContextType, UserInfo } from '@/types/usersTypes';
 import { DecodedToken } from './globalfunctions';
 
-// Create the context
 const UserContext = createContext<UserContextType>({
   userInfo: null,
   updateUserInfo: () => {},
@@ -17,66 +15,9 @@ const UserContext = createContext<UserContextType>({
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [token, setToken] = useState<null | DecodedToken>(null);
-  // TODO: NEED TO DEFINE TYPE HERE.
-  // const [timeOutId, setTimeOutId] = useState<null | NodeJS.Timeout>(null);
   const [timeOutId, setTimeOutId] = useState<null | NodeJS.Timeout>(null);
 
   const router = useRouter();
-  // if (typeof window !== 'undefined') {
-  //   if (!pathname.includes('landingPage')) {
-  //     const isAuthenticated = checkAuthentication();
-  //     if (!isAuthenticated) {
-  //       if (pathname === '/auth/signup') {
-  //         router.push('/auth/signup');
-  //       } else if (pathname === '/auth/reset-password') {
-  //         router.push('/auth/reset-password');
-  //       } else if (pathname === '/auth/forget-password') {
-  //         router.push('/auth/forget-password');
-  //       } else if (pathname === '/auth/mailpage') {
-  //         router.push('/auth/mailpage');
-  //       } else if (pathname === '/auth/updateCredSuccess') {
-  //         router.push('/auth/updateCredSuccess');
-  //       } else {
-  //         router.push('/auth/login');
-  //       }
-  //     } else {
-  //       const token = localStorage.getItem('jwtToken')!;
-  //       const decodedToken: DecodedToken = jwt_decode(token);
-  //       if (
-  //         decodedToken?.role?.role !== 'user' &&
-  //         (pathname === '/auth/personaldetails' || pathname === '/auth/teamsdetails')
-  //       ) {
-  //         router.push('/auth/login');
-  //       } else if (
-  //         decodedToken?.role?.role === 'admin' &&
-  //         !pathname.includes('adminDashboard') &&
-  //         (pathname.split('/')[1] === 'userDashboard' ||
-  //           pathname.split('/')[1] === 'spectatorDashboard')
-  //       ) {
-  //         router.push('/adminDashboard/room');
-  //       } else if (
-  //         decodedToken?.role?.role === 'user' &&
-  //         decodedToken?.upiId &&
-  //         decodedToken?.userName &&
-  //         decodedToken?.phoneNumber &&
-  //         !pathname.includes('userDashboard') &&
-  //         !pathname.includes('personaldetails') &&
-  //         !pathname.includes('teamsdetails') &&
-  //         (pathname.split('/')[1] === 'adminDashboard' ||
-  //           pathname.split('/')[1] === 'spectatorDashboard')
-  //       ) {
-  //         router.push('/userDashboard');
-  //       } else if (
-  //         decodedToken?.role?.role === 'spectator' &&
-  //         !pathname.includes('spectatorDashboard') &&
-  //         (pathname.split('/')[1] === 'adminDashboard' ||
-  //           pathname.split('/')[1] === 'userDashboard')
-  //       ) {
-  //         router.push('/spectatorDashboard');
-  //       }
-  //     }
-  //   }
-  // }
 
   const updateUserInfo = (newUserInfo: UserInfo) => {
     setUserInfo(newUserInfo);

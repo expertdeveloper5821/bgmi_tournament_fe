@@ -6,10 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Avatar, Popover } from 'technogetic-iron-smart-ui';
 import { decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
-
-// interface INavbar {
-//   setUserName?: Dispatch<SetStateAction<string>>;
-// }
+import { toast } from 'react-toastify';
 
 export function Navbar() {
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
@@ -19,9 +16,6 @@ export function Navbar() {
   const [pofile, setPofile] = useState<string | undefined>('');
   const { triggerHandleLogout } = useUserContext();
 
-  // function handleClosePopover() {
-  //   setIsOpen(false);
-  // }
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -31,14 +25,12 @@ export function Navbar() {
       triggerHandleLogout();
       router.push('/auth/login');
     } catch (error) {
-      // setIsLoading(false);
-      // setError('Logout failed');
+      toast.error(error.message);
     }
   };
 
   const getAlldata = async () => {
     const userData = decodeJWt(localStorage.getItem('jwtToken')!);
-    // const userData: any = jwtDecode(localStorage.getItem('jwtToken'));
 
     setUserData(userData?.email);
     setNameData(userData?.fullName);
@@ -57,6 +49,7 @@ export function Navbar() {
   useEffect(() => {
     getAlldata();
   }, []);
+
   return (
     <header>
       <nav className={styles.container}>

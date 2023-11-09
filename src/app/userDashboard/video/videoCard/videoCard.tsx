@@ -1,10 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-('');
 import styles from '@/styles/card.module.scss';
 import { sendRequest } from '@/utils/axiosInstanse';
 import Image from 'next/image';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+import { toast } from 'react-toastify';
 
 interface VideoInfo {
   date: string;
@@ -17,10 +17,6 @@ interface CustomPaginationProps {
 
 const VideoCard: React.FC<CustomPaginationProps> = ({ onDataUpdate }) => {
   const [data, setData] = useState<VideoInfo[]>([]);
-  // will use spectator login token here
-  // console.log(data);
-  //   const accessToken =
-  // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGQyM2NmZmYyZGU4ZDVhODM2OTVlOWYiLCJyb2xlIjpbeyJfaWQiOiI2NGM3ODE1M2QyYzhhODQzMWNjMzZiZjIiLCJyb2xlIjpbImFkbWluIl19XSwiaWF0IjoxNjkxNzM2MzcwLCJleHAiOjE2OTE5MDkxNzB9.GGAIOjgZs9q82XdLZNvR-TQ4JwALiIev8lfLBtajhE4'
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,7 +31,7 @@ const VideoCard: React.FC<CustomPaginationProps> = ({ onDataUpdate }) => {
         setData(responseData);
         onDataUpdate(responseData);
       } catch (error) {
-        // console.log(error);
+        toast.error(error.message);
       }
     };
     fetchData();

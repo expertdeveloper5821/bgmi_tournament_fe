@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/video.module.scss';
 import VideoCard from './videoCard/videoCard';
-// import CenterText from './videoCard/centerText';
-// import ReviewSection from './videoCard/reviewSection';
 import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination';
 
 const Page: React.FC = () => {
@@ -14,7 +12,6 @@ const Page: React.FC = () => {
     setReceivedData(data);
   };
   useEffect(() => {
-    // Simulate loading for 2 seconds
     const timeout = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
@@ -50,12 +47,6 @@ const Page: React.FC = () => {
             <div className={styles.videoCard}>
               <VideoCard onDataUpdate={handleChildData} />
             </div>
-            {/* <div className={styles.centerText}>
-              <CenterText />
-            </div>
-            <div className={styles.reviewSection}>
-              <ReviewSection />
-            </div> */}
           </div>
           <div className={styles.pagination}>
             <CustomPagination data={receivedData} />

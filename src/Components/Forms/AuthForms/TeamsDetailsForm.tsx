@@ -167,13 +167,6 @@ export const TeamsDetailsForm = () => {
           <span className={styles.nextArrow}>Skip</span>
         </Button>
       </form>
-
-      {/* <div className={styles.flexGap}>
-        <div className={styles.rounded}></div>
-        <div className={styles.rounded}></div>
-        <div className={styles.rounded}></div>
-        <div className={styles.rounded}></div>
-      </div> */}
     </>
   );
 };

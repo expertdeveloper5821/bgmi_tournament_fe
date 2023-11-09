@@ -11,6 +11,11 @@ import { resetPasswordService } from '@/services/authServices';
 import { toast } from 'react-toastify';
 import { ResetFormValues } from '@/types/formsTypes';
 
+const initialValues: ResetFormValues = {
+  newPassword: '',
+  confirmPassword: '',
+};
+
 export const ResetPasswordForm: React.FC = () => {
   const [token, setToken] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -23,11 +28,6 @@ export const ResetPasswordForm: React.FC = () => {
       setToken(extractedToken);
     }
   }, []);
-
-  const initialValues: ResetFormValues = {
-    newPassword: '',
-    confirmPassword: '',
-  };
 
   const { values, touched, errors, handleSubmit, handleChange, handleBlur, isSubmitting } =
     useFormik({
@@ -73,7 +73,7 @@ export const ResetPasswordForm: React.FC = () => {
           onChange={handleChange}
           onBlur={handleBlur}
           onPaste={handlePaste}
-        ></Input>
+        />
       </div>
       {errors.newPassword && touched.newPassword && (
         <div className={styles.error}>{errors.newPassword}</div>
@@ -93,7 +93,7 @@ export const ResetPasswordForm: React.FC = () => {
           onChange={handleChange}
           onBlur={handleBlur}
           onPaste={handlePaste}
-        ></Input>
+        />
       </div>
       {errors.confirmPassword && touched.confirmPassword && (
         <div className={styles.error}>{errors.confirmPassword}</div>

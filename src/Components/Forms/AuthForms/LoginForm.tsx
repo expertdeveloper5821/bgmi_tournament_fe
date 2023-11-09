@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { useFormik, FormikHelpers } from 'formik';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
@@ -14,13 +13,13 @@ import { loginSchema } from '@/utils/schema';
 import { toast } from 'react-toastify';
 import { loginService } from '@/services/authServices';
 import { LoginFormValues } from '@/types/formsTypes';
+import { handleRedirect } from '@/utils/handleRedirect';
 
 export function LoginForm(): React.JSX.Element {
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const { updateToken } = useUserContext();
-  const router = useRouter();
 
   const initialValues: LoginFormValues = {
     email: '',
@@ -47,12 +46,11 @@ export function LoginForm(): React.JSX.Element {
           const expirationTime = date.setHours(date.getHours() + 1);
 
           if (rememberMe) {
-            localStorage.setItem('rememberMe', rememberMe.toString());
             localStorage.setItem('email', email);
           } else {
-            localStorage.setItem('rememberMe', rememberMe.toString());
             localStorage.removeItem('email');
           }
+          localStorage.setItem('rememberMe', rememberMe.toString());
           localStorage.setItem('jwtToken', response?.data?.userData?.token);
           localStorage.setItem('expirationTime', expirationTime.toString());
           toast.success(response?.data?.message);
@@ -108,23 +106,6 @@ export function LoginForm(): React.JSX.Element {
       setFieldValue('rememberMe', false);
     }
   }, [rememberMe]);
-
-  const handleRedirect = (token: string) => {
-    if (token) {
-      const decodedToken: DecodedToken = decodeJWt(token)!;
-      if (decodedToken && decodedToken?.role?.role === 'user') {
-        if (decodedToken?.upiId && decodedToken?.userName && decodedToken?.phoneNumber) {
-          router.push('/userDashboard');
-        } else {
-          router.push('/auth/personaldetails');
-        }
-      } else if (decodedToken && decodedToken?.role?.role === 'admin') {
-        router.push('/adminDashboard/room');
-      } else if (decodedToken && decodedToken?.role?.role === 'spectator') {
-        router.push('/spectatorDashboard');
-      }
-    }
-  };
 
   const handleVerifyTokenInLogin = async (token: string) => {
     try {

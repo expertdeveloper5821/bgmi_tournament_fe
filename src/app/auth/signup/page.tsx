@@ -1,3 +1,4 @@
+'use client';
 import AuthHoc from '@/Components/HOC/AuthHoc';
 import React from 'react';
 import { SignupForm } from '@/Components/Forms/AuthForms/SignUpForm';

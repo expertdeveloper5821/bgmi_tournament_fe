@@ -4,8 +4,6 @@ import { useState } from 'react';
 import styles from '@/styles/personal_detail.module.scss';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
-// TODO: Commented ToolTip code and its import statements because producing errors need to figure out later.
-// import { Tooltip } from '@nextui-org/react';
 import { personDetailSchema } from '@/utils/schema';
 import { useFormik, FormikHelpers } from 'formik';
 import { updateUserDetailsService } from '@/services/authServices';
@@ -97,13 +95,6 @@ export const PersonalDetail = () => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
-
-          {/* <Tooltip
-            className={styles.toolTip}
-            content="The player id should match with the BGMI game id"
-          >
-            <Image src="/assests/i.svg" alt="mailogo" width={30} height={20} />
-          </Tooltip> */}
         </div>
         {errors.player && touched.player && <div className={styles.error}>{errors.player}</div>}
 
@@ -141,9 +132,6 @@ export const PersonalDetail = () => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
-          {/* <Tooltip className={styles.toolTip} content="WhatsApp number preferred">
-            <Image src="/assests/i.svg" alt="mailogo" width={30} height={20} />
-          </Tooltip> */}
         </div>
 
         {errors.whatsapp && touched.whatsapp && (
@@ -151,25 +139,8 @@ export const PersonalDetail = () => {
         )}
       </form>
       <Button className={styles.google_btn} type="submit" onClick={handleSubmit}>
-        {isLoading ? (
-          'Loading...'
-        ) : (
-          //   <span onClick={() => handleStepChange(errors.upi !== '' && currentStep + 1)}>Next</span>
-          <span>Next</span>
-        )}
+        {isLoading ? 'Loading...' : <span>Next</span>}
       </Button>
-
-      {/* // <Button className={styles.google_btn} onClick={() => handleStepChange(currentStep + 1)}>
-      //   <span className={styles.nextArrow}>Next </span>
-      //   <Image src="/assests/rightArrow.svg" alt="mailogo" width={12} height={12} />
-      // </Button> */}
-
-      {/* <div className={styles.flexGap}>
-        <div className={styles.rounded}></div>
-        <div className={styles.rounded}></div>
-        <div className={styles.rounded}></div>
-        <div className={styles.rounded}></div>
-      </div> */}
     </div>
   );
 };
