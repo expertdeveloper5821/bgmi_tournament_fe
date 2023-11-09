@@ -16,18 +16,17 @@ import { LoginFormValues } from '@/types/formsTypes';
 import { handleRedirect } from '@/utils/handleRedirect';
 import { useRouter } from 'next/navigation';
 
+const initialValues: LoginFormValues = {
+  email: '',
+  password: '',
+};
+
 export function LoginForm(): React.JSX.Element {
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const { updateToken } = useUserContext();
   const router = useRouter();
-
-  const initialValues: LoginFormValues = {
-    email: '',
-    password: '',
-    rememberMe: rememberMe,
-  };
 
   const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
     useFormik({
@@ -76,6 +75,11 @@ export function LoginForm(): React.JSX.Element {
     const rememberMeValue = localStorage.getItem('rememberMe');
     if (rememberMeValue) {
       if (rememberMeValue === 'true') {
+        if (values.email) {
+          setFieldValue('email', values.email);
+        } else if (localStorage.getItem('email')) {
+          setFieldValue('email', localStorage.getItem('email'));
+        }
         setRememberMe(true);
       } else if (rememberMeValue === 'false') {
         setRememberMe(false);
@@ -95,19 +99,6 @@ export function LoginForm(): React.JSX.Element {
       }
     }
   }, []);
-
-  useEffect(() => {
-    if (rememberMe) {
-      setFieldValue('rememberMe', true);
-      if (values.email) {
-        setFieldValue('email', values.email);
-      } else if (localStorage.getItem('email')) {
-        setFieldValue('email', localStorage.getItem('email'));
-      }
-    } else if (!rememberMe) {
-      setFieldValue('rememberMe', false);
-    }
-  }, [rememberMe]);
 
   const handleVerifyTokenInLogin = async (token: string) => {
     try {

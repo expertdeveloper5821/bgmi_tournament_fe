@@ -10,13 +10,12 @@ export interface TeamsDetailsFormValues {
 export interface LoginFormValues {
   email: string;
   password: string;
-  rememberMe: boolean;
 }
 
 export interface PersonalDetailsValue {
-  player: string
-  upi: string
-  whatsapp: string
+  player: string;
+  upi: string;
+  whatsapp: string;
 }
 
 export interface sendInviteServiceValuesType {
@@ -27,12 +26,11 @@ export interface sendInviteServiceValuesType {
 export interface UpdateUserDetailsService {
   token: string;
   data: {
-    userName:string
-    upiId: string
-    phoneNumber: string
+    userName: string;
+    upiId: string;
+    phoneNumber: string;
   };
 }
-
 
 export interface LoginServiceValuesType {
   email: string;
@@ -54,5 +52,3 @@ export interface AuthLoginFormValues {
   email: string;
   password: string;
 }
-
-
