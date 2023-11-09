@@ -5,10 +5,25 @@ import { RegisterSpectatorValuesType, updateRoleValuesType } from '@/types/spect
 import { DeleteRoleValuesType, GetAllFilteredValuesType } from '@/types/usersTypes';
 import { deleteRoomValuesType } from '@/types/roomsTypes';
 import { RoomData } from '@/Components/pageComponents/auth/authInterfaces';
+import { VideoFormValuesType } from '@/Components/pageComponents/auth/authInterfaces';
 
 export const signUpService = async (data: SignupFormValuesType) => {
   try {
     const res = await sendRequest(serviceUrls.signup, {
+      method: 'POST',
+      data,
+    });
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (err) {
+    return err;
+  }
+};
+
+export const videoService = async (data: VideoFormValuesType, uuid: string) => {
+  try {
+    const res = await sendRequest(`${serviceUrls.video}${uuid}`, {
       method: 'POST',
       data,
     });

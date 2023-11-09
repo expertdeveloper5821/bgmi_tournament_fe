@@ -50,3 +50,9 @@ export interface updateRoleValuesType {
   formData: FormDataType;
   token: string;
 }
+
+export interface FormValues {
+  title: string;
+  videoLink: string;
+  dateAndTime: string;
+}

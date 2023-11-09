@@ -11,6 +11,7 @@ const dynamicMenuItems = [
     name: 'Video',
     icon: <FaVideo />,
   },
+
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

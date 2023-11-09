@@ -45,7 +45,6 @@ const Video = () => {
             date: '2 Oct 2023',
             time: '11:00PM',
         },
-        // Add more video objects here...
     ];
 
     return (

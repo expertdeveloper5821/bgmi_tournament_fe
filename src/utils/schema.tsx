@@ -55,6 +55,7 @@ const validationSchema = Yup.object().shape({
   highestKill: Yup.number().required('Please enter highestKill winner prize'),
   thirdWin: Yup.number().required('Please enter Third winner prize '),
   entryFee: Yup.number().required('Please enter entry Fee'),
+
 });
 
 const SendInviteSchema = Yup.object().shape({
@@ -63,6 +64,12 @@ const SendInviteSchema = Yup.object().shape({
     .required('Please enter your email')
     .matches(emailRegex, 'Invalid email'),
 });
+
+const videoPostSchema = Yup.object().shape({
+  title: Yup.string().required('Title is required'),
+  videoLink: Yup.string().required('Please enter  videoLink'),
+  dateAndTime: Yup.string()
+})
 
 const addFormValidations = (name, value, setFormErrors) => {
   if (name === 'fullName') {
@@ -144,4 +151,5 @@ export {
   validationSchema,
   SendInviteSchema,
   addFormValidations,
+  videoPostSchema,
 };

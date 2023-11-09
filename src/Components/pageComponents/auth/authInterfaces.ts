@@ -54,3 +54,9 @@ export interface details {
   upi: string;
   whatsapp: string;
 }
+
+export interface VideoFormValuesType {
+  title: string;
+  videoLink: string;
+  dateAndTime: string;
+}
