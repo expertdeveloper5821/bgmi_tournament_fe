@@ -9,6 +9,8 @@ function IsAuthenticatedHoc(props) {
   const router = useRouter();
   const pathname = usePathname();
 
+  const prevurl = window.localStorage.getItem('prevurl');
+
   if (pathname.split('/')[1] !== 'landingPage') {
     const isAuthenticated = checkAuthentication();
     if (!isAuthenticated) {
@@ -30,7 +32,8 @@ function IsAuthenticatedHoc(props) {
         decodedToken?.upiId &&
         decodedToken?.userName &&
         decodedToken?.phoneNumber &&
-        pathname === '/auth/teamsdetails'
+        pathname === '/auth/teamsdetails' &&
+        prevurl === 'personaldetails'
       ) {
         return <>{props.children}</>;
       } else if (decodedToken?.role?.role === 'user' && !pathname.includes('userDashboard')) {

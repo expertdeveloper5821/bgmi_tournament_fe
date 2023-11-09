@@ -56,6 +56,7 @@ export const TeamsDetailsForm = () => {
         });
         setSubmitting(false);
         toast.success(response?.data?.message);
+        window.localStorage.removeItem('prevurl');
         router.push('/userDashboard');
       } catch (error) {
         setError(error?.response?.data?.message);
@@ -163,7 +164,13 @@ export const TeamsDetailsForm = () => {
           {isSubmitting ? 'Loading...' : <span className={styles.nextArrow}>Finish</span>}
         </Button>
 
-        <Button className={styles.finish} onClick={() => router.push('/userDashboard')}>
+        <Button
+          className={styles.finish}
+          onClick={() => {
+            window.localStorage.removeItem('prevurl');
+            router.push('/userDashboard');
+          }}
+        >
           <span className={styles.nextArrow}>Skip</span>
         </Button>
       </form>
