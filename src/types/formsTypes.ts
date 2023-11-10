@@ -29,6 +29,7 @@ export interface UpdateUserDetailsService {
     userName: string;
     upiId: string;
     phoneNumber: string;
+    profilePic?: File;
   };
 }
 

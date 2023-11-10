@@ -6,7 +6,6 @@ import { DeleteRoleValuesType, GetAllFilteredValuesType } from '@/types/usersTyp
 import { deleteRoomValuesType } from '@/types/roomsTypes';
 import {
   LoginServiceValuesType,
-  UpdateUserDetailsService,
   resetPasswordValuesType,
   sendInviteServiceValuesType,
 } from '@/types/formsTypes';
@@ -130,10 +129,12 @@ export const getAllFilteredRoomsListService = async (data: GetAllFilteredValuesT
   }
 };
 
-export const updateUserDetailsService = async (data: UpdateUserDetailsService) => {
+export const updateUserDetailsService = async (data) => {
+  console.log('formdatadebug data 4 ==>', data);
+
   const res = await sendRequest(`${serviceUrls.updateUserDetails}`, {
     method: 'PUT',
-    headers: { Authorization: `Bearer ${data.token}` },
+    headers: { 'Content-Type': 'multipart/form-data' },
     data: data.data,
   });
   if (res.status === 200) {
