@@ -69,7 +69,7 @@ const postWinners = () => {
     setIsLoading(true);
     try {
       const response = await sendRequest(`/winners/players/${roomUuid}`, {
-        method: 'POST',
+        method: `${winnnerTeamData ? 'PUT' : 'POST'}`,
         data: Object.values(formData),
       });
       toast.success('Winning team update successfully');
