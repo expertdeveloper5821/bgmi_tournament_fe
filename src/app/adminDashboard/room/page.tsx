@@ -15,21 +15,12 @@ import {
 } from '@/services/authServices';
 import { RoomsDataType } from '@/types/roomsTypes';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+import { adminRoomColumns } from '@/utils/constant';
+
 function page() {
   const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
   const [roomData, setRoomData] = useState<RoomsDataType[] | []>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const columns: string[] = [
-    'Created By',
-    'Room Id',
-    'Password',
-    'Game Name',
-    'Game Type',
-    'Map Type',
-    'Version',
-    'Time',
-    'Date',
-  ];
 
   const getAllTournaments = async () => {
     const token = localStorage.getItem('jwtToken') || '';
@@ -40,7 +31,7 @@ function page() {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      toast.error(error?.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -58,7 +49,7 @@ function page() {
       toast.success(response?.data?.message);
     } catch (error) {
       setIsLoading(false);
-      toast.error(error?.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -70,8 +61,8 @@ function page() {
       setRoomData(response?.data);
       setIsLoading(false);
     } catch (error) {
-      toast.error(error?.message);
       setIsLoading(false);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -101,7 +92,12 @@ function page() {
             {isLoading ? (
               <Loader />
             ) : (
-              <TableData data={roomData} columns={columns} deleteroom={deleteroom} type={'ROOMS'} />
+              <TableData
+                data={roomData}
+                columns={adminRoomColumns}
+                deleteroom={deleteroom}
+                type={'ROOMS'}
+              />
             )}
           </div>
         </div>

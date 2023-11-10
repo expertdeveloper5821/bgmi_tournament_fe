@@ -22,6 +22,7 @@ import {
 import { addFormValidations } from '@/utils/schema';
 import { CreateSpectatorOrAssignRoleForm } from '@/Components/Forms/CreateSpectatorOrAssignRoleForm';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+import { adminSpecColumns } from '@/utils/constant';
 
 function Page() {
   const [spectatorData, setSpectatorData] = useState<SpectatorDataType[] | []>([]);
@@ -43,8 +44,6 @@ function Page() {
   const [roles, setRoles] = useState<RoleType[] | undefined>();
   const [isDisabled, setDisabled] = useState<boolean>(false);
 
-  const columns: string[] = ['Full Name', 'User Name', 'Email'];
-
   const getAllUsers = async () => {
     setIsLoading(true);
     try {
@@ -59,7 +58,7 @@ function Page() {
 
       setIsLoading(false);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error?.response?.data?.message);
       setIsLoading(false);
     }
   };
@@ -103,7 +102,7 @@ function Page() {
       toast.success(response?.data?.message);
     } catch (error) {
       setIsLoading(false);
-      toast.error(error?.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -149,16 +148,14 @@ function Page() {
       try {
         if (modal?.buttonVal === 'Create') {
           await registerSpectatorService({ token, formData, spectatorData });
-          await registerSpectatorService({ token, formData, spectatorData });
         } else if (modal?.buttonVal === 'Assign') {
-          await updateRoleService({ token, formData });
           await updateRoleService({ token, formData });
         }
         setIsLoading(false);
         getAllUsers();
       } catch (error) {
         setIsLoading(false);
-        toast.error(error?.message);
+        toast.error(error?.response?.data?.message);
       }
     }
     setModal({ isOpen: false, buttonVal: '' });
@@ -223,7 +220,7 @@ function Page() {
             ) : (
               <TableData
                 data={spectatorData}
-                columns={columns}
+                columns={adminSpecColumns}
                 type={'SPECTATOR'}
                 deleteroom={deleteroom}
                 handleEdit={handleEdit}

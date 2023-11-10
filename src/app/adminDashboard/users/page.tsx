@@ -10,12 +10,12 @@ import { toast } from 'react-toastify';
 import { deleteRoleService, getAllFilteredUsersListService } from '@/services/authServices';
 import { SpectatorDataType } from '@/types/spectatorTypes';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+import { adminUserColumns } from '@/utils/constant';
 
 function page() {
   const [wholeUserData, setWholeUserData] = useState<SpectatorDataType[] | []>([]);
   const [userData, setUserData] = useState<SpectatorDataType[] | []>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const columns: string[] = ['Full Name', 'User Name', 'Email'];
 
   const fetchTournaments = async (searchVal: string) => {
     try {
@@ -31,7 +31,7 @@ function page() {
 
       setIsLoading(false);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error?.response?.data?.message);
       setIsLoading(false);
     }
   };
@@ -49,7 +49,7 @@ function page() {
       toast.success(response?.data?.message);
     } catch (error) {
       setIsLoading(false);
-      toast.error(error?.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -80,7 +80,7 @@ function page() {
               <TableData
                 deleteroom={deleteroomId}
                 data={userData}
-                columns={columns}
+                columns={adminUserColumns}
                 type={'USERS'}
               />
             )}

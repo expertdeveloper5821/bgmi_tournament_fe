@@ -82,3 +82,19 @@ arising directly or indirectly out of the decline of authorization for any Trans
 on Account of the Cardholder having exceeded the preset limit mutually agreed by us with
 our acquiring bank from time to time`,
 ];
+
+export const adminSpecColumns: string[] = ['Full Name', 'User Name', 'Email'];
+
+export const adminRoomColumns: string[] = [
+  'Created By',
+  'Room Id',
+  'Password',
+  'Game Name',
+  'Game Type',
+  'Map Type',
+  'Version',
+  'Time',
+  'Date',
+];
+
+export const adminUserColumns: string[] = ['Full Name', 'User Name', 'Email'];
