@@ -15,12 +15,11 @@ import { VideoFormValuesType } from '../../../Components/pageComponents/auth/aut
 const matchHistoryDetails = () => {
     const [thumbnailURL, setThumbnailURL] = useState<string>('');
     const [showThumbnail, setShowThumbnail] = useState<boolean>(false);
-    // const [error, setError] = useState<string>('');
     const router = useRouter();
     const searchParams = useSearchParams();
     const uuid = searchParams.get('id') || '';
 
-    // console.log("error", error)
+
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files![0];
@@ -75,7 +74,6 @@ const matchHistoryDetails = () => {
                         resetForm();
                         toast.success(response.data.message);
                     } else {
-                        // setError('Failed to Add room. Please try again.');
                         toast.error('Failed to Add room. Please try again.');
                     }
                 } else {
@@ -83,7 +81,6 @@ const matchHistoryDetails = () => {
                 }
             } catch (error) {
                 console.error('An error occurred:', error);
-                // setError('Failed to Add room. Please try again.');
                 toast.error('Failed to Add room. Please try again.');
             }
         }
