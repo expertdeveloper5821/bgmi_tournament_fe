@@ -93,12 +93,6 @@ const Room = () => {
           <Navbar />
           <div className={styles.inner_specter_cls}>
             <h1 className={styles.r_main_title}>Rooms</h1>
-            {/* <Form
-              showModal={showModal}
-              setShowModal={setShowModal}
-              roomIdToUpdate={roomIdToUpdate}
-              setRoomIdToUpdate={setRoomIdToUpdate}
-            /> */}
           </div>
           <div>
             <Table className={styles.table_content}>
