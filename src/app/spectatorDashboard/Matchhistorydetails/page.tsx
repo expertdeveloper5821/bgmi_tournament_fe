@@ -19,8 +19,6 @@ const matchHistoryDetails = () => {
     const searchParams = useSearchParams();
     const uuid = searchParams.get('id') || '';
 
-
-
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files![0];
         if (file) {

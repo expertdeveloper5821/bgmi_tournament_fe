@@ -8,7 +8,6 @@ import { formatDate, formatTime } from '@/Components/CommonComponent/moment';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { specRoomColumns } from '@/utils/constant';
-//import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
 import DeleteSpectatorModal from '@/Components/spectatorDashboard/rooms/DeleteSpectatorModal';
 
 const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSpectator }) => {
@@ -100,7 +99,6 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
             </TableCell>
             <TableCell>
               <div>
-                {/* <button className={styles.video} onClick={handleButtonPostWinners}> */}
                 <button className={styles.video} onClick={() => handleButtonPostWinners(spec.roomUuid)}>
                   <Image src="/assests/postvideo.svg" alt="Image" width={22} height={22} />
                 </button>

@@ -40,10 +40,7 @@ export interface RoomData {
 const Room = () => {
   const [Spect, setSpect] = useState<RoomData[]>([]);
   const [showModal, setShowModal] = useState(false);
-  // const [roomIdToUpdate, setRoomIdToUpdate] = useState<any>({});
   const router = useRouter();
-
-
 
   const columns: string[] = [
     'Room Id',
@@ -65,7 +62,6 @@ const Room = () => {
       const spectatorResponse = await sendRequest('room/user-rooms', {
         method: 'GET',
       });
-      console.log('check user ==>', spectatorResponse);
       setSpect(spectatorResponse.data);
     } catch (error) {
       console.log('check error', error);

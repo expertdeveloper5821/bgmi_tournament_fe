@@ -389,59 +389,6 @@ const CreateRoomForm = (props) => {
                         <div className={styles.error}>{String(errors.thirdWin)}</div>
                       )}
 
-                      {/* <div className={styles.input_box}>
-                        <div className={styles.card}>
-                          <div className={styles.top}>
-                            <p>Drag & Drop Image Uploading</p>
-                          </div>
-                          <div
-                            className={styles.drag_area}
-                            onDragOver={onDragOver}
-                            onDragLeave={onDragLeave}
-                            onDrop={onDrop}
-                          >
-                            {isDragging ? (
-                              <span className={styles.select}>Drop Image here</span>
-                            ) : (
-                              <>
-                                <div className={styles.drag_drop}>
-                                  Drag and Drop image here or ,
-                                </div>
-                                <span className={styles.select} role="button" onClick={selectFiles}>
-                                  Browse
-                                </span>
-                              </>
-                            )}
-
-                            <input
-                              name="file"
-                              type="file"
-                              className={styles.file}
-                              multiple
-                              ref={fileInputRef}
-                              onChange={onFileSelect}
-                            ></input>
-                          </div>
-                          <div className={styles.container}>
-                            {images.map((image, i) => (
-                              <div className={styles.image} key={i}>
-                                <span className={styles.delete} onClick={() => deleteImage(i)}>
-                                  &times;
-                                </span>
-                                <img src={image.url} alt={image.name}></img>
-                              </div>
-                            ))}
-                            {roomIdToUpdate && (
-                              <img
-                                src={roomIdToUpdate.mapImg}
-                                alt="Map Image"
-                                width={280}
-                                height={120}
-                              />
-                            )}
-                          </div>
-                        </div>
-                      </div> */}
                       <div className={styles.input_box}>
                         <div className={styles.card}>
                           <div className={styles.top}>
