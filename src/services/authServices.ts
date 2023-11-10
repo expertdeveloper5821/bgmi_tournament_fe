@@ -21,8 +21,10 @@ export const signUpService = async (data: SignupFormValuesType) => {
   }
 };
 
-export const videoService = async (data: VideoFormValuesType, uuid: string) => {
+export const videoService = async (payload: VideoFormValuesType, uuid: string) => {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { date, time, ...data } = payload;
     const res = await sendRequest(`${serviceUrls.video}${uuid}`, {
       method: 'POST',
       data,

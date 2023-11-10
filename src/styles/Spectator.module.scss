@@ -629,6 +629,15 @@ button#btn_cls_st {
     padding: 6px 24px;
   }
 }
+
+.wrapper_background {
+  background-image: url(/assests/dashboard-bg.svg);
+  background-repeat: no-repeat;
+  background-position: inherit;
+  height: 100vh;
+  background-size: cover;
+  width: 100%;
+}
 .gap {
   display: flex;
   gap: 15px;
@@ -671,7 +680,7 @@ button#btn_cls_st {
   border: 1px solid white;
   border-radius: 8px;
   padding: 10px 20px;
-  height: 50px;
+  // height: 50px;
   color: #fff;
   text-align: center;
   background-color: transparent;
@@ -687,17 +696,17 @@ button#btn_cls_st {
   width: 25%;
   background-color: transparent;
   color: #ff7a00;
-
+  border: 1px solid #ff7a00;
   @media (max-width: $breakpoint-ms) {
-    width: 80%;
+    width: 100%;
   }
 
   @media (max-width: $breakpoint-md) {
-    width: 80%;
+    width: 100%;
   }
 
   @media (max-width: $breakpoint-sm) {
-    width: 80%;
+    width: 100%;
   }
   // border: 1px solid #ff7a00;
 }
@@ -744,10 +753,14 @@ button#btn_cls_st {
   // width: 90%;
   border: 1px solid white;
   border-radius: 8px;
-  width: 90%;
+  width: 100%;
   color: #fff;
   text-align: center;
   background-color: transparent;
+}
+
+.video_url::placeholder {
+  color: #fff;
 }
 .videos_copy {
   gap: 20px;
@@ -777,17 +790,17 @@ button#btn_cls_st {
   height: 120px;
 
   @media (max-width: $breakpoint-ms) {
-    width: 40%;
+    width: 50%;
     height: 95px;
   }
 
   @media (max-width: $breakpoint-md) {
-    width: 40%;
+    width: 50%;
     height: 95px;
   }
 
   @media (max-width: $breakpoint-sm) {
-    width: 40%;
+    width: 50%;
     height: 95px;
   }
 }
@@ -820,43 +833,22 @@ button#btn_cls_st {
   gap: 20px;
 }
 
-// .imageshown {
-//   position: absolute;
-//   bottom: 0%;
-//   left: 25%;
-
-//   @media (max-width: $breakpoint-ms) {
-//     left: 50%;
-//     top: 50%;
-//   }
-
-//   @media (max-width: $breakpoint-md) {
-//     left: 50%;
-//     top: 70%;
-//   }
-
-//   @media (max-width: $breakpoint-sm) {
-//     left: 50%;
-//     top: 80%;
-//   }
-// }
-
 .thumbnailPreview {
   width: 160px;
   height: 120px;
 
   @media (max-width: $breakpoint-ms) {
-    width: 90px;
+    width: 100px;
     height: 96px;
   }
 
   @media (max-width: $breakpoint-md) {
-    width: 90px;
+    width: 100px;
     height: 96px;
   }
 
   @media (max-width: $breakpoint-sm) {
-    width: 90px;
+    width: 100px;
     height: 96px;
   }
 }
@@ -995,7 +987,7 @@ button#btn_cls_st {
 }
 
 .downside {
-  margin-top: 280px;
+  margin-top: 204px;
   padding-right: 58px;
   padding-left: 58px;
   color: #003554;
@@ -1059,4 +1051,17 @@ button#btn_cls_st {
   @media (max-width: $breakpoint-xs) {
     margin: 8px 0px;
   }
+}
+
+.imageshown {
+  position: relative;
+}
+
+.cross {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  padding: 5px;
+  background-color: transparent;
 }

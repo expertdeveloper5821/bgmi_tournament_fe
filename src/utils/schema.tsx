@@ -69,6 +69,7 @@ const videoPostSchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
   videoLink: Yup.string().required('Please enter  videoLink'),
   dateAndTime: Yup.string()
+
 })
 
 const addFormValidations = (name, value, setFormErrors) => {
