@@ -11,11 +11,14 @@ import { deleteRoleService, getAllFilteredUsersListService } from '@/services/au
 import { SpectatorDataType } from '@/types/spectatorTypes';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { adminUserColumns } from '@/utils/constant';
+import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
 
 function page() {
   const [wholeUserData, setWholeUserData] = useState<SpectatorDataType[] | []>([]);
   const [userData, setUserData] = useState<SpectatorDataType[] | []>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [idToDelete, setIdToDelete] = useState<string>('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const fetchTournaments = async (searchVal: string) => {
     try {
@@ -40,11 +43,13 @@ function page() {
     fetchTournaments('');
   }, []);
 
-  const deleteroomId = async (userUuid: string) => {
+  const deleteroom = async () => {
     setIsLoading(true);
     try {
       const token = localStorage.getItem('jwtToken') || '';
-      const response = await deleteRoleService({ userUuid, token });
+      const response = await deleteRoleService({ userUuid: idToDelete, token });
+      setIdToDelete('');
+      setIsDeleteModalOpen(false);
       fetchTournaments('');
       toast.success(response?.data?.message);
     } catch (error) {
@@ -64,6 +69,16 @@ function page() {
     setUserData(filteredResults);
   };
 
+  const handleDeleteUser = (_id: string) => {
+    setIdToDelete(_id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIdToDelete('');
+    setIsDeleteModalOpen(false);
+  };
+
   return (
     <IsAuthenticatedHoc>
       <div className={styles.main_container} id="mainLayoutContainerInner">
@@ -74,11 +89,14 @@ function page() {
               <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
               <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
             </div>
+            {isDeleteModalOpen && (
+              <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
+            )}
             {isLoading ? (
               <Loader />
             ) : (
               <TableData
-                deleteroom={deleteroomId}
+                deleteroom={handleDeleteUser}
                 data={userData}
                 columns={adminUserColumns}
                 type={'USERS'}

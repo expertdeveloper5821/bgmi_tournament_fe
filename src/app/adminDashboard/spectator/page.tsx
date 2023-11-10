@@ -23,6 +23,7 @@ import { addFormValidations } from '@/utils/schema';
 import { CreateSpectatorOrAssignRoleForm } from '@/Components/Forms/CreateSpectatorOrAssignRoleForm';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { adminSpecColumns } from '@/utils/constant';
+import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
 
 function Page() {
   const [spectatorData, setSpectatorData] = useState<SpectatorDataType[] | []>([]);
@@ -43,6 +44,8 @@ function Page() {
   });
   const [roles, setRoles] = useState<RoleType[] | undefined>();
   const [isDisabled, setDisabled] = useState<boolean>(false);
+  const [idToDelete, setIdToDelete] = useState<string>('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const getAllUsers = async () => {
     setIsLoading(true);
@@ -92,11 +95,13 @@ function Page() {
     }
   }, [formErrors, formData]);
 
-  const deleteroom = async (userUuid: string) => {
+  const deleteroom = async () => {
     setIsLoading(true);
     try {
       const token = localStorage.getItem('jwtToken') || '';
-      const response = await deleteRoleService({ userUuid, token });
+      const response = await deleteRoleService({ userUuid: idToDelete, token });
+      setIdToDelete('');
+      setIsDeleteModalOpen(false);
       setIsLoading(false);
       getAllUsers();
       toast.success(response?.data?.message);
@@ -197,6 +202,16 @@ function Page() {
     }
   };
 
+  const handleDeleteUser = (_id: string) => {
+    setIdToDelete(_id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIdToDelete('');
+    setIsDeleteModalOpen(false);
+  };
+
   return (
     <IsAuthenticatedHoc>
       <div className={styles.main_container} id="mainLayoutContainerInner">
@@ -215,6 +230,9 @@ function Page() {
                 Create Spectator
               </button>
             </div>
+            {isDeleteModalOpen && (
+              <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
+            )}
             {isLoading ? (
               <Loader />
             ) : (
@@ -222,7 +240,7 @@ function Page() {
                 data={spectatorData}
                 columns={adminSpecColumns}
                 type={'SPECTATOR'}
-                deleteroom={deleteroom}
+                deleteroom={handleDeleteUser}
                 handleEdit={handleEdit}
               />
             )}
