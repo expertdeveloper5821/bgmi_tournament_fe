@@ -10,7 +10,7 @@ import { sendRequest } from '@/utils/axiosInstanse';
 import { getItemFromLS } from '@/utils/globalfunctions';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
 import { toast } from 'react-toastify';
-import { winnerFormType } from '@/types/roomsTypes';
+import { GameRoomType, winnerFormType } from '@/types/roomsTypes';
 
 const columns: string[] = [
   'Team Name',
@@ -21,10 +21,10 @@ const columns: string[] = [
 ];
 
 const rowData = [
-  { name: 'chickenDinner', value: 30 },
-  { name: 'highestKill', value: 20 },
-  { name: 'firstWinner', value: 10 },
-  { name: 'secondWinner', value: 5 },
+  { name: 'chickenDinner', value: 30, key: 'Chicken Dinner' },
+  { name: 'highestKill', value: 20, key: 'Highest Kill' },
+  { name: 'firstWinner', value: 10, key: 'First Winner' },
+  { name: 'secondWinner', value: 5, key: 'Second Winner' },
 ];
 
 const postWinners = () => {
@@ -33,13 +33,35 @@ const postWinners = () => {
   const roomUuid = getItemFromLS('roomUuid');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [roomUsers, setRoomUsers] = useState<null | []>(null);
+  const [winnnerTeamData, setWinnnerTeamData] = useState<null | GameRoomType>(null);
   const [formData, setFormData] = useState<winnerFormType | object>({});
+
   const getAllTeams = async () => {
     try {
       const roomTeamsGet = await sendRequest(`/room/getTeam/${roomID}`);
       setRoomUsers(roomTeamsGet?.data?.teams);
     } catch (error) {
-      toast.error('something went wrong');
+      console.log('Error in get team data', error);
+    }
+  };
+
+  const getWinningTeams = async () => {
+    try {
+      const roomTeamsGet = await sendRequest(`/winners/get-players/${roomUuid}`);
+      setWinnnerTeamData(roomTeamsGet?.data);
+      if (roomUsers?.length === 0) {
+        toast.error('No team data found !');
+      }
+    } catch (error) {
+      console.log('Error in get team data', error);
+    }
+  };
+
+  const getWinnerPostData = (index: number, teamName: string) => {
+    if (winnnerTeamData) {
+      return winnnerTeamData.teams?.[index]?.teamName === teamName
+        ? winnnerTeamData.teams?.[index]?.prizeTitle
+        : '';
     }
   };
 
@@ -63,6 +85,7 @@ const postWinners = () => {
 
   useEffect(() => {
     getAllTeams();
+    getWinningTeams();
   }, []);
 
   useEffect(() => {
@@ -104,7 +127,6 @@ const postWinners = () => {
     }));
   };
 
-  console.log(formData);
   return (
     <div className={styles.main_container} id="mainLayoutContainerInner">
       <div className={styles.inner_main_container}>
@@ -130,15 +152,17 @@ const postWinners = () => {
               </TableHeader>
 
               <TableBody className={styles.postWinnerTbody}>
-                {roomUsers?.map((team: { teamName: string }) => {
+                {roomUsers?.map((team: { teamName: string }, index: number) => {
                   const { teamName } = team;
                   return (
                     <TableRow className={styles.table_row_winner}>
                       <td className={styles.table_data}> {teamName}</td>
+                      {}
                       {rowData.map((td) => (
                         <td className={styles.table_data}>
                           <input
                             type="radio"
+                            checked={getWinnerPostData(index, teamName) === td.key ? true : false}
                             value={td.value}
                             name={td.name}
                             className={styles.checkbox_round}

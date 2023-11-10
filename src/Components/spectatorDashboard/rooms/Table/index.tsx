@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from '@/styles/Spectator.module.scss';
 //@ts-ignore
 import { Table, TableBody, TableCell } from 'technogetic-iron-smart-ui';
@@ -6,25 +6,18 @@ import { Table, TableBody, TableCell } from 'technogetic-iron-smart-ui';
 import { TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
 import { formatDate, formatTime } from '@/Components/CommonComponent/moment';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { specRoomColumns } from '@/utils/constant';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
 import DeleteSpectatorModal from '@/Components/spectatorDashboard/rooms/DeleteSpectatorModal';
 import { setItemToLS } from '@/utils/globalfunctions';
+import { GiPodiumWinner } from 'react-icons/gi';
+import Link from 'next/link';
 
 const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSpectator }) => {
-  const router: AppRouterInstance = useRouter();
-  const [isWinner, setIsWinnder] = useState<boolean>(true);
+  // const router: AppRouterInstance = useRouter();
 
-  const handleRedirectPostWinner = (id: string, roomUuid: string) => {
+  const handleRoomID = (id: string, roomUuid: string) => {
     setItemToLS('roomId', id);
     setItemToLS('roomUuid', roomUuid);
-    router.push('/spectatorDashboard/Postwinners');
-  };
-
-  const handleEditMatch = (id: string) => {
-    setItemToLS('roomId', id);
-    router.push('/spectatorDashboard/Matchhistory');
   };
 
   return (
@@ -74,15 +67,36 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
                 <Image src="assests/update.svg" alt="Image" width={22} height={14} />
               </div>
             </TableCell>
-            <TableCell onClick={() => setIsWinnder(!isWinner)} className={styles.winnder_btn}>
-              {isWinner ? (
-                <div onClick={() => handleRedirectPostWinner(spec._id, spec.roomUuid)}>
-                  <Image src="assests/add.svg" alt="Image" width={22} height={22} />
-                </div>
+            <TableCell className={styles.winnder_btn}>
+              {!spec.winnerUuid ? (
+                <Link href={'/spectatorDashboard/Postwinners'}>
+                  <div onClick={() => handleRoomID(spec._id, spec.roomUuid)}>
+                    <Image src="assests/add.svg" alt="Image" width={22} height={22} />
+                  </div>
+                </Link>
               ) : (
-                <span className={styles.edit_btn} onClick={() => handleEditMatch(spec._id)}>
-                  Edit
-                </span>
+                <Link href={'/spectatorDashboard/Postwinners'}>
+                  <span
+                    className={styles.edit_btn}
+                    onClick={() => handleRoomID(spec._id, spec.roomUuid)}
+                  >
+                    Edit
+                  </span>
+                </Link>
+              )}
+            </TableCell>
+            <TableCell className={styles.tb_cell_action}>
+              {spec.winnerUuid ? (
+                <Link href="/spectatorDashboard/Matchhistory">
+                  <span
+                    onClick={() => handleRoomID(spec._id, spec.roomUuid)}
+                    className={styles.winnder_btn}
+                  >
+                    <GiPodiumWinner className={styles.winner} />
+                  </span>
+                </Link>
+              ) : (
+                <span className={styles.noInfoBtn}>NA</span>
               )}
             </TableCell>
           </TableRow>

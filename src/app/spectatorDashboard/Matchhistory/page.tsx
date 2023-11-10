@@ -1,108 +1,97 @@
 'use client';
-import React from 'react'
-import styles from '@/styles/Spectator.module.scss';
+import React, { useEffect, useState } from 'react';
+import styles from '@/styles/matchHistory.module.scss';
 import { Navbar } from '@/Components/Navbar/Navbar';
 import Image from 'next/image';
-
+import { sendRequest } from '@/utils/axiosInstanse';
+import { toast } from 'react-toastify';
+import { getItemFromLS } from '@/utils/globalfunctions';
+import { GameRoomType } from '@/types/roomsTypes';
 
 const matchHistory = () => {
+  const roomUuid = getItemFromLS('roomUuid');
+  const [winnnerTeamData, setWinnnerTeamData] = useState<GameRoomType | null>(null);
 
-    return (
-        <div className={styles.main_container} id="mainLayoutContainerInner">
-            <div className={styles.inner_main_container}>
-                <div className={styles.sidebar_wrapper}>
-                    <Navbar />
-                    <div className={styles.inner_specter_cls}>
-                        <h1 className={styles.r_main_title}>Match History</h1>
+  const getWinningTeams = async () => {
+    try {
+      const roomTeamsGet = await sendRequest(`/winners/get-players/${roomUuid}`);
+      setWinnnerTeamData(roomTeamsGet?.data);
+    } catch (error) {
+      toast.error('something went wrong');
+    }
+  };
+
+  useEffect(() => {
+    getWinningTeams();
+  }, []);
+
+  let gameName = '',
+    gameType = '',
+    mapType = '';
+
+  if (winnnerTeamData) {
+    ({ gameName, gameType, mapType } = winnnerTeamData.room);
+  }
+
+  return (
+    <div className={styles.main_container} id="mainLayoutContainerInner">
+      <div className={styles.inner_main_container}>
+        <div className={styles.sidebar_wrapper}>
+          <Navbar />
+          <div className={styles.inner_specter_cls}>
+            <h1 className={styles.r_main_title}>Match History</h1>
+          </div>
+          <div className={styles.winner_container}>
+            {winnnerTeamData &&
+              winnnerTeamData?.teams.map((team) => (
+                <div className={styles.winner_card}>
+                  <div className={styles.timingStyle}>
+                    <span>Fri, 29 Oct</span>
+                    <span>5:00 PM</span>
+                  </div>
+                  <div className={styles.cardContent}>
+                    <div className={styles.prizepool}>
+                      <Image src="/assests/trophie.svg" alt="Image" width={22} height={22} />
+                      <p>
+                        <li>Prize Pool</li>:
+                        <strong className={styles.winnerBold}> {team.prizeTitle}</strong>
+                      </p>
                     </div>
-                    <div className={styles.match_details}>
-                        <div className={styles.match_details1}>
-                            <div className={styles.flex}>
-                                <span className={styles.date}>Fri, 29 Oct</span>
-                                <span className={styles.time}>5:00 PM</span>
-                            </div>
-                            <div className={styles.col}>
-                                <div className={styles.row}>
-                                    <Image src="/assests/trophie.svg" alt="Image" width={22} height={22} />
-                                    <span>Prize Pool : Chicken Dinner</span>
-                                </div>
-                                <span>Match Name : BGMI</span>
-                                <span>Match Type : Squad</span>
-                                <span>Team Name  : Rockers</span>
-                                <div className={styles.flex_row}>
-                                    <span>Map Name : Squad</span>
-                                    <Image src="/assests/team members.svg" alt="Image" width={20} height={20} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.match_details2}>
-                            <div className={styles.flex}>
-                                <span className={styles.date}>Fri, 29 Oct</span>
-                                <span className={styles.time}>5:00 PM</span>
-                            </div>
-                            <div className={styles.col}>
-                                <div className={styles.row}>
-                                    <Image src="/assests/trophie.svg" alt="Image" width={22} height={22} />
-                                    <span>Prize Pool : Highest Kill</span>
-                                </div>
-                                <span>Match Name : BGMI</span>
-                                <span>Match Type : Squad</span>
-                                <span>Team Name  : Ro@#dsrs</span>
-                                <div className={styles.flex_row}>
-                                    <span>Map Name : Squad</span>
-                                    <Image src="/assests/team members.svg" alt="Image" width={20} height={20} />
-                                </div>
-                            </div>
-                        </div>
+                    <p>
+                      <span> Match Name</span>: <strong>{gameName}</strong>
+                    </p>
+                    <p>
+                      <span>Match Type</span>: <strong> {gameType}</strong>
+                    </p>
+                    <p>
+                      <span>Team Name</span>: <strong>{team.teamName}</strong>
+                    </p>
+                    <div className={`${styles.flex_row} ${styles.mapNameStyle}`}>
+                      <p>
+                        <span> Map Name</span>: <strong>{mapType}</strong>
+                      </p>
+                      <div className={styles.usersImg}>
+                        {team?.teamMembers?.map((e) => (
+                          <img
+                            className={styles.img1}
+                            src={`${e?.profilePic}` || '/assests/avatar.png'}
+                            alt="img"
+                          />
+                        ))}
+                        {/* <img className={`${styles.img1}`} src="/assests/avatar.png" alt="img" /> */}
+                        <img className={styles.img2} src="/assests/avatar.png" alt="img" />
+                        <img className={styles.img3} src="/assests/avatar.png" alt="img" />
+                        <img className={styles.img4} src="/assests/avatar.png" alt="img" />
+                      </div>
                     </div>
-                    <div className={styles.match_details}>
-                        <div className={styles.match_details1}>
-                            <div className={styles.flex}>
-                                <span className={styles.date}>Fri, 29 Oct</span>
-                                <span className={styles.time}>5:00 PM</span>
-                            </div>
-                            <div className={styles.col}>
-                                <div className={styles.row}>
-                                    <Image src="/assests/trophie.svg" alt="Image" width={22} height={22} />
-                                    <span>Prize Pool : 2nd Winner</span>
-                                </div>
-                                <span>Match Name : BGMI</span>
-                                <span>Match Type : Squad</span>
-                                <span>Team Name  : hary%5%rs</span>
-                                <div className={styles.flex_row}>
-                                    <span>Map Name : Squad</span>
-                                    <Image src="/assests/team members.svg" alt="Image" width={20} height={20} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.match_details2}>
-                            <div className={styles.flex}>
-                                <span className={styles.date}>Fri, 29 Oct</span>
-                                <span className={styles.time}>5:00 PM</span>
-                            </div>
-                            <div className={styles.col}>
-                                <div className={styles.row}>
-                                    <Image src="/assests/trophie.svg" alt="Image" width={22} height={22} />
-                                    <span>Prize Pool : 3rd Winner</span>
-                                </div>
-                                <span>Match Name : BGMI </span>
-                                <span>Match Type : Squad</span>
-                                <span>Team Name  : gkh887</span>
-                                <div className={styles.flex_row}>
-                                    <span>Map Name : Squad</span>
-                                    <Image src="/assests/team members.svg" alt="Image" width={30} height={50} />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-            </div>
+              ))}
+          </div>
         </div>
-    )
-
+      </div>
+    </div>
+  );
 };
 
 export default matchHistory;
-
-
-

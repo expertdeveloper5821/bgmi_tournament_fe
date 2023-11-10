@@ -6,13 +6,13 @@ import { sendRequest } from '@/utils/axiosInstanse';
 import RoomTable from '@/Components/spectatorDashboard/rooms/Table';
 import { SpectatorRoomDataType } from '@/types/roomsTypes';
 import CreateRoomForm from '@/Components/spectatorDashboard/rooms/RoomForm';
-import LoaderSm from '@/Components/CommonComponent/LoaderSm';
 import { toast } from 'react-toastify';
+import Loader from '@/Components/CommonComponent/Loader/Loader';
 
 function spectatorDashboard() {
   const [showModal, setShowModal] = useState(false);
   const [roomIdToUpdate, setRoomIdToUpdate] = useState({});
-  const [spect, setSpect] = useState<null | SpectatorRoomDataType[]>(null);
+  const [spect, setSpect] = useState<SpectatorRoomDataType[] | null>(null);
 
   const getAllSpectator = async () => {
     const spectatorResponse = await sendRequest('room/user-rooms');
@@ -44,7 +44,7 @@ function spectatorDashboard() {
             </div>
             <div>
               {!spect ? (
-                <LoaderSm />
+                <Loader />
               ) : (
                 <RoomTable
                   Spect={spect}

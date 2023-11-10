@@ -282,6 +282,10 @@ button#btn_cls_st {
   width: 100%;
 }
 
+.winnerBtn {
+  background-color: transparent;
+}
+
 //new tabel code
 .table_content {
   border: none;
@@ -306,6 +310,7 @@ button#btn_cls_st {
 .table_head_sectat {
   @include tableheader;
   height: 47px;
+  padding: 6px;
 
   div {
     font-weight: 700 !important;
@@ -365,14 +370,29 @@ button#btn_cls_st {
 
 .winnder_btn {
   text-align: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: none;
+  padding: 5px 10px;
+
+  .winner {
+    font-size: 2rem;
+  }
 }
 
 .edit_btn {
   color: #ff7a00;
   font-weight: 700;
+  cursor: pointer;
+}
+
+.noInfoBtn {
+  cursor: pointer;
+
 }
 
 .table_row_winner {
+  @include tdbody;
 
   .table_data {
     text-align: center;
