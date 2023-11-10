@@ -108,6 +108,18 @@
   display: flex;
   justify-content: space-between;
   padding: 4px 26px;
+
+  @media (max-width: $breakpoint-xSmall) {
+    gap: 12px;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    gap: 12px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    gap: 12px;
+  }
 }
 
 .main_form_btn {
@@ -612,21 +624,25 @@ button#btn_cls_st {
 
 .upload_button {
   // border: 1px solid red;
+  cursor: pointer;
   text-align: center;
   margin-right: 20px;
   border-radius: 4px;
   padding: 8px 40px;
   background-color: #ff7a00;
   @media (max-width: $breakpoint-ms) {
-    padding: 6px 24px;
+    padding: 4px 12px;
+    margin-right: 0px;
   }
 
   @media (max-width: $breakpoint-md) {
-    padding: 6px 24px;
+    padding: 4px 12px;
+    margin-right: 0px;
   }
 
   @media (max-width: $breakpoint-sm) {
-    padding: 6px 24px;
+    padding: 4px 12px;
+    margin-right: 0px;
   }
 }
 
@@ -1064,4 +1080,46 @@ button#btn_cls_st {
   cursor: pointer;
   padding: 5px;
   background-color: transparent;
+}
+
+.table_data {
+  text-align: center;
+  padding: 8px 16px;
+  @media (max-width: $breakpoint-ms) {
+    font-size: 10px;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    font-size: 10px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 10px;
+  }
+}
+
+.table_data_color {
+  text-align: center;
+  color: #ff7a00;
+  @media (max-width: $breakpoint-ms) {
+    font-size: 10px;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    font-size: 10px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 10px;
+  }
+}
+
+.sort {
+  color: #ff7a00;
+  background-color: transparent;
+  border: 1px solid #ff7a00;
+}
+
+.popdown {
+  margin-top: 40px;
 }

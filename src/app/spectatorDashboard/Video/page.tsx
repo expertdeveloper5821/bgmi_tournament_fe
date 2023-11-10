@@ -2,7 +2,7 @@
 import React from 'react';
 import styles from '@/styles/Spectator.module.scss';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
-import { Table, TableBody, TableCell, Button } from 'technogetic-iron-smart-ui';
+import { Table, TableBody, TableCell, Button, Select } from 'technogetic-iron-smart-ui';
 import { TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 
@@ -54,13 +54,28 @@ const Video = () => {
                     <Navbar />
                     <div className={styles.inner_specter_cls}>
                         <h1 className={styles.r_main_title}>Your Videos</h1>
-                        <Button
-                            className={styles.upload_button}
-                            onClick={() => { }}
-                            type="file"
-                            varient="contained"
-                            text="Upload Video"
-                        />
+                        <div style={{ display: "flex", gap: "20px" }}>
+                            <Select
+                                onChange={function noRefCheck() { }}
+                                option={[
+                                    'Status Timeline',
+                                    'Match Type',
+                                    'Date'
+                                ]}
+                                placeholder="Sort By"
+                                className={styles.sort}
+                                optionClassName={styles.popdown}
+                            />
+
+
+                            <Button
+                                className={styles.upload_button}
+                                onClick={() => { }}
+                                type="file"
+                                varient="contained"
+                                text="Upload Video"
+                            />
+                        </div>
                     </div>
                     <div>
                         <Table className={styles.table_content}>
@@ -80,9 +95,9 @@ const Video = () => {
                                             <Image src={video.imageSrc} className={styles.video_card} alt="Image" width={120} height={75} />
                                         </TableCell>
                                         <TableCell className={styles.table_data}>{video.title}</TableCell>
-                                        <TableCell className={styles.table_data}>{video.matchType}</TableCell>
-                                        <TableCell className={styles.table_data}>{video.date}</TableCell>
-                                        <TableCell className={styles.table_data}>{video.time}</TableCell>
+                                        <TableCell className={styles.table_data_color}>{video.matchType}</TableCell>
+                                        <TableCell className={styles.table_data_color}>{video.date}</TableCell>
+                                        <TableCell className={styles.table_data_color}>{video.time}</TableCell>
                                         <TableCell className={styles.table_data}>
                                             <span className={styles.gap}>
                                                 <Image src="/assests/update.svg" alt="Image" width={12} height={12} />
