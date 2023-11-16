@@ -11,10 +11,10 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   function (error) {
-    if (error.response.status === 401 && window.location.pathname !== '/auth/login') {
+    if (error.response.status === 401) {
       // logout if 401 token expire
       toast.error('Session expired');
-      localStorage.clear();
+      localStorage && localStorage.clear();
       window.location.href = '/';
     }
     return Promise.reject(error);
@@ -30,10 +30,10 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   function (error) {
-    if (error.response.status === 401 && window.location.pathname !== '/auth/login') {
+    if (error.response.status === 401) {
       // logout if 401 token expire
       toast.error('Session expired');
-      localStorage.clear();
+      localStorage && localStorage.clear();
       window.location.href = '/';
     }
     return Promise.reject(error);

@@ -16,7 +16,9 @@ class ErrorBoundary extends Component {
   }
 
   handleBack = () => {
-    window.location.href = '/';
+    if (typeof window !== 'undefined' && window.location && window.location.href) {
+      window.location.href = '/';
+    }
   };
   render() {
     if (this.state.hasError) {

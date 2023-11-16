@@ -19,8 +19,14 @@ const Friend = () => {
   const [query, setQuery] = useState<string>('');
   const [userMail, setUserMail] = useState<string>('');
   const [newTeamName, setNewTeamName] = useState<string>('');
-  const token = localStorage.getItem('jwtToken') || '';
-  const { teamName } = decodeJWt(token)!;
+  let token: null | string = null;
+  if (typeof window !== 'undefined') {
+    token = window?.localStorage.getItem('jwtToken') || '';
+  }
+  let DecodedToken;
+  if (token) {
+    DecodedToken = decodeJWt(token);
+  }
 
   const handleModal = (value: boolean) => {
     setOpen(value);
@@ -80,7 +86,7 @@ const Friend = () => {
     try {
       setForwardModal(true);
       const userData = {
-        teamName: teamName || newTeamName,
+        teamName: DecodedToken.teamName || newTeamName,
         emails: emailList,
       };
       const response = await sendRequest('/user/send-invite', {
@@ -94,14 +100,18 @@ const Friend = () => {
         setForwardModal(false);
         toast.success(response.data.message);
         setTimeout(() => {
-          window?.location?.reload();
+          // if (typeof window !== 'undefined') {
+          //   window?.location?.reload();
+          // }
         }, 2000);
       }
     } catch (error) {
       setEmailList([]);
       setMessage(error.response.data.message);
       setTimeout(() => {
-        window?.location?.reload();
+        // if (typeof window !== 'undefined') {
+        //   window?.location?.reload();
+        // }
       }, 2000);
     }
   };
@@ -241,7 +251,7 @@ const Friend = () => {
                 <h1> {`<`} Invite your friends</h1>
               </div>
               <div className={styles.forwardModalbody}>
-                {!teamName && (
+                {!DecodedToken.teamName && (
                   <label>
                     Enter you team name
                     <input
