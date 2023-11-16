@@ -53,7 +53,7 @@ const Video = () => {
                 <div className={styles.sidebar_wrapper}>
                     <Navbar />
                     <div className={styles.inner_specter_cls}>
-                        <h1 className={styles.r_main_title}>Your Videos</h1>
+                        <h1 className={styles.title_video}>Your Videos</h1>
                         <div style={{ display: "flex", gap: "20px" }}>
                             <Select
                                 onChange={function noRefCheck() { }}

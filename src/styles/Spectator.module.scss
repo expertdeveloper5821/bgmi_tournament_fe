@@ -1123,3 +1123,23 @@ button#btn_cls_st {
 .popdown {
   margin-top: 40px;
 }
+
+.title_video {
+  color: aliceblue;
+  font-size: 30px;
+  font-weight: 700;
+  font-family: Century Gothic;
+  line-height: 36.78px;
+
+  @media (max-width: $breakpoint-xSmall) {
+    font-size: 9px;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    font-size: 9px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 9px;
+  }
+}
