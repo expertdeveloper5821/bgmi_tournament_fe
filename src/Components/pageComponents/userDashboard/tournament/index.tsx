@@ -15,6 +15,7 @@ import Loading from '@/app/userDashboard/loading';
 import styles from '@/styles/Dashboard.module.scss';
 import { ITournament } from '@/redux/types';
 import { toast } from 'react-toastify';
+import { decodeJWt } from '@/utils/globalfunctions';
 
 function Tournament() {
   const {
@@ -34,7 +35,7 @@ function Tournament() {
   }, []);
 
   const addRegMatch = async (match: ITournament) => {
-    const userData = JSON.parse(localStorage.getItem('userData')!);
+    const userData = decodeJWt(localStorage.getItem('jwtToken')!);
     const data: {
       upiId: string;
       matchAmount: number;
@@ -44,7 +45,7 @@ function Tournament() {
     } = {
       upiId: 'success@payment',
       matchAmount: 60,
-      name: userData.fullName,
+      name: userData?.fullName as string,
       id: configData?.paymentID,
       roomid: match.roomUuid,
     };
