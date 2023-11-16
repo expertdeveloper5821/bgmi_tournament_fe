@@ -56,3 +56,9 @@ export interface FormValues {
   videoLink: string;
   dateAndTime: string;
 }
+
+export interface getVideo {
+  title: string;
+  mapImg: string;
+  dateAndTime: string;
+}

@@ -83,6 +83,23 @@ export const getAllUsersDataService = async (token: string) => {
   }
 };
 
+export const getAllVideo = async (token: string) => {
+  try {
+    const res = await sendRequest(`${serviceUrls.getAllVideo}`, {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (res.status === 200) {
+      return res.data.userVideos;
+    } else {
+      throw new Error('Failed to fetch videos');
+    }
+  } catch (error) {
+    throw new Error('Failed to fetch videos');
+  }
+};
+
 export const registerSpectatorService = async (data: RegisterSpectatorValuesType) => {
   try {
     const res = await sendRequest(`${serviceUrls.registerSpectator}`, {

@@ -1,12 +1,36 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
-import { Table, TableBody, TableCell, Button, Select } from 'technogetic-iron-smart-ui';
-import { TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
+import { Table, TableBody, TableCell, Button, Select, TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
+import { getAllVideo } from '@/services/authServices';
+import { getVideo } from '@/types/spectatorTypes';
+import { toast } from 'react-toastify';
+
 
 const Video = () => {
+    const [data, setData] = useState<getVideo[]>([]);
+
+    useEffect(() => {
+        const getAllVideos = async () => {
+            const token = localStorage.getItem('jwtToken') || '';
+            try {
+                const response = await getAllVideo(token);
+                setData(response || []);
+            } catch (error) {
+                toast.error('Failed to fetch videos');
+            }
+        };
+
+        getAllVideos();
+    }, []);
+
+
+
+
+
+
     const columns: string[] = [
         'Video',
         'Title',
@@ -14,37 +38,6 @@ const Video = () => {
         'Date',
         'Time',
         'Action',
-    ];
-
-    const videos = [
-        {
-            imageSrc: '/assests/videocardimage.svg',
-            title: 'BGMI Squad Match',
-            matchType: 'Squad',
-            date: '2 Oct 2023',
-            time: '11:00PM',
-        },
-        {
-            imageSrc: '/assests/videocardimage.svg',
-            title: 'BGMI Squad Match',
-            matchType: 'Squad',
-            date: '2 Oct 2023',
-            time: '11:00PM',
-        },
-        {
-            imageSrc: '/assests/videocardimage.svg',
-            title: 'BGMI Squad Match',
-            matchType: 'Squad',
-            date: '2 Oct 2023',
-            time: '11:00PM',
-        },
-        {
-            imageSrc: '/assests/videocardimage.svg',
-            title: 'BGMI Squad Match',
-            matchType: 'Squad',
-            date: '2 Oct 2023',
-            time: '11:00PM',
-        },
     ];
 
     return (
@@ -89,15 +82,15 @@ const Video = () => {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {videos.map((video, index) => (
+                                {data.map((video, index) => (
                                     <TableRow className={styles.table_row_cell} key={index}>
                                         <TableCell className={styles.table_data}>
-                                            <Image src={video.imageSrc} className={styles.video_card} alt="Image" width={120} height={75} />
+                                            <img src={video.mapImg ?? '--'} className={styles.video_card} alt="Image" width={120} height={75} />
                                         </TableCell>
-                                        <TableCell className={styles.table_data}>{video.title}</TableCell>
-                                        <TableCell className={styles.table_data_color}>{video.matchType}</TableCell>
-                                        <TableCell className={styles.table_data_color}>{video.date}</TableCell>
-                                        <TableCell className={styles.table_data_color}>{video.time}</TableCell>
+                                        <TableCell className={styles.table_data}>{video.title ?? '--'}</TableCell>
+                                        <TableCell className={styles.table_data_color}>Squad</TableCell>
+                                        <TableCell className={styles.table_data_color}>{video.dateAndTime ?? '--'}</TableCell>
+                                        {/* <TableCell className={styles.table_data_color}>{video.time}</TableCell> */}
                                         <TableCell className={styles.table_data}>
                                             <span className={styles.gap}>
                                                 <Image src="/assests/update.svg" alt="Image" width={12} height={12} />
