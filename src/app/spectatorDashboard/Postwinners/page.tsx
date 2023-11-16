@@ -35,10 +35,12 @@ const postWinners = () => {
   const [roomUsers, setRoomUsers] = useState<null | []>(null);
   const [winnnerTeamData, setWinnnerTeamData] = useState<null | GameRoomType>(null);
   const [formData, setFormData] = useState<winnerFormType | object>({});
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const getAllTeams = async () => {
     try {
       const roomTeamsGet = await sendRequest(`/room/getTeam/${roomID}`);
+      // console.log('roomTeamsGet', roomTeamsGet);
       setRoomUsers(roomTeamsGet?.data?.teams);
     } catch (error) {
       console.log('Error in get team data', error);
@@ -47,8 +49,9 @@ const postWinners = () => {
 
   const getWinningTeams = async () => {
     try {
-      const roomTeamsGet = await sendRequest(`/winners/get-players/${roomUuid}`);
-      setWinnnerTeamData(roomTeamsGet?.data);
+      const winnerTeamsResult = await sendRequest(`/winners/get-players/${roomUuid}`);
+      setWinnnerTeamData(winnerTeamsResult?.data);
+      // console.log('winnerTeamsResult', winnerTeamsResult);
       if (roomUsers?.length === 0) {
         toast.error('No team data found !');
       }
@@ -106,6 +109,7 @@ const postWinners = () => {
   }, [roomUsers]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, teamName: string) => {
+    setIsEdit(true);
     const { value, name } = e.target;
     const point = Number(value);
     roomUsers?.forEach(({ teamName }) => {
@@ -157,19 +161,30 @@ const postWinners = () => {
                   return (
                     <TableRow className={styles.table_row_winner}>
                       <td className={styles.table_data}> {teamName}</td>
-                      {}
-                      {rowData.map((td) => (
-                        <td className={styles.table_data}>
-                          <input
-                            type="radio"
-                            checked={getWinnerPostData(index, teamName) === td.key ? true : false}
-                            value={td.value}
-                            name={td.name}
-                            className={styles.checkbox_round}
-                            onChange={(e) => handleChange(e, teamName)}
-                          />
-                        </td>
-                      ))}
+                      {rowData.map((td) => {
+                        return isEdit ? (
+                          <td className={styles.table_data}>
+                            <input
+                              type="radio"
+                              value={td.value}
+                              name={td.name}
+                              className={styles.checkbox_round}
+                              onChange={(e) => handleChange(e, teamName)}
+                            />
+                          </td>
+                        ) : (
+                          <td className={styles.table_data}>
+                            <input
+                              type="radio"
+                              checked={getWinnerPostData(index, teamName) === td.key ? true : false}
+                              value={td.value}
+                              name={td.name}
+                              className={styles.checkbox_round}
+                              onChange={(e) => handleChange(e, teamName)}
+                            />
+                          </td>
+                        );
+                      })}
                     </TableRow>
                   );
                 })}
