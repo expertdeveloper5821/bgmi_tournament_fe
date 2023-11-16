@@ -36,6 +36,11 @@ function IsAuthenticatedHoc(props) {
         prevurl === 'personaldetails'
       ) {
         return <>{props.children}</>;
+      } else if (
+        decodedToken?.role?.role === 'spectator' &&
+        pathname === '/adminDashboard/spectator'
+      ) {
+        router.push('/auth/login');
       } else if (decodedToken?.role?.role === 'user' && !pathname.includes('userDashboard')) {
         router.push('/auth/login');
       } else if (decodedToken?.role?.role === 'admin' && !pathname.includes('adminDashboard')) {
