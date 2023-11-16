@@ -52,7 +52,6 @@ export const PersonalDetail = () => {
       formData.append('upiId', upi);
       formData.append('phoneNumber', whatsapp);
 
-      console.log('formData  ==>', formData);
       try {
         const response = await updateUserDetailsService({
           token,
