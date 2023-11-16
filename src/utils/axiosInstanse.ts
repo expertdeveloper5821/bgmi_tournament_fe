@@ -6,13 +6,12 @@ import { toast } from 'react-toastify';
 export const axiosInstance: AxiosInstance = axios.create({
   baseURL: `${configData.api.url}/api/${configData.api.ver}`,
 });
-
 axiosInstance.interceptors.response.use(
   function (response) {
     return response;
   },
   function (error) {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && window.location.pathname !== '/auth/login') {
       // logout if 401 token expire
       toast.error('Session expired');
       localStorage.clear();
@@ -31,7 +30,7 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   function (error) {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && window.location.pathname !== '/auth/login') {
       // logout if 401 token expire
       toast.error('Session expired');
       localStorage.clear();
