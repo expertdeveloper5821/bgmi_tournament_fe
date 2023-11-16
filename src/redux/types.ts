@@ -46,12 +46,11 @@ export interface IMatchData {
 export interface IUserDashboard {
   allRooms: [ITournament] | [];
   allRoomsLoading: boolean;
-  allRoomsError: null | string;
+  allRoomsError: null | string | undefined;
   regRooms: [ITournament] | [];
   regRoomsLoading: boolean;
   regRoomsError: string | unknown;
   joinMatchLoading: boolean;
-  joinMatchMessage: null | string;
   joinMatchError: null | string;
   matchData: IMatchData | Record<string, string>;
   matchDataLoading: boolean;

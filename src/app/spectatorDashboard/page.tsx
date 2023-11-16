@@ -6,6 +6,7 @@ import { sendRequest } from '@/utils/axiosInstanse';
 import RoomTable from '@/Components/spectatorDashboard/rooms/Table';
 import { SpectatorRoomDataType } from '@/types/roomsTypes';
 import CreateRoomForm from '@/Components/spectatorDashboard/rooms/RoomForm';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 
 function spectatorDashboard() {
   const [showModal, setShowModal] = useState(false);
@@ -24,34 +25,36 @@ function spectatorDashboard() {
   }, []);
 
   return (
-    <div className={styles.main_container} id="mainLayoutContainerInner">
-      <div className={styles.inner_main_container}>
-        <div className={styles.sidebar_wrapper}>
-          <Navbar />
-          <div>
-            <div className={styles.inner_specter_cls}>
-              <h1 className={styles.r_main_title}>Rooms</h1>
-              <CreateRoomForm
-                showModal={showModal}
-                setShowModal={setShowModal}
-                roomIdToUpdate={roomIdToUpdate}
-                setRoomIdToUpdate={setRoomIdToUpdate}
-                callSpecatator={() => getAllSpectator()}
-              />
-            </div>
+    <IsAuthenticatedHoc>
+      <div className={styles.main_container} id="mainLayoutContainerInner">
+        <div className={styles.inner_main_container}>
+          <div className={styles.sidebar_wrapper}>
+            <Navbar />
             <div>
-              <RoomTable
-                Spect={Spect}
-                showModal={showModal}
-                setShowModal={setShowModal}
-                setRoomIdToUpdate={setRoomIdToUpdate}
-                getAllSpectator={getAllSpectator}
-              />
+              <div className={styles.inner_specter_cls}>
+                <h1 className={styles.r_main_title}>Rooms</h1>
+                <CreateRoomForm
+                  showModal={showModal}
+                  setShowModal={setShowModal}
+                  roomIdToUpdate={roomIdToUpdate}
+                  setRoomIdToUpdate={setRoomIdToUpdate}
+                  callSpecatator={() => getAllSpectator()}
+                />
+              </div>
+              <div>
+                <RoomTable
+                  Spect={Spect}
+                  showModal={showModal}
+                  setShowModal={setShowModal}
+                  setRoomIdToUpdate={setRoomIdToUpdate}
+                  getAllSpectator={getAllSpectator}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </IsAuthenticatedHoc>
   );
 }
 

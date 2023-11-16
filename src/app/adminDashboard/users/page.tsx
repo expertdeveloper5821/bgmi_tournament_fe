@@ -5,17 +5,20 @@ import { Navbar } from '../../../Components/CommonComponent/Navbar/Navbar';
 import TableData from '@/Components/CommonComponent/Table/Table';
 //@ts-ignore
 import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
-import RequireAuthentication from '../../../utils/requireAuthentication';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
 import { toast } from 'react-toastify';
 import { deleteRoleService, getAllFilteredUsersListService } from '@/services/authServices';
 import { SpectatorDataType } from '@/types/spectatorTypes';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+import { adminUserColumns } from '@/utils/constant';
+import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
 
 function page() {
   const [wholeUserData, setWholeUserData] = useState<SpectatorDataType[] | []>([]);
   const [userData, setUserData] = useState<SpectatorDataType[] | []>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const columns: string[] = ['Full Name', 'User Name', 'Email'];
+  const [idToDelete, setIdToDelete] = useState<string>('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const fetchTournaments = async (searchVal: string) => {
     try {
@@ -31,7 +34,7 @@ function page() {
 
       setIsLoading(false);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error?.response?.data?.message);
       setIsLoading(false);
     }
   };
@@ -40,16 +43,18 @@ function page() {
     fetchTournaments('');
   }, []);
 
-  const deleteroomId = async (userUuid: string) => {
+  const deleteroom = async () => {
     setIsLoading(true);
     try {
       const token = localStorage.getItem('jwtToken') || '';
-      const response = await deleteRoleService({ userUuid, token });
+      const response = await deleteRoleService({ userUuid: idToDelete, token });
+      setIdToDelete('');
+      setIsDeleteModalOpen(false);
       fetchTournaments('');
       toast.success(response?.data?.message);
     } catch (error) {
       setIsLoading(false);
-      toast.error(error?.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -64,32 +69,43 @@ function page() {
     setUserData(filteredResults);
   };
 
+  const handleDeleteUser = (_id: string) => {
+    setIdToDelete(_id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIdToDelete('');
+    setIsDeleteModalOpen(false);
+  };
+
   return (
-    <>
-      <RequireAuthentication>
-        <div className={styles.main_container} id="mainLayoutContainerInner">
-          <div className={styles.abcd}>
-            <div className={styles.sidebar_wrapper}>
-              <Navbar />
-              <div className={styles.flex}>
-                <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
-                <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
-              </div>
-              {isLoading ? (
-                <Loader />
-              ) : (
-                <TableData
-                  deleteroom={deleteroomId}
-                  data={userData}
-                  columns={columns}
-                  type={'USERS'}
-                />
-              )}
+    <IsAuthenticatedHoc>
+      <div className={styles.main_container} id="mainLayoutContainerInner">
+        <div className={styles.abcd}>
+          <div className={styles.sidebar_wrapper}>
+            <Navbar />
+            <div className={styles.flex}>
+              <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+              <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
             </div>
+            {isDeleteModalOpen && (
+              <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
+            )}
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <TableData
+                deleteroom={handleDeleteUser}
+                data={userData}
+                columns={adminUserColumns}
+                type={'USERS'}
+              />
+            )}
           </div>
         </div>
-      </RequireAuthentication>
-    </>
+      </div>
+    </IsAuthenticatedHoc>
   );
 }
 

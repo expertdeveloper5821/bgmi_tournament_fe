@@ -35,7 +35,7 @@ export interface TableDataType {
 export interface TablePropsType {
   data?: TableDataType[];
   columns?: string[];
-  deleteroom?: (_id: string | undefined) => Promise<void>;
+  deleteroom?: (_id: string | undefined) => void;
   type?: string;
-  handleEdit?: (spectatorData: SpectatorEditDataType | undefined) => void;
+  handleEdit?: (spectatorData: SpectatorEditDataType) => void;
 }

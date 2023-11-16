@@ -1,12 +1,14 @@
 'use client';
-import AuthContainer from '@/Components/pageComponents/auth/authContainer';
-import SignupForm from '@/Components/pageComponents/auth/signup';
+import AuthHoc from '@/Components/HOC/AuthHoc';
 import React from 'react';
+import { SignupForm } from '@/Components/Forms/AuthForms/SignUpForm';
 
-const Signup = () => (
-  <AuthContainer>
-    <SignupForm />
-  </AuthContainer>
-);
+function Signup() {
+  return (
+    <AuthHoc heading={'Create Account'} subheading={'Create account! Please enter your details'}>
+      <SignupForm />
+    </AuthHoc>
+  );
+}
 
 export default Signup;
