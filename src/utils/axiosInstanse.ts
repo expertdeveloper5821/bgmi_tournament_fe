@@ -76,26 +76,3 @@ export async function sendRequest(
   }
   return response;
 }
-
-// export async function sendRequest2(path: string, opts: AxiosRequestConfig = {}) {
-//   const headers = {
-//     ...opts?.headers,
-//     'Content-Type': 'application/json; charset=UTF-8',
-//   };
-//   if (opts.headers && opts.headers['Content-Type']) {
-//     headers['Content-Type'] = opts.headers['Content-Type'];
-//   }
-//   const token: string | null = localStorage.getItem('jwtToken');
-//   if (token) {
-//     headers['Authorization'] = `Bearer ${token}`;
-//   }
-
-//   const response = await axiosInstance2({
-//     method: opts.method,
-//     url: path,
-//     data: opts.data,
-//     headers: headers,
-//   });
-
-//   return response;
-// }
