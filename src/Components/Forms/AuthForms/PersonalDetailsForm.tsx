@@ -77,29 +77,44 @@ export const PersonalDetail = () => {
   });
 
   return (
-    <div>
+    <>
       {error && <div className={styles.error}>{error}</div>}
-      <form className={styles.form}>
+      <form>
         <div className={styles.profile_sec}>
           {image ? (
-            <img
-              src={URL.createObjectURL(image)}
-              alt="profile"
-              style={{ width: 100, height: 100, borderRadius: '50%' }}
-            />
+            <div className={styles.editImageWrapper}>
+              <img
+                src={URL.createObjectURL(image)}
+                alt="profile"
+                style={{ width: 100, height: 100, borderRadius: '50%' }}
+              />
+              <div
+                className={styles.editBtn}
+                onClick={handleEditIconClick}
+                style={{ cursor: 'pointer' }}
+              >
+                <Image src="/assests/edit.svg" alt="fullname" width={30} height={30} />
+              </div>
+            </div>
           ) : (
-            <Image src="/assests/profilePik.png" alt="profile" width={100} height={100} />
+            <div className={styles.editImageWrapper}>
+              <Image src="/assests/profilePik.png" alt="profile" width={100} height={100} />
+              <div
+                className={styles.editBtn}
+                onClick={handleEditIconClick}
+                style={{ cursor: 'pointer' }}
+              >
+                <Image src="/assests/edit.svg" alt="fullname" width={30} height={30} />
+              </div>
+            </div>
           )}
 
           <div className={styles.right}>
             <h2 className={styles.upload}>Upload Profile Picture</h2>
-            <p className={styles.upload}>(Optional)</p>
+            <p className={styles.uploadOptional}>(Optional)</p>
           </div>
         </div>
 
-        <div className={styles.editBtn} onClick={handleEditIconClick} style={{ cursor: 'pointer' }}>
-          <Image src="/assests/edit.svg" alt="fullname" width={30} height={30} />
-        </div>
         <input
           ref={fileInputRef}
           type="file"
@@ -165,10 +180,10 @@ export const PersonalDetail = () => {
         {errors.whatsapp && touched.whatsapp && (
           <div className={styles.error}>{errors.whatsapp}</div>
         )}
+        <Button className={styles.google_btn} type="submit" onClick={handleSubmit}>
+          {isLoading ? 'Loading...' : <span>Next</span>}
+        </Button>
       </form>
-      <Button className={styles.google_btn} type="submit" onClick={handleSubmit}>
-        {isLoading ? 'Loading...' : <span>Next</span>}
-      </Button>
-    </div>
+    </>
   );
 };

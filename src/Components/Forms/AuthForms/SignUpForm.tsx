@@ -92,7 +92,7 @@ export const SignupForm = () => {
           type="email"
           name="email"
           autoComplete="off"
-          placeholder="Email ID"
+          placeholder="Email Id"
           value={values.email}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -126,7 +126,7 @@ export const SignupForm = () => {
           type="submit"
           onClick={handleSubmit}
         >
-          {isSubmitting ? 'Loading...' : 'Next'}
+          {isSubmitting ? 'Loading...' : 'Signup'}
         </Button>
       </div>
 

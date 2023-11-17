@@ -132,7 +132,7 @@ export const TeamsDetailsForm = () => {
             name="emails"
             className={`${styles.email_wrapper} ${styles.multiple_emails_input}`}
             value={inputValue}
-            placeholder="Enter email press enter and send invitation"
+            placeholder="Invite Friends Via Mail (Optional)"
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
           />
@@ -171,7 +171,7 @@ export const TeamsDetailsForm = () => {
             router.push('/userDashboard');
           }}
         >
-          <span className={styles.nextArrow}>Skip</span>
+          <span className={styles.skipButton}>Skip</span>
         </Button>
       </form>
     </>

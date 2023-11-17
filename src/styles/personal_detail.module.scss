@@ -5,9 +5,10 @@
   margin-bottom: 30px;
 }
 .profile_sec {
-  position: relative;
+  // position: relative;
+  align-self: flex-start;
   display: flex;
-  gap: 30px;
+  gap: 17px;
   align-items: center;
   margin-bottom: 1rem;
   font-family: Century Gothic;
@@ -25,6 +26,19 @@
     font-weight: bold;
     color: #003554;
   }
+
+  .uploadOptional{
+    font-weight: bold;
+    color: #777777;
+  }
+
+  .editImageWrapper{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: self-end;
+  }
 }
 
 .input_box {
@@ -38,13 +52,17 @@
 .email_wrapper {
   @include email_wrapper;
 }
+
 .editBtn {
   position: absolute;
-  bottom: 20rem;
-  left: 5.3rem;
 }
+
 .nextArrow {
   margin-right: 5px;
+}
+.skipButton {
+  color: #003554;
+  font-weight: 700;
 }
 .flexGap {
   display: flex;
@@ -65,7 +83,7 @@
 }
 
 .google_btn {
-  width: 320px;
+  width: 100%;
   height: 2.5rem;
   border-radius: 5px;
   border: none;
@@ -75,14 +93,14 @@
   box-shadow: 0px 0px 8px grey;
   font-size: 16px;
   font-weight: 500;
-  margin: 0 0 20px 0;
+  margin-top: 40px;
 
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-}
+} 
 
 @media (max-width: $breakpoint-xs) {
   .google_btn {
