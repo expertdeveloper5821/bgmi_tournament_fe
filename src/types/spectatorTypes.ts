@@ -5,8 +5,8 @@ export interface Role {
 
 export interface RoleType {
   role: string;
-  userUuid: string;
-  _id: string;
+  userUuid: string | undefined;
+  _id: string | undefined;
 }
 export interface FormDataType {
   fullName?: string;

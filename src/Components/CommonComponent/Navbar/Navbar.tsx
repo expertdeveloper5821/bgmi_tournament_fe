@@ -5,42 +5,35 @@ import { useRouter } from 'next/navigation';
 // @ts-ignore
 import { Avatar, Popover } from 'technogetic-iron-smart-ui';
 import { decodeJWt } from '@/utils/globalfunctions';
-
-// interface INavbar {
-//   setUserName?: Dispatch<SetStateAction<string>>;
-// }
+import { useUserContext } from '@/utils/contextProvider';
+import { toast } from 'react-toastify';
 
 export function Navbar() {
-  // const [, setIsOpen] = useState(false);
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
-  // const [, setIsLoading] = useState<boolean>(false);
-  // const [, setError] = useState<string>('');
-  const [userData, setUserData] = useState<string>('');
-  const [nameData, setNameData] = useState<string>('');
+  const [userData, setUserData] = useState<string | undefined>('');
+  const [nameData, setNameData] = useState<string | undefined>('');
   const [initialsName, setInitialsName] = useState<string>('');
   const [pofile, setPofile] = useState<string | undefined>('');
+  const { triggerHandleLogout } = useUserContext();
 
-  // function handleClosePopover() {
-  //   setIsOpen(false);
-  // }
   const router = useRouter();
 
   const handleLogout = async () => {
     try {
-      localStorage.clear();
-      router.push('/');
+      localStorage.removeItem('jwtToken');
+      localStorage.removeItem('expirationTime');
+      triggerHandleLogout();
+      router.push('/auth/login');
     } catch (error) {
-      // setIsLoading(false);
-      // setError('Logout failed');
+      toast.error(error.message);
     }
   };
 
   const getAlldata = async () => {
     const userData = decodeJWt(localStorage.getItem('jwtToken')!);
-    // const userData: any = jwtDecode(localStorage.getItem('jwtToken'));
 
-    setUserData(userData.email);
-    setNameData(userData.fullName);
+    setUserData(userData?.email);
+    setNameData(userData?.fullName);
     let initials = '';
     userData?.fullName?.split(' ')?.forEach((initial) => {
       if (initials.length > 0) {
@@ -56,6 +49,7 @@ export function Navbar() {
   useEffect(() => {
     getAlldata();
   }, []);
+
   return (
     <header>
       <nav className={styles.container}>

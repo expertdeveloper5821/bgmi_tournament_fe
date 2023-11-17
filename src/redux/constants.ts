@@ -41,7 +41,6 @@ export const userDashboardInitialState: IUserDashboard = {
   regRoomsLoading: false,
   regRoomsError: null,
   joinMatchLoading: false,
-  joinMatchMessage: null,
   joinMatchError: null,
   matchData: matchDataInitialState,
   matchDataLoading: false,

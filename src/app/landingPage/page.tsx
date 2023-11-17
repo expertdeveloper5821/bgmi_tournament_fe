@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/landingpage.module.scss';
-// import useWindowSize from '@/hooks/useWindowSize';
 import NavBar from './navBar/page';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
@@ -42,7 +41,6 @@ const page = () => {
     setId(id);
   };
 
-  // const [width] = useWindowSize();
   useEffect(() => {
     const fetchData = async () => {
       const response = await sendRequest(`room/rooms`, {
@@ -82,11 +80,6 @@ const page = () => {
       'Dive into intense BGMI battles, showcase your skills, and climb the leaderboard to win cash rewards',
     );
   };
-  // const handleButtonHover3 = () => {
-  //   setContent(
-  //     'Create your free account in just a few simple steps and join our ever-growing gaming community',
-  //   );
-  // };
 
   return (
     <div className={styles.bodycolor}>

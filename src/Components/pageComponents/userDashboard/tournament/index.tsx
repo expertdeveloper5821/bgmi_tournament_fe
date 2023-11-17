@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect } from 'react';
 import { Button } from 'technogetic-iron-smart-ui';
-import { toast } from 'react-toastify';
 import { HiRefresh } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { configData } from '@/utils/config';
@@ -15,7 +14,8 @@ import RegisteredMatchSlider from '@/Components/CommonComponent/Slider/Registere
 import Loading from '@/app/userDashboard/loading';
 import styles from '@/styles/Dashboard.module.scss';
 import { ITournament } from '@/redux/types';
-import { onResetJoinMessage } from '@/redux/slices/userDashboardSlice';
+import { toast } from 'react-toastify';
+import { decodeJWt } from '@/utils/globalfunctions';
 
 function Tournament() {
   const {
@@ -23,7 +23,6 @@ function Tournament() {
     regRooms,
     allRoomsLoading,
     regRoomsLoading,
-    joinMatchMessage,
     joinMatchLoading,
     selectedMatch: matchDetails,
   } = useSelector((state: RootState) => state.userDashboard);
@@ -35,17 +34,8 @@ function Tournament() {
     dispatch(getRegRooms());
   }, []);
 
-  useEffect(() => {
-    if (joinMatchMessage) {
-      toast.success(joinMatchMessage);
-      setTimeout(() => {
-        dispatch(onResetJoinMessage(''));
-      }, 2000);
-    }
-  }, [joinMatchMessage]);
-
   const addRegMatch = async (match: ITournament) => {
-    const userData = JSON.parse(localStorage.getItem('userData')!);
+    const userData = decodeJWt(localStorage.getItem('jwtToken')!);
     const data: {
       upiId: string;
       matchAmount: number;
@@ -55,13 +45,20 @@ function Tournament() {
     } = {
       upiId: 'success@payment',
       matchAmount: 60,
-      name: userData.fullName,
+      name: userData?.fullName as string,
       id: configData?.paymentID,
       roomid: match.roomUuid,
     };
-    dispatch(joinMatch(data)).then(() => {
-      dispatch(getAllRooms());
-      dispatch(getRegRooms());
+    dispatch(joinMatch(data)).then((res) => {
+      if (res.payload?._id) {
+        toast.success(res.payload?.message || 'Success');
+        dispatch(getAllRooms());
+        dispatch(getRegRooms());
+      } else {
+        toast.error(
+          res?.payload.response?.data?.message || 'Something went wrong, try again later!',
+        );
+      }
     });
   };
 

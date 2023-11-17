@@ -6,6 +6,24 @@ import { toast } from 'react-toastify';
 export const axiosInstance: AxiosInstance = axios.create({
   baseURL: `${configData.api.url}/api/${configData.api.ver}`,
 });
+axiosInstance.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    if (error.response.status === 401) {
+      // logout if 401 token expire
+      toast.error('Session expired');
+      localStorage && localStorage.clear();
+      window.location.href = '/';
+    }
+    return Promise.reject(error);
+  },
+);
+
+export const axiosInstance2: AxiosInstance = axios.create({
+  baseURL: `${configData.api.url}/`,
+});
 
 axiosInstance.interceptors.response.use(
   function (response) {
@@ -13,15 +31,20 @@ axiosInstance.interceptors.response.use(
   },
   function (error) {
     if (error.response.status === 401) {
-      //logout
-      localStorage.clear();
+      // logout if 401 token expire
+      toast.error('Session expired');
+      localStorage && localStorage.clear();
       window.location.href = '/';
     }
     return Promise.reject(error);
   },
 );
 
-export async function sendRequest(path: string, opts: AxiosRequestConfig = {}) {
+export async function sendRequest(
+  path: string,
+  opts: AxiosRequestConfig = {},
+  isVerify?: boolean | undefined,
+) {
   const headers = {
     ...opts?.headers,
     'Content-Type': 'application/json; charset=UTF-8',
@@ -34,16 +57,21 @@ export async function sendRequest(path: string, opts: AxiosRequestConfig = {}) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  try {
-    const response = await axiosInstance({
+  let response;
+  if (!isVerify) {
+    response = await axiosInstance({
       method: opts.method,
       url: path,
       data: opts.data,
       headers: headers,
     });
-    return response;
-  } catch (error) {
-    toast.error(error?.message || error?.response?.data?.message || 'Something went wrong');
-    throw new Error();
+  } else {
+    response = await axiosInstance2({
+      method: opts.method,
+      url: path,
+      data: opts.data,
+      headers: headers,
+    });
   }
+  return response;
 }

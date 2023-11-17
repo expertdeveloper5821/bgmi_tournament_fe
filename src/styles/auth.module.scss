@@ -71,6 +71,11 @@
   }
 }
 
+.subheading {
+  text-align: center;
+  color: #003556;
+}
+
 .email img,
 .password img {
   // margin: 0px 2px;
@@ -80,9 +85,7 @@
 
 .input_box {
   @include input_box;
-
   border-bottom: 2px solid white;
-
   @media (max-width: $breakpoint-xs) {
     width: 100%;
   }
@@ -219,4 +222,27 @@
 .checkbox_wrapper [type='checkbox'] {
   color-scheme: white;
   color: white;
+}
+
+.heading {
+  margin-top: 20px;
+  font-size: 2rem;
+  color: #003556;
+  font-weight: 700;
+}
+.SubHeading {
+  text-align: center;
+  color: #5c5c5c !important;
+  font-size: 16px;
+}
+.btnStyle {
+  color: #003556 !important;
+  border: 1px solid !important;
+  width: 330px;
+  margin-top: 10px;
+  background-color: transparent !important;
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
