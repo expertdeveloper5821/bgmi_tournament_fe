@@ -6,6 +6,7 @@ import { DeleteRoleValuesType, GetAllFilteredValuesType } from '@/types/usersTyp
 import { deleteRoomValuesType } from '@/types/roomsTypes';
 import { RoomData } from '@/Components/pageComponents/auth/authInterfaces';
 import { VideoFormValuesType } from '@/Components/pageComponents/auth/authInterfaces';
+// import { deleteVideoValuesType } from '@/types/roomsTypes';
 
 export const signUpService = async (data: SignupFormValuesType) => {
   try {
@@ -89,9 +90,8 @@ export const getAllVideo = async (token: string) => {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
     });
-
     if (res.status === 200) {
-      return res.data.userVideos;
+      return res.data.data;
     } else {
       throw new Error('Failed to fetch videos');
     }
@@ -157,6 +157,20 @@ export const deleteRoomService = async (data: deleteRoomValuesType) => {
     return error;
   }
 };
+
+// export const deleteVideoService = async (data: deleteVideoValuesType) => {
+//   try {
+//     const res = await sendRequest(`${serviceUrls.deleteVideo}/${data._id}`, {
+//       method: 'delete',
+//       headers: { Authorization: `Bearer ${data.token}` },
+//     });
+//     if (res.status === 200) {
+//       return res;
+//     } else throw Error();
+//   } catch (error) {
+//     return error;
+//   }
+// };
 
 export const getAllFilteredRoomsListService = async (data: GetAllFilteredValuesType) => {
   try {

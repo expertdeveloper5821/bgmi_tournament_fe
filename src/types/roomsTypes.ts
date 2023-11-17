@@ -27,6 +27,11 @@ export interface deleteRoomValuesType {
   token: string;
 }
 
+// export interface deleteVideoValuesType {
+//   _id: string;
+//   token: string;
+// }
+
 export interface CreateRoomFormType {
   roomId: string;
   gameName: string;
