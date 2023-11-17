@@ -11,7 +11,7 @@ import {
 } from '@/types/formsTypes';
 import { RoomData } from '@/Components/pageComponents/auth/authInterfaces';
 import { VideoFormValuesType } from '@/Components/pageComponents/auth/authInterfaces';
-// import { deleteVideoValuesType } from '@/types/roomsTypes';
+import { deleteVideoValuesType } from '@/types/spectatorTypes';
 
 export const signUpService = async (data: SignupFormValuesType) => {
   const res = await sendRequest(serviceUrls.signup, {
@@ -148,19 +148,19 @@ export const deleteRoomService = async (data: deleteRoomValuesType) => {
   }
 };
 
-// export const deleteVideoService = async (data: deleteVideoValuesType) => {
-//   try {
-//     const res = await sendRequest(`${serviceUrls.deleteVideo}/${data._id}`, {
-//       method: 'delete',
-//       headers: { Authorization: `Bearer ${data.token}` },
-//     });
-//     if (res.status === 200) {
-//       return res;
-//     } else throw Error();
-//   } catch (error) {
-//     return error;
-//   }
-// };
+export const deleteVideoService = async (data: deleteVideoValuesType) => {
+  try {
+    const res = await sendRequest(`${serviceUrls.deleteVideo}/${data._id}`, {
+      method: 'delete',
+      headers: { Authorization: `Bearer ${data.token}` },
+    });
+    if (res?.status === 200) {
+      return res.data.data;
+    } else throw Error();
+  } catch (error) {
+    return error;
+  }
+};
 
 export const getAllFilteredRoomsListService = async (data: GetAllFilteredValuesType) => {
   const res = await sendRequest(`${serviceUrls.filteredRoomsList}${data.searchVal}`, {
@@ -178,8 +178,6 @@ export const getAllFilteredRoomsListService = async (data: GetAllFilteredValuesT
 };
 
 export const updateUserDetailsService = async (data) => {
-  console.log('formdatadebug data 4 ==>', data);
-
   const res = await sendRequest(`${serviceUrls.updateUserDetails}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'multipart/form-data' },
@@ -251,7 +249,6 @@ export const getAllSpectator = async (data: RoomData) => {
       return res;
     } else throw Error();
   } catch (err) {
-    console.error('Error in roomservice => ', err);
     return err;
   }
 };

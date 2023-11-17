@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 import { Navbar } from '@/Components/Navbar/Navbar';
 import { useFormik, FormikHelpers } from 'formik';
@@ -10,7 +10,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { videoService } from '@/services/authServices';
 import { VideoFormValuesType } from '../../../Components/pageComponents/auth/authInterfaces';
-
+import { getAllVideo } from '@/services/authServices';
 
 const matchHistoryDetails = () => {
     const [thumbnailURL, setThumbnailURL] = useState<string>('');
@@ -18,6 +18,7 @@ const matchHistoryDetails = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const uuid = searchParams.get('id') || '';
+    // const [data, setData] = useState<getVideo[]>([]);
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files![0];
@@ -32,7 +33,6 @@ const matchHistoryDetails = () => {
                 },
             });
         }
-
 
     };
 
@@ -58,10 +58,8 @@ const matchHistoryDetails = () => {
             for (const key in values) {
                 form.append(key, values[key]);
             }
-
             try {
                 if (Object.keys(errors).length === 0) {
-
                     const formData = new FormData();
                     formData.append('title', values.title);
                     formData.append('videoLink', values.videoLink);
@@ -82,7 +80,24 @@ const matchHistoryDetails = () => {
                 toast.error('Failed to Add room. Please try again.');
             }
         }
+
+
     });
+
+    const getAllVideos = async () => {
+        const token = localStorage.getItem('jwtToken') || '';
+        try {
+            const response = await getAllVideo(token);
+            console.log("response", response)
+            // setData(response || []);
+        } catch (error) {
+            toast.error(error?.response?.data?.message);
+        }
+    };
+
+    useEffect(() => {
+        getAllVideos();
+    }, []);
 
     const handleRemoveImage = () => {
         setShowThumbnail(false);

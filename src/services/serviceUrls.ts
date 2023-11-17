@@ -6,7 +6,7 @@ export const serviceUrls = {
   deleteRole: '/role/deleterole/',
   getAllUsers: '/user/getalluser',
   getAllVideo: '/role/userVideo',
-  // deleteVideo: '/role/deletevideo/',
+  deleteVideo: '/role/deletevideo',
   registerSpectator: '/role/spectator/Register',
   updateRole: 'role/updaterole/',
   roomsRelatedUrl: '/room/rooms',

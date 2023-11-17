@@ -61,4 +61,10 @@ export interface getVideo {
   title: string;
   mapImg: string;
   dateAndTime: string;
+  _id: string;
+}
+
+export interface deleteVideoValuesType {
+  _id: string;
+  token: string;
 }
