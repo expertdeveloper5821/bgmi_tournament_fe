@@ -7,12 +7,15 @@ export default function Tooltip({ children, text, ...rest }) {
 
   return (
     <div className={styles.tooltip_Wrapper}>
-      <div className={styles.tooltip} style={show ? { display: 'block', width: 100 } : {}}>
+      <div
+        className={`${styles.tooltip} ${show ? styles.show_tooltip : styles.hide_tooltip}`}
+        style={show ? { display: 'block', width: 100 } : {}}
+      >
         {text}
         <span className={styles.tooltipArrow} />
       </div>
       <div
-        style={{ height: '17px' }}
+        className={styles.icon_Wrapper}
         {...rest}
         onMouseEnter={() => setShow(true)}
         onMouseLeave={() => setShow(false)}
