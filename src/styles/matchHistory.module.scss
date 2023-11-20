@@ -55,7 +55,7 @@
     border-radius: 8px;
     flex: 0 1 46%;
     padding: 2rem;
-    height: 280px;
+    min-height: 280px;
 
     @media screen and (max-width: $breakpoint-sm) {
       flex: 0 1 96%;

@@ -45,20 +45,28 @@ const matchHistory = () => {
             {winnnerTeamData &&
               winnnerTeamData?.teams.map((team) => {
                 return (
-                  team.prizeTitle && (
+                  team.prizeTitles.length > 0 && (
                     <div className={styles.winner_card}>
                       <div className={styles.timingStyle}>
                         <span>Fri, 29 Oct</span>
                         <span>5:00 PM</span>
                       </div>
                       <div className={styles.cardContent}>
-                        <div className={styles.prizepool}>
-                          <Image src="/assests/trophie.svg" alt="Image" width={22} height={22} />
-                          <p>
-                            <li>Prize Pool</li>:
-                            <strong className={styles.winnerBold}> {team.prizeTitle}</strong>
-                          </p>
-                        </div>
+                        {team.prizeTitles.length > 0 &&
+                          team.prizeTitles?.map((t) => (
+                            <div className={styles.prizepool}>
+                              <Image
+                                src="/assests/trophie.svg"
+                                alt="Image"
+                                width={22}
+                                height={22}
+                              />
+                              <p>
+                                <li>Prize Pool</li>:
+                                {<strong className={styles.winnerBold}>{t}</strong>}
+                              </p>
+                            </div>
+                          ))}
                         <p>
                           <span> Match Name</span>: <strong>{gameName}</strong>
                         </p>

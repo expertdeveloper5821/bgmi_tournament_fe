@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 //@ts-ignore
 import { Table, TableBody, TableCell } from 'technogetic-iron-smart-ui';
@@ -11,9 +11,14 @@ import DeleteSpectatorModal from '@/Components/spectatorDashboard/rooms/DeleteSp
 import { setItemToLS } from '@/utils/globalfunctions';
 import { GiPodiumWinner } from 'react-icons/gi';
 import Link from 'next/link';
+import Pagination from '@/Components/CommonComponent/Pagination/Pagination';
 
 const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSpectator }) => {
-  // const router: AppRouterInstance = useRouter();
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalItems = Spect.length;
+  const itemsPerPage = 5;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
 
   const handleRoomID = (id: string, roomUuid: string) => {
     setItemToLS('roomId', id);
@@ -33,7 +38,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
       </TableHeader>
 
       <TableBody>
-        {Spect?.map((spec, index) => (
+        {Spect.slice(startIndex, endIndex)?.map((spec, index) => (
           <TableRow key={index} className={styles.table_row_cell}>
             <TableCell className={styles.el_tb_cell}>{spec?.roomId ?? '--'}</TableCell>
             <TableCell className={styles.tb_cell_body}>{spec?.gameName ?? '--'}</TableCell>
@@ -102,6 +107,12 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
           </TableRow>
         ))}
       </TableBody>
+      <Pagination
+        totalItems={totalItems}
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </Table>
   );
 };

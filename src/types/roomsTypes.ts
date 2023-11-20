@@ -82,7 +82,7 @@ interface Leader {
 }
 interface Team {
   leader: Leader;
-  prizeTitle: string;
+  prizeTitles: string[];
   teamMembers: Leader[];
   teamName: string;
 }

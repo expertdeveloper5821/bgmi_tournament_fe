@@ -37,10 +37,11 @@ const postWinners = () => {
   const [formData, setFormData] = useState<winnerFormType | object>({});
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
+  console.log('checking values before submit', formData);
+
   const getAllTeams = async () => {
     try {
       const roomTeamsGet = await sendRequest(`/room/getTeam/${roomID}`);
-      // console.log('roomTeamsGet', roomTeamsGet);
       setRoomUsers(roomTeamsGet?.data?.teams);
     } catch (error) {
       console.log('Error in get team data', error);
@@ -51,7 +52,6 @@ const postWinners = () => {
     try {
       const winnerTeamsResult = await sendRequest(`/winners/get-players/${roomUuid}`);
       setWinnnerTeamData(winnerTeamsResult?.data);
-      // console.log('winnerTeamsResult', winnerTeamsResult);
       if (roomUsers?.length === 0) {
         toast.error('No team data found !');
       }
@@ -63,7 +63,7 @@ const postWinners = () => {
   const getWinnerPostData = (index: number, teamName: string) => {
     if (winnnerTeamData) {
       return winnnerTeamData.teams?.[index]?.teamName === teamName
-        ? winnnerTeamData.teams?.[index]?.prizeTitle
+        ? winnnerTeamData.teams?.[index]?.prizeTitles
         : '';
     }
   };
@@ -138,6 +138,7 @@ const postWinners = () => {
           <Navbar />
           <div className={styles.inner_specter_cls}>
             <h1 className={styles.r_main_title}>Your Room</h1>
+            <button onClick={() => setIsEdit(true)}>Edit</button>
           </div>
           {!roomUsers ? (
             <Loader />
@@ -176,7 +177,9 @@ const postWinners = () => {
                           <td className={styles.table_data}>
                             <input
                               type="radio"
-                              checked={getWinnerPostData(index, teamName) === td.key ? true : false}
+                              checked={
+                                getWinnerPostData(index, teamName)?.includes(td.key) ? true : false
+                              }
                               value={td.value}
                               name={td.name}
                               className={styles.checkbox_round}
