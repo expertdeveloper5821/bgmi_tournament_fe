@@ -8,7 +8,7 @@
 
 .background_container {
   @include background_container;
-  
+
   @media (max-width: $breakpoint-xSmall) {
     margin: 1rem 1rem;
   }
@@ -33,24 +33,27 @@
   @include container;
   padding: 54px 40px;
   width: 425px;
-  position:inherit;
-  background-color: #FFFFFFB0;
-  .subheading{
-    color: #5C5C5C;
+  position: inherit;
+  background-color: #ffffffb0;
+  .subheading {
+    color: #5c5c5c;
   }
+
 
   @media (max-width: $breakpoint-xs) {
     margin: 1rem 1rem;
   }
+ 
 
   @media (max-width: $breakpoint-sm) {
-    width: 90%;
-    height: 100vh;
+    // width: 60%;
+    // height: 100vh;
+    // padding: 4px 40px !important;
     margin: 1rem 1.5rem;
   }
 }
 
-.formWrapper > form{
+.formWrapper > form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,14 +61,14 @@
   margin-top: 16px;
 }
 
-.formWrapper .button_wrapper{
+.formWrapper .button_wrapper {
   width: 100%;
-  button{
+  button {
     font-weight: 600;
   }
 }
 
-.formWrapper .btnStyle{
+.formWrapper .btnStyle {
   width: 100%;
   span {
     font-weight: 700;
@@ -74,7 +77,7 @@
 
 .logo {
   display: flex;
-  justify-content: center
+  justify-content: center;
 }
 
 .logo img {
