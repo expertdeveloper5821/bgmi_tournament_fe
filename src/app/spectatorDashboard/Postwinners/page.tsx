@@ -6,6 +6,7 @@ import { TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
 import { Table, TableBody } from 'technogetic-iron-smart-ui';
 import { Button } from 'technogetic-iron-smart-ui';
 import { useRouter } from 'next/navigation';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { sendRequest } from '@/utils/axiosInstanse';
 import { getItemFromLS } from '@/utils/globalfunctions';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
@@ -132,92 +133,95 @@ const postWinners = () => {
   };
 
   return (
-    <div className={styles.main_container} id="mainLayoutContainerInner">
-      <div className={styles.inner_main_container}>
-        <div className={styles.sidebar_wrapper}>
-          <Navbar />
-          <div className={styles.inner_specter_cls}>
-            <h1 className={styles.r_main_title}>Your Room</h1>
-            <button onClick={() => setIsEdit(true)}>Edit</button>
-          </div>
-          {!roomUsers ? (
-            <Loader />
-          ) : roomUsers?.length === 0 ? (
-            <div className={styles.noData}>No Team Data found !</div>
-          ) : (
-            <Table className={styles.table_content}>
-              <TableHeader className={styles.tableHeader}>
-                <TableRow className={styles.tableRow}>
-                  {columns?.map((column, index) => (
-                    <TableHead className={styles.table_head_sectat} key={index}>
-                      <div className={styles.filter}>{column}</div>
-                    </TableHead>
-                  ))}
-                </TableRow>
-              </TableHeader>
-
-              <TableBody className={styles.postWinnerTbody}>
-                {roomUsers?.map((team: { teamName: string }, index: number) => {
-                  const { teamName } = team;
-                  return (
-                    <TableRow className={styles.table_row_winner}>
-                      <td className={styles.table_data}> {teamName}</td>
-                      {rowData.map((td) => {
-                        return isEdit ? (
-                          <td className={styles.table_data}>
-                            <input
-                              type="radio"
-                              value={td.value}
-                              name={td.name}
-                              className={styles.checkbox_round}
-                              onChange={(e) => handleChange(e, teamName)}
-                            />
-                          </td>
-                        ) : (
-                          <td className={styles.table_data}>
-                            <input
-                              type="radio"
-                              checked={
-                                getWinnerPostData(index, teamName)?.includes(td.key) ? true : false
-                              }
-                              value={td.value}
-                              name={td.name}
-                              className={styles.checkbox_round}
-                              onChange={(e) => handleChange(e, teamName)}
-                            />
-                          </td>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          )}
-
-          {roomUsers?.length !== 0 && (
-            <div className={styles.button_wrapper_winner}>
-              <Button
-                onClick={() => router.push('/spectatorDashboard')}
-                className={styles.cancel_button}
-              >
-                Cancel
-              </Button>
-              <Button
-                id="add"
-                disabled={isLoading}
-                className={styles.submitbutton}
-                variant="contained"
-                type="submit"
-                onClick={submitWinningTeam}
-              >
-                {isLoading ? 'Loading...' : 'Submit'}
-              </Button>
+    <IsAuthenticatedHoc>
+      <div className={styles.main_container} id="mainLayoutContainerInner">
+        <div className={styles.inner_main_container}>
+          <div className={styles.sidebar_wrapper}>
+            <Navbar />
+            <div className={styles.inner_specter_cls}>
+              <h1 className={styles.r_main_title}>Your Room</h1>
             </div>
-          )}
+            {!roomUsers ? (
+              <Loader />
+            ) : roomUsers?.length === 0 ? (
+              <div className={styles.noData}>No Team Data found !</div>
+            ) : (
+              <Table className={styles.table_content}>
+                <TableHeader className={styles.tableHeader}>
+                  <TableRow className={styles.tableRow}>
+                    {columns?.map((column, index) => (
+                      <TableHead className={styles.table_head_sectat} key={index}>
+                        <div className={styles.filter}>{column}</div>
+                      </TableHead>
+                    ))}
+                  </TableRow>
+                </TableHeader>
+
+                <TableBody className={styles.postWinnerTbody}>
+                  {roomUsers?.map((team: { teamName: string }, index: number) => {
+                    const { teamName } = team;
+                    return (
+                      <TableRow className={styles.table_row_winner}>
+                        <td className={styles.table_data}> {teamName}</td>
+                        {rowData.map((td) => {
+                          return isEdit ? (
+                            <td className={styles.table_data}>
+                              <input
+                                type="radio"
+                                value={td.value}
+                                name={td.name}
+                                className={styles.checkbox_round}
+                                onChange={(e) => handleChange(e, teamName)}
+                              />
+                            </td>
+                          ) : (
+                            <td className={styles.table_data}>
+                              <input
+                                type="radio"
+                                checked={
+                                  getWinnerPostData(index, teamName)?.includes(td.key)
+                                    ? true
+                                    : false
+                                }
+                                value={td.value}
+                                name={td.name}
+                                className={styles.checkbox_round}
+                                onChange={(e) => handleChange(e, teamName)}
+                              />
+                            </td>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            )}
+
+            {roomUsers?.length !== 0 && (
+              <div className={styles.button_wrapper_winner}>
+                <Button
+                  onClick={() => router.push('/spectatorDashboard')}
+                  className={styles.cancel_button}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  id="add"
+                  disabled={isLoading}
+                  className={styles.submitbutton}
+                  variant="contained"
+                  type="submit"
+                  onClick={submitWinningTeam}
+                >
+                  {isLoading ? 'Loading...' : 'Submit'}
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </IsAuthenticatedHoc>
   );
 };
 

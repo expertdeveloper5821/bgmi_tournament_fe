@@ -19,6 +19,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
   const itemsPerPage = 5;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+  console.log('Check Pagination', Spect.slice(startIndex, endIndex));
 
   const handleRoomID = (id: string, roomUuid: string) => {
     setItemToLS('roomId', id);
@@ -29,8 +30,8 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
     <Table className={styles.table_content}>
       <TableHeader className={styles.tableHeader}>
         <TableRow className={styles.tableRow}>
-          {specRoomColumns?.map((column, index) => (
-            <TableHead className={styles.table_head_sectat} key={index}>
+          {specRoomColumns?.map((column) => (
+            <TableHead className={styles.table_head_sectat} key={column}>
               <div className={styles.filter}>{column}</div>
             </TableHead>
           ))}
@@ -38,8 +39,8 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
       </TableHeader>
 
       <TableBody>
-        {Spect.slice(startIndex, endIndex)?.map((spec, index) => (
-          <TableRow key={index} className={styles.table_row_cell}>
+        {Spect.slice(startIndex, endIndex)?.map((spec) => (
+          <TableRow key={spec.roomId} className={styles.table_row_cell}>
             <TableCell className={styles.el_tb_cell}>{spec?.roomId ?? '--'}</TableCell>
             <TableCell className={styles.tb_cell_body}>{spec?.gameName ?? '--'}</TableCell>
             <TableCell className={styles.el_tb_cell}>{spec?.gameType ?? '--'}</TableCell>

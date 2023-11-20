@@ -7,7 +7,6 @@ import styles from '@/styles/Dashboard.module.scss';
 //@ts-ignore
 import TableData from '@/Components/CommonComponent/Table/Table';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
-import withAuth from '@/Components/HOC/WithAuthHoc';
 import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
 import {
   deleteRoomService,
@@ -15,22 +14,16 @@ import {
   getAllRoomsService,
 } from '@/services/authServices';
 import { RoomsDataType } from '@/types/roomsTypes';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+import { adminRoomColumns } from '@/utils/constant';
+import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
 
 function page() {
   const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
   const [roomData, setRoomData] = useState<RoomsDataType[] | []>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const columns: string[] = [
-    'Created By',
-    'Room Id',
-    'Password',
-    'Game Name',
-    'Game Type',
-    'Map Type',
-    'Version',
-    'Time',
-    'Date',
-  ];
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const [idToDelete, setIdToDelete] = useState<string>('');
 
   const getAllTournaments = async () => {
     const token = localStorage.getItem('jwtToken') || '';
@@ -41,7 +34,7 @@ function page() {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      toast.error(error?.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -49,30 +42,32 @@ function page() {
     getAllTournaments();
   }, []);
 
-  const deleteroom = async (_id: string) => {
+  const deleteroom = async () => {
     setIsLoading(true);
 
     try {
       const token = localStorage.getItem('jwtToken') || '';
-      const response = await deleteRoomService({ _id, token });
+      const response = await deleteRoomService({ _id: idToDelete, token });
+      setIdToDelete('');
+      setIsDeleteModalOpen(false);
       getAllTournaments();
       toast.success(response?.data?.message);
     } catch (error) {
       setIsLoading(false);
-      toast.error(error?.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
   const fetchTournaments = async (searchVal: string) => {
     try {
-      const token = localStorage.getItem('jwtToken') || '';
+      const token = localStorage.getItem('jwtToken')!;
       const response = await getAllFilteredRoomsListService({ token, searchVal });
       setWholeRoomData(response?.data);
       setRoomData(response?.data);
       setIsLoading(false);
     } catch (error) {
-      toast.error(error?.message);
       setIsLoading(false);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -89,8 +84,18 @@ function page() {
     setRoomData(filteredResults);
   };
 
+  const handleDeleteUser = (_id: string) => {
+    setIdToDelete(_id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIdToDelete('');
+    setIsDeleteModalOpen(false);
+  };
+
   return (
-    <>
+    <IsAuthenticatedHoc>
       <div className={styles.main_container} id="mainLayoutContainerInner">
         <div className={styles.abcd}>
           <div className={styles.sidebar_wrapper}>
@@ -99,16 +104,24 @@ function page() {
               <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
               <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
             </div>
+            {isDeleteModalOpen && (
+              <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
+            )}
             {isLoading ? (
               <Loader />
             ) : (
-              <TableData data={roomData} columns={columns} deleteroom={deleteroom} type={'ROOMS'} />
+              <TableData
+                data={roomData}
+                columns={adminRoomColumns}
+                deleteroom={handleDeleteUser}
+                type={'ROOMS'}
+              />
             )}
           </div>
         </div>
       </div>
-    </>
+    </IsAuthenticatedHoc>
   );
 }
 
-export default withAuth(page);
+export default page;

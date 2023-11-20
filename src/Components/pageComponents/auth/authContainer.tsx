@@ -5,6 +5,7 @@ import { AuthContainerProps } from './authInterfaces';
 const AuthContainer = ({
   children,
   title = 'Welcome! Please enter your details',
+  subTitle = 'SubTitle',
 }: AuthContainerProps) => {
   return (
     <div className={styles.main_container}>
@@ -15,6 +16,7 @@ const AuthContainer = ({
           </div>
           <div>
             <p className={styles.heading}>{title}</p>
+            <p className={styles.SubHeading}>{subTitle}</p>
           </div>
           <div>{children}</div>
         </div>

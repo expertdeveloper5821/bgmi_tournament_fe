@@ -21,8 +21,11 @@ import {
 } from '@/types/spectatorTypes';
 import { addFormValidations } from '@/utils/schema';
 import { CreateSpectatorOrAssignRoleForm } from '@/Components/Forms/CreateSpectatorOrAssignRoleForm';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+import { adminSpecColumns } from '@/utils/constant';
+import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
 
-export default function Modal() {
+function Page() {
   const [spectatorData, setSpectatorData] = useState<SpectatorDataType[] | []>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [modal, setModal] = useState<ModalType>({ isOpen: false, buttonVal: '' });
@@ -41,8 +44,8 @@ export default function Modal() {
   });
   const [roles, setRoles] = useState<RoleType[] | undefined>();
   const [isDisabled, setDisabled] = useState<boolean>(false);
-
-  const columns: string[] = ['Full Name', 'User Name', 'Email'];
+  const [idToDelete, setIdToDelete] = useState<string>('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const getAllUsers = async () => {
     setIsLoading(true);
@@ -58,7 +61,7 @@ export default function Modal() {
 
       setIsLoading(false);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error?.response?.data?.message);
       setIsLoading(false);
     }
   };
@@ -92,17 +95,19 @@ export default function Modal() {
     }
   }, [formErrors, formData]);
 
-  const deleteroom = async (userUuid: string) => {
+  const deleteroom = async () => {
     setIsLoading(true);
     try {
       const token = localStorage.getItem('jwtToken') || '';
-      const response = await deleteRoleService({ userUuid, token });
+      const response = await deleteRoleService({ userUuid: idToDelete, token });
+      setIdToDelete('');
+      setIsDeleteModalOpen(false);
       setIsLoading(false);
       getAllUsers();
       toast.success(response?.data?.message);
     } catch (error) {
       setIsLoading(false);
-      toast.error(error?.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -155,7 +160,7 @@ export default function Modal() {
         getAllUsers();
       } catch (error) {
         setIsLoading(false);
-        toast.error(error?.message);
+        toast.error(error?.response?.data?.message);
       }
     }
     setModal({ isOpen: false, buttonVal: '' });
@@ -168,24 +173,22 @@ export default function Modal() {
       setRoles([
         {
           role: 'spectator',
-          _id:
-            allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'spectator')
-              ?.role?._id || '',
-          userUuid: spectatorData?.userUuid || '',
+          _id: allspectatorData.find(
+            (spec: SpectatorEditDataType) => spec?.role?.role === 'spectator',
+          )?.role?._id,
+          userUuid: spectatorData?.userUuid,
         },
         {
           role: 'admin',
-          _id:
-            allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'admin')
-              ?.role?._id || '',
-          userUuid: spectatorData?.userUuid || '',
+          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'admin')
+            ?.role?._id,
+          userUuid: spectatorData?.userUuid,
         },
         {
           role: 'user',
-          _id:
-            allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'user')
-              ?.role?._id || '',
-          userUuid: spectatorData?.userUuid || '',
+          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'user')
+            ?.role?._id,
+          userUuid: spectatorData?.userUuid,
         },
       ]);
 
@@ -199,8 +202,18 @@ export default function Modal() {
     }
   };
 
+  const handleDeleteUser = (_id: string) => {
+    setIdToDelete(_id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIdToDelete('');
+    setIsDeleteModalOpen(false);
+  };
+
   return (
-    <>
+    <IsAuthenticatedHoc>
       <div className={styles.main_container} id="mainLayoutContainerInner">
         <div className={styles.abcd}>
           <div className={styles.sidebar_wrapper}>
@@ -217,14 +230,17 @@ export default function Modal() {
                 Create Spectator
               </button>
             </div>
+            {isDeleteModalOpen && (
+              <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
+            )}
             {isLoading ? (
               <Loader />
             ) : (
               <TableData
                 data={spectatorData}
-                columns={columns}
+                columns={adminSpecColumns}
                 type={'SPECTATOR'}
-                deleteroom={deleteroom}
+                deleteroom={handleDeleteUser}
                 handleEdit={handleEdit}
               />
             )}
@@ -266,6 +282,8 @@ export default function Modal() {
           />
         </div>
       )}
-    </>
+    </IsAuthenticatedHoc>
   );
 }
+
+export default Page;

@@ -13,7 +13,6 @@ import { getIdPass } from '@/utils/commonFunction';
 const RegisteredMatch = () => {
   const { matchData, matchDataLoading } = useSelector((state: RootState) => state.userDashboard);
   const searchParams = useSearchParams();
-  // const matchID = searchParams.get('id');
   const matchID = searchParams.get('id') || '';
 
   const dispatch = useDispatch<AppDispatch>();

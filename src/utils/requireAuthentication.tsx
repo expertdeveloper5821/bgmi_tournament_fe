@@ -16,7 +16,6 @@ const RequireAuthentication = (props) => {
 
   useEffect(() => {
     const isAuthenticated = checkIfUserIsAuthenticated();
-
     if (!isAuthenticated) {
       const redirectToLogin = async () => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
