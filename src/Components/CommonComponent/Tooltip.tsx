@@ -6,15 +6,7 @@ export default function Tooltip({ children, text, ...rest }) {
   const [show, setShow] = React.useState(false);
 
   return (
-    <div
-      style={{
-        position: 'relative',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        marginTop: '17px',
-      }}
-    >
+    <div className={styles.tooltip_Wrapper}>
       <div className={styles.tooltip} style={show ? { display: 'block', width: 100 } : {}}>
         {text}
         <span className={styles.tooltipArrow} />

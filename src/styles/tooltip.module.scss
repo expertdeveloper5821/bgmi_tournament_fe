@@ -1,3 +1,11 @@
+.tooltip_Wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 17px;
+}
+
 .tooltip {
   position: absolute;
   top: 0;
