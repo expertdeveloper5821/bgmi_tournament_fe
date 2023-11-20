@@ -3,7 +3,7 @@ import React from 'react';
 import styles from '@/styles/Spectator.module.scss';
 import { Navbar } from '@/Components/Navbar/Navbar';
 import Image from 'next/image';
-import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+
 
 const matchHistory = () => {
 
