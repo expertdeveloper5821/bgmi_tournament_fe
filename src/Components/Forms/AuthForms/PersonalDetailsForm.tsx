@@ -10,6 +10,7 @@ import { updateUserDetailsService } from '@/services/authServices';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { PersonalDetailsValue } from '@/types/formsTypes';
+import Tooltip from '@/Components/CommonComponent/Tooltip';
 
 const initialValues: PersonalDetailsValue = {
   player: '',
@@ -129,7 +130,7 @@ export const PersonalDetail = () => {
           </label>
           <Input
             id="Player Id/Username"
-            className={styles.email_wrapper}
+            className={`${styles.email_wrapper} ${styles.info_Icon_Inputs}`}
             type="text"
             name="player"
             autoComplete="off"
@@ -138,6 +139,9 @@ export const PersonalDetail = () => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
+          <Tooltip text="The player id should match the with the BGMI player id">
+            <img src="/assests/infoIcon.svg" />
+          </Tooltip>
         </div>
         {errors.player && touched.player && <div className={styles.error}>{errors.player}</div>}
 
@@ -166,7 +170,7 @@ export const PersonalDetail = () => {
           </label>
           <Input
             id="WhatsApp_Number"
-            className={styles.email_wrapper}
+            className={`${styles.email_wrapper} ${styles.info_Icon_Inputs}`}
             type="text"
             name="whatsapp"
             autoComplete="off"
@@ -175,6 +179,9 @@ export const PersonalDetail = () => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
+          <Tooltip text="WhatsApp number preferred">
+            <img src="/assests/infoIcon.svg" />
+          </Tooltip>
         </div>
 
         {errors.whatsapp && touched.whatsapp && (
