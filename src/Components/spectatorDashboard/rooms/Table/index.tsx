@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 //@ts-ignore
-import { Table, TableBody, TableCell } from 'technogetic-iron-smart-ui';
-//@ts-ignore
-import { TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableHead,
+  TableRow,
+} from 'technogetic-iron-smart-ui';
 import { formatDate, formatTime } from '@/Components/CommonComponent/moment';
 import Image from 'next/image';
 import { specRoomColumns } from '@/utils/constant';
@@ -11,7 +16,7 @@ import DeleteSpectatorModal from '@/Components/spectatorDashboard/rooms/DeleteSp
 import { setItemToLS } from '@/utils/globalfunctions';
 import { GiPodiumWinner } from 'react-icons/gi';
 import Link from 'next/link';
-import Pagination from '@/Components/CommonComponent/Pagination/Pagination';
+import Pagination from '@/Components/CommonComponent/Pagination';
 
 const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSpectator }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,7 +24,6 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
   const itemsPerPage = 5;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  console.log('Check Pagination', Spect.slice(startIndex, endIndex));
 
   const handleRoomID = (id: string, roomUuid: string) => {
     setItemToLS('roomId', id);
@@ -39,7 +43,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
       </TableHeader>
 
       <TableBody>
-        {Spect.slice(startIndex, endIndex)?.map((spec) => (
+        {Spect?.slice(startIndex, endIndex)?.map((spec) => (
           <TableRow key={spec.roomId} className={styles.table_row_cell}>
             <TableCell className={styles.el_tb_cell}>{spec?.roomId ?? '--'}</TableCell>
             <TableCell className={styles.tb_cell_body}>{spec?.gameName ?? '--'}</TableCell>

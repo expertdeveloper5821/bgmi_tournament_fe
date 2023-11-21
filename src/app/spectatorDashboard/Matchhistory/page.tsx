@@ -3,27 +3,15 @@ import React, { useEffect, useState } from 'react';
 import styles from '@/styles/matchHistory.module.scss';
 import { Navbar } from '@/Components/Navbar/Navbar';
 import Image from 'next/image';
-import { sendRequest } from '@/utils/axiosInstanse';
-import { toast } from 'react-toastify';
-import { getItemFromLS } from '@/utils/globalfunctions';
 import { GameRoomType } from '@/types/roomsTypes';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+import { getWinningTeamsService } from '@/services/specDashboardServices';
 
 const matchHistory = () => {
-  const roomUuid = getItemFromLS('roomUuid');
   const [winnnerTeamData, setWinnnerTeamData] = useState<GameRoomType | null>(null);
 
-  const getWinningTeams = async () => {
-    try {
-      const roomTeamsGet = await sendRequest(`/winners/get-players/${roomUuid}`);
-      setWinnnerTeamData(roomTeamsGet?.data);
-    } catch (error) {
-      toast.error('something went wrong');
-    }
-  };
-
   useEffect(() => {
-    getWinningTeams();
+    getWinningTeamsService(setWinnnerTeamData);
   }, []);
 
   let gameName = '',

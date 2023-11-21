@@ -2,29 +2,20 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
-import { sendRequest } from '@/utils/axiosInstanse';
 import RoomTable from '@/Components/spectatorDashboard/rooms/Table';
 import { SpectatorRoomDataType } from '@/types/roomsTypes';
 import CreateRoomForm from '@/Components/spectatorDashboard/rooms/RoomForm';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
-import { toast } from 'react-toastify';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
+import { getAllSpectatorService } from '@/services/specDashboardServices';
 
 function spectatorDashboard() {
   const [showModal, setShowModal] = useState(false);
   const [roomIdToUpdate, setRoomIdToUpdate] = useState({});
   const [spect, setSpect] = useState<SpectatorRoomDataType[] | null>(null);
 
-  const getAllSpectator = async () => {
-    const spectatorResponse = await sendRequest('room/user-rooms');
-    setSpect(spectatorResponse?.data);
-    if (spectatorResponse.status !== 200) {
-      toast.error('Something went wrong, Try again');
-    }
-  };
-
   useEffect(() => {
-    getAllSpectator();
+    getAllSpectatorService(setSpect);
   }, []);
 
   return (
@@ -41,7 +32,7 @@ function spectatorDashboard() {
                   setShowModal={setShowModal}
                   roomIdToUpdate={roomIdToUpdate}
                   setRoomIdToUpdate={setRoomIdToUpdate}
-                  callSpecatator={() => getAllSpectator()}
+                  callSpecatator={() => getAllSpectatorService(setSpect)}
                 />
               </div>
               <div>
@@ -53,7 +44,7 @@ function spectatorDashboard() {
                     showModal={showModal}
                     setShowModal={setShowModal}
                     setRoomIdToUpdate={setRoomIdToUpdate}
-                    getAllSpectator={getAllSpectator}
+                    getAllSpectator={getAllSpectatorService}
                   />
                 )}
               </div>

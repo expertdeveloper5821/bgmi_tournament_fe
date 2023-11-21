@@ -7,11 +7,14 @@ import { Table, TableBody } from 'technogetic-iron-smart-ui';
 import { Button } from 'technogetic-iron-smart-ui';
 import { useRouter } from 'next/navigation';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
-import { sendRequest } from '@/utils/axiosInstanse';
-import { getItemFromLS } from '@/utils/globalfunctions';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
-import { toast } from 'react-toastify';
 import { GameRoomType, winnerFormType } from '@/types/roomsTypes';
+import {
+  getAllTeamsService,
+  getWinningTeamsService,
+  handleSubmitWinningTeamService,
+} from '@/services/specDashboardServices';
+import Link from 'next/link';
 
 const columns: string[] = [
   'Team Name',
@@ -30,36 +33,11 @@ const rowData = [
 
 const postWinners = () => {
   const router = useRouter();
-  const roomID = getItemFromLS('roomId');
-  const roomUuid = getItemFromLS('roomUuid');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [roomUsers, setRoomUsers] = useState<null | []>(null);
   const [winnnerTeamData, setWinnnerTeamData] = useState<null | GameRoomType>(null);
   const [formData, setFormData] = useState<winnerFormType | object>({});
   const [isEdit, setIsEdit] = useState<boolean>(false);
-
-  console.log('checking values before submit', formData);
-
-  const getAllTeams = async () => {
-    try {
-      const roomTeamsGet = await sendRequest(`/room/getTeam/${roomID}`);
-      setRoomUsers(roomTeamsGet?.data?.teams);
-    } catch (error) {
-      console.log('Error in get team data', error);
-    }
-  };
-
-  const getWinningTeams = async () => {
-    try {
-      const winnerTeamsResult = await sendRequest(`/winners/get-players/${roomUuid}`);
-      setWinnnerTeamData(winnerTeamsResult?.data);
-      if (roomUsers?.length === 0) {
-        toast.error('No team data found !');
-      }
-    } catch (error) {
-      console.log('Error in get team data', error);
-    }
-  };
 
   const getWinnerPostData = (index: number, teamName: string) => {
     if (winnnerTeamData) {
@@ -69,27 +47,9 @@ const postWinners = () => {
     }
   };
 
-  const submitWinningTeam = async () => {
-    setIsLoading(true);
-    try {
-      const response = await sendRequest(`/winners/players/${roomUuid}`, {
-        method: `${winnnerTeamData ? 'PUT' : 'POST'}`,
-        data: Object.values(formData),
-      });
-      toast.success('Winning team update successfully');
-      router.push('/spectatorDashboard');
-      if (response.status !== 200) {
-        toast.error('Fail to update Winning team data !');
-      }
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
-    getAllTeams();
-    getWinningTeams();
+    getAllTeamsService(setRoomUsers);
+    getWinningTeamsService(setWinnnerTeamData);
   }, []);
 
   useEffect(() => {
@@ -200,19 +160,18 @@ const postWinners = () => {
 
             {roomUsers?.length !== 0 && (
               <div className={styles.button_wrapper_winner}>
-                <Button
-                  onClick={() => router.push('/spectatorDashboard')}
-                  className={styles.cancel_button}
-                >
-                  Cancel
-                </Button>
+                <Link href={'/spectatorDashboard'}>
+                  <Button className={styles.cancel_button}>Cancel</Button>
+                </Link>
                 <Button
                   id="add"
                   disabled={isLoading}
                   className={styles.submitbutton}
                   variant="contained"
                   type="submit"
-                  onClick={submitWinningTeam}
+                  onClick={() =>
+                    handleSubmitWinningTeamService(setIsLoading, winnnerTeamData, formData, router)
+                  }
                 >
                   {isLoading ? 'Loading...' : 'Submit'}
                 </Button>
