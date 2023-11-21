@@ -142,11 +142,20 @@ export function LoginForm(): React.JSX.Element {
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.input_box}>
         <label className={styles.email} htmlFor="email">
-          <Image src="../assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
+          <Image
+            src={
+              errors.email && touched.email ? '/assests/mailerrorlogo.svg' : '/assests/maillogo.svg'
+            }
+            alt="mailogo"
+            width={30}
+            height={20}
+          />
         </label>
         <Input
           id="email"
-          className={styles.email_wrapper}
+          className={
+            errors.email && touched.email ? styles.error_email_wrapper : styles.email_wrapper
+          }
           type="email"
           name="email"
           autoComplete="off"
@@ -162,11 +171,22 @@ export function LoginForm(): React.JSX.Element {
 
       <div className={styles.input_box}>
         <label className={styles.password} htmlFor="password">
-          <Image src="../assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
+          <Image
+            src={
+              errors.password && touched.password
+                ? '/assests/passworderrorlogo.svg'
+                : '/assests/passwordlogo.svg'
+            }
+            alt="passwordlogo"
+            width={30}
+            height={20}
+          />
         </label>
         <Input
           id="password"
-          className={styles.password_wrapper}
+          className={
+            errors.password && touched.password ? styles.error_email_wrapper : styles.email_wrapper
+          }
           type="password"
           name="password"
           autoComplete="off"

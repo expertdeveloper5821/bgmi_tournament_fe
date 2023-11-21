@@ -128,11 +128,22 @@ export const PersonalDetail = () => {
 
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="email">
-            <Image src="/assests/teams.svg" alt="mailogo" width={20} height={20} />
+            <Image
+              src={
+                errors.player && touched.player ? '/assests/teamserror.svg' : '/assests/teams.svg'
+              }
+              alt="mailogo"
+              width={20}
+              height={20}
+            />
           </label>
           <Input
             id="Player Id/Username"
-            className={`${styles.email_wrapper} ${styles.info_Icon_Inputs}`}
+            className={
+              errors.player && touched.player
+                ? `${authStyles.error_email_wrapper} ${styles.info_Icon_Inputs}`
+                : `${styles.email_wrapper} ${styles.info_Icon_Inputs}`
+            }
             type="text"
             name="player"
             autoComplete="off"
@@ -146,16 +157,29 @@ export const PersonalDetail = () => {
           </Tooltip>
         </div>
         {errors.player && touched.player && (
-          <div className={`${styles.error} ${authStyles.validation_Error}`}>{errors.player}</div>
+          <div className={`${authStyles.error} ${authStyles.validation_Error}`}>
+            {errors.player}
+          </div>
         )}
 
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="email">
-            <Image src="/assests/profilePik.png" alt="mailogo" width={20} height={20} />
+            <Image
+              src={
+                errors.upi && touched.upi
+                  ? '/assests/fullnameerroricon.svg'
+                  : '/assests/fullnameicon.svg'
+              }
+              alt="fullname"
+              width={20}
+              height={20}
+            />
           </label>
           <Input
             id="UPI_Id"
-            className={styles.email_wrapper}
+            className={
+              errors.upi && touched.upi ? authStyles.error_email_wrapper : styles.email_wrapper
+            }
             type="text"
             name="upi"
             autoComplete="off"
@@ -167,16 +191,29 @@ export const PersonalDetail = () => {
         </div>
 
         {errors.upi && touched.upi && (
-          <div className={`${styles.error} ${authStyles.validation_Error}`}>{errors.upi}</div>
+          <div className={`${authStyles.error} ${authStyles.validation_Error}`}>{errors.upi}</div>
         )}
 
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="email">
-            <Image src="/assests/whats_app.svg" alt="mailogo" width={20} height={20} />
+            <Image
+              src={
+                errors.whatsapp && touched.whatsapp
+                  ? '/assests/whats_app_error.svg'
+                  : '/assests/whats_app.svg'
+              }
+              alt="mailogo"
+              width={20}
+              height={20}
+            />
           </label>
           <Input
             id="WhatsApp_Number"
-            className={`${styles.email_wrapper} ${styles.info_Icon_Inputs}`}
+            className={
+              errors.whatsapp && touched.whatsapp
+                ? `${authStyles.error_email_wrapper} ${styles.info_Icon_Inputs}`
+                : `${styles.email_wrapper} ${styles.info_Icon_Inputs}`
+            }
             type="text"
             name="whatsapp"
             autoComplete="off"
@@ -191,7 +228,9 @@ export const PersonalDetail = () => {
         </div>
 
         {errors.whatsapp && touched.whatsapp && (
-          <div className={`${styles.error} ${authStyles.validation_Error}`}>{errors.whatsapp}</div>
+          <div className={`${authStyles.error} ${authStyles.validation_Error}`}>
+            {errors.whatsapp}
+          </div>
         )}
         <Button className={styles.google_btn} type="submit" onClick={handleSubmit}>
           {isLoading ? 'Loading...' : <span>Next</span>}

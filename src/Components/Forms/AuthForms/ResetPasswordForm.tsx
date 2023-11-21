@@ -61,12 +61,25 @@ export const ResetPasswordForm: React.FC = () => {
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.input_box}>
         <label htmlFor="newPassword" className={styles.password}>
-          <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
+          <Image
+            src={
+              errors.newPassword && touched.newPassword
+                ? '/assests/passworderrorlogo.svg'
+                : '/assests/passwordlogo.svg'
+            }
+            alt="passwordlogo"
+            width={30}
+            height={20}
+          />
         </label>
         <Input
           type="password"
           id="newPassword"
-          className={styles.password_wrapper}
+          className={
+            errors.newPassword && touched.newPassword
+              ? authStyles.error_email_wrapper
+              : styles.password_wrapper
+          }
           name="newPassword"
           autoComplete="off"
           placeholder="Enter password"
@@ -81,12 +94,25 @@ export const ResetPasswordForm: React.FC = () => {
       )}
       <div className={styles.input_box}>
         <label htmlFor="confirmPassword" className={styles.password}>
-          <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
+          <Image
+            src={
+              errors.confirmPassword && touched.confirmPassword
+                ? '/assests/passworderrorlogo.svg'
+                : '/assests/passwordlogo.svg'
+            }
+            alt="passwordlogo"
+            width={30}
+            height={20}
+          />
         </label>
         <Input
           type="password"
           id="confirmPassword"
-          className={styles.password_wrapper}
+          className={
+            errors.confirmPassword && touched.confirmPassword
+              ? authStyles.error_email_wrapper
+              : styles.password_wrapper
+          }
           name="confirmPassword"
           autoComplete="off"
           placeholder="Enter new password"

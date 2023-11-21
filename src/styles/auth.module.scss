@@ -39,11 +39,9 @@
     color: #5c5c5c;
   }
 
-
   @media (max-width: $breakpoint-xs) {
     margin: 1rem 1rem;
   }
- 
 
   @media (max-width: $breakpoint-sm) {
     // width: 60%;
@@ -130,6 +128,17 @@
     width: 100%;
   }
 }
+
+.error_email_wrapper {
+  width: 100%;
+  border: none !important;
+}
+
+.error_email_wrapper ::placeholder {
+  @include email_wrapper;
+  color: #ff0000;
+}
+
 .email_wrapper {
   @include email_wrapper;
 }

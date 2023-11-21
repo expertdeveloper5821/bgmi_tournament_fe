@@ -50,12 +50,25 @@ export function ForgetPasswordForm(): JSX.Element {
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.input_box}>
         <label className={styles.email} htmlFor="email">
-          <Image src="../assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
+          <Image
+            src={
+              errors.email && touched.email
+                ? '/assests/fullnameerroricon.svg'
+                : '/assests/fullnameicon.svg'
+            }
+            alt="fullname"
+            width={30}
+            height={20}
+          />
         </label>
         <Input
           type="email"
           id="email"
-          className={`${styles.email_wrapper} ${!errors.email ? '' : styles.invalid}`}
+          className={
+            errors.email && touched.email
+              ? `${styles.error_email_wrapper} ${!errors.email ? '' : styles.invalid}`
+              : `${styles.email_wrapper} ${!errors.email ? '' : styles.invalid}`
+          }
           placeholder="Enter Email"
           value={values.email}
           onChange={handleChange}

@@ -105,11 +105,24 @@ export const TeamsDetailsForm = () => {
         {error && <div className={styles.error}>{error}</div>}
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="teamName">
-            <Image src="/assests/teams.svg" alt="mailogo" width={30} height={20} />
+            <Image
+              src={
+                errors.teamName && touched.teamName
+                  ? '/assests/teamserror.svg'
+                  : '/assests/teams.svg'
+              }
+              alt="mailogo"
+              width={30}
+              height={20}
+            />
           </label>
           <Input
             id="teamName"
-            className={styles.email_wrapper}
+            className={
+              errors.teamName && touched.teamName
+                ? authStyles.error_email_wrapper
+                : styles.email_wrapper
+            }
             type="text"
             name="teamName"
             value={values.teamName}
@@ -120,18 +133,34 @@ export const TeamsDetailsForm = () => {
           />
         </div>
         {errors.teamName && touched.teamName && (
-          <div className={`${styles.error} ${authStyles.validation_Error}`}>{errors.teamName}</div>
+          <div className={`${authStyles.error} ${authStyles.validation_Error}`}>
+            {errors.teamName}
+          </div>
         )}
 
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="emails">
-            <Image src="/assests/maillogo.svg" alt="mailogo" width={30} height={20} />
+            <Image
+              src={
+                errors.emails && touched.emails
+                  ? '/assests/mailerrorlogo.svg'
+                  : '/assests/maillogo.svg'
+              }
+              alt="mailogo"
+              width={30}
+              height={20}
+            />
           </label>
           <Input
             type="email"
             id="emails"
             name="emails"
-            className={`${styles.email_wrapper} ${styles.multiple_emails_input}`}
+            className={
+              errors.emails && touched.emails
+                ? `${authStyles.error_email_wrapper} ${styles.multiple_emails_input}`
+                : `${styles.email_wrapper} ${styles.multiple_emails_input}`
+            }
+            // className={`${styles.email_wrapper} ${styles.multiple_emails_input}`}
             value={inputValue}
             placeholder="Invite Friends Via Mail (Optional)"
             onChange={handleInputChange}
@@ -139,7 +168,9 @@ export const TeamsDetailsForm = () => {
           />
         </div>
         {errors.emails && touched.emails && (
-          <div className={`${styles.error} ${authStyles.validation_Error}`}>{errors.emails}</div>
+          <div className={`${authStyles.error} ${authStyles.validation_Error}`}>
+            {errors.emails}
+          </div>
         )}
         {emailDisplayList.length > 0 && (
           <div className={styles.email_container}>
