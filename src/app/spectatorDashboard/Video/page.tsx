@@ -4,24 +4,27 @@ import styles from '@/styles/Spectator.module.scss';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import { Table, TableBody, TableCell, Select, TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
-import { getAllVideo, deleteVideoService } from '@/services/authServices';
+import { getAllVideo, deleteVideoService, updateVideoById } from '@/services/authServices';
 import { getVideo } from '@/types/spectatorTypes';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
+import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
+// import { formatUrl } from 'url';
 
 
 const Video = () => {
     const [data, setData] = useState<getVideo[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const router = useRouter();
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [selectedVideoId, setSelectedVideoId] = useState('');
 
     const getAllVideos = async () => {
         const token = localStorage.getItem('jwtToken') || '';
         try {
             const response = await getAllVideo(token);
             setData(response || []);
-            // console.log("response", response)
             setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
@@ -32,6 +35,16 @@ const Video = () => {
     useEffect(() => {
         getAllVideos();
     }, []);
+
+    const openDeleteModal = (videoId: string) => {
+        setIsDeleteModalOpen(true);
+        setSelectedVideoId(videoId);
+    };
+
+    const closeDeleteModal = () => {
+        setIsDeleteModalOpen(false);
+        setSelectedVideoId('');
+    };
 
     const deleteVideo = async (_id: string) => {
         setIsLoading(true);
@@ -46,7 +59,6 @@ const Video = () => {
         }
     };
 
-
     function formatDateTime(dateTime: string) {
         const dateObj = new Date(dateTime);
         const formattedDate = `${String(dateObj.getMonth() + 1).padStart(2, '0')}/${String(dateObj.getDate()).padStart(2, '0')}/${dateObj.getFullYear()}`
@@ -60,10 +72,20 @@ const Video = () => {
         };
     }
 
-    const handleClickUpdate = (_id: string) => {
-        router.push(`/spectatorDashboard/Matchhistorydetails?id=${_id}`);
-    }
+    const handleClickUpdate = async (_id: string) => {
+        try {
+            const token = localStorage.getItem('jwtToken') || '';
+            const videoData = await updateVideoById({ token, _id });
 
+            if (videoData) {
+                router.push(`/spectatorDashboard/Matchhistorydetails?id=${_id}`);
+            } else {
+                toast.error('Failed to fetch video data.');
+            }
+        } catch (error) {
+            toast.error(error?.response?.data?.message || 'An error occurred while fetching video data.');
+        }
+    };
 
     const columns: string[] = [
         'Video',
@@ -73,7 +95,6 @@ const Video = () => {
         'Time',
         'Action',
     ];
-
     return (
         <div className={styles.main_container} id="mainLayoutContainerInner">
             <div className={styles.inner_main_container}>
@@ -96,6 +117,7 @@ const Video = () => {
                         </div>
                     </div>
                     <div>
+
                         {isLoading ? (
                             <Loader />
                         ) : (
@@ -110,10 +132,11 @@ const Video = () => {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
+
                                     {data.map((video, index) => (
                                         <TableRow className={styles.table_row_cell} key={index}>
                                             <TableCell className={styles.table_data}>
-                                                <img src={video.mapImg ?? '/assests/about.jpg'} className={styles.video_card} alt="Image" width={120} height={75} />
+                                                <img src={video.mapImg ? video.mapImg : '/assests/about.jpg'} className={styles.video_card} alt="Image" width={120} height={75} />
                                             </TableCell>
                                             <TableCell className={styles.table_data}>{video.title ?? '--'}</TableCell>
                                             <TableCell className={styles.table_data_color}>Squad</TableCell>
@@ -122,7 +145,7 @@ const Video = () => {
                                             <TableCell className={styles.table_data}>
                                                 <span className={styles.gap}>
                                                     <Image src="/assests/update.svg" alt="Image" width={12} height={12} onClick={() => handleClickUpdate(video._id)} />
-                                                    <Image src="/assests/Tabledeleted.svg" alt="Image" width={12} height={12} onClick={() => deleteVideo(video._id)} />
+                                                    <Image src="/assests/Tabledeleted.svg" alt="Image" width={12} height={12} onClick={() => openDeleteModal(video._id)} />
                                                 </span>
                                             </TableCell>
                                         </TableRow>
@@ -133,6 +156,18 @@ const Video = () => {
                     </div>
                 </div>
             </div>
+
+            {isDeleteModalOpen && (
+                <DeleteModal
+                    isOpen={isDeleteModalOpen}
+                    handleCloseModal={closeDeleteModal}
+                    handleDeleteUser={() => {
+                        deleteVideo(selectedVideoId);
+                        closeDeleteModal();
+                    }}
+                />
+            )}
+
         </div>
     );
 };

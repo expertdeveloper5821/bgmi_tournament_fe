@@ -3,12 +3,12 @@ import React, { useState, useEffect } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 import { Navbar } from '@/Components/Navbar/Navbar';
 import { useFormik, FormikHelpers } from 'formik';
-import { Select, Input, Button } from "technogetic-iron-smart-ui";
+import { Input, Button } from "technogetic-iron-smart-ui";
 import Image from 'next/image';
 import { videoPostSchema } from '@/utils/schema';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { videoService } from '@/services/authServices';
+import { videoService, updateVideoService } from '@/services/authServices';
 import { VideoFormValuesType } from '../../../Components/pageComponents/auth/authInterfaces';
 import { getAllVideo } from '@/services/authServices';
 
@@ -18,7 +18,7 @@ const matchHistoryDetails = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const uuid = searchParams.get('id') || '';
-    // const [data, setData] = useState<getVideo[]>([]);
+    const [updateVideoData, setUpdateVideoData] = useState<VideoFormValuesType | null>(null);
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files![0];
@@ -29,11 +29,10 @@ const matchHistoryDetails = () => {
             handleChange({
                 target: {
                     name: 'mapImg',
-                    value: imageURL,
+                    value: file,
                 },
             });
         }
-
     };
 
     const initialValues: VideoFormValuesType = {
@@ -45,10 +44,11 @@ const matchHistoryDetails = () => {
         mapImg: '',
     };
 
-    const { values, handleSubmit, handleChange, handleBlur, touched, errors } = useFormik<VideoFormValuesType>({
+    const { values, handleSubmit, handleChange, handleBlur, touched, errors, setValues } = useFormik<VideoFormValuesType>({
 
         initialValues,
         validationSchema: videoPostSchema,
+
         onSubmit: async (values, { resetForm }: FormikHelpers<VideoFormValuesType>) => {
             const dateTimeString = new Date(`${values.date} ${values.time}`);
             values.dateAndTime = dateTimeString;
@@ -64,7 +64,12 @@ const matchHistoryDetails = () => {
                     formData.append('title', values.title);
                     formData.append('videoLink', values.videoLink);
 
-                    const response = await videoService(values, uuid);
+                    let response;
+                    if (updateVideoData) {
+                        response = await updateVideoService(values, uuid);
+                    } else {
+                        response = await videoService(values, uuid);
+                    }
 
                     if (response && response.status === 200) {
                         resetForm();
@@ -76,20 +81,20 @@ const matchHistoryDetails = () => {
                     toast.error('Please fix validation errors before submitting.');
                 }
             } catch (error) {
-                console.error('An error occurred:', error);
                 toast.error('Failed to Add room. Please try again.');
             }
         }
-
-
     });
 
     const getAllVideos = async () => {
         const token = localStorage.getItem('jwtToken') || '';
         try {
             const response = await getAllVideo(token);
-            console.log("response", response)
-            // setData(response || []);
+            const selectedVideo = response.find(video => video._id === uuid);
+
+            if (selectedVideo) {
+                setUpdateVideoData(selectedVideo);
+            }
         } catch (error) {
             toast.error(error?.response?.data?.message);
         }
@@ -98,6 +103,21 @@ const matchHistoryDetails = () => {
     useEffect(() => {
         getAllVideos();
     }, []);
+
+    useEffect(() => {
+        if (updateVideoData) {
+            const dateAndTime = new Date(updateVideoData.dateAndTime);
+
+            setValues({
+                title: updateVideoData.title || '',
+                videoLink: updateVideoData.videoLink || '',
+                dateAndTime: updateVideoData.dateAndTime || '',
+                date: dateAndTime.toISOString().split('T')[0] || '',
+                time: `${String(dateAndTime.getHours()).padStart(2, '0')}:${String(dateAndTime.getMinutes()).padStart(2, '0')}`,
+                mapImg: updateVideoData.mapImg || '',
+            });
+        }
+    }, [updateVideoData]);
 
     const handleRemoveImage = () => {
         setShowThumbnail(false);
@@ -130,19 +150,6 @@ const matchHistoryDetails = () => {
                                         />
                                     </div>
                                     {errors.title && touched.title && <div className={styles.error}>{errors.title}</div>}
-                                    <span className={styles.typeofmatch}>Match Type</span>
-                                    <span className={styles.select_match_type}>Please select match type. It can help viewers discover your content faster.</span>
-                                    <Select
-                                        placeholder="Select"
-                                        className={styles.select}
-                                        onChange={function noRefCheck() { }}
-                                        option={[
-                                            'Solo',
-                                            'Squad',
-                                            'Duo'
-                                        ]}
-                                        optionClassName={styles.downside}
-                                    />
                                     <span className={styles.Uploadthumbnail}>Upload Thumbnail</span>
                                     <span className={styles.select_match_type}>Select and upload a picture that shows what's in your video. Your thumbnail stands out and grabs viewers' attention.</span>
                                     <div className={styles.upload_Images}>
@@ -159,10 +166,9 @@ const matchHistoryDetails = () => {
                                                 Upload Thumbnail
                                             </label>
                                         </div>
-                                        <div className={styles.imageshown} style={{ display: showThumbnail ? 'block' : 'none' }}>
-                                            <img src={thumbnailURL} className={styles.thumbnailPreview} />
+                                        <div className={styles.imageshown} style={{ display: (showThumbnail || values.mapImg) ? 'block' : 'none' }}>
+                                            <img src={thumbnailURL ? thumbnailURL : values.mapImg} className={styles.thumbnailPreview} />
                                             <span className={styles.cross} onClick={handleRemoveImage} >X</span>
-
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +218,11 @@ const matchHistoryDetails = () => {
                                     </div>
                                     <div className={styles.btn_form_wrapper}>
                                         <Button className={styles.cancel} variant="contained" id="cancel" onClick={() => router.back()}>Cancel</Button>
-                                        <Button className={styles.publish} type="submit" onClick={handleSubmit} variant="contained" id="publish">Publish</Button>
+                                        {updateVideoData ? (
+                                            <Button className={styles.publish} type="submit" onClick={handleSubmit} variant="contained" id="update">Update</Button>
+                                        ) : (
+                                            <Button className={styles.publish} type="submit" onClick={handleSubmit} variant="contained" id="publish">Publish</Button>
+                                        )}
                                     </div>
                                 </div>
                             </form>

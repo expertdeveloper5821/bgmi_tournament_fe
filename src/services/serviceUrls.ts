@@ -9,6 +9,7 @@ export const serviceUrls = {
   deleteVideo: '/role/deletevideo',
   registerSpectator: '/role/spectator/Register',
   updateRole: 'role/updaterole/',
+  updateVideo: '/role/getvideo',
   roomsRelatedUrl: '/room/rooms',
   filteredRoomsList: '/room/rooms?search=',
   allRooms: 'room/rooms',
@@ -19,4 +20,5 @@ export const serviceUrls = {
   forgetPassword: 'user/forget-password',
   login: 'user/login',
   resetPassword: 'user/reset-password?token=',
+  videoUpdateService: 'role/updatevideo/',
 };

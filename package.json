@@ -58,6 +58,7 @@
     "swiper": "^10.2.0",
     "technogetic-iron-smart-ui": "1.0.27",
     "typescript": "5.1.6",
+    "url": "^0.11.3",
     "yup": "^1.2.0"
   },
   "devDependencies": {

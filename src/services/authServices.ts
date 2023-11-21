@@ -30,8 +30,32 @@ export const videoService = async (payload: VideoFormValuesType, uuid: string) =
   try {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { date, time, ...data } = payload;
+
     const res = await sendRequest(`${serviceUrls.video}${uuid}`, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      data,
+    });
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (err) {
+    return err;
+  }
+};
+
+export const updateVideoService = async (payload: VideoFormValuesType, uuid: string) => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { date, time, ...data } = payload;
+
+    const res = await sendRequest(`${serviceUrls.videoUpdateService}${uuid}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
       data,
     });
     if (res.status === 200) {
@@ -180,6 +204,19 @@ export const getAllFilteredRoomsListService = async (data: GetAllFilteredValuesT
 export const updateUserDetailsService = async (data) => {
   const res = await sendRequest(`${serviceUrls.updateUserDetails}`, {
     method: 'PUT',
+    headers: { 'Content-Type': 'multipart/form-data' },
+    data: data.data,
+  });
+  if (res.status === 200) {
+    return res;
+  } else {
+    throw res;
+  }
+};
+
+export const updateVideoById = async (data) => {
+  const res = await sendRequest(`${serviceUrls.updateVideo}/${data._id}`, {
+    method: 'GET',
     headers: { 'Content-Type': 'multipart/form-data' },
     data: data.data,
   });
