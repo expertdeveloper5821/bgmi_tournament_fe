@@ -2,6 +2,7 @@
 import Image from 'next/image';
 
 import styles from '@/styles/personal_detail.module.scss';
+import authStyles from '@/styles/auth.module.scss';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import React, { useState } from 'react';
@@ -119,7 +120,7 @@ export const TeamsDetailsForm = () => {
           />
         </div>
         {errors.teamName && touched.teamName && (
-          <div className={styles.error}>{errors.teamName}</div>
+          <div className={`${styles.error} ${authStyles.validation_Error}`}>{errors.teamName}</div>
         )}
 
         <div className={styles.input_box}>
@@ -137,7 +138,9 @@ export const TeamsDetailsForm = () => {
             onKeyDown={handleKeyPress}
           />
         </div>
-        {errors.emails && touched.emails && <div className={styles.error}>{errors.emails}</div>}
+        {errors.emails && touched.emails && (
+          <div className={`${styles.error} ${authStyles.validation_Error}`}>{errors.emails}</div>
+        )}
         {emailDisplayList.length > 0 && (
           <div className={styles.email_container}>
             {emailDisplayList.map((email, index) => {

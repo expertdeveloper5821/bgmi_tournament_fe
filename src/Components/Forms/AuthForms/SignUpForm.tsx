@@ -80,7 +80,9 @@ export const SignupForm = () => {
           onBlur={handleBlur}
         />
       </div>
-      {errors.fullName && touched.fullName && <div className={styles.error}>{errors.fullName}</div>}
+      {errors.fullName && touched.fullName && (
+        <div className={`${styles.error} ${styles.validation_Error}`}>{errors.fullName}</div>
+      )}
 
       <div className={styles.input_box}>
         <label className={styles.email} htmlFor="email">
@@ -98,7 +100,9 @@ export const SignupForm = () => {
           onBlur={handleBlur}
         />
       </div>
-      {errors.email && touched.email && <div className={styles.error}>{errors.email}</div>}
+      {errors.email && touched.email && (
+        <div className={`${styles.error} ${styles.validation_Error}`}>{errors.email}</div>
+      )}
 
       <div className={styles.input_box}>
         <label className={styles.password} htmlFor="password">
@@ -117,7 +121,9 @@ export const SignupForm = () => {
           onPaste={handlePaste}
         />
       </div>
-      {errors.password && touched.password && <div className={styles.error}>{errors.password}</div>}
+      {errors.password && touched.password && (
+        <div className={`${styles.error} ${styles.validation_Error}`}>{errors.password}</div>
+      )}
 
       <div className={styles.button_wrapper}>
         <Button

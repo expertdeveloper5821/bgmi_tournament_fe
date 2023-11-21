@@ -156,7 +156,9 @@ export function LoginForm(): React.JSX.Element {
           onBlur={handleBlur}
         />
       </div>
-      {errors.email && touched.email && <div className={styles.error}>{errors.email}</div>}
+      {errors.email && touched.email && (
+        <div className={`${styles.error} ${styles.validation_Error}`}>{errors.email}</div>
+      )}
 
       <div className={styles.input_box}>
         <label className={styles.password} htmlFor="password">
@@ -175,7 +177,9 @@ export function LoginForm(): React.JSX.Element {
           onPaste={handlePaste}
         />
       </div>
-      {errors.password && touched.password && <div className={styles.error}>{errors.password}</div>}
+      {errors.password && touched.password && (
+        <div className={`${styles.error} ${styles.validation_Error}`}>{errors.password}</div>
+      )}
 
       <div className={styles.checkbox_wrapper}>
         <input

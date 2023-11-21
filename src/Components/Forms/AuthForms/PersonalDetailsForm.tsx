@@ -2,6 +2,8 @@
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import styles from '@/styles/personal_detail.module.scss';
+import authStyles from '@/styles/auth.module.scss';
+
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import { personDetailSchema } from '@/utils/schema';
@@ -143,7 +145,9 @@ export const PersonalDetail = () => {
             <img src="/assests/infoIcon.svg" />
           </Tooltip>
         </div>
-        {errors.player && touched.player && <div className={styles.error}>{errors.player}</div>}
+        {errors.player && touched.player && (
+          <div className={`${styles.error} ${authStyles.validation_Error}`}>{errors.player}</div>
+        )}
 
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="email">
@@ -162,7 +166,9 @@ export const PersonalDetail = () => {
           />
         </div>
 
-        {errors.upi && touched.upi && <div className={styles.error}>{errors.upi}</div>}
+        {errors.upi && touched.upi && (
+          <div className={`${styles.error} ${authStyles.validation_Error}`}>{errors.upi}</div>
+        )}
 
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="email">
@@ -185,7 +191,7 @@ export const PersonalDetail = () => {
         </div>
 
         {errors.whatsapp && touched.whatsapp && (
-          <div className={styles.error}>{errors.whatsapp}</div>
+          <div className={`${styles.error} ${authStyles.validation_Error}`}>{errors.whatsapp}</div>
         )}
         <Button className={styles.google_btn} type="submit" onClick={handleSubmit}>
           {isLoading ? 'Loading...' : <span>Next</span>}
