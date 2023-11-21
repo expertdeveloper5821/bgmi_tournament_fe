@@ -86,8 +86,10 @@ const personDetailSchema = Yup.object().shape({
 
   upi: Yup.string()
     .required('UPI ID is required')
-    .min(10, 'Invalid UPI ID format, must be min 10 and max 20 length')
-    .max(20, 'Invalid UPI ID format, must be min 10 and max 20 length'),
+    .matches(/^[\w]{3,}@[\w]{3,}$/, {
+      message:
+        'Invalid UPI ID format, must contain at least 3 characters before and after "@" symbol.',
+    }),
 
   whatsapp: Yup.string()
     .required('Whatsapp number is required')
