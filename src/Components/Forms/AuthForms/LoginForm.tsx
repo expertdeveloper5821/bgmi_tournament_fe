@@ -217,7 +217,7 @@ export function LoginForm(): React.JSX.Element {
       <div className={styles.button_wrapper}>
         <Button
           disabled={isLoading}
-          className={styles.forgetbutton}
+          className={isLoading ? styles.disabledforgetbutton : styles.forgetbutton}
           variant="contained"
           onClick={handleSubmit}
         >

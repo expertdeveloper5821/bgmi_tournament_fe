@@ -128,7 +128,12 @@ export const ResetPasswordForm: React.FC = () => {
         </div>
       )}
       <div className={styles.button_wrapper}>
-        <Button varient="contained" className={styles.forgetbutton} onClick={handleSubmit}>
+        <Button
+          disabled={isSubmitting}
+          varient="contained"
+          className={isSubmitting ? authStyles.disabledforgetbutton : styles.forgetbutton}
+          onClick={handleSubmit}
+        >
           {isSubmitting ? 'Loading...' : 'Update'}
         </Button>
       </div>

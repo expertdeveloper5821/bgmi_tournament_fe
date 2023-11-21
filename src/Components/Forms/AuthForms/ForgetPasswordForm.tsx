@@ -83,7 +83,7 @@ export function ForgetPasswordForm(): JSX.Element {
         <Button
           disabled={isSubmitting}
           variant="contained"
-          className={styles.SignIn_button}
+          className={isSubmitting ? styles.disabledforgetbutton : styles.SignIn_button}
           onClick={handleSubmit}
         >
           {isSubmitting ? 'Loading...' : 'Recover Password'}

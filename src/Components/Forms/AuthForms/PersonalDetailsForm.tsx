@@ -232,7 +232,12 @@ export const PersonalDetail = () => {
             {errors.whatsapp}
           </div>
         )}
-        <Button className={styles.google_btn} type="submit" onClick={handleSubmit}>
+        <Button
+          disabled={isLoading}
+          className={isLoading ? authStyles.disabledforgetbutton : styles.google_btn}
+          type="submit"
+          onClick={handleSubmit}
+        >
           {isLoading ? 'Loading...' : <span>Next</span>}
         </Button>
       </form>

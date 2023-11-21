@@ -194,7 +194,11 @@ export const TeamsDetailsForm = () => {
           </div>
         )}
 
-        <Button disabled={isSubmitting} className={styles.google_finsh} onClick={handleSubmit}>
+        <Button
+          disabled={isSubmitting}
+          className={isSubmitting ? authStyles.disabledforgetbutton : styles.google_finsh}
+          onClick={handleSubmit}
+        >
           {isSubmitting ? 'Loading...' : <span className={styles.nextArrow}>Finish</span>}
         </Button>
 

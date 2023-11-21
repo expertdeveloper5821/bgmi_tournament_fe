@@ -159,7 +159,7 @@ export const SignupForm = () => {
       <div className={styles.button_wrapper}>
         <Button
           disabled={isSubmitting}
-          className={styles.forgetbutton}
+          className={isSubmitting ? styles.disabledforgetbutton : styles.forgetbutton}
           type="submit"
           onClick={handleSubmit}
         >

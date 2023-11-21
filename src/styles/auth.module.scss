@@ -172,6 +172,17 @@
   }
 }
 
+.disabledforgetbutton {
+  @include button_wrapper;
+  margin-top: 18px;
+  color: white !important;
+  background-color: #9ebccf !important;
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 12px 30px;
+    width: 100%;
+  }
+}
+
 .SignIn_button {
   @include button_wrapper;
   margin: 1.5rem 0rem;
