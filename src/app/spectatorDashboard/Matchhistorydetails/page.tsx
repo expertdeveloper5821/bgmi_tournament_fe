@@ -53,6 +53,8 @@ const matchHistoryDetails = () => {
             const dateTimeString = new Date(`${values.date} ${values.time}`);
             values.dateAndTime = dateTimeString;
 
+            console.log("values", values)
+
             const form = new FormData();
 
             for (const key in values) {
@@ -73,6 +75,8 @@ const matchHistoryDetails = () => {
 
                     if (response && response.status === 200) {
                         resetForm();
+                        setThumbnailURL('');
+                        setShowThumbnail(false);
                         toast.success(response.data.message);
                     } else {
                         toast.error('Failed to Add room. Please try again.');

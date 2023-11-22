@@ -10,8 +10,6 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
-// import { formatUrl } from 'url';
-
 
 const Video = () => {
     const [data, setData] = useState<getVideo[]>([]);
@@ -30,7 +28,7 @@ const Video = () => {
             setIsLoading(false);
             toast.error(error?.response?.data?.message);
         }
-    };
+    }
 
     useEffect(() => {
         getAllVideos();
