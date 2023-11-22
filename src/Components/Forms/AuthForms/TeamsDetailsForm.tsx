@@ -120,7 +120,7 @@ export const TeamsDetailsForm = () => {
             id="teamName"
             className={
               errors.teamName && touched.teamName
-                ? authStyles.error_email_wrapper
+                ? styles.error_email_wrapper
                 : styles.email_wrapper
             }
             type="text"
@@ -157,7 +157,7 @@ export const TeamsDetailsForm = () => {
             name="emails"
             className={
               errors.emails && touched.emails
-                ? `${authStyles.error_email_wrapper} ${styles.multiple_emails_input}`
+                ? `${styles.error_email_wrapper} ${styles.multiple_emails_input}`
                 : `${styles.email_wrapper} ${styles.multiple_emails_input}`
             }
             value={inputValue}

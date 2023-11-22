@@ -141,7 +141,7 @@ export const PersonalDetail = () => {
             id="Player Id/Username"
             className={
               errors.player && touched.player
-                ? `${authStyles.error_email_wrapper} ${styles.info_Icon_Inputs}`
+                ? `${styles.error_email_wrapper} ${styles.info_Icon_Inputs}`
                 : `${styles.email_wrapper} ${styles.info_Icon_Inputs}`
             }
             type="text"
@@ -181,7 +181,7 @@ export const PersonalDetail = () => {
           <Input
             id="UPI_Id"
             className={
-              errors.upi && touched.upi ? authStyles.error_email_wrapper : styles.email_wrapper
+              errors.upi && touched.upi ? styles.error_email_wrapper : styles.email_wrapper
             }
             type="text"
             name="upi"
@@ -218,7 +218,7 @@ export const PersonalDetail = () => {
             id="WhatsApp_Number"
             className={
               errors.whatsapp && touched.whatsapp
-                ? `${authStyles.error_email_wrapper} ${styles.info_Icon_Inputs}`
+                ? `${styles.error_email_wrapper} ${styles.info_Icon_Inputs}`
                 : `${styles.email_wrapper} ${styles.info_Icon_Inputs}`
             }
             type="text"
@@ -241,12 +241,6 @@ export const PersonalDetail = () => {
             </div>
           )}
         </div>
-
-        {errors.whatsapp && touched.whatsapp && (
-          <div className={`${authStyles.error} ${authStyles.validation_Error}`}>
-            {errors.whatsapp}
-          </div>
-        )}
         <Button
           disabled={isLoading}
           className={isLoading ? styles.disabled_google_btn : styles.google_btn}

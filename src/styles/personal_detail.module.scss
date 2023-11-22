@@ -170,7 +170,20 @@
   color: #003554;
   font-weight: 600;
   font-size: 15px;
+  width: 100%;
 }
+
+.error_email_wrapper{
+  padding: 3px !important;
+  border: none !important;
+}
+
+.error_email_wrapper input::placeholder {
+  color: red;
+  font-weight: 600;
+  font-size: 15px;
+}
+
 .toolTip {
   margin-right: 50px;
   border-radius: 5px;
