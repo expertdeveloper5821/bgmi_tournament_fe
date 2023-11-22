@@ -15,6 +15,8 @@ import {
   handleSubmitWinningTeamService,
 } from '@/services/specDashboardServices';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
+import { getItemFromLS } from '@/utils/globalfunctions';
 
 const columns: string[] = [
   'Team Name',
@@ -33,6 +35,8 @@ const rowData = [
 
 const postWinners = () => {
   const router = useRouter();
+  const roomID = getItemFromLS('roomId') || '';
+  const roomUuid = getItemFromLS('roomUuid') || '';
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [roomUsers, setRoomUsers] = useState<null | []>(null);
   const [winnnerTeamData, setWinnnerTeamData] = useState<null | GameRoomType>(null);
@@ -48,8 +52,16 @@ const postWinners = () => {
   };
 
   useEffect(() => {
-    getAllTeamsService(setRoomUsers);
-    getWinningTeamsService(setWinnnerTeamData);
+    if (!roomUsers?.length) {
+      getAllTeamsService(roomID)
+        .then((res) => setRoomUsers(res?.data?.teams))
+        .catch(console.error);
+    }
+    if (!winnnerTeamData) {
+      getWinningTeamsService(roomUuid)
+        .then((res) => setWinnnerTeamData(res.data))
+        .catch(console.error);
+    }
   }, []);
 
   useEffect(() => {
@@ -90,6 +102,21 @@ const postWinners = () => {
         [name]: point,
       },
     }));
+  };
+
+  const handleSubmitWinner = async () => {
+    setIsLoading(true);
+    handleSubmitWinningTeamService(formData, winnnerTeamData, roomUuid)
+      .then((res) => {
+        setIsLoading(false);
+        router.push('/spectatorDashboard');
+        toast.success(res?.data.message);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        toast.error('Fail to update Winning team data !');
+        console.log(error);
+      });
   };
 
   return (
@@ -169,9 +196,7 @@ const postWinners = () => {
                   className={styles.submitbutton}
                   variant="contained"
                   type="submit"
-                  onClick={() =>
-                    handleSubmitWinningTeamService(setIsLoading, winnnerTeamData, formData, router)
-                  }
+                  onClick={handleSubmitWinner}
                 >
                   {isLoading ? 'Loading...' : 'Submit'}
                 </Button>

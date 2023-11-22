@@ -19,4 +19,5 @@ export const serviceUrls = {
   getRoomTeams: '/room/getTeam/',
   winnerGetPlayer: '/winners/get-players/',
   winnerPlayerUpdate: '/winners/players/',
+  getAllRoom: 'room/user-rooms',
 };

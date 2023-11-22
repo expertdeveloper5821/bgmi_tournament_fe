@@ -7,10 +7,10 @@ import { sendRequest } from '@/utils/axiosInstanse';
 
 export type DeleteSpecProps = {
   Id: string;
-  getAllSpectator: () => void;
+  getAllRooms: () => void;
 };
 
-const DeleteSpectatorModal: React.FC<DeleteSpecProps> = ({ Id, getAllSpectator }) => {
+const DeleteSpectatorModal: React.FC<DeleteSpecProps> = ({ Id, getAllRooms }) => {
   const [deletModal, setDeleteModal] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -23,7 +23,7 @@ const DeleteSpectatorModal: React.FC<DeleteSpecProps> = ({ Id, getAllSpectator }
       });
       if (deleteResponse.status === 200 || deleteResponse.status === 201) {
         toast.success(deleteResponse.data.message);
-        getAllSpectator();
+        getAllRooms();
         setDeleteModal(false);
         setIsLoading(false);
       } else {

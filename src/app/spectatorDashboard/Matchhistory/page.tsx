@@ -6,12 +6,16 @@ import Image from 'next/image';
 import { GameRoomType } from '@/types/roomsTypes';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { getWinningTeamsService } from '@/services/specDashboardServices';
+import { getItemFromLS } from '@/utils/globalfunctions';
 
 const matchHistory = () => {
+  const roomUuid = getItemFromLS('roomUuid') || '';
   const [winnnerTeamData, setWinnnerTeamData] = useState<GameRoomType | null>(null);
 
   useEffect(() => {
-    getWinningTeamsService(setWinnnerTeamData);
+    getWinningTeamsService(roomUuid)
+      .then((res) => setWinnnerTeamData(res.data))
+      .catch(console.error);
   }, []);
 
   let gameName = '',

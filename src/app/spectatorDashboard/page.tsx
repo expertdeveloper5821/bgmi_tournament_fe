@@ -14,8 +14,16 @@ function spectatorDashboard() {
   const [roomIdToUpdate, setRoomIdToUpdate] = useState({});
   const [spect, setSpect] = useState<SpectatorRoomDataType[] | null>(null);
 
+  const getAllRooms = async () => {
+    getAllSpectatorService()
+      .then((res) => setSpect(res.data))
+      .catch(console.error);
+  };
+
   useEffect(() => {
-    getAllSpectatorService(setSpect);
+    if (!spect) {
+      getAllRooms();
+    }
   }, []);
 
   return (
@@ -32,7 +40,7 @@ function spectatorDashboard() {
                   setShowModal={setShowModal}
                   roomIdToUpdate={roomIdToUpdate}
                   setRoomIdToUpdate={setRoomIdToUpdate}
-                  callSpecatator={() => getAllSpectatorService(setSpect)}
+                  getAllRooms={getAllRooms}
                 />
               </div>
               <div>
@@ -44,7 +52,7 @@ function spectatorDashboard() {
                     showModal={showModal}
                     setShowModal={setShowModal}
                     setRoomIdToUpdate={setRoomIdToUpdate}
-                    getAllSpectator={getAllSpectatorService}
+                    getAllRooms={getAllRooms}
                   />
                 )}
               </div>

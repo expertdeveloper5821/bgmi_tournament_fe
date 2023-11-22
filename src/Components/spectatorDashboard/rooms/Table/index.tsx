@@ -18,7 +18,7 @@ import { GiPodiumWinner } from 'react-icons/gi';
 import Link from 'next/link';
 import Pagination from '@/Components/CommonComponent/Pagination';
 
-const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSpectator }) => {
+const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRooms }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalItems = Spect.length;
   const itemsPerPage = 5;
@@ -67,7 +67,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
             <TableCell className={styles.el_tb_cell}>{spec?.entryFee ?? '--'}</TableCell>
 
             <TableCell className={styles.tb_cell_action}>
-              <DeleteSpectatorModal Id={spec._id} getAllSpectator={getAllSpectator} />
+              <DeleteSpectatorModal Id={spec._id} getAllRooms={getAllRooms} />
               <div
                 onClick={() => {
                   setShowModal(!showModal);
