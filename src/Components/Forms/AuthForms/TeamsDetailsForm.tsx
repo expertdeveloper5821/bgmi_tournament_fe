@@ -160,7 +160,6 @@ export const TeamsDetailsForm = () => {
                 ? `${authStyles.error_email_wrapper} ${styles.multiple_emails_input}`
                 : `${styles.email_wrapper} ${styles.multiple_emails_input}`
             }
-            // className={`${styles.email_wrapper} ${styles.multiple_emails_input}`}
             value={inputValue}
             placeholder="Invite Friends Via Mail (Optional)"
             onChange={handleInputChange}
@@ -196,7 +195,7 @@ export const TeamsDetailsForm = () => {
 
         <Button
           disabled={isSubmitting}
-          className={isSubmitting ? authStyles.disabledforgetbutton : styles.google_finsh}
+          className={isSubmitting ? styles.disabled_google_finish : styles.google_finsh}
           onClick={handleSubmit}
         >
           {isSubmitting ? 'Loading...' : <span className={styles.nextArrow}>Finish</span>}

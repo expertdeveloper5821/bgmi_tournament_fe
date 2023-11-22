@@ -176,7 +176,7 @@
   @include button_wrapper;
   margin-top: 18px;
   color: white !important;
-  background-color: #9ebccf !important;
+  background-color: #7297b1 !important;
   @media (max-width: $breakpoint-xSmall) {
     padding: 12px 30px;
     width: 100%;
@@ -191,6 +191,18 @@
     width: 100%;
   }
 }
+
+.disabled_signin_button {
+  @include button_wrapper;
+  margin: 1.5rem 0rem;
+  color: white !important;
+  background-color: #7297b1 !important;
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 12px 30px;
+    width: 100%;
+  }
+}
+
 .sign_accout {
   display: flex;
   justify-content: center;

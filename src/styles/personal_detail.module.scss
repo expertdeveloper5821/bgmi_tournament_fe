@@ -27,12 +27,12 @@
     color: #003554;
   }
 
-  .uploadOptional{
+  .uploadOptional {
     font-weight: bold;
     color: #777777;
   }
 
-  .editImageWrapper{
+  .editImageWrapper {
     align-items: center;
     display: flex;
     justify-content: center;
@@ -53,8 +53,7 @@
   @include email_wrapper;
 }
 
-
-.info_Icon_Inputs{
+.info_Icon_Inputs {
   width: 83% !important;
 }
 
@@ -105,7 +104,18 @@
   align-items: center;
   justify-content: center;
   position: relative;
-} 
+}
+
+.disabled_google_btn {
+  @include button_wrapper;
+  margin-top: 40px;
+  color: white !important;
+  background-color: #7297b1 !important;
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 12px 30px;
+    width: 100%;
+  }
+}
 
 @media (max-width: $breakpoint-xs) {
   .google_btn {
@@ -200,6 +210,19 @@
   width: 100%;
   background-color: #003554 !important;
 }
+
+.disabled_google_finish {
+  @include button_wrapper;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  color: white !important;
+  background-color: #7297b1 !important;
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 12px 30px;
+    width: 100%;
+  }
+}
+
 .error {
   color: red !important;
 }

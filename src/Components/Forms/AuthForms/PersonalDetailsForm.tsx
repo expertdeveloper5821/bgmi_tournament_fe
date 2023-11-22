@@ -234,7 +234,7 @@ export const PersonalDetail = () => {
         )}
         <Button
           disabled={isLoading}
-          className={isLoading ? authStyles.disabledforgetbutton : styles.google_btn}
+          className={isLoading ? styles.disabled_google_btn : styles.google_btn}
           type="submit"
           onClick={handleSubmit}
         >
