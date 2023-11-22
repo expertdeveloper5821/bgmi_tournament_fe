@@ -116,7 +116,6 @@
 
 .email img,
 .password img {
-  // margin: 0px 2px;
   display: flex;
   justify-content: center;
 }
@@ -131,6 +130,7 @@
 
 .error_email_wrapper {
   width: 100%;
+  padding: 3px !important;
   border: none !important;
 }
 
@@ -141,7 +141,9 @@
 
 .email_wrapper {
   @include email_wrapper;
+  padding: 3px !important;
 }
+
 .password_wrapper {
   @include email_wrapper;
 }
@@ -160,11 +162,15 @@
 
 .error {
   @include error;
+  font-size: 10px;
+  position: absolute;
+  left: 2px;
+  bottom: -22px;
 }
 
 .forgetbutton {
   @include button_wrapper;
-  margin-top: 18px;
+  margin-top: 20px;
   color: white !important;
   @media (max-width: $breakpoint-xSmall) {
     padding: 12px 30px;
@@ -241,10 +247,6 @@
   @media (max-width: $breakpoint-xs) {
     margin-right: 0;
   }
-}
-
-.error {
-  @include error;
 }
 
 .error_message {

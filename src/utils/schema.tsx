@@ -16,10 +16,7 @@ const SignupSchema = Yup.object().shape({
 
   password: Yup.string()
     .required('Please enter your password')
-    .matches(
-      passwordRegex,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
-    ),
+    .matches(passwordRegex, 'Must contain:8 chars: 1 upper,lower,number,special.'),
 });
 
 const loginSchema = Yup.object().shape({
@@ -30,10 +27,7 @@ const loginSchema = Yup.object().shape({
 
   password: Yup.string()
     .required('Please enter your password')
-    .matches(
-      passwordRegex,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
-    ),
+    .matches(passwordRegex, 'Must contain:8 chars: 1 upper,lower,number,special.'),
 });
 
 const forgetPasswordSchema = Yup.object().shape({
@@ -46,10 +40,7 @@ const forgetPasswordSchema = Yup.object().shape({
 const ResetPasswordSchema = Yup.object().shape({
   newPassword: Yup.string()
     .required('Please enter your password')
-    .matches(
-      passwordRegex,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
-    ),
+    .matches(passwordRegex, 'Must contain:8 chars: 1 upper,lower,number,special.'),
 
   confirmPassword: Yup.string()
     .required('Confirm password is required')
@@ -87,15 +78,13 @@ const personDetailSchema = Yup.object().shape({
   upi: Yup.string()
     .required('UPI ID is required')
     .matches(/^[\w]{3,}@[\w]{3,}$/, {
-      message:
-        'Invalid UPI ID format, must contain at least 3 characters before and after "@" symbol.',
+      message: "UPI ID: 3 characters before & after '@' needed.",
     }),
 
   whatsapp: Yup.string()
     .required('Whatsapp number is required')
     .matches(/^(\+91|\\+)?[1-9][0-9]{9}$/, {
-      message:
-        'Invalid phone number. Please enter a valid 10-digit phone number or that can starts with +91.',
+      message: 'Enter valid 10-digit number or +91 start.',
     }),
 });
 

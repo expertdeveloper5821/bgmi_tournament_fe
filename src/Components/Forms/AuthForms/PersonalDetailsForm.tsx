@@ -155,12 +155,15 @@ export const PersonalDetail = () => {
           <Tooltip text="The player id should match the with the BGMI player id">
             <img src="/assests/infoIcon.svg" />
           </Tooltip>
+          {errors.player && touched.player && (
+            <div
+              className={`${authStyles.error} ${authStyles.validation_Error}`}
+              style={{ left: '0' }}
+            >
+              {errors.player}
+            </div>
+          )}
         </div>
-        {errors.player && touched.player && (
-          <div className={`${authStyles.error} ${authStyles.validation_Error}`}>
-            {errors.player}
-          </div>
-        )}
 
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="email">
@@ -188,11 +191,15 @@ export const PersonalDetail = () => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
+          {errors.upi && touched.upi && (
+            <div
+              className={`${authStyles.error} ${authStyles.validation_Error}`}
+              style={{ left: '0' }}
+            >
+              {errors.upi}
+            </div>
+          )}
         </div>
-
-        {errors.upi && touched.upi && (
-          <div className={`${authStyles.error} ${authStyles.validation_Error}`}>{errors.upi}</div>
-        )}
 
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="email">
@@ -225,6 +232,14 @@ export const PersonalDetail = () => {
           <Tooltip text="WhatsApp number preferred">
             <img src="/assests/infoIcon.svg" />
           </Tooltip>
+          {errors.whatsapp && touched.whatsapp && (
+            <div
+              className={`${authStyles.error} ${authStyles.validation_Error}`}
+              style={{ left: '0' }}
+            >
+              {errors.whatsapp}
+            </div>
+          )}
         </div>
 
         {errors.whatsapp && touched.whatsapp && (

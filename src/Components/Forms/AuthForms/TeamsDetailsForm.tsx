@@ -131,12 +131,12 @@ export const TeamsDetailsForm = () => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
+          {errors.teamName && touched.teamName && (
+            <div className={`${authStyles.error} ${authStyles.validation_Error}`}>
+              {errors.teamName}
+            </div>
+          )}
         </div>
-        {errors.teamName && touched.teamName && (
-          <div className={`${authStyles.error} ${authStyles.validation_Error}`}>
-            {errors.teamName}
-          </div>
-        )}
 
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="emails">
@@ -165,12 +165,12 @@ export const TeamsDetailsForm = () => {
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
           />
+          {errors.emails && touched.emails && (
+            <div className={`${authStyles.error} ${authStyles.validation_Error}`}>
+              {errors.emails}
+            </div>
+          )}
         </div>
-        {errors.emails && touched.emails && (
-          <div className={`${authStyles.error} ${authStyles.validation_Error}`}>
-            {errors.emails}
-          </div>
-        )}
         {emailDisplayList.length > 0 && (
           <div className={styles.email_container}>
             {emailDisplayList.map((email, index) => {

@@ -88,10 +88,12 @@ export const ResetPasswordForm: React.FC = () => {
           onBlur={handleBlur}
           onPaste={handlePaste}
         />
+        {errors.newPassword && touched.newPassword && (
+          <div className={`${styles.error} ${authStyles.validation_Error}`}>
+            {errors.newPassword}
+          </div>
+        )}
       </div>
-      {errors.newPassword && touched.newPassword && (
-        <div className={`${styles.error} ${authStyles.validation_Error}`}>{errors.newPassword}</div>
-      )}
       <div className={styles.input_box}>
         <label htmlFor="confirmPassword" className={styles.password}>
           <Image
@@ -121,12 +123,12 @@ export const ResetPasswordForm: React.FC = () => {
           onBlur={handleBlur}
           onPaste={handlePaste}
         />
+        {errors.confirmPassword && touched.confirmPassword && (
+          <div className={`${styles.error} ${authStyles.validation_Error}`}>
+            {errors.confirmPassword}
+          </div>
+        )}
       </div>
-      {errors.confirmPassword && touched.confirmPassword && (
-        <div className={`${styles.error} ${authStyles.validation_Error}`}>
-          {errors.confirmPassword}
-        </div>
-      )}
       <div className={styles.button_wrapper}>
         <Button
           disabled={isSubmitting}

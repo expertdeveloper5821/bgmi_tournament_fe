@@ -83,8 +83,9 @@
   font-size: var(--bs-body-font-size);
   display: flex;
   align-items: center;
-  padding: 5px;
+  padding: 15px 5px 5px 5px;
   width: 100%;
+  position: relative;
   @media (max-width: $breakpoint-xSmall) {
     margin-top: 1rem;
   }
@@ -145,7 +146,6 @@
 }
 
 @mixin error {
-  // color: #ca0000;
   color: #ff0000;
   font-weight: 600;
   font-size: 12px;

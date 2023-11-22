@@ -74,10 +74,10 @@ export function ForgetPasswordForm(): JSX.Element {
           onChange={handleChange}
           onBlur={handleBlur}
         />
+        {errors.email && touched.email && (
+          <div className={`${styles.error} ${styles.validation_Error}`}>{errors.email}</div>
+        )}
       </div>
-      {errors.email && touched.email && (
-        <div className={`${styles.error} ${styles.validation_Error}`}>{errors.email}</div>
-      )}
 
       <div className={styles.button_wrapper}>
         <Button
