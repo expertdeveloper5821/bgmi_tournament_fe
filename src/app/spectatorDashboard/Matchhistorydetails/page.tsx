@@ -52,9 +52,6 @@ const matchHistoryDetails = () => {
         onSubmit: async (values, { resetForm }: FormikHelpers<VideoFormValuesType>) => {
             const dateTimeString = new Date(`${values.date} ${values.time}`);
             values.dateAndTime = dateTimeString;
-
-            console.log("values", values)
-
             const form = new FormData();
 
             for (const key in values) {
@@ -78,6 +75,10 @@ const matchHistoryDetails = () => {
                         setThumbnailURL('');
                         setShowThumbnail(false);
                         toast.success(response.data.message);
+
+                        if (updateVideoData) {
+                            router.push(`/spectatorDashboard/Video`);
+                        }
                     } else {
                         toast.error('Failed to Add room. Please try again.');
                     }
