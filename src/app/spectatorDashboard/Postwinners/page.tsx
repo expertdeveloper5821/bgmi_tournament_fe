@@ -8,7 +8,7 @@ import { Button } from 'technogetic-iron-smart-ui';
 import { useRouter } from 'next/navigation';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
-import { GameRoomType, winnerFormType } from '@/types/roomsTypes';
+import { GameRoomType, winnerFormDataType, winnerFormType } from '@/types/roomsTypes';
 import {
   getWinningTeamsService,
   handleSubmitWinningTeamService,
@@ -36,18 +36,16 @@ const postWinners = () => {
   const router = useRouter();
   const roomUuid = getItemFromLS('roomUuid') || '';
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [roomUsers, setRoomUsers] = useState<null | []>(null);
   const [winnnerTeamData, setWinnnerTeamData] = useState<null | GameRoomType>(null);
-  const [formData, setFormData] = useState<winnerFormType[] | object>([]);
+  const [formData, setFormData] = useState<winnerFormType[]>([]);
 
+  const obj: { teamName: string; title: string | undefined; value?: number }[] = [];
+  const ts: winnerFormDataType = {};
   useEffect(() => {
     if (!winnnerTeamData) {
       getWinningTeamsService(roomUuid)
         .then((res) => {
-          setRoomUsers(res.data.teams.map((i) => ({ teamName: i.teamName })));
-          const obj = [];
-          let ts = {};
-          console.log(res.data.teams);
+          setIsLoading(true);
           res.data.teams.forEach((i) => {
             ts[i.teamName] = {
               teamName: i.teamName,
@@ -57,7 +55,7 @@ const postWinners = () => {
               secondWinner: 0,
             };
             i.prizeTitles.forEach((j) => {
-              let m = rowData.find((k) => {
+              const m = rowData.find((k) => {
                 if (k.key === j) {
                   return k;
                 }
@@ -72,20 +70,26 @@ const postWinners = () => {
           });
 
           obj.forEach((i) => {
-            ts[i.teamName][i.title] = i.value;
+            if (i && i.title) {
+              ts[i.teamName][i.title] = i.value;
+            }
           });
-          setFormData(Object.entries(ts).map(([key, value]) => value));
 
+          setFormData(Object.entries(ts).map(([, value]) => value));
+          setIsLoading(false);
           setWinnnerTeamData(res.data);
         })
-        .catch(console.error);
+        .catch((error) => {
+          console.error(error);
+          setIsLoading(false);
+        });
     }
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, teamName: string) => {
     const { value, name } = e.target;
     const point = Number(value);
-    let filteredData = [...formData]
+    const filteredData = [...formData]
       .map((i) => {
         i[name] = 0;
         return i;
@@ -101,7 +105,7 @@ const postWinners = () => {
 
   const handleSubmitWinner = async () => {
     setIsLoading(true);
-    let payload = {};
+    const payload = {};
     formData.forEach((i) => {
       payload[i.teamName] = {
         ...i,
@@ -114,6 +118,7 @@ const postWinners = () => {
         toast.success(res?.data.message);
       })
       .catch((error) => {
+        console.log(error.message);
         setIsLoading(false);
         toast.error('Fail to update Winning team data !');
       });
@@ -128,9 +133,9 @@ const postWinners = () => {
             <div className={styles.inner_specter_cls}>
               <h1 className={styles.r_main_title}>Your Room</h1>
             </div>
-            {!roomUsers ? (
+            {isLoading ? (
               <Loader />
-            ) : roomUsers?.length === 0 ? (
+            ) : formData?.length === 0 ? (
               <div className={styles.noData}>No Team Data found !</div>
             ) : (
               <Table className={styles.table_content}>
@@ -145,7 +150,7 @@ const postWinners = () => {
                 </TableHeader>
 
                 <TableBody className={styles.postWinnerTbody}>
-                  {formData?.map((team: { teamName: string }, index: number) => {
+                  {formData?.map((team: { teamName: string }) => {
                     const { teamName } = team;
                     return (
                       <TableRow className={styles.table_row_winner}>
@@ -171,7 +176,7 @@ const postWinners = () => {
               </Table>
             )}
 
-            {roomUsers?.length !== 0 && (
+            {formData?.length !== 0 && (
               <div className={styles.button_wrapper_winner}>
                 <Link href={'/spectatorDashboard'}>
                   <Button className={styles.cancel_button}>Cancel</Button>
