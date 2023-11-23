@@ -46,32 +46,32 @@ const postWinners = () => {
       getWinningTeamsService(roomUuid)
         .then((res) => {
           setIsLoading(true);
-          res.data.teams.forEach((i) => {
-            ts[i.teamName] = {
-              teamName: i.teamName,
+          res.data.teams.forEach((team) => {
+            ts[team.teamName] = {
+              teamName: team.teamName,
               chickenDinner: 0,
               highestKill: 0,
               firstWinner: 0,
               secondWinner: 0,
             };
-            i.prizeTitles.forEach((j) => {
-              const m = rowData.find((k) => {
-                if (k.key === j) {
-                  return k;
+            team.prizeTitles.forEach((prize: string) => {
+              const updatedRowData = rowData.find((elm) => {
+                if (elm.key === prize) {
+                  return elm;
                 }
                 return 0;
               });
               obj.push({
-                teamName: i.teamName,
-                title: m?.name,
-                value: m?.value,
+                teamName: team.teamName,
+                title: updatedRowData?.name,
+                value: updatedRowData?.value,
               });
             });
           });
 
-          obj.forEach((i) => {
-            if (i && i.title) {
-              ts[i.teamName][i.title] = i.value;
+          obj.forEach((elm) => {
+            if (elm && elm.title) {
+              ts[elm.teamName][elm.title] = elm.value;
             }
           });
 
