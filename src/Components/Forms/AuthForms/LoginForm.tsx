@@ -227,14 +227,14 @@ export function LoginForm(): React.JSX.Element {
 
       <Button className={styles.btnStyle} onClick={googleAuth}>
         <Image src="/assests/google.svg" alt="passwordlogo" width={20} height={20} />
-        <span className={styles.googleIcon}>Sign in with Google</span>
+        <span>Sign in with Google</span>
       </Button>
       <div className={styles.signin}>
-        <span className={styles.forgotDesc}>
+        <span className={styles.forget_desc}>
           <Link href="/auth/forget-password">Forget your Password?</Link>
         </span>
         <div className={styles.sign_accout}>
-          <span className={styles.accout_in}>Don't have an accout?</span>
+          <span>Don't have an account?</span>
           <span className={styles.forgotDescsec}>
             <Link className={styles.link_sign} href="/auth/signup">
               Signup

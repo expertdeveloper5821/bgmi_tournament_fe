@@ -173,7 +173,7 @@ export const SignupForm = () => {
       </Button>
 
       <div className={styles.log_acc_cls}>
-        <span className={styles.forgotDesc}>Already have an account ?</span>
+        <span>Already have an account ?</span>
         <span className={styles.forgotDescsec}>
           <Link className={styles.link_sign} href="/auth/login">
             Sign in

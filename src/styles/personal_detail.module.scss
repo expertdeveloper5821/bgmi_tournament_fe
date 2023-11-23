@@ -21,15 +21,22 @@
     border: 1px solid white;
     border-radius: 50%;
   }
+
   .upload {
     font-size: 16px;
     font-weight: bold;
     color: #003554;
+    @media (max-width: $breakpointregister-xs) {
+      font-size: 13px;
+    }
   }
 
   .uploadOptional {
     font-weight: bold;
     color: #777777;
+    @media (max-width: $breakpointregister-xs) {
+      font-size: 13px;
+    }
   }
 
   .editImageWrapper {
@@ -42,10 +49,10 @@
 }
 
 .input_box {
-  @include input_box;
+  @include reg_input_box;
   border-bottom: 2px solid white;
   margin-top: 0px !important;
-  @media (max-width: $breakpoint-xs) {
+  @media (max-width: $breakpointregister-xs) {
     width: 100%;
   }
 }
@@ -53,7 +60,6 @@
 .email_wrapper {
   @include email_wrapper;
   padding: 3px !important;
-
 }
 
 .email {
@@ -119,62 +125,37 @@
   margin-top: 40px;
   color: white !important;
   background-color: #7297b1 !important;
-  @media (max-width: $breakpoint-xSmall) {
-    padding: 12px 30px;
-    width: 100%;
-  }
 }
 
-@media (max-width: $breakpoint-xs) {
+@media (max-width: $breakpointregister-xs) {
   .google_btn {
     width: 100%;
-
-    .editBtn {
-      bottom: 30rem;
-    }
   }
 }
 
-@media (max-width: $breakpoint-xs) {
+@media (max-width: $breakpointregister-xs) {
   .google_finsh {
     width: 100%;
   }
 }
-@media (max-width: $breakpoint-sm) {
-  .editBtn {
-    display: none;
-  }
-}
-@media (max-width: $breakpoint-md) {
+
+@media (max-width: $breakpointregister-md) {
   .google_btn {
     width: 100%;
   }
+}
 
-  .editBtn {
-    bottom: 30rem;
-    display: none;
-  }
-}
-@media (max-width: $breakpoint-ms) {
-  .editBtn {
-    bottom: 31rem;
-    display: none;
-  }
-}
-@media (max-width: $breakpoint-lg) {
-  .editBtn {
-    bottom: 31rem;
-    display: none;
-  }
-}
 .email_wrapper input::placeholder {
   color: #003554;
   font-weight: 600;
   font-size: 15px;
   width: 100%;
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 12px;
+  }
 }
 
-.error_email_wrapper{
+.error_email_wrapper {
   padding: 3px !important;
   border: none !important;
   width: 100%;
@@ -184,6 +165,9 @@
   color: red;
   font-weight: 600;
   font-size: 15px;
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 12px;
+  }
 }
 
 .toolTip {
@@ -239,10 +223,6 @@
   margin-bottom: 20px;
   color: white !important;
   background-color: #7297b1 !important;
-  @media (max-width: $breakpoint-xSmall) {
-    padding: 12px 30px;
-    width: 100%;
-  }
 }
 
 .error {
@@ -276,7 +256,9 @@
 .single_email_subsubconatiner {
   padding: 7px 8px;
   border-radius: 5px;
-}
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 12px;
+  }}
 
 .cancelsvg {
   cursor: pointer;

@@ -66,8 +66,8 @@ export function ForgetPasswordForm(): JSX.Element {
           id="email"
           className={
             errors.email && touched.email
-              ? `${styles.error_email_wrapper} ${!errors.email ? '' : styles.invalid}`
-              : `${styles.email_wrapper} ${!errors.email ? '' : styles.invalid}`
+              ? `${styles.error_email_wrapper}`
+              : `${styles.email_wrapper}`
           }
           placeholder="Enter Email"
           value={values.email}

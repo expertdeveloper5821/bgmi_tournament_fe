@@ -112,7 +112,7 @@ export const PersonalDetail = () => {
             </div>
           )}
 
-          <div className={styles.right}>
+          <div>
             <h2 className={styles.upload}>Upload Profile Picture</h2>
             <p className={styles.uploadOptional}>(Optional)</p>
           </div>
