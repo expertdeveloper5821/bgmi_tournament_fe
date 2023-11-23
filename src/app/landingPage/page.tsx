@@ -1,14 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/landingpage.module.scss';
-import useWindowSize from '@/hooks/useWindowSize';
 import NavBar from './navBar/page';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
-import { toast } from 'react-toastify';
 import CustomCursor from './customCursor/page';
 import Link from 'next/link';
 import { formatTime } from '@/Components/CommonComponent/moment';
+import useWindowSize from '@/hooks/useWindowSize';
 interface GameDetails {
   createdAt: string;
   createdBy: string;
@@ -34,6 +33,7 @@ interface GameDetails {
 const page = () => {
   const [data, setData] = useState<GameDetails[]>();
   const [poolModal, setPoolModal] = useState<boolean>(false);
+  console.log('poolModal', poolModal);
   const [id, setId] = useState<number>(0);
   const [activeGun, setActiveGun] = useState<number>(0);
   const [activeMaptext, setActiveMaptext] = useState<number>(0);
@@ -292,23 +292,48 @@ const page = () => {
                   <p className={styles.pool_para}>BGMI Squad match</p>
                 </div>
                 <div className={styles.pool_cancel_p}>
-                  <p className={styles.pool_text_p}>
+                  {/* <p className={styles.pool_text_p}>
                     Last Survival: {data[id].lastSurvival}
                     <span className={styles.rs_pool_logo}>₹</span>
-                  </p>
-                  <p className={styles.pool_text_p}>
+                  </p> */}
+                  {data && data[id] ? (
+                    <p className={styles.pool_text_p}>
+                      Last Survival: {data[id]?.lastSurvival}
+                      <span className={styles.rs_pool_logo}>₹</span>
+                    </p>
+                  ) : null}
+                  {/* <p className={styles.pool_text_p}>
                     Highest kill: {data[id].highestKill}
                     <span className={styles.rs_pool_logo}>₹</span>
-                  </p>
-                  <p className={styles.pool_text_p}>
+                  </p> */}
+                  {data && data[id] ? (
+                    <p className={styles.pool_text_p}>
+                      Highest kill: {data[id]?.highestKill}
+                      <span className={styles.rs_pool_logo}>₹</span>
+                    </p>
+                  ) : null}
+                  {data && data[id] ? (
+                    <p className={styles.pool_text_p}>
+                      2nd Winner: {data[id]?.secondWin}
+                      <span className={styles.rs_pool_logo}>₹</span>
+                    </p>
+                  ) : null}
+                  {/* <p className={styles.pool_text_p}>
                     2nd Winner: {data[id].secondWin}
                     <span className={styles.rs_pool_logo}>₹</span>
-                  </p>
+                  </p> */}
 
-                  <p className={styles.pool_text_p}>
+                  {data && data[id] ? (
+                    <p className={styles.pool_text_p}>
+                      3rd Winner: {data[id]?.thirdWin}
+                      <span className={styles.rs_pool_logo}>₹</span>
+                    </p>
+                  ) : null}
+
+                  {/* <p className={styles.pool_text_p}>
                     3rd Winner: {data[id].thirdWin}
                     <span className={styles.rs_pool_logo}>₹</span>
-                  </p>
+                  </p> */}
                 </div>
                 <p className={styles.pool_cancel_p} onClick={() => setPoolModal(false)}>
                   <button className={styles.cancel_btn}>Cancel</button>
@@ -398,7 +423,7 @@ const page = () => {
             )}
           </div>
         </div>
-        <div className={styles.rn_images_container}>
+        {/* <div className={styles.rn_images_container}>
           {data?.length > 0 &&
             data?.map((gameDetails: GameDetails, index: number) => {
               return (
@@ -424,6 +449,28 @@ const page = () => {
                     <div className={styles.gradientscrollimages}></div>
                   </div>
                 </>
+              );
+            })}
+        </div>  */}
+        <div className={styles.rn_images_container}>
+          {data?.length &&
+            data.length > 0 &&
+            data.map((gameDetails: GameDetails, index: number) => {
+              return (
+                <div key={gameDetails._id} className={styles.cardimg}>
+                  <div className={styles.carddetails}>
+                    <h2>{gameDetails.mapType}</h2>
+                    <span>{`${gameDetails.gameName} ${gameDetails.gameType} Match`}</span>
+                  </div>
+                  <img
+                    src={gameDetails.mapImg ? gameDetails.mapImg : './assests/eranglemapimage.svg'}
+                    className={styles.rn_images}
+                    height={100}
+                    width={100}
+                    alt={gameDetails.mapType}
+                    onClick={() => handleData(index)}
+                  />
+                </div>
               );
             })}
         </div>

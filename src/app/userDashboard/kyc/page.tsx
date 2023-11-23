@@ -1,7 +1,12 @@
 import React from 'react';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 
 const KYC = () => {
-  return <div></div>;
+  return (
+    <IsAuthenticatedHoc>
+      <div></div>;
+    </IsAuthenticatedHoc>
+  );
 };
 
 export default KYC;

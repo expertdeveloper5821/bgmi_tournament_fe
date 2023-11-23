@@ -4,7 +4,7 @@ import styles from '@/styles/Dashboard.module.scss';
 //@ts-ignore
 import { Input } from 'technogetic-iron-smart-ui';
 
-const InputCustomTag = ({ tags, onTagChange, type }: any) => {
+const InputCustomTag = ({ tags, onTagChange, type }) => {
   const [tagInput, setTagInput] = useState('');
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTagInput(e.target.value);

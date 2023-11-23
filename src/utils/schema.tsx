@@ -1,13 +1,19 @@
 import * as Yup from 'yup';
 import { emailRegex, passwordRegex } from './pattern';
+import { FormDataType } from '@/types/spectatorTypes';
 
 const SignupSchema = Yup.object().shape({
-  fullName: Yup.string().required('Please enter your Full Name'),
-  userName: Yup.string().required('Please enter your  Username'),
+  fullName: Yup.string()
+    .min(3, 'Username must be at least 3 characters')
+    .max(20, 'Username must not exceed 20 characters')
+    .matches(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores')
+    .required('Username is required'),
+
   email: Yup.string()
     .email('Invalid email')
     .required('Please enter your email')
     .matches(emailRegex, 'Invalid email'),
+
   password: Yup.string()
     .required('Please enter your password')
     .matches(
@@ -21,13 +27,30 @@ const loginSchema = Yup.object().shape({
     .email('Invalid email')
     .required('Please enter your email')
     .matches(emailRegex, 'Invalid email'),
-  password: Yup.string().required('Please enter your password'),
+
+  password: Yup.string()
+    .required('Please enter your password')
+    .matches(
+      passwordRegex,
+      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
+    ),
+});
+
+const forgetPasswordSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Please enter your email')
+    .matches(emailRegex, 'Invalid email'),
 });
 
 const ResetPasswordSchema = Yup.object().shape({
   newPassword: Yup.string()
-    .required('New password is required')
-    .min(6, 'Password must be at least 6 characters long'),
+    .required('Please enter your password')
+    .matches(
+      passwordRegex,
+      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
+    ),
+
   confirmPassword: Yup.string()
     .required('Confirm password is required')
     .oneOf([Yup.ref('newPassword')], 'Passwords must match'),
@@ -53,13 +76,119 @@ const validationSchema = Yup.object().shape({
   lastSurvival: Yup.number().required('Please enter lastSurvival winner prize'),
   highestKill: Yup.number().required('Please enter highestKill winner prize'),
   thirdWin: Yup.number().required('Please enter Third winner prize '),
-  entryFee: Yup.number().required('Please enter entry Fee'),
 });
 
-const SendInviteSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Invalid email')
-    .required('Please enter your email')
-    .matches(emailRegex, 'Invalid email'),
+const personDetailSchema = Yup.object().shape({
+  player: Yup.string()
+    .required('player Id or username is Required')
+    .min(4, 'playerId or username must be min 4 and max 20')
+    .max(20, 'playerId or username must be min 4 and max 20'),
+
+  upi: Yup.string()
+    .required('UPI ID is required')
+    .min(10, 'Invalid UPI ID format, must be min 10 and max 20 length')
+    .max(20, 'Invalid UPI ID format, must be min 10 and max 20 length'),
+
+  whatsapp: Yup.string()
+    .required('whatsapp number id is required')
+    .matches(/^(\+91|\\+)?[1-9][0-9]{9}$/, {
+      message:
+        'Invalid phone number. Please enter a valid 10-digit phone number or that can starts with +91.',
+    }),
 });
-export { SignupSchema, loginSchema, ResetPasswordSchema, validationSchema, SendInviteSchema };
+
+const teamsDetailsSchema = Yup.object().shape({
+  teamName: Yup.string()
+    .required('Team name must contain at least three letters or digits.')
+    .matches(/^[a-zA-Z0-9]{3,}$/, {
+      message: 'Team name must contain at least three letters or digits.',
+    }),
+
+  emails: Yup.array()
+    .of(Yup.string().email('Invalid email').matches(emailRegex, 'Invalid email'))
+    .min(1, 'At least one valid email is required'),
+});
+
+const addFormValidations = (name, value, setFormErrors) => {
+  if (name === 'fullName') {
+    if (value?.length < 3) {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          fullName: 'Username must be at least 3 characters long.',
+        };
+      });
+    } else {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          fullName: '',
+        };
+      });
+    }
+  } else if (name === 'userName') {
+    const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
+    if (!usernameRegex.test(value)) {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          userName:
+            'Username must be at least 3 characters long and can only contain letters, numbers, and underscores.',
+        };
+      });
+    } else {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          userName: '',
+        };
+      });
+    }
+  } else if (name === 'email') {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          email: 'Invalid email address. Please enter a valid email address.',
+        };
+      });
+    } else {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          email: '',
+        };
+      });
+    }
+  } else if (name === 'password') {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(value)) {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          password:
+            'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one numeric digit, and one special character.',
+        };
+      });
+    } else {
+      setFormErrors((prevError: FormDataType) => {
+        return {
+          ...prevError,
+          password: '',
+        };
+      });
+    }
+  }
+};
+
+export {
+  SignupSchema,
+  loginSchema,
+  ResetPasswordSchema,
+  validationSchema,
+  personDetailSchema,
+  forgetPasswordSchema,
+  teamsDetailsSchema,
+  addFormValidations,
+};

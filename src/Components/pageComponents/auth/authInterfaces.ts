@@ -1,12 +1,71 @@
 export interface AuthContainerProps {
   children: string | JSX.Element | JSX.Element[];
   title?: string;
+  subTitle?: string;
 }
 
 export interface SignupFormValuesType {
   fullName: string;
-  userName: string;
   email: string;
   password: string;
-  upiId: string;
+}
+
+export interface onbStepType {
+  id: number;
+  title: string;
+  subTitle: string;
+}
+export interface details {
+  player: string;
+  upi: string;
+  whatsapp: string;
+}
+
+export interface FormDefaultPropsType {
+  currentStep: number;
+  handleStepChange: (stepId: number) => void;
+}
+
+export interface RoomData {
+  roomId: string;
+  _id: string;
+  password: string;
+  gameName: string;
+  gameType: string;
+  mapType: string;
+  version: string;
+  highestKill: string;
+  lastSurvival: string;
+  thirdWin: string;
+  secondWin: string;
+  time: string;
+  date: string;
+  createdBy: number;
+  updatedAt: number;
+  createdAt: number;
+  entryFee: string;
+  mapImg: string;
+}
+
+export interface AuthContainerProps {
+  children: string | JSX.Element | JSX.Element[];
+  title?: string;
+  subTitle?: string;
+}
+
+export interface SignupFormValuesType {
+  fullName: string;
+  email: string;
+  password: string;
+}
+
+export interface onbStepType {
+  id: number;
+  title: string;
+  subTitle: string;
+}
+export interface details {
+  player: string;
+  upi: string;
+  whatsapp: string;
 }

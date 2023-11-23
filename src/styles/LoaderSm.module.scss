@@ -1,0 +1,35 @@
+.ripple-loader {
+  position: relative;
+  left: 38%;
+
+  div {
+    position: absolute;
+    bottom: 50%;
+    right: 50%;
+    border: 5px solid #2D5469;
+    border-radius: 50%;
+    animation: ripple-loader 1s ease-out infinite;
+  }
+}
+
+.ripple-loader div:nth-child(3) {
+  animation-delay: -0.5s;
+}
+
+@keyframes ripple-loader {
+  0% {
+    top: 128px;
+    left: 128px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  100% {
+    top: 0;
+    left: 0;
+    width: 256px;
+    height: 256px;
+    opacity: 0;
+  }
+}

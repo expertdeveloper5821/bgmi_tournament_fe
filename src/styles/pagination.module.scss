@@ -3,27 +3,44 @@
 
 .main_container {
   display: flex;
-  width: 30%;
+  width: 100%;
   justify-content: flex-end;
-  margin-right: 40px;
-  margin-top: 80px;
-  @media (max-width: $breakpoint-md) {
-    // display: flex;
-    width: 100%;
-    justify-content: center !important;
-    align-items: end;
-  }
+  margin: 50px 30px 30px 30px;
 }
+
 .main_container ul {
   display: flex;
-  // width: 300px;
+  align-items: center;
+  gap: 10px;
   justify-content: space-evenly;
   list-style-type: none;
 }
+
 .main_container ul li {
   text-decoration: none;
-}
-.main_container ul li a {
   font-size: 20px;
   margin-left: 30px;
+}
+
+.un_list {
+  button {
+    background-color: transparent;
+    border: none;
+    height: 23px;
+    width: 23px;
+    border: 4px;
+    padding: 0;
+  }
+}
+
+.Active {
+  border: 1px solid;
+  color: white;
+  background-color: #FF7A00 !important;
+}
+
+.InActive {
+  border: none;
+  color: white;
+  // background-color: lightblue;
 }

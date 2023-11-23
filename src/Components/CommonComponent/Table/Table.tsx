@@ -1,6 +1,5 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useRouter, NextRouter } from 'next/router';
 import styles from '@/styles/TableData.module.scss';
 //@ts-ignore
 import {
@@ -12,7 +11,8 @@ import {
   TableCell,
   IconButton,
 } from 'technogetic-iron-smart-ui';
-
+import moment from 'moment';
+import { TableDataType, TablePropsType } from '@/types/tableTypes';
 export interface StudentProfile {
   Course: string;
   Mobile: string;
@@ -21,72 +21,106 @@ export interface StudentProfile {
   studentID: string;
 }
 
-interface StudentProfilePropsType {
-  studentData: StudentProfile[];
-  showAdditionalButton?: boolean;
-  columns: string[];
-}
+const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsType) => {
+  const [sortedData, setSortedData] = useState<TableDataType[] | []>([]);
 
-interface studentData {
-  [key: string]: string;
-}
-
-const TableData = (props: StudentProfilePropsType) => {
-  const [sortedData, setSortedData] = useState(props?.studentData || []);
-  const [isDescending, setIsDescending] = useState(false);
-  const [sortKey, setSortKey] = useState('');
-
+  // useEffect(() => {
+  //   setSortedData(data);
+  // }, [data]);
   useEffect(() => {
-    setSortedData(props?.studentData);
-  }, [props?.studentData]);
-
-  const handleSort = (key: keyof studentData) => {
-    let sorted = [];
-
-    if (sortKey === key) {
-      sorted = [...sortedData].reverse();
-      setIsDescending(!isDescending);
-    } else {
-      sorted = [...sortedData].sort((a: any, b: any) => {
-        if (a[key] < b[key]) return isDescending ? 1 : -1;
-        if (a[key] > b[key]) return isDescending ? -1 : 1;
-        return 0;
-      });
-      setIsDescending(false);
+    if (data) {
+      setSortedData(data as TableDataType[]);
     }
-    setSortedData(sorted);
-    setSortKey(String(key));
-  };
+  }, [data]);
 
-  function handleDelete({ studentData }: { studentData: studentData }): void {
-    const updatedData = sortedData.filter((data: any) => data.studentID !== studentData.studentID);
-    setSortedData(updatedData);
-    console.log('data', updatedData);
+  function toCamelCase(inputString) {
+    return inputString
+      .split(' ')
+      .map((word, index) => {
+        if (index === 0) {
+          return word.toLowerCase();
+        } else {
+          return word?.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        }
+      })
+      .join('');
   }
 
-  const handleEdit = (studentData: studentData) => {
-    console.log('Edit student data:', studentData);
+  const handleSort = (key: string, arrow: string) => {
+    const newKey = toCamelCase(key);
+    let newSortedData;
+    if (type !== 'ROOMS') {
+      if (arrow === 'upArrow') {
+        newSortedData = [
+          ...sortedData.sort((a: TableDataType, b: TableDataType) =>
+            a[newKey].localeCompare(b[newKey], 'fr', { ignorePunctuation: true }),
+          ),
+        ];
+      } else if (arrow === 'downArrow') {
+        newSortedData = [
+          ...sortedData.sort((a: TableDataType, b: TableDataType) =>
+            b[newKey].localeCompare(a[newKey], 'fr', { ignorePunctuation: true }),
+          ),
+        ];
+      }
+
+      setSortedData(newSortedData);
+    } else if (type === 'ROOMS') {
+      if (
+        key === 'Created By' ||
+        key === 'Game Name' ||
+        key === 'Game Type' ||
+        key === 'Map Type' ||
+        key === 'Version'
+      ) {
+        if (arrow === 'upArrow') {
+          newSortedData = [
+            ...sortedData.sort((a: TableDataType, b: TableDataType) =>
+              a[newKey].localeCompare(b[newKey], 'fr', { ignorePunctuation: true }),
+            ),
+          ];
+        } else if (arrow === 'downArrow') {
+          newSortedData = [
+            ...sortedData.sort((a: TableDataType, b: TableDataType) =>
+              b[newKey].localeCompare(a[newKey], 'fr', { ignorePunctuation: true }),
+            ),
+          ];
+        }
+        setSortedData(newSortedData);
+      }
+    }
+  };
+
+  const getFormattedDateOrTime = (dateAndTime: string | undefined, Type: string) => {
+    const momentObj = moment(dateAndTime);
+    if (Type === 'Date') {
+      const formattedDate = momentObj?.format('M/D/YYYY');
+      return formattedDate;
+    } else if (Type === 'Time') {
+      const formattedTime = momentObj?.format('h:mm A');
+      return formattedTime;
+    }
   };
 
   return (
-    <div>
+    <>
       <Table className={styles.table_content}>
         <TableHeader className={styles.tableHeader}>
           <TableRow className={styles.tableRow}>
-            {props.columns.map((columnName) => (
+            {columns?.map((columnName) => (
               <TableHead className={styles.table_head} key={columnName}>
                 <div className={styles.filter}>
                   {columnName}
                   <div>
                     <img
-                      src="/assests/upArrow.svg"
+                      src="/assests/upArow.svg"
                       alt="filterup"
-                      onClick={() => handleSort(columnName)}
+                      onClick={() => handleSort(columnName, 'upArrow')}
                     ></img>
                     <img
-                      src="/assests/downArrow.svg"
+                      src="/assests/downarow.svg"
                       alt="filterdown"
-                      onClick={() => handleSort(columnName)}
+                      onClick={() => handleSort(columnName, 'downArrow')}
                     ></img>
                   </div>
                 </div>
@@ -99,41 +133,83 @@ const TableData = (props: StudentProfilePropsType) => {
         </TableHeader>
 
         <TableBody className={styles.table_body}>
-          {sortedData.map((studentData: any, index: number) => {
-            const additionalImagePath = props.showAdditionalButton
-              ? './assests/StudentProfile.svg'
-              : null;
-
-            return (
-              <TableRow className={styles.table_rowdata} key={index}>
-                <TableCell className={styles.table_cell}>{studentData.StudentName}</TableCell>
-
-                <TableCell className={styles.table_cell}>{studentData.Student}</TableCell>
-                <TableCell className={styles.table_cell}>{studentData.studentID}</TableCell>
-                <TableCell className={styles.table_cell}>{studentData.Mobile}</TableCell>
-                <TableCell className={styles.table_cell}>{studentData.Course}</TableCell>
-                <TableCell className={styles.table_cell}>
-                  {additionalImagePath ? (
-                    <IconButton>
-                      <div className={styles.iconWrapper}>
-                        <img
-                          src="/assests/studentprofile.svg"
-                          alt="studentProfileView"
-                          className={styles.table_icon}
-                        ></img>
-                        <span>View Profile</span>
-                      </div>
-                    </IconButton>
-                  ) : (
+          {sortedData?.map((data: TableDataType, index: number) => {
+            console.log('data', data);
+            if (type === 'ROOMS') {
+              return (
+                <TableRow className={styles.table_rowdata} key={index}>
+                  <TableCell className={styles.table_cell}>{data?.createdBy}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.roomId}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.password}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.gameName}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.gameType}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.mapType}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.version}</TableCell>
+                  <TableCell className={styles.table_cell}>
+                    {getFormattedDateOrTime(data?.dateAndTime, 'Time')!}
+                  </TableCell>
+                  <TableCell className={styles.table_cell}>
+                    {getFormattedDateOrTime(data?.dateAndTime, 'Date')!}
+                  </TableCell>
+                  <TableCell className={styles.table_cell}>
+                    {
+                      <>
+                        <IconButton
+                          onClick={() => {
+                            if (deleteroom) {
+                              deleteroom(data._id);
+                            }
+                          }}
+                        >
+                          <img
+                            src="/assests/Tabledelete.svg"
+                            alt="studentProfileDelete"
+                            className={styles.cell_icon}
+                          ></img>
+                        </IconButton>
+                        <IconButton>
+                          <img
+                            src="/assests/eye.png"
+                            alt="studentProfile"
+                            className={`${styles.cell_icon} ${styles.eye_icon}`}
+                          ></img>
+                        </IconButton>
+                      </>
+                    }
+                  </TableCell>
+                </TableRow>
+              );
+            } else if (type === 'SPECTATOR' || type === 'USERS') {
+              return (
+                <TableRow className={styles.table_rowdata} key={index}>
+                  <TableCell className={styles.table_cell}>{data?.fullName}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.userName || '--'}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.email}</TableCell>
+                  <TableCell className={styles.table_cell}>
                     <>
-                      <IconButton onClick={() => handleEdit(studentData)}>
-                        <img
-                          src="/assests/TableEdit.svg"
-                          alt="studentProfileEdit"
-                          className={styles.cell_icon}
-                        ></img>
-                      </IconButton>
-                      <IconButton onClick={() => handleDelete({ studentData })}>
+                      {type === 'SPECTATOR' && (
+                        <IconButton
+                          onClick={() => {
+                            if (handleEdit) {
+                              handleEdit(data);
+                            }
+                          }}
+                        >
+                          <img
+                            src="/assests/editIcon.svg"
+                            alt="studentProfileEdit"
+                            className={styles.cell_icon}
+                          ></img>
+                        </IconButton>
+                      )}
+                      <IconButton
+                        onClick={() => {
+                          if (deleteroom) {
+                            deleteroom(data?.userUuid);
+                          }
+                          // deleteroom(data?.userUuid);
+                        }}
+                      >
                         <img
                           src="/assests/Tabledelete.svg"
                           alt="studentProfileDelete"
@@ -141,14 +217,14 @@ const TableData = (props: StudentProfilePropsType) => {
                         ></img>
                       </IconButton>
                     </>
-                  )}
-                </TableCell>
-              </TableRow>
-            );
+                  </TableCell>
+                </TableRow>
+              );
+            }
           })}
         </TableBody>
       </Table>
-    </div>
+    </>
   );
 };
 
