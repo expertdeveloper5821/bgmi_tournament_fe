@@ -10,7 +10,6 @@ import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
 import { GameRoomType, winnerFormType } from '@/types/roomsTypes';
 import {
-  getAllTeamsService,
   getWinningTeamsService,
   handleSubmitWinningTeamService,
 } from '@/services/specDashboardServices';
@@ -35,78 +34,80 @@ const rowData = [
 
 const postWinners = () => {
   const router = useRouter();
-  const roomID = getItemFromLS('roomId') || '';
   const roomUuid = getItemFromLS('roomUuid') || '';
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [roomUsers, setRoomUsers] = useState<null | []>(null);
   const [winnnerTeamData, setWinnnerTeamData] = useState<null | GameRoomType>(null);
-  const [formData, setFormData] = useState<winnerFormType | object>({});
-  const [isEdit, setIsEdit] = useState<boolean>(false);
-
-  const getWinnerPostData = (index: number, teamName: string) => {
-    if (winnnerTeamData) {
-      return winnnerTeamData.teams?.[index]?.teamName === teamName
-        ? winnnerTeamData.teams?.[index]?.prizeTitles
-        : '';
-    }
-  };
+  const [formData, setFormData] = useState<winnerFormType[] | object>([]);
 
   useEffect(() => {
-    if (!roomUsers?.length) {
-      getAllTeamsService(roomID)
-        .then((res) => setRoomUsers(res?.data?.teams))
-        .catch(console.error);
-    }
     if (!winnnerTeamData) {
       getWinningTeamsService(roomUuid)
-        .then((res) => setWinnnerTeamData(res.data))
+        .then((res) => {
+          setRoomUsers(res.data.teams.map((i) => ({ teamName: i.teamName })));
+          const obj = [];
+          let ts = {};
+          console.log(res.data.teams);
+          res.data.teams.forEach((i) => {
+            ts[i.teamName] = {
+              teamName: i.teamName,
+              chickenDinner: 0,
+              highestKill: 0,
+              firstWinner: 0,
+              secondWinner: 0,
+            };
+            i.prizeTitles.forEach((j) => {
+              let m = rowData.find((k) => {
+                if (k.key === j) {
+                  return k;
+                }
+                return 0;
+              });
+              obj.push({
+                teamName: i.teamName,
+                title: m?.name,
+                value: m?.value,
+              });
+            });
+          });
+
+          obj.forEach((i) => {
+            ts[i.teamName][i.title] = i.value;
+          });
+          setFormData(Object.entries(ts).map(([key, value]) => value));
+
+          setWinnnerTeamData(res.data);
+        })
         .catch(console.error);
     }
   }, []);
 
-  useEffect(() => {
-    (roomUsers || []).forEach(({ teamName }) => {
-      setFormData((prev) => ({
-        ...prev,
-        [teamName]: {
-          //@ts-ignore
-          ...prev[teamName],
-          teamName: teamName,
-          chickenDinner: 0,
-          highestKill: 0,
-          firstWinner: 0,
-          secondWinner: 0,
-        },
-      }));
-    });
-  }, [roomUsers]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, teamName: string) => {
-    setIsEdit(true);
     const { value, name } = e.target;
     const point = Number(value);
-    roomUsers?.forEach(({ teamName }) => {
-      setFormData((prev) => ({
-        ...prev,
-        [teamName]: {
-          //@ts-ignore
-          ...prev[teamName],
-          [name]: 0,
-        },
-      }));
-    });
-    setFormData((prev) => ({
-      ...prev,
-      [teamName]: {
-        ...prev[teamName],
-        [name]: point,
-      },
-    }));
+    let filteredData = [...formData]
+      .map((i) => {
+        i[name] = 0;
+        return i;
+      })
+      .map((i) => {
+        if (i.teamName === teamName) {
+          i[name] = point;
+        }
+        return i;
+      });
+    setFormData(filteredData);
   };
 
   const handleSubmitWinner = async () => {
     setIsLoading(true);
-    handleSubmitWinningTeamService(formData, winnnerTeamData, roomUuid)
+    let payload = {};
+    formData.forEach((i) => {
+      payload[i.teamName] = {
+        ...i,
+      };
+    });
+    handleSubmitWinningTeamService(payload, winnnerTeamData, roomUuid)
       .then((res) => {
         setIsLoading(false);
         router.push('/spectatorDashboard');
@@ -115,7 +116,6 @@ const postWinners = () => {
       .catch((error) => {
         setIsLoading(false);
         toast.error('Fail to update Winning team data !');
-        console.log(error);
       });
   };
 
@@ -145,31 +145,17 @@ const postWinners = () => {
                 </TableHeader>
 
                 <TableBody className={styles.postWinnerTbody}>
-                  {roomUsers?.map((team: { teamName: string }, index: number) => {
+                  {formData?.map((team: { teamName: string }, index: number) => {
                     const { teamName } = team;
                     return (
                       <TableRow className={styles.table_row_winner}>
                         <td className={styles.table_data}> {teamName}</td>
                         {rowData.map((td) => {
-                          return isEdit ? (
+                          return (
                             <td className={styles.table_data}>
                               <input
                                 type="radio"
-                                value={td.value}
-                                name={td.name}
-                                className={styles.checkbox_round}
-                                onChange={(e) => handleChange(e, teamName)}
-                              />
-                            </td>
-                          ) : (
-                            <td className={styles.table_data}>
-                              <input
-                                type="radio"
-                                checked={
-                                  getWinnerPostData(index, teamName)?.includes(td.key)
-                                    ? true
-                                    : false
-                                }
+                                checked={team[td.name] ? true : false}
                                 value={td.value}
                                 name={td.name}
                                 className={styles.checkbox_round}

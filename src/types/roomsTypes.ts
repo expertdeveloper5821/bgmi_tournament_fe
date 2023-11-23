@@ -67,13 +67,11 @@ export interface SpectatorRoomDataType {
 }
 
 export interface winnerFormType {
-  [key: string]: {
-    teamName: string;
-    chickenDinner: number;
-    highestKill: number;
-    firstWinner: number;
-    secondWinner: number;
-  };
+  teamName: string;
+  chickenDinner: number;
+  highestKill: number;
+  firstWinner: number;
+  secondWinner: number;
 }
 
 interface Leader {

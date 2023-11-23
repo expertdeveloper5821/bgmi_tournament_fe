@@ -44,7 +44,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
 
       <TableBody>
         {Spect?.slice(startIndex, endIndex)?.map((spec) => (
-          <TableRow key={spec.roomId} className={styles.table_row_cell}>
+          <TableRow key={spec._id} className={styles.table_row_cell}>
             <TableCell className={styles.el_tb_cell}>{spec?.roomId ?? '--'}</TableCell>
             <TableCell className={styles.tb_cell_body}>{spec?.gameName ?? '--'}</TableCell>
             <TableCell className={styles.el_tb_cell}>{spec?.gameType ?? '--'}</TableCell>
