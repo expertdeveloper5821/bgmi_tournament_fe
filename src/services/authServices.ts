@@ -90,11 +90,8 @@ export const updateRoleService = async (data: updateRoleValuesType) => {
   }
 };
 
-export const getAllRoomsService = async (token: string) => {
-  const res = await sendRequest(`${serviceUrls.roomsRelatedUrl}`, {
-    method: 'GET',
-    headers: { Authorization: `Bearer ${token}` },
-  });
+export const getAllRoomsService = async () => {
+  const res = await sendRequest(`${serviceUrls.roomsRelatedUrl}`);
   if (res.status === 200) {
     return res;
   } else {
@@ -105,7 +102,6 @@ export const getAllRoomsService = async (token: string) => {
 export const deleteRoomService = async (data: deleteRoomValuesType) => {
   const res = await sendRequest(`${serviceUrls.roomsRelatedUrl}/${data._id}`, {
     method: 'delete',
-    headers: { Authorization: `Bearer ${data.token}` },
   });
   if (res.status === 200) {
     return res;
@@ -115,13 +111,7 @@ export const deleteRoomService = async (data: deleteRoomValuesType) => {
 };
 
 export const getAllFilteredRoomsListService = async (data: GetAllFilteredValuesType) => {
-  const res = await sendRequest(`${serviceUrls.filteredRoomsList}${data.searchVal}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${data.token}`,
-    },
-  });
-
+  const res = await sendRequest(`${serviceUrls.filteredRoomsList}${data.searchVal}`);
   if (res.status === 200) {
     return res;
   } else {

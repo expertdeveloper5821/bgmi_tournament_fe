@@ -219,13 +219,13 @@ function Page() {
           <div className={styles.sidebar_wrapper}>
             <Navbar />
             <div className={styles.popupbutton}>
-              <h1 className={styles.head}>Welcome to Admin Dashboard</h1>
+              <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
               <button
                 onClick={() => {
                   setModal({ isOpen: true, buttonVal: 'Create' });
                   setDisabled(true);
                 }}
-                className={styles.btnmodal}
+                className={`${styles.btnPrime} ${styles.btnmodal}`}
               >
                 Create Spectator
               </button>

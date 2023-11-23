@@ -79,7 +79,15 @@
 .heading {
   font-weight: 700;
   font-size: 30px;
-  margin: 2rem 0rem 2rem 1.5rem;
+  margin: 1.5rem 0;
+
+  @media (max-width: $breakpoint-md) {
+    font-size: 24px;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    font-size: 18px;
+  }
 }
 
 .head {
@@ -146,6 +154,7 @@
   // flex: 2 1 0;
   max-width: 100%;
   border: 1px solid #003554;
+
   img {
     object-fit: cover;
     width: 100%;
@@ -695,6 +704,7 @@ img.slides_image {
 }
 
 @keyframes travel {
+
   0%,
   100% {
     transform: translate3d(10, 20, 0);
@@ -819,7 +829,7 @@ img.slides_image {
 
 .reviewCard {
   color: white;
-  border: 1px solid #ff7a00;
+  border: 1px solid $bs-orange;
   border-radius: 5px;
   padding: 6px;
   width: 330px;
@@ -898,12 +908,10 @@ img.slides_image {
 }
 
 .inner_winning_pool {
-  background: linear-gradient(
-    131.26deg,
-    #ffffff 26.63%,
+  background: linear-gradient(131.26deg,
+      #ffffff 26.63%,
 
-    rgb(255 122 0 / 74%) 450.26%
-  );
+      rgb(255 122 0 / 74%) 450.26%);
 
   padding: 0px;
   width: 36%;
@@ -1211,12 +1219,12 @@ img.slides_image {
   padding: 7px;
   margin: 3px;
   border-radius: 6px;
-  border: 1px solid #ff7a00;
-  color: #ff7a00;
+  border: 1px solid $bs-orange;
+  color: $bs-orange;
 }
 
 .tag_input_main_cls {
-  border: 1px solid #ff7a00;
+  border: 1px solid $bs-orange;
   background-color: white;
   border-radius: 8px;
 }
@@ -1224,7 +1232,7 @@ img.slides_image {
 .remove_tag_button {
   background: no-repeat;
   border: none;
-  color: #ff7a00;
+  color: $bs-orange;
 }
 
 .tag_input_field {
@@ -1273,13 +1281,13 @@ img.slides_image {
 
 .cancel_tag_cls {
   background: none;
-  color: #ff7a00;
-  border: 1px solid #ff7a00;
+  color: $bs-orange;
+  border: 1px solid $bs-orange;
   margin-top: 12px;
 }
 
 .roombutton {
-  background: #ff7a00;
+  background: $bs-orange;
   color: white;
   margin-left: 12px;
 }
@@ -1296,7 +1304,7 @@ img.slides_image {
 }
 
 .fullname_title {
-  color: #ff7a00;
+  color: $bs-orange;
   font-size: 27px;
   font-weight: 700;
 }
@@ -1311,12 +1319,20 @@ body.activemodal {
   overflow-y: hidden;
 }
 
-.btnmodal {
-  margin-right: 3rem;
+.btnPrime {
+  border: none;
+  border-radius: 4px;
+  height: 44px;
+  max-height: 44px;
   padding: 10px 20px;
+  background-color: $bs-orange;
+  color: white;
+  font-weight: 700;
+}
+
+.btnmodal {
   border: transparent;
   font-size: 18px;
-  background-color: $bs-orange;
 }
 
 .modal,
@@ -1368,8 +1384,8 @@ body.activemodal {
 .popupbutton {
   display: flex;
   justify-content: space-between;
-  margin: 25px 0px;
-  padding-left: 10px;
+  align-items: center;
+  padding: 1rem;
 }
 
 .email_wrapper input[type='text'],
@@ -1379,7 +1395,7 @@ body.activemodal {
 }
 
 .register_button {
-  background-color: orangered !important;
+  background-color: $bs-orange !important;
   border: transparent;
   color: white !important;
   margin: 15px 0px;
@@ -1387,7 +1403,7 @@ body.activemodal {
 }
 
 .disabled_register_button {
-  background-color: #ea9373 !important;
+  background-color: $bs-orange !important;
   cursor: no-drop;
   border: transparent;
   color: white !important;
@@ -1451,12 +1467,12 @@ body.activemodal {
   width: 25vw;
 }
 
-.search_input_box > input {
+.search_input_box>input {
   background: transparent;
   border: none;
   color: white;
 }
 
-.search_input_box > input::placeholder {
+.search_input_box>input::placeholder {
   color: white;
 }

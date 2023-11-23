@@ -24,7 +24,6 @@ export interface RoomsDataType {
 
 export interface deleteRoomValuesType {
   _id: string;
-  token: string;
 }
 
 export interface CreateRoomFormType {

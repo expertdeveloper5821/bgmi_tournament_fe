@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const getIdPass = (dateAndTime) => {
   const REDUCE_TIME = 15 * 60 * 1000;
   const currentTime = new Date().getTime();
@@ -28,3 +30,27 @@ export function debounce(func, delay) {
     }, delay);
   };
 }
+
+export function toCamelCase(inputString) {
+  return inputString
+    .split(' ')
+    .map((word, index) => {
+      if (index === 0) {
+        return word.toLowerCase();
+      } else {
+        return word?.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      }
+    })
+    .join('');
+}
+
+export const getFormattedDateOrTime = (dateAndTime, Type) => {
+  const momentObj = moment(dateAndTime);
+  if (Type === 'Date') {
+    const formattedDate = momentObj?.format('M/D/YYYY');
+    return formattedDate;
+  } else if (Type === 'Time') {
+    const formattedTime = momentObj?.format('h:mm A');
+    return formattedTime;
+  }
+};

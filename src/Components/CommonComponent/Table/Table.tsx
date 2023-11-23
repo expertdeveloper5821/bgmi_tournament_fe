@@ -9,42 +9,29 @@ import {
   TableHead,
   TableBody,
   TableCell,
-  IconButton,
 } from 'technogetic-iron-smart-ui';
-import moment from 'moment';
 import { TableDataType, TablePropsType } from '@/types/tableTypes';
-export interface StudentProfile {
-  Course: string;
-  Mobile: string;
-  Student: string;
-  StudentName: string;
-  studentID: string;
-}
+import { getFormattedDateOrTime, toCamelCase } from '@/utils/commonFunction';
+import { FaLongArrowAltDown, FaLongArrowAltUp } from 'react-icons/fa';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { MdEdit } from 'react-icons/md';
+import Pagination from '../Pagination';
 
 const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsType) => {
   const [sortedData, setSortedData] = useState<TableDataType[] | []>([]);
+  const filterKeys = ['Created By', 'Game Name', 'Game Type', 'Map Type', 'Version'];
 
-  // useEffect(() => {
-  //   setSortedData(data);
-  // }, [data]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalItems = sortedData.length;
+  const itemsPerPage = 5;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
   useEffect(() => {
     if (data) {
       setSortedData(data as TableDataType[]);
     }
   }, [data]);
-
-  function toCamelCase(inputString) {
-    return inputString
-      .split(' ')
-      .map((word, index) => {
-        if (index === 0) {
-          return word.toLowerCase();
-        } else {
-          return word?.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-        }
-      })
-      .join('');
-  }
 
   const handleSort = (key: string, arrow: string) => {
     const newKey = toCamelCase(key);
@@ -66,13 +53,7 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
 
       setSortedData(newSortedData);
     } else if (type === 'ROOMS') {
-      if (
-        key === 'Created By' ||
-        key === 'Game Name' ||
-        key === 'Game Type' ||
-        key === 'Map Type' ||
-        key === 'Version'
-      ) {
+      if (filterKeys.includes(key)) {
         if (arrow === 'upArrow') {
           newSortedData = [
             ...sortedData.sort((a: TableDataType, b: TableDataType) =>
@@ -91,17 +72,6 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
     }
   };
 
-  const getFormattedDateOrTime = (dateAndTime: string | undefined, Type: string) => {
-    const momentObj = moment(dateAndTime);
-    if (Type === 'Date') {
-      const formattedDate = momentObj?.format('M/D/YYYY');
-      return formattedDate;
-    } else if (Type === 'Time') {
-      const formattedTime = momentObj?.format('h:mm A');
-      return formattedTime;
-    }
-  };
-
   return (
     <>
       <Table className={styles.table_content}>
@@ -111,18 +81,15 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
               <TableHead className={styles.table_head} key={columnName}>
                 <div className={styles.filter}>
                   {columnName}
-                  <div>
-                    <img
-                      src="/assests/upArow.svg"
-                      alt="filterup"
-                      onClick={() => handleSort(columnName, 'upArrow')}
-                    ></img>
-                    <img
-                      src="/assests/downarow.svg"
-                      alt="filterdown"
-                      onClick={() => handleSort(columnName, 'downArrow')}
-                    ></img>
-                  </div>
+                  {filterKeys.includes(columnName) && (
+                    <div>
+                      <FaLongArrowAltUp onClick={() => handleSort(columnName, 'upArrow')} />
+                      <FaLongArrowAltDown
+                        style={{ color: '#FF7A00' }}
+                        onClick={() => handleSort(columnName, 'downArrow')}
+                      />
+                    </div>
+                  )}
                 </div>
               </TableHead>
             ))}
@@ -133,8 +100,7 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
         </TableHeader>
 
         <TableBody className={styles.table_body}>
-          {sortedData?.map((data: TableDataType, index: number) => {
-            console.log('data', data);
+          {sortedData?.slice(startIndex, endIndex)?.map((data: TableDataType, index: number) => {
             if (type === 'ROOMS') {
               return (
                 <TableRow className={styles.table_rowdata} key={index}>
@@ -151,31 +117,8 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                   <TableCell className={styles.table_cell}>
                     {getFormattedDateOrTime(data?.dateAndTime, 'Date')!}
                   </TableCell>
-                  <TableCell className={styles.table_cell}>
-                    {
-                      <>
-                        <IconButton
-                          onClick={() => {
-                            if (deleteroom) {
-                              deleteroom(data._id);
-                            }
-                          }}
-                        >
-                          <img
-                            src="/assests/Tabledelete.svg"
-                            alt="studentProfileDelete"
-                            className={styles.cell_icon}
-                          ></img>
-                        </IconButton>
-                        <IconButton>
-                          <img
-                            src="/assests/eye.png"
-                            alt="studentProfile"
-                            className={`${styles.cell_icon} ${styles.eye_icon}`}
-                          ></img>
-                        </IconButton>
-                      </>
-                    }
+                  <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
+                    <RiDeleteBin6Line onClick={() => deleteroom && deleteroom(data._id)} />
                   </TableCell>
                 </TableRow>
               );
@@ -185,44 +128,23 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                   <TableCell className={styles.table_cell}>{data?.fullName}</TableCell>
                   <TableCell className={styles.table_cell}>{data?.userName || '--'}</TableCell>
                   <TableCell className={styles.table_cell}>{data?.email}</TableCell>
-                  <TableCell className={styles.table_cell}>
-                    <>
-                      {type === 'SPECTATOR' && (
-                        <IconButton
-                          onClick={() => {
-                            if (handleEdit) {
-                              handleEdit(data);
-                            }
-                          }}
-                        >
-                          <img
-                            src="/assests/editIcon.svg"
-                            alt="studentProfileEdit"
-                            className={styles.cell_icon}
-                          ></img>
-                        </IconButton>
-                      )}
-                      <IconButton
-                        onClick={() => {
-                          if (deleteroom) {
-                            deleteroom(data?.userUuid);
-                          }
-                          // deleteroom(data?.userUuid);
-                        }}
-                      >
-                        <img
-                          src="/assests/Tabledelete.svg"
-                          alt="studentProfileDelete"
-                          className={styles.cell_icon}
-                        ></img>
-                      </IconButton>
-                    </>
+                  <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
+                    {type === 'SPECTATOR' && (
+                      <MdEdit onClick={() => handleEdit && handleEdit(data)} />
+                    )}
+                    <RiDeleteBin6Line onClick={() => deleteroom && deleteroom(data._id)} />
                   </TableCell>
                 </TableRow>
               );
             }
           })}
         </TableBody>
+        <Pagination
+          totalItems={totalItems}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </Table>
     </>
   );

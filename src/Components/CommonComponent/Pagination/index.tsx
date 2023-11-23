@@ -34,23 +34,25 @@ const Pagination = ({ totalItems, itemsPerPage, currentPage, setCurrentPage }) =
 
   return (
     <div className={styles.main_container}>
-      <ul className={styles.un_list}>
-        <button onClick={handlePrevPage}>
-          <FaCaretLeft color={'#FF7A00'} />
-        </button>
-        {pageNumbers.map((p) => (
-          <button
-            key={p.page}
-            onClick={() => handlePageChange(p.page)}
-            className={`${p.isActive ? styles['Active'] : styles['InActive']}`}
-          >
-            {p.page}
+      {pageNumbers.length > 1 && (
+        <ul className={styles.un_list}>
+          <button onClick={handlePrevPage}>
+            <FaCaretLeft color={'#FF7A00'} />
           </button>
-        ))}
-        <button onClick={handleNextPage}>
-          <FaCaretRight color={'#FF7A00'} />
-        </button>
-      </ul>
+          {pageNumbers.map((p) => (
+            <button
+              key={p.page}
+              onClick={() => handlePageChange(p.page)}
+              className={`${p.isActive ? styles['Active'] : styles['InActive']}`}
+            >
+              {p.page}
+            </button>
+          ))}
+          <button onClick={handleNextPage}>
+            <FaCaretRight color={'#FF7A00'} />
+          </button>
+        </ul>
+      )}
     </div>
   );
 };

@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import styles from '../../styles/Dashboard.module.scss';
 //@ts-ignore
-import { Button, Input } from 'technogetic-iron-smart-ui';
+import { Input } from 'technogetic-iron-smart-ui';
 
 export function SearchFilter({ handleSearch, onChange }) {
   const [searchFilter, setSearchFilter] = useState<string>('');
@@ -24,13 +24,12 @@ export function SearchFilter({ handleSearch, onChange }) {
               onChange={handleInputChange}
             ></Input>
             <div className={styles.button_wrapper}>
-              <Button
-                className={styles.searchbutton}
-                varient="contained"
+              <button
+                className={`${styles.btnPrime} ${styles.searchbutton}`}
                 onClick={() => handleSearch(searchFilter)}
               >
                 Search
-              </Button>
+              </button>
             </div>
           </div>
         </div>

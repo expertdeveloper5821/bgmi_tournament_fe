@@ -26,9 +26,9 @@ function page() {
   const [idToDelete, setIdToDelete] = useState<string>('');
 
   const getAllTournaments = async () => {
-    const token = localStorage.getItem('jwtToken') || '';
     try {
-      const response = await getAllRoomsService(token);
+      const response = await getAllRoomsService();
+      setIsLoading(true);
       setWholeRoomData(response?.data);
       setRoomData(response?.data);
       setIsLoading(false);
@@ -44,10 +44,8 @@ function page() {
 
   const deleteroom = async () => {
     setIsLoading(true);
-
     try {
-      const token = localStorage.getItem('jwtToken') || '';
-      const response = await deleteRoomService({ _id: idToDelete, token });
+      const response = await deleteRoomService({ _id: idToDelete });
       setIdToDelete('');
       setIsDeleteModalOpen(false);
       getAllTournaments();
