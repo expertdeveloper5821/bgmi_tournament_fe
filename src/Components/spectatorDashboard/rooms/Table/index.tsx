@@ -17,7 +17,7 @@ import { setItemToLS } from '@/utils/globalfunctions';
 import { GiPodiumWinner } from 'react-icons/gi';
 import Link from 'next/link';
 import Pagination from '@/Components/CommonComponent/Pagination';
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRooms }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,6 +25,9 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
   const itemsPerPage = 5;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+  const router = useRouter();
+
+
 
   const handleRoomID = (id: string, roomUuid: string) => {
     setItemToLS('roomId', id);
