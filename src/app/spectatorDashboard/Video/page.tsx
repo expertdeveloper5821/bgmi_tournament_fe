@@ -4,7 +4,7 @@ import styles from '@/styles/Spectator.module.scss';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import { Table, TableBody, TableCell, Select, TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
-import { getAllVideo, deleteVideoService, updateVideoById } from '@/services/authServices';
+import { getAllVideo, deleteVideoService, getVideoById } from '@/services/authServices';
 import { getVideo } from '@/types/spectatorTypes';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
@@ -62,7 +62,7 @@ const Video = () => {
         const formattedDate = `${String(dateObj.getMonth() + 1).padStart(2, '0')}/${String(dateObj.getDate()).padStart(2, '0')}/${dateObj.getFullYear()}`
         const hours = dateObj.getHours();
         const minutes = dateObj.getMinutes();
-        const amOrPm = hours >= 12 ? 'pm' : 'am';
+        const amOrPm = hours >= 12 ? 'PM' : 'AM';
         const formattedTime = `${hours % 12}:${minutes.toString().padStart(2, '0')} ${amOrPm}`;
         return {
             date: formattedDate,
@@ -73,7 +73,7 @@ const Video = () => {
     const handleClickUpdate = async (_id: string) => {
         try {
             const token = localStorage.getItem('jwtToken') || '';
-            const videoData = await updateVideoById({ token, _id });
+            const videoData = await getVideoById({ token, _id });
 
             if (videoData) {
                 router.push(`/spectatorDashboard/Matchhistorydetails?id=${_id}`);

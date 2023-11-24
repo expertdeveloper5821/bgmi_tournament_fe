@@ -1,16 +1,17 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import styles from '@/styles/Spectator.module.scss';
-import { Navbar } from '@/Components/Navbar/Navbar';
-import { useFormik, FormikHelpers } from 'formik';
-import { Input, Button } from "technogetic-iron-smart-ui";
-import Image from 'next/image';
-import { videoPostSchema } from '@/utils/schema';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { useFormik, FormikHelpers } from 'formik';
+import { videoPostSchema } from '@/utils/schema';
 import { toast } from 'react-toastify';
-import { videoService, updateVideoService } from '@/services/authServices';
+import Image from 'next/image';
 import { VideoFormValuesType } from '../../../Components/pageComponents/auth/authInterfaces';
+import { videoService, updateVideoService } from '@/services/authServices';
 import { getAllVideo } from '@/services/authServices';
+import { Navbar } from '@/Components/Navbar/Navbar';
+import { Input, Button } from "technogetic-iron-smart-ui";
+
 
 const matchHistoryDetails = () => {
     const [thumbnailURL, setThumbnailURL] = useState<string>('');
@@ -75,7 +76,6 @@ const matchHistoryDetails = () => {
                         setThumbnailURL('');
                         setShowThumbnail(false);
                         toast.success(response.data.message);
-
                         if (updateVideoData) {
                             router.push(`/spectatorDashboard/Video`);
                         }
@@ -126,6 +126,10 @@ const matchHistoryDetails = () => {
 
     const handleRemoveImage = () => {
         setShowThumbnail(false);
+        setValues((prevValues) => ({
+            ...prevValues,
+            mapImg: '',
+        }));
     };
 
     return (

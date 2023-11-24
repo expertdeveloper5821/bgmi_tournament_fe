@@ -214,8 +214,8 @@ export const updateUserDetailsService = async (data) => {
   }
 };
 
-export const updateVideoById = async (data) => {
-  const res = await sendRequest(`${serviceUrls.updateVideo}/${data._id}`, {
+export const getVideoById = async (data) => {
+  const res = await sendRequest(`${serviceUrls.getVideoById}/${data._id}`, {
     method: 'GET',
     headers: { 'Content-Type': 'multipart/form-data' },
     data: data.data,

@@ -112,9 +112,10 @@ const teamsDetailsSchema = Yup.object().shape({
 
 const videoPostSchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
-  videoLink: Yup.string().required('Please enter  videoLink'),
+  videoLink: Yup.string()
+    .required('Please enter videoLink')
+    .url('Please enter a valid URL for videoLink'),
   dateAndTime: Yup.string()
-
 })
 
 const addFormValidations = (name, value, setFormErrors) => {

@@ -9,7 +9,7 @@ export const serviceUrls = {
   deleteVideo: '/role/deletevideo',
   registerSpectator: '/role/spectator/Register',
   updateRole: 'role/updaterole/',
-  updateVideo: '/role/getvideo',
+  getVideoById: '/role/getvideo',
   roomsRelatedUrl: '/room/rooms',
   filteredRoomsList: '/room/rooms?search=',
   allRooms: 'room/rooms',
