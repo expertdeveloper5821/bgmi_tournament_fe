@@ -1,6 +1,5 @@
 'use client';
 import Image from 'next/image';
-
 import styles from '@/styles/personal_detail.module.scss';
 import authStyles from '@/styles/auth.module.scss';
 //@ts-ignore

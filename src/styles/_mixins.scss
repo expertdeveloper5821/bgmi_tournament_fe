@@ -86,7 +86,6 @@
   line-height: 22px;
 }
 
-// CHECKED
 @mixin input_box {
   font-style: var(--bs-font-style);
   font-weight: var(--bs-body-font-weight);
@@ -123,7 +122,6 @@
   position: relative;
 }
 
-// CHECKED
 @mixin email_wrapper {
   color: #003354;
   font-style: var(--bs-font-style);
@@ -146,7 +144,6 @@
   background-color: #003354 !important;
 }
 
-// CHECKED
 @mixin checkbox_wrapper {
   font-style: var(--bs-font-style);
   font-weight: var(--bs-body-font-weight);
@@ -157,7 +154,6 @@
   position: relative;
 }
 
-// CHECKED
 @mixin signin {
   color: #003354;
   margin: 0.5rem;
@@ -169,7 +165,6 @@
   text-decoration-line: underline;
 }
 
-// CHECKED
 @mixin error {
   color: #ff0000;
   font-weight: 600;

@@ -3,7 +3,6 @@
 
 .main_container {
   @include main_container;
-  // position: relative;
 }
 
 .background_container {
@@ -44,9 +43,6 @@
   }
 
   @media (max-width: $breakpoint-sm) {
-    // width: 60%;
-    // height: 100vh;
-    // padding: 4px 40px !important;
     margin: 1rem 1.5rem;
   }
 }
@@ -123,7 +119,6 @@
   justify-content: center;
 }
 
-// CHECKED OUTSIDE
 .input_box {
   @include reg_input_box;
   border-bottom: 2px solid white;
@@ -138,7 +133,6 @@
   border: none !important;
 }
 
-// CHECKED INSIDE
 .error_email_wrapper ::placeholder {
   @include email_wrapper;
   color: #ff0000;
@@ -147,7 +141,6 @@
   }
 }
 
-// CHECKED INSIDE
 .email_wrapper {
   @include email_wrapper;
   padding: 3px !important;
@@ -168,12 +161,10 @@
   @include email_wrapper;
 }
 
-// CHECKED INSIDE
 .checkbox_wrapper {
   @include checkbox_wrapper;
 }
 
-// CHECKED OUTSIDE
 .error {
   @include error;
   font-size: 10px;
@@ -188,14 +179,12 @@
   }
 }
 
-// CHECKED INSIDE
 .forgetbutton {
   @include button_wrapper;
   margin-top: 20px;
   color: white !important;
 }
 
-// CHECKED INSIDE
 .disabledforgetbutton {
   @include button_wrapper;
   margin-top: 18px;
@@ -203,7 +192,6 @@
   background-color: #7297b1 !important;
 }
 
-// CHECKED INSIDE
 .SignIn_button {
   @include button_wrapper;
   margin: 1.5rem 0rem;
@@ -213,7 +201,6 @@
   }
 }
 
-// CHECKED INSIDE
 .disabled_signin_button {
   @include button_wrapper;
   margin: 1.5rem 0rem;
