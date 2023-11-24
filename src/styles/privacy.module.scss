@@ -13,13 +13,13 @@
 }
 
 .terms {
+  height: 100vh ;
   display: flex;
   color: $bs-white;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  height: auto;
   color: $bs-white;
   background-color: $bs-aqua;
   background: url('../../public/assests/signupbanner.svg');

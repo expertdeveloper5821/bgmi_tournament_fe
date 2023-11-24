@@ -3,13 +3,14 @@
 import styles from '@/styles/Dashboard.module.scss';
 import Sidebar from '@/Components/CommonComponent/SideBar/Sidebar';
 import ErrorBoundary from '@/Components/HOC/ErrorBoundaery';
+import { FaTh } from 'react-icons/fa';
 
 const dynamicMenuItems = [
-  // {
-  //   path: '/spectatorDashboard/Room',
-  //   name: 'Room',
-  //   icon: <FaTh />,
-  // },
+  {
+    path: '/spectatorDashboard',
+    name: 'Dashboard',
+    icon: <FaTh />,
+  },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

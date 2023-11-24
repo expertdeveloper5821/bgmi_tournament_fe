@@ -16,4 +16,8 @@ export const serviceUrls = {
   forgetPassword: 'user/forget-password',
   login: 'user/login',
   resetPassword: 'user/reset-password?token=',
+  getRoomTeams: '/room/getTeam/',
+  winnerGetPlayer: '/winners/get-players/',
+  winnerPlayerUpdate: '/winners/players/',
+  getAllRoom: 'room/user-rooms',
 };

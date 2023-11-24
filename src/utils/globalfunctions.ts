@@ -34,4 +34,16 @@ const getTokenFromLS = () => {
   }
 };
 
-export { decodeJWt, getTokenFromLS };
+const setItemToLS = (key: string, value: string) => {
+  if (typeof window !== 'undefined') {
+    return localStorage.setItem(key, value);
+  }
+};
+
+const getItemFromLS = (name: string) => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem(name);
+  }
+};
+
+export { decodeJWt, getTokenFromLS, setItemToLS, getItemFromLS };

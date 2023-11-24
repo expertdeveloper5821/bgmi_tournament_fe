@@ -1,4 +1,4 @@
-import { DecodedToken } from "@/utils/globalfunctions";
+import { DecodedToken } from '@/utils/globalfunctions';
 
 export interface GetAllFilteredValuesType {
   searchVal: string;

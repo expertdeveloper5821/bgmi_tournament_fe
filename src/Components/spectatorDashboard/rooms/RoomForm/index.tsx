@@ -12,7 +12,7 @@ import { CreateRoomFormType } from '@/types/roomsTypes';
 import { initialValueCreateRoom } from '@/utils/constant';
 
 const CreateRoomForm = (props) => {
-  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate, callSpecatator } = props;
+  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate, getAllRooms } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [images, setImages] = useState<{ name: string; url: string }[]>([]);
@@ -42,7 +42,7 @@ const CreateRoomForm = (props) => {
             resetForm();
             setImages([]);
             setValues(initialValueCreateRoom);
-            callSpecatator();
+            getAllRooms();
             setIsLoading(false);
             toast.success(response.data.message);
             setShowModal(false);
@@ -428,7 +428,12 @@ const CreateRoomForm = (props) => {
                                 <span className={styles.delete} onClick={() => deleteImage(i)}>
                                   &times;
                                 </span>
-                                <img src={image.url} alt={image.name}></img>
+                                <img
+                                  width={280}
+                                  height={150}
+                                  src={image.url}
+                                  alt={image.name}
+                                ></img>
                               </div>
                             ))}
                             {roomIdToUpdate && (
@@ -436,7 +441,7 @@ const CreateRoomForm = (props) => {
                                 src={roomIdToUpdate.mapImg}
                                 alt="Map Image"
                                 width={280}
-                                height={120}
+                                height={150}
                               />
                             )}
                           </div>
