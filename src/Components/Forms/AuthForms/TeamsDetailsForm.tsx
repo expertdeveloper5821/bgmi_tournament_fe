@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
-
 import styles from '@/styles/personal_detail.module.scss';
+import authStyles from '@/styles/auth.module.scss';
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import React, { useState } from 'react';
@@ -74,17 +74,21 @@ export const TeamsDetailsForm = () => {
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && emailRegex.test(inputValue)) {
       const trimmedInputValue = inputValue.trim();
-      const designedValue = (
-        <span className={styles.single_email_subsubconatiner}>
-          {trimmedInputValue.length > 11
-            ? trimmedInputValue.substring(0, 11) + '...'
-            : trimmedInputValue}
-        </span>
-      );
-      setEmailDisplayList([...emailDisplayList, designedValue]);
-      setEmailList([...emailList, trimmedInputValue]);
-      setFieldValue('emails', [...emailList, trimmedInputValue]);
-      setInputValue('');
+      if (emailList.find((email) => email === trimmedInputValue)) {
+        setFieldError('emails', 'Email already exist in friends list');
+      } else {
+        const designedValue = (
+          <span className={styles.single_email_subsubconatiner}>
+            {trimmedInputValue.length > 11
+              ? trimmedInputValue.substring(0, 11) + '...'
+              : trimmedInputValue}
+          </span>
+        );
+        setEmailDisplayList([...emailDisplayList, designedValue]);
+        setEmailList([...emailList, trimmedInputValue]);
+        setFieldValue('emails', [...emailList, trimmedInputValue]);
+        setInputValue('');
+      }
     } else if (event.key === 'Enter' && !emailRegex.test(inputValue)) {
       setFieldError('emails', 'Please enter a valid email');
     }
@@ -104,11 +108,24 @@ export const TeamsDetailsForm = () => {
         {error && <div className={styles.error}>{error}</div>}
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="teamName">
-            <Image src="/assests/teams.svg" alt="mailogo" width={30} height={20} />
+            <Image
+              src={
+                errors.teamName && touched.teamName
+                  ? '/assests/teamserror.svg'
+                  : '/assests/teams.svg'
+              }
+              alt="mailogo"
+              width={30}
+              height={20}
+            />
           </label>
           <Input
             id="teamName"
-            className={styles.email_wrapper}
+            className={
+              errors.teamName && touched.teamName
+                ? styles.error_email_wrapper
+                : styles.email_wrapper
+            }
             type="text"
             name="teamName"
             value={values.teamName}
@@ -117,27 +134,46 @@ export const TeamsDetailsForm = () => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
+          {errors.teamName && touched.teamName && (
+            <div className={`${authStyles.error} ${authStyles.validation_Error}`}>
+              {errors.teamName}
+            </div>
+          )}
         </div>
-        {errors.teamName && touched.teamName && (
-          <div className={styles.error}>{errors.teamName}</div>
-        )}
 
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="emails">
-            <Image src="/assests/maillogo.svg" alt="mailogo" width={30} height={20} />
+            <Image
+              src={
+                errors.emails && touched.emails
+                  ? '/assests/mailerrorlogo.svg'
+                  : '/assests/maillogo.svg'
+              }
+              alt="mailogo"
+              width={30}
+              height={20}
+            />
           </label>
           <Input
             type="email"
             id="emails"
             name="emails"
-            className={`${styles.email_wrapper} ${styles.multiple_emails_input}`}
+            className={
+              errors.emails && touched.emails
+                ? `${styles.error_email_wrapper} ${styles.multiple_emails_input}`
+                : `${styles.email_wrapper} ${styles.multiple_emails_input}`
+            }
             value={inputValue}
-            placeholder="Enter email press enter and send invitation"
+            placeholder="Invite Friends Via Mail (Optional)"
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
           />
+          {errors.emails && (
+            <div className={`${authStyles.error} ${authStyles.validation_Error}`}>
+              {errors.emails}
+            </div>
+          )}
         </div>
-        {errors.emails && touched.emails && <div className={styles.error}>{errors.emails}</div>}
         {emailDisplayList.length > 0 && (
           <div className={styles.email_container}>
             {emailDisplayList.map((email, index) => {
@@ -160,7 +196,11 @@ export const TeamsDetailsForm = () => {
           </div>
         )}
 
-        <Button disabled={isSubmitting} className={styles.google_finsh} onClick={handleSubmit}>
+        <Button
+          disabled={isSubmitting}
+          className={isSubmitting ? styles.disabled_google_finish : styles.google_finsh}
+          onClick={handleSubmit}
+        >
           {isSubmitting ? 'Loading...' : <span className={styles.nextArrow}>Finish</span>}
         </Button>
 
@@ -171,7 +211,7 @@ export const TeamsDetailsForm = () => {
             router.push('/userDashboard');
           }}
         >
-          <span className={styles.nextArrow}>Skip</span>
+          <span className={styles.skipButton}>Skip</span>
         </Button>
       </form>
     </>

@@ -19,6 +19,7 @@ import { setItemToLS } from '@/utils/globalfunctions';
 import { GiPodiumWinner } from 'react-icons/gi';
 import Link from 'next/link';
 import Pagination from '@/Components/CommonComponent/Pagination';
+import { useRouter } from 'next/navigation';
 
 const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRooms }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,10 +27,19 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
   const itemsPerPage = 5;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+  const router = useRouter();
 
   const handleRoomID = (id: string, roomUuid: string) => {
     setItemToLS('roomId', id);
     setItemToLS('roomUuid', roomUuid);
+  };
+
+  // const handleButtonEdit = () => {
+  //   router.push('/spectatorDashboard/Matchhistory')
+  // }
+
+  const handleButtonPostWinners = (uuid: string) => {
+    router.push(`/spectatorDashboard/Matchhistorydetails?id=${uuid}`);
   };
 
   return (
@@ -110,6 +120,23 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
               ) : (
                 <span className={styles.noInfoBtn}>NA</span>
               )}
+            </TableCell>
+            {/* <TableCell>
+              <div>
+                <button className={styles.tooltip} data-title="Match History" onClick={handleButtonEdit}>
+                  <Image src="/assests/trophy.svg" alt="Image" width={22} height={22} />
+                </button>
+              </div>
+            </TableCell> */}
+            <TableCell>
+              <div>
+                <button
+                  className={styles.video}
+                  onClick={() => handleButtonPostWinners(spec.roomUuid)}
+                >
+                  <Image src="/assests/postvideo.svg" alt="Image" width={22} height={22} />
+                </button>
+              </div>
             </TableCell>
           </TableRow>
         ))}

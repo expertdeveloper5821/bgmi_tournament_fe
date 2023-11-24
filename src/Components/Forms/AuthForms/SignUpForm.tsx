@@ -66,11 +66,22 @@ export const SignupForm = () => {
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.input_box}>
         <label className={styles.email} htmlFor="Fullname">
-          <Image src="/assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
+          <Image
+            src={
+              errors.fullName && touched.fullName
+                ? '/assests/fullnameerroricon.svg'
+                : '/assests/fullnameicon.svg'
+            }
+            alt="fullname"
+            width={30}
+            height={20}
+          />
         </label>
         <Input
           id="fullName"
-          className={styles.email_wrapper}
+          className={
+            errors.fullName && touched.fullName ? styles.error_email_wrapper : styles.email_wrapper
+          }
           type="text"
           name="fullName"
           autoComplete="off"
@@ -79,34 +90,58 @@ export const SignupForm = () => {
           onChange={handleChange}
           onBlur={handleBlur}
         />
+        {errors.fullName && touched.fullName && (
+          <div className={`${styles.error} ${styles.validation_Error}`}>{errors.fullName}</div>
+        )}
       </div>
-      {errors.fullName && touched.fullName && <div className={styles.error}>{errors.fullName}</div>}
 
       <div className={styles.input_box}>
         <label className={styles.email} htmlFor="email">
-          <Image src="/assests/maillogo.svg" alt="mailogo" width={30} height={20} />
+          <Image
+            src={
+              errors.email && touched.email ? '/assests/mailerrorlogo.svg' : '/assests/maillogo.svg'
+            }
+            alt="mailogo"
+            width={30}
+            height={20}
+          />
         </label>
         <Input
           id="email"
-          className={styles.email_wrapper}
+          className={
+            errors.email && touched.email ? styles.error_email_wrapper : styles.email_wrapper
+          }
           type="email"
           name="email"
           autoComplete="off"
-          placeholder="Email ID"
+          placeholder="Email Id"
           value={values.email}
           onChange={handleChange}
           onBlur={handleBlur}
         />
+        {errors.email && touched.email && (
+          <div className={`${styles.error} ${styles.validation_Error}`}>{errors.email}</div>
+        )}
       </div>
-      {errors.email && touched.email && <div className={styles.error}>{errors.email}</div>}
 
       <div className={styles.input_box}>
         <label className={styles.password} htmlFor="password">
-          <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
+          <Image
+            src={
+              errors.password && touched.password
+                ? '/assests/passworderrorlogo.svg'
+                : '/assests/passwordlogo.svg'
+            }
+            alt="passwordlogo"
+            width={30}
+            height={20}
+          />
         </label>
         <Input
           id="password"
-          className={styles.password_wrapper}
+          className={
+            errors.password && touched.password ? styles.error_email_wrapper : styles.email_wrapper
+          }
           type="password"
           name="password"
           autoComplete="off"
@@ -116,17 +151,19 @@ export const SignupForm = () => {
           onBlur={handleBlur}
           onPaste={handlePaste}
         />
+        {errors.password && touched.password && (
+          <div className={`${styles.error} ${styles.validation_Error}`}>{errors.password}</div>
+        )}
       </div>
-      {errors.password && touched.password && <div className={styles.error}>{errors.password}</div>}
 
       <div className={styles.button_wrapper}>
         <Button
           disabled={isSubmitting}
-          className={styles.forgetbutton}
+          className={isSubmitting ? styles.disabledforgetbutton : styles.forgetbutton}
           type="submit"
           onClick={handleSubmit}
         >
-          {isSubmitting ? 'Loading...' : 'Next'}
+          {isSubmitting ? 'Loading...' : 'Signup'}
         </Button>
       </div>
 
@@ -136,7 +173,7 @@ export const SignupForm = () => {
       </Button>
 
       <div className={styles.log_acc_cls}>
-        <span className={styles.forgotDesc}>Already have an account ?</span>
+        <span>Already have an account ?</span>
         <span className={styles.forgotDescsec}>
           <Link className={styles.link_sign} href="/auth/login">
             Sign in

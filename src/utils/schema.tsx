@@ -16,10 +16,7 @@ const SignupSchema = Yup.object().shape({
 
   password: Yup.string()
     .required('Please enter your password')
-    .matches(
-      passwordRegex,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
-    ),
+    .matches(passwordRegex, 'Must contain:8 chars: 1 upper,lower,number,special.'),
 });
 
 const loginSchema = Yup.object().shape({
@@ -27,13 +24,7 @@ const loginSchema = Yup.object().shape({
     .email('Invalid email')
     .required('Please enter your email')
     .matches(emailRegex, 'Invalid email'),
-
-  password: Yup.string()
-    .required('Please enter your password')
-    .matches(
-      passwordRegex,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
-    ),
+  password: Yup.string().required('Please enter your password'),
 });
 
 const forgetPasswordSchema = Yup.object().shape({
@@ -46,10 +37,7 @@ const forgetPasswordSchema = Yup.object().shape({
 const ResetPasswordSchema = Yup.object().shape({
   newPassword: Yup.string()
     .required('Please enter your password')
-    .matches(
-      passwordRegex,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
-    ),
+    .matches(passwordRegex, 'Must contain:8 chars: 1 upper,lower,number,special.'),
 
   confirmPassword: Yup.string()
     .required('Confirm password is required')
@@ -80,20 +68,20 @@ const validationSchema = Yup.object().shape({
 
 const personDetailSchema = Yup.object().shape({
   player: Yup.string()
-    .required('player Id or username is Required')
-    .min(4, 'playerId or username must be min 4 and max 20')
-    .max(20, 'playerId or username must be min 4 and max 20'),
+    .required('Player Id or Username is required')
+    .min(4, 'Player Id or Username must be min 4 and max 20')
+    .max(20, 'Player Id or Username must be min 4 and max 20'),
 
   upi: Yup.string()
     .required('UPI ID is required')
-    .min(10, 'Invalid UPI ID format, must be min 10 and max 20 length')
-    .max(20, 'Invalid UPI ID format, must be min 10 and max 20 length'),
+    .matches(/^[\w]{3,}@[\w]{3,}$/, {
+      message: "UPI ID: 3 characters before & after '@' needed.",
+    }),
 
   whatsapp: Yup.string()
-    .required('whatsapp number id is required')
+    .required('Whatsapp number is required')
     .matches(/^(\+91|\\+)?[1-9][0-9]{9}$/, {
-      message:
-        'Invalid phone number. Please enter a valid 10-digit phone number or that can starts with +91.',
+      message: 'Enter valid 10-digit number or +91 start.',
     }),
 });
 
@@ -107,6 +95,14 @@ const teamsDetailsSchema = Yup.object().shape({
   emails: Yup.array()
     .of(Yup.string().email('Invalid email').matches(emailRegex, 'Invalid email'))
     .min(1, 'At least one valid email is required'),
+});
+
+const videoPostSchema = Yup.object().shape({
+  title: Yup.string().required('Title is required'),
+  videoLink: Yup.string()
+    .required('Please enter videoLink')
+    .url('Please enter a valid URL for videoLink'),
+  dateAndTime: Yup.string(),
 });
 
 const addFormValidations = (name, value, setFormErrors) => {
@@ -191,4 +187,5 @@ export {
   forgetPasswordSchema,
   teamsDetailsSchema,
   addFormValidations,
+  videoPostSchema,
 };
