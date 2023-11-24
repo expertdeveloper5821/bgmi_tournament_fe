@@ -5,9 +5,9 @@
   margin-bottom: 30px;
 }
 .profile_sec {
-  position: relative;
+  align-self: flex-start;
   display: flex;
-  gap: 30px;
+  gap: 17px;
   align-items: center;
   margin-bottom: 1rem;
   font-family: Century Gothic;
@@ -20,31 +20,66 @@
     border: 1px solid white;
     border-radius: 50%;
   }
+
   .upload {
     font-size: 16px;
     font-weight: bold;
     color: #003554;
+    @media (max-width: $breakpointregister-xs) {
+      font-size: 13px;
+    }
+  }
+
+  .uploadOptional {
+    font-weight: bold;
+    color: #777777;
+    @media (max-width: $breakpointregister-xs) {
+      font-size: 13px;
+    }
+  }
+
+  .editImageWrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: self-end;
   }
 }
 
 .input_box {
-  @include input_box;
+  @include reg_input_box;
   border-bottom: 2px solid white;
-  @media (max-width: $breakpoint-xs) {
+  margin-top: 0px !important;
+  @media (max-width: $breakpointregister-xs) {
     width: 100%;
   }
 }
 
 .email_wrapper {
   @include email_wrapper;
+  padding: 3px !important;
 }
+
+.email {
+  width: 30px;
+  height: 20px;
+}
+
+.info_Icon_Inputs {
+  width: 83% !important;
+}
+
 .editBtn {
   position: absolute;
-  bottom: 20rem;
-  left: 5.3rem;
 }
+
 .nextArrow {
   margin-right: 5px;
+}
+.skipButton {
+  color: #003554;
+  font-weight: 700;
 }
 .flexGap {
   display: flex;
@@ -65,7 +100,7 @@
 }
 
 .google_btn {
-  width: 320px;
+  width: 100%;
   height: 2.5rem;
   border-radius: 5px;
   border: none;
@@ -75,7 +110,7 @@
   box-shadow: 0px 0px 8px grey;
   font-size: 16px;
   font-weight: 500;
-  margin: 0 0 20px 0;
+  margin-top: 40px;
 
   cursor: pointer;
   display: flex;
@@ -84,53 +119,56 @@
   position: relative;
 }
 
-@media (max-width: $breakpoint-xs) {
+.disabled_google_btn {
+  @include button_wrapper;
+  margin-top: 40px;
+  color: white !important;
+  background-color: #7297b1 !important;
+}
+
+@media (max-width: $breakpointregister-xs) {
   .google_btn {
     width: 100%;
-
-    .editBtn {
-      bottom: 30rem;
-    }
   }
 }
 
-@media (max-width: $breakpoint-xs) {
+@media (max-width: $breakpointregister-xs) {
   .google_finsh {
     width: 100%;
   }
 }
-@media (max-width: $breakpoint-sm) {
-  .editBtn {
-    display: none;
-  }
-}
-@media (max-width: $breakpoint-md) {
+
+@media (max-width: $breakpointregister-md) {
   .google_btn {
     width: 100%;
   }
+}
 
-  .editBtn {
-    bottom: 30rem;
-    display: none;
-  }
-}
-@media (max-width: $breakpoint-ms) {
-  .editBtn {
-    bottom: 31rem;
-    display: none;
-  }
-}
-@media (max-width: $breakpoint-lg) {
-  .editBtn {
-    bottom: 31rem;
-    display: none;
-  }
-}
 .email_wrapper input::placeholder {
   color: #003554;
   font-weight: 600;
   font-size: 15px;
+  width: 100%;
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 12px;
+  }
 }
+
+.error_email_wrapper {
+  padding: 3px !important;
+  border: none !important;
+  width: 100%;
+}
+
+.error_email_wrapper input::placeholder {
+  color: red;
+  font-weight: 600;
+  font-size: 15px;
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 12px;
+  }
+}
+
 .toolTip {
   margin-right: 50px;
   border-radius: 5px;
@@ -177,6 +215,15 @@
   width: 100%;
   background-color: #003554 !important;
 }
+
+.disabled_google_finish {
+  @include button_wrapper;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  color: white !important;
+  background-color: #7297b1 !important;
+}
+
 .error {
   color: red !important;
 }
@@ -189,6 +236,7 @@
 
 .email_container {
   padding: 10px 2px;
+  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -208,7 +256,9 @@
 .single_email_subsubconatiner {
   padding: 7px 8px;
   border-radius: 5px;
-}
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 12px;
+  }}
 
 .cancelsvg {
   cursor: pointer;

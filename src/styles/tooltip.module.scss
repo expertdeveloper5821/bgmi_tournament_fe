@@ -1,0 +1,44 @@
+.tooltip_Wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  transform: translateY(-130%) translateX(-3%);
+  background: #003554;
+  color: white;
+  display: none;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 10px;
+  width: 198px !important;
+  padding: 4px 22px !important;
+}
+
+.tooltipArrow {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.7) transparent transparent;
+}
+
+.icon_Wrapper {
+  height: 17px;
+}
+
+.show_tooltip {
+  display: block;
+  width: 100;
+}
+
+.hide_tooltip {
+  display: none;
+}

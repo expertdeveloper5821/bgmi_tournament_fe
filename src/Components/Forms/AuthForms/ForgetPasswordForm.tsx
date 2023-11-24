@@ -50,25 +50,40 @@ export function ForgetPasswordForm(): JSX.Element {
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.input_box}>
         <label className={styles.email} htmlFor="email">
-          <Image src="../assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
+          <Image
+            src={
+              errors.email && touched.email
+                ? '/assests/fullnameerroricon.svg'
+                : '/assests/fullnameicon.svg'
+            }
+            alt="fullname"
+            width={30}
+            height={20}
+          />
         </label>
         <Input
           type="email"
           id="email"
-          className={`${styles.email_wrapper} ${!errors.email ? '' : styles.invalid}`}
+          className={
+            errors.email && touched.email
+              ? `${styles.error_email_wrapper}`
+              : `${styles.email_wrapper}`
+          }
           placeholder="Enter Email"
           value={values.email}
           onChange={handleChange}
           onBlur={handleBlur}
         />
+        {errors.email && touched.email && (
+          <div className={`${styles.error} ${styles.validation_Error}`}>{errors.email}</div>
+        )}
       </div>
-      {errors.email && touched.email && <div className={styles.error}>{errors.email}</div>}
 
       <div className={styles.button_wrapper}>
         <Button
           disabled={isSubmitting}
           variant="contained"
-          className={styles.SignIn_button}
+          className={isSubmitting ? styles.disabled_signin_button : styles.SignIn_button}
           onClick={handleSubmit}
         >
           {isSubmitting ? 'Loading...' : 'Recover Password'}

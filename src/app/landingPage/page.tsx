@@ -4,7 +4,6 @@ import styles from '@/styles/landingpage.module.scss';
 import NavBar from './navBar/page';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
-// import CustomCursor from './customCursor/page'
 import Link from 'next/link';
 import { formatTime } from '@/Components/CommonComponent/moment';
 import useWindowSize from '@/hooks/useWindowSize';
@@ -33,11 +32,9 @@ interface GameDetails {
 const page = () => {
   const [data, setData] = useState<GameDetails[]>();
   const [poolModal, setPoolModal] = useState<boolean>(false);
-  console.log('poolModal', poolModal);
   const [id, setId] = useState<number>(0);
   const [activeGun, setActiveGun] = useState<number>(0);
   const [activeMaptext, setActiveMaptext] = useState<number>(0);
-  // const [contentcount, setContectcount] = useState<number>(0);
   const [content, setContent] = useState<string>('');
   const [supportText, setSupportText] = useState<string>('');
   const [heading, setHeading] = useState<string>('');
@@ -210,7 +207,10 @@ const page = () => {
         </div>
 
         <div className={styles.social_Icons_header}>
-          <Link href="https://www.facebook.com/profile.php?id=100095239340085&is_tour_dismissed=true" target="_blank">
+          <Link
+            href="https://www.facebook.com/profile.php?id=100095239340085&is_tour_dismissed=true"
+            target="_blank"
+          >
             <Image
               className={styles.footerSocialIcon}
               src="../assests/facebookiconblack.svg"
@@ -487,8 +487,7 @@ const page = () => {
               <div className={styles.radialGradient2}></div>
               <Image
                 className={styles.welcome_RightImg}
-                src={`${width[0] <= 600 ? '../assests/stonegunmix.svg' : '../assests/Group20.svg'
-                  }`}
+                src={`${width[0] <= 600 ? '../assests/stonegunmix.svg' : '../assests/Group20.svg'}`}
                 height={width[0] <= 600 ? 600 : 700}
                 width={800}
                 alt="zoom in image"
@@ -596,15 +595,17 @@ const page = () => {
               </div>
             </div>
             <div
-              className={` ${activeGun === 3 ? styles.seam_main_container : `${styles.seam_main_container_not}`
-                }`}
+              className={` ${
+                activeGun === 3 ? styles.seam_main_container : `${styles.seam_main_container_not}`
+              }`}
             >
               <div
                 className={` ${width[0] <= 450 ? styles.seamlesstxn_mob : `${styles.seamlesstxn}`}`}
               >
                 <Image
-                  src={` ${width[0] <= 450 ? '../assests/withdraw.svg' : `../assests/seamless2.svg`
-                    }`}
+                  src={` ${
+                    width[0] <= 450 ? '../assests/withdraw.svg' : `../assests/seamless2.svg`
+                  }`}
                   alt="bullter"
                   height={100}
                   width={100}
@@ -614,8 +615,9 @@ const page = () => {
               <p className={styles.seam}>Seamless Transactions</p>
             </div>
             <div
-              className={` ${activeGun === 2 ? styles.clock_maincontainer : `${styles.clock_maincontainer_not}`
-                }`}
+              className={` ${
+                activeGun === 2 ? styles.clock_maincontainer : `${styles.clock_maincontainer_not}`
+              }`}
             >
               <div className={` ${width[0] <= 450 ? styles.clock_mob : `${styles.clock}`}`}>
                 <Image
@@ -629,12 +631,14 @@ const page = () => {
               <p className={styles.short_heading}>24/7 Support</p>
             </div>
             <div
-              className={` ${activeGun === 0 ? styles.tournament_maincontainer : `${styles.tournament_not}`
-                }`}
+              className={` ${
+                activeGun === 0 ? styles.tournament_maincontainer : `${styles.tournament_not}`
+              }`}
             >
               <div
-                className={` ${width[0] <= 450 ? styles.trophy_container_mob : `${styles.trophy_container}`
-                  }`}
+                className={` ${
+                  width[0] <= 450 ? styles.trophy_container_mob : `${styles.trophy_container}`
+                }`}
               >
                 <Image
                   src={` ${width[0] <= 450 ? './assests/tournament.svg' : `../assests/stamp.svg`}`}
@@ -647,14 +651,16 @@ const page = () => {
               <p className={styles.short_heading}>Exciting Tournaments</p>
             </div>
             <div
-              className={` ${activeGun === 1 && width[0] <= 450
-                ? styles.activeprizemainconatiner
-                : `${styles.prize_maincontainer}`
-                }`}
+              className={` ${
+                activeGun === 1 && width[0] <= 450
+                  ? styles.activeprizemainconatiner
+                  : `${styles.prize_maincontainer}`
+              }`}
             >
               <div
-                className={` ${width[0] <= 450 ? styles.money_container_mob : `${styles.money_container}`
-                  }`}
+                className={` ${
+                  width[0] <= 450 ? styles.money_container_mob : `${styles.money_container}`
+                }`}
               >
                 <Image
                   src={` ${width[0] <= 450 ? './assests/cash.svg' : `./assests/moneycashback.svg`}`}
@@ -842,13 +848,15 @@ const page = () => {
             onClick={() => handleMapDotClick(0)}
           ></div>
           <div
-            className={`${styles.dot} ${activeMaptext === 1 ? styles.mapactivedot : `${styles.dot}`
-              }`}
+            className={`${styles.dot} ${
+              activeMaptext === 1 ? styles.mapactivedot : `${styles.dot}`
+            }`}
             onClick={() => handleMapDotClick(1)}
           ></div>
           <div
-            className={`${styles.dot} ${activeMaptext === 2 ? styles.mapactivedot : `${styles.dot}`
-              }`}
+            className={`${styles.dot} ${
+              activeMaptext === 2 ? styles.mapactivedot : `${styles.dot}`
+            }`}
             onClick={() => handleMapDotClick(2)}
           ></div>
         </div>

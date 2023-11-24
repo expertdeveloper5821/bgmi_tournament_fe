@@ -27,8 +27,6 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
   const endIndex = startIndex + itemsPerPage;
   const router = useRouter();
 
-
-
   const handleRoomID = (id: string, roomUuid: string) => {
     setItemToLS('roomId', id);
     setItemToLS('roomUuid', roomUuid);
@@ -40,8 +38,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
 
   const handleButtonPostWinners = (uuid: string) => {
     router.push(`/spectatorDashboard/Matchhistorydetails?id=${uuid}`);
-  }
-
+  };
 
   return (
     <Table className={styles.table_content}>
@@ -131,12 +128,14 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
             </TableCell> */}
             <TableCell>
               <div>
-                <button className={styles.video} onClick={() => handleButtonPostWinners(spec.roomUuid)}>
+                <button
+                  className={styles.video}
+                  onClick={() => handleButtonPostWinners(spec.roomUuid)}
+                >
                   <Image src="/assests/postvideo.svg" alt="Image" width={22} height={22} />
                 </button>
               </div>
             </TableCell>
-
           </TableRow>
         ))}
       </TableBody>
@@ -151,6 +150,3 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
 };
 
 export default RoomTable;
-
-
-

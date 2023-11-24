@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import styles from '@/styles/credential.module.scss';
+import authStyles from '@/styles/auth.module.scss';
 import { useRouter } from 'next/navigation';
 import { FormikHelpers, useFormik } from 'formik';
 //@ts-ignore
@@ -60,12 +61,25 @@ export const ResetPasswordForm: React.FC = () => {
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.input_box}>
         <label htmlFor="newPassword" className={styles.password}>
-          <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
+          <Image
+            src={
+              errors.newPassword && touched.newPassword
+                ? '/assests/passworderrorlogo.svg'
+                : '/assests/passwordlogo.svg'
+            }
+            alt="passwordlogo"
+            width={30}
+            height={20}
+          />
         </label>
         <Input
           type="password"
           id="newPassword"
-          className={styles.password_wrapper}
+          className={
+            errors.newPassword && touched.newPassword
+              ? authStyles.error_email_wrapper
+              : styles.password_wrapper
+          }
           name="newPassword"
           autoComplete="off"
           placeholder="Enter password"
@@ -74,18 +88,33 @@ export const ResetPasswordForm: React.FC = () => {
           onBlur={handleBlur}
           onPaste={handlePaste}
         />
+        {errors.newPassword && touched.newPassword && (
+          <div className={`${styles.error} ${authStyles.validation_Error}`}>
+            {errors.newPassword}
+          </div>
+        )}
       </div>
-      {errors.newPassword && touched.newPassword && (
-        <div className={styles.error}>{errors.newPassword}</div>
-      )}
       <div className={styles.input_box}>
         <label htmlFor="confirmPassword" className={styles.password}>
-          <Image src="/assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
+          <Image
+            src={
+              errors.confirmPassword && touched.confirmPassword
+                ? '/assests/passworderrorlogo.svg'
+                : '/assests/passwordlogo.svg'
+            }
+            alt="passwordlogo"
+            width={30}
+            height={20}
+          />
         </label>
         <Input
           type="password"
           id="confirmPassword"
-          className={styles.password_wrapper}
+          className={
+            errors.confirmPassword && touched.confirmPassword
+              ? authStyles.error_email_wrapper
+              : styles.password_wrapper
+          }
           name="confirmPassword"
           autoComplete="off"
           placeholder="Enter new password"
@@ -94,12 +123,19 @@ export const ResetPasswordForm: React.FC = () => {
           onBlur={handleBlur}
           onPaste={handlePaste}
         />
+        {errors.confirmPassword && touched.confirmPassword && (
+          <div className={`${styles.error} ${authStyles.validation_Error}`}>
+            {errors.confirmPassword}
+          </div>
+        )}
       </div>
-      {errors.confirmPassword && touched.confirmPassword && (
-        <div className={styles.error}>{errors.confirmPassword}</div>
-      )}
       <div className={styles.button_wrapper}>
-        <Button varient="contained" className={styles.forgetbutton} onClick={handleSubmit}>
+        <Button
+          disabled={isSubmitting}
+          varient="contained"
+          className={isSubmitting ? authStyles.disabledforgetbutton : styles.forgetbutton}
+          onClick={handleSubmit}
+        >
           {isSubmitting ? 'Loading...' : 'Update'}
         </Button>
       </div>

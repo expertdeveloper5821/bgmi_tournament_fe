@@ -39,7 +39,7 @@ const page = () => {
       const offsetTop = element.offsetTop - 100;
       window.scrollTo({
         top: offsetTop,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   };
@@ -49,9 +49,7 @@ const page = () => {
         <Link href="/">
           <div>
             <span className={styles.logo}>
-              <img
-                src={scrolling ? `../assests/logo.svg` : './assests/logolightmode.svg'}
-              />
+              <img src={scrolling ? `../assests/logo.svg` : './assests/logolightmode.svg'} />
             </span>
           </div>
         </Link>

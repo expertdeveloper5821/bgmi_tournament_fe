@@ -72,19 +72,17 @@ const Room = () => {
     getAllSpectator();
   }, []);
 
-
   const handleButtonClick = () => {
     router.push('/spectatorDashboard/Postwinners');
-  }
+  };
 
   const handleButtonEdit = () => {
-    router.push('/spectatorDashboard/Matchhistory')
-  }
+    router.push('/spectatorDashboard/Matchhistory');
+  };
 
   const handleButtonPostWinners = () => {
-    router.push('/spectatorDashboard/Matchhistorydetails')
-  }
-
+    router.push('/spectatorDashboard/Matchhistorydetails');
+  };
 
   return (
     <div className={styles.main_container} id="mainLayoutContainerInner">
@@ -150,7 +148,6 @@ const Room = () => {
                           <Image src="/assests/update.svg" alt="Image" width={12} height={12} />
                         </button>
 
-
                         <div>
                           <button className={styles.addbutton} onClick={handleButtonClick}>
                             <Image src="/assests/add.svg" alt="Image" width={22} height={22} />
@@ -158,7 +155,11 @@ const Room = () => {
                         </div>
 
                         <div>
-                          <button className={styles.tooltip} data-title="Match History" onClick={handleButtonEdit}>
+                          <button
+                            className={styles.tooltip}
+                            data-title="Match History"
+                            onClick={handleButtonEdit}
+                          >
                             <Image src="/assests/trophy.svg" alt="Image" width={22} height={22} />
                           </button>
                         </div>

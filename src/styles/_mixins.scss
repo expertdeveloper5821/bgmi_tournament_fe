@@ -51,7 +51,7 @@
     min-height: 100vh;
   }
   @media (max-width: $breakpoint-lg) {
-    min-height: 100vh;
+    min-height: 53vh;
   }
 }
 @mixin headDesc {
@@ -75,14 +75,26 @@
   justify-content: center;
   align-items: center;
 }
+
+@mixin heading {
+  display: flex;
+  justify-content: center;
+  color: #5c5c5c;
+  font-family: Century Gothic;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  line-height: 22px;
+}
+
 @mixin input_box {
   font-style: var(--bs-font-style);
   font-weight: var(--bs-body-font-weight);
   font-size: var(--bs-body-font-size);
   display: flex;
   align-items: center;
-  padding: 5px;
+  padding: 15px 5px 5px 5px;
   width: 100%;
+  position: relative;
   @media (max-width: $breakpoint-xSmall) {
     margin-top: 1rem;
   }
@@ -99,11 +111,22 @@
   }
 }
 
+@mixin reg_input_box {
+  font-style: var(--bs-font-style);
+  font-weight: var(--bs-body-font-weight);
+  font-size: var(--bs-body-font-size);
+  display: flex;
+  align-items: center;
+  padding: 15px 5px 5px 5px;
+  width: 100%;
+  position: relative;
+}
+
 @mixin email_wrapper {
   color: #003354;
   font-style: var(--bs-font-style);
   font-weight: var(--bs-body-font-weight);
-  font-family: Century Gothi;
+  font-family: Century Gothic;
   font-weight: 700;
   width: 100% !important;
   font-size: 14px;
@@ -143,7 +166,7 @@
 }
 
 @mixin error {
-  color: #ca0000;
+  color: #ff0000;
   font-weight: 600;
   font-size: 12px;
 

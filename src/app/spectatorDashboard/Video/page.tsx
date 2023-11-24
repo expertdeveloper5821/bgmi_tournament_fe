@@ -2,7 +2,15 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
-import { Table, TableBody, TableCell, Select, TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    Select,
+    TableHeader,
+    TableHead,
+    TableRow,
+} from 'technogetic-iron-smart-ui';
 import Image from 'next/image';
 import { getAllVideo, deleteVideoService, getVideoById } from '@/services/authServices';
 import { getVideo } from '@/types/spectatorTypes';
@@ -25,8 +33,6 @@ const Video = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
 
-
-
     const getAllVideos = async () => {
         const token = localStorage.getItem('jwtToken') || '';
         try {
@@ -37,7 +43,7 @@ const Video = () => {
             setIsLoading(false);
             toast.error(error?.response?.data?.message);
         }
-    }
+    };
 
     useEffect(() => {
         getAllVideos();
@@ -71,7 +77,9 @@ const Video = () => {
 
     function formatDateTime(dateTime: string) {
         const dateObj = new Date(dateTime);
-        const formattedDate = `${String(dateObj.getMonth() + 1).padStart(2, '0')}/${String(dateObj.getDate()).padStart(2, '0')}/${dateObj.getFullYear()}`
+        const formattedDate = `${String(dateObj.getMonth() + 1).padStart(2, '0')}/${String(
+            dateObj.getDate(),
+        ).padStart(2, '0')}/${dateObj.getFullYear()}`;
         const hours = dateObj.getHours();
         const minutes = dateObj.getMinutes();
         const amOrPm = hours >= 12 ? 'PM' : 'AM';
@@ -97,14 +105,7 @@ const Video = () => {
         }
     };
 
-    const columns: string[] = [
-        'Video',
-        'Title',
-        'Match Type',
-        'Date',
-        'Time',
-        'Action',
-    ];
+    const columns: string[] = ['Video', 'Title', 'Match Type', 'Date', 'Time', 'Action'];
     return (
         <div className={styles.main_container} id="mainLayoutContainerInner">
             <div className={styles.inner_main_container}>
@@ -112,14 +113,10 @@ const Video = () => {
                     <Navbar />
                     <div className={styles.inner_specter_cls}>
                         <h1 className={styles.title_video}>Your Videos</h1>
-                        <div style={{ display: "flex", gap: "20px" }}>
+                        <div style={{ display: 'flex', gap: '20px' }}>
                             <Select
                                 onChange={function noRefCheck() { }}
-                                option={[
-                                    'Status Timeline',
-                                    'Match Type',
-                                    'Date'
-                                ]}
+                                option={['Status Timeline', 'Match Type', 'Date']}
                                 placeholder="Sort By"
                                 className={styles.sort}
                                 optionClassName={styles.popdown}
@@ -127,7 +124,6 @@ const Video = () => {
                         </div>
                     </div>
                     <div>
-
                         {isLoading ? (
                             <Loader />
                         ) : (
@@ -145,22 +141,42 @@ const Video = () => {
                                     {data.slice(startIndex, endIndex).map((video, index) => (
                                         <TableRow className={styles.table_row_cell} key={index}>
                                             <TableCell className={styles.table_data}>
-                                                <img src={video.mapImg ? video.mapImg : '/assests/about.jpg'} className={styles.video_card} alt="Image" width={120} height={75} />
+                                                <img
+                                                    src={video.mapImg ? video.mapImg : '/assests/about.jpg'}
+                                                    className={styles.video_card}
+                                                    alt="Image"
+                                                    width={120}
+                                                    height={75}
+                                                />
                                             </TableCell>
                                             <TableCell className={styles.table_data}>{video.title ?? '--'}</TableCell>
                                             <TableCell className={styles.table_data_color}>Squad</TableCell>
-                                            <TableCell className={styles.table_data_color}>{formatDateTime(video.dateAndTime ?? '--').date}</TableCell>
-                                            <TableCell className={styles.table_data_color}>{formatDateTime(video.dateAndTime ?? '--').time}</TableCell>
+                                            <TableCell className={styles.table_data_color}>
+                                                {formatDateTime(video.dateAndTime ?? '--').date}
+                                            </TableCell>
+                                            <TableCell className={styles.table_data_color}>
+                                                {formatDateTime(video.dateAndTime ?? '--').time}
+                                            </TableCell>
                                             <TableCell className={styles.table_data}>
                                                 <span className={styles.gap}>
-                                                    <Image src="/assests/update.svg" alt="Image" width={12} height={12} onClick={() => handleClickUpdate(video._id)} />
-                                                    <Image src="/assests/Tabledeleted.svg" alt="Image" width={12} height={12} onClick={() => openDeleteModal(video._id)} />
+                                                    <Image
+                                                        src="/assests/update.svg"
+                                                        alt="Image"
+                                                        width={12}
+                                                        height={12}
+                                                        onClick={() => handleClickUpdate(video._id)}
+                                                    />
+                                                    <Image
+                                                        src="/assests/Tabledeleted.svg"
+                                                        alt="Image"
+                                                        width={12}
+                                                        height={12}
+                                                        onClick={() => openDeleteModal(video._id)}
+                                                    />
                                                 </span>
                                             </TableCell>
                                         </TableRow>
-
                                     ))}
-
                                 </TableBody>
                                 <Pagination
                                     totalItems={totalItems}
@@ -168,11 +184,9 @@ const Video = () => {
                                     currentPage={currentPage}
                                     setCurrentPage={setCurrentPage}
                                 />
-
                             </Table>
                         )}
                     </div>
-
                 </div>
             </div>
 
@@ -186,10 +200,8 @@ const Video = () => {
                     }}
                 />
             )}
-
         </div>
     );
 };
 
 export default Video;
-

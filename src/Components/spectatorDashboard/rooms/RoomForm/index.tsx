@@ -394,17 +394,34 @@ const CreateRoomForm = (props) => {
                           <div className={styles.top}>
                             <p>Drag & Drop Image Uploading</p>
                           </div>
-                          <div className={styles.drag_area} onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}>
+                          <div
+                            className={styles.drag_area}
+                            onDragOver={onDragOver}
+                            onDragLeave={onDragLeave}
+                            onDrop={onDrop}
+                          >
                             {isDragging ? (
                               <span className={styles.select}>Drop Image here</span>
                             ) : (
                               <>
-                                <div className={styles.drag_drop}> Drag and Drop image here or ,</div>
-                                <span className={styles.select} role='button' onClick={selectFiles}>Browse</span>
+                                <div className={styles.drag_drop}>
+                                  {' '}
+                                  Drag and Drop image here or ,
+                                </div>
+                                <span className={styles.select} role="button" onClick={selectFiles}>
+                                  Browse
+                                </span>
                               </>
                             )}
 
-                            <input name='file' type='file' className={styles.file} multiple ref={fileInputRef} onChange={onFileSelect}></input>
+                            <input
+                              name="file"
+                              type="file"
+                              className={styles.file}
+                              multiple
+                              ref={fileInputRef}
+                              onChange={onFileSelect}
+                            ></input>
                           </div>
                           <div className={styles.container}>
                             {images.map((image, i) => (

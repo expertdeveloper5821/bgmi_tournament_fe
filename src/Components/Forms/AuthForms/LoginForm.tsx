@@ -142,11 +142,20 @@ export function LoginForm(): React.JSX.Element {
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.input_box}>
         <label className={styles.email} htmlFor="email">
-          <Image src="../assests/fullnameicon.svg" alt="fullname" width={30} height={20} />
+          <Image
+            src={
+              errors.email && touched.email ? '/assests/mailerrorlogo.svg' : '/assests/maillogo.svg'
+            }
+            alt="mailogo"
+            width={30}
+            height={20}
+          />
         </label>
         <Input
           id="email"
-          className={styles.email_wrapper}
+          className={
+            errors.email && touched.email ? styles.error_email_wrapper : styles.email_wrapper
+          }
           type="email"
           name="email"
           autoComplete="off"
@@ -155,16 +164,29 @@ export function LoginForm(): React.JSX.Element {
           onChange={handleChange}
           onBlur={handleBlur}
         />
+        {errors.email && touched.email && (
+          <div className={`${styles.error} ${styles.validation_Error}`}>{errors.email}</div>
+        )}
       </div>
-      {errors.email && touched.email && <div className={styles.error}>{errors.email}</div>}
 
       <div className={styles.input_box}>
         <label className={styles.password} htmlFor="password">
-          <Image src="../assests/passwordlogo.svg" alt="passwordlogo" width={30} height={20} />
+          <Image
+            src={
+              errors.password && touched.password
+                ? '/assests/passworderrorlogo.svg'
+                : '/assests/passwordlogo.svg'
+            }
+            alt="passwordlogo"
+            width={30}
+            height={20}
+          />
         </label>
         <Input
           id="password"
-          className={styles.password_wrapper}
+          className={
+            errors.password && touched.password ? styles.error_email_wrapper : styles.email_wrapper
+          }
           type="password"
           name="password"
           autoComplete="off"
@@ -174,8 +196,10 @@ export function LoginForm(): React.JSX.Element {
           onBlur={handleBlur}
           onPaste={handlePaste}
         />
+        {errors.password && touched.password && (
+          <div className={`${styles.error} ${styles.validation_Error}`}>{errors.password}</div>
+        )}
       </div>
-      {errors.password && touched.password && <div className={styles.error}>{errors.password}</div>}
 
       <div className={styles.checkbox_wrapper}>
         <input
@@ -193,7 +217,7 @@ export function LoginForm(): React.JSX.Element {
       <div className={styles.button_wrapper}>
         <Button
           disabled={isLoading}
-          className={styles.forgetbutton}
+          className={isLoading ? styles.disabledforgetbutton : styles.forgetbutton}
           variant="contained"
           onClick={handleSubmit}
         >
@@ -203,14 +227,14 @@ export function LoginForm(): React.JSX.Element {
 
       <Button className={styles.btnStyle} onClick={googleAuth}>
         <Image src="/assests/google.svg" alt="passwordlogo" width={20} height={20} />
-        <span className={styles.googleIcon}>Sign in with Google</span>
+        <span>Sign in with Google</span>
       </Button>
       <div className={styles.signin}>
-        <span className={styles.forgotDesc}>
-          <Link href="/auth/forget-password">Forget your Password?</Link>
+        <span className={styles.forget_desc}>
+          <Link href="/auth/forget-password">Forgot Password?</Link>
         </span>
         <div className={styles.sign_accout}>
-          <span className={styles.accout_in}>Don't have an accout?</span>
+          <span>Don't have an account?</span>
           <span className={styles.forgotDescsec}>
             <Link className={styles.link_sign} href="/auth/signup">
               Signup

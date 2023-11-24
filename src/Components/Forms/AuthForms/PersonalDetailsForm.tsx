@@ -2,6 +2,8 @@
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import styles from '@/styles/personal_detail.module.scss';
+import authStyles from '@/styles/auth.module.scss';
+
 //@ts-ignore
 import { Button, Input } from 'technogetic-iron-smart-ui';
 import { personDetailSchema } from '@/utils/schema';
@@ -10,6 +12,7 @@ import { updateUserDetailsService } from '@/services/authServices';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { PersonalDetailsValue } from '@/types/formsTypes';
+import Tooltip from '@/Components/CommonComponent/Tooltip';
 
 const initialValues: PersonalDetailsValue = {
   player: '',
@@ -77,29 +80,44 @@ export const PersonalDetail = () => {
   });
 
   return (
-    <div>
+    <>
       {error && <div className={styles.error}>{error}</div>}
-      <form className={styles.form}>
+      <form>
         <div className={styles.profile_sec}>
           {image ? (
-            <img
-              src={URL.createObjectURL(image)}
-              alt="profile"
-              style={{ width: 100, height: 100, borderRadius: '50%' }}
-            />
+            <div className={styles.editImageWrapper}>
+              <img
+                src={URL.createObjectURL(image)}
+                alt="profile"
+                style={{ width: 100, height: 100, borderRadius: '50%' }}
+              />
+              <div
+                className={styles.editBtn}
+                onClick={handleEditIconClick}
+                style={{ cursor: 'pointer' }}
+              >
+                <Image src="/assests/edit.svg" alt="fullname" width={30} height={30} />
+              </div>
+            </div>
           ) : (
-            <Image src="/assests/profilePik.png" alt="profile" width={100} height={100} />
+            <div className={styles.editImageWrapper}>
+              <Image src="/assests/profilePik.png" alt="profile" width={100} height={100} />
+              <div
+                className={styles.editBtn}
+                onClick={handleEditIconClick}
+                style={{ cursor: 'pointer' }}
+              >
+                <Image src="/assests/edit.svg" alt="fullname" width={30} height={30} />
+              </div>
+            </div>
           )}
 
-          <div className={styles.right}>
+          <div>
             <h2 className={styles.upload}>Upload Profile Picture</h2>
-            <p className={styles.upload}>(Optional)</p>
+            <p className={styles.uploadOptional}>(Optional)</p>
           </div>
         </div>
 
-        <div className={styles.editBtn} onClick={handleEditIconClick} style={{ cursor: 'pointer' }}>
-          <Image src="/assests/edit.svg" alt="fullname" width={30} height={30} />
-        </div>
         <input
           ref={fileInputRef}
           type="file"
@@ -110,11 +128,22 @@ export const PersonalDetail = () => {
 
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="email">
-            <Image src="/assests/teams.svg" alt="mailogo" width={20} height={20} />
+            <Image
+              src={
+                errors.player && touched.player ? '/assests/teamserror.svg' : '/assests/teams.svg'
+              }
+              alt="mailogo"
+              width={20}
+              height={20}
+            />
           </label>
           <Input
             id="Player Id/Username"
-            className={styles.email_wrapper}
+            className={
+              errors.player && touched.player
+                ? `${styles.error_email_wrapper} ${styles.info_Icon_Inputs}`
+                : `${styles.email_wrapper} ${styles.info_Icon_Inputs}`
+            }
             type="text"
             name="player"
             autoComplete="off"
@@ -123,16 +152,37 @@ export const PersonalDetail = () => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
+          <Tooltip text="The player id should match the with the BGMI player id">
+            <img src="/assests/infoIcon.svg" />
+          </Tooltip>
+          {errors.player && touched.player && (
+            <div
+              className={`${authStyles.error} ${authStyles.validation_Error}`}
+              style={{ left: '0' }}
+            >
+              {errors.player}
+            </div>
+          )}
         </div>
-        {errors.player && touched.player && <div className={styles.error}>{errors.player}</div>}
 
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="email">
-            <Image src="/assests/profilePik.png" alt="mailogo" width={20} height={20} />
+            <Image
+              src={
+                errors.upi && touched.upi
+                  ? '/assests/fullnameerroricon.svg'
+                  : '/assests/fullnameicon.svg'
+              }
+              alt="fullname"
+              width={20}
+              height={20}
+            />
           </label>
           <Input
             id="UPI_Id"
-            className={styles.email_wrapper}
+            className={
+              errors.upi && touched.upi ? styles.error_email_wrapper : styles.email_wrapper
+            }
             type="text"
             name="upi"
             autoComplete="off"
@@ -141,17 +191,36 @@ export const PersonalDetail = () => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
+          {errors.upi && touched.upi && (
+            <div
+              className={`${authStyles.error} ${authStyles.validation_Error}`}
+              style={{ left: '0' }}
+            >
+              {errors.upi}
+            </div>
+          )}
         </div>
-
-        {errors.upi && touched.upi && <div className={styles.error}>{errors.upi}</div>}
 
         <div className={styles.input_box}>
           <label className={styles.email} htmlFor="email">
-            <Image src="/assests/whats_app.svg" alt="mailogo" width={20} height={20} />
+            <Image
+              src={
+                errors.whatsapp && touched.whatsapp
+                  ? '/assests/whats_app_error.svg'
+                  : '/assests/whats_app.svg'
+              }
+              alt="mailogo"
+              width={20}
+              height={20}
+            />
           </label>
           <Input
             id="WhatsApp_Number"
-            className={styles.email_wrapper}
+            className={
+              errors.whatsapp && touched.whatsapp
+                ? `${styles.error_email_wrapper} ${styles.info_Icon_Inputs}`
+                : `${styles.email_wrapper} ${styles.info_Icon_Inputs}`
+            }
             type="text"
             name="whatsapp"
             autoComplete="off"
@@ -160,15 +229,27 @@ export const PersonalDetail = () => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
+          <Tooltip text="WhatsApp number preferred">
+            <img src="/assests/infoIcon.svg" />
+          </Tooltip>
+          {errors.whatsapp && touched.whatsapp && (
+            <div
+              className={`${authStyles.error} ${authStyles.validation_Error}`}
+              style={{ left: '0' }}
+            >
+              {errors.whatsapp}
+            </div>
+          )}
         </div>
-
-        {errors.whatsapp && touched.whatsapp && (
-          <div className={styles.error}>{errors.whatsapp}</div>
-        )}
+        <Button
+          disabled={isLoading}
+          className={isLoading ? styles.disabled_google_btn : styles.google_btn}
+          type="submit"
+          onClick={handleSubmit}
+        >
+          {isLoading ? 'Loading...' : <span>Next</span>}
+        </Button>
       </form>
-      <Button className={styles.google_btn} type="submit" onClick={handleSubmit}>
-        {isLoading ? 'Loading...' : <span>Next</span>}
-      </Button>
-    </div>
+    </>
   );
 };
