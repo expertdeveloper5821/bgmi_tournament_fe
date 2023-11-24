@@ -19,6 +19,7 @@ import Pagination from '../Pagination';
 
 const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsType) => {
   const [sortedData, setSortedData] = useState<TableDataType[] | []>([]);
+  const [activeFilter, setactiveFilter] = useState<number>(0);
   const filterKeys = ['Created By', 'Game Name', 'Game Type', 'Map Type', 'Version'];
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,6 +45,7 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
           ),
         ];
       } else if (arrow === 'downArrow') {
+        setactiveFilter(2);
         newSortedData = [
           ...sortedData.sort((a: TableDataType, b: TableDataType) =>
             b[newKey].localeCompare(a[newKey], 'fr', { ignorePunctuation: true }),
@@ -83,10 +85,19 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                   {columnName}
                   {filterKeys.includes(columnName) && (
                     <div>
-                      <FaLongArrowAltUp onClick={() => handleSort(columnName, 'upArrow')} />
+                      <FaLongArrowAltUp
+                        style={{ color: `${activeFilter === 1 ? '#FF7A00' : ''}` }}
+                        onClick={() => {
+                          setactiveFilter(1);
+                          handleSort(columnName, 'upArrow');
+                        }}
+                      />
                       <FaLongArrowAltDown
-                        style={{ color: '#FF7A00' }}
-                        onClick={() => handleSort(columnName, 'downArrow')}
+                        style={{ color: `${activeFilter === 2 ? '#FF7A00' : ''}` }}
+                        onClick={() => {
+                          setactiveFilter(2);
+                          handleSort(columnName, 'downArrow');
+                        }}
                       />
                     </div>
                   )}

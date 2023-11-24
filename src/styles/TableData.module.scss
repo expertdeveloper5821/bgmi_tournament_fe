@@ -2,9 +2,24 @@
 @import './variable.scss';
 
 .table_content {
+  box-sizing: border-box;
   font-size: 10px;
   overflow-x: auto;
   text-align: center;
+  margin: 1rem;
+
+  table {
+    border-collapse: separate !important;
+    border-spacing: 0 0.9rem !important;
+
+    thead {
+      background: none !important;
+    }
+  }
+
+  .tableHeader {
+    background-color: transparent;
+  }
 }
 
 .filter {
@@ -13,7 +28,7 @@
   justify-content: center;
   align-items: center;
   font-weight: 700;
-  min-height: 60px;
+  min-height: 47px;
   white-space: nowrap;
   cursor: pointer;
 
@@ -26,9 +41,6 @@
   }
 }
 
-.tableHeader {
-  background-color: transparent;
-}
 
 .table_head {
   @include tableheader;
@@ -65,6 +77,11 @@
 .table_rowdata {
   @include tdbody;
   font-weight: 800;
+  box-shadow: 0px 4px 12px 0px #00000040;
+}
+
+.table_row_cell {
+  @include tdbody;
 }
 
 .table_icon {
@@ -346,10 +363,6 @@ button#btn_cls_st {
   @include tableheader;
 }
 
-.table_row_cell {
-  @include tdbody;
-}
-
 .tb_cell_body {
   color: $bs-orange !important;
   text-align: center;
@@ -400,4 +413,74 @@ button#btn_cls_st {
 
 .scrolling {
   overflow-x: scroll;
+}
+
+
+.tb_cell_body {
+  color: #ff7a00 !important;
+  text-align: center;
+  padding: 3px 3px;
+
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 7px 1.5rem;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    padding: 7px 1rem;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 7px 1rem;
+  }
+}
+
+.el_tb_cell {
+  color: #fff;
+  text-align: center;
+  padding: 3px 6px;
+
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 8px 1.5rem;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    padding: 8px 1rem;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 8px 1rem;
+  }
+}
+
+.tb_cell_action {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  gap: 10px;
+  height: 80px;
+}
+
+.winnder_btn {
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: none;
+  padding: 5px 10px;
+
+  .winner {
+    font-size: 2rem;
+  }
+}
+
+.edit_btn {
+  color: #ff7a00;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.noInfoBtn {
+  cursor: pointer;
+
 }

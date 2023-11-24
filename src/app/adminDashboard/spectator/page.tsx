@@ -215,36 +215,34 @@ function Page() {
   return (
     <IsAuthenticatedHoc>
       <div className={styles.main_container} id="mainLayoutContainerInner">
-        <div className={styles.abcd}>
-          <div className={styles.sidebar_wrapper}>
-            <Navbar />
-            <div className={styles.popupbutton}>
-              <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
-              <button
-                onClick={() => {
-                  setModal({ isOpen: true, buttonVal: 'Create' });
-                  setDisabled(true);
-                }}
-                className={`${styles.btnPrime} ${styles.btnmodal}`}
-              >
-                Create Spectator
-              </button>
-            </div>
-            {isDeleteModalOpen && (
-              <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
-            )}
-            {isLoading ? (
-              <Loader />
-            ) : (
-              <TableData
-                data={spectatorData}
-                columns={adminSpecColumns}
-                type={'SPECTATOR'}
-                deleteroom={handleDeleteUser}
-                handleEdit={handleEdit}
-              />
-            )}
+        <div id="sidebar_wrapper" className={styles.sidebar_wrapper}>
+          <Navbar />
+          <div className={styles.popupbutton}>
+            <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+            <button
+              onClick={() => {
+                setModal({ isOpen: true, buttonVal: 'Create' });
+                setDisabled(true);
+              }}
+              className={`${styles.btnPrime} ${styles.btnmodal}`}
+            >
+              Create Spectator
+            </button>
           </div>
+          {isDeleteModalOpen && (
+            <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
+          )}
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <TableData
+              data={spectatorData}
+              columns={adminSpecColumns}
+              type={'SPECTATOR'}
+              deleteroom={handleDeleteUser}
+              handleEdit={handleEdit}
+            />
+          )}
         </div>
       </div>
 

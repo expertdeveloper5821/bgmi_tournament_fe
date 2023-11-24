@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import styles from '@/styles/Spectator.module.scss';
+// import styles from '@/styles/Spectator.module.scss';
+import styles from '@/styles/TableData.module.scss';
+
 //@ts-ignore
 import {
   Table,
@@ -35,16 +37,16 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
       <TableHeader className={styles.tableHeader}>
         <TableRow className={styles.tableRow}>
           {specRoomColumns?.map((column) => (
-            <TableHead className={styles.table_head_sectat} key={column}>
+            <TableHead className={styles.table_head} key={column}>
               <div className={styles.filter}>{column}</div>
             </TableHead>
           ))}
         </TableRow>
       </TableHeader>
 
-      <TableBody>
+      <TableBody className={styles.table_body}>
         {Spect?.slice(startIndex, endIndex)?.map((spec) => (
-          <TableRow key={spec._id} className={styles.table_row_cell}>
+          <TableRow key={spec._id} className={styles.table_rowdata}>
             <TableCell className={styles.el_tb_cell}>{spec?.roomId ?? '--'}</TableCell>
             <TableCell className={styles.tb_cell_body}>{spec?.gameName ?? '--'}</TableCell>
             <TableCell className={styles.el_tb_cell}>{spec?.gameType ?? '--'}</TableCell>

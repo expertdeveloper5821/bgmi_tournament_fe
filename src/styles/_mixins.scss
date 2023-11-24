@@ -27,6 +27,7 @@
   background-color: rgb(202 221 234 / 87%);
   border-radius: 23px;
   padding: 5px 25px;
+
   @media (max-width: $breakpoint-xSmall) {
     min-height: 100vh;
   }
@@ -38,13 +39,16 @@
   @media (max-width: $breakpoint-sm) {
     min-height: 100vh;
   }
+
   @media (max-width: $breakpoint-md) {
     min-height: 100vh;
   }
+
   @media (max-width: $breakpoint-lg) {
     min-height: 100vh;
   }
 }
+
 @mixin headDesc {
   color: #003354;
   display: flex;
@@ -85,6 +89,7 @@
   align-items: center;
   padding: 5px;
   width: 100%;
+
   @media (max-width: $breakpoint-xSmall) {
     margin-top: 1rem;
   }
@@ -96,6 +101,7 @@
   @media (max-width: $breakpoint-sm) {
     margin-top: 1rem;
   }
+
   @media (max-width: $breakpoint-lg) {
     margin-top: 1rem;
   }
@@ -155,16 +161,17 @@
 }
 
 @mixin tableheader {
-  background: #003354;
+  background: transparent;
   color: #ffff;
   font-family: Century Gothic;
   font-size: 16px;
   font-weight: 700;
 }
+
 @mixin tdbody {
-  background-color: #002d47;
-  border: 8px solid #003554;
+  background-color: #003554;
 }
+
 @mixin spectator_model {
   position: absolute;
   top: 0;
@@ -176,6 +183,7 @@
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
 @mixin spectator_model_heading {
   background: #ff7a00;
   text-align: center;
@@ -187,6 +195,7 @@
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
 }
+
 @mixin spectator_modelfield {
   border: none !important;
   border-bottom: 1px solid #9e9e9e !important;
@@ -195,14 +204,17 @@
   padding: 2px !important;
   color-scheme: dark;
   background: white;
+
   ::-webkit-calendar-picker-indicator {
     filter: brightness(50%);
   }
+
   input[type='time'] {
     background: white;
     width: 100%;
     border: 0;
   }
+
   input[type='date'] {
     // margin: 4px 0 12px 0;
     background: white;

@@ -96,7 +96,7 @@ function page() {
     <IsAuthenticatedHoc>
       <div className={styles.main_container} id="mainLayoutContainerInner">
         <div className={styles.abcd}>
-          <div className={styles.sidebar_wrapper}>
+          <div id="sidebar_wrapper" className={styles.sidebar_wrapper}>
             <Navbar />
             <div className={styles.flex}>
               <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>

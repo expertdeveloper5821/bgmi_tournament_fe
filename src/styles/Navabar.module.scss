@@ -8,11 +8,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 40px 24px;
-  background-color: $primary-color;
 
   @media (max-width: $breakpoint-md) {
     padding: 40px 64px;
   }
+
   @media (max-width: $breakpoint-sm) {
     height: 42px;
   }
@@ -21,6 +21,7 @@
     padding: 40px 12px 40px 64px;
   }
 }
+
 .profileContainer {
   background: white;
   border-radius: 8px;
@@ -28,8 +29,9 @@
   padding: 8px;
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   width: 95%;
+
   .profilename {
     width: 100%;
     text-align: center;
@@ -38,6 +40,7 @@
     font-size: 18px;
     font-weight: bold;
   }
+
   .profileEmail {
     width: 95%;
     text-align: center;
@@ -46,6 +49,7 @@
     word-wrap: break-word;
     font-size: 12px;
   }
+
   .logoutBtn {
     background-color: #ff7a00;
     border: none;
@@ -54,11 +58,13 @@
     margin-top: 12px;
   }
 }
+
 .navbarbrand {
   .page_title {
     font-size: 28px;
     font-weight: 800;
     padding: 13px 0px;
+
     @media (max-width: $breakpoint-xSmall) {
       padding-left: 1rem;
       font-size: 19px;
@@ -69,6 +75,7 @@
     color: #ff7a00;
     font-size: 27px;
     font-weight: 700;
+
     @media (max-width: $breakpoint-xSmall) {
       // padding-left: 1rem;
       font-size: 19px;
@@ -121,15 +128,18 @@
   display: flex;
   flex-direction: column;
 }
+
 .username_details .user_name_title {
   color: white;
   font-weight: 900;
 }
+
 .username_details .user_name_title {
   color: white;
   font-size: smal;
   font-weight: 500;
 }
+
 .user_name_heading {
   color: $primary-color;
   font-size: 16px;
@@ -137,6 +147,7 @@
   font-weight: 800;
   text-transform: capitalize;
 }
+
 .user_name_title {
   color: $primary-color;
   font-weight: 500;
@@ -258,6 +269,7 @@
   font-weight: 400;
   color: #003554;
 }
+
 h1 .user_name_heading {
   color: white;
   font-size: 16px;
@@ -269,10 +281,11 @@ h1 .user_name_heading {
 .inner_logout {
   cursor: pointer;
 }
+
 .navprofile {
-  background: #898989;
   padding: 8px 12px;
-  border-radius: 27px;
+  border-radius: 1.5rem;
+  border: 2px solid;
   cursor: pointer;
 }
 
@@ -288,6 +301,7 @@ h1 .user_name_heading {
 .popover {
   height: 126px;
 }
+
 .popover_show {
   div:nth-child(2) {
     height: 15px !important;

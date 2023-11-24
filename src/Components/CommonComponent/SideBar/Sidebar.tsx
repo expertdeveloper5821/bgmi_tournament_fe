@@ -1,9 +1,11 @@
 // Sidebar.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import styles from '@/styles/DashboardSidebar.module.scss';
 import { FaBars } from 'react-icons/fa';
 import useWindowSize from '@/hooks/useWindowSize';
+import { usePathname } from 'next/navigation';
+
 interface MenuItem {
   path: string;
   name: string;
@@ -16,8 +18,8 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedItemIndex, setSelectedItemIndex] = useState<number>(-1); // Initialize as -1, no item selected
   const [width] = useWindowSize();
+  const pathName = usePathname();
   const toggle = () => {
     setIsOpen((isOpen) => {
       if (width > 768) {
@@ -28,12 +30,22 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
         }
 
         if (mainElemInner) {
-          mainElemInner.style.flex = !isOpen ? '0 1 80%' : '0 1 96%';
+          mainElemInner.style.flex = !isOpen ? '0 1 70%' : '0 1 96%';
         }
       }
       return !isOpen;
     });
   };
+
+  useEffect(() => {
+    const sidebarStyle = document.getElementById('sidebar_wrapper');
+    if (sidebarStyle && isOpen) {
+      sidebarStyle.style.width = 'calc(100vw - 220px)';
+    }
+    if (sidebarStyle && !isOpen) {
+      sidebarStyle.style.width = 'calc(100vw - 50px)';
+    }
+  }, [isOpen]);
 
   return (
     <>
@@ -64,9 +76,8 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
                   <Link href={item.path} key={index} passHref>
                     <div
                       className={`${styles.link} ${
-                        selectedItemIndex === index ? styles.selected : ''
+                        pathName.includes(item.path) ? styles.selected : ''
                       }`}
-                      onClick={() => setSelectedItemIndex(index)}
                     >
                       <div className={styles.icon}>{item.icon}</div>
                       {isOpen && <div className={styles.link_text}>{item.name}</div>}
@@ -102,7 +113,11 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
                   <Link href={item.path} key={index} passHref>
                     <div className={styles.link}>
                       {isOpen && (
-                        <div className={styles.mob_link_text}>
+                        <div
+                          className={`${styles.mob_link_text} ${
+                            pathName.includes(item.path) ? styles.selected : ''
+                          }`}
+                        >
                           <div className={styles.itemname}>
                             <span className={styles.mob_icon}>{item.icon}</span>
                             <span className={styles.mob_name}> {item.name}</span>

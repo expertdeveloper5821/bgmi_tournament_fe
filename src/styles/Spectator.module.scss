@@ -1,5 +1,7 @@
 @import './mixins.scss';
 @import './variable.scss';
+@import './Dashboard.module.scss';
+@import './TableData.module.scss';
 
 .main_container {
   display: flex;
@@ -328,15 +330,15 @@ button#btn_cls_st {
   padding: 3px 3px;
 
   @media (max-width: $breakpoint-xSmall) {
-    padding: 7px 38px;
+    padding: 7px 1.5rem;
   }
 
   @media (max-width: $breakpoint-xs) {
-    padding: 7px 38px;
+    padding: 7px 1rem;
   }
 
   @media (max-width: $breakpoint-sm) {
-    padding: 7px 38px;
+    padding: 7px 1rem;
   }
 }
 
@@ -346,15 +348,15 @@ button#btn_cls_st {
   padding: 3px 6px;
 
   @media (max-width: $breakpoint-xSmall) {
-    padding: 8px 36px;
+    padding: 8px 1.5rem;
   }
 
   @media (max-width: $breakpoint-xs) {
-    padding: 8px 36px;
+    padding: 8px 1rem;
   }
 
   @media (max-width: $breakpoint-sm) {
-    padding: 8px 36px;
+    padding: 8px 1rem;
   }
 }
 

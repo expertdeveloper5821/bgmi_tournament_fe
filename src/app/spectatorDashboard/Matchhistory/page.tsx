@@ -30,7 +30,7 @@ const matchHistory = () => {
     <IsAuthenticatedHoc>
       <div className={styles.main_container} id="mainLayoutContainerInner">
         <div className={styles.inner_main_container}>
-          <div className={styles.sidebar_wrapper}>
+          <div id="sidebar_wrapper" className={styles.sidebar_wrapper}>
             <Navbar />
             <div className={styles.inner_specter_cls}>
               <h1 className={styles.r_main_title}>Match History</h1>

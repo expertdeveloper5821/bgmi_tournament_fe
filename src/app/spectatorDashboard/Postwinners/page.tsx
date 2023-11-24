@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 import { Navbar } from '@/Components/Navbar/Navbar';
-import { TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
+import { TableHeader, TableHead, TableRow, TableCell } from 'technogetic-iron-smart-ui';
 import { Table, TableBody } from 'technogetic-iron-smart-ui';
 import { Button } from 'technogetic-iron-smart-ui';
 import { useRouter } from 'next/navigation';
@@ -128,7 +128,7 @@ const postWinners = () => {
     <IsAuthenticatedHoc>
       <div className={styles.main_container} id="mainLayoutContainerInner">
         <div className={styles.inner_main_container}>
-          <div className={styles.sidebar_wrapper}>
+          <div id="sidebar_wrapper" className={styles.sidebar_wrapper}>
             <Navbar />
             <div className={styles.inner_specter_cls}>
               <h1 className={styles.r_main_title}>Your Room</h1>
@@ -142,22 +142,25 @@ const postWinners = () => {
                 <TableHeader className={styles.tableHeader}>
                   <TableRow className={styles.tableRow}>
                     {columns?.map((column, index) => (
-                      <TableHead className={styles.table_head_sectat} key={index}>
+                      <TableHead
+                        className={`${styles.table_head_sectat} ${styles.table_head}`}
+                        key={index}
+                      >
                         <div className={styles.filter}>{column}</div>
                       </TableHead>
                     ))}
                   </TableRow>
                 </TableHeader>
 
-                <TableBody className={styles.postWinnerTbody}>
+                <TableBody className={`${styles.postWinnerTbody} ${styles.table_body}`}>
                   {formData?.map((team: { teamName: string }) => {
                     const { teamName } = team;
                     return (
-                      <TableRow className={styles.table_row_winner}>
+                      <TableRow className={`${styles.table_rowdata} ${styles.table_row_winner}`}>
                         <td className={styles.table_data}> {teamName}</td>
                         {rowData.map((td) => {
                           return (
-                            <td className={styles.table_data}>
+                            <TableCell className={`${styles.table_cell} ${styles.table_data}`}>
                               <input
                                 type="radio"
                                 checked={team[td.name] ? true : false}
@@ -166,7 +169,7 @@ const postWinners = () => {
                                 className={styles.checkbox_round}
                                 onChange={(e) => handleChange(e, teamName)}
                               />
-                            </td>
+                            </TableCell>
                           );
                         })}
                       </TableRow>
