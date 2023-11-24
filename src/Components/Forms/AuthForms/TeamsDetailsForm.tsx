@@ -74,17 +74,21 @@ export const TeamsDetailsForm = () => {
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && emailRegex.test(inputValue)) {
       const trimmedInputValue = inputValue.trim();
-      const designedValue = (
-        <span className={styles.single_email_subsubconatiner}>
-          {trimmedInputValue.length > 11
-            ? trimmedInputValue.substring(0, 11) + '...'
-            : trimmedInputValue}
-        </span>
-      );
-      setEmailDisplayList([...emailDisplayList, designedValue]);
-      setEmailList([...emailList, trimmedInputValue]);
-      setFieldValue('emails', [...emailList, trimmedInputValue]);
-      setInputValue('');
+      if (emailList.find((email) => email === trimmedInputValue)) {
+        setFieldError('emails', 'Email already exist in friends list');
+      } else {
+        const designedValue = (
+          <span className={styles.single_email_subsubconatiner}>
+            {trimmedInputValue.length > 11
+              ? trimmedInputValue.substring(0, 11) + '...'
+              : trimmedInputValue}
+          </span>
+        );
+        setEmailDisplayList([...emailDisplayList, designedValue]);
+        setEmailList([...emailList, trimmedInputValue]);
+        setFieldValue('emails', [...emailList, trimmedInputValue]);
+        setInputValue('');
+      }
     } else if (event.key === 'Enter' && !emailRegex.test(inputValue)) {
       setFieldError('emails', 'Please enter a valid email');
     }
@@ -97,6 +101,8 @@ export const TeamsDetailsForm = () => {
     setEmailDisplayList(updatedDisplayEmailList);
     setEmailList(updatedEmailList);
   };
+
+  console.log('errors.emails ==>', errors.emails, 'touched.emails', touched.emails);
 
   return (
     <>
@@ -164,7 +170,7 @@ export const TeamsDetailsForm = () => {
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
           />
-          {errors.emails && touched.emails && (
+          {errors.emails && (
             <div className={`${authStyles.error} ${authStyles.validation_Error}`}>
               {errors.emails}
             </div>

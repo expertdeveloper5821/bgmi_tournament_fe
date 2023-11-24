@@ -24,10 +24,6 @@ const loginSchema = Yup.object().shape({
     .email('Invalid email')
     .required('Please enter your email')
     .matches(emailRegex, 'Invalid email'),
-
-  password: Yup.string()
-    .required('Please enter your password')
-    .matches(passwordRegex, 'Must contain:8 chars: 1 upper,lower,number,special.'),
 });
 
 const forgetPasswordSchema = Yup.object().shape({
