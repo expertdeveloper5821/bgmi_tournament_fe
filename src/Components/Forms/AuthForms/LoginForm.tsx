@@ -231,7 +231,7 @@ export function LoginForm(): React.JSX.Element {
       </Button>
       <div className={styles.signin}>
         <span className={styles.forget_desc}>
-          <Link href="/auth/forget-password">Forget Password?</Link>
+          <Link href="/auth/forget-password">Forgot Password?</Link>
         </span>
         <div className={styles.sign_accout}>
           <span>Don't have an account?</span>
