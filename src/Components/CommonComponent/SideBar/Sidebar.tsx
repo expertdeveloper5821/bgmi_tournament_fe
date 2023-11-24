@@ -75,9 +75,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
                 menuItem.map((item: MenuItem, index: number) => (
                   <Link href={item.path} key={index} passHref>
                     <div
-                      className={`${styles.link} ${
-                        pathName.includes(item.path) ? styles.selected : ''
-                      }`}
+                      className={`${styles.link} ${pathName === item.path ? styles.selected : ''}`}
                     >
                       <div className={styles.icon}>{item.icon}</div>
                       {isOpen && <div className={styles.link_text}>{item.name}</div>}
