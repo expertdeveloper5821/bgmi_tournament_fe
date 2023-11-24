@@ -102,8 +102,6 @@ export const TeamsDetailsForm = () => {
     setEmailList(updatedEmailList);
   };
 
-  console.log('errors.emails ==>', errors.emails, 'touched.emails', touched.emails);
-
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmit}>
