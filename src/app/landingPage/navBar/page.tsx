@@ -25,13 +25,23 @@ const page = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  // const scrollToSection = (id) => {
+  //   const element = document.getElementById(id);
+  //   const offsetTop = element.offsetTop -100;
+  //   window.scrollTo({
+  //     top: offsetTop,
+  //     behavior: 'smooth'
+  //   });
+  // };
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
-    const offsetTop = element.offsetTop -100;
-    window.scrollTo({
-      top: offsetTop,
-      behavior: 'smooth'
-    });
+    if (element) {
+      const offsetTop = element.offsetTop - 100;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+    }
   };
   return (
     <div className={styles.main_container}>
@@ -39,8 +49,8 @@ const page = () => {
         <Link href="/">
           <div>
             <span className={styles.logo}>
-              <img 
-               src={scrolling ?  `../assests/logo.svg` :'./assests/logolightmode.svg'}
+              <img
+                src={scrolling ? `../assests/logo.svg` : './assests/logolightmode.svg'}
               />
             </span>
           </div>
