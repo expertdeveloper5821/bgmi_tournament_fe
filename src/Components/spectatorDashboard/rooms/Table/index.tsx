@@ -31,9 +31,9 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
     setItemToLS('roomUuid', roomUuid);
   };
 
-  const handleButtonEdit = () => {
-    router.push('/spectatorDashboard/Matchhistory')
-  }
+  // const handleButtonEdit = () => {
+  //   router.push('/spectatorDashboard/Matchhistory')
+  // }
 
   const handleButtonPostWinners = (uuid: string) => {
     router.push(`/spectatorDashboard/Matchhistorydetails?id=${uuid}`);
@@ -119,13 +119,13 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
                 <span className={styles.noInfoBtn}>NA</span>
               )}
             </TableCell>
-            <TableCell>
+            {/* <TableCell>
               <div>
                 <button className={styles.tooltip} data-title="Match History" onClick={handleButtonEdit}>
                   <Image src="/assests/trophy.svg" alt="Image" width={22} height={22} />
                 </button>
               </div>
-            </TableCell>
+            </TableCell> */}
             <TableCell>
               <div>
                 <button className={styles.video} onClick={() => handleButtonPostWinners(spec.roomUuid)}>

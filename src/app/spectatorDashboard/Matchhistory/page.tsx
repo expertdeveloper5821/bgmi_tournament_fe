@@ -97,7 +97,7 @@ const matchHistory = () => {
           </div>
         </div>
       </div>
-    </div>
+    </IsAuthenticatedHoc>
   )
 
 };

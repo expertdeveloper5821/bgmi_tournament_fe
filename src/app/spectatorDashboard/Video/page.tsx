@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
+import Pagination from '@/Components/CommonComponent/Pagination';
 
 const Video = () => {
     const [data, setData] = useState<getVideo[]>([]);
@@ -17,6 +18,14 @@ const Video = () => {
     const router = useRouter();
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [selectedVideoId, setSelectedVideoId] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalItems = data.length;
+    const itemsPerPage = 5;
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+
 
     const getAllVideos = async () => {
         const token = localStorage.getItem('jwtToken') || '';
@@ -131,7 +140,7 @@ const Video = () => {
                                 </TableHeader>
                                 <TableBody>
 
-                                    {data.map((video, index) => (
+                                    {data.slice(startIndex, endIndex).map((video, index) => (
                                         <TableRow className={styles.table_row_cell} key={index}>
                                             <TableCell className={styles.table_data}>
                                                 <img src={video.mapImg ? video.mapImg : '/assests/about.jpg'} className={styles.video_card} alt="Image" width={120} height={75} />
@@ -147,11 +156,22 @@ const Video = () => {
                                                 </span>
                                             </TableCell>
                                         </TableRow>
+
                                     ))}
+
                                 </TableBody>
+                                <Pagination
+                                    totalItems={totalItems}
+                                    itemsPerPage={itemsPerPage}
+                                    currentPage={currentPage}
+                                    setCurrentPage={setCurrentPage}
+                                />
+
                             </Table>
+
                         )}
                     </div>
+
                 </div>
             </div>
 
