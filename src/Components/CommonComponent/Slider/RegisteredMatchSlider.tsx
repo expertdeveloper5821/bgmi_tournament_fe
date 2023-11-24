@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import MiniMatchComponent from '@/Components/MatchComponent/MiniMatchComponent';
+import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Slider from 'react-slick';
 import { ITournament } from '@/redux/types';
 
 const RegisteredMatchSlider = () => {

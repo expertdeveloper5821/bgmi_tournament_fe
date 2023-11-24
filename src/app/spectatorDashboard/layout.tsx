@@ -1,6 +1,7 @@
 'use client';
 
 import styles from '@/styles/Dashboard.module.scss';
+import { FaVideo } from 'react-icons/fa';
 import Sidebar from '@/Components/CommonComponent/SideBar/Sidebar';
 import ErrorBoundary from '@/Components/HOC/ErrorBoundaery';
 import { FaTh } from 'react-icons/fa';
@@ -10,6 +11,11 @@ const dynamicMenuItems = [
     path: '/spectatorDashboard',
     name: 'Dashboard',
     icon: <FaTh />,
+  },
+  {
+    path: '/spectatorDashboard/Video',
+    name: 'Video',
+    icon: <FaVideo />,
   },
 ];
 

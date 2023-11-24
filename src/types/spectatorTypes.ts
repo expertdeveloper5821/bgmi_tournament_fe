@@ -50,3 +50,21 @@ export interface updateRoleValuesType {
   formData: FormDataType;
   token: string;
 }
+
+export interface FormValues {
+  title: string;
+  videoLink: string;
+  dateAndTime: string;
+}
+
+export interface getVideo {
+  title: string;
+  mapImg: string;
+  dateAndTime: string;
+  _id: string;
+}
+
+export interface deleteVideoValuesType {
+  _id: string;
+  token: string;
+}

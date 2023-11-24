@@ -11,7 +11,7 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   function (error) {
-    if (error.response.status === 401) {
+    if (error?.response?.status === 401) {
       // logout if 401 token expire
       toast.error('Session expired');
       localStorage && localStorage.clear();

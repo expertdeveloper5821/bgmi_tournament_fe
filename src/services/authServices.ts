@@ -10,6 +10,8 @@ import {
   sendInviteServiceValuesType,
 } from '@/types/formsTypes';
 import { RoomData } from '@/Components/pageComponents/auth/authInterfaces';
+import { VideoFormValuesType } from '@/Components/pageComponents/auth/authInterfaces';
+import { deleteVideoValuesType } from '@/types/spectatorTypes';
 
 export const signUpService = async (data: SignupFormValuesType) => {
   const res = await sendRequest(serviceUrls.signup, {
@@ -21,6 +23,46 @@ export const signUpService = async (data: SignupFormValuesType) => {
     return res;
   } else {
     throw res;
+  }
+};
+
+export const videoService = async (payload: VideoFormValuesType, uuid: string) => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { date, time, ...data } = payload;
+
+    const res = await sendRequest(`${serviceUrls.video}${uuid}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      data,
+    });
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (err) {
+    return err;
+  }
+};
+
+export const updateVideoService = async (payload: VideoFormValuesType, uuid: string) => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { date, time, ...data } = payload;
+
+    const res = await sendRequest(`${serviceUrls.videoUpdateService}${uuid}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      data,
+    });
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (err) {
+    return err;
   }
 };
 
@@ -61,6 +103,22 @@ export const getAllUsersDataService = async (token: string) => {
     return res;
   } else {
     throw res;
+  }
+};
+
+export const getAllVideo = async (token: string) => {
+  try {
+    const res = await sendRequest(`${serviceUrls.getAllVideo}`, {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.status === 200) {
+      return res.data.data;
+    } else {
+      throw new Error('Failed to fetch videos');
+    }
+  } catch (error) {
+    throw new Error('Failed to fetch videos');
   }
 };
 
@@ -114,6 +172,20 @@ export const deleteRoomService = async (data: deleteRoomValuesType) => {
   }
 };
 
+export const deleteVideoService = async (data: deleteVideoValuesType) => {
+  try {
+    const res = await sendRequest(`${serviceUrls.deleteVideo}/${data._id}`, {
+      method: 'delete',
+      headers: { Authorization: `Bearer ${data.token}` },
+    });
+    if (res?.status === 200) {
+      return res.data.data;
+    } else throw Error();
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getAllFilteredRoomsListService = async (data: GetAllFilteredValuesType) => {
   const res = await sendRequest(`${serviceUrls.filteredRoomsList}${data.searchVal}`, {
     method: 'GET',
@@ -130,10 +202,21 @@ export const getAllFilteredRoomsListService = async (data: GetAllFilteredValuesT
 };
 
 export const updateUserDetailsService = async (data) => {
-  console.log('formdatadebug data 4 ==>', data);
-
   const res = await sendRequest(`${serviceUrls.updateUserDetails}`, {
     method: 'PUT',
+    headers: { 'Content-Type': 'multipart/form-data' },
+    data: data.data,
+  });
+  if (res.status === 200) {
+    return res;
+  } else {
+    throw res;
+  }
+};
+
+export const getVideoById = async (data) => {
+  const res = await sendRequest(`${serviceUrls.getVideoById}/${data._id}`, {
+    method: 'GET',
     headers: { 'Content-Type': 'multipart/form-data' },
     data: data.data,
   });
@@ -203,7 +286,6 @@ export const getAllSpectator = async (data: RoomData) => {
       return res;
     } else throw Error();
   } catch (err) {
-    console.error('Error in roomservice => ', err);
     return err;
   }
 };

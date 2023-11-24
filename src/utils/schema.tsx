@@ -96,6 +96,14 @@ const teamsDetailsSchema = Yup.object().shape({
     .min(1, 'At least one valid email is required'),
 });
 
+const videoPostSchema = Yup.object().shape({
+  title: Yup.string().required('Title is required'),
+  videoLink: Yup.string()
+    .required('Please enter videoLink')
+    .url('Please enter a valid URL for videoLink'),
+  dateAndTime: Yup.string(),
+});
+
 const addFormValidations = (name, value, setFormErrors) => {
   if (name === 'fullName') {
     if (value?.length < 3) {
@@ -178,4 +186,5 @@ export {
   forgetPasswordSchema,
   teamsDetailsSchema,
   addFormValidations,
+  videoPostSchema,
 };

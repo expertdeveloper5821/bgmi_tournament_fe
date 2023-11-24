@@ -25,13 +25,23 @@ const page = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  // const scrollToSection = (id) => {
+  //   const element = document.getElementById(id);
+  //   const offsetTop = element.offsetTop -100;
+  //   window.scrollTo({
+  //     top: offsetTop,
+  //     behavior: 'smooth'
+  //   });
+  // };
   const scrollToSection = (id) => {
-    const element = document.getElementById(id)!;
-    const offsetTop = element.offsetTop - 100;
-    window.scrollTo({
-      top: offsetTop,
-      behavior: 'smooth',
-    });
+    const element = document.getElementById(id);
+    if (element) {
+      const offsetTop = element.offsetTop - 100;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth',
+      });
+    }
   };
   return (
     <div className={styles.main_container}>

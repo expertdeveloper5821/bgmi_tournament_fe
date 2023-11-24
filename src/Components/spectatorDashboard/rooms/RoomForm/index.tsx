@@ -405,6 +405,7 @@ const CreateRoomForm = (props) => {
                             ) : (
                               <>
                                 <div className={styles.drag_drop}>
+                                  {' '}
                                   Drag and Drop image here or ,
                                 </div>
                                 <span className={styles.select} role="button" onClick={selectFiles}>
