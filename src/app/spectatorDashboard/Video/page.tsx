@@ -60,6 +60,9 @@ const Video = () => {
             const response = await deleteVideoService({ _id, token });
             getAllVideos();
             toast.success(response?.data?.message);
+            if (currentPage > 1 && (totalItems - 1) % itemsPerPage === 0) {
+                setCurrentPage(currentPage - 1);
+            }
         } catch (error) {
             setIsLoading(false);
             toast.error(error?.response?.data?.message);

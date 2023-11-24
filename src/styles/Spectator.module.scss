@@ -1122,13 +1122,32 @@ button#btn_cls_st {
   position: relative;
 }
 
+// .cross {
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   color: red;
+//   cursor: pointer;
+//   padding: 5px;
+//   background-color: transparent;
+// }
+
 .cross {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 6px;
+  right: 4px;
   cursor: pointer;
   padding: 5px;
-  background-color: transparent;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+.cross span {
+  color: red;
 }
 
 .table_data {
