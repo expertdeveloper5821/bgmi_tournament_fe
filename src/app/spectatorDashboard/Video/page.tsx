@@ -97,7 +97,7 @@ const Video = () => {
     const columns: string[] = [
         'Video',
         'Title',
-        // 'Match Type',
+        'Match Type',
         'Date',
         'Time',
         'Action',
@@ -139,14 +139,13 @@ const Video = () => {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-
                                     {data.slice(startIndex, endIndex).map((video, index) => (
                                         <TableRow className={styles.table_row_cell} key={index}>
                                             <TableCell className={styles.table_data}>
                                                 <img src={video.mapImg ? video.mapImg : '/assests/about.jpg'} className={styles.video_card} alt="Image" width={120} height={75} />
                                             </TableCell>
                                             <TableCell className={styles.table_data}>{video.title ?? '--'}</TableCell>
-                                            {/* <TableCell className={styles.table_data_color}>Squad</TableCell> */}
+                                            <TableCell className={styles.table_data_color}>Squad</TableCell>
                                             <TableCell className={styles.table_data_color}>{formatDateTime(video.dateAndTime ?? '--').date}</TableCell>
                                             <TableCell className={styles.table_data_color}>{formatDateTime(video.dateAndTime ?? '--').time}</TableCell>
                                             <TableCell className={styles.table_data}>
@@ -168,7 +167,6 @@ const Video = () => {
                                 />
 
                             </Table>
-
                         )}
                     </div>
 
