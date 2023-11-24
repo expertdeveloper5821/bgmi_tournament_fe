@@ -3,26 +3,28 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
-import { sendRequest } from '@/utils/axiosInstanse';
 import RoomTable from '@/Components/spectatorDashboard/rooms/Table';
 import { SpectatorRoomDataType } from '@/types/roomsTypes';
 import CreateRoomForm from '@/Components/spectatorDashboard/rooms/RoomForm';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+import Loader from '@/Components/CommonComponent/Loader/Loader';
+import { getAllSpectatorService } from '@/services/specDashboardServices';
 
 function spectatorDashboard() {
   const [showModal, setShowModal] = useState(false);
   const [roomIdToUpdate, setRoomIdToUpdate] = useState({});
-  const [Spect, setSpect] = useState<SpectatorRoomDataType[]>([]);
+  const [spect, setSpect] = useState<SpectatorRoomDataType[] | null>(null);
 
-  const getAllSpectator = async () => {
-    const spectatorResponse = await sendRequest('room/user-rooms');
-    setSpect(spectatorResponse?.data);
+  const getAllRooms = async () => {
+    getAllSpectatorService()
+      .then((res) => setSpect(res.data))
+      .catch(console.error);
   };
 
   useEffect(() => {
-    return () => {
-      getAllSpectator();
-    };
+    if (!spect) {
+      getAllRooms();
+    }
   }, []);
 
   return (
@@ -39,17 +41,21 @@ function spectatorDashboard() {
                   setShowModal={setShowModal}
                   roomIdToUpdate={roomIdToUpdate}
                   setRoomIdToUpdate={setRoomIdToUpdate}
-                  callSpecatator={() => getAllSpectator()}
+                  getAllRooms={getAllRooms}
                 />
               </div>
               <div>
-                <RoomTable
-                  Spect={Spect}
-                  showModal={showModal}
-                  setShowModal={setShowModal}
-                  setRoomIdToUpdate={setRoomIdToUpdate}
-                  getAllSpectator={getAllSpectator}
-                />
+                {!spect ? (
+                  <Loader />
+                ) : (
+                  <RoomTable
+                    Spect={spect}
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                    setRoomIdToUpdate={setRoomIdToUpdate}
+                    getAllRooms={getAllRooms}
+                  />
+                )}
               </div>
             </div>
           </div>

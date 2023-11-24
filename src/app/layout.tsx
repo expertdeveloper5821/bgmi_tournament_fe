@@ -4,6 +4,7 @@ import { Gothic_A1 } from 'next/font/google';
 import { UserProvider } from '@/utils/contextProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// import { Analytics } from '@vercel/analytics/react';
 import { Analytics } from '@vercel/analytics/react';
 import ErrorBoundary from '@/Components/HOC/ErrorBoundaery';
 
@@ -13,13 +14,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ErrorBoundary>
-          <UserProvider>
-            {children}
-            <ToastContainer />
-            <Analytics />
-          </UserProvider>
-        </ErrorBoundary>
+        <UserProvider>
+          {children}
+          <ToastContainer />
+          {/* <Analytics /> */}
+
+        </UserProvider>
       </body>
     </html>
   );

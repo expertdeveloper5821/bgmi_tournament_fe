@@ -1,19 +1,25 @@
-@import './mixins.scss';
 @import './variable.scss';
-@import url('https://fonts.googleapis.com/css2?family=Grandstander:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Grandstander:wght@300;400;700&display=swap');
 .bodycolor {
   background: black;
   z-index: 10;
   font-family: $bs-body-font-family;
 }
 .main_container {
-  background-image: url('../../public/assests/banner.svg');
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
+  background-position: center !important;
   width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
+  background-image: url('../../public/assests/herosectiondesktop.svg');
+  @media (max-width: $breakpoint-md) {
+    background-image: url('../../public/assests/TabHerosection.svg');
+  }
+  // @media (max-width: $breakpoint-xs) {
+  //   background-image: url('../../public/assests/herosectionmobile.svg');
+  // }
 }
 .bannertextcontainer {
   display: flex;
@@ -66,6 +72,14 @@
   position: absolute;
   bottom: 7%;
   right: 4%;
+
+  @media (min-width: $breakpoint-ms) {
+    bottom: 1%;
+    right: 7%;
+  }
+  @media only screen and (max-width: 430px) {
+    bottom: 11%;
+  }
 }
 .navbar {
   position: fixed;
@@ -79,7 +93,7 @@
 }
 .scrollnav {
   position: fixed;
-  width: 100%;
+  width: 101%;
   opacity: 10;
   display: flex;
   justify-content: space-between;
@@ -110,7 +124,7 @@
 
   100% {
     transform: scale(1);
-    top: 100%;
+    top: 60%;
   }
 }
 .parashoot2 {
@@ -178,7 +192,7 @@
 
   100% {
     transform: scale(1);
-    top: 100%;
+    top: 60%;
   }
 }
 
@@ -241,7 +255,8 @@
     left: 0;
     width: 100%;
     margin-right: 10px;
-    background-color: #333;
+    background-color: #003554;
+    color: white;
     height: 20vh;
     padding: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -259,10 +274,11 @@
   }
 
   a {
-    color: #003554;
+    color: white;
     font-weight: 400;
     font-size: 16px;
     text-decoration: none;
+    cursor: pointer;
     &:hover {
       text-decoration: underline;
     }
@@ -321,7 +337,6 @@
     width: 100%;
     margin-right: 10px;
     background-color: #003554;
-    height: 21vh;
     padding: 1rem;
     z-index: 999;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -359,7 +374,6 @@
     width: 100%;
     margin-right: 10px;
     background-color: #000000;
-    height: 21vh;
     padding: 1rem;
     z-index: 999;
     box-shadow: 0 0 10px #000000;
@@ -494,7 +508,7 @@
   position: relative;
   width: 100%;
   height: 30%;
-  top: 100px;
+  top: 35px;
   @media (max-width: $breakpoint-xlg) {
     top: 55px;
   }
@@ -503,6 +517,26 @@
   }
   @media (max-width: $breakpoint-sm) {
     top: 100px;
+  }
+  @media only screen and (min-width: 320px) and (max-width: 370px) {
+    top: 80px;
+  }
+  @media only screen and (min-width: 370px) and (max-width: 375px) {
+    top: 100px;
+  }
+  @media only screen and (min-width: 376px) and (max-width: 400px) {
+    top: 90px;
+  }
+
+  @media only screen and (min-width: 400px) and (max-width: 500px) {
+    top: 145px;
+  }
+
+  @media only screen and (min-width: 600px) and (max-width: 900px) {
+    top: 58px;
+  }
+  @media only screen and (min-width: 1200px) and (max-width: 1400px) {
+    top: 40px;
   }
 }
 .banner_center_text h1 {
@@ -516,6 +550,10 @@
   @media (max-width: $breakpoint-sm) {
     font-weight: 900;
   }
+  @media only screen and (min-width: 600px) and (max-width: 900px) {
+    font-weight: 600;
+    font-size: 28px;
+  }
 }
 .banner_subheading {
   display: flex;
@@ -527,8 +565,9 @@
   letter-spacing: 29px;
   margin-top: 80px;
   @media (max-width: $breakpoint-tab) {
-    color: #003554;
-    margin-top: 40px;
+    color: #ffffff;
+    margin-top: 35px;
+    font-size: 25px;
   }
   @media (max-width: $breakpoint-xs) {
     color: #ffffff;
@@ -539,20 +578,54 @@
   position: absolute;
   font-size: 20px;
   top: 85%;
+  width: 100%;
   color: white;
   padding-top: 20px;
   letter-spacing: 10px;
-  animation: textmove 16s linear infinite;
+  font-weight: bold;
+  @media (min-width: $breakpoint-lg) {
+    animation: textmove 16s linear infinite;
+    font-size: 27px;
+  }
+  @media (max-width: $breakpoint-md) {
+    letter-spacing: 2px;
+  }
   @media (max-width: $breakpoint-tab) {
-    font-size: 16px;
     letter-spacing: 5px;
+    text-align: center;
   }
   @media (max-width: $breakpoint-xSmall) {
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: 2px;
     text-align: center;
   }
 }
+.rn_text_header {
+  font-size: 20px;
+  color: white;
+  padding-top: 20px;
+  letter-spacing: 10px;
+  font-weight: bold;
+  text-align: center;
+  @media (min-width: $breakpoint-lg) {
+    font-weight: bold;
+    font-size: 27px;
+  }
+  @media (max-width: $breakpoint-md) {
+    letter-spacing: 2px;
+    text-align: center;
+  }
+  @media (max-width: $breakpoint-tab) {
+    letter-spacing: 5px;
+    text-align: center;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+}
+
 @keyframes textmove {
   0% {
     transform: translateX(100%);
@@ -576,12 +649,13 @@
   justify-content: 'center';
   flex-direction: column;
   align-items: center;
+  margin-top: 100px;
 }
 .upComingHeading {
   font-weight: 700;
   font-size: 30px;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   color: #ffffff;
   @media (max-width: $breakpoint-xs) {
     font-size: 20px;
@@ -605,7 +679,7 @@
   display: flex;
   color: white;
   align-items: center;
-  margin-top: 10%;
+  margin-top: 5%;
   column-gap: 7%;
   @media (max-width: $breakpoint-md) {
     flex-direction: column;
@@ -613,7 +687,62 @@
     margin-left: 5%;
   }
 }
+.gradientupcomingbannertop {
+  position: absolute;
+  width: 75%;
+  border-radius: 22px;
+  height: 41%;
+  left: 12%;
+  background: linear-gradient(
+    to bottom,
+
+    rgba(0, 53, 84, 1) 0%,
+    rgba(47, 185, 255, 0) 100%
+  );
+  pointer-events: none;
+  @media screen and (max-width: 680px) {
+    width: 95%;
+    border-radius: 15px;
+    left: 0%;
+  }
+}
+.gradientUpcomingbannerBottom {
+  position: absolute;
+  bottom: 4px;
+  left: 12%;
+  height: 75%;
+  width: 75%;
+  border-radius: 22px;
+  background: linear-gradient(
+    to top,
+
+    rgba(0, 53, 84, 1) 0%,
+    rgba(47, 185, 255, 0) 100%
+  );
+  pointer-events: none;
+  @media screen and (max-width: 680px) {
+    width: 95%;
+    border-radius: 15px;
+    left: 0%;
+  }
+}
+.gradientscrollimages {
+  position: absolute;
+  bottom: 4px;
+  left: 5%;
+  height: 95%;
+  width: 100%;
+  border-radius: 3%;
+  background: linear-gradient(
+    to top,
+
+    rgba(0, 53, 84, 1) 0%,
+    rgba(47, 185, 255, 0) 100%
+  );
+  pointer-events: none;
+}
 .banner_bgmi_img {
+  position: relative;
   width: 50%;
   @media (max-width: $breakpoint-md) {
     width: 100%;
@@ -627,6 +756,19 @@
   @media (max-width: $breakpoint-xs) {
     margin-left: 0%;
     width: 95%;
+    height: 370px;
+    border-radius: 15px;
+  }
+}
+#banner_image {
+  height: 450px;
+  width: 75%;
+  margin-left: 12%;
+  border-radius: 23px;
+  @media (max-width: $breakpoint-xs) {
+    margin-left: 0%;
+    width: 95%;
+    height: 370px;
     border-radius: 15px;
   }
 }
@@ -635,16 +777,20 @@
   justify-content: center;
   align-items: center;
   width: 100vw;
-}
-.demo {
-  // display: flex;
+  @media only screen and (min-width: 320px) and (max-width: 450px) {
+    width: 80vw;
+    font-size: 10px;
+  }
 }
 .rn_images_container {
   display: flex;
   z-index: 90;
-  width: 100%;
   padding: 2% 10% 0% 2%;
   overflow-x: auto;
+  margin: 50px 0px 50px 0px;
+  @media (min-width: $breakpoint-ms) {
+    margin: 85px;
+  }
   &::-webkit-scrollbar {
     width: 1px; /* Set the width of the scrollbar */
     height: 2px;
@@ -679,6 +825,7 @@
   height: 180px;
   color: white;
   margin-left: 5%;
+  border-radius: 3%;
   @media (max-width: $breakpoint-xSmall) {
     width: 250px;
     height: 150px;
@@ -701,7 +848,7 @@
   font-weight: 400;
   font-size: 16px;
   letter-spacing: 0.5px;
-  margin-top: 5px;
+  margin-top: 8px;
 }
 .commonspanprizesection {
   font-size: 18px;
@@ -728,6 +875,11 @@
 .prize_container h2 {
   padding-top: 10px;
 }
+.prize_container_heading {
+  font-size: 19px;
+  font-weight: 700;
+  padding-top: 10px;
+}
 .fee_container h2 {
   margin-top: 10px;
 }
@@ -735,12 +887,13 @@
   margin-left: 3px;
   color: #ffd600;
   font-size: 19px;
+  font-weight: 700;
 }
 .gameInfo {
   display: flex;
   flex-wrap: wrap;
   column-gap: 20%;
-  margin-top: 8%;
+  margin-top: 5%;
 }
 .game {
   display: flex;
@@ -772,16 +925,22 @@
   display: flex;
   flex-direction: column;
 }
-.range span {
+.headimgdiv {
   margin-top: 5%;
+  display: flex;
 }
+.downheadimgrange {
+  margin-top: 15px;
+  margin-left: 20px;
+}
+
 .range input {
   width: 300px;
   border-radius: 8px;
   accent-color: #ff7a00;
 }
 .joinbtn {
-  z-index: 90;
+  // z-index: 90;
   height: 35px;
   min-width: 90px;
   border-radius: 5px;
@@ -816,8 +975,8 @@
   background: black;
   // background: linear-gradient(to right, rgba(0, 0, 0, 0.137), rgb(0, 0, 0));
   pointer-events: none;
-  @media (max-width: $breakpoint-md) {
-    display: none;
+  @media only screen and (max-width: 430px) {
+    display: block;
   }
 }
 .gradientoverlayscopesectionright {
@@ -830,8 +989,8 @@
   filter: blur(31px);
   background: linear-gradient(to left, rgba(0, 0, 0, 0.137), rgb(0, 0, 0));
   pointer-events: none;
-  @media (max-width: $breakpoint-md) {
-    display: none;
+  @media only screen and (max-width: 430px) {
+    display: block;
   }
 }
 .gradientoverlayscopesectiontop {
@@ -843,8 +1002,8 @@
   filter: blur(31px);
   background-color: black;
   pointer-events: none;
-  @media (max-width: $breakpoint-md) {
-    display: none;
+  @media only screen and (max-width: 430px) {
+    display: block;
   }
 }
 .gradientoverlayscopesectionscopenear {
@@ -857,10 +1016,19 @@
   filter: blur(21px);
   background-color: rgb(0, 0, 0);
   // background: linear-gradient(to left, rgba(0, 0, 0, 0.137), rgb(0, 0, 0));
-
   pointer-events: none;
-  @media (max-width: $breakpoint-xs) {
-    display: none;
+  @media (max-width: $breakpoint-md) {
+    margin-top: 316px;
+  }
+  @media (max-width: $breakpoint-tab) {
+    margin-top: 295px;
+  }
+  @media only screen and (max-width: 430px) {
+    display: block;
+    position: absolute;
+    width: 81vw;
+    margin-top: 280px;
+    height: 43%;
   }
 }
 .gradientoverlayscopesectionscopenear1 {
@@ -935,18 +1103,39 @@
 }
 .radialGradient {
   position: absolute;
-  top: 150px;
+  // top: 150px;
   bottom: 20%;
-  // left: 40%;
-  // right: 20%;
-  width: 745px;
+  width: 1000px;
   height: 486px;
   height: 70%;
   background-image: radial-gradient(#87746e00, #000000 60%);
   @media (max-width: $breakpoint-lg) {
+    // left: 0%;
+    // width: 850px;
+    // height: 58%;
+    // top: 21%;
     left: 0%;
-    width: 850px;
-    height: 72%;
+    width: 933px;
+    height: 76%;
+    top: 13%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    // width: 500px;
+    // height: 50%;
+    display: none;
+  }
+  @media only screen and (min-width: 430px) {
+    display: block;
+  }
+}
+.radialGradient2 {
+  @media (max-width: $breakpoint-xs) {
+    display: none;
+    // right: 0%;
+    // width: 388px;
+    // height: 58%;
+    // position : absolute;
+    // background-image: radial-gradient(#87746e00, #000000 60%);
   }
 }
 .gradientoverlaytotopfooter {
@@ -955,7 +1144,7 @@
   left: 0%;
   right: 30%;
   width: 100%;
-  height: 30%;
+  height: 88%;
 
   background: linear-gradient(to top, rgba(0, 0, 0, 0), rgb(0, 0, 0));
   pointer-events: none;
@@ -969,8 +1158,8 @@
   width: 100%;
   height: 100%;
   background-image: radial-gradient(#1000c000 30%, #000000 90%);
-  @media (max-width: $breakpoint-tab) {
-    display: none;
+  @media only screen and (max-width: 430px) {
+    display: block;
   }
 }
 .bannergradient {
@@ -984,15 +1173,34 @@
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.137), rgba(0, 0, 0, 0.931));
   pointer-events: none;
 }
+.headerContainer {
+  position: relative;
+}
 .welcome_Container {
   position: relative;
   display: flex;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 70px;
+  @media (min-width: $breakpoint-lg) {
+    margin-top: 230px;
+  }
   @media (max-width: $breakpoint-ms) {
     flex-direction: column-reverse;
   }
 }
+.welcome_star {
+  position: absolute;
+  bottom: 71%;
+  right: 54%;
+  @media only screen and (max-width: 430px) {
+    position: absolute;
+    bottom: 14%;
+    right: 84%;
+  }
+}
+.choose_section_star {
+}
+
 .stone {
   flex: 0 1 49%;
   width: 100%;
@@ -1016,6 +1224,9 @@
     justify-content: center;
     align-items: center;
   }
+  @media only screen and (max-width: 430px) {
+    height: 65vh;
+  }
 }
 .welcome_RightImg {
   margin-left: 2%;
@@ -1029,6 +1240,9 @@
   }
   @media (max-width: $breakpoint-xs) {
     margin-left: 0%;
+  }
+  @media only screen and (max-width: 430px) {
+    margin-top: 160px;
   }
 }
 .welcome_alingnment {
@@ -1049,7 +1263,7 @@
   }
 }
 .welcome_alingnment h2 {
-  padding-bottom: 10px;
+  padding-bottom: 18px;
   font-weight: 700;
   font-size: 30px;
   @media (max-width: $breakpoint-xs) {
@@ -1072,7 +1286,18 @@
     text-align: center;
   }
 }
-
+.choseSectionheader {
+  font-size: 30px !important;
+  text-align: center;
+  font-weight: bold !important;
+  @media only screen and (max-width: 430px) {
+    font-size: 20px !important;
+  }
+}
+.choose_section_star {
+  display: flex;
+  margin-left: 85%;
+}
 .choseSection {
   display: flex;
   flex-direction: column;
@@ -1081,13 +1306,14 @@
   color: white;
 }
 .choseSection p {
-  margin-top: 1%;
+  margin-top: 1.3%;
   width: 50%;
   text-align: center;
   color: white;
 }
 .choseSection img {
-  margin-top: 2%;
+  margin-top: 6%;
+  z-index: 99;
   @media (max-width: $breakpoint-xs) {
     margin-top: 5%;
   }
@@ -1101,15 +1327,21 @@
   background: url('../../public/assests/scopesectionbanner2.svg');
   background-size: cover;
   background-repeat: no-repeat;
+  @media only screen and (max-width: 430px) {
+    height: 55vh;
+  }
 }
 .scopemaincontainer {
   min-width: 478px;
   position: relative;
   min-height: 478px;
-  // background-color: red;
   border-radius: 50%;
   margin-left: 108px;
   margin-top: 106px;
+  @media (max-width: $breakpoint-xs) {
+    margin-top: 0px;
+    margin-left: 25px;
+  }
 }
 
 .newscope {
@@ -1126,12 +1358,17 @@
   //   left: 30.3%;
   // }
   @media (max-width: $breakpoint-md) {
-    min-width: 380px;
-    top: 23%;
-    left: 23.3%;
+    min-width: 355px;
+    top: 0%;
+    left: 0.3%;
+  }
+  @media (max-width: $breakpoint-tab) {
+    min-width: 347px;
+    top: 0%;
+    left: 1.3%;
   }
   @media only screen and (max-width: 430px) {
-    top: 37%;
+    top: 13%;
     left: 19.3%;
     min-width: 260px;
   }
@@ -1157,13 +1394,18 @@
   //   left: 36.5%
   // }
   @media (max-width: $breakpoint-md) {
-    top: 24%;
-    left: 23.5%;
-    min-width: 378px;
+    top: 1.5%;
+    left: 0.5%;
+    min-width: 350px;
+  }
+  @media (max-width: $breakpoint-tab) {
+    top: 1%;
+    left: 1.5%;
+    min-width: 345px;
   }
   @media only screen and (max-width: 430px) {
-    top: 38%;
-    left: 20.5%;
+    top: 15%;
+    left: 20%;
     min-width: 255px;
   }
 }
@@ -1203,13 +1445,18 @@
   //   min-width: 200px;
   // }
   @media (max-width: $breakpoint-md) {
-    left: 32.5%;
-    top: 31.5%;
+    left: 14.5%;
+    top: 11.5%;
+    min-width: 219px;
+  }
+  @media (max-width: $breakpoint-tab) {
+    left: 13.5%;
+    top: 11.5%;
     min-width: 234px;
   }
   @media only screen and (max-width: 430px) {
-    left: 31.2%;
-    top: 42.5%;
+    left: 30.6%;
+    top: 23.5%;
     min-width: 155px;
   }
 }
@@ -1235,8 +1482,12 @@
   //   top: 51.2%;
   // }
   @media (max-width: $breakpoint-md) {
-    left: 47%;
-    top: 45.8%;
+    left: 36%;
+    top: 34.4%;
+  }
+  @media (max-width: $breakpoint-tab) {
+    left: 37%;
+    top: 35.8%;
   }
 
   @media only screen and (max-width: 430px) {
@@ -1269,8 +1520,12 @@
   //   top: 55%;
   // }
   @media (max-width: $breakpoint-md) {
-    left: 35.8%;
-    top: 50.5%;
+    left: 17.8%;
+    top: 41.5%;
+  }
+  @media (max-width: $breakpoint-tab) {
+    left: 18.8%;
+    top: 43.5%;
   }
   // @media (max-width: $breakpoint-tab) {
   //   left: 41.8%;
@@ -1296,19 +1551,30 @@
   background-color: #ffffff3d;
   z-index: 1000;
   right: 80%;
-  // left: 680px;
   position: absolute;
+  @media (max-width: $breakpoint-md) {
+    right: 87%;
+    top: 0%;
+    width: 130px;
+    height: 130px;
+  }
   @media (max-width: $breakpoint-tab) {
-    top: 18%;
-    left: 16%;
+    top: -4%;
+    left: -15%;
   }
   @media only screen and (max-width: 430px) {
-    display: none;
+    top: 14%;
+    left: 16%;
+    width: 75px;
+    height: 75px;
   }
 }
 .bullet {
   height: auto;
   width: 100px;
+  @media only screen and (max-width: 430px) {
+    width: 63px;
+  }
 }
 .seam_main_container {
   display: flex;
@@ -1316,6 +1582,43 @@
   position: absolute;
   top: 34%;
   right: 21%;
+  gap: 15px;
+  align-items: center;
+  text-align: center;
+
+  @media (max-width: $breakpoint-xlg) {
+    top: 22%;
+    right: 15%;
+  }
+  @media (max-width: $breakpoint-lg) {
+    top: 26%;
+    right: 13%;
+  }
+  @media (max-width: $breakpoint-md) {
+    top: 30%;
+    right: 11%;
+  }
+  @media (max-width: $breakpoint-tab) {
+    top: 28%;
+    right: 10%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    top: 70%;
+    right: 38%;
+    // display: none;
+  }
+
+  @media only screen and (max-width: 360px) {
+    top: 68%;
+    right: 38%;
+  }
+}
+.seam_main_container_not {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 30%;
+  right: 16%;
   gap: 15px;
   align-items: center;
   text-align: center;
@@ -1327,9 +1630,22 @@
     top: 26%;
     right: 13%;
   }
-  @media (max-width: $breakpoint-xs) {
-    top: 20%;
+  @media (max-width: $breakpoint-md) {
+    top: 30%;
     right: 11%;
+  }
+  @media (max-width: $breakpoint-tab) {
+    top: 28%;
+    right: 10%;
+  }
+  @media (max-width: $breakpoint-xs) {
+    // top: 20%;
+    // right: 11%;
+    display: none;
+  }
+  @media screen and (min-width: 1440px) {
+    top: 22%;
+    right: 15%;
   }
   @media only screen and (max-width: 430px) {
     top: 14%;
@@ -1351,11 +1667,27 @@
     height: 80px;
   }
   @media only screen and (max-width: 430px) {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
   }
 }
-
+.seamlesstxn_mob {
+  top: 34%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  background-color: none;
+  @media (max-width: $breakpoint-xlg) {
+    width: 80px;
+    height: 80px;
+  }
+  @media only screen and (max-width: 430px) {
+    width: 70px;
+    height: 70px;
+  }
+}
 .seamimg {
   height: auto;
   width: 40px;
@@ -1375,13 +1707,43 @@
   left: 20%;
   gap: 15px;
   align-items: center;
+  @media (max-width: $breakpoint-md) {
+    top: 58%;
+    left: 9%;
+  }
   @media (max-width: $breakpoint-tab) {
-    top: 45%;
-    left: 5%;
+    top: 52%;
+    left: 7%;
   }
   @media only screen and (max-width: 430px) {
-    top: 14%;
-    left: 5%;
+    top: 71%;
+    left: 37%;
+    // display: none;
+  }
+  @media only screen and (max-width: 360px) {
+    left: 36%;
+  }
+}
+.clock_maincontainer_not {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 57%;
+  left: 20%;
+  gap: 15px;
+  align-items: center;
+  @media (max-width: $breakpoint-md) {
+    top: 58%;
+    left: 9%;
+  }
+  @media (max-width: $breakpoint-tab) {
+    top: 52%;
+    left: 7%;
+  }
+  @media only screen and (max-width: 430px) {
+    // top: 14%;
+    // left: 15%;
+    display: none;
   }
 }
 .clock {
@@ -1403,10 +1765,27 @@
     height: 60px;
   }
 }
+.clock_mob {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: none;
+  @media (max-width: $breakpoint-xlg) {
+    width: 70px;
+    height: 70px;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    width: 60px;
+    height: 60px;
+  }
+}
 .clock_img {
   height: auto;
   width: 65%;
 }
+
 .clock_img :hover {
   background-color: red;
 }
@@ -1435,11 +1814,16 @@
     right: 22%;
   }
   @media (max-width: $breakpoint-ms) {
-    bottom: 35%;
+    bottom: 28%;
     right: 18%;
   }
+  @media (max-width: $breakpoint-md) {
+    bottom: 18%;
+    left: 97%;
+  }
   @media (max-width: $breakpoint-tab) {
-    right: 18%;
+    left: 86%;
+    bottom: 20%;
   }
   @media (max-width: $breakpoint-xs) {
     right: 14%;
@@ -1473,12 +1857,41 @@
   align-items: center;
   z-index: 1000;
   text-align: center;
+  @media (max-width: $breakpoint-md) {
+    bottom: 4%;
+  }
   @media (max-width: $breakpoint-tab) {
     bottom: 9%;
     left: 17%;
   }
   @media only screen and (max-width: 430px) {
-    left: 38%;
+    left: 37%;
+    bottom: 3%;
+  }
+  @media only screen and (max-width: 360px) {
+    left: 35%;
+  }
+}
+.tournament_not {
+  position: absolute;
+  bottom: 6%;
+  left: 28%;
+  gap: 12px;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+  text-align: center;
+  @media (max-width: $breakpoint-md) {
+    bottom: 4%;
+  }
+  @media (max-width: $breakpoint-tab) {
+    bottom: 9%;
+    left: 17%;
+  }
+  @media only screen and (max-width: 430px) {
+    display: none;
   }
 }
 .trophy_container {
@@ -1496,10 +1909,22 @@
     height: 70px;
   }
 }
+.trophy_container_mob {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: none;
+  @media only screen and (max-width: 430px) {
+    width: 70px;
+    height: 70px;
+  }
+}
 .prize_maincontainer {
   position: absolute;
   bottom: 8%;
-  right: 21%;
+  right: 17%;
   width: 100px;
   gap: 12px;
   display: flex;
@@ -1512,12 +1937,37 @@
   @media (max-width: $breakpoint-lg) {
     bottom: 6%;
   }
+  @media (max-width: $breakpoint-md) {
+    bottom: 6%;
+  }
   @media (max-width: $breakpoint-tab) {
     bottom: 13%;
     right: 18%;
   }
+  @media only screen and (max-width: 821px) {
+    bottom: 8%;
+    right: 21%;
+  }
   @media only screen and (max-width: 430px) {
-    top: 5%;
+    // top: 5%;
+    // right: 36%;
+    display: none;
+  }
+}
+.activeprizemainconatiner {
+  position: absolute;
+  bottom: 8%;
+  right: 21%;
+  width: 100px;
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+  @media only screen and (max-width: 430px) {
+    right: 37%;
+  }
+  @media only screen and (max-width: 360px) {
     right: 36%;
   }
 }
@@ -1540,22 +1990,65 @@
     height: 60px;
   }
 }
+.money_container_mob {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: none;
+  @media (max-width: $breakpoint-xlg) {
+    width: 70px;
+    height: 70px;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+.supportText {
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
 .scope_text {
   font-weight: 200;
   display: flex;
   color: white;
+  align-items: center;
   text-align: center;
   max-width: 600px;
   font-size: 20px;
+  height: 100px;
   margin: 0 auto;
-  padding-top: 80px;
+  padding-top: 20px;
+  @media only screen and (max-width: 430px) {
+    height: 100px;
+  }
 }
 .guns {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+.gunsmob {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   align-items: center;
   gap: 20px;
   margin-top: 50px;
+  @media only screen and (max-width: 430px) {
+    margin-top: 0px;
+  }
+}
+.Dgun {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .gun {
   height: auto;
@@ -1565,12 +2058,49 @@
   }
 }
 .gun1 {
-  height: auto;
   width: 200px;
-  margin-top: 20px;
+  margin-left: 10px;
   @media (max-width: $breakpoint-xSmall) {
     width: 150px;
   }
+}
+.gun2 {
+  width: 200px;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 150px;
+  }
+}
+.dotContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 10px;
+}
+.dotContainerMap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.dot {
+  height: 8px;
+  width: 8px;
+  margin-left: 10px;
+  border-radius: 50%;
+  background-color: rgb(98, 94, 94);
+}
+.mapactivedot {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+.activedot {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background-color: rgb(255, 222, 35);
 }
 // modal css
 
@@ -1659,10 +2189,11 @@
 
 .map {
   background-color: black;
+  margin-top: 75px;
 }
 .mapSecDescription {
   text-align: center;
-  padding: 30px;
+  padding-top: 30px;
   background-color: black;
   margin: 0 auto;
   color: #fdfafa;
@@ -1676,7 +2207,7 @@
   }
 }
 .mapSecHead {
-  padding: 20px;
+  padding: 18px;
   font-weight: 700;
   font-size: 32px;
   @media (max-width: $breakpoint-xs) {
@@ -1686,8 +2217,18 @@
 
 .mapBg {
   color: #fdfafa;
-  background: url('../../public/assests/BGMAP.png');
-  background-position: center;
+  background-position: center !important;
+  background: url('../../public/assests/mapdesktopimage.svg');
+  @media (max-width: $breakpoint-ms) {
+    background: url('../../public/assests/tabletmapimage.svg');
+    background-repeat: no-repeat;
+  }
+  @media (max-width: $breakpoint-xs) {
+    background: url('../../public/assests/locatormapmobile.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 55vh;
+  }
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
@@ -1700,8 +2241,37 @@
   height: 85vh;
   align-items: end;
   color: #fdfafa;
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  @media (max-width: $breakpoint-xs) {
+    height: 50vh;
+  }
 }
-
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.mapContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.mapContentHeader {
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 5px;
+  @media (max-width: $breakpoint-xs) {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 0px;
+  }
+}
 .mapP {
   z-index: 999;
   text-align: center;
@@ -1712,7 +2282,16 @@
     font-size: 14px;
   }
 }
-
+.locationimg {
+  height: 50px;
+  width: 50px;
+  border: 1px solid white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
 .signUpDiv {
   position: absolute;
   top: 26%;
@@ -1846,10 +2425,10 @@
 
 .buggiSec {
   width: 100%;
-  height: 90vh;
+  height: 80vh;
   background: radial-gradient(circle at center top, #00000000, transparent),
     radial-gradient(circle at center bottom, #00000000, transparent),
-    url('../../public/assests/buggysecbgimg.svg');
+    url('../../public/assests/buggisectionbanner.svg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1868,22 +2447,32 @@
   bottom: 0;
   left: 0;
   right: 0;
+  top: 77%;
 }
 .buggyHeading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: 400;
   font-size: 27px;
   line-height: 27px;
   letter-spacing: 6%;
-  @media (max-width: $breakpoint-xs) {
-    font-size: 42px;
-    margin-bottom: 10px;
-  }
+  // position: absolute;
+  // top: 11%;
+  font-size: 27px;
+  // @media (min-width: $breakpoint-xs) {
+  //   margin-bottom: 10px;
+  //   left: 28%;
+  //   top: 7%;
+  // }
 }
 
 .buggiSec_heading {
   font-size: 4rem;
   word-spacing: 2px;
-  font-family: 'Grandstander', cursive;
+  margin-top: 50px;
+  font-weight: 900;
+  font-family: 'Grandstander', cursive !important;
   @media (max-width: $breakpoint-md) {
     font-size: 42px;
     margin-bottom: 10px;
@@ -1894,7 +2483,7 @@
   font-size: 22px;
   font-weight: 400;
   line-height: 27px;
-  margin-top: 30px;
+  margin-top: 32px;
   word-spacing: 3px;
 }
 .btnSingup {
@@ -1924,17 +2513,36 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  height: 76vh;
   background-image: radial-gradient(#1000c000 30%, #000000 100%),
-    url('../../public/assests/footerbanner.svg');
+    url('../../public/assests/sunrisedesktop.svg');
+  @media (min-width: $breakpoint-ms) {
+  }
+  @media (max-width: $breakpoint-tab) {
+    background-image: radial-gradient(#1000c000 30%, #000000 100%),
+      url('../../public/assests/sunrisetablet.svg');
+  }
+  @media only screen and (max-width: 430px) {
+    height: auto;
+    background-image: radial-gradient(#1000c000 30%, #000000 100%),
+      url('../../public/assests/sunrisemobile.svg');
+  }
 }
 
 .footerDiv {
   display: flex;
   position: relative;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 70vh;
+  height: 75vh;
+  margin-top: 200px;
+  @media only screen and (max-width: 850px) {
+  justify-content: center;
+  }
+  @media only screen and (max-width: 430px) {
+    height: auto;
+    margin-top: 100px;
+  }
 }
 .anchorTags {
   text-align: center;
@@ -1943,7 +2551,10 @@
   margin-right: 30px;
   flex-direction: row;
   gap: 70px;
+  font-weight: 700;
+  text-decoration: underline;
   font-size: 1.5rem;
+  z-index: 99;
   @media (max-width: $breakpoint-tab) {
     gap: 30px;
   }
@@ -1953,12 +2564,14 @@
   padding: 30px;
   font-weight: 400;
   font-size: 18px;
+  z-index: 99;
 }
 .support {
   text-align: center;
   font-weight: 400;
   font-size: 16px;
   padding-top: 30px;
+  z-index: 99;
   @media (max-width: $breakpoint-xs) {
     font-size: 10px;
     padding-bottom: 100px;
@@ -1975,11 +2588,27 @@
     font-size: 10px;
     padding-top: 30px;
   }
+  // @media only screen and (max-width: 450px) {
+  //   top:460px
+  // }
+  // @media only screen and (min-width: 1200px) {
+  //   top:460px
+  // }
+  // @media only screen and (min-width: 1360px) {
+  //   top: 515px;
+  // }
+  // @media only screen and (min-width: 1400px) {
+  //   top: 560px;
+  // }
 }
 
 .social_I {
   display: flex;
-  gap: 20px;
+  gap: 35px;
+  z-index: 99;
+  @media only screen and (max-width: 430px) {
+    gap: 20px;
+  }
 }
 .gradient {
   width: 100%;
@@ -1995,6 +2624,10 @@
   position: absolute;
   top: 38.5%;
   left: 51%;
+}
+
+.supporttext_span {
+  text-decoration: underline;
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
@@ -2036,9 +2669,12 @@
     font-size: 70px;
     margin-bottom: 10px;
     font-weight: 700;
-  }
-  .footer_para {
-    font-size: 22px;
+
+    .main_container {
+      background: url('../../public//assests/Banner\ for\ mobile\ 1.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
   }
   .social_I {
     margin: 15px 0px;
@@ -2125,8 +2761,12 @@
     left: 18rem;
   }
 }
+.footerLogo {
+  z-index: 99;
+  margin-top: 100px;
+}
 
-@media only screen and (min-width: 320px) and (max-width: 968px) {
+@media only screen and (min-width: 320px) and (max-width: 600px) {
   .parashoot {
     display: none;
   }
@@ -2186,6 +2826,9 @@
   .time_container span {
     font-size: 15px;
     margin-bottom: 10px;
+    @media only screen and (min-width: 320px) and (max-width: 450px) {
+      margin-bottom: 0px;
+    }
   }
 
   .range_container {
@@ -2203,10 +2846,6 @@
 
   .stone img {
     width: 320px;
-  }
-  .choseSection h2 {
-    font-size: 18px;
-    text-align: center;
   }
 
   .choseSection p {
@@ -2275,11 +2914,15 @@
 
   .footerLogo {
     width: 150px;
+    @media only screen and (max-width: 376px) {
+      margin-top: 53px;
+    }
   }
   .anchorTags {
     flex-direction: column;
     font-size: 20px;
     margin-top: 0px;
+    font-weight: 700;
   }
   .buggyHeading {
     line-height: 2;
@@ -2291,12 +2934,15 @@
       letter-spacing: 0px;
       font-weight: 400;
       font-size: 18px;
-      padding-top: 125px;
     }
   }
   .buggiImg {
     width: 300px;
     height: auto;
+    @media (min-width: $breakpoint-ms) {
+      height: 541px;
+      width: 620px;
+    }
   }
   .buggiSec_heading {
     font-size: 28px;
@@ -2318,9 +2964,6 @@
     margin: 14px 0px;
     font-size: 14px;
   }
-  // .btnSingup {
-  //   width: 160px;
-  // }
   .redBlurCircle {
     position: absolute;
     top: 34%;
@@ -2335,22 +2978,34 @@
   position: absolute;
   top: 10%;
   right: 15%;
+  @media only screen and (max-width: 430px) {
+    right: 7%;
+    top: 0%;
+    width: 62px;
+  }
 }
 .shootingstarsmall {
   position: absolute;
   top: 10%;
   left: 13%;
+  @media only screen and (max-width: 430px) {
+    left: 5%;
+    top: 0%;
+    width: 41px;
+  }
 }
 
 .cardimg {
   position: relative;
   margin-right: 20px;
+  margin-left: 30px;
 }
 .carddetails {
   position: absolute;
-  left: 10%;
+  left: 16%;
   bottom: 10%;
   color: white;
+  z-index: 99;
 }
 .carddetails span {
   font-weight: 700;

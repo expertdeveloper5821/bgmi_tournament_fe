@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import styles from '@/styles/auth.module.scss';
 
-const AuthHoc = ({ children, heading,subheading }) => {
+const AuthHoc = ({ children, heading, subheading }) => {
   return (
     <div className={styles.main_container}>
       <div className={styles.background_container}>
@@ -12,9 +12,7 @@ const AuthHoc = ({ children, heading,subheading }) => {
           </div>
           <div>
             <h2 className={styles.heading}>{heading}</h2>
-            <p className={styles.subheading}>
-              {subheading}
-            </p>
+            <p className={styles.subheading}>{subheading}</p>
           </div>
           <div>{children}</div>
         </div>

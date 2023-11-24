@@ -2,11 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/video.module.scss';
 import VideoCard from './videoCard/videoCard';
-import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination';
+// import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination';
 
 const Page: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [receivedData, setReceivedData] = useState([]);
+  console.log('receivedData', receivedData);
 
   const handleChildData = (data) => {
     setReceivedData(data);
@@ -48,9 +49,7 @@ const Page: React.FC = () => {
               <VideoCard onDataUpdate={handleChildData} />
             </div>
           </div>
-          <div className={styles.pagination}>
-            <CustomPagination data={receivedData} />
-          </div>
+          <div className={styles.pagination}>{/* <CustomPagination data={receivedData} /> */}</div>
         </div>
       )}
     </>

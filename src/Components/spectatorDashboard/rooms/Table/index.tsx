@@ -1,25 +1,34 @@
 import React, { useState } from 'react';
 import styles from '@/styles/Spectator.module.scss';
 //@ts-ignore
-import { Table, TableBody, TableCell } from 'technogetic-iron-smart-ui';
-//@ts-ignore
-import { TableHeader, TableHead, TableRow } from 'technogetic-iron-smart-ui';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableHead,
+  TableRow,
+} from 'technogetic-iron-smart-ui';
 import { formatDate, formatTime } from '@/Components/CommonComponent/moment';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { specRoomColumns } from '@/utils/constant';
 import DeleteSpectatorModal from '@/Components/spectatorDashboard/rooms/DeleteSpectatorModal';
+import { setItemToLS } from '@/utils/globalfunctions';
+import { GiPodiumWinner } from 'react-icons/gi';
+import Link from 'next/link';
+import Pagination from '@/Components/CommonComponent/Pagination';
+import router from 'next/router';
 
-const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSpectator }) => {
-  const router = useRouter();
-  const [isWinner, setIsWinnder] = useState<boolean>(true);
+const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRooms }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalItems = Spect.length;
+  const itemsPerPage = 5;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
 
-  const handleRedirectPostWinner = () => {
-    router.push('/spectatorDashboard/Postwinners');
-  };
-
-  const handleEditMatch = () => {
-    router.push('/spectatorDashboard/Matchhistory');
+  const handleRoomID = (id: string, roomUuid: string) => {
+    setItemToLS('roomId', id);
+    setItemToLS('roomUuid', roomUuid);
   };
 
   const handleButtonEdit = () => {
@@ -35,8 +44,8 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
     <Table className={styles.table_content}>
       <TableHeader className={styles.tableHeader}>
         <TableRow className={styles.tableRow}>
-          {specRoomColumns?.map((column, index) => (
-            <TableHead className={styles.table_head_sectat} key={index}>
+          {specRoomColumns?.map((column) => (
+            <TableHead className={styles.table_head_sectat} key={column}>
               <div className={styles.filter}>{column}</div>
             </TableHead>
           ))}
@@ -44,9 +53,8 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
       </TableHeader>
 
       <TableBody>
-        {Spect?.map((spec, index) => (
-
-          <TableRow key={index} className={styles.table_row_cell}>
+        {Spect?.slice(startIndex, endIndex)?.map((spec) => (
+          <TableRow key={spec._id} className={styles.table_row_cell}>
             <TableCell className={styles.el_tb_cell}>{spec?.roomId ?? '--'}</TableCell>
             <TableCell className={styles.tb_cell_body}>{spec?.gameName ?? '--'}</TableCell>
             <TableCell className={styles.el_tb_cell}>{spec?.gameType ?? '--'}</TableCell>
@@ -69,7 +77,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
             <TableCell className={styles.el_tb_cell}>{spec?.entryFee ?? '--'}</TableCell>
 
             <TableCell className={styles.tb_cell_action}>
-              <DeleteSpectatorModal Id={spec._id} getAllSpectator={getAllSpectator} />
+              <DeleteSpectatorModal Id={spec._id} getAllRooms={getAllRooms} />
               <div
                 onClick={() => {
                   setShowModal(!showModal);
@@ -79,15 +87,36 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
                 <Image src="assests/update.svg" alt="Image" width={22} height={14} />
               </div>
             </TableCell>
-            <TableCell onClick={() => setIsWinnder(!isWinner)} className={styles.winnder_btn}>
-              {isWinner ? (
-                <div onClick={handleRedirectPostWinner}>
-                  <Image src="assests/add.svg" alt="Image" width={22} height={22} />
-                </div>
+            <TableCell className={styles.winnder_btn}>
+              {!spec.winnerUuid ? (
+                <Link href={'/spectatorDashboard/Postwinners'}>
+                  <div onClick={() => handleRoomID(spec._id, spec.roomUuid)}>
+                    <Image src="assests/add.svg" alt="Image" width={22} height={22} />
+                  </div>
+                </Link>
               ) : (
-                <span className={styles.edit_btn} onClick={handleEditMatch}>
-                  Edit
-                </span>
+                <Link href={'/spectatorDashboard/Postwinners'}>
+                  <span
+                    className={styles.edit_btn}
+                    onClick={() => handleRoomID(spec._id, spec.roomUuid)}
+                  >
+                    Edit
+                  </span>
+                </Link>
+              )}
+            </TableCell>
+            <TableCell className={styles.tb_cell_action}>
+              {spec.winnerUuid ? (
+                <Link href="/spectatorDashboard/Matchhistory">
+                  <span
+                    onClick={() => handleRoomID(spec._id, spec.roomUuid)}
+                    className={styles.winnder_btn}
+                  >
+                    <GiPodiumWinner className={styles.winner} />
+                  </span>
+                </Link>
+              ) : (
+                <span className={styles.noInfoBtn}>NA</span>
               )}
             </TableCell>
             <TableCell>
@@ -108,7 +137,12 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllSp
           </TableRow>
         ))}
       </TableBody>
-
+      <Pagination
+        totalItems={totalItems}
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </Table>
   );
 };

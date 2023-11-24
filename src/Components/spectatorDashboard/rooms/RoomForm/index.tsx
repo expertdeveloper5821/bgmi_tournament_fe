@@ -12,7 +12,7 @@ import { CreateRoomFormType } from '@/types/roomsTypes';
 import { initialValueCreateRoom } from '@/utils/constant';
 
 const CreateRoomForm = (props) => {
-  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate, callSpecatator } = props;
+  const { showModal, setShowModal, roomIdToUpdate, setRoomIdToUpdate, getAllRooms } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [images, setImages] = useState<{ name: string; url: string }[]>([]);
@@ -42,7 +42,7 @@ const CreateRoomForm = (props) => {
             resetForm();
             setImages([]);
             setValues(initialValueCreateRoom);
-            callSpecatator();
+            getAllRooms();
             setIsLoading(false);
             toast.success(response.data.message);
             setShowModal(false);
@@ -407,16 +407,26 @@ const CreateRoomForm = (props) => {
                             <input name='file' type='file' className={styles.file} multiple ref={fileInputRef} onChange={onFileSelect}></input>
                           </div>
                           <div className={styles.container}>
-                            {
-                              images.map((image, index) => (
-                                <div className={styles.image} key={index} >
-                                  <span className={styles.delete} onClick={() => deleteImage(index)}>&times;</span>
-                                  <img src={image.url} alt={image.name}></img>
-                                </div>
-                              ))
-                            }
+                            {images.map((image, i) => (
+                              <div className={styles.image} key={i}>
+                                <span className={styles.delete} onClick={() => deleteImage(i)}>
+                                  &times;
+                                </span>
+                                <img
+                                  width={280}
+                                  height={150}
+                                  src={image.url}
+                                  alt={image.name}
+                                ></img>
+                              </div>
+                            ))}
                             {roomIdToUpdate && (
-                              <img src={roomIdToUpdate.mapImg} alt="Map Image" width={280} height={120} />
+                              <img
+                                src={roomIdToUpdate.mapImg}
+                                alt="Map Image"
+                                width={280}
+                                height={150}
+                              />
                             )}
                           </div>
                         </div>

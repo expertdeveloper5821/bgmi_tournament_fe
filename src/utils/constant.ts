@@ -32,6 +32,7 @@ export const specRoomColumns: string[] = [
   'Entry Fee',
   'Action',
   'Add Winner',
+  'View Winner',
 ];
 
 export const policyArr = [

@@ -335,7 +335,9 @@
   overflow: hidden;
   border-radius: 8px;
   cursor: pointer;
-  width: 260px;
+  min-width: 240px;
+  width: auto;
+  max-width: 260px;
 }
 
 .join_button {
