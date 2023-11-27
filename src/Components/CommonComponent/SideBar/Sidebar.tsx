@@ -30,7 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
         }
 
         if (mainElemInner) {
-          mainElemInner.style.flex = !isOpen ? '0 1 70%' : '0 1 %';
+          mainElemInner.style.flex = !isOpen ? '0 1 70%' : '0 1 96%';
         }
       }
       return !isOpen;
