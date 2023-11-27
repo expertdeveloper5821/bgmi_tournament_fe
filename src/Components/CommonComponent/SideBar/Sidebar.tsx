@@ -30,7 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
         }
 
         if (mainElemInner) {
-          mainElemInner.style.flex = !isOpen ? '0 1 70%' : '0 1 96%';
+          mainElemInner.style.flex = !isOpen ? '0 1 70%' : '0 1 %';
         }
       }
       return !isOpen;
@@ -39,13 +39,25 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
 
   useEffect(() => {
     const sidebarStyle = document.getElementById('sidebar_wrapper');
-    if (sidebarStyle && isOpen) {
-      sidebarStyle.style.width = 'calc(100vw - 220px)';
+
+    if (sidebarStyle && width < 769) {
+      sidebarStyle.style.width = '100vw';
     }
-    if (sidebarStyle && !isOpen) {
-      sidebarStyle.style.width = 'calc(100vw - 50px)';
+    if (width > 968) {
+      if (sidebarStyle && isOpen) {
+        sidebarStyle.style.width = 'calc(100vw - 220px)';
+      }
+      if (sidebarStyle && !isOpen) {
+        sidebarStyle.style.width = 'calc(100vw - 50px)';
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, width]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsOpen(false);
+    }
+  }, [pathName]);
 
   return (
     <>
