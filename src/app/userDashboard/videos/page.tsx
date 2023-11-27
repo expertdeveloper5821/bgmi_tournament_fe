@@ -6,15 +6,12 @@ import { Select } from "technogetic-iron-smart-ui"
 import { sendRequest } from '@/utils/axiosInstanse';
 import { BiSolidChevronLeft, BiChevronRight } from 'react-icons/bi';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
-
-
 interface VideoInfo {
     _id: string;
     title: string;
     dateAndTime: string;
     videoLink: string;
 }
-
 function formatDateTime(dateTime: string) {
     const dateObj = new Date(dateTime);
     const month = String(dateObj.getMonth() + 1).padStart(2, '0');
@@ -30,7 +27,10 @@ function formatDateTime(dateTime: string) {
 const Page: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [data, setData] = useState<VideoInfo[]>([]);
-    const isMobile = window.innerWidth <= 768;
+    // const isMobile = window.innerWidth <= 768;
+    // const maxCards = isMobile ? 2 : 4;
+    // const [currentCardIndex, setCurrentCardIndex] = useState(0);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
     const maxCards = isMobile ? 2 : 4;
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
@@ -67,6 +67,21 @@ const Page: React.FC = () => {
             }
         };
         fetchData();
+        if (typeof window !== 'undefined') {
+            setIsMobile(window.innerWidth <= 768);
+        }
+
+        // Add event listener for resizing to update isMobile
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup the event listener on component unmount
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
 
 
@@ -83,7 +98,6 @@ const Page: React.FC = () => {
                                 <div className={styles.dashboard_video}>
                                     <div className={styles.video_section}>
                                         <span className={styles.head_desc}>Videos</span>
-                                        {/* <span className={styles.description}>Dashboard / Videos</span> */}
                                     </div>
                                     <div className={styles.sorting}>
                                         <Select className={styles.demo}
@@ -114,33 +128,19 @@ const Page: React.FC = () => {
                                                 <div className={styles.flex_end}>
                                                     <button
                                                         onClick={goToPreviousCard}
-                                                        style={{
-                                                            background: 'transparent',
-                                                            border: 'none',
-                                                            height: '40px',
-                                                            width: '40px',
-                                                            marginRight: '-32px',
-                                                            zIndex: 10,
-                                                        }}
+                                                        className={styles.previous_button}
+
                                                         disabled={currentCardIndex === 0}
                                                     >
-                                                        <BiSolidChevronLeft className={styles.outline_icon} />
+                                                        <BiSolidChevronLeft />
                                                     </button>
 
                                                     <button
                                                         onClick={goToNextCard}
-                                                        style={{
-                                                            background: 'transparent',
-                                                            border: 'none',
-                                                            height: '40px',
-                                                            width: '40px',
-                                                            marginRight: '-32px',
-                                                            zIndex: 10,
-                                                        }}
-
+                                                        className={styles.next_button}
                                                         disabled={isMobile ? currentCardIndex >= data.length - maxCards : currentCardIndex === data.length - 1}
                                                     >
-                                                        <BiChevronRight className={styles.outline_icon} />
+                                                        <BiChevronRight />
                                                     </button>
                                                 </div>
                                             </div>
