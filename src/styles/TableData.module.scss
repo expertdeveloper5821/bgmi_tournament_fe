@@ -2,27 +2,50 @@
 @import './variable.scss';
 
 .table_content {
+  box-sizing: border-box;
   font-size: 10px;
   overflow-x: auto;
   text-align: center;
+  margin: 1rem;
+
+  table {
+    border-collapse: separate !important;
+    border-spacing: 0 0.9rem !important;
+
+    thead {
+      background: none !important;
+    }
+  }
+
+  .tableHeader {
+    background-color: transparent;
+  }
 }
 
 .filter {
   display: flex;
+  gap: 6px;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
   font-weight: 700;
+  min-height: 47px;
   white-space: nowrap;
+  cursor: pointer;
+
+  svg {
+    width: 10px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 12px;
+  }
 }
 
-.tableHeader {
-  background-color: transparent;
-}
 
 .table_head {
   @include tableheader;
   text-align: center;
+  padding: 0 6px
 }
 
 .room_header {
@@ -54,6 +77,11 @@
 .table_rowdata {
   @include tdbody;
   font-weight: 800;
+  box-shadow: 0px 4px 12px 0px #00000040;
+}
+
+.table_row_cell {
+  @include tdbody;
 }
 
 .table_icon {
@@ -66,6 +94,7 @@
   :hover {
     color: $darkblue;
   }
+
   display: flex;
   align-items: center;
 }
@@ -76,9 +105,21 @@
   font-size: 16px;
   font-weight: 700;
   white-space: nowrap;
+
+  svg {
+    color: #FFD600;
+  }
+
   @media (max-width: $breakpoint-sm) {
     font-size: 12px;
+    padding: 0.7rem;
   }
+}
+
+.action_td {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
 }
 
 .cell_icon {
@@ -89,6 +130,10 @@
       size: 15px;
     }
   }
+}
+
+.eye_icon {
+  width: 15px;
 }
 
 .table_Studenticon img {
@@ -112,19 +157,24 @@
   height: auto;
   width: 30%;
   border-radius: 15px;
+
   @media (max-width: $breakpoint-xSmall) {
     width: 90% !important;
   }
+
   @media (max-width: $breakpoint-xs) {
     width: 90% !important;
   }
+
   @media (max-width: $breakpoint-sm) {
     width: 50%;
   }
+
   @media (max-width: $breakpoint-md) {
     width: 50%;
   }
 }
+
 .main_pop_cls,
 .main_del_sec {
   @include spectator_model;
@@ -177,16 +227,19 @@ button#btn_cls_st {
 
 .room_field_wrapper {
   @include spectator_modelfield;
+
   @media (max-width: $breakpoint-xs) {
     margin: 8px 0px;
   }
 }
+
 .room_id {
   color: $darkblue !important;
   font-weight: 700;
   font-size: 14px;
   line-height: 17.17px;
   font-family: Century Gothic;
+
   @media (max-width: $breakpoint-xs) {
     font-size: 13px;
   }
@@ -214,25 +267,31 @@ button#btn_cls_st {
 #gameName {
   color: $bs-orange;
 }
+
 .inner_del_sec {
   background: $bs-white;
   height: auto;
   width: 28%;
   border-radius: 15px;
   padding: 20px 10px;
+
   @media (max-width: $breakpoint-xSmall) {
     width: 90% !important;
   }
+
   @media (max-width: $breakpoint-xs) {
     width: 90% !important;
   }
+
   @media (max-width: $breakpoint-sm) {
     width: 90%;
   }
+
   @media (max-width: $breakpoint-md) {
     width: 50%;
   }
 }
+
 .sec_heading {
   color: $bs-grey !important;
   font-size: 16px;
@@ -242,9 +301,11 @@ button#btn_cls_st {
   padding: 12px;
   text-align: center;
 }
+
 .del_btn_sec {
   text-align: center;
 }
+
 .del_title {
   color: $bs-orange !important;
   text-align: center;
@@ -252,6 +313,7 @@ button#btn_cls_st {
   font-weight: 700;
   font-family: Century Gothic;
 }
+
 .dele_btn {
   border: none;
   background: $bs-orange;
@@ -259,6 +321,7 @@ button#btn_cls_st {
   width: 102px;
   margin-right: 6px;
 }
+
 .canc_btn {
   border: 1px solid $bs-orange !important;
   background: $bs-white;
@@ -270,66 +333,78 @@ button#btn_cls_st {
 .update_form {
   padding: 18px 30px;
 }
+
 .room_field_cls2 {
   width: 100%;
 }
 
 .table_content {
   border: none;
-  overflow-x: hidden;
+  // overflow-x: hidden;
+
   @media (max-width: $breakpoint-xSmall) {
-    overflow: scroll;
+    overflow: auto;
   }
+
   @media (max-width: $breakpoint-xs) {
-    overflow: scroll;
+    overflow: auto;
   }
+
   @media (max-width: $breakpoint-sm) {
-    overflow: scroll;
+    overflow: auto;
   }
+
   @media (max-width: $breakpoint-md) {
-    overflow: scroll;
+    overflow: auto;
   }
 }
+
 .table_head_sectat {
   @include tableheader;
 }
 
-.table_row_cell {
-  @include tdbody;
-}
 .tb_cell_body {
   color: $bs-orange !important;
   text-align: center;
   padding: 3px 3px;
+
   @media (max-width: $breakpoint-xSmall) {
     padding: 7px 38px;
   }
+
   @media (max-width: $breakpoint-xs) {
     padding: 7px 38px;
   }
+
   @media (max-width: $breakpoint-sm) {
     padding: 7px 38px;
   }
 }
+
 .el_tb_cell {
   color: $bs-white;
   text-align: center;
   padding: 3px 6px;
+
   @media (max-width: $breakpoint-xSmall) {
     padding: 8px 36px;
   }
+
   @media (max-width: $breakpoint-xs) {
     padding: 8px 36px;
   }
+
   @media (max-width: $breakpoint-sm) {
     padding: 8px 36px;
   }
 }
+
 .tb_cell_action {
   display: flex !important;
   justify-content: space-around;
   padding: 8px;
 }
+
 .showdata {
   display: flex;
   justify-content: center;
@@ -338,4 +413,74 @@ button#btn_cls_st {
 
 .scrolling {
   overflow-x: scroll;
+}
+
+
+.tb_cell_body {
+  color: #ff7a00 !important;
+  text-align: center;
+  padding: 3px 3px;
+
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 7px 1.5rem;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    padding: 7px 1rem;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 7px 1rem;
+  }
+}
+
+.el_tb_cell {
+  color: #fff;
+  text-align: center;
+  padding: 3px 6px;
+
+  @media (max-width: $breakpoint-xSmall) {
+    padding: 8px 1.5rem;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    padding: 8px 1rem;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 8px 1rem;
+  }
+}
+
+.tb_cell_action {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  gap: 10px;
+  height: 80px;
+}
+
+.winnder_btn {
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: none;
+  padding: 5px 10px;
+
+  .winner {
+    font-size: 2rem;
+  }
+}
+
+.edit_btn {
+  color: #ff7a00;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.noInfoBtn {
+  cursor: pointer;
+
 }

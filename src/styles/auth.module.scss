@@ -3,12 +3,11 @@
 
 .main_container {
   @include main_container;
-  // position: relative;
 }
 
 .background_container {
   @include background_container;
-  margin-top: 3rem;
+
   @media (max-width: $breakpoint-xSmall) {
     margin: 1rem 1rem;
   }
@@ -31,23 +30,58 @@
 
 .container {
   @include container;
-  // padding: 2rem;
+  padding: 54px 40px;
+  width: 425px;
+  position: inherit;
+  background-color: #ffffffb0;
+  .subheading {
+    color: #5c5c5c;
+  }
 
   @media (max-width: $breakpoint-xs) {
     margin: 1rem 1rem;
   }
 
   @media (max-width: $breakpoint-sm) {
-    width: 90%;
-    height: 100vh;
     margin: 1rem 1.5rem;
   }
 }
 
+.formWrapper > form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.formWrapper .button_wrapper {
+  width: 100%;
+  button {
+    font-weight: 600;
+  }
+}
+
+.formWrapper .btnStyle {
+  width: 100%;
+  span {
+    font-weight: 700;
+  }
+}
+
+.validation_Error {
+  width: 100%;
+  padding-left: 2rem;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+}
+
 .logo img {
   @include logo;
-  display: flex;
-  margin: 0px 46px;
+  width: 170px;
 }
 
 .forgotDescsec {
@@ -71,31 +105,56 @@
   }
 }
 
+.subheading {
+  text-align: center;
+  color: #003556;
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 13px;
+  }
+}
+
 .email img,
 .password img {
-  // margin: 0px 2px;
   display: flex;
   justify-content: center;
 }
 
 .input_box {
-  @include input_box;
-
+  @include reg_input_box;
   border-bottom: 2px solid white;
-
-  @media (max-width: $breakpoint-xs) {
+  @media (max-width: $breakpointregister-xs) {
     width: 100%;
   }
 }
+
+.error_email_wrapper {
+  width: 100%;
+  padding: 3px !important;
+  border: none !important;
+}
+
+.error_email_wrapper ::placeholder {
+  @include email_wrapper;
+  color: #ff0000;
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 12px;
+  }
+}
+
 .email_wrapper {
   @include email_wrapper;
+  padding: 3px !important;
 }
+
 .password_wrapper {
   @include email_wrapper;
 }
 .email_wrapper ::placeholder {
   @include email_wrapper;
   width: 100%;
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 12px;
+  }
 }
 
 .password_wrapper ::placeholder {
@@ -108,31 +167,65 @@
 
 .error {
   @include error;
+  font-size: 10px;
+  position: absolute;
+  left: 2px;
+  bottom: -22px;
+  @media (max-width: $breakpointregister-sm) {
+    font-size: 8px;
+  }
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 5px;
+  }
 }
 
 .forgetbutton {
   @include button_wrapper;
+  margin-top: 20px;
+  color: white !important;
+}
+
+.disabledforgetbutton {
+  @include button_wrapper;
   margin-top: 18px;
   color: white !important;
-  @media (max-width: $breakpoint-xSmall) {
-    padding: 12px 30px;
-    width: 100%;
-  }
+  background-color: #7297b1 !important;
 }
 
 .SignIn_button {
   @include button_wrapper;
   margin: 1.5rem 0rem;
 
-  @media (max-width: $breakpoint-xs) {
+  @media (max-width: $breakpointregister-xs) {
     width: 100%;
   }
 }
+
+.disabled_signin_button {
+  @include button_wrapper;
+  margin: 1.5rem 0rem;
+  color: white !important;
+  background-color: #7297b1 !important;
+}
+
 .sign_accout {
   display: flex;
   justify-content: center;
   margin: 16px;
 }
+
+.sign_accout span {
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 13px;
+  }
+
+  a {
+    @media (max-width: $breakpointregister-xs) {
+      font-size: 13px;
+    }
+  }
+}
+
 .log_acc_cls {
   display: flex;
   justify-content: center;
@@ -141,6 +234,19 @@
   text-decoration-line: none;
   color: #003556 !important;
 }
+
+.log_acc_cls span {
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 13px;
+  }
+
+  a {
+    @media (max-width: $breakpointregister-xs) {
+      font-size: 13px;
+    }
+  }
+}
+
 .link_sign {
   font-weight: 900;
   text-decoration-line: underline;
@@ -151,10 +257,7 @@
   color: #003556 !important;
   margin: 16px;
 }
-.link_sign {
-  font-weight: 900;
-  text-decoration-line: underline;
-}
+
 .signin a {
   color: var(--bs-orange);
   width: -webkit-fill-available;
@@ -163,13 +266,9 @@
   justify-content: center;
   text-align: center;
 
-  @media (max-width: $breakpoint-xs) {
+  @media (max-width: $breakpointregister-xs) {
     margin-right: 0;
   }
-}
-
-.error {
-  @include error;
 }
 
 .error_message {
@@ -178,17 +277,17 @@
 .signin {
   color: black;
 }
-.forgotdesc {
-  border-bottom: 2px solid white;
-  display: flex;
-  justify-content: center;
-  color: #003556 !important;
-  text-align: center;
+
+.forget_desc a {
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 12px;
+  }
 }
 
 .input_box input {
   color: black;
 }
+
 .password_wrapper {
   width: 100%;
 }
@@ -214,9 +313,48 @@
 
 .rememberMe {
   padding: 0px 5px;
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 13px;
+  }
 }
 
 .checkbox_wrapper [type='checkbox'] {
   color-scheme: white;
   color: white;
+}
+
+.checkbox_wrapper {
+  position: static;
+  margin: 1rem 0rem 0rem 0rem;
+  align-self: flex-start;
+  display: flex;
+}
+
+.heading {
+  margin-top: 20px;
+  font-size: 2rem;
+  color: #003556;
+  font-weight: 700;
+
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 20px;
+  }
+}
+
+.btnStyle {
+  color: #003556 !important;
+  border: 1px solid !important;
+  width: 330px;
+  margin-top: 10px;
+  background-color: transparent !important;
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btnStyle span {
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 14px;
+  }
 }

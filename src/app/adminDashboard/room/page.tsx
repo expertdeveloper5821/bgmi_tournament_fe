@@ -1,105 +1,125 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 //@ts-ignore
-// import apiServices from '@/services/api/apiServices';
-import { sendRequest } from '@/utils/axiosInstanse';
 import { toast } from 'react-toastify';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
-import router from 'next/router';
 import styles from '@/styles/Dashboard.module.scss';
-import assignmentData from '../../../utils/CreateAssignmment.json';
 //@ts-ignore
-import TableData, { StudentProfile } from '@/Components/CommonComponent/Table/Table';
+import TableData from '@/Components/CommonComponent/Table/Table';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
-import withAuth from '@/Components/HOC/WithAuthHoc';
-
-export interface IAppProps {}
+import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
+import {
+  deleteRoomService,
+  getAllFilteredRoomsListService,
+  getAllRoomsService,
+} from '@/services/authServices';
+import { RoomsDataType } from '@/types/roomsTypes';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+import { adminRoomColumns } from '@/utils/constant';
+import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
 
 function page() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
-  const rowPerPage = 8;
-  const [roomData, setRoomData] = useState<StudentProfile[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const imageIcon: string = 'room';
-
-  const transformedStudentData = assignmentData.studentData.map((item: StudentProfile) => ({
-    StudentName: item.StudentName,
-    Student: item.Student,
-    studentID: item.studentID,
-    Mobile: item.Mobile,
-    Course: item.Course,
-  }));
-
-  useEffect(() => {
-    // Simulate data loading or any async operation
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
+  const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
+  const [roomData, setRoomData] = useState<RoomsDataType[] | []>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const [idToDelete, setIdToDelete] = useState<string>('');
 
   const getAllTournaments = async () => {
-    const tokens = localStorage.getItem('jwtToken');
-    const tournamentResponse = await sendRequest('/room/rooms', {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${tokens}` },
-    });
-    setRoomData(tournamentResponse.data);
+    try {
+      const response = await getAllRoomsService();
+      setIsLoading(true);
+      setWholeRoomData(response?.data);
+      setRoomData(response?.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error?.response?.data?.message);
+    }
   };
 
   useEffect(() => {
     getAllTournaments();
   }, []);
 
-  const deleteroomId = async (_id: any) => {
+  const deleteroom = async () => {
     setIsLoading(true);
     try {
-      const tokens = localStorage.getItem('jwtToken');
-      const response = await sendRequest(`/room/rooms/${_id}`, {
-        method: 'delete',
-        headers: { Authorization: `Bearer ${tokens}` },
-      });
+      const response = await deleteRoomService({ _id: idToDelete });
+      setIdToDelete('');
+      setIsDeleteModalOpen(false);
       getAllTournaments();
-      if (response) {
-        const success = response.data.message;
-        toast.success(success);
-      }
+      toast.success(response?.data?.message);
     } catch (error) {
-    } finally {
       setIsLoading(false);
+      toast.error(error?.response?.data?.message);
     }
   };
 
-  const columns: string[] = [
-    'Created By',
-    'Room Id',
-    'Password',
-    'Game Name',
-    'Game Type',
-    'Map Type',
-    'Version',
-    'Time',
-    'Date',
-  ];
+  const fetchTournaments = async (searchVal: string) => {
+    try {
+      const token = localStorage.getItem('jwtToken')!;
+      const response = await getAllFilteredRoomsListService({ token, searchVal });
+      setWholeRoomData(response?.data);
+      setRoomData(response?.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  const handleSearch = (e) => {
+    const { value } = e.target;
+    const filteredResults = wholeRoomData.filter(
+      (data: RoomsDataType) =>
+        data?.createdBy?.toLowerCase().includes(value.toLowerCase()) ||
+        data?.gameName?.toLowerCase().includes(value.toLowerCase()) ||
+        data?.gameType?.toLowerCase().includes(value.toLowerCase()) ||
+        data?.mapType?.toLowerCase().includes(value.toLowerCase()) ||
+        data?.version?.toLowerCase().includes(value.toLowerCase()),
+    );
+    setRoomData(filteredResults);
+  };
+
+  const handleDeleteUser = (_id: string) => {
+    setIdToDelete(_id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIdToDelete('');
+    setIsDeleteModalOpen(false);
+  };
 
   return (
-    <>
-        <div className={styles.main_container} id="mainLayoutContainerInner">
-          <div className={styles.abcd}>
-            <div className={styles.sidebar_wrapper}>
-              <Navbar />
+    <IsAuthenticatedHoc>
+      <div className={styles.main_container} id="mainLayoutContainerInner">
+        <div className={styles.abcd}>
+          <div id="sidebar_wrapper" className={styles.sidebar_wrapper}>
+            <Navbar />
+            <div className={styles.flex}>
               <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
-              {/* <SearchFilter /> */}
-              {isLoading ? (
-                <Loader />
-              ) : (
-                <TableData studentData={roomData} columns={columns} showAdditionalButton={true} />
-              )}
+              <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
             </div>
+            {isDeleteModalOpen && (
+              <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
+            )}
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <TableData
+                data={roomData}
+                columns={adminRoomColumns}
+                deleteroom={handleDeleteUser}
+                type={'ROOMS'}
+              />
+            )}
           </div>
         </div>
-    </>
+      </div>
+    </IsAuthenticatedHoc>
   );
 }
 
-export default withAuth(page);
+export default page;

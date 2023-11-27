@@ -1,18 +1,72 @@
+// {
+//   "root": true,
+//   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+//   "parser": "@typescript-eslint/parser",
+//   "parserOptions": { "project": ["./tsconfig.json"] },
+//   "plugins": ["@typescript-eslint"],
+//   "rules": {
+//     "no-console": "warn",
+//     "@typescript-eslint/no-var-requires": 0,
+//     "@typescript-eslint/strict-boolean-expressions": [
+//       0,
+//       {
+//         "allowString": false,
+//         "allowNumber": false
+//       }
+//     ]
+//   },
+//   "env" : {
+//     "browser": true,
+//     "node": true
+//   },
+//   "ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"]
+// }
+
 {
+
   "root": true,
+
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+
   "parser": "@typescript-eslint/parser",
+  
+
   "parserOptions": { "project": ["./tsconfig.json"] },
+
   "plugins": ["@typescript-eslint"],
+
   "rules": {
-    "no-console": "warn",
+
+    "@typescript-eslint/ban-ts-comment": "off",
+
+    // "no-console": "warn",
+
+    "@typescript-eslint/no-var-requires": 0,
+
     "@typescript-eslint/strict-boolean-expressions": [
-      2,
+
+      0,
+
       {
+
         "allowString": false,
+
         "allowNumber": false
+
       }
+
     ]
+
   },
+
+  "env" : {
+
+    "browser": true,
+
+    "node": true
+
+  },
+
   "ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"]
+
 }

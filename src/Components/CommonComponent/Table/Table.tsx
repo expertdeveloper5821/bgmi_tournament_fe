@@ -1,6 +1,5 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useRouter, NextRouter } from 'next/router';
 import styles from '@/styles/TableData.module.scss';
 //@ts-ignore
 import {
@@ -10,85 +9,98 @@ import {
   TableHead,
   TableBody,
   TableCell,
-  IconButton,
 } from 'technogetic-iron-smart-ui';
+import { TableDataType, TablePropsType } from '@/types/tableTypes';
+import { getFormattedDateOrTime, toCamelCase } from '@/utils/commonFunction';
+import { FaLongArrowAltDown, FaLongArrowAltUp } from 'react-icons/fa';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { MdEdit } from 'react-icons/md';
+import Pagination from '../Pagination';
 
-export interface StudentProfile {
-  Course: string;
-  Mobile: string;
-  Student: string;
-  StudentName: string;
-  studentID: string;
-}
+const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsType) => {
+  const [sortedData, setSortedData] = useState<TableDataType[] | []>([]);
+  const [activeFilter, setactiveFilter] = useState<number>(0);
+  const filterKeys = ['Created By', 'Game Name', 'Game Type', 'Map Type', 'Version'];
 
-interface StudentProfilePropsType {
-  studentData: StudentProfile[];
-  showAdditionalButton?: boolean;
-  columns: string[];
-}
-
-interface studentData {
-  [key: string]: string;
-}
-
-const TableData = (props: StudentProfilePropsType) => {
-  const [sortedData, setSortedData] = useState(props?.studentData || []);
-  const [isDescending, setIsDescending] = useState(false);
-  const [sortKey, setSortKey] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalItems = sortedData.length;
+  const itemsPerPage = 5;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
 
   useEffect(() => {
-    setSortedData(props?.studentData);
-  }, [props?.studentData]);
-
-  const handleSort = (key: keyof studentData) => {
-    let sorted = [];
-
-    if (sortKey === key) {
-      sorted = [...sortedData].reverse();
-      setIsDescending(!isDescending);
-    } else {
-      sorted = [...sortedData].sort((a: any, b: any) => {
-        if (a[key] < b[key]) return isDescending ? 1 : -1;
-        if (a[key] > b[key]) return isDescending ? -1 : 1;
-        return 0;
-      });
-      setIsDescending(false);
+    if (data) {
+      setSortedData(data as TableDataType[]);
     }
-    setSortedData(sorted);
-    setSortKey(String(key));
-  };
+  }, [data]);
 
-  function handleDelete({ studentData }: { studentData: studentData }): void {
-    const updatedData = sortedData.filter((data: any) => data.studentID !== studentData.studentID);
-    setSortedData(updatedData);
-    console.log('data', updatedData);
-  }
+  const handleSort = (key: string, arrow: string) => {
+    const newKey = toCamelCase(key);
+    let newSortedData;
+    if (type !== 'ROOMS') {
+      if (arrow === 'upArrow') {
+        newSortedData = [
+          ...sortedData.sort((a: TableDataType, b: TableDataType) =>
+            a[newKey].localeCompare(b[newKey], 'fr', { ignorePunctuation: true }),
+          ),
+        ];
+      } else if (arrow === 'downArrow') {
+        setactiveFilter(2);
+        newSortedData = [
+          ...sortedData.sort((a: TableDataType, b: TableDataType) =>
+            b[newKey].localeCompare(a[newKey], 'fr', { ignorePunctuation: true }),
+          ),
+        ];
+      }
 
-  const handleEdit = (studentData: studentData) => {
-    console.log('Edit student data:', studentData);
+      setSortedData(newSortedData);
+    } else if (type === 'ROOMS') {
+      if (filterKeys.includes(key)) {
+        if (arrow === 'upArrow') {
+          newSortedData = [
+            ...sortedData.sort((a: TableDataType, b: TableDataType) =>
+              a[newKey].localeCompare(b[newKey], 'fr', { ignorePunctuation: true }),
+            ),
+          ];
+        } else if (arrow === 'downArrow') {
+          newSortedData = [
+            ...sortedData.sort((a: TableDataType, b: TableDataType) =>
+              b[newKey].localeCompare(a[newKey], 'fr', { ignorePunctuation: true }),
+            ),
+          ];
+        }
+        setSortedData(newSortedData);
+      }
+    }
   };
 
   return (
-    <div>
+    <>
       <Table className={styles.table_content}>
         <TableHeader className={styles.tableHeader}>
           <TableRow className={styles.tableRow}>
-            {props.columns.map((columnName) => (
+            {columns?.map((columnName) => (
               <TableHead className={styles.table_head} key={columnName}>
                 <div className={styles.filter}>
                   {columnName}
-                  <div>
-                    <img
-                      src="/assests/upArrow.svg"
-                      alt="filterup"
-                      onClick={() => handleSort(columnName)}
-                    ></img>
-                    <img
-                      src="/assests/downArrow.svg"
-                      alt="filterdown"
-                      onClick={() => handleSort(columnName)}
-                    ></img>
-                  </div>
+                  {filterKeys.includes(columnName) && (
+                    <div>
+                      <FaLongArrowAltUp
+                        style={{ color: `${activeFilter === 1 ? '#FF7A00' : ''}` }}
+                        onClick={() => {
+                          setactiveFilter(1);
+                          handleSort(columnName, 'upArrow');
+                        }}
+                      />
+                      <FaLongArrowAltDown
+                        style={{ color: `${activeFilter === 2 ? '#FF7A00' : ''}` }}
+                        onClick={() => {
+                          setactiveFilter(2);
+                          handleSort(columnName, 'downArrow');
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
               </TableHead>
             ))}
@@ -99,56 +111,53 @@ const TableData = (props: StudentProfilePropsType) => {
         </TableHeader>
 
         <TableBody className={styles.table_body}>
-          {sortedData.map((studentData: any, index: number) => {
-            const additionalImagePath = props.showAdditionalButton
-              ? './assests/StudentProfile.svg'
-              : null;
-
-            return (
-              <TableRow className={styles.table_rowdata} key={index}>
-                <TableCell className={styles.table_cell}>{studentData.StudentName}</TableCell>
-
-                <TableCell className={styles.table_cell}>{studentData.Student}</TableCell>
-                <TableCell className={styles.table_cell}>{studentData.studentID}</TableCell>
-                <TableCell className={styles.table_cell}>{studentData.Mobile}</TableCell>
-                <TableCell className={styles.table_cell}>{studentData.Course}</TableCell>
-                <TableCell className={styles.table_cell}>
-                  {additionalImagePath ? (
-                    <IconButton>
-                      <div className={styles.iconWrapper}>
-                        <img
-                          src="/assests/studentprofile.svg"
-                          alt="studentProfileView"
-                          className={styles.table_icon}
-                        ></img>
-                        <span>View Profile</span>
-                      </div>
-                    </IconButton>
-                  ) : (
-                    <>
-                      <IconButton onClick={() => handleEdit(studentData)}>
-                        <img
-                          src="/assests/TableEdit.svg"
-                          alt="studentProfileEdit"
-                          className={styles.cell_icon}
-                        ></img>
-                      </IconButton>
-                      <IconButton onClick={() => handleDelete({ studentData })}>
-                        <img
-                          src="/assests/Tabledelete.svg"
-                          alt="studentProfileDelete"
-                          className={styles.cell_icon}
-                        ></img>
-                      </IconButton>
-                    </>
-                  )}
-                </TableCell>
-              </TableRow>
-            );
+          {sortedData?.slice(startIndex, endIndex)?.map((data: TableDataType, index: number) => {
+            if (type === 'ROOMS') {
+              return (
+                <TableRow className={styles.table_rowdata} key={index}>
+                  <TableCell className={styles.table_cell}>{data?.createdBy}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.roomId}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.password}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.gameName}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.gameType}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.mapType}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.version}</TableCell>
+                  <TableCell className={styles.table_cell}>
+                    {getFormattedDateOrTime(data?.dateAndTime, 'Time')!}
+                  </TableCell>
+                  <TableCell className={styles.table_cell}>
+                    {getFormattedDateOrTime(data?.dateAndTime, 'Date')!}
+                  </TableCell>
+                  <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
+                    <RiDeleteBin6Line onClick={() => deleteroom && deleteroom(data.userUuid)} />
+                  </TableCell>
+                </TableRow>
+              );
+            } else if (type === 'SPECTATOR' || type === 'USERS') {
+              return (
+                <TableRow className={styles.table_rowdata} key={index}>
+                  <TableCell className={styles.table_cell}>{data?.fullName}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.userName || '--'}</TableCell>
+                  <TableCell className={styles.table_cell}>{data?.email}</TableCell>
+                  <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
+                    {type === 'SPECTATOR' && (
+                      <MdEdit onClick={() => handleEdit && handleEdit(data)} />
+                    )}
+                    <RiDeleteBin6Line onClick={() => deleteroom && deleteroom(data.userUuid)} />
+                  </TableCell>
+                </TableRow>
+              );
+            }
           })}
         </TableBody>
+        <Pagination
+          totalItems={totalItems}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </Table>
-    </div>
+    </>
   );
 };
 

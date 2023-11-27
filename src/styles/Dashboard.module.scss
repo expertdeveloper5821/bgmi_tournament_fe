@@ -2,26 +2,28 @@
 @import './variable.scss';
 
 .main_container {
-  width: 96vw;
   display: flex;
+  flex: 0 1 100%;
   background-color: $darkblue;
   min-height: 100vh;
   color: $bs-white;
   transition: 600ms linear;
-  @media (max-width: $breakpoint-ms) {
-    width: 100vw;
-  }
+}
 
-  @media (max-width: $breakpoint-md) {
-    width: 100vw;
-  }
+.content__container {
+  min-width: 100%;
+  width: calc(100vw - 50px);
+  padding-left: 50px;
 
-  @media (max-width: $breakpoint-sm) {
-    width: 100vw;
+  @media (min-width: $breakpoint-md) {
+    //   min-width: 100%;
+    //   width: calc(100vw - 72px);
+    padding-left: 0;
   }
 
   @media (max-width: $breakpoint-tab) {
-    width: 100vw;
+    width: 100%;
+    padding: 0;
   }
 
   @media (max-width: $breakpoint-xs) {
@@ -32,6 +34,7 @@
 .container {
   position: absolute;
 }
+
 .caret_down_style {
   svg {
     vertical-align: middle;
@@ -69,32 +72,31 @@
   }
 
   @media (max-width: $breakpoint-tab) {
-    // margin-left: 116px;
+    margin-left: 116px;
   }
 
   @media (max-width: $breakpoint-xs) {
     margin-left: 18px;
   }
 }
+
 .heading {
   font-weight: 700;
   font-size: 30px;
-  margin: 2rem 0rem;
+  margin: 1.5rem 1rem;
+
+  @media (max-width: $breakpoint-md) {
+    font-size: 24px;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    font-size: 18px;
+  }
 }
+
 .head {
   font-weight: 700;
   font-size: 30px;
-}
-
-.abcd {
-  width: 100%;
-  height: 100%;
-  @media (max-width: $breakpoint-ms) {
-    width: 96%;
-  }
-  @media (max-width: $breakpoint-md) {
-    width: 100%;
-  }
 }
 
 .wrapper_main {
@@ -107,12 +109,15 @@
   background-image: url(/assests/dashboard-bg.svg);
   background-repeat: no-repeat;
   background-position: inherit;
+  min-height: 100vh;
   height: 100%;
   background-size: cover;
+  max-width: 100vw;
   width: 100%;
-  @media (max-width: $breakpoint-md) {
+
+  @media (min-width: $breakpoint-tab) {
     background-position: 50% 50%;
-    width: 100vw;
+    width: calc(100vw - 50px);
   }
 }
 
@@ -141,6 +146,8 @@
 .reg_match_image_container {
   // flex: 2 1 0;
   max-width: 100%;
+  border: 1px solid #003554;
+
   img {
     object-fit: cover;
     width: 100%;
@@ -166,17 +173,21 @@
     height: 250px;
     width: 96%;
   }
+
   @media (max-width: $breakpoint-md) {
     height: 336px;
   }
+
   @media (max-width: $breakpoint-xs) {
     height: 336px;
     border-radius: 8px;
   }
+
   @media (max-width: $breakpoint-xSmall) {
     height: 280px !important;
   }
 }
+
 // .room_wrapper {
 //   background-image: url(/assests/dashboard-bg.svg);
 //   background-repeat: no-repeat;
@@ -190,13 +201,15 @@
   display: flex;
   margin: 10px 10px;
   column-gap: 18px;
+
   @media (max-width: $breakpoint-md) {
     // display: block;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    margin: 0px 64px;
+    margin: 0px 200px;
   }
+
   @media (max-width: $breakpoint-sm) {
     // display: block !important;
     display: flex;
@@ -226,7 +239,7 @@
   justify-content: flex-start;
   gap: 64px;
   margin: 10px 0px;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   width: 90%;
 
   @media (max-width: $breakpoint-lg) {
@@ -244,6 +257,7 @@
   @media (max-width: $breakpoint-tab) {
     width: 86%;
   }
+
   @media (max-width: $breakpoint-sm) {
     width: 60% !important;
   }
@@ -317,6 +331,17 @@
   gap: 100px;
 }
 
+.upcomingSliderCard {
+  position: relative;
+  margin: 0px 4px;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 240px;
+  width: auto;
+  max-width: 260px;
+}
+
 .join_button {
   background-color: $bs-orange !important;
   color: $bs-white !important;
@@ -326,6 +351,7 @@
   justify-content: center;
   align-items: center;
   padding: 6px;
+  min-width: fit-content;
 
   @media (max-width: $breakpoint-xSmall) {
     width: 16%;
@@ -420,15 +446,33 @@ img.slides_image {
 .container3 {
   display: flex !important;
   width: 100%;
+  padding: 4px;
 
   @media (max-width: $breakpoint-xSmall) {
     display: inline-block !important;
     width: 100%;
+    flex-direction: column;
   }
 
   @media (max-width: $breakpoint-xs) {
-    display: inline-block !important;
-    width: 100%;
+    display: flex !important;
+    width: 95%;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.sliderImageContainer {
+  position: relative;
+  overflow: hidden;
+
+  .sliderImageText {
+    position: absolute;
+    bottom: 0px;
+    padding: 8px;
+    overflow: hidden;
+    backdrop-filter: blur(4px);
+    border-radius: 0px 8px 0px 8px;
   }
 }
 
@@ -452,6 +496,7 @@ img.slides_image {
   font-weight: 400;
   font-size: 16px;
   flex: 3, 1, 0;
+  max-width: 300px;
 }
 
 .content .dashboard {
@@ -485,15 +530,19 @@ img.slides_image {
   letter-spacing: 0.02em;
   margin: 10px 0px 0px 0px;
   margin-left: 25px;
+
   @media (max-width: $breakpoint-md) {
     margin-left: 120px;
   }
+
   @media (max-width: $breakpoint-sm) {
     margin-left: 125px;
   }
+
   @media (max-width: $breakpoint-tab) {
     margin-left: 126px;
   }
+
   @media (max-width: $breakpoint-xs) {
     margin-left: 8px;
   }
@@ -502,6 +551,7 @@ img.slides_image {
     margin-left: 8px;
   }
 }
+
 .register_match_room {
   font-size: 22px;
   font-weight: 700;
@@ -510,18 +560,22 @@ img.slides_image {
   letter-spacing: 0.02em;
   margin: 10px 0px 0px 0px;
   margin-left: 25px;
+
   // $breakpoint-lg
   // $breakpoint-ms
   @media (max-width: $breakpoint-md) {
     // margin-left: 116px;
   }
+
   @media (max-width: $breakpoint-sm) {
     font-size: 16px;
     // margin-left: 109px;
   }
+
   @media (max-width: $breakpoint-tab) {
     // margin-left: 108px;
   }
+
   @media (max-width: $breakpoint-xs) {
     margin-left: 8px;
   }
@@ -530,6 +584,7 @@ img.slides_image {
     margin-left: 8px;
   }
 }
+
 .register_match_title {
   font-family: Century Gothic;
   font-size: 22px;
@@ -551,7 +606,7 @@ img.slides_image {
   }
 
   @media (max-width: $breakpoint-md) {
-    margin-left: 126px;
+    margin-left: 80px;
   }
 }
 
@@ -768,7 +823,7 @@ img.slides_image {
 
 .reviewCard {
   color: white;
-  border: 1px solid #ff7a00;
+  border: 1px solid $bs-orange;
   border-radius: 5px;
   padding: 6px;
   width: 330px;
@@ -824,7 +879,7 @@ img.slides_image {
 }
 
 .main_winning_pool {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -834,7 +889,16 @@ img.slides_image {
   align-items: center;
   background-color: $bs-backgroundblurr;
   backdrop-filter: blur(8px);
-  z-index: 1;
+  z-index: 999;
+}
+
+.sliderStyles {
+  padding: 2rem 5rem;
+  border-width: 90%;
+
+  @media (max-width: $breakpoint-md) {
+    padding: 2rem 2.5rem;
+  }
 }
 
 .inner_winning_pool {
@@ -848,12 +912,15 @@ img.slides_image {
   padding: 0px;
   width: 36%;
   border-radius: 16px;
+
   @media (max-width: $breakpoint-xs) {
     width: 90% !important;
   }
+
   @media (max-width: $breakpoint-md) {
     width: 50%;
   }
+
   @media (max-width: $breakpoint-ms) {
     width: 50%;
   }
@@ -918,15 +985,15 @@ img.slides_image {
   box-shadow: 0px 4px 18px 0px #00000040;
   border: 1px solid #00000025;
   border-radius: 4px;
-  @media (max-width: $breakpoint-xSmall) {
-    height: 86px;
-  }
-  @media (max-width: $breakpoint-xs) {
-    height: 86px;
-  }
+  // @media (max-width: $breakpoint-xSmall) {
+  //   height: 86px;
+  // }
+  // @media (max-width: $breakpoint-xs) {
+  //   height: 86px;
+  // }
 
-  @media (max-width: $breakpoint-sm) {
-  }
+  // @media (max-width: $breakpoint-sm) {
+  // }
 }
 
 .winnings_sec_slider {
@@ -997,6 +1064,7 @@ img.slides_image {
   align-items: center;
   padding: 12px 0px;
   width: 96%;
+  overflow: scroll;
 }
 
 .gameCardFade {
@@ -1012,7 +1080,7 @@ img.slides_image {
   padding: 8px 8px;
   font-weight: bold;
   border-radius: 0px 0px 8px 8px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(4px);
   // background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255, 1) 90%);
   width: 100%;
 }
@@ -1082,9 +1150,63 @@ img.slides_image {
 }
 
 .outline_icon {
-  font-size: 32px;
   background: $bs-orange;
-  border-radius: 18px;
+}
+
+.tournamentContainer {
+  display: flex;
+  width: 100%;
+  padding: 0px 16px;
+  margin-bottom: 32px;
+  gap: 24px;
+
+  @media (max-width: $breakpoint-ms) {
+    flex-direction: column;
+    gap: 0px;
+    padding: 0px 0px 0px 3rem;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    padding: 2rem;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    padding: 1rem;
+  }
+
+  .tCardContainer {
+    width: 50%;
+
+    @media (max-width: $breakpoint-ms) {
+      width: 100%;
+      margin: 12px;
+    }
+  }
+
+  .tMiniContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @media (max-width: $breakpoint-ms) {
+      width: 100%;
+      gap: 0px !important;
+    }
+
+    .tSliderContainer {
+      width: 90%;
+      padding: 0px 16px;
+
+      @media (max-width: $breakpoint-ms) {
+        width: 100%;
+        height: 160px;
+        overflow: hidden;
+        padding: 0px 32px;
+        margin: 0 auto;
+      }
+    }
+  }
 }
 
 /*****add send invite friend code ***/
@@ -1093,12 +1215,12 @@ img.slides_image {
   padding: 7px;
   margin: 3px;
   border-radius: 6px;
-  border: 1px solid #ff7a00;
-  color: #ff7a00;
+  border: 1px solid $bs-orange;
+  color: $bs-orange;
 }
 
 .tag_input_main_cls {
-  border: 1px solid #ff7a00;
+  border: 1px solid $bs-orange;
   background-color: white;
   border-radius: 8px;
 }
@@ -1106,7 +1228,7 @@ img.slides_image {
 .remove_tag_button {
   background: no-repeat;
   border: none;
-  color: #ff7a00;
+  color: $bs-orange;
 }
 
 .tag_input_field {
@@ -1155,13 +1277,13 @@ img.slides_image {
 
 .cancel_tag_cls {
   background: none;
-  color: #ff7a00;
-  border: 1px solid #ff7a00;
+  color: $bs-orange;
+  border: 1px solid $bs-orange;
   margin-top: 12px;
 }
 
 .roombutton {
-  background: #ff7a00;
+  background: $bs-orange;
   color: white;
   margin-left: 12px;
 }
@@ -1178,10 +1300,11 @@ img.slides_image {
 }
 
 .fullname_title {
-  color: #ff7a00;
+  color: $bs-orange;
   font-size: 27px;
   font-weight: 700;
 }
+
 .review_close {
   color: #ffc700;
   font-size: 18px;
@@ -1192,12 +1315,20 @@ body.activemodal {
   overflow-y: hidden;
 }
 
-.btnmodal {
-  margin-right: 3rem;
+.btnPrime {
+  border: none;
+  border-radius: 4px;
+  height: 44px;
+  max-height: 44px;
   padding: 10px 20px;
+  background-color: $bs-orange;
+  color: white;
+  font-weight: 700;
+}
+
+.btnmodal {
   border: transparent;
   font-size: 18px;
-  background-color: $bs-orange;
 }
 
 .modal,
@@ -1209,11 +1340,14 @@ body.activemodal {
   right: 0;
   bottom: 0;
   position: fixed;
+  z-index: 99;
 }
 
 .overlay {
   background: rgba(49, 49, 49, 0.8);
+  z-index: 0;
 }
+
 .modalcontent {
   position: absolute;
   top: 50%;
@@ -1248,16 +1382,27 @@ body.activemodal {
 .popupbutton {
   display: flex;
   justify-content: space-between;
-  margin: 25px 0px;
-  padding-left: 10px;
+  align-items: center;
+  padding: 1rem;
 }
+
 .email_wrapper input[type='text'],
 .email_wrapper input[type='email'],
 .email_wrapper input[type='password'] {
   color: #000 !important;
 }
+
 .register_button {
-  background-color: orangered !important;
+  background-color: $bs-orange !important;
+  border: transparent;
+  color: white !important;
+  margin: 15px 0px;
+  width: 100%;
+}
+
+.disabled_register_button {
+  background-color: $bs-orange !important;
+  cursor: no-drop;
   border: transparent;
   color: white !important;
   margin: 15px 0px;
@@ -1594,4 +1739,58 @@ body.activemodal {
   // border: 1px solid red;
   margin-top: 35px;
   color: rgba(0, 53, 84, 1) !important;
+}
+
+// search filter css
+
+.content_wrapper {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+}
+
+.input_desc {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.button_wrapper {
+  margin-right: 1rem;
+  background-color: $bs-orange !important;
+  border-radius: 4px;
+  margin-left: 1rem;
+}
+
+.role_Label {
+  display: block;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+.role_select {
+  display: block;
+  width: 200px;
+  border: 1px solid black;
+  margin: 20px auto;
+}
+
+.error_message {
+  color: red;
+}
+
+.create_spectator_form {
+  width: 25vw;
+}
+
+.search_input_box > input {
+  background: transparent;
+  border: none;
+  color: white;
+}
+
+.search_input_box > input::placeholder {
+  color: white;
 }

@@ -11,6 +11,12 @@ $breakpoint-ms: 1024px;
 $breakpoint-lg: 1200px;
 $breakpoint-xlg: 1440px;
 
+// Importand: Below 4 breakpoints are only avaliable for registration process forms so kindly discuss before using these breakpoints.
+$breakpointregister-xs: 414px;
+$breakpointregister-sm: 576px;
+$breakpointregister-md: 768px;
+$breakpointregister-lg: 1024px;
+
 //Font Family
 $bs-body-font-family:
   Century Gothic,
@@ -29,6 +35,7 @@ $bs-grey: rgb(163, 164, 165);
 $bs-blue: rgba(0, 148, 218, 1);
 $bs-lightgrey: rgba(217, 217, 217, 1);
 $bs-skyblue: #eff9ff;
+$bs-aqua: #00ffff;
 $bs-error: #f70707;
 $bs-disablebtn: #d9d9d9;
 $bs-white: #fff;
