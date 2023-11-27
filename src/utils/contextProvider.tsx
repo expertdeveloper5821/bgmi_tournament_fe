@@ -1,32 +1,66 @@
 'use client';
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { UserContextType, UserInfo } from '@/types/usersTypes';
+import { DecodedToken } from './globalfunctions';
 
-// Define the type for user information
-interface UserInfo {
-  name: string;
-  email: string;
-}
-
-// Define the context type
-interface UserContextType {
-  userInfo: UserInfo | null;
-  updateUserInfo: (newUserInfo: UserInfo) => void;
-}
-
-// Create the context
 const UserContext = createContext<UserContextType>({
   userInfo: null,
   updateUserInfo: () => {},
+  updateToken: () => {},
+  token: null,
+  triggerHandleLogout: () => {},
 });
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [token, setToken] = useState<null | DecodedToken>(null);
+  const [timeOutId, setTimeOutId] = useState<null | NodeJS.Timeout>(null);
+
+  const router = useRouter();
 
   const updateUserInfo = (newUserInfo: UserInfo) => {
     setUserInfo(newUserInfo);
   };
+
+  const updateToken = (token: DecodedToken) => {
+    setToken(token);
+  };
+
+  const triggerHandleLogout = () => {
+    clearTimeout(timeOutId!);
+  };
+
+  useEffect(() => {
+    const stringifyExpirationTime = localStorage.getItem('expirationTime');
+    if (token || stringifyExpirationTime) {
+      if (stringifyExpirationTime) {
+        const now = new Date().getTime();
+        const expirationTime = Number(stringifyExpirationTime);
+        const remainingTime = expirationTime - now;
+        if (remainingTime) {
+          const timeOut: NodeJS.Timeout = setTimeout(() => {
+            localStorage.removeItem('jwtToken');
+            localStorage.removeItem('expirationTime');
+            router.push('/auth/login');
+          }, remainingTime);
+
+          setTimeOutId(timeOut);
+        } else {
+          localStorage.removeItem('jwtToken');
+          localStorage.removeItem('expirationTime');
+          router.push('/auth/login');
+        }
+      }
+    }
+  }, [token]);
+
   return (
-    <UserContext.Provider value={{ userInfo, updateUserInfo }}>{children}</UserContext.Provider>
+    <UserContext.Provider
+      value={{ userInfo, updateUserInfo, updateToken, token, triggerHandleLogout }}
+    >
+      {children}
+    </UserContext.Provider>
   );
 };
 

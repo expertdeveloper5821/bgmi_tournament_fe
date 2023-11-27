@@ -1,11 +1,30 @@
 import jwt_decode from 'jwt-decode';
 
-const decodeJWt = (token: string): void => {
+export interface DecodedToken {
+  email: string;
+  exp: number;
+  fullName: string;
+  iat: number;
+  role: {
+    _id: number;
+    role: string;
+    __v?: number;
+    uuid?: string;
+  };
+  teamName: null;
+  userId: string;
+  userName: string;
+  userUuid: string;
+  phoneNumber?: string;
+  profilePic?: string;
+  upiId?: string;
+}
+
+const decodeJWt = (token: string): DecodedToken | null => {
   if (token) {
     return jwt_decode(token);
-  } else {
-    return;
   }
+  return null;
 };
 
 const getTokenFromLS = () => {
@@ -15,4 +34,16 @@ const getTokenFromLS = () => {
   }
 };
 
-export { decodeJWt, getTokenFromLS };
+const setItemToLS = (key: string, value: string) => {
+  if (typeof window !== 'undefined') {
+    return localStorage.setItem(key, value);
+  }
+};
+
+const getItemFromLS = (name: string) => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem(name);
+  }
+};
+
+export { decodeJWt, getTokenFromLS, setItemToLS, getItemFromLS };

@@ -1,23 +1,31 @@
 'use client';
-import { Inter } from 'next/font/google';
-import styles from '@/styles/Dashboard.module.scss';
-import { FaTh } from 'react-icons/fa';
-import Sidebar from '@/Components/CommonComponent/SideBar/Sidebar';
-const inter = Inter({ subsets: ['latin'] });
 
-const spectatorMenuItems = [
+import styles from '@/styles/Dashboard.module.scss';
+import { FaVideo } from 'react-icons/fa';
+import Sidebar from '@/Components/CommonComponent/SideBar/Sidebar';
+import ErrorBoundary from '@/Components/HOC/ErrorBoundaery';
+import { FaTh } from 'react-icons/fa';
+
+const dynamicMenuItems = [
   {
-    path: '/spectatorDashboard/Room',
-    name: 'Room',
+    path: '/spectatorDashboard',
+    name: 'Dashboard',
     icon: <FaTh />,
+  },
+  {
+    path: '/spectatorDashboard/Video',
+    name: 'Video',
+    icon: <FaVideo />,
   },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={styles.main_container}>
-      <Sidebar menuItem={spectatorMenuItems} />
-      {children}
-    </div>
+    <ErrorBoundary>
+      <div className={styles.main_container} id="mainLayoutContainer">
+        <Sidebar menuItem={dynamicMenuItems} />
+        <div className={styles.content__container}>{children}</div>
+      </div>
+    </ErrorBoundary>
   );
 }

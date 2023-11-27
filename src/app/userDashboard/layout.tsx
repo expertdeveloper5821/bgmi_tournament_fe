@@ -1,9 +1,13 @@
 'use client';
-import { Inter } from 'next/font/google';
-import styles from '@/styles/Dashboard.module.scss';
-import { FaTh, FaUserAlt, FaRegChartBar, FaCommentAlt, FaVideo } from 'react-icons/fa';
+import { FaRegChartBar, FaTh } from 'react-icons/fa';
+import { usePathname } from 'next/navigation';
 import Sidebar from '@/Components/CommonComponent/SideBar/Sidebar';
-const inter = Inter({ subsets: ['latin'] });
+import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
+import { Provider } from 'react-redux';
+import { store } from '@/redux/store';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
+import { getPageName } from '@/utils/commonFunction';
+import styles from '@/styles/Dashboard.module.scss';
 
 const dynamicMenuItems = [
   {
@@ -16,11 +20,11 @@ const dynamicMenuItems = [
   //   name: 'Transactions',
   //   icon: <FaUserAlt />,
   // },
-  // {
-  //   path: '/userDashboard/friends',
-  //   name: 'Friends',
-  //   icon: <FaRegChartBar />,
-  // },
+  {
+    path: '/userDashboard/friends',
+    name: 'Friends',
+    icon: <FaRegChartBar />,
+  },
   // {
   //   path: '/userDashboard/videos',
   //   name: 'Videos',
@@ -37,11 +41,35 @@ const dynamicMenuItems = [
   //   icon: <FaCommentAlt />,
   // },
 ];
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const asPath = usePathname();
+
+  const pathSegments = asPath?.split('/').filter((segment) => segment);
+
   return (
-    <div className={styles.main_container}>
-      <Sidebar menuItem={dynamicMenuItems} />
-      {children}
-    </div>
+    <main className={styles.main_container} id="mainLayoutContainer">
+      <Provider store={store}>
+        <Sidebar menuItem={dynamicMenuItems} />
+        <div>
+          <Navbar />
+          <div className={styles.content__container}>
+            <div className={styles.main_container} id="mainLayoutContainerInner">
+              <div className={styles.abcd}>
+                <div className={styles.sidebar_wrapper}>
+                  <div className={styles.content}>
+                    <div className={styles.dashboard}>
+                      <span className={styles.head_desc}>{getPageName(pathSegments?.at(-1))}</span>
+                      <Breadcrumb />
+                    </div>
+                  </div>
+                  {children}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Provider>
+    </main>
   );
 }

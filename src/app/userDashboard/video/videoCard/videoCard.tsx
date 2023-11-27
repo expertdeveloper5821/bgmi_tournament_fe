@@ -1,9 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-('');
 import styles from '@/styles/card.module.scss';
 import { sendRequest } from '@/utils/axiosInstanse';
 import Image from 'next/image';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+import { toast } from 'react-toastify';
 
 interface VideoInfo {
   date: string;
@@ -11,15 +12,11 @@ interface VideoInfo {
   videoLink: string;
 }
 interface CustomPaginationProps {
-  onDataUpdate: (data: any) => void;
+  onDataUpdate: (data) => void;
 }
 
 const VideoCard: React.FC<CustomPaginationProps> = ({ onDataUpdate }) => {
   const [data, setData] = useState<VideoInfo[]>([]);
-  // will use spectator login token here
-  console.log(data);
-  //   const accessToken =
-  // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGQyM2NmZmYyZGU4ZDVhODM2OTVlOWYiLCJyb2xlIjpbeyJfaWQiOiI2NGM3ODE1M2QyYzhhODQzMWNjMzZiZjIiLCJyb2xlIjpbImFkbWluIl19XSwiaWF0IjoxNjkxNzM2MzcwLCJleHAiOjE2OTE5MDkxNzB9.GGAIOjgZs9q82XdLZNvR-TQ4JwALiIev8lfLBtajhE4'
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,48 +31,50 @@ const VideoCard: React.FC<CustomPaginationProps> = ({ onDataUpdate }) => {
         setData(responseData);
         onDataUpdate(responseData);
       } catch (error) {
-        console.log(error);
+        toast.error(error.message);
       }
     };
     fetchData();
   }, []);
   return (
-    <div>
-      {data.length > 0 &&
-        data.map((info: VideoInfo, index: number) => {
-          return (
-            <div className={styles.main_container} key={index}>
-              <div className={styles.bannercontainer}>
-                <Image
-                  src="/assests/ytbanner.svg"
-                  alt="ytbanner"
-                  height={100}
-                  width={100}
-                  className={styles.ytbanner}
-                />
-              </div>
-              <div className={styles.gameInfo}>
-                <h1 className={styles.heading}>BGMI SQUAD MATCH</h1>
-                <h4 className={styles.time}>
-                  Time :{info.date} at {info.time}{' '}
-                </h4>
-                <h4 className={styles.time}>{info.videoLink}</h4>
-                <div className={styles.button_maincontainer}>
-                  <div className={styles.btnContainer}>
-                    <span className={styles.copyimg}>
-                      <Image src="/assests/copy.svg" alt="copy" height={100} width={100} />
-                    </span>
-                    <button className={styles.btn}> Copy link</button>
-                  </div>
-                  <div className={styles.btnContainer}>
-                    <button className={styles.btn}> Watch video</button>
+    <IsAuthenticatedHoc>
+      <div>
+        {data.length > 0 &&
+          data.map((info: VideoInfo, index: number) => {
+            return (
+              <div className={styles.main_container} key={index}>
+                <div className={styles.bannercontainer}>
+                  <Image
+                    src="/assests/ytbanner.svg"
+                    alt="ytbanner"
+                    height={100}
+                    width={100}
+                    className={styles.ytbanner}
+                  />
+                </div>
+                <div className={styles.gameInfo}>
+                  <h1 className={styles.heading}>BGMI SQUAD MATCH</h1>
+                  <h4 className={styles.time}>
+                    Time :{info.date} at {info.time}{' '}
+                  </h4>
+                  <h4 className={styles.time}>{info.videoLink}</h4>
+                  <div className={styles.button_maincontainer}>
+                    <div className={styles.btnContainer}>
+                      <span className={styles.copyimg}>
+                        <Image src="/assests/copy.svg" alt="copy" height={100} width={100} />
+                      </span>
+                      <button className={styles.btn}> Copy link</button>
+                    </div>
+                    <div className={styles.btnContainer}>
+                      <button className={styles.btn}> Watch video</button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-    </div>
+            );
+          })}
+      </div>
+    </IsAuthenticatedHoc>
   );
 };
 

@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import styles from '@/styles/glassCrack.module.scss';
 
 const GlassCrack: React.FC = () => {
-  const [cracks, setCracks] = useState<{ x: number; y: number }[]>([]);
+  // const [cracks, setCracks] = useState<{ x: number; y: number }[]>([]);
+  const [cracks] = useState<{ x: number; y: number }[]>([]);
 
   const handleDocumentClick = (e: MouseEvent) => {
     // First, play the sound
     playBulletFireSound();
-
-    e.stopImmediatePropagation();
+    e.preventDefault();
     const { clientX, clientY } = e;
     const crackDiv = document.createElement('div');
     crackDiv.className = `${styles.crack}`;

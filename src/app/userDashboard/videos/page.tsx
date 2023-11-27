@@ -1,7 +1,12 @@
 import React from 'react';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 
-const Vedio = () => {
-  return <div>Vedio</div>;
+const Video = () => {
+  return (
+    <IsAuthenticatedHoc>
+      <div> Video</div>
+    </IsAuthenticatedHoc>
+  );
 };
 
-export default Vedio;
+export default Video;

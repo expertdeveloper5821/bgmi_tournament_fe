@@ -1,0 +1,265 @@
+@import './mixins.scss';
+@import './variable.scss';
+
+.form {
+  margin-bottom: 30px;
+}
+.profile_sec {
+  align-self: flex-start;
+  display: flex;
+  gap: 17px;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-family: Century Gothic;
+  .round {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    border: 1px solid white;
+    border-radius: 50%;
+  }
+
+  .upload {
+    font-size: 16px;
+    font-weight: bold;
+    color: #003554;
+    @media (max-width: $breakpointregister-xs) {
+      font-size: 13px;
+    }
+  }
+
+  .uploadOptional {
+    font-weight: bold;
+    color: #777777;
+    @media (max-width: $breakpointregister-xs) {
+      font-size: 13px;
+    }
+  }
+
+  .editImageWrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: self-end;
+  }
+}
+
+.input_box {
+  @include reg_input_box;
+  border-bottom: 2px solid white;
+  margin-top: 0px !important;
+  @media (max-width: $breakpointregister-xs) {
+    width: 100%;
+  }
+}
+
+.email_wrapper {
+  @include email_wrapper;
+  padding: 3px !important;
+}
+
+.email {
+  width: 30px;
+  height: 20px;
+}
+
+.info_Icon_Inputs {
+  width: 83% !important;
+}
+
+.editBtn {
+  position: absolute;
+}
+
+.nextArrow {
+  margin-right: 5px;
+}
+.skipButton {
+  color: #003554;
+  font-weight: 700;
+}
+.flexGap {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.rounded {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+.google_btn:hover {
+  background-color: #003554 !important;
+}
+
+.google_btn {
+  width: 100%;
+  height: 2.5rem;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  color: white !important;
+  background-color: #003554 !important;
+  box-shadow: 0px 0px 8px grey;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 40px;
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.disabled_google_btn {
+  @include button_wrapper;
+  margin-top: 40px;
+  color: white !important;
+  background-color: #7297b1 !important;
+}
+
+@media (max-width: $breakpointregister-xs) {
+  .google_btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: $breakpointregister-xs) {
+  .google_finsh {
+    width: 100%;
+  }
+}
+
+@media (max-width: $breakpointregister-md) {
+  .google_btn {
+    width: 100%;
+  }
+}
+
+.email_wrapper input::placeholder {
+  color: #003554;
+  font-weight: 600;
+  font-size: 15px;
+  width: 100%;
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 12px;
+  }
+}
+
+.error_email_wrapper {
+  padding: 3px !important;
+  border: none !important;
+  width: 100%;
+}
+
+.error_email_wrapper input::placeholder {
+  color: red;
+  font-weight: 600;
+  font-size: 15px;
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 12px;
+  }
+}
+
+.toolTip {
+  margin-right: 50px;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #003554;
+  color: white;
+  width: 120px;
+  font-size: 10px;
+  line-height: 10px;
+}
+.finish {
+  color: #003554 !important;
+  width: 100%;
+  border: 1px solid #003556 !important ;
+}
+.names {
+  background-color: #a7c1ce;
+  max-width: 200px;
+  height: 30px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 0.3rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid gray;
+  color: #003554;
+}
+
+.tagName {
+  font-size: 12px;
+}
+
+.option {
+  color: gray;
+}
+
+.google_finsh {
+  color: white !important;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  width: 100%;
+  background-color: #003554 !important;
+}
+
+.disabled_google_finish {
+  @include button_wrapper;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  color: white !important;
+  background-color: #7297b1 !important;
+}
+
+.error {
+  color: red !important;
+}
+
+.multiple_emails_input > input {
+  width: 100%;
+  border: none;
+  background-color: rgb(205, 224, 237);
+}
+
+.email_container {
+  padding: 10px 2px;
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.single_email_maincontainer {
+  margin: 2px;
+}
+
+.single_email_subcontainer {
+  padding: 7px 14px 7px 0px;
+  border-radius: 5px;
+  background-color: rgb(144 194 219);
+  border: 1px solid rgb(59 173 231);
+  box-shadow: 1px 2px 6px 1px #9e9e9e;
+}
+
+.single_email_subsubconatiner {
+  padding: 7px 8px;
+  border-radius: 5px;
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 12px;
+  }}
+
+.cancelsvg {
+  cursor: pointer;
+}

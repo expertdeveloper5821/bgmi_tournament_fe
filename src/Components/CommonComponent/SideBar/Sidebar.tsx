@@ -1,9 +1,11 @@
 // Sidebar.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import styles from '@/styles/DashboardSidebar.module.scss';
 import { FaBars } from 'react-icons/fa';
 import useWindowSize from '@/hooks/useWindowSize';
+import { usePathname } from 'next/navigation';
+
 interface MenuItem {
   path: string;
   name: string;
@@ -16,20 +18,48 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [menuItems, setMenuItems] = useState<MenuItem[]>(menuItem);
-  const [selectedItemIndex, setSelectedItemIndex] = useState<number>(-1); // Initialize as -1, no item selected
   const [width] = useWindowSize();
-  const toggle = () => setIsOpen(!isOpen);
+  const pathName = usePathname();
+  const toggle = () => {
+    setIsOpen((isOpen) => {
+      if (width > 768) {
+        const mainElem = document.getElementById('mainLayoutContainer');
+        const mainElemInner = document.getElementById('mainLayoutContainerInner');
+        if (mainElem) {
+          mainElem.style.flex = !isOpen ? '0 1 100%' : '0 1 100%';
+        }
+
+        if (mainElemInner) {
+          mainElemInner.style.flex = !isOpen ? '0 1 70%' : '0 1 96%';
+        }
+      }
+      return !isOpen;
+    });
+  };
+
+  useEffect(() => {
+    const sidebarStyle = document.getElementById('sidebar_wrapper');
+    if (sidebarStyle && isOpen) {
+      sidebarStyle.style.width = 'calc(100vw - 220px)';
+    }
+    if (sidebarStyle && !isOpen) {
+      sidebarStyle.style.width = 'calc(100vw - 50px)';
+    }
+  }, [isOpen]);
 
   return (
     <>
       {width > 768 ? (
         <div className={styles.container}>
-          <div style={{ width: isOpen ? '220px' : '100px' }} className={styles.sidebar}>
+          <div style={{ width: isOpen ? '220px' : '50px' }} className={styles.sidebar}>
             <div className={styles.top_section}>
-              <h1 style={{ display: isOpen ? 'block' : 'none' }} className={styles.logo}>
-                <img src="/assests/logo.svg" />
-              </h1>
+              <Link
+                href={'/'}
+                style={{ display: isOpen ? 'block' : 'none' }}
+                className={styles.logo}
+              >
+                <img src="/assests/logo.svg" alt="Brand Logo" />
+              </Link>
               <div style={{ marginLeft: isOpen ? '100px' : '10px' }} className={styles.bars}>
                 {isOpen ? (
                   <div onClick={toggle} className={styles.lap_sidebar_cancel}>
@@ -45,10 +75,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
                 menuItem.map((item: MenuItem, index: number) => (
                   <Link href={item.path} key={index} passHref>
                     <div
-                      className={`${styles.link} ${
-                        selectedItemIndex === index ? styles.selected : ''
-                      }`}
-                      onClick={() => setSelectedItemIndex(index)}
+                      className={`${styles.link} ${pathName === item.path ? styles.selected : ''}`}
                     >
                       <div className={styles.icon}>{item.icon}</div>
                       {isOpen && <div className={styles.link_text}>{item.name}</div>}
@@ -56,7 +83,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
                   </Link>
                 ))
               ) : (
-                <div>No Data Found</div>
+                <></>
               )}
             </div>
           </div>
@@ -84,16 +111,22 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
                   <Link href={item.path} key={index} passHref>
                     <div className={styles.link}>
                       {isOpen && (
-                        <div className={styles.mob_link_text}>
-                          <span className={styles.itemname}>{item.name}</span>
-                          {item.icon}
+                        <div
+                          className={`${styles.mob_link_text} ${
+                            pathName.includes(item.path) ? styles.selected : ''
+                          }`}
+                        >
+                          <div className={styles.itemname}>
+                            <span className={styles.mob_icon}>{item.icon}</span>
+                            <span className={styles.mob_name}> {item.name}</span>
+                          </div>
                         </div>
                       )}
                     </div>
                   </Link>
                 ))
               ) : (
-                <div>No Data Found</div>
+                <></>
               )}
             </div>
           )}

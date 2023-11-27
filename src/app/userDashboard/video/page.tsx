@@ -2,20 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/video.module.scss';
 import VideoCard from './videoCard/videoCard';
-import CenterText from './videoCard/centerText';
-import ReviewSection from './videoCard/reviewSection';
-import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
-import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination';
+// import CustomPagination from '@/Components/CommonComponent/Pagination/Pagination';
 
 const Page: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [receivedData, setReceivedData] = useState<any[]>([]);
+  const [receivedData, setReceivedData] = useState([]);
+  console.log('receivedData', receivedData);
 
-  const handleChildData = (data: any[]) => {
+  const handleChildData = (data) => {
     setReceivedData(data);
   };
   useEffect(() => {
-    // Simulate loading for 2 seconds
     const timeout = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
@@ -31,9 +28,6 @@ const Page: React.FC = () => {
         <div className={styles.loader}> Please wait...</div>
       ) : (
         <div className={styles.main_container}>
-          <div>
-            <Navbar />
-          </div>
           <div className={styles.sub_container}>
             <div className={styles.header}>
               <h2>VIDEOS</h2>
@@ -54,16 +48,8 @@ const Page: React.FC = () => {
             <div className={styles.videoCard}>
               <VideoCard onDataUpdate={handleChildData} />
             </div>
-            <div className={styles.centerText}>
-              <CenterText />
-            </div>
-            <div className={styles.reviewSection}>
-              <ReviewSection />
-            </div>
           </div>
-          <div className={styles.pagination}>
-            <CustomPagination data={receivedData} />
-          </div>
+          <div className={styles.pagination}>{/* <CustomPagination data={receivedData} /> */}</div>
         </div>
       )}
     </>
