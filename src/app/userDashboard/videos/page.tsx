@@ -152,7 +152,7 @@ const Page: React.FC = () => {
                                                         <div key={item._id} className={`${styles.card1} ${isMobile && index !== 0 ? styles.hideOnMobile : ''}`}>
                                                             <img src="../assests/cardimage1.svg" alt="cardImage" className={styles.cardImage} />
                                                             <div className={styles.flex_absolute}>
-                                                                <img src="../assests/playicon.svg" alt="cardImage" className={styles.playicon} />
+                                                                <img src="../assests/postvideo.svg" alt="cardImage" className={styles.playicon} />
                                                                 <span className={styles.time}>8:00</span>
                                                             </div>
                                                             <div className={styles.flex_justify}>
