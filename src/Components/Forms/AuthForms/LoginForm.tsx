@@ -137,8 +137,6 @@ export function LoginForm(): React.JSX.Element {
     e.preventDefault();
   };
 
-  console.log('error ==>', error);
-
   return (
     <form onSubmit={handleSubmit}>
       {error && <div className={styles.error}>{error}</div>}
