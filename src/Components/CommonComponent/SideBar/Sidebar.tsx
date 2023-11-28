@@ -102,13 +102,20 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
         </div>
       ) : (
         <div className={styles.mob_container}>
-          <div className={styles.mobile_top_section}>
+          <div className={styles.mobile_top_section} style={{ position: 'static' }}>
             <h1 style={{ display: isOpen ? 'block' : 'none' }} className={styles.logo}>
               <img src="/assests/logo.svg" />
             </h1>
-            <div className={isOpen ? `${styles.bars}` : `${styles.mob_bars}`}>
+            <div
+              className={isOpen ? `${styles.bars}` : `${styles.mob_bars}`}
+              style={{ paddingRight: '18px' }}
+            >
               {isOpen ? (
-                <div onClick={toggle} className={styles.sidebar_cancel}>
+                <div
+                  onClick={toggle}
+                  className={styles.sidebar_cancel}
+                  style={{ position: 'static' }}
+                >
                   X
                 </div>
               ) : (

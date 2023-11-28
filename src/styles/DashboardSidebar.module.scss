@@ -17,6 +17,7 @@
     width: auto;
     position: absolute;
     background-color: #003554;
+    z-index: 100;
   }
 }
 
@@ -127,6 +128,9 @@
   margin-top: 30px;
   margin-left: 24px;
   background-color: $primary-color;
+  // @media (max-width: $breakpoint-tab) {
+  //   position: static;
+  // }
 }
 
 .listitems {
@@ -205,6 +209,9 @@
   background-color: $primary-color;
   right: 12px;
   cursor: pointer;
+  // @media (max-width: $breakpoint-tab) {
+  //   position: static;
+  // }
 }
 
 .lap_sidebar_cancel {
