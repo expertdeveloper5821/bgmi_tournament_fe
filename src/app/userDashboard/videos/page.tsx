@@ -27,9 +27,6 @@ function formatDateTime(dateTime: string) {
 const Page: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [data, setData] = useState<VideoInfo[]>([]);
-    // const isMobile = window.innerWidth <= 768;
-    // const maxCards = isMobile ? 2 : 4;
-    // const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const maxCards = isMobile ? 2 : 4;
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -38,14 +35,12 @@ const Page: React.FC = () => {
     const goToPreviousCard = () => {
         if (currentCardIndex > 0) {
             setCurrentCardIndex(currentCardIndex - 1);
-            console.log('Previous button clicked');
         }
     };
 
     const goToNextCard = () => {
         if (currentCardIndex < data.length - 1) {
             setCurrentCardIndex(currentCardIndex + 1);
-            console.log('Next button clicked');
         }
     };
 
@@ -62,28 +57,27 @@ const Page: React.FC = () => {
                 });
                 const responseData = response?.data?.data as VideoInfo[];
                 setData(responseData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
             } finally {
                 setIsLoading(false);
             }
         };
+
         fetchData();
+
         if (typeof window !== 'undefined') {
             setIsMobile(window.innerWidth <= 768);
         }
-
-        // Add event listener for resizing to update isMobile
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 768);
         };
 
         window.addEventListener('resize', handleResize);
-
-        // Cleanup the event listener on component unmount
         return () => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
-
 
     const visibleCards = data.slice(currentCardIndex, currentCardIndex + maxCards);
 
