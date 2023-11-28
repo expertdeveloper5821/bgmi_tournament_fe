@@ -5,7 +5,12 @@ import { SignupForm } from '@/Components/Forms/AuthForms/SignUpForm';
 
 function Signup() {
   return (
-    <AuthHoc heading={'Create Account'} subheading={'Create account! Please enter your details'}>
+    <AuthHoc
+      heading={'Create Account'}
+      subheading={'Create account! Please enter your details'}
+      stepperIsVisible={true}
+      step={1}
+    >
       <SignupForm />
     </AuthHoc>
   );
