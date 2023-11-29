@@ -50,22 +50,6 @@
   border-radius: 4px;
   transition: all 0.5s;
 
-  @media (max-width: $breakpoint-tab) {
-    display: contents;
-  }
-
-  @media (max-width: $breakpoint-xs) {
-    margin-top: 1px;
-    margin-left: 3px;
-    display: contents;
-  }
-
-  @media (max-width: $breakpoint-xSmall) {
-    margin-top: -1px;
-    margin-left: 3px;
-    display: contents;
-  }
-
   &:hover {
     background: #ff7a00;
     color: white;
