@@ -70,7 +70,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
               <img src="/assests/logo.svg" alt="Brand Logo" />
             </Link>
 
-            <div style={{ marginLeft: isOpen ? '100px' : '10px' }} className={styles.bars}>
+            <div className={styles.bars}>
               {isOpen ? (
                 <div onClick={toggle} className={styles.lap_sidebar_cancel}>
                   X

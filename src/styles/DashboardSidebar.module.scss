@@ -24,8 +24,8 @@
 .top_section {
   display: flex;
   align-items: center;
-  padding-top: 20px;
-  padding-left: 8px;
+  justify-content: space-around;
+  height: 60px;
 }
 
 .logo {
@@ -33,9 +33,7 @@
 }
 
 .bars {
-  display: flex;
   font-size: 25px;
-  margin-left: 50px;
   cursor: pointer;
 }
 
@@ -178,10 +176,6 @@
   font-weight: bold;
 }
 
-.bars {
-  margin-left: 30px;
-}
-
 .mob_bars {
   margin-left: 0px;
 }
@@ -202,9 +196,6 @@
   color: #fff;
   font-size: x-large;
   font-weight: bold;
-  position: absolute;
-  left: 195px;
-  top: 30px;
   cursor: pointer;
 }
 
