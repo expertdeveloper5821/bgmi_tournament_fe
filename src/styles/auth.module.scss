@@ -170,9 +170,6 @@
 .error {
   @include error;
   font-size: 10px;
-  position: absolute;
-  left: 2px;
-  bottom: -22px;
   @media (max-width: $breakpointregister-sm) {
     font-size: 8px;
   }
