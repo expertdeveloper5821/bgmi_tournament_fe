@@ -144,7 +144,10 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                   <TableCell className={styles.table_cell}>{data?.email}</TableCell>
                   <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
                     {type === 'SPECTATOR' && (
-                      <MdEdit onClick={() => handleEdit && handleEdit(data)} />
+                      <MdEdit
+                        className={styles.del}
+                        onClick={() => handleEdit && handleEdit(data)}
+                      />
                     )}
                     <RiDeleteBin6Line
                       className={styles.del}
