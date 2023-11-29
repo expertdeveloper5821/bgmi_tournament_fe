@@ -10,6 +10,8 @@ function teamsDetails() {
       <AuthHoc
         heading={'Teams Details'}
         subheading={'To proceed further! Please enter all details'}
+        stepperIsVisible={true}
+        step={4}
       >
         <TeamsDetailsForm />
       </AuthHoc>

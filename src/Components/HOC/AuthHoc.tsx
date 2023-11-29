@@ -1,8 +1,15 @@
 import Image from 'next/image';
 import React from 'react';
 import styles from '@/styles/auth.module.scss';
+import { AuthPropsType } from '@/types/formsTypes';
 
-const AuthHoc = ({ children, heading, subheading }) => {
+const AuthHoc = ({
+  children,
+  heading,
+  subheading,
+  stepperIsVisible,
+  step,
+}: React.PropsWithChildren<AuthPropsType>) => {
   return (
     <div className={styles.main_container}>
       <div className={styles.container}>
@@ -14,6 +21,14 @@ const AuthHoc = ({ children, heading, subheading }) => {
           <p className={styles.subheading}>{subheading}</p>
         </div>
         <div className={styles.formWrapper}>{children}</div>
+        {stepperIsVisible && (
+          <div className={step === 3 ? `${styles.flexGap} ${styles.flex_margin}` : styles.flexGap}>
+            <div className={step === 1 ? styles.filled_rounded : styles.rounded}></div>
+            <div className={step === 2 ? styles.filled_rounded : styles.rounded}></div>
+            <div className={step === 3 ? styles.filled_rounded : styles.rounded}></div>
+            <div className={step === 4 ? styles.filled_rounded : styles.rounded}></div>
+          </div>
+        )}
       </div>
     </div>
   );
