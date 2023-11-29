@@ -10,6 +10,7 @@ const AuthHoc = ({
   stepperIsVisible,
   step,
 }: React.PropsWithChildren<AuthPropsType>) => {
+  const stepper: number[] = [1, 2, 3, 4];
   return (
     <div className={styles.main_container}>
       <div className={styles.container}>
@@ -23,10 +24,9 @@ const AuthHoc = ({
         <div className={styles.formWrapper}>{children}</div>
         {stepperIsVisible && (
           <div className={step === 3 ? `${styles.flexGap} ${styles.flex_margin}` : styles.flexGap}>
-            <div className={step === 1 ? styles.filled_rounded : styles.rounded}></div>
-            <div className={step === 2 ? styles.filled_rounded : styles.rounded}></div>
-            <div className={step === 3 ? styles.filled_rounded : styles.rounded}></div>
-            <div className={step === 4 ? styles.filled_rounded : styles.rounded}></div>
+            {stepper.map((st) => (
+              <div className={step === st ? styles.filled_rounded : styles.rounded}></div>
+            ))}
           </div>
         )}
       </div>

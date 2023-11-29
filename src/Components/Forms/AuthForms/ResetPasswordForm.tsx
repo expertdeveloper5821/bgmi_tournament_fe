@@ -58,7 +58,7 @@ export const ResetPasswordForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {error && <div className={styles.error}>{error}</div>}
+      {error && <div className={authStyles.api_error}>{error}</div>}
       <div className={styles.input_box}>
         <label htmlFor="newPassword" className={styles.password}>
           <Image

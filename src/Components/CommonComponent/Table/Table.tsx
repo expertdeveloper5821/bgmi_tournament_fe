@@ -129,7 +129,7 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                     {getFormattedDateOrTime(data?.dateAndTime, 'Date')!}
                   </TableCell>
                   <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
-                    <RiDeleteBin6Line onClick={() => deleteroom && deleteroom(data.userUuid)} />
+                    <RiDeleteBin6Line onClick={() => deleteroom && deleteroom(data._id)} />
                   </TableCell>
                 </TableRow>
               );

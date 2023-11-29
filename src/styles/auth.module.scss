@@ -167,6 +167,17 @@
   @include checkbox_wrapper;
 }
 
+.api_error{
+  @include error;
+  font-size: 13px;
+  @media (max-width: $breakpointregister-sm) {
+    font-size: 10px;
+  }
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 8px;
+  }
+}
+
 .error {
   @include error;
   font-size: 10px;
