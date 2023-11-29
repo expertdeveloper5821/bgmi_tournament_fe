@@ -74,7 +74,6 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
     }
   };
 
-  console.log('inside table data ==>', data);
   return (
     <>
       <Table className={styles.table_content}>
