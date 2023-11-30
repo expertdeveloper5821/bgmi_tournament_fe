@@ -1810,18 +1810,6 @@ body.activemodal {
   color: rgba(0, 53, 84, 1) !important;
 }
 
-.next_button {
-  background: transparent;
-  border: 1px solid;
-  height: 40px;
-  width: 40px;
-  margin-right: -32px;
-  z-index: 10;
-  border-color: #ff7a00;
-  // background-color: #ff7a00;
-  border-radius: 50%;
-}
-
 .previous_button {
   background: transparent;
   border: 1px solid;
@@ -1832,6 +1820,21 @@ body.activemodal {
   border-color: #ff7a00;
   // background-color: '#ff7a00';
   border-radius: 50%;
+
+  @media (max-width: $breakpoint-sm) {
+    height: 20px;
+    width: 20px;
+  }
+
+  @media (max-width: $breakpoint-tab) {
+    height: 30px;
+    width: 30px;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    height: 20px;
+    width: 20px;
+  }
 }
 
 .next_button:hover,

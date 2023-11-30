@@ -123,7 +123,6 @@ const Page: React.FC = () => {
                                                     <button
                                                         onClick={goToPreviousCard}
                                                         className={styles.previous_button}
-
                                                         disabled={currentCardIndex === 0}
                                                     >
                                                         <BiSolidChevronLeft />
@@ -131,7 +130,7 @@ const Page: React.FC = () => {
 
                                                     <button
                                                         onClick={goToNextCard}
-                                                        className={styles.next_button}
+                                                        className={styles.previous_button}
                                                         disabled={isMobile ? currentCardIndex >= data.length - maxCards : currentCardIndex === data.length - 1}
                                                     >
                                                         <BiChevronRight />
