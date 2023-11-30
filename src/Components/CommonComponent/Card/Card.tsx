@@ -112,15 +112,15 @@ const Card: React.FC<CardProps> = ({
                 <div className={`${styles.reviewCard} ${styles.borderNone}`}>
                   <div className={styles.reviews}>
                     <img
-                      src={elm.profilePic ? elm.profilePic : profileImg}
+                      src={elm && elm.profilePic ? elm.profilePic : profileImg}
                       alt="user photo"
                       className={styles.profile}
                     />
                     <div className={styles.reviewer}>
                       <div className={styles.name}>
-                        <h2>{elm.fullName}</h2>
+                        <h2>{elm && elm.fullName}</h2>
                       </div>
-                      <p>{elm.email}</p>
+                      <p>{elm && elm.email}</p>
                     </div>
                   </div>
                   <button
@@ -136,23 +136,23 @@ const Card: React.FC<CardProps> = ({
                 <div className={styles.reviewCard}>
                   <div className={styles.reviews}>
                     <img
-                      src={elm.profilePic ? elm.profilePic : profileImg}
+                      src={elm && elm.profilePic ? elm.profilePic : profileImg}
                       alt="user photo"
                       className={styles.profile}
                     />
                     <div className={styles.reviewer}>
                       <div className={styles.name}>
-                        <h2>{elm.fullName}</h2>
+                        <h2>{elm && elm.fullName}</h2>
                         <span className={styles.greenCircle}></span>
                       </div>
-                      <p>{elm.email}</p>
+                      <p>{elm && elm.email}</p>
                     </div>
                   </div>
                   <span
                     className={styles['deleteBtn']}
                     onClick={() => {
                       handleOpenModal(index);
-                      setUserMail(elm.email);
+                      setUserMail(elm && elm.email);
                     }}
                   >
                     x

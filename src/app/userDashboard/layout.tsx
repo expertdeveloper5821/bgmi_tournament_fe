@@ -52,11 +52,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <Provider store={store}>
         <Sidebar menuItem={dynamicMenuItems} />
         <div>
-          <Navbar />
+         
           <div className={styles.content__container}>
             <div className={styles.main_container} id="mainLayoutContainerInner">
               <div className={styles.abcd}>
                 <div className={styles.sidebar_wrapper}>
+                <Navbar />
                   <div className={styles.content}>
                     <div className={styles.dashboard}>
                       <span className={styles.head_desc}>{getPageName(pathSegments?.at(-1))}</span>
