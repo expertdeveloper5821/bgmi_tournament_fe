@@ -74,7 +74,7 @@
   }
 
   @media (max-width: $breakpoint-xs) {
-    font-size: 18px;
+    font-size: 15px;
   }
 }
 
@@ -1421,15 +1421,16 @@ body.activemodal {
 
 .input_desc {
   display: flex;
-  width: 100%;
   justify-content: flex-end;
 }
 
 .button_wrapper {
-  margin-right: 1rem;
+  margin: 0px 1rem;
   background-color: $bs-orange !important;
   border-radius: 4px;
-  margin-left: 1rem;
+  @media (max-width: $breakpointregister-xs) {
+    margin: 0px 1rem 0px 0.5rem;
+  }
 }
 
 .role_Label {
@@ -1460,10 +1461,13 @@ body.activemodal {
   color: white;
 
   @media (max-width: $breakpointregister-xs) {
-    width: 160px;
+    width: 130px;
   }
 }
 
 .search_input_box>input::placeholder {
   color: white;
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 15px;
+  }
 }

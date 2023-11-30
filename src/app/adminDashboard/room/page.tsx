@@ -97,7 +97,7 @@ function page() {
       <div>
         <div id="sidebar_wrapper" className={styles.sidebar_wrapper}>
           <Navbar />
-          <div className={styles.flex}>
+          <div>
             <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
             <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
           </div>
