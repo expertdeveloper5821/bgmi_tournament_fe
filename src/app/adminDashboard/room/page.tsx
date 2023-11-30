@@ -94,28 +94,26 @@ function page() {
 
   return (
     <IsAuthenticatedHoc>
-      <div className={styles.main_container} id="mainLayoutContainerInner">
-        <div className={styles.abcd}>
-          <div id="sidebar_wrapper" className={styles.sidebar_wrapper}>
-            <Navbar />
-            <div className={styles.flex}>
-              <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
-              <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
-            </div>
-            {isDeleteModalOpen && (
-              <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
-            )}
-            {isLoading ? (
-              <Loader />
-            ) : (
-              <TableData
-                data={roomData}
-                columns={adminRoomColumns}
-                deleteroom={handleDeleteUser}
-                type={'ROOMS'}
-              />
-            )}
+      <div>
+        <div id="sidebar_wrapper" className={styles.sidebar_wrapper}>
+          <Navbar />
+          <div className={styles.flex}>
+            <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+            <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
           </div>
+          {isDeleteModalOpen && (
+            <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
+          )}
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <TableData
+              data={roomData}
+              columns={adminRoomColumns}
+              deleteroom={handleDeleteUser}
+              type={'ROOMS'}
+            />
+          )}
         </div>
       </div>
     </IsAuthenticatedHoc>
