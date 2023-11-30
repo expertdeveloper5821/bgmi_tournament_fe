@@ -8,11 +8,7 @@
   min-height: 100vh;
   color: $bs-white;
   transition: 600ms linear;
-}
-
-.content__container {
-  height: 100vh;
-  overflow: auto;
+  // border: 1px solid red;
 }
 
 .container {
@@ -1505,7 +1501,7 @@ body.activemodal {
   border-radius: 14px;
 
   @media (max-width: $breakpoint-sm) {
-    height: 100vh;
+    height: 90vh;
   }
   @media (max-width: $breakpoint-xSmall) {
     height: 100vh;
@@ -1525,25 +1521,30 @@ body.activemodal {
   height: 20%;
   left: 8%;
   // border: 1px solid red;
-  @media (max-width: $breakpoint-sm) {
+  @media (min-width: $breakpoint-tab) and (max-width: $breakpoint-lg) {
+    flex-direction: row;
+    left: 4%;
+  }
+  @media (max-width: $breakpoint-tab) {
     flex-direction: column;
     left: 4%;
-    top: 60%;
   }
   @media (max-width: $breakpoint-xSmall) {
     flex-direction: column;
     left: 4%;
     top: 60%;
   }
-  @media (max-width: $breakpoint-md) {
+
+  @media (max-width: $breakpoint-sm) {
     flex-direction: column;
     left: 4%;
+    top: 60%;
   }
 
-  @media (max-width: $breakpoint-tab) {
-    flex-direction: column;
-    left: 4%;
-  }
+  // @media (max-width: $breakpoint-md) and (max-width: $breakpoint-xlg) {
+  //   flex-direction: row;
+  //   left: 4%;
+  // }
 }
 
 .col {
@@ -1691,8 +1692,10 @@ body.activemodal {
   }
 
   @media (max-width: $breakpoint-tab) {
-    top: 250px;
-    left: 225px;
+    // top: 250px;
+    // left: 225px;
+    top: 220px;
+    left: 150px;
   }
 
   @media (max-width: $breakpoint-xSmall) {
@@ -1740,51 +1743,7 @@ body.activemodal {
     font-size: 14px;
   }
 }
-.outline_icon {
-  // color: #f1f1f1;
-  // border-radius: 50%;
-  // padding: 15px;
 
-  @media (max-width: $breakpoint-md) {
-    position: absolute;
-    top: 20%;
-  }
-
-  @media (max-width: $breakpoint-sm) {
-    position: absolute;
-    top: 20%;
-  }
-
-  @media (max-width: $breakpoint-tab) {
-    position: absolute;
-    top: 20%;
-  }
-
-  @media (max-width: $breakpoint-xSmall) {
-    position: absolute;
-    top: 20%;
-  }
-}
-
-.outline_icon {
-  // border-radius: 50%;
-  // padding: 15px;
-  @media (max-width: $breakpoint-md) {
-    font-size: 14px;
-  }
-
-  @media (max-width: $breakpoint-sm) {
-    font-size: 14px;
-  }
-
-  @media (max-width: $breakpoint-tab) {
-    font-size: 14px;
-  }
-
-  @media (max-width: $breakpoint-xSmall) {
-    font-size: 14px;
-  }
-}
 .demo {
   border: 1px solid #ff7a00;
   background-color: transparent;

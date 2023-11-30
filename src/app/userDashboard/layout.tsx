@@ -48,27 +48,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const pathSegments = asPath?.split('/').filter((segment) => segment);
 
   return (
-    <main className={styles.main_container} id="mainLayoutContainer">
+    <main className={styles.main_container} >
       <Provider store={store}>
         <Sidebar menuItem={dynamicMenuItems} />
-        <div>
+        <div id="subMainLayoutContainer">
           <Navbar />
-          <div className={styles.content__container}>
-            <div className={styles.main_container} id="mainLayoutContainerInner">
-              <div className={styles.abcd}>
-                <div className={styles.sidebar_wrapper}>
-                  <div className={styles.content}>
-                    <div className={styles.dashboard}>
-                      <span className={styles.head_desc}>{getPageName(pathSegments?.at(-1))}</span>
-                      <Breadcrumb />
-                    </div>
-                  </div>
-                  {children}
+
+          <div className={styles.main_container} >
+            <div className={styles.sidebar_wrapper}>
+              <div className={styles.content}>
+                <div className={styles.dashboard}>
+                  <span className={styles.head_desc}>{getPageName(pathSegments?.at(-1))}</span>
+                  <Breadcrumb />
                 </div>
               </div>
+              {children}
             </div>
           </div>
         </div>
+
+
       </Provider>
     </main>
   );
