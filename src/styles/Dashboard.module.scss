@@ -1317,11 +1317,9 @@ body.activemodal {
   @media (max-width: $breakpointregister-sm) {
     padding: 5px 8px;
     font-size: 14px;
-    max-height: 50px;
-    height: 50px;
+    height: auto;
+    margin-left: 20px;
   }
-
-
 }
 
 .modal,
@@ -1374,6 +1372,7 @@ body.activemodal {
 
 .popupbutton {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
