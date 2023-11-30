@@ -20,37 +20,47 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [width] = useWindowSize();
   const pathName = usePathname();
+
   const toggle = () => {
     setIsOpen((isOpen) => {
-      if (width > 768) {
-        const mainElem = document.getElementById('mainLayoutContainer');
-        const mainElemInner = document.getElementById('mainLayoutContainerInner');
-        if (mainElem) {
-          mainElem.style.flex = !isOpen ? '0 1 100%' : '0 1 100%';
-        }
+      // if (width > 768) {
+      //   const mainElem = document.getElementById('mainLayoutContainer');
+      //   const mainElemInner = document.getElementById('mainLayoutContainerInner');
+      //   if (mainElem) {
+      //     mainElem.style.flex = !isOpen ? '0 1 100%' : '0 1 100%';
+      //   }
 
-        if (mainElemInner) {
-          mainElemInner.style.flex = !isOpen ? '0 1 70%' : '0 1 96%';
-        }
-      }
+      //   if (mainElemInner) {
+      //     mainElemInner.style.flex = !isOpen ? '0 1 70%' : '0 1 96%';
+      //   }
+      // }
       return !isOpen;
     });
   };
 
   useEffect(() => {
-    const sidebarStyle = document.getElementById('sidebar_wrapper');
+    const subMainLayout = document.getElementById('subMainLayoutContainer')!;
 
-    if (sidebarStyle && width < 769) {
-      sidebarStyle.style.width = '100vw';
+    if (isOpen) {
+      subMainLayout.style.width = `calc(${width}px - 220px)`;
+    } else {
+      subMainLayout.style.width = `calc(${width}px - 50px)`;
     }
-    if (width > 968) {
-      if (sidebarStyle && isOpen) {
-        sidebarStyle.style.width = 'calc(100vw - 220px)';
-      }
-      if (sidebarStyle && !isOpen) {
-        sidebarStyle.style.width = 'calc(100vw - 50px)';
-      }
-    }
+
+    // const sidebarStyle = document.getElementById('sidebar_wrapper');
+
+    // if (sidebarStyle && width < 769) {
+    //   sidebarStyle.style.width = '100vw';
+    // }
+
+    // if (width > 968) {
+    //   if (sidebarStyle && isOpen) {
+    //     sidebarStyle.style.width = 'calc(100vw - 220px)';
+    //   }
+    //   if (sidebarStyle && !isOpen) {
+    //     sidebarStyle.style.width = 'calc(100vw - 50px)';
+    //   }
+    // }
   }, [isOpen, width]);
 
   useEffect(() => {

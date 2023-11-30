@@ -36,7 +36,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <div className={styles.main_container} id="mainLayoutContainer">
       <>
         <Sidebar menuItem={dynamicMenuItems} />
-        <div className={styles.content__container}>{children}</div>
+        <div className={styles.content__container} id="subMainLayoutContainer">
+          {children}
+        </div>
       </>
     </div>
   );
