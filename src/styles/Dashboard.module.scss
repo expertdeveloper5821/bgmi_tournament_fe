@@ -1544,12 +1544,19 @@ body.activemodal {
   @media (max-width: $breakpoint-sm) {
     flex-direction: column;
     left: 4%;
+    top: 60%;
   }
   @media (max-width: $breakpoint-xSmall) {
     flex-direction: column;
     left: 4%;
+    top: 60%;
   }
   @media (max-width: $breakpoint-md) {
+    flex-direction: column;
+    left: 4%;
+  }
+
+  @media (max-width: $breakpoint-tab) {
     flex-direction: column;
     left: 4%;
   }
@@ -1695,8 +1702,8 @@ body.activemodal {
   }
 
   @media (max-width: $breakpoint-sm) {
-    top: 180px;
-    left: 90px;
+    top: 200px;
+    left: 230px;
   }
 
   @media (max-width: $breakpoint-tab) {
@@ -1820,6 +1827,13 @@ body.activemodal {
   border-color: #ff7a00;
   // background-color: '#ff7a00';
   border-radius: 50%;
+}
+
+@media (min-width: $breakpoint-tab) and (max-width: $breakpoint-ms) {
+  .previous_button {
+    margin-right: -30px;
+    margin-top: 10px;
+  }
 }
 
 .next_button:hover,

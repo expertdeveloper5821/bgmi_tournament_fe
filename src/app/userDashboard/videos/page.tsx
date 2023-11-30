@@ -144,10 +144,10 @@ const Page: React.FC = () => {
                                                     <>
                                                         <div key={item._id} className={`${styles.card1} ${isMobile && index !== 0 ? styles.hideOnMobile : ''}`}>
                                                             <img src="../assests/cardimage1.svg" alt="cardImage" className={styles.cardImage} />
-                                                            <div className={styles.flex_absolute}>
+                                                            {/* <div className={styles.flex_absolute}>
                                                                 <img src="../assests/postvideo.svg" alt="cardImage" className={styles.playicon} />
                                                                 <span className={styles.time}>8:00</span>
-                                                            </div>
+                                                            </div> */}
                                                             <div className={styles.flex_justify}>
                                                                 <span className={styles.match_name}>{item.title}</span>
                                                                 <a href={item.videoLink} target="_blank" rel="noopener noreferrer">
