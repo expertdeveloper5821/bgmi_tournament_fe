@@ -47,7 +47,7 @@ export function ForgetPasswordForm(): JSX.Element {
 
   return (
     <form onSubmit={handleSubmit}>
-      {error && <div className={styles.error}>{error}</div>}
+      {error && <div className={styles.api_error}>{error}</div>}
       <div className={styles.input_box}>
         <label className={styles.email} htmlFor="email">
           <Image

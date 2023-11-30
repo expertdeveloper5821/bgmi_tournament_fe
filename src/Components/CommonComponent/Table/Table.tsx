@@ -129,7 +129,10 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                     {getFormattedDateOrTime(data?.dateAndTime, 'Date')!}
                   </TableCell>
                   <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
-                    <RiDeleteBin6Line onClick={() => deleteroom && deleteroom(data.userUuid)} />
+                    <RiDeleteBin6Line
+                      className={styles.del}
+                      onClick={() => deleteroom && deleteroom(data._id)}
+                    />
                   </TableCell>
                 </TableRow>
               );
@@ -141,9 +144,15 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                   <TableCell className={styles.table_cell}>{data?.email}</TableCell>
                   <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
                     {type === 'SPECTATOR' && (
-                      <MdEdit onClick={() => handleEdit && handleEdit(data)} />
+                      <MdEdit
+                        className={styles.del}
+                        onClick={() => handleEdit && handleEdit(data)}
+                      />
                     )}
-                    <RiDeleteBin6Line onClick={() => deleteroom && deleteroom(data.userUuid)} />
+                    <RiDeleteBin6Line
+                      className={styles.del}
+                      onClick={() => deleteroom && deleteroom(data.userUuid)}
+                    />
                   </TableCell>
                 </TableRow>
               );

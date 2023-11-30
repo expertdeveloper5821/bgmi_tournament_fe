@@ -10,6 +10,8 @@ function personalDetails() {
       <AuthHoc
         heading={'Personal Details'}
         subheading={'To proceed further! Please enter all details'}
+        stepperIsVisible={true}
+        step={3}
       >
         <PersonalDetail />
       </AuthHoc>

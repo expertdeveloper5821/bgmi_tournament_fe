@@ -1329,6 +1329,15 @@ body.activemodal {
 .btnmodal {
   border: transparent;
   font-size: 18px;
+
+  @media (max-width: $breakpointregister-sm) {
+    padding: 5px 8px;
+    font-size: 14px;
+    max-height: 50px;
+    height: 50px;
+  }
+
+
 }
 
 .modal,
@@ -1465,6 +1474,10 @@ body.activemodal {
   background: transparent;
   border: none;
   color: white;
+
+  @media (max-width: $breakpointregister-xs) {
+    width: 160px;
+  }
 }
 
 .search_input_box > input::placeholder {
