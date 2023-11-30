@@ -96,51 +96,9 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
               ))}
           </div>
         </div>
-        ) : (
-        <div className={styles.mob_container}>
-          <div className={styles.mobile_top_section}>
-            <h1 style={{ display: isOpen ? 'block' : 'none' }} className={styles.logo}>
-              <img src="/assests/logo.svg" />
-            </h1>
-            <div className={isOpen ? `${styles.bars}` : `${styles.mob_bars}`}>
-              {isOpen ? (
-                <div onClick={toggle} className={styles.sidebar_cancel}>
-                  X
-                </div>
-              ) : (
-                <FaBars onClick={toggle} />
-              )}
-            </div>
-          </div>
-          {isOpen && (
-            <div className={styles.listitems}>
-              {menuItem?.length > 0 ? (
-                menuItem.map((item: MenuItem, index: number) => (
-                  <Link href={item.path} key={index} passHref>
-                    <div className={styles.link}>
-                      {isOpen && (
-                        <div
-                          className={`${styles.mob_link_text} ${pathName.includes(item.path) ? styles.selected : ''
-                            }`}
-                        >
-                          <div className={styles.itemname}>
-                            <span className={styles.mob_icon}>{item.icon}</span>
-                            <span className={styles.mob_name}> {item.name}</span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </Link>
-                ))
-              ) : (
-                <></>
-              )}
-            </div>
-          )}
-        </div>
-      )}
-      </>
-      );
+      </div>
+    </>
+  );
 };
 
-      export default Sidebar;
+export default Sidebar;

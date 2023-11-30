@@ -8,7 +8,7 @@ import { FaTh } from 'react-icons/fa';
 const dynamicMenuItems = [
   {
     path: '/spectatorDashboard',
-    name: 'Dashboard',
+    name: 'Rooms',
     icon: <FaTh />,
   },
   {
