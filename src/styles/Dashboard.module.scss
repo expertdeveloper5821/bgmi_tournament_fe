@@ -3,7 +3,7 @@
 
 .main_container {
   display: flex;
-  flex: 0 1 100%;
+  justify-content: space-between;
   background-color: $darkblue;
   min-height: 100vh;
   color: $bs-white;
@@ -11,24 +11,8 @@
 }
 
 .content__container {
-  min-width: 100%;
-  width: calc(100vw - 50px);
-  padding-left: 50px;
-
-  @media (min-width: $breakpoint-md) {
-    //   min-width: 100%;
-    //   width: calc(100vw - 72px);
-    padding-left: 0;
-  }
-
-  @media (max-width: $breakpoint-tab) {
-    width: 100%;
-    padding: 0;
-  }
-
-  // @media only screen and (min-width: 1200px) {
-  //   width: 100vw;
-  // }
+  height: 100vh;
+  overflow: auto;
 }
 
 .container {
@@ -117,7 +101,7 @@
 
   @media (min-width: $breakpoint-tab) {
     background-position: 50% 50%;
-    width: calc(100vw - 50px);
+    // width: calc(100vw - 50px);
   }
 }
 
@@ -134,7 +118,7 @@
   }
 
   @media (max-width: $breakpoint-sm) {
-    // padding: 0px 136px;
+    // padding: 0px 136px
     // margin-top: 40px;
   }
 
