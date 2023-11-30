@@ -33,7 +33,9 @@
   padding: 54px 40px;
   width: 425px;
   position: inherit;
-  background-color: #ffffffb0;
+  background-color: rgb(232,242,246);
+  opacity: 0.8;
+  
   .subheading {
     color: #5c5c5c;
   }
@@ -163,6 +165,17 @@
 
 .checkbox_wrapper {
   @include checkbox_wrapper;
+}
+
+.api_error{
+  @include error;
+  font-size: 13px;
+  @media (max-width: $breakpointregister-sm) {
+    font-size: 10px;
+  }
+  @media (max-width: $breakpointregister-xs) {
+    font-size: 8px;
+  }
 }
 
 .error {
@@ -357,4 +370,28 @@
   @media (max-width: $breakpointregister-xs) {
     font-size: 14px;
   }
+}
+
+.flexGap {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.flex_margin {
+  margin-top: 18px;
+}
+
+.rounded {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.filled_rounded {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(176, 192, 202);
 }

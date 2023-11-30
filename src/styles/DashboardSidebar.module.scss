@@ -17,14 +17,15 @@
     width: auto;
     position: absolute;
     background-color: #003554;
+    z-index: 100;
   }
 }
 
 .top_section {
   display: flex;
   align-items: center;
-  padding-top: 20px;
-  padding-left: 8px;
+  justify-content: space-around;
+  height: 60px;
 }
 
 .logo {
@@ -32,9 +33,7 @@
 }
 
 .bars {
-  display: flex;
   font-size: 25px;
-  margin-left: 50px;
   cursor: pointer;
 }
 
@@ -48,22 +47,6 @@
   margin-right: 5px;
   border-radius: 4px;
   transition: all 0.5s;
-
-  @media (max-width: $breakpoint-tab) {
-    display: contents;
-  }
-
-  @media (max-width: $breakpoint-xs) {
-    margin-top: 1px;
-    margin-left: 3px;
-    display: contents;
-  }
-
-  @media (max-width: $breakpoint-xSmall) {
-    margin-top: -1px;
-    margin-left: 3px;
-    display: contents;
-  }
 
   &:hover {
     background: #ff7a00;
@@ -127,6 +110,9 @@
   margin-top: 30px;
   margin-left: 24px;
   background-color: $primary-color;
+  // @media (max-width: $breakpoint-tab) {
+  //   position: static;
+  // }
 }
 
 .listitems {
@@ -190,10 +176,6 @@
   font-weight: bold;
 }
 
-.bars {
-  margin-left: 30px;
-}
-
 .mob_bars {
   margin-left: 0px;
 }
@@ -205,15 +187,15 @@
   background-color: $primary-color;
   right: 12px;
   cursor: pointer;
+  // @media (max-width: $breakpoint-tab) {
+  //   position: static;
+  // }
 }
 
 .lap_sidebar_cancel {
   color: #fff;
   font-size: x-large;
   font-weight: bold;
-  position: absolute;
-  left: 195px;
-  top: 30px;
   cursor: pointer;
 }
 

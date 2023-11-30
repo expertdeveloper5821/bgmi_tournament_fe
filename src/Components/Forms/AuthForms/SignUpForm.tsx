@@ -63,7 +63,7 @@ export const SignupForm = () => {
 
   return (
     <form>
-      {error && <div className={styles.error}>{error}</div>}
+      {error && <div className={styles.api_error}>{error}</div>}
       <div className={styles.input_box}>
         <label className={styles.email} htmlFor="Fullname">
           <Image

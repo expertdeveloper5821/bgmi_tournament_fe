@@ -59,48 +59,44 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
     }
   }, [pathName]);
 
+  console.log('menuItem ==>', menuItem);
+
   return (
     <>
-      {width > 768 ? (
-        <div className={styles.container}>
-          <div style={{ width: isOpen ? '220px' : '50px' }} className={styles.sidebar}>
-            <div className={styles.top_section}>
-              <Link
-                href={'/'}
-                style={{ display: isOpen ? 'block' : 'none' }}
-                className={styles.logo}
-              >
-                <img src="/assests/logo.svg" alt="Brand Logo" />
-              </Link>
-              <div style={{ marginLeft: isOpen ? '100px' : '10px' }} className={styles.bars}>
-                {isOpen ? (
-                  <div onClick={toggle} className={styles.lap_sidebar_cancel}>
-                    X
-                  </div>
-                ) : (
-                  <FaBars onClick={toggle} />
-                )}
-              </div>
-            </div>
-            <div>
-              {menuItem?.length > 0 ? (
-                menuItem.map((item: MenuItem, index: number) => (
-                  <Link href={item.path} key={index} passHref>
-                    <div
-                      className={`${styles.link} ${pathName === item.path ? styles.selected : ''}`}
-                    >
-                      <div className={styles.icon}>{item.icon}</div>
-                      {isOpen && <div className={styles.link_text}>{item.name}</div>}
-                    </div>
-                  </Link>
-                ))
+      <div className={styles.container}>
+        <div style={{ width: isOpen ? '220px' : '50px' }} className={styles.sidebar}>
+          <div className={styles.top_section}>
+            <Link href={'/'} style={{ display: isOpen ? 'block' : 'none' }} className={styles.logo}>
+              <img src="/assests/logo.svg" alt="Brand Logo" />
+            </Link>
+
+            <div className={styles.bars}>
+              {isOpen ? (
+                <div onClick={toggle} className={styles.lap_sidebar_cancel}>
+                  X
+                </div>
               ) : (
-                <></>
+                <FaBars onClick={toggle} />
               )}
             </div>
           </div>
+
+          <div>
+            {menuItem &&
+              menuItem.map((item: MenuItem, index: number) => (
+                <Link href={item.path} key={index} passHref>
+                  <div
+                    className={`${styles.link} ${pathName === item.path ? styles.selected : ''}`}
+                  >
+                    <div className={styles.icon}>{item.icon}</div>
+
+                    {isOpen && <div className={styles.link_text}>{item.name}</div>}
+                  </div>
+                </Link>
+              ))}
+          </div>
         </div>
-      ) : (
+        ) : (
         <div className={styles.mob_container}>
           <div className={styles.mobile_top_section}>
             <h1 style={{ display: isOpen ? 'block' : 'none' }} className={styles.logo}>
@@ -143,8 +139,8 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
           )}
         </div>
       )}
-    </>
-  );
+      </>
+      );
 };
 
-export default Sidebar;
+      export default Sidebar;

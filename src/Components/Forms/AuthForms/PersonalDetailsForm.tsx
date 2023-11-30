@@ -81,7 +81,7 @@ export const PersonalDetail = () => {
 
   return (
     <>
-      {error && <div className={styles.error}>{error}</div>}
+      {error && <div className={authStyles.api_error}>{error}</div>}
       <form>
         <div className={styles.profile_sec}>
           {image ? (

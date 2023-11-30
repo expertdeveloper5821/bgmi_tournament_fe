@@ -53,3 +53,10 @@ export interface AuthLoginFormValues {
   email: string;
   password: string;
 }
+
+export interface AuthPropsType {
+  heading: string;
+  subheading: string;
+  stepperIsVisible?: boolean;
+  step?: number;
+}
