@@ -430,8 +430,8 @@ const CreateRoomForm = (props) => {
                                   &times;
                                 </span>
                                 <img
-                                  width={280}
-                                  height={150}
+                                  width={230}
+                                  height={130}
                                   src={image.url}
                                   alt={image.name}
                                 ></img>

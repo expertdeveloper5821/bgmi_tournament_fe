@@ -1,5 +1,4 @@
 'use client';
-
 import styles from '@/styles/Dashboard.module.scss';
 import { FaVideo } from 'react-icons/fa';
 import Sidebar from '@/Components/CommonComponent/SideBar/Sidebar';

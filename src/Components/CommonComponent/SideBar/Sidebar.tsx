@@ -124,9 +124,8 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItem }: SidebarProps) => {
                     <div className={styles.link}>
                       {isOpen && (
                         <div
-                          className={`${styles.mob_link_text} ${
-                            pathName.includes(item.path) ? styles.selected : ''
-                          }`}
+                          className={`${styles.mob_link_text} ${pathName.includes(item.path) ? styles.selected : ''
+                            }`}
                         >
                           <div className={styles.itemname}>
                             <span className={styles.mob_icon}>{item.icon}</span>

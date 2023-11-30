@@ -115,7 +115,7 @@ const Video = () => {
             <h1 className={styles.title_video}>Your Videos</h1>
             <div style={{ display: 'flex', gap: '20px' }}>
               <Select
-                onChange={function noRefCheck() {}}
+                onChange={function noRefCheck() { }}
                 option={['Status Timeline', 'Match Type', 'Date']}
                 placeholder="Sort By"
                 className={styles.sort}
@@ -185,6 +185,7 @@ const Video = () => {
                   setCurrentPage={setCurrentPage}
                 />
               </Table>
+
             )}
           </div>
         </div>

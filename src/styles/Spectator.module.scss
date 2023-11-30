@@ -62,6 +62,7 @@
   height: 500px;
   overflow-y: scroll;
   flex-direction: column;
+  // border: 1px solid red;
 }
 
 .r_main_title {
@@ -152,7 +153,10 @@
 
 .form_spectator_cls {
   display: flex;
+  height: 100%;
   padding: 15px 30px;
+  // border: 1px solid green;
+  overflow-y: hidden;
 }
 
 button#btn_cls_st {
@@ -309,12 +313,21 @@ button#btn_cls_st {
 .winnerBtn {
   background-color: transparent;
 }
+.sidebar_open {
+  overflow-x: auto; /* Add any other necessary styles for open sidebar layout */
+}
 
 //new tabel code
+
+.table_overflow {
+  overflow-x: auto;
+  width: 100%; /* Set the maximum width if needed */
+}
+
 .table_content {
   border: none;
-  overflow: auto;
   padding-top: 26px;
+  overflow-x: auto !important;
 }
 
 .table_content::-webkit-scrollbar {
@@ -330,7 +343,6 @@ button#btn_cls_st {
   -webkit-box-shadow: inset 0 0 6px #ff7a00;
   background-color: #ff7a00;
 }
-
 .table_head_sectat {
   @include tableheader;
   height: 47px;
@@ -740,7 +752,8 @@ button#btn_cls_st {
     height: 45px;
   }
 
-  @media (max-width: $breakpoint-sm) {}
+  @media (max-width: $breakpoint-sm) {
+  }
 }
 
 .textArea {
@@ -795,7 +808,7 @@ button#btn_cls_st {
   width: 25%;
   background-color: transparent;
   color: #ff7a00;
-  border: 1px solid #ff7a00;
+  // border: 1px solid #ff7a00;
 
   @media (max-width: $breakpoint-ms) {
     width: 100%;
@@ -1028,9 +1041,16 @@ button#btn_cls_st {
   opacity: 0.6;
 }
 
+// .container {
+//   // border: 1px solid red;
+//   position: relative;
+//   // bottom: 12%;
+// }
+
 .card .container {
   width: 100%;
   height: auto;
+  position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -1044,13 +1064,13 @@ button#btn_cls_st {
   width: 100%;
   margin-right: 10px;
   height: 100%;
-  position: relative;
+  // position: relative;
   margin-bottom: 8px;
 }
 
 .card .container .image img {
-  width: 100%;
-  height: 100%;
+  // width: 100%;
+  // height: 100%;
   border-radius: 5px;
 }
 
@@ -1059,7 +1079,7 @@ button#btn_cls_st {
   top: -2px;
   right: 5px;
   font-size: 20px;
-  color: #fff;
+  color: black;
   cursor: pointer;
 }
 
