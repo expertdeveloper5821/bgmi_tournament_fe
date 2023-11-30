@@ -111,7 +111,7 @@ const Page: React.FC = () => {
                                     <div className={styles.image_video}>
                                         <img src="../assests/image.svg" alt="videoimage" className={styles.video_image} style={{ width: "100%", objectFit: "none" }} />
 
-                                        <div className={styles.main_div}>
+                                        <div className={styles.main_uservideo}>
                                             <div className={styles.col}>
                                                 <h1 className={styles.head}>{data[currentCardIndex]?.title}</h1>
                                                 <div className={styles.flex}>
