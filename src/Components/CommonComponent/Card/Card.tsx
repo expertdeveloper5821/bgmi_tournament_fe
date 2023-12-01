@@ -17,180 +17,160 @@ interface CardProps {
   toOpen: (value: boolean) => void;
   forwardModalOpen: (value: boolean) => void;
   teamData: (value: UserTeamMember[]) => void;
-  fwdindex: (value: number) => void;
   setUserMail: (value: string) => void;
   handleOpenFwdModal: () => void;
   query?: string;
+  addFriendList: UserTeamMember[];
 }
 
 const Card: React.FC<CardProps> = ({
-  fwdindex,
   toOpen,
   forwardModalOpen,
   teamData,
   query,
   setUserMail,
   handleOpenFwdModal,
+  addFriendList,
 }) => {
-  const [deleteModal, setDeleteModal] = useState<boolean>(false);
-  const [forwardModal, setForwardModal] = useState<boolean>(false);
-  const [addFriend, setAddFriend] = useState<boolean>(false);
-
-  const [res, setRes] = useState<UserTeamMember[]>();
+  const [friends, setFriends] = useState<UserTeamMember[] | null>(null);
+  console.log('check Friend', friends);
+  console.log(' Friend List', addFriendList);
 
   const profileImg =
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
 
-  // useEffect(() => {
-  //   if (query.length > 0) {
-  //     res?.map((obj: UserTeamMember) => {
-  //       const s = obj.fullName.toLocaleLowerCase();
-  //       const q = query.toLocaleLowerCase();
-  //       if (s.includes(q)) {
-  //         setAddFriend(true);
-  //       }
-  //     });
-  //   } else {
-  //     setAddFriend(false);
-  //   }
-  // }, [query]);
-  useEffect(() => {
-    if (query && query.length > 0) {
-      res?.map((obj: UserTeamMember) => {
-        const s = obj.fullName.toLocaleLowerCase();
-        const q = query.toLocaleLowerCase();
-        if (s.includes(q)) {
-          setAddFriend(true);
-        }
+  async function fetchData() {
+    try {
+      const response = await sendRequest(`/team/user-teams?search=${query}`, {
+        method: 'GET',
       });
-    } else {
-      setAddFriend(false);
+      if (query && query.length > 0) {
+        setFriends(response?.data?.data?.teamMates);
+      } else {
+        setFriends(response?.data?.data?.yourTeam?.teamMates);
+      }
+      teamData(response?.data?.data?.yourTeam?.teamMates);
+    } catch (error) {
+      toast.error('Something went worng');
     }
-  }, [query]);
-
-  const handleOpenModal = (index: number) => {
-    setDeleteModal(true);
-    toOpen(deleteModal);
-    fwdindex(index);
-  };
-
-  const openForwardModal = (index: number) => {
-    setForwardModal(true);
-    forwardModalOpen(forwardModal);
-    fwdindex(index);
-  };
+  }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await sendRequest(`/team/user-teams?search=${query}`, {
-          method: 'GET',
-        });
-        if (query && query.length > 0) {
-          setRes(response?.data?.data?.teamMates);
-        } else {
-          setRes(response?.data?.data?.yourTeam?.teamMates);
-        }
-        teamData(response?.data?.data?.yourTeam?.teamMates);
-      } catch (error) {
-        toast.error('Something went worng');
-      }
-    };
-    debounce(fetchData(), 200);
+    debounce(fetchData(), 500);
   }, [query]);
 
-  if (!res) {
-    <>No data</>;
+  if (!friends) {
+    <div>No Friend Added Add By Invitation</div>;
   }
   return (
     <div>
-      {res && (
-        <div className={styles.cardContainer}>
-          <div className={`${styles.reviewsContainer} ${addFriend && styles.addFriendContainer}`}>
-            {res?.map((elm: UserTeamMember, index: number) => {
-              return addFriend ? (
-                <div className={`${styles.reviewCard} ${styles.borderNone}`}>
-                  <div className={styles.reviews}>
-                    <img
-                      src={elm.profilePic ? elm.profilePic : profileImg}
-                      alt="user photo"
-                      className={styles.profile}
-                    />
-                    <div className={styles.reviewer}>
-                      <div className={styles.name}>
-                        <h2>{elm.fullName}</h2>
+      <div className={styles.cardContainer}>
+        <div
+          className={`${styles.reviewsContainer} ${
+            addFriendList.length && styles.addFriendContainer
+          }`}
+        >
+          {addFriendList?.length
+            ? addFriendList?.map((elm: UserTeamMember) => {
+                return (
+                  elm && (
+                    <div key={elm.email} className={`${styles.reviewCard} ${styles.addFriendCard}`}>
+                      <div className={styles.reviews}>
+                        <img
+                          src={elm?.profilePic ? elm?.profilePic : profileImg}
+                          alt="user photo"
+                          className={styles.profile}
+                        />
+                        <div className={styles.reviewer}>
+                          <div className={styles.name}>
+                            <h2>{elm?.fullName}</h2>
+                          </div>
+                          <p>{elm?.email}</p>
+                        </div>
                       </div>
-                      <p>{elm.email}</p>
+                      <button
+                        className={styles['addFriendBtn']}
+                        onClick={() => forwardModalOpen(true)}
+                      >
+                        Add Friend
+                      </button>
                     </div>
-                  </div>
-                  <button
-                    className={styles['addFriendBtn']}
-                    onClick={() => {
-                      openForwardModal(index);
-                    }}
-                  >
-                    Add Friend
-                  </button>
-                </div>
-              ) : (
-                <div className={styles.reviewCard}>
-                  <div className={styles.reviews}>
-                    <img
-                      src={elm.profilePic ? elm.profilePic : profileImg}
-                      alt="user photo"
-                      className={styles.profile}
-                    />
-                    <div className={styles.reviewer}>
-                      <div className={styles.name}>
-                        <h2>{elm.fullName}</h2>
-                        <span className={styles.greenCircle}></span>
+                  )
+                );
+              })
+            : friends?.map((elm: UserTeamMember) => {
+                return (
+                  elm && (
+                    <div className={styles.reviewCard}>
+                      <div className={styles.reviews}>
+                        <img
+                          src={elm?.profilePic ? elm?.profilePic : profileImg}
+                          alt="user photo"
+                          className={styles.profile}
+                        />
+                        <div className={styles.reviewer}>
+                          <div className={styles.name}>
+                            <h2>{elm?.fullName}</h2>
+                            <span className={styles.greenCircle}></span>
+                          </div>
+                          <p>{elm?.email}</p>
+                        </div>
                       </div>
-                      <p>{elm.email}</p>
+                      <span
+                        className={styles['deleteBtn']}
+                        onClick={() => {
+                          toOpen(true);
+                          setUserMail(elm?.email);
+                        }}
+                      >
+                        x
+                      </span>
                     </div>
-                  </div>
-                  <span
-                    className={styles['deleteBtn']}
-                    onClick={() => {
-                      handleOpenModal(index);
-                      setUserMail(elm.email);
-                    }}
-                  >
-                    x
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-          {res.length == 0 ? (
-            <div className={styles.noDataCard}>
-              <Image
-                width={200}
-                height={400}
-                src="/assests/lamp.svg"
-                alt="banner"
-                // className={styles.cardbannerimg}
-              />
-              <strong>SORRY!</strong>
-              <h2>We couldn’t find your friend. Send invite your friend by email</h2>
-              <button className={styles.sendMailBtn} onClick={handleOpenFwdModal}>
-                SEND INVITE BY EMAIL
-              </button>
-            </div>
-          ) : (
-            <div className={styles.bannerContainer}>
-              <Image
-                width={200}
-                height={400}
-                src="/assests/friendside.svg"
-                alt="banner"
-                className={styles.cardbannerimg}
-              />
-            </div>
-          )}
+                  )
+                );
+              })}
         </div>
-      )}
+        <NotFoundCard
+          addFriendList={addFriendList}
+          friends={friends}
+          handleOpenFwdModal={handleOpenFwdModal}
+        />
+      </div>
     </div>
   );
 };
 
 export default Card;
+
+export const NotFoundCard = ({ friends, handleOpenFwdModal, addFriendList }) => {
+  return (
+    <div>
+      {addFriendList.lenght == 0 && friends?.length == 0 ? (
+        <div className={styles.noDataCard}>
+          <Image
+            width={200}
+            height={400}
+            src="/assests/lamp.svg"
+            alt="banner"
+            // className={styles.cardbannerimg}
+          />
+          <strong>SORRY!</strong>
+          <h2>We couldn’t find your friend. Send invite your friend by email</h2>
+          <button className={styles.sendMailBtn} onClick={handleOpenFwdModal}>
+            SEND INVITE BY EMAIL
+          </button>
+        </div>
+      ) : (
+        <div className={styles.bannerContainer}>
+          <Image
+            width={200}
+            height={400}
+            src="/assests/friendside.svg"
+            alt="banner"
+            className={styles.cardbannerimg}
+          />
+        </div>
+      )}
+    </div>
+  );
+};

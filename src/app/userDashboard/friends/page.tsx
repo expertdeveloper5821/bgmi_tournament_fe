@@ -5,7 +5,7 @@ import { sendRequest } from '@/utils/axiosInstanse';
 import Image from 'next/image';
 import Card, { UserTeamMember } from '@/Components/CommonComponent/Card/Card';
 import { toast } from 'react-toastify';
-import { decodeJWt } from '@/utils/globalfunctions';
+import { decodeJWt, getTokenFromLS } from '@/utils/globalfunctions';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 
 const Friend = () => {
@@ -15,17 +15,15 @@ const Friend = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [emailList, setEmailList] = useState<string[]>([]);
-  const [, setFwdId] = useState<number>();
   const [query, setQuery] = useState<string>('');
   const [userMail, setUserMail] = useState<string>('');
   const [newTeamName, setNewTeamName] = useState<string>('');
-  let token: null | string = null;
-  if (typeof window !== 'undefined') {
-    token = window?.localStorage.getItem('jwtToken') || '';
-  }
-  let DecodedToken;
+  const [addFriendList, setAddFriendList] = useState<UserTeamMember[]>([]);
+
+  const token: string | undefined | null = getTokenFromLS();
+  let decodedToken;
   if (token) {
-    DecodedToken = decodeJWt(token);
+    decodedToken = decodeJWt(token);
   }
 
   const handleModal = (value: boolean) => {
@@ -55,10 +53,6 @@ const Friend = () => {
     }
   };
 
-  const handleForwardIndex = (value: number) => {
-    setFwdId(value);
-  };
-
   const handleOpenFwdModal = () => {
     setForwardModal(true);
   };
@@ -86,7 +80,7 @@ const Friend = () => {
     try {
       setForwardModal(true);
       const userData = {
-        teamName: DecodedToken.teamName || newTeamName,
+        teamName: decodedToken.teamName || newTeamName,
         emails: emailList,
       };
       const response = await sendRequest('/user/send-invite', {
@@ -94,7 +88,7 @@ const Friend = () => {
         data: userData,
       });
 
-      if (response.data.code) {
+      if (response.status === 200) {
         setMessage('Friends added Successfully');
         setEmailList([]);
         setForwardModal(false);
@@ -120,7 +114,9 @@ const Friend = () => {
     setEmailList(updatedEmailList);
   };
 
-  const handleSelect = () => {};
+  const handleSelect = ({ target }) => {
+    console.log(target.value);
+  };
 
   const handleSearch = (event) => {
     const { value } = event.target;
@@ -130,6 +126,20 @@ const Friend = () => {
   const handleTeamName = ({ target }) => {
     setNewTeamName(target.value);
   };
+
+  async function handleGlobalSearch() {
+    try {
+      const response = await sendRequest(`/user/getalluser?search=${query}`, {
+        method: 'GET',
+      });
+      console.log('handleGlobalSearch', response);
+      if (query && query.length > 0) {
+        setAddFriendList(response?.data?.data);
+      }
+    } catch (error) {
+      toast.error('Something went worng');
+    }
+  }
 
   return (
     <IsAuthenticatedHoc>
@@ -149,21 +159,28 @@ const Friend = () => {
                   placeholder="Search by username"
                   onChange={handleSearch}
                 />
-                <Image
-                  src="/assests/search.svg"
-                  alt="search"
-                  height={20}
-                  width={20}
-                  className={styles.searchIcon}
-                />
+                {!query && (
+                  <Image
+                    src="/assests/search.svg"
+                    alt="search"
+                    height={20}
+                    width={20}
+                    className={styles.searchIcon}
+                  />
+                )}
               </div>
-              <div className={styles.btnContainer}>
-                <div>
-                  <button className={styles.sendMailBtn} onClick={handleOpenFwdModal}>
-                    SEND INVITE BY EMAIL
-                  </button>
-                </div>
-              </div>
+              <button
+                className={`${styles.btnPrime} ${styles.searchBtn}`}
+                onClick={handleGlobalSearch}
+              >
+                Search Global
+              </button>
+              <button
+                className={`${styles.btnPrime} ${styles.sendMailBtn}`}
+                onClick={handleOpenFwdModal}
+              >
+                SEND INVITE BY EMAIL
+              </button>
             </div>
           </div>
           <div className={styles.mainContainer}>
@@ -185,7 +202,9 @@ const Friend = () => {
                   className={styles.arrowicon}
                 />
                 <select className={styles.select} defaultValue={'Sort By'} onChange={handleSelect}>
-                  <option className={styles.sortByOption}>Sort By</option>
+                  <option value="" className={styles.sortByOption}>
+                    Sort By
+                  </option>
                   <option value="active">Active first</option>
                   <option value="inactive">Inactive first</option>
                   <option value="atoz">A to Z</option>
@@ -196,7 +215,7 @@ const Friend = () => {
 
             <div className={styles.card}>
               <Card
-                fwdindex={handleForwardIndex}
+                addFriendList={addFriendList}
                 toOpen={handleModal}
                 forwardModalOpen={handleForwardModal}
                 teamData={handleTeamData}
@@ -251,7 +270,7 @@ const Friend = () => {
                 <h1> {`<`} Invite your friends</h1>
               </div>
               <div className={styles.forwardModalbody}>
-                {!DecodedToken.teamName && (
+                {!decodedToken.teamName && (
                   <label>
                     Enter you team name
                     <input
