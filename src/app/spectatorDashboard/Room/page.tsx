@@ -62,7 +62,6 @@ const Room = () => {
       const spectatorResponse = await sendRequest('room/user-rooms', {
         method: 'GET',
       });
-      console.log("spectatorResponse----->", spectatorResponse)
       setSpect(spectatorResponse.data);
     } catch (error) {
       console.log('check error', error);
