@@ -42,6 +42,8 @@
     width: 100%;
     padding: 4px 9px;
     margin-top: 12px;
+    color: white;
+    font-weight: bold;
   }
 }
 
@@ -230,14 +232,11 @@
   text-align: center;
   margin-top: 1rem;
   font-size: 12px;
-  // border-top: 1px solid #dcdcdc;
-  // padding-top: 10px;
   color: $primary-color;
 }
 
 .logoutbuttonicon {
   height: 10px;
-  // padding: 0px 10px;
 }
 
 .profileicon,
@@ -273,6 +272,7 @@ h1 .user_name_heading {
   border-radius: 1.5rem;
   border: 2px solid;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .dropdownprofileimage {
