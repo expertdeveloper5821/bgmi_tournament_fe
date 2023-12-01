@@ -20,7 +20,7 @@ export function SearchFilter({ handleSearch, onChange }) {
         type="search"
         onChange={handleInputChange}
       ></Input>
-      <div className={styles.button_wrapper}>
+      <div className={styles.button_wrapper_adminDashboard}>
         <button className={styles.btnPrime} onClick={() => handleSearch(searchFilter)}>
           Search
         </button>
