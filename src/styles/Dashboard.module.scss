@@ -1347,7 +1347,7 @@ body.activemodal {
   form {
     width: 100%;
   }
-  @media (max-width: $breakpointregister-sm) {
+  @media (max-width: $breakpoint-xs) {
     width: 300px;
   }
 }
@@ -1382,6 +1382,10 @@ body.activemodal {
 .email_wrapper input[type='email'],
 .email_wrapper input[type='password'] {
   color: #000 !important;
+}
+
+.email_wrapper {
+  border: 2px solid rgba(147, 128, 108, 0.25) !important;
 }
 
 .register_button {
@@ -1424,7 +1428,7 @@ body.activemodal {
   @media (max-width: $breakpoint-xs) {
     justify-content: flex-start;
     margin-left: 15px;
-    }
+  }
 }
 
 .button_wrapper {
@@ -1441,10 +1445,9 @@ body.activemodal {
   background-color: $bs-orange !important;
   border-radius: 4px;
   @media (max-width: $breakpoint-xs) {
-  display: none;
+    display: none;
   }
 }
-
 
 .role_Label {
   display: block;
@@ -1462,6 +1465,11 @@ body.activemodal {
 
 .error_message {
   color: red;
+  font-size: 14px;
+  position: absolute;
+  @media (max-width: $breakpoint-xs) {
+    font-size: 9px;
+  }
 }
 
 .create_spectator_form {
