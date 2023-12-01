@@ -139,7 +139,7 @@ const Card: React.FC<CardProps> = ({
               <Image
                 width={200}
                 height={400}
-                src="/assests/friendside.svg"
+                src="/assests/friendsherobanner.svg"
                 alt="banner"
                 className={styles.cardbannerimg}
               />
