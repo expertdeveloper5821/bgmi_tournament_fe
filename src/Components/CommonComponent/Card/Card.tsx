@@ -5,6 +5,7 @@ import { sendRequest } from '@/utils/axiosInstanse';
 import { toast } from 'react-toastify';
 import { debounce } from '@/utils/commonFunction';
 import Image from 'next/image';
+import Loader from '@/Components/CommonComponent/Loader/Loader';
 
 export interface UserTeamMember {
   email: string;
@@ -16,7 +17,6 @@ export interface UserTeamMember {
 interface CardProps {
   toOpen: (value: boolean) => void;
   forwardModalOpen: (value: boolean) => void;
-  teamData: (value: UserTeamMember[]) => void;
   setUserMail: (value: string) => void;
   handleOpenFwdModal: () => void;
   query?: string;
@@ -26,15 +26,12 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({
   toOpen,
   forwardModalOpen,
-  teamData,
   query,
   setUserMail,
   handleOpenFwdModal,
   addFriendList,
 }) => {
   const [friends, setFriends] = useState<UserTeamMember[] | null>(null);
-  console.log('check Friend', friends);
-  console.log(' Friend List', addFriendList);
 
   const profileImg =
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
@@ -49,7 +46,6 @@ const Card: React.FC<CardProps> = ({
       } else {
         setFriends(response?.data?.data?.yourTeam?.teamMates);
       }
-      teamData(response?.data?.data?.yourTeam?.teamMates);
     } catch (error) {
       toast.error('Something went worng');
     }
@@ -60,18 +56,19 @@ const Card: React.FC<CardProps> = ({
   }, [query]);
 
   if (!friends) {
-    <div>No Friend Added Add By Invitation</div>;
+    <Loader />;
   }
   return (
     <div>
-      <div className={styles.cardContainer}>
-        <div
-          className={`${styles.reviewsContainer} ${
-            addFriendList.length && styles.addFriendContainer
-          }`}
-        >
-          {addFriendList?.length
-            ? addFriendList?.map((elm: UserTeamMember) => {
+      {friends || addFriendList ? (
+        <div className={styles.cardContainer}>
+          <div
+            className={`${styles.reviewsContainer} ${
+              addFriendList.length && styles.addFriendContainer
+            }`}
+          >
+            {addFriendList?.length ? (
+              addFriendList?.map((elm: UserTeamMember) => {
                 return (
                   elm && (
                     <div key={elm.email} className={`${styles.reviewCard} ${styles.addFriendCard}`}>
@@ -90,7 +87,10 @@ const Card: React.FC<CardProps> = ({
                       </div>
                       <button
                         className={styles['addFriendBtn']}
-                        onClick={() => forwardModalOpen(true)}
+                        onClick={() => {
+                          setUserMail(elm?.email);
+                          forwardModalOpen(true);
+                        }}
                       >
                         Add Friend
                       </button>
@@ -98,7 +98,8 @@ const Card: React.FC<CardProps> = ({
                   )
                 );
               })
-            : friends?.map((elm: UserTeamMember) => {
+            ) : friends?.length ? (
+              friends?.map((elm: UserTeamMember) => {
                 return (
                   elm && (
                     <div className={styles.reviewCard}>
@@ -128,49 +129,41 @@ const Card: React.FC<CardProps> = ({
                     </div>
                   )
                 );
-              })}
+              })
+            ) : (
+              <NotFoundCard handleOpenFwdModal={handleOpenFwdModal} />
+            )}
+          </div>
+          {(friends?.length || addFriendList?.length) && (
+            <div className={styles.bannerContainer}>
+              <Image
+                width={200}
+                height={400}
+                src="/assests/friendside.svg"
+                alt="banner"
+                className={styles.cardbannerimg}
+              />
+            </div>
+          )}
         </div>
-        <NotFoundCard
-          addFriendList={addFriendList}
-          friends={friends}
-          handleOpenFwdModal={handleOpenFwdModal}
-        />
-      </div>
+      ) : (
+        <NotFoundCard handleOpenFwdModal={handleOpenFwdModal} />
+      )}
     </div>
   );
 };
 
 export default Card;
 
-export const NotFoundCard = ({ friends, handleOpenFwdModal, addFriendList }) => {
+export const NotFoundCard = ({ handleOpenFwdModal }) => {
   return (
-    <div>
-      {addFriendList.lenght == 0 && friends?.length == 0 ? (
-        <div className={styles.noDataCard}>
-          <Image
-            width={200}
-            height={400}
-            src="/assests/lamp.svg"
-            alt="banner"
-            // className={styles.cardbannerimg}
-          />
-          <strong>SORRY!</strong>
-          <h2>We couldn’t find your friend. Send invite your friend by email</h2>
-          <button className={styles.sendMailBtn} onClick={handleOpenFwdModal}>
-            SEND INVITE BY EMAIL
-          </button>
-        </div>
-      ) : (
-        <div className={styles.bannerContainer}>
-          <Image
-            width={200}
-            height={400}
-            src="/assests/friendside.svg"
-            alt="banner"
-            className={styles.cardbannerimg}
-          />
-        </div>
-      )}
+    <div className={styles.noDataCard}>
+      <Image width={200} height={400} src="/assests/lamp.svg" alt="banner" />
+      <strong>SORRY!</strong>
+      <h2>We couldn’t find your friend. Send invite your friend by email</h2>
+      <button className={styles.sendMailBtn} onClick={handleOpenFwdModal}>
+        SEND INVITE BY EMAIL
+      </button>
     </div>
   );
 };

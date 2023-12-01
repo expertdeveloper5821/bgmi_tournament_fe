@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@/styles/friends.module.scss';
 import { sendRequest } from '@/utils/axiosInstanse';
 import Image from 'next/image';
@@ -7,11 +7,20 @@ import Card, { UserTeamMember } from '@/Components/CommonComponent/Card/Card';
 import { toast } from 'react-toastify';
 import { decodeJWt, getTokenFromLS } from '@/utils/globalfunctions';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
+import { FaCaretDown } from 'react-icons/fa';
+import CustomSelect from '@/Components/CommonComponent/CustomSelect';
+
+const options = [
+  { name: 'Active', value: 'active' },
+  { name: 'Inactive', value: 'inactive' },
+  { name: 'A to Z', value: 'atoz' },
+  { name: 'Z to A', value: 'ztoa' },
+];
 
 const Friend = () => {
   const [open, setOpen] = useState(false);
   const [forwardModal, setForwardModal] = useState(false);
-  const [, setTeamData] = useState<UserTeamMember[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [emailList, setEmailList] = useState<string[]>([]);
@@ -20,6 +29,7 @@ const Friend = () => {
   const [newTeamName, setNewTeamName] = useState<string>('');
   const [addFriendList, setAddFriendList] = useState<UserTeamMember[]>([]);
 
+  // console.log('check mail', userMail);
   const token: string | undefined | null = getTokenFromLS();
   let decodedToken;
   if (token) {
@@ -38,10 +48,6 @@ const Friend = () => {
     setForwardModal(false);
   };
 
-  const handleTeamData = (value: UserTeamMember[]) => {
-    setTeamData(value);
-  };
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -50,6 +56,11 @@ const Friend = () => {
     if (event.key === 'Enter' && inputValue.trim() !== '') {
       setEmailList([...emailList, inputValue.trim()]);
       setInputValue('');
+      setUserMail('');
+    }
+    if (event.key === 'Enter' && userMail) {
+      setEmailList([...emailList, userMail.trim()]);
+      setUserMail('');
     }
   };
 
@@ -93,20 +104,10 @@ const Friend = () => {
         setEmailList([]);
         setForwardModal(false);
         toast.success(response.data.message);
-        setTimeout(() => {
-          // if (typeof window !== 'undefined') {
-          //   window?.location?.reload();
-          // }
-        }, 2000);
       }
     } catch (error) {
       setEmailList([]);
       setMessage(error.response.data.message);
-      setTimeout(() => {
-        // if (typeof window !== 'undefined') {
-        //   window?.location?.reload();
-        // }
-      }, 2000);
     }
   };
   const handleDeleteEmail = (indexToDelete: number) => {
@@ -114,8 +115,8 @@ const Friend = () => {
     setEmailList(updatedEmailList);
   };
 
-  const handleSelect = ({ target }) => {
-    console.log(target.value);
+  const handleSelect = (value) => {
+    console.log(value);
   };
 
   const handleSearch = (event) => {
@@ -132,14 +133,19 @@ const Friend = () => {
       const response = await sendRequest(`/user/getalluser?search=${query}`, {
         method: 'GET',
       });
-      console.log('handleGlobalSearch', response);
       if (query && query.length > 0) {
         setAddFriendList(response?.data?.data);
       }
     } catch (error) {
-      toast.error('Something went worng');
+      toast.error(`User not found with this name ${query}`);
     }
   }
+
+  useEffect(() => {
+    if (query.length == 0 || !query) {
+      setAddFriendList([]);
+    }
+  }, [query]);
 
   return (
     <IsAuthenticatedHoc>
@@ -194,76 +200,34 @@ const Friend = () => {
                   width={22}
                   className={styles.sortIcon}
                 />
-                <Image
-                  src="/assests/icons/downarrow.svg"
-                  alt="arrow"
-                  height={12}
-                  width={12}
-                  className={styles.arrowicon}
-                />
-                <select className={styles.select} defaultValue={'Sort By'} onChange={handleSelect}>
-                  <option value="" className={styles.sortByOption}>
-                    Sort By
-                  </option>
-                  <option value="active">Active first</option>
-                  <option value="inactive">Inactive first</option>
-                  <option value="atoz">A to Z</option>
-                  <option value="ztoa">Z to A</option>
-                </select>
+
+                <CustomSelect options={options} handleSelect={handleSelect} />
+
+                <div className={styles.downIcon}>
+                  <FaCaretDown color={'#ff7a00'} />
+                </div>
               </div>
             </div>
 
-            <div className={styles.card}>
-              <Card
-                addFriendList={addFriendList}
-                toOpen={handleModal}
-                forwardModalOpen={handleForwardModal}
-                teamData={handleTeamData}
-                query={query}
-                setUserMail={setUserMail}
-                handleOpenFwdModal={handleOpenFwdModal}
-              />
-            </div>
+            <Card
+              addFriendList={addFriendList}
+              toOpen={handleModal}
+              forwardModalOpen={handleForwardModal}
+              query={query}
+              setUserMail={setUserMail}
+              handleOpenFwdModal={handleOpenFwdModal}
+            />
           </div>
           <div className={styles.pagination}>{/* <CustomPagination data={teamData} /> */}</div>
         </div>
+
         {/* deleteModal here */}
-        {open ? (
-          <div className={styles.modalBackground}>
-            <div className={styles.modalContainer}>
-              <div className={styles.deleteModalHeader}>
-                <div className={styles.titleCloseBtn}>
-                  <Image
-                    src="/assests/delcancel.svg"
-                    alt="delete"
-                    height={100}
-                    width={100}
-                    onClick={handleCloseModal}
-                  />
-                </div>
-                <div className={styles.title}>
-                  <h1>Delete</h1>
-                </div>
-              </div>
-              <div className={styles.body}>
-                <p>Are you sure want to delete this?</p>
-              </div>
-              <div className={styles.footer}>
-                <button className={styles.deletebtn} onClick={handleDeleteUser}>
-                  Delete
-                </button>
-                <button className={styles.cancelbtn} onClick={handleCloseModal}>
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        ) : (
-          ''
+        {open && (
+          <DeleteModal handleDeleteUser={handleDeleteUser} handleCloseModal={handleCloseModal} />
         )}
 
         {/* forwarding modal here */}
-        {forwardModal ? (
+        {forwardModal && (
           <div className={styles.modalBackground}>
             <div className={styles.forwardmodalContainer}>
               <div className={styles.forwardModaltitle}>
@@ -288,7 +252,7 @@ const Friend = () => {
                     type="search"
                     id="search"
                     name="search"
-                    value={inputValue}
+                    value={inputValue || userMail}
                     placeholder="Enter email press enter and send invitation"
                     onChange={handleInputChange}
                     onKeyDown={handleKeyPress}
@@ -330,8 +294,6 @@ const Friend = () => {
               </div>
             </div>
           </div>
-        ) : (
-          ''
         )}
       </div>
     </IsAuthenticatedHoc>
