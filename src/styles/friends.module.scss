@@ -265,6 +265,9 @@
     width: 30px;
     height: 40px;
   }
+  @media (max-width: $breakpoint-xs) {
+    right: 10px;
+  }
 }
 
 .titleCloseBtn img {
