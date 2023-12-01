@@ -428,7 +428,7 @@ const CreateRoomForm = (props) => {
                           </div>
                           <div className={styles.container_image}>
                             {images.map((image, i) => (
-                              <div className={styles.image} key={i}>
+                              <div className={styles.image} key={i} >
                                 <span className={styles.delete} onClick={() => deleteImage(i)}>
                                   &times;
                                 </span>
