@@ -45,6 +45,7 @@
   @include tableheader;
   text-align: center;
   padding: 0 6px;
+  padding: 0 6px;
 }
 
 .room_header {
@@ -489,4 +490,14 @@ button#btn_cls_st {
 .video {
   background: transparent;
   border: none;
+}
+
+.no_data_found_heading {
+  text-align: center;
+  margin-top: 90px;
+  font-size: 25px;
+  @media (max-width: $breakpoint-sm) {
+    margin-top: 65px;
+    font-size: 20px;
+  }
 }
