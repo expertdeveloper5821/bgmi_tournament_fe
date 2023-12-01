@@ -152,7 +152,9 @@
 
 .form_spectator_cls {
   display: flex;
+  height: 100%;
   padding: 15px 30px;
+  overflow-y: hidden;
 }
 
 button#btn_cls_st {
@@ -740,7 +742,8 @@ button#btn_cls_st {
     height: 45px;
   }
 
-  @media (max-width: $breakpoint-sm) {}
+  @media (max-width: $breakpoint-sm) {
+  }
 }
 
 .textArea {
