@@ -28,8 +28,6 @@ const CreateRoomForm = (props) => {
       onSubmit: async (values, { resetForm }) => {
 
         const dateTimeString = new Date(`${values.date}T${values.time}`);
-        // console.log("time------>", values.time)
-        // console.log("dateTimeString----->", dateTimeString)
         const roomId = roomIdToUpdate ? roomIdToUpdate._id : '';
         try {
           setIsLoading(true);
