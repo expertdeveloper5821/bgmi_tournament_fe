@@ -41,11 +41,10 @@
   }
 }
 
-
 .table_head {
   @include tableheader;
   text-align: center;
-  padding: 0 6px
+  padding: 0 6px;
 }
 
 .room_header {
@@ -107,7 +106,7 @@
   white-space: nowrap;
 
   svg {
-    color: #FFD600;
+    color: #ffd600;
   }
 
   @media (max-width: $breakpoint-sm) {
@@ -415,7 +414,6 @@ button#btn_cls_st {
   overflow-x: scroll;
 }
 
-
 .tb_cell_body {
   color: #ff7a00 !important;
   text-align: center;
@@ -482,9 +480,13 @@ button#btn_cls_st {
 
 .noInfoBtn {
   cursor: pointer;
-
 }
 
-.del{
+.del {
   cursor: pointer;
+}
+
+.video {
+  background: transparent;
+  border: none;
 }
