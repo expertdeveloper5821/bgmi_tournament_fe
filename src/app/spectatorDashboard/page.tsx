@@ -18,6 +18,7 @@ function spectatorDashboard() {
     getAllSpectatorService()
       .then((res) => setSpect(res.data))
       .catch(console.error);
+
   };
 
   useEffect(() => {

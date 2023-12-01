@@ -56,7 +56,8 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
 
       <TableBody className={styles.table_body}>
         {Spect?.slice(startIndex, endIndex)?.map((spec) => (
-          <TableRow key={spec._id} className={styles.table_rowdata}>
+
+          < TableRow key={spec._id} className={styles.table_rowdata} >
             <TableCell className={styles.el_tb_cell}>{spec?.roomId ?? '--'}</TableCell>
             <TableCell className={styles.tb_cell_body}>{spec?.gameName ?? '--'}</TableCell>
             <TableCell className={styles.el_tb_cell}>{spec?.gameType ?? '--'}</TableCell>
@@ -67,7 +68,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
             <TableCell className={styles.el_tb_cell}>{spec?.thirdWin ?? '--'}</TableCell>
             <TableCell className={styles.el_tb_cell}>{spec?.secondWin ?? '--'}</TableCell>
             <TableCell className={styles.tb_cell_body}>
-              {spec?.dateAndTime ? formatTime({ time: spec.dateAndTime, format: 'LT' }) : '--'}
+              {spec?.dateAndTime ? formatTime({ time: spec.dateAndTime, format: 'h:mm A' }) : '--'}
             </TableCell>
 
             <TableCell className={styles.tb_cell_body}>
@@ -128,7 +129,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
                 </button>
               </div>
             </TableCell> */}
-            <TableCell>
+            < TableCell >
               <div>
                 <button
                   className={styles.video}
@@ -139,15 +140,16 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
               </div>
             </TableCell>
           </TableRow>
-        ))}
-      </TableBody>
+        ))
+        }
+      </TableBody >
       <Pagination
         totalItems={totalItems}
         itemsPerPage={itemsPerPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
-    </Table>
+    </Table >
   );
 };
 

@@ -1,4 +1,5 @@
-import moment from 'moment';
+
+import moment from 'moment-timezone';
 // If you installed moment-timezone
 
 // ...
@@ -16,12 +17,14 @@ export const formatDate = ({
 
 export const formatTime = ({
   time,
-  format = 'LT',
+  format = 'h:mm',
+  timeZone = 'UTC', // Set your desired time zone here
 }: {
   time: Date | string;
   format?: string;
+  timeZone?: string;
 }): string => {
-  return moment(time).format(format);
+  return moment(time).tz(timeZone).format(format);
 };
 
 export const formatDateAndTime = (

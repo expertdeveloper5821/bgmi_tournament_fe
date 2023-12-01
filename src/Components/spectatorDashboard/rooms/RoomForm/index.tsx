@@ -26,7 +26,9 @@ const CreateRoomForm = (props) => {
       validationSchema,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onSubmit: async (values, { resetForm }) => {
-        const dateTimeString = new Date(`${values.date} ${values.time}`);
+
+        const dateTimeString = new Date(`${values.date}T${values.time}`);
+        console.log("dateTimeString----->", dateTimeString)
         const roomId = roomIdToUpdate ? roomIdToUpdate._id : '';
         try {
           setIsLoading(true);
@@ -293,9 +295,6 @@ const CreateRoomForm = (props) => {
                       {errors.entryFee && touched.entryFee && (
                         <div className={styles.error}>{String(errors.entryFee)}</div>
                       )}
-                    </div>
-
-                    <div className={styles.flex_col}>
                       <div className={styles.input_box}>
                         <label className={styles.labelStyle}>Room Password</label>
                         <Input
@@ -311,6 +310,10 @@ const CreateRoomForm = (props) => {
                       {errors.password && touched.password && (
                         <div className={styles.error}>{String(errors.password)}</div>
                       )}
+                    </div>
+
+                    <div className={styles.flex_col}>
+
                       <div className={styles.input_box}>
                         <label className={styles.labelStyle}>No. Of Players (Game Type)</label>
                         <Input
@@ -390,6 +393,7 @@ const CreateRoomForm = (props) => {
                       )}
 
                       <div className={styles.input_box}>
+
                         <div className={styles.card}>
                           <div className={styles.top}>
                             <p>Drag & Drop Image Uploading</p>
@@ -408,7 +412,7 @@ const CreateRoomForm = (props) => {
                                   {' '}
                                   Drag and Drop image here or ,
                                 </div>
-                                <span className={styles.select} role="button" onClick={selectFiles}>
+                                <span className={styles.select_browse} role="button" onClick={selectFiles}>
                                   Browse
                                 </span>
                               </>
@@ -423,7 +427,7 @@ const CreateRoomForm = (props) => {
                               onChange={onFileSelect}
                             ></input>
                           </div>
-                          <div className={styles.container}>
+                          <div className={styles.container_image}>
                             {images.map((image, i) => (
                               <div className={styles.image} key={i}>
                                 <span className={styles.delete} onClick={() => deleteImage(i)}>
@@ -449,6 +453,7 @@ const CreateRoomForm = (props) => {
                         </div>
                       </div>
                     </div>
+
                   </form>
 
                   <div className={styles.btn_form_wrapper}>
@@ -490,11 +495,11 @@ const CreateRoomForm = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div >
         ) : (
           ''
         )}
-      </div>
+      </div >
     </>
   );
 };
