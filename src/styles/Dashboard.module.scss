@@ -1427,7 +1427,7 @@ body.activemodal {
   margin: 0px 1rem;
   background-color: $bs-orange !important;
   border-radius: 4px;
-  @media (max-width: $breakpointregister-xs) {
+  @media (max-width: $breakpoint-xSmall) {
     margin: 0px 1rem 0px 0.5rem;
   }
 }
@@ -1459,14 +1459,14 @@ body.activemodal {
   border: none;
   color: white;
 
-  @media (max-width: $breakpointregister-xs) {
+  @media (max-width: $breakpoint-xSmall) {
     width: 130px;
   }
 }
 
 .search_input_box > input::placeholder {
   color: white;
-  @media (max-width: $breakpointregister-xs) {
+  @media (max-width: $breakpoint-xSmall) {
     font-size: 15px;
   }
 }
