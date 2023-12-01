@@ -66,6 +66,7 @@ const CreateRoomForm = (props) => {
       const dateAndTimeParts = roomIdToUpdate.dateAndTime?.split('T');
       const dateValue = dateAndTimeParts ? dateAndTimeParts[0] : '';
       const timeValue = dateAndTimeParts ? dateAndTimeParts[1] : '';
+      console.log("time Value--->", timeValue)
       const [hours, minutes] = timeValue.split(':');
       const formattedTime = `${hours}:${minutes}:${timeValue}.000Z`;
       const formattedTimeWithoutSeconds = formattedTime.split(':').slice(0, 2).join(':');
