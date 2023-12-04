@@ -152,7 +152,9 @@
 
 .form_spectator_cls {
   display: flex;
+  height: 100%;
   padding: 15px 30px;
+  overflow-y: hidden;
 }
 
 button#btn_cls_st {
@@ -631,54 +633,6 @@ button#btn_cls_st {
   font-weight: bold;
 }
 
-//tooltip
-
-.tooltip {
-  cursor: default;
-  position: relative;
-  border: 1px solid black;
-  padding: 0.5rem;
-  border-radius: 8px;
-  border: none;
-  background-color: transparent;
-  color: #f7f7f7;
-  max-width: 200px;
-  cursor: pointer;
-}
-
-.tooltip:hover {
-  border: none;
-  background-color: transparent;
-  // background-color: #5bc0de;
-  color: #292b2c;
-}
-
-.tooltip:hover::before {
-  position: absolute;
-  content: attr(data-title);
-  background-color: #000;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 11px;
-  color: #fff;
-  top: -25px;
-  right: 50%;
-  padding: 3px 8px;
-  transform: translate(50%, -50%);
-  white-space: nowrap;
-  overflow-wrap: break-word;
-}
-
-.tooltip:hover::after {
-  position: absolute;
-  content: '\25BC';
-  height: 1.25rem;
-  color: #000;
-  top: -12px;
-  left: 50%;
-  transform: scale(1.8, 1) translate(-33%, -50%);
-}
-
 .upload_button {
   // border: 1px solid red;
   cursor: pointer;
@@ -740,7 +694,8 @@ button#btn_cls_st {
     height: 45px;
   }
 
-  @media (max-width: $breakpoint-sm) {}
+  @media (max-width: $breakpoint-sm) {
+  }
 }
 
 .textArea {
@@ -791,11 +746,17 @@ button#btn_cls_st {
   font-size: 14px;
 }
 
-.select {
+.select_browse {
   width: 25%;
   background-color: transparent;
   color: #ff7a00;
-  border: 1px solid #ff7a00;
+  // border: 1px solid #ff7a00;
+
+  @media (max-width: $breakpoint-xlg) {
+    width: 100%;
+    padding-bottom: 15px;
+    text-align: center;
+  }
 
   @media (max-width: $breakpoint-ms) {
     width: 100%;
@@ -811,6 +772,11 @@ button#btn_cls_st {
 
   // border: 1px solid #ff7a00;
 }
+
+// .container_image {
+//   // border: 1px solid red;
+//   position: absolute;
+// }
 
 .video_section {
   width: 40%;
@@ -975,10 +941,16 @@ button#btn_cls_st {
   box-shadow: 0 0 5px #ffdfdf;
   border-radius: 5px;
   overflow: hidden;
+  // border: 1px solid green;
+  // position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
-.card .top {
+.top {
   text-align: center;
+  // border: 1px solid red;
 }
 
 .card p {
@@ -1005,7 +977,9 @@ button#btn_cls_st {
   color: #ff7a00;
   background: #ffdfdf;
   display: flex;
-  justify-self: center;
+  justify-content: center;
+
+  flex-direction: column;
   align-items: center;
   user-select: none;
   -webkit-user-select: none;
@@ -1018,10 +992,10 @@ button#btn_cls_st {
 
 .card .select {
   color: darkviolet;
-  margin-left: 5px;
+  // margin-left: 5px;
   cursor: pointer;
   transition: 0.5s;
-  padding-bottom: 18px;
+  // padding-bottom: 18px;
 }
 
 .card .select:hover {
@@ -1035,32 +1009,34 @@ button#btn_cls_st {
   justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
-  margin-right: 200px;
+  max-height: 200px;
   overflow-y: auto;
   margin-top: 10px;
 }
 
-.card .container .image {
-  width: 100%;
-  margin-right: 10px;
-  height: 100%;
-  position: relative;
-  margin-bottom: 8px;
-}
+// .card .container_image .image {
+//   width: 100%;
+//   margin-right: 10px;
+//   height: 100%;
+//   position: relative;
+//   margin-bottom: 8px;
+// }
 
-.card .container .image img {
-  width: 100%;
-  height: 100%;
+.card .container_image .image img {
+  // width: 100%;
+  // height: 100%;
   border-radius: 5px;
 }
 
-.card .container .image span {
-  position: absolute;
-  top: -2px;
-  right: 5px;
-  font-size: 20px;
-  color: #fff;
+.image {
+  object-fit: cover;
+}
+
+.card .container_image .image span {
+  color: black;
   cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .card input,
@@ -1076,11 +1052,7 @@ button#btn_cls_st {
 
 .drag_drop {
   font-size: 13px;
-}
-
-.video {
-  background: transparent;
-  border: transparent;
+  padding-left: 10px;
 }
 
 .table_head_sectat {

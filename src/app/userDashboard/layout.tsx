@@ -48,13 +48,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const pathSegments = asPath?.split('/').filter((segment) => segment);
 
   return (
-    <main className={styles.main_container} >
+    <main className={styles.main_container}>
       <Provider store={store}>
         <Sidebar menuItem={dynamicMenuItems} />
         <div id="subMainLayoutContainer">
           <Navbar />
 
-          <div className={styles.main_container} >
+          <div className={styles.main_container}>
             <div className={styles.sidebar_wrapper}>
               <div className={styles.content}>
                 <div className={styles.dashboard}>
@@ -66,8 +66,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </div>
-
-
       </Provider>
     </main>
   );

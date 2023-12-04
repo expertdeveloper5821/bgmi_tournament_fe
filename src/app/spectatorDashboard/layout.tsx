@@ -22,9 +22,11 @@ const dynamicMenuItems = [
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <ErrorBoundary>
-      <div className={styles.main_container} id="mainLayoutContainer">
+      <div className={styles.main_container} >
         <Sidebar menuItem={dynamicMenuItems} />
-        <div className={styles.content__container}>{children}</div>
+        <div className={styles.content__container} id="subMainLayoutContainer">
+          {children}
+        </div>
       </div>
     </ErrorBoundary>
   );
