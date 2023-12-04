@@ -67,7 +67,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
             <TableCell className={styles.el_tb_cell}>{spec?.thirdWin ?? '--'}</TableCell>
             <TableCell className={styles.el_tb_cell}>{spec?.secondWin ?? '--'}</TableCell>
             <TableCell className={styles.tb_cell_body}>
-              {spec?.dateAndTime ? formatTime({ time: spec.dateAndTime, format: 'LT' }) : '--'}
+              {spec?.dateAndTime ? formatTime({ time: spec.dateAndTime, format: 'h:mm A' }) : '--'}
             </TableCell>
 
             <TableCell className={styles.tb_cell_body}>

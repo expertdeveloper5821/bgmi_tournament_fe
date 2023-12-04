@@ -1,5 +1,15 @@
 import { CreateRoomFormType } from '@/types/roomsTypes';
 
+export const userProfileImg =
+  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+
+export const optionsFriendFilter = [
+  { name: 'Active', value: 'active' },
+  { name: 'Inactive', value: 'inactive' },
+  { name: 'A to Z', value: 'atoz' },
+  { name: 'Z to A', value: 'ztoa' },
+];
+
 export const initialValueCreateRoom: CreateRoomFormType = {
   roomId: '',
   gameName: '',

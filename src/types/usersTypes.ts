@@ -21,3 +21,11 @@ export interface UserContextType {
   token: null | DecodedToken;
   triggerHandleLogout: () => void;
 }
+
+export interface UserTeamMemberType {
+  email: string;
+  fullName: string;
+  _id: string;
+  profilePic?: string;
+  userName?: string;
+}

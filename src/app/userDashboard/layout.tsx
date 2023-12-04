@@ -1,13 +1,14 @@
 'use client';
-import { FaRegChartBar, FaTh, FaVideo } from 'react-icons/fa';
+import { FaTh, FaVideo } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
 import Sidebar from '@/Components/CommonComponent/SideBar/Sidebar';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import { Provider } from 'react-redux';
 import { store } from '@/redux/store';
-import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
+// import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 import { getPageName } from '@/utils/commonFunction';
 import styles from '@/styles/Dashboard.module.scss';
+import { GiThreeFriends } from 'react-icons/gi';
 
 const dynamicMenuItems = [
   {
@@ -23,7 +24,7 @@ const dynamicMenuItems = [
   {
     path: '/userDashboard/friends',
     name: 'Friends',
-    icon: <FaRegChartBar />,
+    icon: <GiThreeFriends />,
   },
   {
     path: '/userDashboard/videos',
@@ -59,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className={styles.content}>
                 <div className={styles.dashboard}>
                   <span className={styles.head_desc}>{getPageName(pathSegments?.at(-1))}</span>
-                  <Breadcrumb />
+                  {/* <Breadcrumb /> */}
                 </div>
               </div>
               {children}

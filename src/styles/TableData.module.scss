@@ -45,6 +45,7 @@
   @include tableheader;
   text-align: center;
   padding: 0 6px;
+  padding: 0 6px;
 }
 
 .room_header {
@@ -220,7 +221,7 @@ button#btn_cls_st {
 .roombutton {
   background: $bs-orange !important;
   width: 100%;
-  margin-top: 12px;
+  // margin-top: 12px;
   color: $bs-white !important;
 }
 
@@ -481,8 +482,16 @@ button#btn_cls_st {
 .noInfoBtn {
   cursor: pointer;
 }
-.del {
-  cursor: pointer;
+
+//testing
+
+// .del {
+//   cursor: pointer;
+// }
+
+.video {
+  background: transparent;
+  border: none;
 }
 
 .no_data_found_heading {

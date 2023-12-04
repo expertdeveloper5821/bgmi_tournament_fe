@@ -192,7 +192,6 @@ const Video = () => {
 
       {isDeleteModalOpen && (
         <DeleteModal
-          isOpen={isDeleteModalOpen}
           handleCloseModal={closeDeleteModal}
           handleDeleteUser={() => {
             deleteVideo(selectedVideoId);

@@ -24,9 +24,9 @@ const CreateRoomForm = (props) => {
     useFormik<CreateRoomFormType>({
       initialValues: initialValueCreateRoom,
       validationSchema,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       onSubmit: async (values, { resetForm }) => {
-        const dateTimeString = new Date(`${values.date} ${values.time}`);
+        const dateTimeString = new Date(`${values.date}T${values.time}`);
         const roomId = roomIdToUpdate ? roomIdToUpdate._id : '';
         try {
           setIsLoading(true);
@@ -293,9 +293,6 @@ const CreateRoomForm = (props) => {
                       {errors.entryFee && touched.entryFee && (
                         <div className={styles.error}>{String(errors.entryFee)}</div>
                       )}
-                    </div>
-
-                    <div className={styles.flex_col}>
                       <div className={styles.input_box}>
                         <label className={styles.labelStyle}>Room Password</label>
                         <Input
@@ -311,6 +308,9 @@ const CreateRoomForm = (props) => {
                       {errors.password && touched.password && (
                         <div className={styles.error}>{String(errors.password)}</div>
                       )}
+                    </div>
+
+                    <div className={styles.flex_col}>
                       <div className={styles.input_box}>
                         <label className={styles.labelStyle}>No. Of Players (Game Type)</label>
                         <Input
@@ -408,7 +408,11 @@ const CreateRoomForm = (props) => {
                                   {' '}
                                   Drag and Drop image here or ,
                                 </div>
-                                <span className={styles.select} role="button" onClick={selectFiles}>
+                                <span
+                                  className={styles.select_browse}
+                                  role="button"
+                                  onClick={selectFiles}
+                                >
                                   Browse
                                 </span>
                               </>
@@ -423,15 +427,15 @@ const CreateRoomForm = (props) => {
                               onChange={onFileSelect}
                             ></input>
                           </div>
-                          <div className={styles.container}>
+                          <div className={styles.container_image}>
                             {images.map((image, i) => (
                               <div className={styles.image} key={i}>
                                 <span className={styles.delete} onClick={() => deleteImage(i)}>
                                   &times;
                                 </span>
                                 <img
-                                  width={280}
-                                  height={150}
+                                  width={230}
+                                  height={130}
                                   src={image.url}
                                   alt={image.name}
                                 ></img>
@@ -441,8 +445,8 @@ const CreateRoomForm = (props) => {
                               <img
                                 src={roomIdToUpdate.mapImg}
                                 alt="Map Image"
-                                width={280}
-                                height={150}
+                                width={230}
+                                height={130}
                               />
                             )}
                           </div>
