@@ -3,7 +3,7 @@ import React from 'react';
 import styles from '@/styles/friends.module.scss';
 import Image from 'next/image';
 
-function DeleteModal(props) {
+function DeleteModal({ handleCloseModal, handleDeleteUser }) {
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContainer}>
@@ -14,7 +14,7 @@ function DeleteModal(props) {
               alt="delete"
               height={100}
               width={100}
-              onClick={props.handleCloseModal}
+              onClick={handleCloseModal}
             />
           </div>
           <div className={styles.title}>
@@ -25,10 +25,10 @@ function DeleteModal(props) {
           <p>Are you sure want to delete this?</p>
         </div>
         <div className={styles.footer}>
-          <button className={styles.deletebtn} onClick={props.handleDeleteUser}>
+          <button className={styles.deletebtn} onClick={handleDeleteUser}>
             Delete
           </button>
-          <button className={styles.cancelbtn} onClick={props.handleCloseModal}>
+          <button className={styles.cancelbtn} onClick={handleCloseModal}>
             Cancel
           </button>
         </div>

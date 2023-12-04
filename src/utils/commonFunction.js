@@ -10,6 +10,8 @@ export const getIdPass = (dateAndTime) => {
 
 export const getPageName = (path) => {
   switch (path) {
+    // case 'friends':
+    //   return 'Invite your friends';
     case 'registerMatches':
       return 'Registered Matches';
     case 'userDashboard':
@@ -20,10 +22,10 @@ export const getPageName = (path) => {
   }
 };
 
-export function debounce(func, delay) {
+export function debounce(func, delay = 1000) {
   let timeoutId;
-
-  return function (...args) {
+  return function () {
+    const args = arguments
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => {
       func.apply(this, args);

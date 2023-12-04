@@ -60,6 +60,7 @@
 .header h2 {
   font-size: xx-large;
   font-weight: 800;
+  line-height: 1.5;
 
   @media (max-width: $breakpoint-md) {
     font-size: x-large;
@@ -151,6 +152,7 @@
     background: #ffff;
     border-radius: 6px;
     cursor: pointer;
+    z-index: 1;
   }
 }
 
@@ -163,7 +165,6 @@
     position: absolute;
     top: 0;
     right: 0;
-
   }
 
   .sortIcon {
@@ -189,6 +190,7 @@
   height: 44px;
   border-radius: 8px;
   position: relative;
+  cursor: pointer;
 
   input {
     width: 285px;
@@ -196,7 +198,6 @@
     border-radius: 4px;
     padding: 5px 1rem;
     font-size: 1rem;
-    background-color: white;
     outline: none;
 
     @media screen and (max-width: $breakpoint-tab) {
@@ -207,15 +208,17 @@
   }
 
   .searchIcon {
+    border-radius: 6px;
+    margin-top: 2px;
     position: absolute;
-    top: 14px;
-    right: 14px;
+    top: 0;
+    right: 0;
+    height: 94%;
+    width: 16%;
     background-color: white;
-
-    @media screen and (max-width: $breakpoint-tab) {
-      top: 8px;
-      width: 14px;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -235,8 +238,6 @@
 
     .inputContainer {
       height: 35px;
-
-
     }
 
     .btnPrime {
@@ -252,7 +253,7 @@
 
 .modalBackground {
   position: fixed;
-  background: rgba(0, 35, 40, 0.4);
+  background: rgba(0, 0, 49, 0.8);
   top: 0px;
   right: 0px;
   bottom: 0px;
@@ -302,6 +303,7 @@
 .titleCloseBtn {
   position: absolute;
   right: 0;
+  cursor: pointer;
 
   img {
     width: 30px;
