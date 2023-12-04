@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import styles from '@/styles/friends.module.scss';
 import { sendRequest } from '@/utils/axiosInstanse';
 import Image from 'next/image';
-import CardConatiner from '@/Components/CommonComponent/Card/Card';
+import CardConatiner from '@/Components/userDashboard/CardContainer';
 import { toast } from 'react-toastify';
 import { decodeJWt, getTokenFromLS } from '@/utils/globalfunctions';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
 import { FaCaretDown } from 'react-icons/fa';
 import CustomSelect from '@/Components/CommonComponent/CustomSelect';
-import InvitationModal from '@/Components/userDashboard/invitationModal';
+import InviteModal from '@/Components/userDashboard/InvitationModal';
 import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 import { debounce } from '@/utils/commonFunction';
 import { optionsFriendFilter } from '@/utils/constant';
@@ -18,7 +18,7 @@ import { UserTeamMemberType } from '@/types/usersTypes';
 
 const Friend = () => {
   const [open, setOpen] = useState(false);
-  const [forwardModal, setForwardModal] = useState(false);
+  const [invitationModal, setInvitationModal] = useState(false);
   const [inputValue, setInputValue] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [emailList, setEmailList] = useState<string[]>([]);
@@ -28,27 +28,14 @@ const Friend = () => {
   const [addFriendList, setAddFriendList] = useState<UserTeamMemberType[]>([]);
   const [friends, setFriends] = useState<UserTeamMemberType[]>([]);
 
-  // console.log('check mail', userMail);
   const token = getTokenFromLS();
   let decodedToken;
   if (token) {
     decodedToken = decodeJWt(token);
   }
 
-  const handleModal = (value: boolean) => {
-    setOpen(value);
-  };
-
   const handleCloseModal = () => {
     setOpen(false);
-  };
-
-  const handleCloseForwardModal = () => {
-    setForwardModal(false);
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -63,12 +50,8 @@ const Friend = () => {
     }
   };
 
-  const handleOpenFwdModal = () => {
-    setForwardModal(true);
-  };
-
   const handleForwardModal = (value: boolean) => {
-    setForwardModal(value);
+    setInvitationModal(value);
   };
 
   const handleDeleteUser = async () => {
@@ -88,7 +71,6 @@ const Friend = () => {
 
   const sendInviteByEmail = async () => {
     try {
-      setForwardModal(true);
       const payload = {
         teamName: decodedToken.teamName || newTeamName,
         emails: emailList,
@@ -101,7 +83,7 @@ const Friend = () => {
       if (response.status === 200) {
         setMessage('Friends added Successfully');
         setEmailList([]);
-        setForwardModal(false);
+        setInvitationModal(false);
         toast.success(response.data.message);
       }
     } catch (error) {
@@ -152,9 +134,15 @@ const Friend = () => {
         method: 'GET',
       });
       if (query && query.length > 0) {
-        setFriends(response?.data?.data?.teamMates);
+        const team = await response?.data?.data?.teamMates;
+        if (team[0] != null) {
+          setFriends(team);
+        }
       } else {
-        setFriends(response?.data?.data?.yourTeam?.teamMates);
+        const team = response?.data?.data?.yourTeam?.teamMates;
+        if (team[0] != null) {
+          setFriends(team);
+        }
       }
     } catch (error) {
       toast.error('Something went worng');
@@ -203,7 +191,7 @@ const Friend = () => {
               </button>
               <button
                 className={`${styles.btnPrime} ${styles.sendMailBtn}`}
-                onClick={handleOpenFwdModal}
+                onClick={() => setInvitationModal(true)}
               >
                 SEND INVITE BY EMAIL
               </button>
@@ -232,10 +220,10 @@ const Friend = () => {
             <CardConatiner
               friends={friends}
               addFriendList={addFriendList}
-              toOpen={handleModal}
+              setOpen={setOpen}
               forwardModalOpen={handleForwardModal}
               setUserMail={setUserMail}
-              handleOpenFwdModal={handleOpenFwdModal}
+              handleOpenInviteModal={() => setInvitationModal(true)}
             />
           </div>
           <div className={styles.pagination}>{/* <CustomPagination data={teamData} /> */}</div>
@@ -247,18 +235,17 @@ const Friend = () => {
         )}
 
         {/* Invitation modal here */}
-        {forwardModal && (
-          <InvitationModal
-            decodedToken={decodedToken}
+        {invitationModal && (
+          <InviteModal
             newTeamName={newTeamName}
             setNewTeamName={setNewTeamName}
             inputValue={inputValue}
             userMail={userMail}
-            handleInputChange={handleInputChange}
+            setInputValue={setInputValue}
             handleKeyPress={handleKeyPress}
             emailList={emailList}
             handleDeleteEmail={handleDeleteEmail}
-            handleCloseForwardModal={handleCloseForwardModal}
+            setInvitationModal={setInvitationModal}
             sendInviteByEmail={sendInviteByEmail}
             message={message}
           />

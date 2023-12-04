@@ -1,21 +1,28 @@
+'use client';
 import React from 'react';
 import styles from '@/styles/friends.module.scss';
 import Image from 'next/image';
+import { decodeJWt, getTokenFromLS } from '@/utils/globalfunctions';
 
-const InvitationModal = ({
-  decodedToken,
+const InviteModal = ({
   newTeamName,
   setNewTeamName,
   inputValue,
   userMail,
-  handleInputChange,
+  setInputValue,
   handleKeyPress,
   emailList,
   handleDeleteEmail,
-  handleCloseForwardModal,
+  setInvitationModal,
   sendInviteByEmail,
   message,
 }) => {
+  const token = getTokenFromLS();
+  let decodedToken;
+  if (token) {
+    decodedToken = decodeJWt(token);
+  }
+
   return (
     <div className={styles.modalBackground}>
       <div className={styles.forwardmodalContainer}>
@@ -43,15 +50,17 @@ const InvitationModal = ({
               name="search"
               value={inputValue || userMail}
               placeholder="Enter email press enter and send invitation"
-              onChange={handleInputChange}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setInputValue(event.target.value)
+              }
               onKeyDown={handleKeyPress}
             />
           </label>
           {emailList.length > 0 &&
-            emailList.map((email, index) => {
+            emailList.map((email: string, index: number) => {
               const truncatedEmail = email.length > 15 ? email.substring(0, 15) + '...' : email;
               return (
-                <div key={index} className={styles.inputemail_container}>
+                <div key={email} className={styles.inputemail_container}>
                   <div className={styles.inputemail}>
                     {truncatedEmail}
                     <Image
@@ -73,10 +82,14 @@ const InvitationModal = ({
           <span>Notify Please</span>
         </div>
         <div className={styles.forwardModalfooter}>
-          <button onClick={handleCloseForwardModal} className={styles.cancelbtn}>
+          <button onClick={() => setInvitationModal(false)} className={styles.cancelbtn}>
             Cancel
           </button>
-          <button className={styles.sendbtn} onClick={sendInviteByEmail}>
+          <button
+            disabled={emailList.length ? false : true}
+            className={styles.sendbtn}
+            onClick={sendInviteByEmail}
+          >
             Send
           </button>
         </div>
@@ -85,4 +98,4 @@ const InvitationModal = ({
   );
 };
 
-export default InvitationModal;
+export default InviteModal;
