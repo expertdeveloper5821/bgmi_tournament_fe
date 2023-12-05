@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/friends.module.scss';
-import { sendRequest } from '@/utils/axiosInstanse';
 import Image from 'next/image';
 import CardConatiner from '@/Components/userDashboard/CardContainer';
 import { toast } from 'react-toastify';
@@ -15,6 +14,12 @@ import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 import { debounce } from '@/utils/commonFunction';
 import { optionsFriendFilter } from '@/utils/constant';
 import { UserTeamMemberType } from '@/types/usersTypes';
+import {
+  deleteFriendService,
+  fetchFriendsService,
+  globalSearchService,
+  sendEmailInviteService,
+} from '@/services/userDashboardServices';
 
 const Friend = () => {
   const [open, setOpen] = useState(false);
@@ -56,12 +61,7 @@ const Friend = () => {
 
   const handleDeleteUser = async () => {
     try {
-      const response = await sendRequest(`/team/remove-team-mate`, {
-        method: 'DELETE',
-        data: {
-          teammateEmail: userMail,
-        },
-      });
+      const response = await deleteFriendService(userMail);
       toast.success(response.data.message);
       setOpen(false);
     } catch (error) {
@@ -70,27 +70,22 @@ const Friend = () => {
   };
 
   const sendInviteByEmail = async () => {
+    const payload = {
+      teamName: decodedToken.teamName || newTeamName,
+      emails: emailList,
+    };
     try {
-      const payload = {
-        teamName: decodedToken.teamName || newTeamName,
-        emails: emailList,
-      };
-      const response = await sendRequest('/user/send-invite', {
-        method: 'POST',
-        data: payload,
-      });
-
-      if (response.status === 200) {
-        setMessage('Friends added Successfully');
-        setEmailList([]);
-        setInvitationModal(false);
-        toast.success(response.data.message);
-      }
+      const response = await sendEmailInviteService(payload);
+      setMessage('Friends added Successfully');
+      setEmailList([]);
+      setInvitationModal(false);
+      toast.success(response.data.message);
     } catch (error) {
       setEmailList([]);
       setMessage(error.response.data.message);
     }
   };
+
   const handleDeleteEmail = (indexToDelete: number) => {
     const updatedEmailList = emailList.filter((_, index) => index !== indexToDelete);
     setEmailList(updatedEmailList);
@@ -103,9 +98,7 @@ const Friend = () => {
   async function handleGlobalSearch() {
     if (query && query.length > 0) {
       try {
-        const response = await sendRequest(`/user/getalluser?search=${query}`, {
-          method: 'GET',
-        });
+        const response = await globalSearchService(query);
         if (response?.data) {
           setAddFriendList(response?.data?.data);
         }
@@ -130,9 +123,7 @@ const Friend = () => {
 
   async function fetchData() {
     try {
-      const response = await sendRequest(`/team/user-teams?search=${query}`, {
-        method: 'GET',
-      });
+      const response = await fetchFriendsService(query);
       if (query && query.length > 0) {
         const team = await response?.data?.data?.teamMates;
         if (team[0] != null) {

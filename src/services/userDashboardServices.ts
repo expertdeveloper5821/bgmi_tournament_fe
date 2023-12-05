@@ -26,3 +26,51 @@ export const getMatchDetailsService = async (matchID: string) => {
     method: 'GET',
   });
 };
+
+export const deleteFriendService = async (userMail) => {
+  const response = await sendRequest(serviceUrls.deletefriend, {
+    method: 'DELETE',
+    data: {
+      teammateEmail: userMail,
+    },
+  });
+  if (response.status === 200) {
+    return response;
+  } else {
+    throw response;
+  }
+};
+
+export const sendEmailInviteService = async (payload) => {
+  const response = await sendRequest(serviceUrls.inviteMail, {
+    method: 'POST',
+    data: payload,
+  });
+  if (response.status === 200) {
+    return response;
+  } else {
+    throw response;
+  }
+};
+
+export async function globalSearchService(query) {
+  const response = await sendRequest(`${serviceUrls.globalusers}?search=${query}`, {
+    method: 'GET',
+  });
+  if (response.status === 200) {
+    return response;
+  } else {
+    throw response;
+  }
+}
+
+export async function fetchFriendsService(query) {
+  const response = await sendRequest(`${serviceUrls.getAllFriends}?search=${query}`, {
+    method: 'GET',
+  });
+  if (response.status === 200) {
+    return response;
+  } else {
+    throw response;
+  }
+}
