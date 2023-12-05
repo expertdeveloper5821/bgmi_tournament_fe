@@ -9,10 +9,7 @@ import { Popover } from 'technogetic-iron-smart-ui';
 import { decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
 import { toast } from 'react-toastify';
-
-interface NavbarProps {
-  notificationModalHandler?: () => void;
-}
+import { NavbarProps } from '@/types/navbarType';
 
 let actualPathname;
 

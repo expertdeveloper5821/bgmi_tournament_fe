@@ -1,3 +1,5 @@
+@import './variable.scss';
+
 .main_Container {
   position: fixed;
   background-color: white;
@@ -7,6 +9,12 @@
   z-index: 100;
   display: flex;
   flex-direction: column;
+  @media (max-width: $breakpoint-tab) {
+    width: 330px;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    width: 230px;
+  }
 }
 
 .headers {
@@ -20,6 +28,14 @@
     font-weight: bold;
     width: 400px;
     text-align: center;
+    @media (max-width: $breakpoint-tab) {
+      width: 290px;
+      font-size: 20px;
+    }
+    @media (max-width: $breakpoint-xSmall) {
+      width: 169px;
+      font-size: 14px;
+    }
   }
 
   .img_container {
@@ -41,11 +57,15 @@
     align-items: center;
     height: 55px;
     color: black;
+    .list_item_container_text {
+      @media (max-width: $breakpoint-tab) {
+        font-size: 10px;
+      }
+    }
   }
 }
 
 .footer {
-  // background-color: burlywood;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,6 +78,9 @@
     border: none;
     background-color: white;
     padding: 0;
+    @media (max-width: $breakpoint-xSmall) {
+      font-size: 12px;
+    }
   }
 }
 
@@ -67,6 +90,14 @@
   justify-content: space-between;
   justify-content: space-between;
   width: 110px;
+  @media (max-width: $breakpoint-tab) {
+    width: 98px;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    flex-direction: column;
+    height: 43px;
+    width: 60px;
+  }
 }
 
 .accept_btn {
@@ -78,6 +109,15 @@
   color: white;
   border: none;
   border-radius: 5px;
+  @media (max-width: $breakpoint-tab) {
+    width: 40px;
+    height: 25px;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    width: 30px;
+    height: 20px;
+    font-size: 7px;
+  }
 }
 
 .decline {
@@ -89,4 +129,13 @@
   color: white;
   border: none;
   border-radius: 5px;
+  @media (max-width: $breakpoint-tab) {
+    width: 45px;
+    height: 25px;
+  }
+  @media (max-width: $breakpoint-xSmall) {
+    width: 30px;
+    height: 20px;
+    font-size: 7px;
+  }
 }

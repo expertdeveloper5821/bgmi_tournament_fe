@@ -1,10 +1,7 @@
 import React from 'react';
 import styles from '@/styles/notifications.module.scss';
 import Image from 'next/image';
-
-interface NotificationModalProps {
-  notificationModalHandler: () => void;
-}
+import { NotificationModalProps } from '@/types/notificationModalType';
 
 const NotificationsModal = ({ notificationModalHandler }: NotificationModalProps) => {
   return (
@@ -30,8 +27,8 @@ const NotificationsModal = ({ notificationModalHandler }: NotificationModalProps
             width={40}
             style={{ borderRadius: '50%' }}
             onClick={notificationModalHandler}
-          />{' '}
-          <p>Next match play on 16/oct/2023</p>
+          />
+          <p className={styles.list_item_container_text}>Next match play on 16/oct/2023</p>
           <div className={styles.btn_container}>
             <button className={styles.accept_btn}>Accept</button>
             <button className={styles.decline}>Decline</button>
@@ -45,8 +42,8 @@ const NotificationsModal = ({ notificationModalHandler }: NotificationModalProps
             width={40}
             style={{ borderRadius: '50%' }}
             onClick={notificationModalHandler}
-          />{' '}
-          <p>Next match play on 16/oct/2023</p>
+          />
+          <p className={styles.list_item_container_text}>Next match play on 16/oct/2023</p>
           <div className={styles.btn_container}>
             <button className={styles.accept_btn}>Accept</button>
             <button className={styles.decline}>Decline</button>
@@ -60,8 +57,8 @@ const NotificationsModal = ({ notificationModalHandler }: NotificationModalProps
             width={40}
             style={{ borderRadius: '50%' }}
             onClick={notificationModalHandler}
-          />{' '}
-          <p>Next match play on 16/oct/2023</p>
+          />
+          <p className={styles.list_item_container_text}>Next match play on 16/oct/2023</p>
           <div className={styles.btn_container}>
             <button className={styles.accept_btn}>Accept</button>
             <button className={styles.decline}>Decline</button>
@@ -75,8 +72,8 @@ const NotificationsModal = ({ notificationModalHandler }: NotificationModalProps
             width={40}
             style={{ borderRadius: '50%' }}
             onClick={notificationModalHandler}
-          />{' '}
-          <p>Next match play on 16/oct/2023</p>
+          />
+          <p className={styles.list_item_container_text}>Next match play on 16/oct/2023</p>
           <div className={styles.btn_container}>
             <button className={styles.accept_btn}>Accept</button>
             <button className={styles.decline}>Decline</button>
@@ -90,8 +87,8 @@ const NotificationsModal = ({ notificationModalHandler }: NotificationModalProps
             width={40}
             style={{ borderRadius: '50%' }}
             onClick={notificationModalHandler}
-          />{' '}
-          <p>Next match play on 16/oct/2023</p>
+          />
+          <p className={styles.list_item_container_text}>Next match play on 16/oct/2023</p>
           <div className={styles.btn_container}>
             <button className={styles.accept_btn}>Accept</button>
             <button className={styles.decline}>Decline</button>
@@ -105,8 +102,8 @@ const NotificationsModal = ({ notificationModalHandler }: NotificationModalProps
             width={40}
             style={{ borderRadius: '50%' }}
             onClick={notificationModalHandler}
-          />{' '}
-          <p>Next match play on 16/oct/2023</p>
+          />
+          <p className={styles.list_item_container_text}>Next match play on 16/oct/2023</p>
           <div className={styles.btn_container}>
             <button className={styles.accept_btn}>Accept</button>
             <button className={styles.decline}>Decline</button>
@@ -120,8 +117,8 @@ const NotificationsModal = ({ notificationModalHandler }: NotificationModalProps
             width={40}
             style={{ borderRadius: '50%' }}
             onClick={notificationModalHandler}
-          />{' '}
-          <p>Next match play on 16/oct/2023</p>
+          />
+          <p className={styles.list_item_container_text}>Next match play on 16/oct/2023</p>
           <div className={styles.btn_container}>
             <button className={styles.accept_btn}>Accept</button>
             <button className={styles.decline}>Decline</button>
@@ -135,8 +132,8 @@ const NotificationsModal = ({ notificationModalHandler }: NotificationModalProps
             width={40}
             style={{ borderRadius: '50%' }}
             onClick={notificationModalHandler}
-          />{' '}
-          <p>Next match play on 16/oct/2023</p>
+          />
+          <p className={styles.list_item_container_text}>Next match play on 16/oct/2023</p>
           <div className={styles.btn_container}>
             <button className={styles.accept_btn}>Accept</button>
             <button className={styles.decline}>Decline</button>
@@ -150,8 +147,8 @@ const NotificationsModal = ({ notificationModalHandler }: NotificationModalProps
             width={40}
             style={{ borderRadius: '50%' }}
             onClick={notificationModalHandler}
-          />{' '}
-          <p>Next match play on 16/oct/2023</p>
+          />
+          <p className={styles.list_item_container_text}>Next match play on 16/oct/2023</p>
           <div className={styles.btn_container}>
             <button className={styles.accept_btn}>Accept</button>
             <button className={styles.decline}>Decline</button>
