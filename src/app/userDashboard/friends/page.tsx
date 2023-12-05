@@ -9,7 +9,7 @@ import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
 import { FaCaretDown } from 'react-icons/fa';
 import CustomSelect from '@/Components/CommonComponent/CustomSelect';
-import InviteModal from '@/Components/userDashboard/InvitationModal';
+import InviteModal from '@/Components/userDashboard/InviteModal';
 import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 import { debounce } from '@/utils/commonFunction';
 import { optionsFriendFilter } from '@/utils/constant';

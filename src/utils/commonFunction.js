@@ -25,7 +25,7 @@ export const getPageName = (path) => {
 export function debounce(func, delay = 1000) {
   let timeoutId;
   return function () {
-    const args = arguments
+    const args = arguments;
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => {
       func.apply(this, args);

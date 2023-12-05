@@ -77,6 +77,38 @@
   }
 }
 
+.inputContainer {
+  height: 44px;
+  border-radius: 8px;
+  background-color: white;
+  position: relative;
+
+  @media (max-width: $breakpoint-md) {
+    margin-bottom: 10px;
+  }
+
+  .searchIcon {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background-color: white;
+
+    @media (max-width: $breakpoint-md) {
+      display: none;
+    }
+  }
+}
+
+.inputContainer input {
+  width: 285px;
+  height: 44px;
+  border-radius: 4px;
+  padding: 5px 1rem;
+  font-size: 1rem;
+  background-color: white;
+  outline: none;
+}
+
 .mainContainer {
   margin-top: 2.5rem;
 
@@ -271,6 +303,10 @@
   flex-direction: column;
   padding: 10px;
   width: 400px;
+  @media (max-width: $breakpoint-xs) {
+    width: 280px;
+    height: 140px;
+  }
 }
 
 .modalContainer .title {
@@ -284,12 +320,18 @@
   font-size: large;
   font-weight: 900;
   margin-bottom: 10px;
+  @media (max-width: $breakpoint-xs) {
+    font-size: medium;
+  }
 }
 
 .body p {
   color: #6c757d;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 20px;
+  @media (max-width: $breakpoint-xs) {
+    font-size: 13px;
+  }
 }
 
 .deleteModalHeader {
@@ -309,12 +351,22 @@
     width: 30px;
     height: 40px;
   }
+  @media (max-width: $breakpoint-xs) {
+    right: 10px;
+  }
+}
+
+.titleCloseBtn img {
+  @media (max-width: $breakpoint-xs) {
+    width: 15px;
+    height: 15px;
+    margin-top: 13px;
+  }
 }
 
 .titleCloseBtn button {
   background-color: transparent;
   border: none;
-  // font-size: 25px;
   cursor: pointer;
 }
 
@@ -343,12 +395,19 @@
   display: flex;
   justify-content: center;
   cursor: pointer;
+  @media (max-width: $breakpoint-xs) {
+    margin: 5px;
+  }
 }
 
 .cancelbtn {
   background-color: white;
   color: #ff7a00;
   border: 1px solid #ff7a00;
+  @media (max-width: $breakpoint-xs) {
+    margin: 2px;
+    font-size: 13px;
+  }
 }
 
 .deletebtn {

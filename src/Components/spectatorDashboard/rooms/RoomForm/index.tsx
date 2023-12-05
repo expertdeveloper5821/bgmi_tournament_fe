@@ -26,7 +26,6 @@ const CreateRoomForm = (props) => {
       validationSchema,
 
       onSubmit: async (values, { resetForm }) => {
-
         const dateTimeString = new Date(`${values.date}T${values.time}`);
         const roomId = roomIdToUpdate ? roomIdToUpdate._id : '';
         try {
@@ -312,7 +311,6 @@ const CreateRoomForm = (props) => {
                     </div>
 
                     <div className={styles.flex_col}>
-
                       <div className={styles.input_box}>
                         <label className={styles.labelStyle}>No. Of Players (Game Type)</label>
                         <Input
@@ -392,7 +390,6 @@ const CreateRoomForm = (props) => {
                       )}
 
                       <div className={styles.input_box}>
-
                         <div className={styles.card}>
                           <div className={styles.top}>
                             <p>Drag & Drop Image Uploading</p>
@@ -411,7 +408,11 @@ const CreateRoomForm = (props) => {
                                   {' '}
                                   Drag and Drop image here or ,
                                 </div>
-                                <span className={styles.select_browse} role="button" onClick={selectFiles}>
+                                <span
+                                  className={styles.select_browse}
+                                  role="button"
+                                  onClick={selectFiles}
+                                >
                                   Browse
                                 </span>
                               </>
@@ -428,7 +429,7 @@ const CreateRoomForm = (props) => {
                           </div>
                           <div className={styles.container_image}>
                             {images.map((image, i) => (
-                              <div className={styles.image} key={i} >
+                              <div className={styles.image} key={i}>
                                 <span className={styles.delete} onClick={() => deleteImage(i)}>
                                   &times;
                                 </span>
@@ -452,7 +453,6 @@ const CreateRoomForm = (props) => {
                         </div>
                       </div>
                     </div>
-
                   </form>
 
                   <div className={styles.btn_form_wrapper}>
@@ -494,11 +494,11 @@ const CreateRoomForm = (props) => {
                 </div>
               </div>
             </div>
-          </div >
+          </div>
         ) : (
           ''
         )}
-      </div >
+      </div>
     </>
   );
 };

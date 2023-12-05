@@ -1208,7 +1208,7 @@ body.activemodal {
 
   @media (max-width: $breakpointregister-sm) {
     padding: 5px 8px;
-    font-size: 14px;
+    font-size: 10px;
     height: auto;
     margin-left: 20px;
   }
@@ -1237,10 +1237,18 @@ body.activemodal {
   left: 50%;
   transform: translate(-50%, -50%);
   background: #f1f1f1;
+  width: 443px;
+  transform: translate(-50%, -50%);
   padding: 18px 36px;
   border-radius: 6px;
-  max-width: 600px;
-  min-width: 300px;
+
+  form {
+    width: 100%;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    width: 300px;
+  }
 }
 
 .closemodal {
@@ -1258,7 +1266,7 @@ body.activemodal {
 }
 
 .text {
-  padding: 10px;
+  padding: 10px 0px;
 }
 
 .popupbutton {
@@ -1273,6 +1281,10 @@ body.activemodal {
 .email_wrapper input[type='email'],
 .email_wrapper input[type='password'] {
   color: #000 !important;
+}
+
+.email_wrapper {
+  border: 2px solid rgba(147, 128, 108, 0.25) !important;
 }
 
 .register_button {
@@ -1312,6 +1324,11 @@ body.activemodal {
 .input_desc {
   display: flex;
   justify-content: flex-end;
+
+  @media (max-width: $breakpoint-xs) {
+    justify-content: flex-start;
+    margin-left: 15px;
+  }
 }
 
 .button_wrapper {
@@ -1319,8 +1336,18 @@ body.activemodal {
   background-color: $bs-orange !important;
   border-radius: 4px;
 
-  @media (max-width: $breakpointregister-xs) {
+  @media (max-width: $breakpoint-xSmall) {
     margin: 0px 1rem 0px 0.5rem;
+  }
+}
+
+.button_wrapper_adminDashboard {
+  margin: 0px 1rem;
+  background-color: $bs-orange !important;
+  border-radius: 4px;
+
+  @media (max-width: $breakpoint-xs) {
+    display: none;
   }
 }
 
@@ -1340,6 +1367,12 @@ body.activemodal {
 
 .error_message {
   color: red;
+  font-size: 14px;
+  position: absolute;
+
+  @media (max-width: $breakpoint-xs) {
+    font-size: 9px;
+  }
 }
 
 .create_spectator_form {
@@ -1351,7 +1384,7 @@ body.activemodal {
   border: none;
   color: white;
 
-  @media (max-width: $breakpointregister-xs) {
+  @media (max-width: $breakpoint-xSmall) {
     width: 130px;
   }
 }
@@ -1359,7 +1392,7 @@ body.activemodal {
 .search_input_box>input::placeholder {
   color: white;
 
-  @media (max-width: $breakpointregister-xs) {
+  @media (max-width: $breakpoint-xSmall) {
     font-size: 15px;
   }
 }
