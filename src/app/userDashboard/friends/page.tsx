@@ -28,7 +28,6 @@ const Friend = () => {
   const [addFriendList, setAddFriendList] = useState<UserTeamMemberType[]>([]);
   const [friends, setFriends] = useState<UserTeamMemberType[]>([]);
 
-  // console.log('check mail', userMail);
   const token = getTokenFromLS();
   let decodedToken;
   if (token) {

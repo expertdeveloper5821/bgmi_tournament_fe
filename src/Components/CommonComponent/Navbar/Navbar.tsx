@@ -10,9 +10,13 @@ import { decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
 import { toast } from 'react-toastify';
 
+interface NavbarProps {
+  notificationModalHandler?: () => void;
+}
+
 let actualPathname;
 
-export function Navbar() {
+export function Navbar({ notificationModalHandler }: NavbarProps) {
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
   const [userData, setUserData] = useState<string | undefined>('');
   const [nameData, setNameData] = useState<string | undefined>('');
@@ -25,7 +29,6 @@ export function Navbar() {
 
   useEffect(() => {
     actualPathname = pathname.split('/')[1];
-    console.log('actualPathname ==>', actualPathname);
   }, [pathname]);
 
   const handleLogout = async () => {
@@ -144,7 +147,7 @@ export function Navbar() {
             </li> */}
 
         {actualPathname === 'userDashboard' && (
-          <li className={styles.notificationIcon}>
+          <li className={styles.notificationIcon} onClick={notificationModalHandler}>
             <Image src={'/assests/bellIcon.svg'} alt="notification" width={28} height={28} />
             <span className={styles.notificationCount}>2</span>
           </li>
