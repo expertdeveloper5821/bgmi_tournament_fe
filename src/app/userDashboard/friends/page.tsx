@@ -1,24 +1,28 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/friends.module.scss';
-import { sendRequest } from '@/utils/axiosInstanse';
 import Image from 'next/image';
-import CardConatiner from '@/Components/CommonComponent/Card/Card';
+import CardConatiner from '@/Components/userDashboard/CardContainer';
 import { toast } from 'react-toastify';
 import { decodeJWt, getTokenFromLS } from '@/utils/globalfunctions';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
-import { FaCaretDown } from 'react-icons/fa';
 import CustomSelect from '@/Components/CommonComponent/CustomSelect';
-import InvitationModal from '@/Components/userDashboard/invitationModal';
-import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
+import InviteModal from '@/Components/userDashboard/InviteModal';
 import { debounce } from '@/utils/commonFunction';
 import { optionsFriendFilter } from '@/utils/constant';
 import { UserTeamMemberType } from '@/types/usersTypes';
+import {
+  deleteFriendService,
+  fetchFriendsService,
+  globalSearchService,
+  sendEmailInviteService,
+} from '@/services/userDashboardServices';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 const Friend = () => {
   const [open, setOpen] = useState(false);
-  const [forwardModal, setForwardModal] = useState(false);
+  const [invitationModal, setInvitationModal] = useState(false);
   const [inputValue, setInputValue] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [emailList, setEmailList] = useState<string[]>([]);
@@ -27,28 +31,16 @@ const Friend = () => {
   const [newTeamName, setNewTeamName] = useState<string>('');
   const [addFriendList, setAddFriendList] = useState<UserTeamMemberType[]>([]);
   const [friends, setFriends] = useState<UserTeamMemberType[]>([]);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
-  // console.log('check mail', userMail);
   const token = getTokenFromLS();
   let decodedToken;
   if (token) {
     decodedToken = decodeJWt(token);
   }
 
-  const handleModal = (value: boolean) => {
-    setOpen(value);
-  };
-
   const handleCloseModal = () => {
     setOpen(false);
-  };
-
-  const handleCloseForwardModal = () => {
-    setForwardModal(false);
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -63,22 +55,13 @@ const Friend = () => {
     }
   };
 
-  const handleOpenFwdModal = () => {
-    setForwardModal(true);
-  };
-
   const handleForwardModal = (value: boolean) => {
-    setForwardModal(value);
+    setInvitationModal(value);
   };
 
   const handleDeleteUser = async () => {
     try {
-      const response = await sendRequest(`/team/remove-team-mate`, {
-        method: 'DELETE',
-        data: {
-          teammateEmail: userMail,
-        },
-      });
+      const response = await deleteFriendService(userMail);
       toast.success(response.data.message);
       setOpen(false);
     } catch (error) {
@@ -87,28 +70,29 @@ const Friend = () => {
   };
 
   const sendInviteByEmail = async () => {
-    try {
-      setForwardModal(true);
+    if (emailList.length > 0) {
       const payload = {
         teamName: decodedToken.teamName || newTeamName,
         emails: emailList,
       };
-      const response = await sendRequest('/user/send-invite', {
-        method: 'POST',
-        data: payload,
-      });
-
-      if (response.status === 200) {
+      try {
+        setLoading(true);
+        const response = await sendEmailInviteService(payload);
         setMessage('Friends added Successfully');
         setEmailList([]);
-        setForwardModal(false);
+        setLoading(false);
+        setInvitationModal(false);
         toast.success(response.data.message);
+      } catch (error) {
+        setEmailList([]);
+        setLoading(false);
+        setInvitationModal(false);
+        toast.error(error.response.data.message);
+        setMessage(error.response.data.message);
       }
-    } catch (error) {
-      setEmailList([]);
-      setMessage(error.response.data.message);
     }
   };
+
   const handleDeleteEmail = (indexToDelete: number) => {
     const updatedEmailList = emailList.filter((_, index) => index !== indexToDelete);
     setEmailList(updatedEmailList);
@@ -120,14 +104,15 @@ const Friend = () => {
 
   async function handleGlobalSearch() {
     if (query && query.length > 0) {
+      setLoading(true);
       try {
-        const response = await sendRequest(`/user/getalluser?search=${query}`, {
-          method: 'GET',
-        });
+        const response = await globalSearchService(query);
         if (response?.data) {
           setAddFriendList(response?.data?.data);
+          setLoading(false);
         }
       } catch (error) {
+        setLoading(false);
         toast.error(`User not found with this name ${query}`);
       }
     }
@@ -147,17 +132,25 @@ const Friend = () => {
   }
 
   async function fetchData() {
+    setLoading(true);
     try {
-      const response = await sendRequest(`/team/user-teams?search=${query}`, {
-        method: 'GET',
-      });
+      const response = await fetchFriendsService(query);
       if (query && query.length > 0) {
-        setFriends(response?.data?.data?.teamMates);
+        const team = await response?.data?.data?.teamMates;
+        setLoading(false);
+        if (team[0] != null) {
+          setFriends(team);
+        }
       } else {
-        setFriends(response?.data?.data?.yourTeam?.teamMates);
+        const team = response?.data?.data?.yourTeam?.teamMates;
+        setLoading(false);
+        if (team[0] != null) {
+          setFriends(team);
+        }
       }
     } catch (error) {
       toast.error('Something went worng');
+      setLoading(false);
     }
   }
 
@@ -203,7 +196,7 @@ const Friend = () => {
               </button>
               <button
                 className={`${styles.btnPrime} ${styles.sendMailBtn}`}
-                onClick={handleOpenFwdModal}
+                onClick={() => setInvitationModal(true)}
               >
                 SEND INVITE BY EMAIL
               </button>
@@ -212,30 +205,17 @@ const Friend = () => {
           <div className={styles.mainContainer}>
             <div className={styles.filterTab}>
               <h2>Your friend list</h2>
-              <div className={styles.selectContainer}>
-                <Image
-                  src="/assests/sort.svg"
-                  alt="sort"
-                  height={22}
-                  width={22}
-                  className={styles.sortIcon}
-                />
-
-                <CustomSelect options={optionsFriendFilter} handleSelect={handleSelect} />
-
-                <div className={styles.downIcon}>
-                  <FaCaretDown color={'#ff7a00'} />
-                </div>
-              </div>
+              <CustomSelect options={optionsFriendFilter} handleSelect={handleSelect} />
             </div>
 
             <CardConatiner
+              isLoading={isLoading}
               friends={friends}
               addFriendList={addFriendList}
-              toOpen={handleModal}
+              setOpen={setOpen}
               forwardModalOpen={handleForwardModal}
               setUserMail={setUserMail}
-              handleOpenFwdModal={handleOpenFwdModal}
+              handleOpenInviteModal={() => setInvitationModal(true)}
             />
           </div>
           <div className={styles.pagination}>{/* <CustomPagination data={teamData} /> */}</div>
@@ -247,18 +227,18 @@ const Friend = () => {
         )}
 
         {/* Invitation modal here */}
-        {forwardModal && (
-          <InvitationModal
-            decodedToken={decodedToken}
+        {invitationModal && (
+          <InviteModal
+            isLoading={isLoading}
             newTeamName={newTeamName}
             setNewTeamName={setNewTeamName}
             inputValue={inputValue}
             userMail={userMail}
-            handleInputChange={handleInputChange}
+            setInputValue={setInputValue}
             handleKeyPress={handleKeyPress}
             emailList={emailList}
             handleDeleteEmail={handleDeleteEmail}
-            handleCloseForwardModal={handleCloseForwardModal}
+            setInvitationModal={setInvitationModal}
             sendInviteByEmail={sendInviteByEmail}
             message={message}
           />

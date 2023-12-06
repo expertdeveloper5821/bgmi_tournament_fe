@@ -105,9 +105,12 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                   </div>
                 </TableHead>
               ))}
-              <TableHead className={styles.table_head}>
-                <div className={styles.filter}>Actions</div>
-              </TableHead>
+
+              {type !== 'leaderboard' && (
+                <TableHead className={styles.table_head}>
+                  <div className={styles.filter}>Actions</div>
+                </TableHead>
+              )}
             </TableRow>
           </TableHeader>
 
@@ -171,6 +174,16 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                         onClick={() => deleteroom && deleteroom(data.userUuid)}
                       />
                     </TableCell>
+                  </TableRow>
+                );
+              } else if (type === 'leaderboard') {
+                return (
+                  <TableRow className={styles.table_rowdata} key={index}>
+                    <TableCell className={styles.table_cell}>{data?.teamName || ''}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.totalPoints || 0}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.matchType || 'N/A'}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.totalWins || 0}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.totalLosses || 0}</TableCell>
                   </TableRow>
                 );
               }
