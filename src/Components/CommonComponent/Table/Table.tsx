@@ -137,19 +137,35 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                     </TableCell>
                   </TableRow>
                 );
-              } else if (type === 'SPECTATOR' || type === 'USERS') {
+              } else if (type === 'SPECTATOR') {
                 return (
                   <TableRow className={styles.table_rowdata} key={index}>
                     <TableCell className={styles.table_cell}>{data?.fullName}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.userName || '--'}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.email}</TableCell>
                     <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
-                      {type === 'SPECTATOR' && (
-                        <MdEdit
-                          className={styles.del}
-                          onClick={() => handleEdit && handleEdit(data)}
-                        />
-                      )}
+                      <MdEdit
+                        className={styles.del}
+                        onClick={() => handleEdit && handleEdit(data)}
+                      />
+                      <RiDeleteBin6Line
+                        className={styles.del}
+                        onClick={() => deleteroom && deleteroom(data.userUuid)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              } else if (type === 'USERS') {
+                return (
+                  <TableRow className={styles.table_rowdata} key={index}>
+                    <TableCell className={styles.table_cell}>{data?.fullName}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.userName || '--'}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.email}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.phoneNumber || '--'}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.upiId || '--'}</TableCell>
+                    <TableCell className={styles.table_cell}>{'--'}</TableCell>
+                    <TableCell className={styles.table_cell}>{'--'}</TableCell>
+                    <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
                       <RiDeleteBin6Line
                         className={styles.del}
                         onClick={() => deleteroom && deleteroom(data.userUuid)}
