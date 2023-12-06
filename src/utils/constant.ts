@@ -119,3 +119,5 @@ export const adminUserColumns: string[] = [
   'Team Name',
   'Permission',
 ];
+
+export const LeaderBoardColumns: string[] = ['Team Name', 'Points', 'Match Type', 'Win', 'Lose'];
