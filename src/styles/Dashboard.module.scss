@@ -1425,9 +1425,14 @@ body.activemodal {
 .input_desc {
   display: flex;
   justify-content: flex-end;
+
   @media (max-width: $breakpoint-xs) {
     justify-content: flex-start;
     margin-left: 15px;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    margin: 0px 15px;
   }
 }
 
@@ -1480,39 +1485,46 @@ body.activemodal {
   display: flex;
   border: 1px solid white;
   border-radius: 7px;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 100%;
+  }
 }
 
 .search_Container:focus {
   border: 2px solid white;
 }
 
-
 .search_input_box {
   border: none;
   width: 170px;
   outline: none;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 100%;
+  }
 }
 
 .search_input_box:focus-within {
-    border: none
+  border: none;
 }
-
 
 .search_input_box > input {
   background: transparent;
   border: none;
   color: white;
   @media (max-width: $breakpoint-xSmall) {
-    width: 130px;
+    width: 100%;
   }
 }
 
-.img_container{
+.img_container {
   width: 28px;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 40px;
+  }
 }
 
 .search_Icon {
