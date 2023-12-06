@@ -32,6 +32,7 @@ const Friend = () => {
   const [newTeamName, setNewTeamName] = useState<string>('');
   const [addFriendList, setAddFriendList] = useState<UserTeamMemberType[]>([]);
   const [friends, setFriends] = useState<UserTeamMemberType[]>([]);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const token = getTokenFromLS();
   let decodedToken;
@@ -97,12 +98,15 @@ const Friend = () => {
 
   async function handleGlobalSearch() {
     if (query && query.length > 0) {
+      setLoading(true);
       try {
         const response = await globalSearchService(query);
         if (response?.data) {
           setAddFriendList(response?.data?.data);
+          setLoading(false);
         }
       } catch (error) {
+        setLoading(false);
         toast.error(`User not found with this name ${query}`);
       }
     }
@@ -122,21 +126,25 @@ const Friend = () => {
   }
 
   async function fetchData() {
+    setLoading(true);
     try {
       const response = await fetchFriendsService(query);
       if (query && query.length > 0) {
         const team = await response?.data?.data?.teamMates;
+        setLoading(false);
         if (team[0] != null) {
           setFriends(team);
         }
       } else {
         const team = response?.data?.data?.yourTeam?.teamMates;
+        setLoading(false);
         if (team[0] != null) {
           setFriends(team);
         }
       }
     } catch (error) {
       toast.error('Something went worng');
+      setLoading(false);
     }
   }
 
@@ -209,6 +217,7 @@ const Friend = () => {
             </div>
 
             <CardConatiner
+              isLoading={isLoading}
               friends={friends}
               addFriendList={addFriendList}
               setOpen={setOpen}

@@ -80,7 +80,6 @@
 .inputContainer {
   height: 44px;
   border-radius: 8px;
-  background-color: white;
   position: relative;
 
   @media (max-width: $breakpoint-md) {
@@ -105,7 +104,6 @@
   border-radius: 4px;
   padding: 5px 1rem;
   font-size: 1rem;
-  background-color: white;
   outline: none;
 }
 
@@ -303,6 +301,7 @@
   flex-direction: column;
   padding: 10px;
   width: 400px;
+
   @media (max-width: $breakpoint-xs) {
     width: 280px;
     height: 140px;
@@ -320,6 +319,7 @@
   font-size: large;
   font-weight: 900;
   margin-bottom: 10px;
+
   @media (max-width: $breakpoint-xs) {
     font-size: medium;
   }
@@ -329,6 +329,7 @@
   color: #6c757d;
   font-weight: 400;
   font-size: 20px;
+
   @media (max-width: $breakpoint-xs) {
     font-size: 13px;
   }
@@ -351,6 +352,7 @@
     width: 30px;
     height: 40px;
   }
+
   @media (max-width: $breakpoint-xs) {
     right: 10px;
   }
@@ -395,6 +397,7 @@
   display: flex;
   justify-content: center;
   cursor: pointer;
+
   @media (max-width: $breakpoint-xs) {
     margin: 5px;
   }
@@ -404,6 +407,7 @@
   background-color: white;
   color: #ff7a00;
   border: 1px solid #ff7a00;
+
   @media (max-width: $breakpoint-xs) {
     margin: 2px;
     font-size: 13px;

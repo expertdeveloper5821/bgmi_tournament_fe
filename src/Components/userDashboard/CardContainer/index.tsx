@@ -6,6 +6,7 @@ import { UserTeamMemberType } from '@/types/usersTypes';
 import { NotFoundCard } from './NotFoundCard';
 import { AddFriendCard } from './AddFriendCard';
 import { FriendsCard } from './FriendsCard';
+import LoaderSm from '@/Components/CommonComponent/LoaderSm';
 
 interface CardProps {
   setOpen: (value: boolean) => void;
@@ -14,6 +15,7 @@ interface CardProps {
   handleOpenInviteModal: () => void;
   friends?: UserTeamMemberType[];
   addFriendList: UserTeamMemberType[];
+  isLoading: boolean;
 }
 
 const CardContainer: React.FC<CardProps> = ({
@@ -23,7 +25,11 @@ const CardContainer: React.FC<CardProps> = ({
   forwardModalOpen,
   setUserMail,
   handleOpenInviteModal,
+  isLoading,
 }) => {
+  if (isLoading) {
+    return <LoaderSm />;
+  }
   return (
     <>
       {friends || addFriendList ? (
