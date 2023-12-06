@@ -17,6 +17,7 @@ import { RoomsDataType } from '@/types/roomsTypes';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { adminRoomColumns } from '@/utils/constant';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
+import { ToggleComponent } from '@/Components/CommonComponent/ToggleComponent';
 
 function page() {
   const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
@@ -95,10 +96,11 @@ function page() {
   return (
     <IsAuthenticatedHoc>
       <div className={styles.sidebar_wrapper}>
-        <Navbar />
         <div>
           <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+          <ToggleComponent />
           <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
+          <Navbar />
         </div>
         {isDeleteModalOpen && (
           <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />

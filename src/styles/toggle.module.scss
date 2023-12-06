@@ -1,0 +1,47 @@
+/* Styles for the toggle switch */
+.toggleswitch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+  }
+  
+  /* Styles for the toggle switch input */
+  .togglecheckbox {
+    display: none;
+  }
+  
+  /* Styles for the toggle switch label */
+  .togglelabel {
+    position: absolute;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+    border-radius: 15px;
+    transition: background-color 0.3s;
+  }
+  
+  /* Styles for the toggle switch slider */
+  .togglelabel::before {
+    position: absolute;
+    content: '';
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+  }
+  
+  /* Styles for the checked state of the toggle switch */
+  .togglecheckbox:checked + .togglelabel {
+    background-color: #2196F3;
+  }
+  
+  /* Styles for the checked state of the toggle switch slider */
+  .togglecheckbox:checked + .togglelabel::before {
+    transform: translateX(24px);
+  }
+  
