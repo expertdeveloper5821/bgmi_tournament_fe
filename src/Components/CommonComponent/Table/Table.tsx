@@ -16,6 +16,7 @@ import { FaLongArrowAltDown, FaLongArrowAltUp } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { MdEdit } from 'react-icons/md';
 import Pagination from '../Pagination';
+import { ToggleComponent } from '../ToggleComponent';
 
 const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsType) => {
   const [sortedData, setSortedData] = useState<TableDataType[] | []>([]);
@@ -132,6 +133,9 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                     <TableCell className={styles.table_cell}>
                       {getFormattedDateOrTime(data?.dateAndTime, 'Date')!}
                     </TableCell>
+                    <TableCell className={styles.table_cell}>
+                      <ToggleComponent />
+                    </TableCell>
                     <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
                       <RiDeleteBin6Line
                         className={styles.del}
@@ -146,6 +150,9 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                     <TableCell className={styles.table_cell}>{data?.fullName}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.userName || '--'}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.email}</TableCell>
+                    <TableCell className={styles.table_cell}>
+                      <ToggleComponent />
+                    </TableCell>
                     <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
                       <MdEdit
                         className={styles.del}
@@ -168,6 +175,9 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                     <TableCell className={styles.table_cell}>{data?.upiId || '--'}</TableCell>
                     <TableCell className={styles.table_cell}>{'--'}</TableCell>
                     <TableCell className={styles.table_cell}>{'--'}</TableCell>
+                    <TableCell className={styles.table_cell}>
+                      <ToggleComponent />
+                    </TableCell>
                     <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
                       <RiDeleteBin6Line
                         className={styles.del}
