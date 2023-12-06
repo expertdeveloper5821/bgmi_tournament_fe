@@ -69,22 +69,26 @@ const Friend = () => {
   };
 
   const sendInviteByEmail = async () => {
-    const payload = {
-      teamName: decodedToken.teamName || newTeamName,
-      emails: emailList,
-    };
-    try {
-      setLoading(true);
-      const response = await sendEmailInviteService(payload);
-      setMessage('Friends added Successfully');
-      setEmailList([]);
-      setLoading(false);
-      setInvitationModal(false);
-      toast.success(response.data.message);
-    } catch (error) {
-      setEmailList([]);
-      setLoading(false);
-      setMessage(error.response.data.message);
+    if (emailList.length > 0) {
+      const payload = {
+        teamName: decodedToken.teamName || newTeamName,
+        emails: emailList,
+      };
+      try {
+        setLoading(true);
+        const response = await sendEmailInviteService(payload);
+        setMessage('Friends added Successfully');
+        setEmailList([]);
+        setLoading(false);
+        setInvitationModal(false);
+        toast.success(response.data.message);
+      } catch (error) {
+        setEmailList([]);
+        setLoading(false);
+        setInvitationModal(false);
+        toast.error(error.response.data.message);
+        setMessage(error.response.data.message);
+      }
     }
   };
 
