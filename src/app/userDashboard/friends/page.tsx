@@ -18,6 +18,7 @@ import {
   globalSearchService,
   sendEmailInviteService,
 } from '@/services/userDashboardServices';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 const Friend = () => {
   const [open, setOpen] = useState(false);
@@ -173,6 +174,7 @@ const Friend = () => {
           <div className={styles.sub_container}>
             <div className={styles.header}>
               <h2>Invite your friends</h2>
+              <Breadcrumb />
             </div>
             <div className={styles.searchBar}>
               <div className={styles.inputContainer}>

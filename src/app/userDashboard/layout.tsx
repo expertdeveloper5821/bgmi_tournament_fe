@@ -65,10 +65,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className={styles.main_container}>
             <div className={styles.sidebar_wrapper}>
               <div className={styles.content}>
-                <div className={styles.dashboard}>
-                  <span className={styles.head_desc}>{getPageName(pathSegments?.at(-1))}</span>
-                  <Breadcrumb />
-                </div>
+                {asPath !== '/userDashboard/friends' && (
+                  <div className={styles.dashboard}>
+                    <span className={styles.head_desc}>{getPageName(pathSegments?.at(-1))}</span>
+                    <Breadcrumb />
+                  </div>
+                )}
               </div>
               {children}
             </div>
