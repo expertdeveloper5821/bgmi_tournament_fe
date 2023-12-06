@@ -1476,14 +1476,47 @@ body.activemodal {
   width: 25vw;
 }
 
+.search_Container {
+  display: flex;
+  border: 1px solid white;
+  border-radius: 7px;
+}
+
+.search_Container:focus {
+  border: 2px solid white;
+}
+
+
+.search_input_box {
+  border: none;
+  width: 170px;
+  outline: none;
+}
+
+.search_input_box:focus-within {
+    border: none
+}
+
+
 .search_input_box > input {
   background: transparent;
   border: none;
   color: white;
-
   @media (max-width: $breakpoint-xSmall) {
     width: 130px;
   }
+}
+
+.img_container{
+  width: 28px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search_Icon {
+  cursor: pointer;
 }
 
 .search_input_box > input::placeholder {
