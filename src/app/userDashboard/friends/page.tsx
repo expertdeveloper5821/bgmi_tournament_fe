@@ -76,13 +76,16 @@ const Friend = () => {
       emails: emailList,
     };
     try {
+      setLoading(true);
       const response = await sendEmailInviteService(payload);
       setMessage('Friends added Successfully');
       setEmailList([]);
+      setLoading(false);
       setInvitationModal(false);
       toast.success(response.data.message);
     } catch (error) {
       setEmailList([]);
+      setLoading(false);
       setMessage(error.response.data.message);
     }
   };
@@ -237,6 +240,7 @@ const Friend = () => {
         {/* Invitation modal here */}
         {invitationModal && (
           <InviteModal
+            isLoading={isLoading}
             newTeamName={newTeamName}
             setNewTeamName={setNewTeamName}
             inputValue={inputValue}

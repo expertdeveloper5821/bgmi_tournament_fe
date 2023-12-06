@@ -16,6 +16,7 @@ const InviteModal = ({
   setInvitationModal,
   sendInviteByEmail,
   message,
+  isLoading,
 }) => {
   const token = getTokenFromLS();
   let decodedToken;
@@ -86,11 +87,11 @@ const InviteModal = ({
             Cancel
           </button>
           <button
-            disabled={emailList.length ? false : true}
+            disabled={emailList.length || !isLoading ? false : true}
             className={styles.sendbtn}
             onClick={sendInviteByEmail}
           >
-            Send
+            {isLoading ? 'Loading...' : 'Send'}
           </button>
         </div>
       </div>
