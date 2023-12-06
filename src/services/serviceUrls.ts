@@ -29,4 +29,5 @@ export const serviceUrls = {
   inviteMail: '/user/send-invite',
   globalusers: '/user/getalluser',
   getAllFriends: '/team/user-teams',
+  getAllWinnder: '/winners/players',
 };

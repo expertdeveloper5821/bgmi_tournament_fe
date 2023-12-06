@@ -29,3 +29,11 @@ export interface UserTeamMemberType {
   profilePic?: string;
   userName?: string;
 }
+
+export interface winnerListTypes {
+  matchType?: string;
+  teamName: string;
+  totalLosses: number;
+  totalPoints: number;
+  totalWins: number;
+}

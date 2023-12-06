@@ -74,3 +74,14 @@ export async function fetchFriendsService(query) {
     throw response;
   }
 }
+
+export async function getAllWinnerService() {
+  const response = await sendRequest(`${serviceUrls.getAllWinnder}`, {
+    method: 'GET',
+  });
+  if (response.status === 200) {
+    return response;
+  } else {
+    throw response;
+  }
+}

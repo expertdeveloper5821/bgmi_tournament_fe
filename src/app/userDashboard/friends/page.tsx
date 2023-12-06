@@ -7,10 +7,8 @@ import { toast } from 'react-toastify';
 import { decodeJWt, getTokenFromLS } from '@/utils/globalfunctions';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
-import { FaCaretDown } from 'react-icons/fa';
 import CustomSelect from '@/Components/CommonComponent/CustomSelect';
 import InviteModal from '@/Components/userDashboard/InviteModal';
-import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 import { debounce } from '@/utils/commonFunction';
 import { optionsFriendFilter } from '@/utils/constant';
 import { UserTeamMemberType } from '@/types/usersTypes';
@@ -171,7 +169,6 @@ const Friend = () => {
           <div className={styles.sub_container}>
             <div className={styles.header}>
               <h2>Invite your friends</h2>
-              <Breadcrumb />
             </div>
             <div className={styles.searchBar}>
               <div className={styles.inputContainer}>
@@ -202,21 +199,7 @@ const Friend = () => {
           <div className={styles.mainContainer}>
             <div className={styles.filterTab}>
               <h2>Your friend list</h2>
-              <div className={styles.selectContainer}>
-                <Image
-                  src="/assests/sort.svg"
-                  alt="sort"
-                  height={22}
-                  width={22}
-                  className={styles.sortIcon}
-                />
-
-                <CustomSelect options={optionsFriendFilter} handleSelect={handleSelect} />
-
-                <div className={styles.downIcon}>
-                  <FaCaretDown color={'#ff7a00'} />
-                </div>
-              </div>
+              <CustomSelect options={optionsFriendFilter} handleSelect={handleSelect} />
             </div>
 
             <CardConatiner

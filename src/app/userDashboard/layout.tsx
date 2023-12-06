@@ -9,6 +9,8 @@ import { store } from '@/redux/store';
 import { getPageName } from '@/utils/commonFunction';
 import styles from '@/styles/Dashboard.module.scss';
 import { GiThreeFriends } from 'react-icons/gi';
+import { TbScoreboard } from 'react-icons/tb';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 const dynamicMenuItems = [
   {
@@ -24,7 +26,7 @@ const dynamicMenuItems = [
   {
     path: '/userDashboard/friends',
     name: 'Friends',
-    icon: <GiThreeFriends />,
+    icon: <GiThreeFriends size="20px" />,
   },
   {
     path: '/userDashboard/videos',
@@ -41,6 +43,11 @@ const dynamicMenuItems = [
   //   name: 'register',
   //   icon: <FaCommentAlt />,
   // },
+  {
+    path: '/userDashboard/leaderboard',
+    name: 'Leaderboard',
+    icon: <TbScoreboard size="20px" />,
+  },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -60,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className={styles.content}>
                 <div className={styles.dashboard}>
                   <span className={styles.head_desc}>{getPageName(pathSegments?.at(-1))}</span>
-                  {/* <Breadcrumb /> */}
+                  <Breadcrumb />
                 </div>
               </div>
               {children}

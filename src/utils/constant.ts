@@ -109,3 +109,5 @@ export const adminRoomColumns: string[] = [
 ];
 
 export const adminUserColumns: string[] = ['Full Name', 'User Name', 'Email'];
+
+export const LeaderBoardColumns: string[] = ['Team Name', 'Points', 'Match Type', 'Win', 'Lose'];

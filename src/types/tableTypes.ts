@@ -30,6 +30,11 @@ export interface TableDataType {
   version?: string;
   __v?: number;
   _id?: string;
+  matchType?: string;
+  teamName?: string;
+  totalLosses?: number;
+  totalPoints?: number;
+  totalWins?: number;
 }
 
 export interface TablePropsType {
