@@ -153,6 +153,7 @@ function Page() {
       try {
         if (modal?.buttonVal === 'Create') {
           await registerSpectatorService({ token, formData, spectatorData });
+          toast.success('Spectator created successfully');
         } else if (modal?.buttonVal === 'Assign') {
           await updateRoleService({ token, formData });
         }
