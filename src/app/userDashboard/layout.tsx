@@ -1,4 +1,5 @@
 'use client';
+import React, { useState } from 'react';
 import { FaTh, FaVideo } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
 import Sidebar from '@/Components/CommonComponent/SideBar/Sidebar';
@@ -9,6 +10,9 @@ import { store } from '@/redux/store';
 import { getPageName } from '@/utils/commonFunction';
 import styles from '@/styles/Dashboard.module.scss';
 import { GiThreeFriends } from 'react-icons/gi';
+import { TbScoreboard } from 'react-icons/tb';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
+import NotificationsModal from '@/Components/CommonComponent/Modal/NotificationsModal';
 
 const dynamicMenuItems = [
   {
@@ -24,7 +28,7 @@ const dynamicMenuItems = [
   {
     path: '/userDashboard/friends',
     name: 'Friends',
-    icon: <GiThreeFriends />,
+    icon: <GiThreeFriends size="20px" />,
   },
   {
     path: '/userDashboard/videos',
@@ -41,10 +45,20 @@ const dynamicMenuItems = [
   //   name: 'register',
   //   icon: <FaCommentAlt />,
   // },
+  {
+    path: '/userDashboard/leaderboard',
+    name: 'Leaderboard',
+    icon: <TbScoreboard size="20px" />,
+  },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const asPath = usePathname();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const notificationModalHandler = () => {
+    setIsOpen((prev: boolean) => !prev);
+  };
 
   const pathSegments = asPath?.split('/').filter((segment) => segment);
 
@@ -53,15 +67,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <Provider store={store}>
         <Sidebar menuItem={dynamicMenuItems} />
         <div id="subMainLayoutContainer">
-          <Navbar />
-
+          {isOpen && <NotificationsModal notificationModalHandler={notificationModalHandler} />}
+          <Navbar notificationModalHandler={notificationModalHandler} />
           <div className={styles.main_container}>
             <div className={styles.sidebar_wrapper}>
               <div className={styles.content}>
-                <div className={styles.dashboard}>
-                  <span className={styles.head_desc}>{getPageName(pathSegments?.at(-1))}</span>
-                  {/* <Breadcrumb /> */}
-                </div>
+                {asPath !== '/userDashboard/friends' && (
+                  <div className={styles.dashboard}>
+                    <span className={styles.head_desc}>{getPageName(pathSegments?.at(-1))}</span>
+                    <Breadcrumb />
+                  </div>
+                )}
               </div>
               {children}
             </div>

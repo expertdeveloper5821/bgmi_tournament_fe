@@ -54,7 +54,7 @@ export function LoginForm(): React.JSX.Element {
           localStorage.setItem('rememberMe', rememberMe.toString());
           localStorage.setItem('jwtToken', response?.data?.userData?.token);
           localStorage.setItem('expirationTime', expirationTime.toString());
-          toast.success(response?.data?.message);
+          toast.success('User Login Successfully');
           updateToken(decodedToken);
           handleRedirect(response?.data?.userData?.token, router);
         } catch (error) {

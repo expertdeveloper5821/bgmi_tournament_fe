@@ -1,8 +1,6 @@
 import { Role, SpectatorEditDataType } from './spectatorTypes';
 
 export interface TableDataType {
-  
-  matchType?: string;
   videoLink?: string;
   title?:string;
   email?: string;
@@ -36,6 +34,11 @@ export interface TableDataType {
   version?: string;
   __v?: number;
   _id?: string;
+  matchType?: string;
+  teamName?: string;
+  totalLosses?: number;
+  totalPoints?: number;
+  totalWins?: number;
 }
 
 export interface TablePropsType {

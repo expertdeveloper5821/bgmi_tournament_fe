@@ -66,7 +66,7 @@ export const PersonalDetail = () => {
         localStorage.setItem('jwtToken', response?.data?.token);
         localStorage.setItem('expirationTime', expirationTime.toString());
         localStorage.setItem('prevurl', 'personaldetails');
-        toast.success('successfully updated');
+        toast.success('Successfully Updated');
         router.push('/auth/teamsdetails');
       } catch (error) {
         setIsLoading(false);

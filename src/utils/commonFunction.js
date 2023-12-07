@@ -10,8 +10,8 @@ export const getIdPass = (dateAndTime) => {
 
 export const getPageName = (path) => {
   switch (path) {
-    // case 'friends':
-    //   return 'Invite your friends';
+    case 'friends':
+      return 'Invite your friends';
     case 'registerMatches':
       return 'Registered Matches';
     case 'userDashboard':
