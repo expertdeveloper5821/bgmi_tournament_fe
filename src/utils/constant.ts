@@ -104,6 +104,7 @@ export const adminRoomColumns: string[] = [
   'Game Type',
   'Map Type',
   'Version',
+  'Assign',
   'Time',
   'Date',
   'Permission',

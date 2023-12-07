@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import styles from '@/styles/TableData.module.scss';
+import { LuUserPlus } from 'react-icons/lu';
+
 //@ts-ignore
 import {
   Table,
@@ -75,6 +77,10 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
     }
   };
 
+  const onClickAssignHandler = (data: TableDataType) => {
+    console.log('data: ==>', data);
+  };
+
   return (
     <>
       {sortedData.length ? (
@@ -127,6 +133,14 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                     <TableCell className={styles.table_cell}>{data?.gameType}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.mapType}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.version}</TableCell>
+                    <TableCell className={styles.table_cell}>
+                      <LuUserPlus
+                        className={styles.User_Plus_Icon}
+                        onClick={() => {
+                          onClickAssignHandler(data);
+                        }}
+                      />
+                    </TableCell>
                     <TableCell className={styles.table_cell}>
                       {getFormattedDateOrTime(data?.dateAndTime, 'Time')!}
                     </TableCell>
