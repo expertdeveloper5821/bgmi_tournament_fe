@@ -111,12 +111,10 @@ export const adminRoomColumns: string[] = [
 
 export const adminUserColumns: string[] = [
   'Full Name',
-  'User Name',
+  'Player ID',
   'Email',
   'Phone Number',
   'UPI ID',
-  'Player ID',
-  'Team Name',
   'Permission',
 ];
 

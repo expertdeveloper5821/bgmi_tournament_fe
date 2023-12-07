@@ -173,8 +173,6 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                     <TableCell className={styles.table_cell}>{data?.email}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.phoneNumber || '--'}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.upiId || '--'}</TableCell>
-                    <TableCell className={styles.table_cell}>{'--'}</TableCell>
-                    <TableCell className={styles.table_cell}>{'--'}</TableCell>
                     <TableCell className={styles.table_cell}>
                       <ToggleComponent />
                     </TableCell>
