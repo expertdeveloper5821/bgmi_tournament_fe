@@ -69,10 +69,22 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
             <TableCell className={styles.el_tb_cell}>{spec?.roomId ?? '--'}</TableCell>
             <TableCell className={styles.tb_cell_body}>{spec?.gameName ?? '--'}</TableCell>
             <TableCell className={styles.el_tb_cell}>{spec?.gameType ?? '--'}</TableCell>
-            <TableCell className={styles.el_tb_cell}>{spec?.mapType ?? '--'}</TableCell>
+
+            <TableCell className={styles.el_tb_cell}>
+              <Image
+                src={spec?.mapImg ? spec?.mapImg : '/assests/about.jpg'}
+                alt="Image"
+                width={120}
+                height={75}
+              />
+              {spec?.mapType ?? '--'}
+            </TableCell>
             <TableCell className={styles.el_tb_cell}>{spec?.version ?? '--'}</TableCell>
             <TableCell className={styles.el_tb_cell}>
-              <GiPodiumWinner className={styles.winner_pop_icon} onClick={openPopup} />
+              <p className={styles.winner_pop_icon} onClick={openPopup}>
+                <Image src="/assests/win.svg" alt="Image" width={30} height={30} />
+              </p>
+              {/* <GiPodiumWinner className={styles.winner_pop_icon} onClick={openPopup} /> */}
               <Popup isOpen={isPopupOpen} onClose={closePopup}>
                 <div className={styles.prize_table}>
                   <h1 className={styles.pize_heading}>Winning Prize Pool</h1>
