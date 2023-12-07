@@ -16,8 +16,16 @@ import { FaLongArrowAltDown, FaLongArrowAltUp } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { MdEdit } from 'react-icons/md';
 import Pagination from '../Pagination';
+import Image from 'next/image';
 
-const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsType) => {
+const TableData = ({
+  data,
+  columns,
+  deleteroom,
+  type,
+  handleEdit,
+  handleUpdate,
+}: TablePropsType) => {
   const [sortedData, setSortedData] = useState<TableDataType[] | []>([]);
   const [activeFilter, setactiveFilter] = useState<number>(0);
   const filterKeys = ['Created By', 'Game Name', 'Game Type', 'Map Type', 'Version'];
@@ -153,6 +161,47 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                       <RiDeleteBin6Line
                         className={styles.del}
                         onClick={() => deleteroom && deleteroom(data.userUuid)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              } else if (type === 'VIDEO' || type === 'VIDEOUSER') {
+                return (
+                  <TableRow className={styles.table_rowdata} key={index}>
+                    {type === 'VIDEO' && (
+                      <TableCell className={styles.table_cell}>
+                        {typeof data?.createdBy === 'object' && data?.createdBy?.fullName
+                          ? data.createdBy.fullName
+                          : data?.createdBy || 'Unknown'}
+                      </TableCell>
+                    )}
+                    <TableCell className={styles.table_cell}>
+                      <Image
+                        src={data?.mapImg ? data?.mapImg : '/assests/about.jpg'}
+                        className={styles.video_card}
+                        alt="Image"
+                        width={120}
+                        height={75}
+                      />
+                    </TableCell>
+                    <TableCell className={styles.table_cell}>{data?.title}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.gameType || '--'} </TableCell>
+                    <TableCell className={styles.table_cell}>
+                      {getFormattedDateOrTime(data?.dateAndTime, 'Date')!}
+                    </TableCell>
+                    <TableCell className={styles.table_cell}>
+                      {getFormattedDateOrTime(data?.dateAndTime, 'Time')!}
+                    </TableCell>
+                    <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
+                      {type === 'VIDEOUSER' && (
+                        <MdEdit
+                          className={styles.del}
+                          onClick={() => handleUpdate && handleUpdate(data)}
+                        />
+                      )}
+                      <RiDeleteBin6Line
+                        className={styles.del}
+                        onClick={() => deleteroom && deleteroom(data._id)}
                       />
                     </TableCell>
                   </TableRow>

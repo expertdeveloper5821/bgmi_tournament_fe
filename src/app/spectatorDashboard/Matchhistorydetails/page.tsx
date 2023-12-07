@@ -5,11 +5,11 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useFormik, FormikHelpers } from 'formik';
 import { videoPostSchema } from '@/utils/schema';
 import { toast } from 'react-toastify';
+import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import Image from 'next/image';
 import { VideoFormValuesType } from '../../../Components/pageComponents/auth/authInterfaces';
 import { videoService, updateVideoService } from '@/services/authServices';
 import { getAllVideo } from '@/services/authServices';
-import { Navbar } from '@/Components/Navbar/Navbar';
 import { Input, Button } from 'technogetic-iron-smart-ui';
 
 const matchHistoryDetails = () => {
@@ -167,7 +167,35 @@ const matchHistoryDetails = () => {
                     stands out and grabs viewers' attention.
                   </span>
                   <div className={styles.upload_Images}>
-                    <div className={styles.upload}>
+                    {showThumbnail === false ? (
+                      <div className={styles.upload}>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          id="imageUpload"
+                          onChange={handleImageUpload}
+                          style={{ display: 'none' }}
+                        />
+                        <label htmlFor="imageUpload" className={styles.uploadButton}>
+                          <Image src="/assests/upload.svg" alt="uploadImg" width={20} height={20} />
+                          Upload Thumbnail
+                        </label>
+                      </div>
+                    ) : (
+                      <div
+                        className={styles.imageshown}
+                        style={{ display: showThumbnail || values.mapImg ? 'block' : 'none' }}
+                      >
+                        <img
+                          src={thumbnailURL ? thumbnailURL : values.mapImg}
+                          className={styles.thumbnailPreview}
+                        />
+                        <span className={styles.cross} onClick={handleRemoveImage}>
+                          X
+                        </span>
+                      </div>
+                    )}
+                    {/* <div className={styles.upload}>
                       <input
                         type="file"
                         accept="image/*"
@@ -191,7 +219,7 @@ const matchHistoryDetails = () => {
                       <span className={styles.cross} onClick={handleRemoveImage}>
                         X
                       </span>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <div className={styles.video_section}>

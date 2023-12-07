@@ -1,6 +1,9 @@
-import { Role, SpectatorEditDataType } from './spectatorTypes';
+import { Role, SpectatorEditDataType, getVideo } from './spectatorTypes';
 
 export interface TableDataType {
+  matchType?: string;
+  videoLink?: string;
+  title?: string;
   email?: string;
   fullName?: string;
   phoneNumber?: string;
@@ -11,7 +14,11 @@ export interface TableDataType {
   userUuid?: string;
   availableSlots?: number;
   createdAt?: string;
-  createdBy?: string;
+  createdBy?:
+    | {
+        fullName?: string;
+      }
+    | string;
   dateAndTime?: string;
   entryFee?: string;
   gameName?: string;
@@ -38,4 +45,5 @@ export interface TablePropsType {
   deleteroom?: (_id: string | undefined) => void;
   type?: string;
   handleEdit?: (spectatorData: SpectatorEditDataType) => void;
+  handleUpdate?: (videoData: getVideo) => void;
 }

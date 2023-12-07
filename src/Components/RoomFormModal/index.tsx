@@ -99,7 +99,7 @@ const RoomFormModal = ({ getAllSpectator }) => {
     <>
       <div>
         <button className={styles.main_form_btn} onClick={() => setShowModal(true)}>
-          CREATE ROOM ID
+          CREATE ROOM
         </button>
         {showModal ? (
           <div className={styles.main_pop_cls}>

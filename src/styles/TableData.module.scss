@@ -117,7 +117,7 @@
 }
 
 .action_td {
-  display: flex;
+ // display: flex;
   justify-content: center;
   gap: 6px;
 }
@@ -502,4 +502,33 @@ button#btn_cls_st {
     margin-top: 65px;
     font-size: 20px;
   }
+}
+
+.winner_pop_icon {
+  cursor: $bs-cursor;
+  color: #ffd600;
+  font-size: 30px;
+}
+.span_cell {
+  color: $darkblue;
+  font-size: 16px;
+  font-weight: 600;
+  padding-top: 8px;
+}
+.prize_table {
+  padding: 18px;
+  font-weight: 700;
+  background: $bs-orange;
+  text-align: center;
+  border-top-right-radius: 16px;
+  border-top-left-radius: 16px;
+}
+.span_cell_rs {
+  padding: 6px;
+  color: $bs-orange;
+}
+
+.pize_heading {
+  font-size: 18px;
+  font-weight: 700;
 }

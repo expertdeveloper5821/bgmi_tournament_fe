@@ -58,10 +58,10 @@ export interface FormValues {
 }
 
 export interface getVideo {
-  title: string;
-  mapImg: string;
-  dateAndTime: string;
-  _id: string;
+  title?: string;
+  mapImg?: string;
+  dateAndTime?: string;
+  _id?: string;
 }
 
 export interface deleteVideoValuesType {
