@@ -27,7 +27,7 @@ function page() {
 
       const allUsersData: SpectatorDataType[] = response?.data?.data;
       const filteredData = allUsersData?.filter((user) => {
-        return user?.role?.role === 'user';
+        return user?.role?.role === 'user' || 'sepactator';
       });
       setWholeUserData(filteredData);
       setUserData(filteredData);
@@ -81,28 +81,26 @@ function page() {
 
   return (
     <IsAuthenticatedHoc>
-      <div className={styles.main_container} id="mainLayoutContainerInner">
-        <div className={styles.abcd}>
-          <div id="sidebar_wrapper" className={styles.sidebar_wrapper}>
-            <Navbar />
-            <div className={styles.flex}>
-              <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
-              <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
-            </div>
-            {isDeleteModalOpen && (
-              <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
-            )}
-            {isLoading ? (
-              <Loader />
-            ) : (
-              <TableData
-                deleteroom={handleDeleteUser}
-                data={userData}
-                columns={adminUserColumns}
-                type={'USERS'}
-              />
-            )}
+      <div className={styles.main_container}>
+        <div className={styles.sidebar_wrapper}>
+          <Navbar />
+          <div>
+            <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+            <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
           </div>
+          {isDeleteModalOpen && (
+            <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
+          )}
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <TableData
+              deleteroom={handleDeleteUser}
+              data={userData}
+              columns={adminUserColumns}
+              type={'USERS'}
+            />
+          )}
         </div>
       </div>
     </IsAuthenticatedHoc>

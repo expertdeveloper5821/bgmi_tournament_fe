@@ -106,6 +106,20 @@ export const getAllUsersDataService = async (token: string) => {
   }
 };
 
+
+export const getVideos = async (token: string) => {
+  const res = await sendRequest(`${serviceUrls.adminVideos}`, {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (res.status === 200) {
+    return res;
+  } else {
+    throw res;
+  }
+};
+
 export const getAllVideo = async (token: string) => {
   try {
     const res = await sendRequest(`${serviceUrls.getAllVideo}`, {

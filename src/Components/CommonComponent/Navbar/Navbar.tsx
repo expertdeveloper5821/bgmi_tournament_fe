@@ -1,9 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import styles from '@/styles/Navabar.module.scss';
+import styles from '@/styles/Navbar.module.scss';
 import { useRouter } from 'next/navigation';
 // @ts-ignore
-import { Avatar, Popover } from 'technogetic-iron-smart-ui';
+import { Popover } from 'technogetic-iron-smart-ui';
 import { decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
 import { toast } from 'react-toastify';
@@ -13,7 +13,7 @@ export function Navbar() {
   const [userData, setUserData] = useState<string | undefined>('');
   const [nameData, setNameData] = useState<string | undefined>('');
   const [initialsName, setInitialsName] = useState<string>('');
-  const [pofile, setPofile] = useState<string | undefined>('');
+  const [, setProfile] = useState<string | undefined>('');
   const { triggerHandleLogout } = useUserContext();
 
   const router = useRouter();
@@ -43,7 +43,7 @@ export function Navbar() {
       }
     });
     setInitialsName(initials);
-    setPofile(userData?.profilePic);
+    setProfile(userData?.profilePic);
   };
 
   useEffect(() => {
@@ -51,17 +51,16 @@ export function Navbar() {
   }, []);
 
   return (
-    <header>
-      <nav className={styles.container}>
-        <div className={styles.navbarbrand}>
-          {/* {nameData && (
+    <nav className={styles.container}>
+      <div className={styles.navbarbrand}>
+        {/* {nameData && (
             <h1 className={styles.page_title}>
               Welcome <span className={styles.fullname_title}>{nameData}</span>
             </h1>
           )} */}
-        </div>
-        <ul className={styles.navbarnav}>
-          {/* <li className={styles.navitem}>
+      </div>
+      <ul>
+        {/* <li className={styles.navitem}>
               <Popover
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
@@ -130,23 +129,23 @@ export function Navbar() {
                 />
               </Popover>
             </li> */}
-          <li className={styles.navitem}>
-            {nameData && (
-              <Popover
-                className={styles.popover_show}
-                isOpen={isPopOpen}
-                setIsOpen={setIsPopOpen}
-                content={
-                  <div style={{ marginRight: '16px' }}>
-                    <div className={styles.profileContainer}>
-                      <h4 className={styles.profilename}>{nameData}</h4>
-                      <p className={styles.profileEmail}>{userData}</p>
-                      <button className={styles.logoutBtn} onClick={handleLogout}>
-                        Logout
-                      </button>
-                    </div>
+        <li style={{ listStyle: 'none', marginRight: '10px' }}>
+          {nameData && (
+            <Popover
+              className={styles.popover_show}
+              isOpen={isPopOpen}
+              setIsOpen={setIsPopOpen}
+              content={
+                <>
+                  <div className={styles.profileContainer}>
+                    <h4 className={styles.profilename}>{nameData}</h4>
+                    <p className={styles.profileEmail}>{userData}</p>
+                    <button className={styles.logoutBtn} onClick={handleLogout}>
+                      Logout
+                    </button>
+                  </div>
 
-                    {/* <div className={styles.profilesection}>
+                  {/* <div className={styles.profilesection}>
                       <div className={styles.flexcol}>
                         <Image
                           className={styles.profileicon}
@@ -178,7 +177,7 @@ export function Navbar() {
                         <div className={styles.myprofile}>Notification</div>
                       </div>
                     </div> */}
-                    {/* <div>
+                  {/* <div>
                       <div onClick={handleLogout}>
                         <Image
                           className={styles.logoutbuttonicon}
@@ -191,29 +190,29 @@ export function Navbar() {
                         Logout
                       </div>
                     </div> */}
-                  </div>
-                }
-                height="238px"
-                placement="bottom"
-                width="224px"
-              >
-                {pofile ? (
-                  <Avatar src={pofile} onClick={() => setIsPopOpen(!isPopOpen)} />
-                ) : (
-                  <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>
-                    {initialsName}
-                  </p>
-                )}
-              </Popover>
-            )}
-          </li>
-          {/* <li className={styles.navitem}>
+                </>
+              }
+              // height="238px"
+              // placement="bottom"
+              // width="224px"
+            >
+              {/* {profile ? (
+                  <></>
+                  // <Avatar src={profile} onClick={() => setIsPopOpen(!isPopOpen)} />
+                ) : ( */}
+              <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>
+                {initialsName}
+              </p>
+              {/* )} */}
+            </Popover>
+          )}
+        </li>
+        {/* <li className={styles.navitem}>
               <div className={styles.username_details}>
                 <h1 className={styles.user_name_title}>{nameData}</h1>
               </div>
             </li> */}
-        </ul>
-      </nav>
-    </header>
+      </ul>
+    </nav>
   );
 }

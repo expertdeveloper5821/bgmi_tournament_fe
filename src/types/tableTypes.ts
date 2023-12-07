@@ -1,6 +1,10 @@
 import { Role, SpectatorEditDataType } from './spectatorTypes';
 
 export interface TableDataType {
+  
+  matchType?: string;
+  videoLink?: string;
+  title?:string;
   email?: string;
   fullName?: string;
   phoneNumber?: string;
@@ -11,7 +15,9 @@ export interface TableDataType {
   userUuid?: string;
   availableSlots?: number;
   createdAt?: string;
-  createdBy?: string;
+  createdBy?: {
+    fullName?: string;
+  } | string;
   dateAndTime?: string;
   entryFee?: string;
   gameName?: string;

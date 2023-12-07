@@ -13,27 +13,18 @@ export function SearchFilter({ handleSearch, onChange }) {
   };
 
   return (
-    <>
-      <div className={styles.dashboard_content}>
-        <div className={styles.content_wrapper}>
-          <div className={styles.input_desc}>
-            <Input
-              className={styles.search_input_box}
-              placeholder="Search"
-              type="search"
-              onChange={handleInputChange}
-            ></Input>
-            <div className={styles.button_wrapper}>
-              <button
-                className={`${styles.btnPrime} ${styles.searchbutton}`}
-                onClick={() => handleSearch(searchFilter)}
-              >
-                Search
-              </button>
-            </div>
-          </div>
-        </div>
+    <div className={styles.input_desc}>
+      <Input
+        className={styles.search_input_box}
+        placeholder="Search"
+        type="search"
+        onChange={handleInputChange}
+      ></Input>
+      <div className={styles.button_wrapper_adminDashboard}>
+        <button className={styles.btnPrime} onClick={() => handleSearch(searchFilter)}>
+          Search
+        </button>
       </div>
-    </>
+    </div>
   );
 }

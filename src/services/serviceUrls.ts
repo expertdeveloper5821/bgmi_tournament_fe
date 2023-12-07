@@ -25,4 +25,5 @@ export const serviceUrls = {
   winnerGetPlayer: '/winners/get-players/',
   winnerPlayerUpdate: '/winners/players/',
   getAllRoom: 'room/user-rooms',
+  adminVideos: 'role/allvideolink'
 };

@@ -2,24 +2,11 @@
 @import './variable.scss';
 
 .container {
-  width: auto;
-  height: 50px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 40px 24px;
-
-  @media (max-width: $breakpoint-md) {
-    padding: 40px 64px;
-  }
-
-  @media (max-width: $breakpoint-sm) {
-    height: 42px;
-  }
-
-  @media (max-width: $breakpoint-xs) {
-    padding: 40px 12px 40px 64px;
-  }
+  padding: 24px;
 }
 
 .profileContainer {
@@ -30,8 +17,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 95%;
-
+  width: 190px;
   .profilename {
     width: 100%;
     text-align: center;
@@ -56,6 +42,8 @@
     width: 100%;
     padding: 4px 9px;
     margin-top: 12px;
+    color: white;
+    font-weight: bold;
   }
 }
 
@@ -244,14 +232,11 @@
   text-align: center;
   margin-top: 1rem;
   font-size: 12px;
-  // border-top: 1px solid #dcdcdc;
-  // padding-top: 10px;
   color: $primary-color;
 }
 
 .logoutbuttonicon {
   height: 10px;
-  padding: 0px 10px;
 }
 
 .profileicon,
@@ -287,6 +272,7 @@ h1 .user_name_heading {
   border-radius: 1.5rem;
   border: 2px solid;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .dropdownprofileimage {
@@ -306,6 +292,6 @@ h1 .user_name_heading {
   div:nth-child(2) {
     height: 15px !important;
     background: none !important;
-    left: -50px;
+    left: -95px;
   }
 }

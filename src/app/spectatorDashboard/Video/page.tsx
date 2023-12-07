@@ -105,7 +105,7 @@ const Video = () => {
     }
   };
 
-  const columns: string[] = ['Video', 'Title', 'Match Type', 'Date', 'Time', 'Action'];
+  const columns: string[] = ['Video', 'Title', 'Match Type', 'Date', 'Time'];
   return (
     <div className={styles.main_container} id="mainLayoutContainerInner">
       <div className={styles.inner_main_container}>
@@ -192,7 +192,6 @@ const Video = () => {
 
       {isDeleteModalOpen && (
         <DeleteModal
-          isOpen={isDeleteModalOpen}
           handleCloseModal={closeDeleteModal}
           handleDeleteUser={() => {
             deleteVideo(selectedVideoId);

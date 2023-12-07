@@ -128,8 +128,7 @@ const addFormValidations = (name, value, setFormErrors) => {
       setFormErrors((prevError: FormDataType) => {
         return {
           ...prevError,
-          userName:
-            'Username must be at least 3 characters long and can only contain letters, numbers, and underscores.',
+          userName: 'Username: 3+ chars, letters, numbers, underscores.',
         };
       });
     } else {
@@ -146,7 +145,7 @@ const addFormValidations = (name, value, setFormErrors) => {
       setFormErrors((prevError: FormDataType) => {
         return {
           ...prevError,
-          email: 'Invalid email address. Please enter a valid email address.',
+          email: 'Enter a valid email address.',
         };
       });
     } else {
@@ -163,8 +162,7 @@ const addFormValidations = (name, value, setFormErrors) => {
       setFormErrors((prevError: FormDataType) => {
         return {
           ...prevError,
-          password:
-            'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one numeric digit, and one special character.',
+          password: 'Password: 8+ chars, mix case, number, special.',
         };
       });
     } else {

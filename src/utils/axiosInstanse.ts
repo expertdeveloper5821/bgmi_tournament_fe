@@ -58,6 +58,7 @@ export async function sendRequest(
   }
 
   let response;
+  
   if (!isVerify) {
     response = await axiosInstance({
       method: opts.method,
