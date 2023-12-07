@@ -17,7 +17,7 @@ const matchHistoryDetails = () => {
   const [showThumbnail, setShowThumbnail] = useState<boolean>(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const uuid = searchParams.get('id') || '';
+  const _id = searchParams.get('id') || '';
   const [updateVideoData, setUpdateVideoData] = useState<VideoFormValuesType | null>(null);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,9 +65,9 @@ const matchHistoryDetails = () => {
 
             let response;
             if (updateVideoData) {
-              response = await updateVideoService(values, uuid);
+              response = await updateVideoService(values, _id);
             } else {
-              response = await videoService(values, uuid);
+              response = await videoService(values, _id);
             }
 
             if (response && response.status === 200) {
@@ -94,7 +94,7 @@ const matchHistoryDetails = () => {
     const token = localStorage.getItem('jwtToken') || '';
     try {
       const response = await getAllVideo(token);
-      const selectedVideo = response.find((video) => video._id === uuid);
+      const selectedVideo = response.find((video) => video._id === _id);
 
       if (selectedVideo) {
         setUpdateVideoData(selectedVideo);

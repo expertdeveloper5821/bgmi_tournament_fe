@@ -12,6 +12,7 @@ const TournamentCard = ({ imageUrl }: { imageUrl: string }) => {
           className={styles.wrapperimg}
           width={200}
           height={200}
+          layout="responsive"
         />
       </div>
     </div>

@@ -107,7 +107,7 @@ export const adminRoomColumns: string[] = [
 ];
 
 export const adminVidoColumns: string[] = [
-  'Created by ',
+  'Created by',
   'Video',
   'Title',
   'Match Type',

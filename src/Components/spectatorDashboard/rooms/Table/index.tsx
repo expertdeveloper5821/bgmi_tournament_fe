@@ -77,14 +77,14 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
                 width={120}
                 height={75}
               />
-              {spec?.mapType ?? '--'}
+              <div className={styles.map_type_imgtxt}> {spec?.mapType ?? '--'}</div>
             </TableCell>
             <TableCell className={styles.el_tb_cell}>{spec?.version ?? '--'}</TableCell>
             <TableCell className={styles.el_tb_cell}>
               <p className={styles.winner_pop_icon} onClick={openPopup}>
                 <Image src="/assests/win.svg" alt="Image" width={30} height={30} />
               </p>
-              {/* <GiPodiumWinner className={styles.winner_pop_icon} onClick={openPopup} /> */}
+
               <Popup isOpen={isPopupOpen} onClose={closePopup}>
                 <div className={styles.prize_table}>
                   <h1 className={styles.pize_heading}>Winning Prize Pool</h1>
@@ -160,10 +160,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
             </TableCell> */}
             <TableCell>
               <div>
-                <button
-                  className={styles.video}
-                  onClick={() => handleButtonPostWinners(spec.roomUuid)}
-                >
+                <button className={styles.video} onClick={() => handleButtonPostWinners(spec._id)}>
                   <Image src="/assests/postvideo.svg" alt="Image" width={22} height={22} />
                 </button>
               </div>

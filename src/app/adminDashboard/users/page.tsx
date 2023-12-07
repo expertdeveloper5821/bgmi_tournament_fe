@@ -27,7 +27,7 @@ function page() {
 
       const allUsersData: SpectatorDataType[] = response?.data?.data;
       const filteredData = allUsersData?.filter((user) => {
-        return user?.role?.role === 'user';
+        return user?.role?.role === 'user' || 'sepactator';
       });
       setWholeUserData(filteredData);
       setUserData(filteredData);
