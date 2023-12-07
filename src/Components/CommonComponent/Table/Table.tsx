@@ -76,7 +76,6 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
     }
   };
 
-  console.log('sortedData', sortedData);
   return (
     <>
       {sortedData.length ? (

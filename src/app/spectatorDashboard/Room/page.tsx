@@ -90,7 +90,7 @@ const Room = () => {
         <div className={styles.sidebar_wrapper}>
           <Navbar />
           <div className={styles.inner_specter_cls}>
-            <h1 className={styles.r_main_title}>Rooms vfgjhgjjgh</h1>
+            <h1 className={styles.r_main_title}>Rooms</h1>
           </div>
           <div>
             <Table className={styles.table_content}>
