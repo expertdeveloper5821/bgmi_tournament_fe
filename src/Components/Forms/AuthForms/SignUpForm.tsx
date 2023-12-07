@@ -41,8 +41,8 @@ export const SignupForm = () => {
         setSubmitting(true);
         const { fullName, email, password } = values;
         try {
-          const response = await signUpService({ fullName, email, password });
-          toast.success(response.data.message);
+          await signUpService({ fullName, email, password });
+          toast.success('Registered Successfully');
           router.push(`/auth/login`);
         } catch (error) {
           setError(error?.response?.data?.message);

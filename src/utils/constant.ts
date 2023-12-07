@@ -94,7 +94,7 @@ on Account of the Cardholder having exceeded the preset limit mutually agreed by
 our acquiring bank from time to time`,
 ];
 
-export const adminSpecColumns: string[] = ['Full Name', 'User Name', 'Email'];
+export const adminSpecColumns: string[] = ['Full Name', 'User Name', 'Email', 'Permission'];
 
 export const adminRoomColumns: string[] = [
   'Created By',
@@ -106,6 +106,18 @@ export const adminRoomColumns: string[] = [
   'Version',
   'Time',
   'Date',
+  'Permission',
 ];
 
-export const adminUserColumns: string[] = ['Full Name', 'User Name', 'Email'];
+export const adminUserColumns: string[] = [
+  'Full Name',
+  'User Name',
+  'Email',
+  'Phone Number',
+  'UPI ID',
+  'Player ID',
+  'Team Name',
+  'Permission',
+];
+
+export const LeaderBoardColumns: string[] = ['Team Name', 'Points', 'Match Type', 'Win', 'Lose'];
