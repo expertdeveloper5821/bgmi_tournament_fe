@@ -26,12 +26,12 @@ export const signUpService = async (data: SignupFormValuesType) => {
   }
 };
 
-export const videoService = async (payload: VideoFormValuesType, uuid: string) => {
+export const videoService = async (payload: VideoFormValuesType, _id: string) => {
   try {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { date, time, ...data } = payload;
 
-    const res = await sendRequest(`${serviceUrls.video}${uuid}`, {
+    const res = await sendRequest(`${serviceUrls.video}${_id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data',

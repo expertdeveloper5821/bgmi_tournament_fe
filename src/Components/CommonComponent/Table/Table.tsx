@@ -207,7 +207,7 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
                     <TableCell className={styles.table_cell}>{data?.title}</TableCell>
                     <TableCell className={styles.table_cell}>Squad</TableCell>
                     <TableCell className={styles.table_cell}>
-                      {getFormattedDateOrTime(data?.dateAndTime, 'Time')!}
+                      {getFormattedDateOrTime(data?.dateAndTime, 'Date')!}
                     </TableCell>
                     <TableCell className={styles.table_cell}>
                       {getFormattedDateOrTime(data?.dateAndTime, 'Time')!}

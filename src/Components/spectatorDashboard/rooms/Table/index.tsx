@@ -132,7 +132,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
               <div>
                 <button
                   className={styles.video}
-                  onClick={() => handleButtonPostWinners(spec.roomUuid)}
+                  onClick={() => handleButtonPostWinners(spec._id)}
                 >
                   <Image src="/assests/postvideo.svg" alt="Image" width={22} height={22} />
                 </button>
