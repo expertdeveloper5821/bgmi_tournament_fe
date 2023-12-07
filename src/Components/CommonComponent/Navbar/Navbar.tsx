@@ -1,22 +1,32 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Navbar.module.scss';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
+import Image from 'next/image';
+
 // @ts-ignore
 import { Popover } from 'technogetic-iron-smart-ui';
 import { decodeJWt } from '@/utils/globalfunctions';
 import { useUserContext } from '@/utils/contextProvider';
 import { toast } from 'react-toastify';
+import { NavbarProps } from '@/types/navbarType';
 
-export function Navbar() {
+let actualPathname;
+
+export function Navbar({ notificationModalHandler }: NavbarProps) {
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
   const [userData, setUserData] = useState<string | undefined>('');
   const [nameData, setNameData] = useState<string | undefined>('');
   const [initialsName, setInitialsName] = useState<string>('');
   const [, setProfile] = useState<string | undefined>('');
   const { triggerHandleLogout } = useUserContext();
+  const pathname = usePathname();
 
   const router = useRouter();
+
+  useEffect(() => {
+    actualPathname = pathname.split('/')[1];
+  }, [pathname]);
 
   const handleLogout = async () => {
     try {
@@ -59,7 +69,10 @@ export function Navbar() {
             </h1>
           )} */}
       </div>
-      <ul>
+      <ul
+        className={styles.listItems}
+        style={{ justifyContent: actualPathname === 'userDashboard' ? 'space-around' : 'flex-end' }}
+      >
         {/* <li className={styles.navitem}>
               <Popover
                 isOpen={isOpen}
@@ -129,7 +142,15 @@ export function Navbar() {
                 />
               </Popover>
             </li> */}
-        <li style={{ listStyle: 'none', marginRight: '10px' }}>
+
+        {actualPathname === 'userDashboard' && (
+          <li className={styles.notificationIcon} onClick={notificationModalHandler}>
+            <Image src={'/assests/bellIcon.svg'} alt="notification" width={28} height={28} />
+            <span className={styles.notificationCount}>2</span>
+          </li>
+        )}
+
+        <li className={styles.logoutModalToggleBtn}>
           {nameData && (
             <Popover
               className={styles.popover_show}

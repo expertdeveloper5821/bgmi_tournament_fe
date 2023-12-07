@@ -8,7 +8,6 @@
   min-height: 100vh;
   color: $bs-white;
   transition: 600ms linear;
-  // border: 1px solid red;
 }
 
 .container {
@@ -38,18 +37,6 @@
   flex-direction: column;
   margin-left: 0px;
   width: 100%;
-
-  @media (max-width: $breakpoint-ms) {
-    // margin-left: 15px;
-  }
-
-  @media (max-width: $breakpoint-md) {
-    // margin-left: 124px;
-  }
-
-  @media (max-width: $breakpoint-sm) {
-    // margin-left: 124px;
-  }
 
   @media (max-width: $breakpoint-tab) {
     margin-left: 116px;
@@ -97,7 +84,6 @@
 
   @media (min-width: $breakpoint-tab) {
     background-position: 50% 50%;
-    // width: calc(100vw - 50px);
   }
 }
 
@@ -113,18 +99,12 @@
     padding: 0px 26px !important;
   }
 
-  @media (max-width: $breakpoint-sm) {
-    // padding: 0px 136px
-    // margin-top: 40px;
-  }
-
   @media (max-width: $breakpoint-md) {
     padding: 0px 64px;
   }
 }
 
 .reg_match_image_container {
-  // flex: 2 1 0;
   max-width: 100%;
   border: 1px solid #003554;
 
@@ -168,22 +148,12 @@
   }
 }
 
-// .room_wrapper {
-//   background-image: url(/assests/dashboard-bg.svg);
-//   background-repeat: no-repeat;
-//   background-position: center;
-//   height: 100%;
-//   width: 100%;
-//   background-size: 100%;
-// }
-
 .room_container {
   display: flex;
   margin: 10px 10px;
   column-gap: 18px;
 
   @media (max-width: $breakpoint-md) {
-    // display: block;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -191,7 +161,6 @@
   }
 
   @media (max-width: $breakpoint-sm) {
-    // display: block !important;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -219,12 +188,7 @@
   justify-content: flex-start;
   gap: 64px;
   margin: 10px 0px;
-  // flex-wrap: wrap;
   width: 90%;
-
-  @media (max-width: $breakpoint-lg) {
-    // width: 50%;
-  }
 
   @media (max-width: $breakpoint-ms) {
     width: 80%;
@@ -278,7 +242,6 @@
 .tournament_slider {
   display: flex;
   justify-content: space-between;
-  // margin: 10px 3px;
 }
 
 .rs_logo {
@@ -343,14 +306,6 @@
   justify-content: space-between;
   width: 96%;
 
-  @media (max-width: $breakpoint-lg) {
-    // margin: 6px 86px;
-  }
-
-  @media (max-width: $breakpoint-ms) {
-    // margin: 6px 86px;
-  }
-
   @media (max-width: $breakpoint-xSmall) {
     justify-content: flex-start !important;
     margin: 12px 0px !important;
@@ -406,7 +361,6 @@ img.slides_image {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  // border-top: 1px solid #12415d;
 
   @media (max-width: $breakpoint-sm) {
     padding: 28px 96px;
@@ -457,17 +411,8 @@ img.slides_image {
 }
 
 .container2 img {
-  // margin-left: 3%;
   box-shadow: 0px 4px 14px 0px #00000040;
   border-radius: 5px;
-
-  @media (max-width: $breakpoint-xs) {
-    // margin-left: 8%;
-  }
-
-  @media (max-width: $breakpoint-xSmall) {
-    // margin-left: 8%;
-  }
 }
 
 .Tournaments {
@@ -541,19 +486,8 @@ img.slides_image {
   margin: 10px 0px 0px 0px;
   margin-left: 25px;
 
-  // $breakpoint-lg
-  // $breakpoint-ms
-  @media (max-width: $breakpoint-md) {
-    // margin-left: 116px;
-  }
-
   @media (max-width: $breakpoint-sm) {
     font-size: 16px;
-    // margin-left: 109px;
-  }
-
-  @media (max-width: $breakpoint-tab) {
-    // margin-left: 108px;
   }
 
   @media (max-width: $breakpoint-xs) {
@@ -623,7 +557,6 @@ img.slides_image {
 
 .content_wrapper {
   display: flex;
-  // width: 50%;
   justify-content: space-around;
   align-items: center;
 }
@@ -679,6 +612,7 @@ img.slides_image {
 }
 
 @keyframes travel {
+
   0%,
   100% {
     transform: translate3d(10, 20, 0);
@@ -781,9 +715,6 @@ img.slides_image {
 
 .Teammembers {
   margin-top: 20px;
-
-  // border-bottom: 1px solid grey;
-
   padding-bottom: 20px;
   font-size: x-large;
   font-weight: bold;
@@ -882,12 +813,10 @@ img.slides_image {
 }
 
 .inner_winning_pool {
-  background: linear-gradient(
-    131.26deg,
-    #ffffff 26.63%,
+  background: linear-gradient(131.26deg,
+      #ffffff 26.63%,
 
-    rgb(255 122 0 / 74%) 450.26%
-  );
+      rgb(255 122 0 / 74%) 450.26%);
 
   padding: 0px;
   width: 36%;
@@ -965,15 +894,6 @@ img.slides_image {
   box-shadow: 0px 4px 18px 0px #00000040;
   border: 1px solid #00000025;
   border-radius: 4px;
-  // @media (max-width: $breakpoint-xSmall) {
-  //   height: 86px;
-  // }
-  // @media (max-width: $breakpoint-xs) {
-  //   height: 86px;
-  // }
-
-  // @media (max-width: $breakpoint-sm) {
-  // }
 }
 
 .winnings_sec_slider {
@@ -1050,7 +970,6 @@ img.slides_image {
 .gameCardFade {
   content: '';
   position: absolute;
-  // z-index: 1;
   bottom: 0px;
   display: flex;
   justify-content: space-between;
@@ -1108,30 +1027,7 @@ img.slides_image {
   @media (max-width: $breakpoint-xSmall) {
     display: flex;
   }
-
-  // @media (max-width:$breakpoint-lg) {
-  //   display: none;
-  // }
-  //   @media (max-width: $breakpoint-ms) {
-  //     display: none;
-  //   }
-  //   @media (max-width:  $breakpoint-md) {
-  //     display: none;
-  //   }
-  //  @media (max-width: $breakpoint-tab) {
-  //   display: block;
-  //  }
-  //   @media (max-width: $breakpoint-xs) {
-  //     display: block;
-  //   }
-  //   @media (max-width: $breakpoint-xSmall) {
-  // display: block;
-  //   }
 }
-
-// .outline_icon {
-//   background: $bs-orange;
-// }
 
 .tournamentContainer {
   display: flex;
@@ -1339,14 +1235,17 @@ body.activemodal {
   position: absolute;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
   background: #f1f1f1;
   width: 443px;
   transform: translate(-50%, -50%);
   padding: 18px 36px;
   border-radius: 6px;
+
   form {
     width: 100%;
   }
+
   @media (max-width: $breakpoint-xs) {
     width: 300px;
   }
@@ -1425,9 +1324,14 @@ body.activemodal {
 .input_desc {
   display: flex;
   justify-content: flex-end;
+
   @media (max-width: $breakpoint-xs) {
     justify-content: flex-start;
     margin-left: 15px;
+  }
+
+  @media (max-width: $breakpoint-xSmall) {
+    margin: 0px 15px;
   }
 }
 
@@ -1435,6 +1339,7 @@ body.activemodal {
   margin: 0px 1rem;
   background-color: $bs-orange !important;
   border-radius: 4px;
+
   @media (max-width: $breakpoint-xSmall) {
     margin: 0px 1rem 0px 0.5rem;
   }
@@ -1444,6 +1349,7 @@ body.activemodal {
   margin: 0px 1rem;
   background-color: $bs-orange !important;
   border-radius: 4px;
+
   @media (max-width: $breakpoint-xs) {
     display: none;
   }
@@ -1467,6 +1373,7 @@ body.activemodal {
   color: red;
   font-size: 14px;
   position: absolute;
+
   @media (max-width: $breakpoint-xs) {
     font-size: 9px;
   }
@@ -1476,18 +1383,89 @@ body.activemodal {
   width: 25vw;
 }
 
-.search_input_box > input {
-  background: transparent;
-  border: none;
-  color: white;
-
+.search_Container {
+  display: flex;
+  border: 1px solid white;
+  border-radius: 7px;
   @media (max-width: $breakpoint-xSmall) {
-    width: 130px;
+    width: 100%;
   }
 }
 
-.search_input_box > input::placeholder {
+.search_Container:focus {
+  border: 2px solid white;
+}
+
+.search_input_box {
+  border: none;
+  width: 170px;
+  outline: none;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 100%;
+  }
+}
+
+.search_input_box:focus-within {
+  border: none;
+}
+
+.search_Container {
+  display: flex;
+  border: 1px solid white;
+  border-radius: 7px;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 100%;
+  }
+}
+
+.search_Container:focus {
+  border: 2px solid white;
+}
+
+.search_input_box {
+  border: none;
+  width: 170px;
+  outline: none;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 100%;
+  }
+}
+
+.search_input_box:focus-within {
+  border: none;
+}
+
+.search_input_box>input {
+  background: transparent;
+  border: none;
   color: white;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 100%;
+  }
+}
+
+.img_container {
+  width: 28px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: $breakpoint-xSmall) {
+    width: 40px;
+  }
+}
+
+.search_Icon {
+  cursor: pointer;
+}
+
+.search_Icon {
+  cursor: pointer;
+}
+
+.search_input_box>input::placeholder {
+  color: white;
+
   @media (max-width: $breakpoint-xSmall) {
     font-size: 15px;
   }
@@ -1534,10 +1512,12 @@ body.activemodal {
   @media (max-width: $breakpoint-sm) {
     height: 90vh;
   }
+
   @media (max-width: $breakpoint-xSmall) {
     height: 100vh;
   }
 }
+
 .image_video {
   position: relative;
   border-radius: 14px;
@@ -1551,15 +1531,18 @@ body.activemodal {
   width: 90%;
   height: 20%;
   left: 8%;
+
   // border: 1px solid red;
   @media (min-width: $breakpoint-tab) and (max-width: $breakpoint-lg) {
     flex-direction: row;
     left: 4%;
   }
+
   @media (max-width: $breakpoint-tab) {
     flex-direction: column;
     left: 4%;
   }
+
   @media (max-width: $breakpoint-xSmall) {
     flex-direction: column;
     left: 4%;
@@ -1571,15 +1554,9 @@ body.activemodal {
     left: 4%;
     top: 60%;
   }
-
-  // @media (max-width: $breakpoint-md) and (max-width: $breakpoint-xlg) {
-  //   flex-direction: row;
-  //   left: 4%;
-  // }
 }
 
 .col {
-  // border: 1px solid red;
   width: 30%;
   display: flex;
   flex-direction: column;
@@ -1591,6 +1568,7 @@ body.activemodal {
   font-weight: 700;
   font-size: 28px;
   line-height: 32.93px;
+
   @media (max-width: $breakpoint-md) {
     font-size: 21px;
   }
@@ -1613,6 +1591,7 @@ body.activemodal {
   width: 65%;
   display: flex;
   gap: 20px;
+
   @media (max-width: $breakpoint-sm) {
     width: 100%;
   }
@@ -1630,6 +1609,7 @@ body.activemodal {
   display: flex;
   flex-direction: column;
   width: 24%;
+
   @media (max-width: $breakpoint-sm) {
     width: 100%;
   }
@@ -1651,6 +1631,7 @@ body.activemodal {
 
 .timedate {
   font-size: 10px;
+
   @media (max-width: $breakpoint-sm) {
     font-size: 8px;
   }
@@ -1663,10 +1644,12 @@ body.activemodal {
     font-size: 8px;
   }
 }
+
 .match_name {
   color: #ff7a00;
   font-size: 12px;
   font-weight: 700;
+
   @media (max-width: $breakpoint-sm) {
     font-size: 8px;
   }
@@ -1723,8 +1706,6 @@ body.activemodal {
   }
 
   @media (max-width: $breakpoint-tab) {
-    // top: 250px;
-    // left: 225px;
     top: 220px;
     left: 150px;
   }
@@ -1781,12 +1762,8 @@ body.activemodal {
   color: #ff7a00;
 }
 
-// span.menuItem-label {
-//   color: #fff !important;
-// }
 
 .popdown {
-  // border: 1px solid red;
   margin-top: 35px;
   color: rgba(0, 53, 84, 1) !important;
 }
@@ -1799,7 +1776,6 @@ body.activemodal {
   margin-right: -32px;
   z-index: 10;
   border-color: #ff7a00;
-  // background-color: '#ff7a00';
   border-radius: 50%;
 }
 
@@ -1813,5 +1789,6 @@ body.activemodal {
 .next_button:hover,
 .previous_button:hover {
   background-color: #ff7a00;
-  color: #fff; /* Optionally change text color to white */
+  color: #fff;
+  /* Optionally change text color to white */
 }

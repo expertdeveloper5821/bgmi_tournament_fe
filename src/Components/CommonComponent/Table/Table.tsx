@@ -17,6 +17,7 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import { MdEdit } from 'react-icons/md';
 import Pagination from '../Pagination';
 import Image from 'next/image';
+import { ToggleComponent } from '../ToggleComponent';
 
 const TableData = ({
   data,
@@ -113,9 +114,12 @@ const TableData = ({
                   </div>
                 </TableHead>
               ))}
-              <TableHead className={styles.table_head}>
-                <div className={styles.filter}>Actions</div>
-              </TableHead>
+
+              {type !== 'leaderboard' && (
+                <TableHead className={styles.table_head}>
+                  <div className={styles.filter}>Actions</div>
+                </TableHead>
+              )}
             </TableRow>
           </TableHeader>
 
@@ -137,6 +141,9 @@ const TableData = ({
                     <TableCell className={styles.table_cell}>
                       {getFormattedDateOrTime(data?.dateAndTime, 'Date')!}
                     </TableCell>
+                    <TableCell className={styles.table_cell}>
+                      <ToggleComponent />
+                    </TableCell>
                     <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
                       <RiDeleteBin6Line
                         className={styles.del}
@@ -145,19 +152,20 @@ const TableData = ({
                     </TableCell>
                   </TableRow>
                 );
-              } else if (type === 'SPECTATOR' || type === 'USERS') {
+              } else if (type === 'SPECTATOR') {
                 return (
                   <TableRow className={styles.table_rowdata} key={index}>
                     <TableCell className={styles.table_cell}>{data?.fullName}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.userName || '--'}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.email}</TableCell>
+                    <TableCell className={styles.table_cell}>
+                      <ToggleComponent />
+                    </TableCell>
                     <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
-                      {type === 'SPECTATOR' && (
-                        <MdEdit
-                          className={styles.del}
-                          onClick={() => handleEdit && handleEdit(data)}
-                        />
-                      )}
+                      <MdEdit
+                        className={styles.del}
+                        onClick={() => handleEdit && handleEdit(data)}
+                      />
                       <RiDeleteBin6Line
                         className={styles.del}
                         onClick={() => deleteroom && deleteroom(data.userUuid)}
@@ -204,6 +212,37 @@ const TableData = ({
                         onClick={() => deleteroom && deleteroom(data._id)}
                       />
                     </TableCell>
+                  </TableRow>
+                );
+              } else if (type === 'USERS') {
+                return (
+                  <TableRow className={styles.table_rowdata} key={index}>
+                    <TableCell className={styles.table_cell}>{data?.fullName}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.userName || '--'}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.email}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.phoneNumber || '--'}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.upiId || '--'}</TableCell>
+                    <TableCell className={styles.table_cell}>{'--'}</TableCell>
+                    <TableCell className={styles.table_cell}>{'--'}</TableCell>
+                    <TableCell className={styles.table_cell}>
+                      <ToggleComponent />
+                    </TableCell>
+                    <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
+                      <RiDeleteBin6Line
+                        className={styles.del}
+                        onClick={() => deleteroom && deleteroom(data.userUuid)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              } else if (type === 'leaderboard') {
+                return (
+                  <TableRow className={styles.table_rowdata} key={index}>
+                    <TableCell className={styles.table_cell}>{data?.teamName || ''}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.totalPoints || 0}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.matchType || 'N/A'}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.totalWins || 0}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.totalLosses || 0}</TableCell>
                   </TableRow>
                 );
               }
