@@ -19,10 +19,12 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import { MdEdit } from 'react-icons/md';
 import Pagination from '../Pagination';
 import { ToggleComponent } from '../ToggleComponent';
+import AssignModal from '../Modal/AssignModal';
 
 const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsType) => {
   const [sortedData, setSortedData] = useState<TableDataType[] | []>([]);
   const [activeFilter, setactiveFilter] = useState<number>(0);
+  const [isAssignModalVisible, setisAssignModalVisible] = useState<boolean>(false);
   const filterKeys = ['Created By', 'Game Name', 'Game Type', 'Map Type', 'Version'];
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,12 +79,14 @@ const TableData = ({ data, columns, deleteroom, type, handleEdit }: TablePropsTy
     }
   };
 
-  const onClickAssignHandler = (data: TableDataType) => {
-    console.log('data: ==>', data);
+  const onClickAssignHandler = (data?: TableDataType) => {
+    setisAssignModalVisible((prev: boolean) => !prev);
+    console.log(data);
   };
 
   return (
     <>
+      {isAssignModalVisible && <AssignModal onClickAssignHandler={onClickAssignHandler} />}
       {sortedData.length ? (
         <Table className={styles.table_content}>
           <TableHeader className={styles.tableHeader}>
