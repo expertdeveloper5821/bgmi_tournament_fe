@@ -42,7 +42,6 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
     router.push(`/spectatorDashboard/Matchhistorydetails?id=${uuid}`);
   };
   const [isPopupOpen, setPopupOpen] = useState(false);
-
   const openPopup = () => {
     setPopupOpen(true);
   };
@@ -72,6 +71,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
 
             <TableCell className={styles.el_tb_cell}>
               <Image
+                className={styles.room_image_cls}
                 src={spec?.mapImg ? spec?.mapImg : '/assests/about.jpg'}
                 alt="Image"
                 width={120}
@@ -81,11 +81,17 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
             </TableCell>
             <TableCell className={styles.el_tb_cell}>{spec?.version ?? '--'}</TableCell>
             <TableCell className={styles.el_tb_cell}>
-              <p className={styles.winner_pop_icon} onClick={openPopup}>
+              <p className={styles.winner_pop_icon} key={spec._id} onClick={openPopup}>
                 <Image src="/assests/win.svg" alt="Image" width={30} height={30} />
               </p>
 
-              <Popup isOpen={isPopupOpen} onClose={closePopup}>
+              <Popup
+                key={spec._id}
+                isOpen={isPopupOpen}
+                onClose={closePopup}
+                dynamicClass={styles.inner_pop_sec}
+                CloseBtn={styles.close_button}
+              >
                 <div className={styles.prize_table}>
                   <h1 className={styles.pize_heading}>Winning Prize Pool</h1>
                 </div>

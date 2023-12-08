@@ -1247,36 +1247,11 @@ button#btn_cls_st {
     min-width: 150px;
   }
 }
-.close_button{
-background:$bs-orange;
-border-radius: 18px;
-font-size: 23px;
-margin: 12px;
-}
+
 .pop_main{
   @include spectator_model;
   background-color:rgba(0, 0, 0, 0.18);
 }
 
-.inner_pop_sec{
-  background:linear-gradient(131.26deg, #ffffff 26.63%, rgba(255, 122, 0, 0.74) 450.26%);
-height: auto;
-width: 30%;
-border-radius: 16px;
-padding: 0px;
-@media (max-width: $breakpoint-xSmall) {
-  width: 90% !important;
-}
 
-@media (max-width: $breakpoint-xs) {
-  width: 90% !important;
-}
 
-@media (max-width: $breakpoint-sm) {
-  width: 90%;
-}
-
-@media (max-width: $breakpoint-md) {
-  width: 50%;
-}
-}

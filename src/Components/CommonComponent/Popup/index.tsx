@@ -6,9 +6,19 @@ interface PopupProps {
   isOpen: boolean;
   onClose: () => void;
   children?: ReactNode;
+  dynamicClass?: string;
+  CloseBtn?: string;
+  MainClose?: string;
 }
 
-const Popup: React.FC<PopupProps> = ({ isOpen, onClose, children }) => {
+const Popup: React.FC<PopupProps> = ({
+  isOpen,
+  onClose,
+  children,
+  dynamicClass,
+  CloseBtn,
+  MainClose,
+}) => {
   if (!isOpen) {
     return null;
   }
@@ -16,10 +26,10 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, children }) => {
   return (
     <div className="popup-overlay">
       <div className={styles.pop_main}>
-        <div className={styles.inner_pop_sec}>
+        <div className={dynamicClass}>
           <div>{children}</div>
-          <div>
-            <AiOutlineClose className={styles.close_button} onClick={onClose} />
+          <div className={MainClose}>
+            <AiOutlineClose className={CloseBtn} onClick={onClose} />
           </div>
         </div>
       </div>

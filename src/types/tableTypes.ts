@@ -47,6 +47,7 @@ export interface TablePropsType {
   data?: TableDataType[];
   columns?: string[];
   deleteroom?: (_id: string | undefined) => void;
+  popupid?: (_id: string | undefined) => void;
   type?: string;
   handleEdit?: (spectatorData: SpectatorEditDataType) => void;
   handleUpdate?: (videoData: getVideo) => void;

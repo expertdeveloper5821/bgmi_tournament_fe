@@ -12,12 +12,14 @@ import {
 } from 'technogetic-iron-smart-ui';
 import { TableDataType, TablePropsType } from '@/types/tableTypes';
 import { getFormattedDateOrTime, toCamelCase } from '@/utils/commonFunction';
-import { FaLongArrowAltDown, FaLongArrowAltUp } from 'react-icons/fa';
+import { FaLongArrowAltDown, FaLongArrowAltUp, FaPlay } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { MdEdit } from 'react-icons/md';
 import Pagination from '../Pagination';
 import Image from 'next/image';
 import { ToggleComponent } from '../ToggleComponent';
+import Popup from '../Popup';
+import ReactPlayer from 'react-player';
 
 const TableData = ({
   data,
@@ -30,6 +32,22 @@ const TableData = ({
   const [sortedData, setSortedData] = useState<TableDataType[] | []>([]);
   const [activeFilter, setactiveFilter] = useState<number>(0);
   const filterKeys = ['Created By', 'Game Name', 'Game Type', 'Map Type', 'Version'];
+  const [isPopupOpen, setPopupOpen] = useState(false);
+
+  // const openPopup = () => {
+  //   setPopupOpen(true);
+  // };
+
+  const closePopup = () => {
+    setPopupOpen(false);
+  };
+
+  const [selectedVideo, setSelectedVideo] = useState<TableDataType | null>(null);
+
+  const openPopup = (video: TableDataType) => {
+    setSelectedVideo(video);
+    setPopupOpen(true);
+  };
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalItems = sortedData.length;
@@ -183,7 +201,7 @@ const TableData = ({
                           : data?.createdBy || 'Unknown'}
                       </TableCell>
                     )}
-                    <TableCell className={styles.table_cell}>
+                    <TableCell className={`${styles.table_cell} ${styles.table_imgvideo_cell}`}>
                       <Image
                         src={data?.mapImg ? data?.mapImg : '/assests/about.jpg'}
                         className={styles.video_card}
@@ -191,8 +209,11 @@ const TableData = ({
                         width={120}
                         height={75}
                       />
+                      <div className={styles.play_button}>
+                        <FaPlay className={styles.fa_play_btn} onClick={() => openPopup(data)} />
+                      </div>
                     </TableCell>
-                    <TableCell className={styles.table_cell}>{data?.title}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.title || '--'}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.gameType || '--'} </TableCell>
                     <TableCell className={styles.table_cell}>
                       {getFormattedDateOrTime(data?.dateAndTime, 'Date')!}
@@ -200,7 +221,7 @@ const TableData = ({
                     <TableCell className={styles.table_cell}>
                       {getFormattedDateOrTime(data?.dateAndTime, 'Time')!}
                     </TableCell>
-                    <TableCell className={`${styles.table_cell} ${styles.action_td}`}>
+                    <TableCell className={styles.table_cell}>
                       {type === 'VIDEOUSER' && (
                         <MdEdit
                           className={styles.del}
@@ -258,6 +279,24 @@ const TableData = ({
       ) : (
         <h1 className={styles.no_data_found_heading}>No data found</h1>
       )}
+
+      <Popup
+        isOpen={isPopupOpen}
+        onClose={closePopup}
+        dynamicClass={styles.sec_inner_popup}
+        CloseBtn={styles.video_popup_del}
+        MainClose={styles.main_close_btn}
+      >
+        {selectedVideo && (
+          <div>
+            <ReactPlayer
+              className={styles.react_player}
+              url={selectedVideo?.videoLink}
+              controls={true}
+            />
+          </div>
+        )}
+      </Popup>
     </>
   );
 };
