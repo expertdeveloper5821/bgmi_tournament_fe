@@ -124,10 +124,18 @@ const AssignModal = ({ onClickAssignHandler }: AssignModalPropsType) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const [selectedItem, setSelectedItem] = useState<number>(1);
   const [listItemArray, setListItemArray] = useState<DemoData[] | []>(istItemArray);
+  const [inputedText, setInputedText] = useState<string>('');
 
   const handleMouseEnter = (index: number) => {
     setSelectedItem(index);
     setListItemArray([...istItemArray]);
+  };
+
+  const onChangeHandler = (e) => {
+    setInputedText(e.target.value);
+    setListItemArray(
+      istItemArray.filter((prev) => prev.name.toLowerCase().includes(e.target.value.toLowerCase())),
+    );
   };
 
   const handleClick = (e) => {
@@ -149,6 +157,8 @@ const AssignModal = ({ onClickAssignHandler }: AssignModalPropsType) => {
               height={13}
             />
             <input
+              value={inputedText}
+              onChange={onChangeHandler}
               className={styles.search_bar}
               alt="searchbar"
               type="text"
