@@ -109,9 +109,21 @@
     }
   }
 
-  .list_item_text {
+  .list_item_info_container {
+    display: flex;
+    flex-direction: column;
+    width: 210px;
+    height: 100%;
     color: rgb(91, 98, 108);
     font-size: 14px;
+    justify-content: center;
     font-family: 'BlinkMacSystemFont' !important;
+    .list_item_fullname {
+      height: 18px;
+    }
+    .list_item_email {
+      height: 18px;
+      font-size: 8px;
+    }
   }
 }

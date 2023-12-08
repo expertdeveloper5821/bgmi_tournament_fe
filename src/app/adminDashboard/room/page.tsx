@@ -12,11 +12,13 @@ import {
   deleteRoomService,
   getAllFilteredRoomsListService,
   getAllRoomsService,
+  getAllUsersDataService,
 } from '@/services/authServices';
 import { RoomsDataType } from '@/types/roomsTypes';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { adminRoomColumns } from '@/utils/constant';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
+import { SpectatorDataType } from '@/types/spectatorTypes';
 
 function page() {
   const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
@@ -24,6 +26,7 @@ function page() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [idToDelete, setIdToDelete] = useState<string>('');
+  const [spectatorData, setSpectatorData] = useState<SpectatorDataType[] | []>([]);
 
   const getAllTournaments = async () => {
     try {
@@ -38,8 +41,27 @@ function page() {
     }
   };
 
+  const getAllUsers = async () => {
+    setIsLoading(true);
+    try {
+      const token = localStorage.getItem('jwtToken') || '';
+      const response = await getAllUsersDataService(token);
+      const allspectatorData = response?.data?.data;
+      const filteredData = allspectatorData.filter((spectator: SpectatorDataType) => {
+        return spectator?.role?.role === 'spectator';
+      });
+      setSpectatorData(filteredData);
+
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     getAllTournaments();
+    getAllUsers();
   }, []);
 
   const deleteroom = async () => {
@@ -108,6 +130,7 @@ function page() {
         ) : (
           <TableData
             data={roomData}
+            assignModalData={spectatorData}
             columns={adminRoomColumns}
             deleteroom={handleDeleteUser}
             type={'ROOMS'}

@@ -1,4 +1,4 @@
-import { Role, SpectatorEditDataType } from './spectatorTypes';
+import { Role, SpectatorDataType, SpectatorEditDataType } from './spectatorTypes';
 
 export interface TableDataType {
   email?: string;
@@ -43,4 +43,5 @@ export interface TablePropsType {
   deleteroom?: (_id: string | undefined) => void;
   type?: string;
   handleEdit?: (spectatorData: SpectatorEditDataType) => void;
+  assignModalData?: SpectatorDataType[] | [];
 }
