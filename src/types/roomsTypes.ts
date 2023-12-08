@@ -18,6 +18,7 @@ export interface RoomsDataType {
   thirdWin: string;
   updatedAt: string;
   version: string;
+  matchType: string;
   __v: number;
   _id: string;
 }

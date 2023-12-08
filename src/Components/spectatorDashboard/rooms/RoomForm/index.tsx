@@ -171,7 +171,7 @@ const CreateRoomForm = (props) => {
             setRoomIdToUpdate('');
           }}
         >
-          CREATE ROOM ID
+          CREATE ROOM
         </button>
         {showModal ? (
           <div className={styles.main_pop_cls}>
@@ -442,12 +442,18 @@ const CreateRoomForm = (props) => {
                               </div>
                             ))}
                             {roomIdToUpdate && (
-                              <img
-                                src={roomIdToUpdate.mapImg}
-                                alt="Map Image"
-                                width={230}
-                                height={130}
-                              />
+                              <>
+                                {roomIdToUpdate.mapImg ? (
+                                  <img
+                                    src={roomIdToUpdate.mapImg}
+                                    alt="Map Image"
+                                    width={230}
+                                    height={130}
+                                  />
+                                ) : (
+                                  <p>Map Image</p>
+                                )}
+                              </>
                             )}
                           </div>
                         </div>

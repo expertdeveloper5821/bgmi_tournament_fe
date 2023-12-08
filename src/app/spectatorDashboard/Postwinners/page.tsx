@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Spectator.module.scss';
-import { Navbar } from '@/Components/Navbar/Navbar';
+import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import { TableHeader, TableHead, TableRow, TableCell } from 'technogetic-iron-smart-ui';
 import { Table, TableBody } from 'technogetic-iron-smart-ui';
 import { Button } from 'technogetic-iron-smart-ui';

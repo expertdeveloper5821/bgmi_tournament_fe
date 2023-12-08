@@ -33,16 +33,13 @@ export const specRoomColumns: string[] = [
   'Game Type',
   'Map Type',
   'Version',
-  'Highest Kill',
-  'Last Survival',
-  'Third Win',
-  'Second Win',
-  'Time',
-  'Date',
+  'Winner',
+  'Time/Date',
   'Entry Fee',
-  'Action',
   'Add Winner',
   'View Winner',
+  'Video',
+  'Action',
 ];
 
 export const policyArr = [
@@ -110,6 +107,15 @@ export const adminRoomColumns: string[] = [
   'Permission',
 ];
 
+export const adminVidoColumns: string[] = [
+  'Created by',
+  'Video',
+  'Title',
+  'Match Type',
+  'Date',
+  'Time',
+];
+export const VidoColumns: string[] = ['Video', 'Title', 'Match Type', 'Date', 'Time'];
 export const adminUserColumns: string[] = [
   'Full Name',
   'Player ID',

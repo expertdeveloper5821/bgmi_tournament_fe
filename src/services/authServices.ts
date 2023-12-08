@@ -26,12 +26,12 @@ export const signUpService = async (data: SignupFormValuesType) => {
   }
 };
 
-export const videoService = async (payload: VideoFormValuesType, uuid: string) => {
+export const videoService = async (payload: VideoFormValuesType, _id: string) => {
   try {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { date, time, ...data } = payload;
 
-    const res = await sendRequest(`${serviceUrls.video}${uuid}`, {
+    const res = await sendRequest(`${serviceUrls.video}${_id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -95,6 +95,19 @@ export const deleteRoleService = async (data: DeleteRoleValuesType) => {
 
 export const getAllUsersDataService = async (token: string) => {
   const res = await sendRequest(`${serviceUrls.getAllUsers}`, {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (res.status === 200) {
+    return res;
+  } else {
+    throw res;
+  }
+};
+
+export const getVideos = async (token: string) => {
+  const res = await sendRequest(`${serviceUrls.adminVideos}`, {
     method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
   });

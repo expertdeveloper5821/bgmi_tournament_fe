@@ -17,6 +17,7 @@ export interface FormDataType {
 }
 
 export interface SpectatorDataType {
+  matchType?: string;
   email?: string;
   fullName?: string;
   phoneNumber?: string;
@@ -33,6 +34,7 @@ export interface ModalType {
 }
 
 export interface SpectatorEditDataType {
+  matchType?: string;
   email?: string;
   fullName?: string;
   role?: Role;
@@ -58,9 +60,19 @@ export interface FormValues {
 }
 
 export interface getVideo {
+  title?: string;
+  mapImg?: string;
+  dateAndTime?: string;
+  _id?: string;
+}
+
+export interface adminGetVideo {
+  matchType: string;
   title: string;
   mapImg: string;
   dateAndTime: string;
+  roomId: string;
+  videoLink: string;
   _id: string;
 }
 

@@ -702,9 +702,9 @@ button#btn_cls_st {
   // border: 1px solid red;
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 50%;
   gap: 15px;
-  padding: 10px 50px;
+  padding: 16px  50px;
 
   @media (max-width: $breakpoint-ms) {
     width: 100%;
@@ -729,18 +729,17 @@ button#btn_cls_st {
 .text_Area_context {
   border: 1px solid white;
   border-radius: 8px;
-  padding: 10px 20px;
   // height: 50px;
   color: #fff;
   text-align: center;
   background-color: transparent;
 }
 
-.typeofmatch,
 .Uploadthumbnail {
   font-weight: bold;
   padding-top: 20px;
 }
+
 
 .select_match_type {
   font-size: 14px;
@@ -777,9 +776,11 @@ button#btn_cls_st {
 //   // border: 1px solid red;
 //   position: absolute;
 // }
-
+.input_box_calendar{
+  width: 100%;
+}
 .video_section {
-  width: 40%;
+  width: 48%;
   gap: 20px;
   justify-content: space-between;
   display: flex;
@@ -854,13 +855,13 @@ button#btn_cls_st {
 
 .upload {
   border: 1px solid white;
-  width: 30%;
+  width: 100%;
   border-radius: 4px;
   height: 120px;
 
   @media (max-width: $breakpoint-ms) {
-    width: 50%;
-    height: 95px;
+    width: 100%;
+    height: 100px;
   }
 
   @media (max-width: $breakpoint-md) {
@@ -869,7 +870,7 @@ button#btn_cls_st {
   }
 
   @media (max-width: $breakpoint-sm) {
-    width: 50%;
+    width: 100%;
     height: 95px;
   }
 }
@@ -903,22 +904,22 @@ button#btn_cls_st {
 }
 
 .thumbnailPreview {
-  width: 160px;
-  height: 120px;
+  width: 568px;
+  height: 218px;
 
   @media (max-width: $breakpoint-ms) {
-    width: 100px;
-    height: 96px;
+    width: 798px;
+    height: 398px;
   }
 
   @media (max-width: $breakpoint-md) {
-    width: 100px;
-    height: 96px;
+    width: 556px;
+    height: 208px;
   }
 
   @media (max-width: $breakpoint-sm) {
-    width: 100px;
-    height: 96px;
+    width: 246px;
+    height: 148px;
   }
 }
 
@@ -1084,6 +1085,7 @@ button#btn_cls_st {
 .upload_Images {
   display: flex;
   gap: 20px;
+  justify-content: center;
 }
 
 .flex_gap {
@@ -1100,9 +1102,9 @@ button#btn_cls_st {
   border: 1px solid red;
   padding: 5px 10px;
   background-color: transparent;
-  border: 1px solid #ff7a00 !important;
+  border: 1px solid #fff !important;
   border-radius: 4px;
-  color: #ff7a00 !important;
+  color: #fff ;
 }
 
 .room_field_calendar {
@@ -1245,3 +1247,11 @@ button#btn_cls_st {
     min-width: 150px;
   }
 }
+
+.pop_main{
+  @include spectator_model;
+  background-color:rgba(0, 0, 0, 0.18);
+}
+
+
+

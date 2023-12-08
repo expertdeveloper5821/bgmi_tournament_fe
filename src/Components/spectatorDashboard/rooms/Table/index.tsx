@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import styles from '@/styles/Spectator.module.scss';
 import styles from '@/styles/TableData.module.scss';
 
 //@ts-ignore
@@ -20,6 +19,7 @@ import { GiPodiumWinner } from 'react-icons/gi';
 import Link from 'next/link';
 import Pagination from '@/Components/CommonComponent/Pagination';
 import { useRouter } from 'next/navigation';
+import Popup from '@/Components/CommonComponent/Popup';
 
 const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRooms }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,6 +41,14 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
   const handleButtonPostWinners = (uuid: string) => {
     router.push(`/spectatorDashboard/Matchhistorydetails?id=${uuid}`);
   };
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const openPopup = () => {
+    setPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setPopupOpen(false);
+  };
 
   return (
     <Table className={styles.table_content}>
@@ -60,35 +68,63 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
             <TableCell className={styles.el_tb_cell}>{spec?.roomId ?? '--'}</TableCell>
             <TableCell className={styles.tb_cell_body}>{spec?.gameName ?? '--'}</TableCell>
             <TableCell className={styles.el_tb_cell}>{spec?.gameType ?? '--'}</TableCell>
-            <TableCell className={styles.el_tb_cell}>{spec?.mapType ?? '--'}</TableCell>
+
+            <TableCell className={styles.el_tb_cell}>
+              <Image
+                className={styles.room_image_cls}
+                src={spec?.mapImg ? spec?.mapImg : '/assests/about.jpg'}
+                alt="Image"
+                width={120}
+                height={75}
+              />
+              <div className={styles.map_type_imgtxt}> {spec?.mapType ?? '--'}</div>
+            </TableCell>
             <TableCell className={styles.el_tb_cell}>{spec?.version ?? '--'}</TableCell>
-            <TableCell className={styles.tb_cell_body}>{spec?.highestKill ?? '--'}</TableCell>
-            <TableCell className={styles.el_tb_cell}>{spec?.lastSurvival ?? '--'}</TableCell>
-            <TableCell className={styles.el_tb_cell}>{spec?.thirdWin ?? '--'}</TableCell>
-            <TableCell className={styles.el_tb_cell}>{spec?.secondWin ?? '--'}</TableCell>
-            <TableCell className={styles.tb_cell_body}>
-              {spec?.dateAndTime ? formatTime({ time: spec.dateAndTime, format: 'h:mm A' }) : '--'}
-            </TableCell>
+            <TableCell className={styles.el_tb_cell}>
+              <p className={styles.winner_pop_icon} key={spec._id} onClick={openPopup}>
+                <Image src="/assests/win.svg" alt="Image" width={30} height={30} />
+              </p>
 
-            <TableCell className={styles.tb_cell_body}>
-              {spec?.dateAndTime
-                ? formatDate({ date: spec.dateAndTime, format: 'DD/MM/YYYY' })
-                : '--'}
-            </TableCell>
-
-            <TableCell className={styles.el_tb_cell}>{spec?.entryFee ?? '--'}</TableCell>
-
-            <TableCell className={styles.tb_cell_action}>
-              <DeleteSpectatorModal Id={spec._id} getAllRooms={getAllRooms} />
-              <div
-                onClick={() => {
-                  setShowModal(!showModal);
-                  setRoomIdToUpdate(spec);
-                }}
+              <Popup
+                key={spec._id}
+                isOpen={isPopupOpen}
+                onClose={closePopup}
+                dynamicClass={styles.inner_pop_sec}
+                CloseBtn={styles.close_button}
               >
-                <Image src="assests/update.svg" alt="Image" width={22} height={14} />
-              </div>
+                <div className={styles.prize_table}>
+                  <h1 className={styles.pize_heading}>Winning Prize Pool</h1>
+                </div>
+                <p className={styles.span_cell}>
+                  Highest Kill:<span className={styles.span_cell_rs}>₹</span>
+                  {spec?.highestKill ?? '--'}
+                </p>
+                <p className={styles.span_cell}>
+                  last Survival:<span className={styles.span_cell_rs}>₹</span>
+                  {spec?.lastSurvival ?? '--'}
+                </p>
+                <p className={styles.span_cell}>
+                  second Win:<span className={styles.span_cell_rs}>₹</span>
+                  {spec?.secondWin ?? '--'}
+                </p>
+                <p className={styles.span_cell}>
+                  Third Win:<span className={styles.span_cell_rs}>₹</span>
+                  {spec?.thirdWin ?? '--'}
+                </p>
+              </Popup>
             </TableCell>
+            <TableCell className={styles.tb_cell_body}>
+              {spec?.dateAndTime ? (
+                <>
+                  {formatTime({ time: spec.dateAndTime, format: 'h:mm A' })} <br />
+                  {formatDate({ date: spec.dateAndTime, format: 'DD/MM/YYYY' })}
+                </>
+              ) : (
+                '--'
+              )}
+            </TableCell>
+            <TableCell className={styles.el_tb_cell}>₹ {spec?.entryFee ?? '--'}</TableCell>
+
             <TableCell className={styles.winnder_btn}>
               {!spec.winnerUuid ? (
                 <Link href={'/spectatorDashboard/Postwinners'}>
@@ -130,12 +166,20 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
             </TableCell> */}
             <TableCell>
               <div>
-                <button
-                  className={styles.video}
-                  onClick={() => handleButtonPostWinners(spec.roomUuid)}
-                >
+                <button className={styles.video} onClick={() => handleButtonPostWinners(spec._id)}>
                   <Image src="/assests/postvideo.svg" alt="Image" width={22} height={22} />
                 </button>
+              </div>
+            </TableCell>
+            <TableCell className={styles.tb_cell_action}>
+              <DeleteSpectatorModal Id={spec._id} getAllRooms={getAllRooms} />
+              <div
+                onClick={() => {
+                  setShowModal(!showModal);
+                  setRoomIdToUpdate(spec);
+                }}
+              >
+                <Image src="assests/update.svg" alt="Image" width={22} height={14} />
               </div>
             </TableCell>
           </TableRow>
