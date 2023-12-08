@@ -602,9 +602,10 @@ padding: 0px;
     }
   }
   .main_close_btn{
+    position: absolute;
     text-align: center;
-  background-color: #000;
-  font-size: 16px;
+  top: -25px;
+  right: -25px;
   }
   .room_image_cls{
   border-bottom: 2px solid transparent;

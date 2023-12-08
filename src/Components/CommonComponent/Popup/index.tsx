@@ -27,9 +27,12 @@ const Popup: React.FC<PopupProps> = ({
     <div className="popup-overlay">
       <div className={styles.pop_main}>
         <div className={dynamicClass}>
-          <div>{children}</div>
-          <div className={MainClose}>
-            <AiOutlineClose className={CloseBtn} onClick={onClose} />
+          <div style={{ position: 'relative' }}>
+            {children}
+
+            <div className={MainClose}>
+              <AiOutlineClose size={20} className={CloseBtn} onClick={onClose} />
+            </div>
           </div>
         </div>
       </div>
