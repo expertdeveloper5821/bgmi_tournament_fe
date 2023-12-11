@@ -17,15 +17,15 @@ export interface FormDataType {
 }
 
 export interface SpectatorDataType {
-  matchType?: string;
   email?: string;
   fullName?: string;
+  userName?: string;
+  userUuid?: string;
+  matchType?: string;
   phoneNumber?: string;
   profilePic?: string;
   role?: Role;
   upiId?: string;
-  userName?: string;
-  userUuid?: string;
 }
 
 export interface ModalType {

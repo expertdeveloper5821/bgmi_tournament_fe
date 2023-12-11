@@ -12,6 +12,7 @@ import {
 import { RoomData } from '@/Components/pageComponents/auth/authInterfaces';
 import { VideoFormValuesType } from '@/Components/pageComponents/auth/authInterfaces';
 import { deleteVideoValuesType } from '@/types/spectatorTypes';
+import { assignRoleType } from '@/types/assignModalTyoe';
 
 export const signUpService = async (data: SignupFormValuesType) => {
   const res = await sendRequest(serviceUrls.signup, {
@@ -289,6 +290,21 @@ export const getAllSpectator = async (data: RoomData) => {
       return res;
     } else throw Error();
   } catch (err) {
+    return err;
+  }
+};
+
+export const assignRoleService = async (data: assignRoleType) => {
+  try {
+    const res = await sendRequest(serviceUrls.assignRole, {
+      method: 'POST',
+      data,
+    });
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (err) {
+    console.log('assign role res: 00', err);
     return err;
   }
 };

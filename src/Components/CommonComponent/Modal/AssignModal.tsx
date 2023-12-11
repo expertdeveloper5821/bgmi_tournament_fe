@@ -2,13 +2,13 @@ import React, { useRef, useState } from 'react';
 import styles from '@/styles/assign.module.scss';
 import Image from 'next/image';
 import { SpectatorDataType } from '@/types/spectatorTypes';
+import { AssignModalPropsType } from '@/types/assignModalTyoe';
 
-interface AssignModalPropsType {
-  onClickAssignHandler: () => void;
-  modalData?: SpectatorDataType[] | [];
-}
-
-const AssignModal = ({ onClickAssignHandler, modalData }: AssignModalPropsType) => {
+const AssignModal = ({
+  onModalVisibilityHandler,
+  modalData,
+  onAssignHandler,
+}: AssignModalPropsType) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const [selectedItem, setSelectedItem] = useState<string | undefined>('');
   const [listItemArray, setListItemArray] = useState<SpectatorDataType[] | [] | undefined>(
@@ -20,8 +20,6 @@ const AssignModal = ({ onClickAssignHandler, modalData }: AssignModalPropsType) 
     setSelectedItem(index);
   };
 
-  console.log('listItemArray ==>', listItemArray);
-
   const onChangeHandler = (e) => {
     setInputedText(e.target.value);
     setListItemArray(
@@ -32,14 +30,15 @@ const AssignModal = ({ onClickAssignHandler, modalData }: AssignModalPropsType) 
     );
   };
 
-  const handleClick = (e) => {
+  const modalVisibilityHandler = (e) => {
     if (modalRef.current === e.target || modalRef.current?.contains(e.target)) {
       return;
     }
-    onClickAssignHandler();
+    onModalVisibilityHandler();
   };
+
   return (
-    <div className={styles.backdrop} onClick={handleClick}>
+    <div className={styles.backdrop} onClick={modalVisibilityHandler}>
       <div className={styles.assign_Modal_Container} ref={modalRef}>
         <div className={styles.search_Container}>
           <div className={styles.sub_search_Container}>
@@ -69,6 +68,7 @@ const AssignModal = ({ onClickAssignHandler, modalData }: AssignModalPropsType) 
                   item.userUuid === selectedItem ? styles.selected : ''
                 }`}
                 key={item.userUuid}
+                onClick={() => onAssignHandler(item)}
               >
                 <Image
                   src={

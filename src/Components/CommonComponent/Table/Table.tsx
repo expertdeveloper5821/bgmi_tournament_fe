@@ -23,6 +23,7 @@ import { ToggleComponent } from '../ToggleComponent';
 import AssignModal from '../Modal/AssignModal';
 import Popup from '../Popup';
 import ReactPlayer from 'react-player';
+import { SpectatorDataType } from '@/types/spectatorTypes';
 
 const TableData = ({
   data,
@@ -32,16 +33,27 @@ const TableData = ({
   handleEdit,
   handleUpdate,
   assignModalData,
+  onAssignHandler,
 }: TablePropsType) => {
   const [sortedData, setSortedData] = useState<TableDataType[] | []>([]);
   const [activeFilter, setactiveFilter] = useState<number>(0);
   const [isAssignModalVisible, setisAssignModalVisible] = useState<boolean>(false);
   const filterKeys = ['Created By', 'Game Name', 'Game Type', 'Map Type', 'Version'];
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const [modalData, setModalData] = useState<SpectatorDataType[] | [] | undefined>();
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalItems = sortedData.length;
+  const itemsPerPage = 5;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
 
   // const openPopup = () => {
   //   setPopupOpen(true);
   // };
+
+  useEffect(() => {
+    setModalData(assignModalData);
+  }, [assignModalData]);
 
   const closePopup = () => {
     setPopupOpen(false);
@@ -53,12 +65,6 @@ const TableData = ({
     setSelectedVideo(video);
     setPopupOpen(true);
   };
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalItems = sortedData.length;
-  const itemsPerPage = 5;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
 
   useEffect(() => {
     if (data) {
@@ -106,15 +112,22 @@ const TableData = ({
     }
   };
 
-  const onClickAssignHandler = (_?: TableDataType) => {
+  const onModalVisibilityHandler = (data?: TableDataType) => {
     setisAssignModalVisible((prev: boolean) => !prev);
-    console.log(_);
+    setModalData(
+      () =>
+        assignModalData?.filter((spec: SpectatorDataType) => spec?.fullName !== data?.createdBy),
+    );
   };
 
   return (
     <>
-      {isAssignModalVisible && (
-        <AssignModal onClickAssignHandler={onClickAssignHandler} modalData={assignModalData} />
+      {isAssignModalVisible && onAssignHandler && (
+        <AssignModal
+          onModalVisibilityHandler={onModalVisibilityHandler}
+          modalData={modalData}
+          onAssignHandler={onAssignHandler}
+        />
       )}
       {sortedData.length ? (
         <Table className={styles.table_content}>
@@ -170,7 +183,7 @@ const TableData = ({
                       <LuUserPlus
                         className={styles.User_Plus_Icon}
                         onClick={() => {
-                          onClickAssignHandler(data);
+                          onModalVisibilityHandler(data);
                         }}
                       />
                     </TableCell>

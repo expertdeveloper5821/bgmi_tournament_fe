@@ -52,4 +52,5 @@ export interface TablePropsType {
   handleEdit?: (spectatorData: SpectatorEditDataType) => void;
   assignModalData?: SpectatorDataType[] | [];
   handleUpdate?: (videoData: getVideo) => void;
+  onAssignHandler?: (data: SpectatorDataType) => void;
 }

@@ -9,6 +9,7 @@ import TableData from '@/Components/CommonComponent/Table/Table';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
 import {
+  assignRoleService,
   deleteRoomService,
   getAllFilteredRoomsListService,
   getAllRoomsService,
@@ -56,6 +57,25 @@ function page() {
     } catch (error) {
       toast.error(error?.response?.data?.message);
       setIsLoading(false);
+    }
+  };
+
+  const onAssignHandler = async (data: SpectatorDataType) => {
+    try {
+      const res = await assignRoleService({
+        roomid: data?.role?._id,
+        assignTo: data?.fullName,
+      });
+
+      if (res.response.status === 200) {
+        toast.success('Assigned role successfully');
+        getAllTournaments();
+        getAllUsers();
+      } else {
+        toast.error(res.response.data.message);
+      }
+    } catch (err) {
+      toast.error(err.response.data.message);
     }
   };
 
@@ -134,6 +154,7 @@ function page() {
             columns={adminRoomColumns}
             deleteroom={handleDeleteUser}
             type={'ROOMS'}
+            onAssignHandler={onAssignHandler}
           />
         )}
       </div>
