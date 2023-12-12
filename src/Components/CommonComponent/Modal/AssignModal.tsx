@@ -61,31 +61,39 @@ const AssignModal = ({
           </div>
         </div>
         <div className={styles.list_container}>
-          <div className={styles.list_items_container}>
-            {listItemArray?.map((item: SpectatorsDataType) => (
-              <div
-                onMouseEnter={() => handleMouseEnter(item?._id)}
-                className={`${styles.list_item} ${
-                  item._id === selectedItem ? styles.selected : ''
-                }`}
-                key={item._id}
-                onClick={() => onAssignHandler(item, roomId)}
-              >
-                <Image
-                  src={
-                    'https://res.cloudinary.com/dh2lkjd5n/image/upload/v1701762915/dgmxu1pgkkde32kslmcg.png'
-                  }
-                  alt="profile image"
-                  height={32}
-                  width={32}
-                  className={styles.profile_img}
-                />
-                <div className={styles.list_item_info_container}>
-                  <div className={styles.list_item_fullname}>{item.fullName}</div>
-                  <div className={styles.list_item_email}>{item.email}</div>
+          <div
+            className={
+              listItemArray?.length ? styles.list_items_container : styles.no_data_found_container
+            }
+          >
+            {listItemArray?.length ? (
+              listItemArray?.map((item: SpectatorsDataType) => (
+                <div
+                  onMouseEnter={() => handleMouseEnter(item?._id)}
+                  className={`${styles.list_item} ${
+                    item._id === selectedItem ? styles.selected : ''
+                  }`}
+                  key={item._id}
+                  onClick={() => onAssignHandler(item, roomId)}
+                >
+                  <Image
+                    src={
+                      'https://res.cloudinary.com/dh2lkjd5n/image/upload/v1701762915/dgmxu1pgkkde32kslmcg.png'
+                    }
+                    alt="profile image"
+                    height={32}
+                    width={32}
+                    className={styles.profile_img}
+                  />
+                  <div className={styles.list_item_info_container}>
+                    <div className={styles.list_item_fullname}>{item.fullName}</div>
+                    <div className={styles.list_item_email}>{item.email}</div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className={styles.no_data_found}>No data found.</p>
+            )}
           </div>
         </div>
       </div>

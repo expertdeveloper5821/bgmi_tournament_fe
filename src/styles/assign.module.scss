@@ -83,6 +83,16 @@
     }
   }
 
+  .no_data_found_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    .no_data_found {
+      color: black;
+    }
+  }
+
   .list_item {
     display: flex;
     justify-content: flex-start;
