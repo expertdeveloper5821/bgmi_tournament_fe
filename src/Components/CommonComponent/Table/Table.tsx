@@ -146,13 +146,19 @@ const TableData = ({
               if (type === 'ROOMS') {
                 return (
                   <TableRow className={styles.table_rowdata} key={index}>
-                    <TableCell className={styles.table_cell}>{data?.createdBy}</TableCell>
+                   
+                    <TableCell className={styles.table_cell}>
+                        {typeof data?.createdBy === 'object' && data?.createdBy?.fullName
+                          ? data.createdBy.fullName
+                          : data?.createdBy || 'Unknown'}
+                      </TableCell>
+                      
                     <TableCell className={styles.table_cell}>{data?.roomId}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.password}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.gameName}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.gameType}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.mapType}</TableCell>
-                    <TableCell className={styles.table_cell}>{data?.version}</TableCell>
+                    <TableCell className={styles.table_cell}>{data?.version}</TableCell> 
                     <TableCell className={styles.table_cell}>
                       {getFormattedDateOrTime(data?.dateAndTime, 'Time')!}
                     </TableCell>
