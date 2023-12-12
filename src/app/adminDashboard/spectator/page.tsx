@@ -35,7 +35,6 @@ function Page() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [modal, setModal] = useState<ModalType>({ isOpen: false, buttonVal: '' });
   const [formErrors, setFormErrors] = useState<FormDataType>(initialFormValues);
-  const [allspectatorData, setAllspectatorData] = useState<SpectatorDataType[] | []>([]);
   const [formData, setFormData] = useState<FormDataType>(initialFormValues);
   const [isDisabled, setDisabled] = useState<boolean>(false);
   const [idToDelete, setIdToDelete] = useState<string>('');
@@ -46,8 +45,7 @@ function Page() {
     try {
       const token = localStorage.getItem('jwtToken') || '';
       const response = await getAllUsersDataService(token);
-      const allspectatorDataFetch = response?.data?.data;
-      setAllspectatorData(allspectatorDataFetch);
+      const allspectatorData = response?.data?.data;
       const filteredData = allspectatorData.filter((spectator: SpectatorDataType) => {
         return spectator?.role?.role === 'spectator';
       });
