@@ -65,7 +65,7 @@ function page() {
         assignTo: data?.fullName,
       });
       if (res.status === 200) {
-        toast.success('Assigned role successfully');
+        toast.success('Room Assigned Successfully');
         getAllTournaments();
         getSpectators();
       } else {
