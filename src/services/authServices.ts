@@ -304,7 +304,19 @@ export const assignRoleService = async (data: assignRoleType) => {
       return res;
     } else throw Error();
   } catch (err) {
-    console.log('assign role res: 00', err);
+    return err;
+  }
+};
+
+export const getAllSpectators = async (id: string) => {
+  try {
+    const res = await sendRequest(`${serviceUrls.spectators}/${id}`, {
+      method: 'GET',
+    });
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (err) {
     return err;
   }
 };

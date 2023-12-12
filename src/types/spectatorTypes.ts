@@ -80,3 +80,10 @@ export interface deleteVideoValuesType {
   _id: string;
   token: string;
 }
+
+export interface SpectatorsDataType {
+  email: string;
+  fullName: string;
+  role: { _id: string; role: string };
+  _id: string;
+}

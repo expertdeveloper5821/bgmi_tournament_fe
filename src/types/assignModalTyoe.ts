@@ -1,9 +1,10 @@
-import { SpectatorDataType } from './spectatorTypes';
+import { SpectatorDataType, SpectatorsDataType } from './spectatorTypes';
 
 export interface AssignModalPropsType {
   onModalVisibilityHandler: () => void;
-  modalData?: SpectatorDataType[] | [];
-  onAssignHandler: (data: SpectatorDataType) => void;
+  modalData?: SpectatorsDataType[] | [];
+  onAssignHandler: (data: SpectatorDataType, roomId: string | undefined) => void;
+  roomId?: string | undefined;
 }
 
 export interface assignRoleType {

@@ -23,7 +23,7 @@ import { ToggleComponent } from '../ToggleComponent';
 import AssignModal from '../Modal/AssignModal';
 import Popup from '../Popup';
 import ReactPlayer from 'react-player';
-import { SpectatorDataType } from '@/types/spectatorTypes';
+import { SpectatorsDataType } from '@/types/spectatorTypes';
 
 const TableData = ({
   data,
@@ -40,8 +40,9 @@ const TableData = ({
   const [isAssignModalVisible, setisAssignModalVisible] = useState<boolean>(false);
   const filterKeys = ['Created By', 'Game Name', 'Game Type', 'Map Type', 'Version'];
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const [modalData, setModalData] = useState<SpectatorDataType[] | [] | undefined>();
+  const [modalData, setModalData] = useState<SpectatorsDataType[] | [] | undefined>();
   const [currentPage, setCurrentPage] = useState(1);
+  const [roomId, setRoomId] = useState<string | undefined>('');
   const totalItems = sortedData.length;
   const itemsPerPage = 5;
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -114,9 +115,9 @@ const TableData = ({
 
   const onModalVisibilityHandler = (data?: TableDataType) => {
     setisAssignModalVisible((prev: boolean) => !prev);
+    setRoomId(data?._id);
     setModalData(
-      () =>
-        assignModalData?.filter((spec: SpectatorDataType) => spec?.fullName !== data?.createdBy),
+      () => assignModalData?.filter((spec: SpectatorsDataType) => spec?._id !== data?.assignTo),
     );
   };
 
@@ -127,6 +128,7 @@ const TableData = ({
           onModalVisibilityHandler={onModalVisibilityHandler}
           modalData={modalData}
           onAssignHandler={onAssignHandler}
+          roomId={roomId}
         />
       )}
       {sortedData.length ? (
@@ -172,19 +174,18 @@ const TableData = ({
               if (type === 'ROOMS') {
                 return (
                   <TableRow className={styles.table_rowdata} key={index}>
-                   
                     <TableCell className={styles.table_cell}>
-                        {typeof data?.createdBy === 'object' && data?.createdBy?.fullName
-                          ? data.createdBy.fullName
-                          : data?.createdBy || 'Unknown'}
-                      </TableCell>
-                      
+                      {typeof data?.createdBy === 'object' && data?.createdBy?.fullName
+                        ? data.createdBy.fullName
+                        : data?.createdBy || 'Unknown'}
+                    </TableCell>
+
                     <TableCell className={styles.table_cell}>{data?.roomId}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.password}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.gameName}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.gameType}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.mapType}</TableCell>
-                    <TableCell className={styles.table_cell}>{data?.version}</TableCell> 
+                    <TableCell className={styles.table_cell}>{data?.version}</TableCell>
                     <TableCell className={styles.table_cell}>
                       <LuUserPlus
                         className={styles.User_Plus_Icon}

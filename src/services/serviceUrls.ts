@@ -32,4 +32,5 @@ export const serviceUrls = {
   getAllFriends: '/team/user-teams',
   getAllWinnder: '/winners/players',
   assignRole: '/role/assignTo',
+  spectators: '/role/getSpec',
 };

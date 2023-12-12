@@ -1,17 +1,18 @@
 import React, { useRef, useState } from 'react';
 import styles from '@/styles/assign.module.scss';
 import Image from 'next/image';
-import { SpectatorDataType } from '@/types/spectatorTypes';
+import { SpectatorsDataType } from '@/types/spectatorTypes';
 import { AssignModalPropsType } from '@/types/assignModalTyoe';
 
 const AssignModal = ({
   onModalVisibilityHandler,
   modalData,
   onAssignHandler,
+  roomId,
 }: AssignModalPropsType) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const [selectedItem, setSelectedItem] = useState<string | undefined>('');
-  const [listItemArray, setListItemArray] = useState<SpectatorDataType[] | [] | undefined>(
+  const [listItemArray, setListItemArray] = useState<SpectatorsDataType[] | [] | undefined>(
     modalData,
   );
   const [inputedText, setInputedText] = useState<string>('');
@@ -24,8 +25,8 @@ const AssignModal = ({
     setInputedText(e.target.value);
     setListItemArray(
       modalData?.filter(
-        (prev: SpectatorDataType) =>
-          prev?.fullName?.toLowerCase().includes(e.target.value.toLowerCase()),
+        (prev: SpectatorsDataType) =>
+          prev?.email?.toLowerCase().includes(e.target.value.toLowerCase()),
       ),
     );
   };
@@ -55,20 +56,20 @@ const AssignModal = ({
               className={styles.search_bar}
               alt="searchbar"
               type="text"
-              placeholder="Search..."
+              placeholder="Search by email"
             />
           </div>
         </div>
         <div className={styles.list_container}>
           <div className={styles.list_items_container}>
-            {listItemArray?.map((item: SpectatorDataType) => (
+            {listItemArray?.map((item: SpectatorsDataType) => (
               <div
-                onMouseEnter={() => handleMouseEnter(item?.userUuid)}
+                onMouseEnter={() => handleMouseEnter(item?._id)}
                 className={`${styles.list_item} ${
-                  item.userUuid === selectedItem ? styles.selected : ''
+                  item._id === selectedItem ? styles.selected : ''
                 }`}
-                key={item.userUuid}
-                onClick={() => onAssignHandler(item)}
+                key={item._id}
+                onClick={() => onAssignHandler(item, roomId)}
               >
                 <Image
                   src={

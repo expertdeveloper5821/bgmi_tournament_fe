@@ -13,13 +13,13 @@ import {
   deleteRoomService,
   getAllFilteredRoomsListService,
   getAllRoomsService,
-  getAllUsersDataService,
+  getAllSpectators,
 } from '@/services/authServices';
 import { RoomsDataType } from '@/types/roomsTypes';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { adminRoomColumns } from '@/utils/constant';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
-import { SpectatorDataType } from '@/types/spectatorTypes';
+import { SpectatorsDataType } from '@/types/spectatorTypes';
 
 function page() {
   const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
@@ -27,7 +27,7 @@ function page() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [idToDelete, setIdToDelete] = useState<string>('');
-  const [spectatorData, setSpectatorData] = useState<SpectatorDataType[] | []>([]);
+  const [spectatorData, setSpectatorData] = useState<SpectatorsDataType[] | []>([]);
 
   const getAllTournaments = async () => {
     try {
@@ -42,46 +42,43 @@ function page() {
     }
   };
 
-  const getAllUsers = async () => {
+  const getSpectators = async () => {
     setIsLoading(true);
     try {
-      const token = localStorage.getItem('jwtToken') || '';
-      const response = await getAllUsersDataService(token);
-      const allspectatorData = response?.data?.data;
-      const filteredData = allspectatorData.filter((spectator: SpectatorDataType) => {
-        return spectator?.role?.role === 'spectator';
-      });
-      setSpectatorData(filteredData);
-
+      const response = await getAllSpectators('64d7239c8a677a5d2e21b00d');
+      if (response.status === 200) {
+        setSpectatorData(response.data.findSpacatator);
+      } else {
+        toast.error(response.response.data.error);
+      }
       setIsLoading(false);
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.error);
       setIsLoading(false);
     }
   };
 
-  const onAssignHandler = async (data: SpectatorDataType) => {
+  const onAssignHandler = async (data: SpectatorsDataType, roomId: string) => {
     try {
       const res = await assignRoleService({
-        roomid: data?.role?._id,
+        roomid: roomId,
         assignTo: data?.fullName,
       });
-
-      if (res.response.status === 200) {
+      if (res.status === 200) {
         toast.success('Assigned role successfully');
         getAllTournaments();
-        getAllUsers();
+        getSpectators();
       } else {
-        toast.error(res.response.data.message);
+        toast.error(res.response.data.error);
       }
     } catch (err) {
-      toast.error(err.response.data.message);
+      toast.error('Assigning Role Failed');
     }
   };
 
   useEffect(() => {
     getAllTournaments();
-    getAllUsers();
+    getSpectators();
   }, []);
 
   const deleteroom = async () => {
@@ -115,7 +112,7 @@ function page() {
     const { value } = e.target;
     const filteredResults = wholeRoomData.filter(
       (data: RoomsDataType) =>
-        data?.createdBy?.toLowerCase().includes(value.toLowerCase()) ||
+        data?.createdBy?.fullName?.toLowerCase().includes(value.toLowerCase()) ||
         data?.gameName?.toLowerCase().includes(value.toLowerCase()) ||
         data?.gameType?.toLowerCase().includes(value.toLowerCase()) ||
         data?.mapType?.toLowerCase().includes(value.toLowerCase()) ||
