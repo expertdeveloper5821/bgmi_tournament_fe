@@ -31,4 +31,6 @@ export const serviceUrls = {
   globalusers: '/user/getalluser',
   getAllFriends: '/team/user-teams',
   getAllWinnder: '/winners/players',
+  assignRole: '/role/assignTo',
+  spectators: '/role/getSpec',
 };

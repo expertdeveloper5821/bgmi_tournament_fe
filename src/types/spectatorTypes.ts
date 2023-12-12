@@ -17,15 +17,15 @@ export interface FormDataType {
 }
 
 export interface SpectatorDataType {
-  matchType?: string;
   email?: string;
   fullName?: string;
+  userName?: string;
+  userUuid?: string;
+  matchType?: string;
   phoneNumber?: string;
   profilePic?: string;
   role?: Role;
   upiId?: string;
-  userName?: string;
-  userUuid?: string;
 }
 
 export interface ModalType {
@@ -79,4 +79,11 @@ export interface adminGetVideo {
 export interface deleteVideoValuesType {
   _id: string;
   token: string;
+}
+
+export interface SpectatorsDataType {
+  email: string;
+  fullName: string;
+  role: { _id: string; role: string };
+  _id: string;
 }

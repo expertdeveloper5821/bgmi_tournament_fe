@@ -95,12 +95,14 @@ export const adminSpecColumns: string[] = ['Full Name', 'User Name', 'Email', 'P
 
 export const adminRoomColumns: string[] = [
   'Created By',
+  'Assigned To',
   'Room Id',
   'Password',
   'Game Name',
   'Game Type',
   'Map Type',
   'Version',
+  'Assign',
   'Time',
   'Date',
   'Permission',
@@ -117,12 +119,10 @@ export const adminVidoColumns: string[] = [
 export const VidoColumns: string[] = ['Video', 'Title', 'Match Type', 'Date', 'Time'];
 export const adminUserColumns: string[] = [
   'Full Name',
-  'User Name',
+  'Player ID',
   'Email',
   'Phone Number',
   'UPI ID',
-  'Player ID',
-  'Team Name',
   'Permission',
 ];
 

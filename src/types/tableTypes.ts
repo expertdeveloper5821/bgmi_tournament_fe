@@ -1,6 +1,13 @@
-import { Role, SpectatorEditDataType, getVideo } from './spectatorTypes';
+import {
+  Role,
+  SpectatorDataType,
+  SpectatorEditDataType,
+  SpectatorsDataType,
+  getVideo,
+} from './spectatorTypes';
 
 export interface TableDataType {
+  assignTo?: string;
   matchType?: string;
   videoLink?: string;
   title?: string;
@@ -14,9 +21,15 @@ export interface TableDataType {
   userUuid?: string;
   availableSlots?: number;
   createdAt?: string;
-  createdBy?:  
+  createdBy?:
     | {
-         _id?: string;
+        _id?: string;
+        fullName?: string;
+      }
+    | string;
+  updatedBy?:
+    | {
+        _id?: string;
         fullName?: string;
       }
     | string;
@@ -51,5 +64,7 @@ export interface TablePropsType {
   popupid?: (_id: string | undefined) => void;
   type?: string;
   handleEdit?: (spectatorData: SpectatorEditDataType) => void;
+  assignModalData?: SpectatorsDataType[] | [];
   handleUpdate?: (videoData: getVideo) => void;
+  onAssignHandler?: (data: SpectatorDataType, roomId: string) => void;
 }

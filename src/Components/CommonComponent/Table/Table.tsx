@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import styles from '@/styles/TableData.module.scss';
+import { LuUserPlus } from 'react-icons/lu';
+
 //@ts-ignore
 import {
   Table,
@@ -18,8 +20,10 @@ import { MdEdit } from 'react-icons/md';
 import Pagination from '../Pagination';
 import Image from 'next/image';
 import { ToggleComponent } from '../ToggleComponent';
+import AssignModal from '../Modal/AssignModal';
 import Popup from '../Popup';
 import ReactPlayer from 'react-player';
+import { SpectatorsDataType } from '@/types/spectatorTypes';
 
 const TableData = ({
   data,
@@ -28,15 +32,29 @@ const TableData = ({
   type,
   handleEdit,
   handleUpdate,
+  assignModalData,
+  onAssignHandler,
 }: TablePropsType) => {
   const [sortedData, setSortedData] = useState<TableDataType[] | []>([]);
   const [activeFilter, setactiveFilter] = useState<number>(0);
+  const [isAssignModalVisible, setisAssignModalVisible] = useState<boolean>(false);
   const filterKeys = ['Created By', 'Game Name', 'Game Type', 'Map Type', 'Version'];
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const [modalData, setModalData] = useState<SpectatorsDataType[] | [] | undefined>();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [roomId, setRoomId] = useState<string | undefined>('');
+  const totalItems = sortedData.length;
+  const itemsPerPage = 5;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
 
   // const openPopup = () => {
   //   setPopupOpen(true);
   // };
+
+  useEffect(() => {
+    setModalData(assignModalData);
+  }, [assignModalData]);
 
   const closePopup = () => {
     setPopupOpen(false);
@@ -48,12 +66,6 @@ const TableData = ({
     setSelectedVideo(video);
     setPopupOpen(true);
   };
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalItems = sortedData.length;
-  const itemsPerPage = 5;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
 
   useEffect(() => {
     if (data) {
@@ -101,8 +113,31 @@ const TableData = ({
     }
   };
 
+  const onModalVisibilityHandler = (data?: TableDataType) => {
+    setisAssignModalVisible((prev: boolean) => !prev);
+    setRoomId(data?._id);
+    setModalData(
+      () =>
+        assignModalData?.filter((spec: SpectatorsDataType) => {
+          return (
+            spec?._id !== data?.assignTo &&
+            typeof data?.createdBy === 'object' &&
+            spec?._id !== data?.createdBy?._id
+          );
+        }),
+    );
+  };
+
   return (
     <>
+      {isAssignModalVisible && onAssignHandler && (
+        <AssignModal
+          onModalVisibilityHandler={onModalVisibilityHandler}
+          modalData={modalData}
+          onAssignHandler={onAssignHandler}
+          roomId={roomId}
+        />
+      )}
       {sortedData.length ? (
         <Table className={styles.table_content}>
           <TableHeader className={styles.tableHeader}>
@@ -146,19 +181,30 @@ const TableData = ({
               if (type === 'ROOMS') {
                 return (
                   <TableRow className={styles.table_rowdata} key={index}>
-                   
                     <TableCell className={styles.table_cell}>
-                        {typeof data?.createdBy === 'object' && data?.createdBy?.fullName
-                          ? data.createdBy.fullName
-                          : data?.createdBy || 'Unknown'}
-                      </TableCell>
-                      
+                      {typeof data?.createdBy === 'object' && data?.createdBy?.fullName
+                        ? data.createdBy.fullName
+                        : data?.createdBy || 'Unknown'}
+                    </TableCell>
+                    <TableCell className={styles.table_cell}>
+                      {assignModalData?.find(
+                        (spec: SpectatorsDataType) => spec?._id === data.assignTo,
+                      )?.fullName || '--'}
+                    </TableCell>
                     <TableCell className={styles.table_cell}>{data?.roomId}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.password}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.gameName}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.gameType}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.mapType}</TableCell>
-                    <TableCell className={styles.table_cell}>{data?.version}</TableCell> 
+                    <TableCell className={styles.table_cell}>{data?.version}</TableCell>
+                    <TableCell className={styles.table_cell}>
+                      <LuUserPlus
+                        className={styles.User_Plus_Icon}
+                        onClick={() => {
+                          onModalVisibilityHandler(data);
+                        }}
+                      />
+                    </TableCell>
                     <TableCell className={styles.table_cell}>
                       {getFormattedDateOrTime(data?.dateAndTime, 'Time')!}
                     </TableCell>
@@ -249,8 +295,6 @@ const TableData = ({
                     <TableCell className={styles.table_cell}>{data?.email}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.phoneNumber || '--'}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.upiId || '--'}</TableCell>
-                    <TableCell className={styles.table_cell}>{'--'}</TableCell>
-                    <TableCell className={styles.table_cell}>{'--'}</TableCell>
                     <TableCell className={styles.table_cell}>
                       <ToggleComponent />
                     </TableCell>

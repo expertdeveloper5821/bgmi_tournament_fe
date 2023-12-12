@@ -9,14 +9,17 @@ import TableData from '@/Components/CommonComponent/Table/Table';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
 import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
 import {
+  assignRoleService,
   deleteRoomService,
   getAllFilteredRoomsListService,
   getAllRoomsService,
+  getAllSpectators,
 } from '@/services/authServices';
 import { RoomsDataType } from '@/types/roomsTypes';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { adminRoomColumns } from '@/utils/constant';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
+import { SpectatorsDataType } from '@/types/spectatorTypes';
 
 function page() {
   const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
@@ -24,6 +27,7 @@ function page() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [idToDelete, setIdToDelete] = useState<string>('');
+  const [spectatorData, setSpectatorData] = useState<SpectatorsDataType[] | []>([]);
 
   const getAllTournaments = async () => {
     try {
@@ -38,8 +42,43 @@ function page() {
     }
   };
 
+  const getSpectators = async () => {
+    setIsLoading(true);
+    try {
+      const response = await getAllSpectators('64d7239c8a677a5d2e21b00d');
+      if (response.status === 200) {
+        setSpectatorData(response.data.findSpacatator);
+      } else {
+        toast.error(response.response.data.error);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error?.response?.data?.error);
+      setIsLoading(false);
+    }
+  };
+
+  const onAssignHandler = async (data: SpectatorsDataType, roomId: string) => {
+    try {
+      const res = await assignRoleService({
+        roomid: roomId,
+        assignTo: data?.fullName,
+      });
+      if (res.status === 200) {
+        toast.success('Room Assigned Successfully');
+        getAllTournaments();
+        getSpectators();
+      } else {
+        toast.error(res.response.data.error);
+      }
+    } catch (err) {
+      toast.error('Assigning Role Failed');
+    }
+  };
+
   useEffect(() => {
     getAllTournaments();
+    getSpectators();
   }, []);
 
   const deleteroom = async () => {
@@ -73,7 +112,7 @@ function page() {
     const { value } = e.target;
     const filteredResults = wholeRoomData.filter(
       (data: RoomsDataType) =>
-        data?.createdBy?.toLowerCase().includes(value.toLowerCase()) ||
+        data?.createdBy?.fullName?.toLowerCase().includes(value.toLowerCase()) ||
         data?.gameName?.toLowerCase().includes(value.toLowerCase()) ||
         data?.gameType?.toLowerCase().includes(value.toLowerCase()) ||
         data?.mapType?.toLowerCase().includes(value.toLowerCase()) ||
@@ -108,9 +147,11 @@ function page() {
         ) : (
           <TableData
             data={roomData}
+            assignModalData={spectatorData}
             columns={adminRoomColumns}
             deleteroom={handleDeleteUser}
             type={'ROOMS'}
+            onAssignHandler={onAssignHandler}
           />
         )}
       </div>

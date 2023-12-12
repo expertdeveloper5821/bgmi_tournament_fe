@@ -612,7 +612,6 @@ img.slides_image {
 }
 
 @keyframes travel {
-
   0%,
   100% {
     transform: translate3d(10, 20, 0);
@@ -813,10 +812,12 @@ img.slides_image {
 }
 
 .inner_winning_pool {
-  background: linear-gradient(131.26deg,
-      #ffffff 26.63%,
+  background: linear-gradient(
+    131.26deg,
+    #ffffff 26.63%,
 
-      rgb(255 122 0 / 74%) 450.26%);
+    rgb(255 122 0 / 74%) 450.26%
+  );
 
   padding: 0px;
   width: 36%;
@@ -1346,7 +1347,7 @@ body.activemodal {
 }
 
 .button_wrapper_adminDashboard {
-  margin: 0px 1rem;
+  margin: 0px 2rem 0rem 1rem;
   background-color: $bs-orange !important;
   border-radius: 4px;
 
@@ -1435,7 +1436,7 @@ body.activemodal {
   border: none;
 }
 
-.search_input_box>input {
+.search_input_box > input {
   background: transparent;
   border: none;
   color: white;
@@ -1463,7 +1464,7 @@ body.activemodal {
   cursor: pointer;
 }
 
-.search_input_box>input::placeholder {
+.search_input_box > input::placeholder {
   color: white;
 
   @media (max-width: $breakpoint-xSmall) {
@@ -1761,7 +1762,6 @@ body.activemodal {
   background-color: transparent;
   color: #ff7a00;
 }
-
 
 .popdown {
   margin-top: 35px;

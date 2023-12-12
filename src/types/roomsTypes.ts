@@ -1,7 +1,14 @@
 export interface RoomsDataType {
   availableSlots: number;
   createdAt: string;
-  createdBy: string;
+  createdBy: {
+    _id: string;
+    fullName: string;
+  };
+  updatedBy: {
+    fullName: string;
+    _id: string;
+  };
   dateAndTime: string;
   entryFee: string;
   gameName: string;
