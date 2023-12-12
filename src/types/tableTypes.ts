@@ -14,8 +14,9 @@ export interface TableDataType {
   userUuid?: string;
   availableSlots?: number;
   createdAt?: string;
-  createdBy?:
+  createdBy?:  
     | {
+         _id?: string;
         fullName?: string;
       }
     | string;
