@@ -10,12 +10,10 @@ import {
   deleteRoleService,
   getAllUsersDataService,
   registerSpectatorService,
-  updateRoleService,
 } from '@/services/authServices';
 import {
   FormDataType,
   ModalType,
-  RoleType,
   SpectatorDataType,
   SpectatorEditDataType,
 } from '@/types/spectatorTypes';
@@ -25,24 +23,20 @@ import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { adminSpecColumns } from '@/utils/constant';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
 
+const initialFormValues = {
+  fullName: '',
+  userName: '',
+  email: '',
+  password: '',
+};
+
 function Page() {
   const [spectatorData, setSpectatorData] = useState<SpectatorDataType[] | []>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [modal, setModal] = useState<ModalType>({ isOpen: false, buttonVal: '' });
-  const [formErrors, setFormErrors] = useState<FormDataType>({
-    fullName: '',
-    userName: '',
-    email: '',
-    password: '',
-  });
+  const [formErrors, setFormErrors] = useState<FormDataType>(initialFormValues);
   const [allspectatorData, setAllspectatorData] = useState<SpectatorDataType[] | []>([]);
-  const [formData, setFormData] = useState<FormDataType>({
-    fullName: '',
-    userName: '',
-    email: '',
-    password: '',
-  });
-  const [roles, setRoles] = useState<RoleType[] | undefined>();
+  const [formData, setFormData] = useState<FormDataType>(initialFormValues);
   const [isDisabled, setDisabled] = useState<boolean>(false);
   const [idToDelete, setIdToDelete] = useState<string>('');
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
@@ -52,8 +46,8 @@ function Page() {
     try {
       const token = localStorage.getItem('jwtToken') || '';
       const response = await getAllUsersDataService(token);
-      const allspectatorData = response?.data?.data;
-      setAllspectatorData(allspectatorData);
+      const allspectatorDataFetch = response?.data?.data;
+      setAllspectatorData(allspectatorDataFetch);
       const filteredData = allspectatorData.filter((spectator: SpectatorDataType) => {
         return spectator?.role?.role === 'spectator';
       });
@@ -86,7 +80,7 @@ function Page() {
       } else {
         setDisabled(false);
       }
-    } else if (modal?.buttonVal === 'Assign') {
+    } else if (modal?.buttonVal === 'Update') {
       if (formData?.role?.role !== 'spectator') {
         setDisabled(false);
       } else {
@@ -113,55 +107,29 @@ function Page() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    if (modal?.buttonVal === 'Create') {
-      addFormValidations(name, value, setFormErrors);
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    } else if (modal?.buttonVal === 'Assign') {
-      if (roles) {
-        roles.forEach((role) => {
-          if (role?._id === value) {
-            setFormData({ role: { _id: role?._id, role: role?.role, userUuid: role?.userUuid } });
-          }
-        });
-      }
-    }
+    addFormValidations(name, value, setFormErrors);
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setFormErrors({
-      fullName: '',
-      userName: '',
-      email: '',
-      password: '',
-    });
-
-    setFormData({
-      fullName: '',
-      userName: '',
-      email: '',
-      password: '',
-    });
-
-    const token: string = localStorage.getItem('jwtToken') || '';
+    setFormErrors(initialFormValues);
+    setFormData(initialFormValues);
 
     if (spectatorData?.length) {
       try {
-        if (modal?.buttonVal === 'Create') {
-          await registerSpectatorService({ token, formData, spectatorData });
-          toast.success('Spectator Created Successfully');
-        } else if (modal?.buttonVal === 'Assign') {
-          await updateRoleService({ token, formData });
-        }
+        const { buttonVal } = modal;
+        await registerSpectatorService({ buttonVal, formData, spectatorData });
+        toast.success('Spectator Created Successfully');
         setIsLoading(false);
         getAllUsers();
       } catch (error) {
         setIsLoading(false);
-        toast.error(error?.response?.data?.message);
+        toast.error(error?.response?.data?.message || 'Something went wrong');
       }
     }
     setModal({ isOpen: false, buttonVal: '' });
@@ -170,35 +138,14 @@ function Page() {
   const handleEdit = (spectatorData: SpectatorEditDataType) => {
     setDisabled(true);
     if (spectatorData) {
-      setModal({ isOpen: true, buttonVal: 'Assign' });
-      setRoles([
-        {
-          role: 'spectator',
-          _id: allspectatorData.find(
-            (spec: SpectatorEditDataType) => spec?.role?.role === 'spectator',
-          )?.role?._id,
-          userUuid: spectatorData?.userUuid,
-        },
-        {
-          role: 'admin',
-          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'admin')
-            ?.role?._id,
-          userUuid: spectatorData?.userUuid,
-        },
-        {
-          role: 'user',
-          _id: allspectatorData.find((spec: SpectatorEditDataType) => spec?.role?.role === 'user')
-            ?.role?._id,
-          userUuid: spectatorData?.userUuid,
-        },
-      ]);
+      const { email, fullName, userName } = spectatorData;
+      setModal({ isOpen: true, buttonVal: 'Update' });
 
       setFormData({
-        role: {
-          _id: spectatorData?.role?._id || '',
-          role: spectatorData?.role?.role || '',
-          userUuid: spectatorData?.userUuid || '',
-        },
+        fullName: fullName,
+        userName: userName,
+        email: email,
+        password: '',
       });
     }
   };
@@ -213,6 +160,9 @@ function Page() {
     setIsDeleteModalOpen(false);
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <IsAuthenticatedHoc>
       <div className={styles.main_container}>
@@ -233,17 +183,14 @@ function Page() {
           {isDeleteModalOpen && (
             <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
           )}
-          {isLoading ? (
-            <Loader />
-          ) : (
-            <TableData
-              data={spectatorData}
-              columns={adminSpecColumns}
-              type={'SPECTATOR'}
-              deleteroom={handleDeleteUser}
-              handleEdit={handleEdit}
-            />
-          )}
+
+          <TableData
+            data={spectatorData}
+            columns={adminSpecColumns}
+            type={'SPECTATOR'}
+            deleteroom={handleDeleteUser}
+            handleEdit={handleEdit}
+          />
         </div>
       </div>
 
@@ -252,18 +199,8 @@ function Page() {
           <div
             onClick={() => {
               setModal({ isOpen: false, buttonVal: '' });
-              setFormErrors({
-                fullName: '',
-                userName: '',
-                email: '',
-                password: '',
-              });
-              setFormData({
-                fullName: '',
-                userName: '',
-                email: '',
-                password: '',
-              });
+              setFormErrors(initialFormValues);
+              setFormData(initialFormValues);
             }}
             className={styles.overlay}
           ></div>
@@ -276,7 +213,6 @@ function Page() {
             formData={formData}
             handleChange={handleChange}
             formErrors={formErrors}
-            roles={roles}
             isDisabled={isDisabled}
           />
         </div>

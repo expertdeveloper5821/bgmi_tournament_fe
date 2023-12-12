@@ -43,14 +43,13 @@ export interface SpectatorEditDataType {
 }
 
 export interface RegisterSpectatorValuesType {
-  token: string;
   formData: FormDataType;
   spectatorData: SpectatorDataType[] | [];
+  buttonVal: string;
 }
 
 export interface updateRoleValuesType {
   formData: FormDataType;
-  token: string;
 }
 
 export interface FormValues {
