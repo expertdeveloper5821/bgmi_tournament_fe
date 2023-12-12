@@ -117,7 +117,14 @@ const TableData = ({
     setisAssignModalVisible((prev: boolean) => !prev);
     setRoomId(data?._id);
     setModalData(
-      () => assignModalData?.filter((spec: SpectatorsDataType) => spec?._id !== data?.assignTo),
+      () =>
+        assignModalData?.filter((spec: SpectatorsDataType) => {
+          return (
+            spec?._id !== data?.assignTo &&
+            typeof data?.createdBy === 'object' &&
+            spec?._id !== data?.createdBy?._id
+          );
+        }),
     );
   };
 
@@ -179,7 +186,11 @@ const TableData = ({
                         ? data.createdBy.fullName
                         : data?.createdBy || 'Unknown'}
                     </TableCell>
-
+                    <TableCell className={styles.table_cell}>
+                      {assignModalData?.find(
+                        (spec: SpectatorsDataType) => spec?._id === data.assignTo,
+                      )?.fullName || '--'}
+                    </TableCell>
                     <TableCell className={styles.table_cell}>{data?.roomId}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.password}</TableCell>
                     <TableCell className={styles.table_cell}>{data?.gameName}</TableCell>

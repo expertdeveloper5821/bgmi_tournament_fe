@@ -95,6 +95,7 @@ export const adminSpecColumns: string[] = ['Full Name', 'User Name', 'Email', 'P
 
 export const adminRoomColumns: string[] = [
   'Created By',
+  'Assigned To',
   'Room Id',
   'Password',
   'Game Name',
