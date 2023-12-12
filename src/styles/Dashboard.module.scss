@@ -612,6 +612,7 @@ img.slides_image {
 }
 
 @keyframes travel {
+
   0%,
   100% {
     transform: translate3d(10, 20, 0);
@@ -812,12 +813,10 @@ img.slides_image {
 }
 
 .inner_winning_pool {
-  background: linear-gradient(
-    131.26deg,
-    #ffffff 26.63%,
+  background: linear-gradient(131.26deg,
+      #ffffff 26.63%,
 
-    rgb(255 122 0 / 74%) 450.26%
-  );
+      rgb(255 122 0 / 74%) 450.26%);
 
   padding: 0px;
   width: 36%;
@@ -1356,20 +1355,6 @@ body.activemodal {
   }
 }
 
-.role_Label {
-  display: block;
-  text-align: center;
-  color: black;
-  font-weight: bold;
-}
-
-.role_select {
-  display: block;
-  width: 200px;
-  border: 1px solid black;
-  margin: 20px auto;
-}
-
 .error_message {
   color: red;
   font-size: 14px;
@@ -1380,14 +1365,11 @@ body.activemodal {
   }
 }
 
-.create_spectator_form {
-  width: 25vw;
-}
-
 .search_Container {
   display: flex;
   border: 1px solid white;
   border-radius: 7px;
+
   @media (max-width: $breakpoint-xSmall) {
     width: 100%;
   }
@@ -1401,6 +1383,7 @@ body.activemodal {
   border: none;
   width: 170px;
   outline: none;
+
   @media (max-width: $breakpoint-xSmall) {
     width: 100%;
   }
@@ -1414,6 +1397,7 @@ body.activemodal {
   display: flex;
   border: 1px solid white;
   border-radius: 7px;
+
   @media (max-width: $breakpoint-xSmall) {
     width: 100%;
   }
@@ -1427,6 +1411,7 @@ body.activemodal {
   border: none;
   width: 170px;
   outline: none;
+
   @media (max-width: $breakpoint-xSmall) {
     width: 100%;
   }
@@ -1436,10 +1421,11 @@ body.activemodal {
   border: none;
 }
 
-.search_input_box > input {
+.search_input_box>input {
   background: transparent;
   border: none;
   color: white;
+
   @media (max-width: $breakpoint-xSmall) {
     width: 100%;
   }
@@ -1451,6 +1437,7 @@ body.activemodal {
   display: flex;
   justify-content: center;
   align-items: center;
+
   @media (max-width: $breakpoint-xSmall) {
     width: 40px;
   }
@@ -1464,7 +1451,7 @@ body.activemodal {
   cursor: pointer;
 }
 
-.search_input_box > input::placeholder {
+.search_input_box>input::placeholder {
   color: white;
 
   @media (max-width: $breakpoint-xSmall) {
