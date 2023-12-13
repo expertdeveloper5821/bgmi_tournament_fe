@@ -17,7 +17,7 @@ import NotificationsModal from '@/Components/CommonComponent/Modal/Notifications
 const dynamicMenuItems = [
   {
     path: '/userDashboard/tournament',
-    name: 'Tournament',
+    name: 'Tournaments',
     icon: <FaTh />,
   },
   // {
