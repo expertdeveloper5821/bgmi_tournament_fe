@@ -8,6 +8,8 @@ const Breadcrumb: React.FC = () => {
 
   const getNames = (name: string) => {
     switch (name) {
+      case 'spectatorDashboard':
+        return 'Dashboard';
       case 'adminDashboard':
         return 'Dashboard';
       case 'userDashboard':

@@ -11,6 +11,7 @@ import Loader from '@/Components/CommonComponent/Loader/Loader';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
 import TableData from '@/Components/CommonComponent/Table/Table';
 import { VidoColumns } from '@/utils/constant';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 const Video = () => {
   const [data, setData] = useState<getVideo[]>([]);
@@ -91,6 +92,9 @@ const Video = () => {
                 optionClassName={styles.popdown}
               />
             </div>
+          </div>
+          <div className={styles.breadcrumbs_container}>
+            <Breadcrumb />
           </div>
           <div>
             {isDeleteModalOpen && (

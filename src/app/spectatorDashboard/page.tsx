@@ -8,6 +8,7 @@ import CreateRoomForm from '@/Components/spectatorDashboard/rooms/RoomForm';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
 import { getAllSpectatorService } from '@/services/specDashboardServices';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 function spectatorDashboard() {
   const [showModal, setShowModal] = useState(false);
@@ -42,6 +43,9 @@ function spectatorDashboard() {
                   setRoomIdToUpdate={setRoomIdToUpdate}
                   getAllRooms={getAllRooms}
                 />
+              </div>
+              <div className={styles.breadcrumbs_container}>
+                <Breadcrumb />
               </div>
               <div>
                 {!spect ? (
