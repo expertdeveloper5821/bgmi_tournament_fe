@@ -26,7 +26,7 @@ const dynamicMenuItems = [
   },
   {
     path: '/adminDashboard/video',
-    name: 'videos',
+    name: 'Videos',
     icon: <FaVideo />,
   },
 ];

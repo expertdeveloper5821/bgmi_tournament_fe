@@ -34,7 +34,7 @@ function spectatorDashboard() {
             <Navbar />
             <div>
               <div className={styles.inner_specter_cls}>
-                <h1 className={styles.r_main_title}>Rooms</h1>
+                <h1 className={styles.r_main_title}>Welcome to Spectator Dashboard</h1>
                 <CreateRoomForm
                   showModal={showModal}
                   setShowModal={setShowModal}
