@@ -21,6 +21,7 @@ import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { adminRoomColumns } from '@/utils/constant';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
 import { SpectatorsDataType } from '@/types/spectatorTypes';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 function page() {
   const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
@@ -170,6 +171,9 @@ function page() {
         <Navbar />
         <div>
           <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+          <div className={styles.breadcrumbs_container}>
+            <Breadcrumb />
+          </div>
           <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
         </div>
         {isDeleteModalOpen && (

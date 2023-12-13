@@ -1,10 +1,11 @@
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+import styles from '@/styles/Dashboard.module.scss';
 import React from 'react';
 
 const page = () => {
   return (
     <IsAuthenticatedHoc>
-      <div>AdminDashboard</div>
+      <div className={styles.temperarly_added}>AdminDashboard</div>
     </IsAuthenticatedHoc>
   );
 };

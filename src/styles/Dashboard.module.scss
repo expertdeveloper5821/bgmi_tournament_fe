@@ -85,6 +85,10 @@
   @media (min-width: $breakpoint-tab) {
     background-position: 50% 50%;
   }
+
+  .breadcrumbs_container{
+    margin: 0px 0px 10px 18px;
+  }
 }
 
 .content {
@@ -1275,7 +1279,7 @@ body.activemodal {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 0rem 1rem;
 }
 
 .email_wrapper input[type='text'],
@@ -1792,3 +1796,11 @@ body.activemodal {
   color: #fff;
   /* Optionally change text color to white */
 }
+
+.temperarly_added{
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

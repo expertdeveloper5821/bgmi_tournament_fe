@@ -26,6 +26,7 @@ import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { adminSpecColumns } from '@/utils/constant';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
 import { ROLES_DETAILS_TYPE } from '@/types/roomsTypes';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 function Page() {
   const [spectatorData, setSpectatorData] = useState<SpectatorDataType[] | []>([]);
@@ -251,6 +252,9 @@ function Page() {
             >
               Create Spectator
             </button>
+          </div>
+          <div className={styles.breadcrumbs_container} style={{ margin: '10px 0px 10px 34px' }}>
+            <Breadcrumb />
           </div>
           {isDeleteModalOpen && (
             <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />

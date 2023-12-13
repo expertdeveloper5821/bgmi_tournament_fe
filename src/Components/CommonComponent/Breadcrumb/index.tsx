@@ -4,11 +4,12 @@ import { usePathname } from 'next/navigation';
 
 const Breadcrumb: React.FC = () => {
   const asPath = usePathname();
-
   const pathSegments = asPath?.split('/').filter((segment) => segment);
 
   const getNames = (name: string) => {
     switch (name) {
+      case 'adminDashboard':
+        return 'Dashboard';
       case 'userDashboard':
         return 'Dashboard';
       case 'registerMatches':
