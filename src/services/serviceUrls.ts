@@ -33,4 +33,5 @@ export const serviceUrls = {
   getAllWinnder: '/winners/players',
   assignRole: '/role/assignTo',
   spectators: '/role/getSpec',
+  allRoles: '/role/getAllRole',
 };

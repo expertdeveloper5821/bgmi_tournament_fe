@@ -112,3 +112,8 @@ export interface GameRoomType {
   teams: Array<Team>;
   winnerUuid: string;
 }
+export interface ROLES_DETAILS_TYPE {
+  _id: string;
+  role: string;
+  uuid: string;
+}

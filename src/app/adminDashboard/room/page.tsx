@@ -12,10 +12,11 @@ import {
   assignRoleService,
   deleteRoomService,
   getAllFilteredRoomsListService,
+  getAllRoles,
   getAllRoomsService,
   getAllSpectators,
 } from '@/services/authServices';
-import { RoomsDataType } from '@/types/roomsTypes';
+import { ROLES_DETAILS_TYPE, RoomsDataType } from '@/types/roomsTypes';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { adminRoomColumns } from '@/utils/constant';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
@@ -28,6 +29,7 @@ function page() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [idToDelete, setIdToDelete] = useState<string>('');
   const [spectatorData, setSpectatorData] = useState<SpectatorsDataType[] | []>([]);
+  const [rolesDetails, setRolesDetails] = useState<[] | ROLES_DETAILS_TYPE[]>([]);
 
   const getAllTournaments = async () => {
     try {
@@ -42,10 +44,26 @@ function page() {
     }
   };
 
-  const getSpectators = async () => {
+  const getRoles = async () => {
     setIsLoading(true);
     try {
-      const response = await getAllSpectators('64d7239c8a677a5d2e21b00d');
+      const response = await getAllRoles();
+      if (response.status === 200) {
+        setRolesDetails(response.data.data);
+      } else {
+        toast.error(response.response.data.error);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  const getSpectators = async (id) => {
+    setIsLoading(true);
+    try {
+      const response = await getAllSpectators(id);
       if (response.status === 200) {
         setSpectatorData(response.data.findSpacatator);
       } else {
@@ -67,7 +85,10 @@ function page() {
       if (res.status === 200) {
         toast.success('Room Assigned Successfully');
         getAllTournaments();
-        getSpectators();
+        rolesDetails.length &&
+          getSpectators(
+            rolesDetails.find((role: ROLES_DETAILS_TYPE) => role.role === 'spectator')?._id,
+          );
       } else {
         toast.error(res.response.data.error);
       }
@@ -77,9 +98,17 @@ function page() {
   };
 
   useEffect(() => {
+    getRoles();
     getAllTournaments();
-    getSpectators();
   }, []);
+
+  useEffect(() => {
+    rolesDetails.length &&
+      !spectatorData.length &&
+      getSpectators(
+        rolesDetails.find((role: ROLES_DETAILS_TYPE) => role.role === 'spectator')?._id,
+      );
+  }, [rolesDetails]);
 
   const deleteroom = async () => {
     setIsLoading(true);
