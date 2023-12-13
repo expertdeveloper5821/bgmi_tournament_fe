@@ -69,13 +69,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div id="subMainLayoutContainer">
           {isOpen && <NotificationsModal notificationModalHandler={notificationModalHandler} />}
           <Navbar notificationModalHandler={notificationModalHandler} />
+          <h1 className={styles.heading}>Welcome to User Dashboard</h1>
+          <div className={styles.breadcrumbs_container}>
+            <Breadcrumb />
+          </div>
           <div className={styles.main_container}>
             <div className={styles.sidebar_wrapper}>
               <div className={styles.content}>
                 {asPath !== '/userDashboard/friends' && (
                   <div className={styles.dashboard}>
                     <span className={styles.head_desc}>{getPageName(pathSegments?.at(-1))}</span>
-                    <Breadcrumb />
                   </div>
                 )}
               </div>
