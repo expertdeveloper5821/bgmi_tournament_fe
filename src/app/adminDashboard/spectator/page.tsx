@@ -8,6 +8,7 @@ import TableData from '@/Components/CommonComponent/Table/Table';
 import { toast } from 'react-toastify';
 import {
   deleteRoleService,
+  getAllRoles,
   getAllUsersDataService,
   registerSpectatorService,
   updateRoleService,
@@ -24,6 +25,7 @@ import { CreateSpectatorOrAssignRoleForm } from '@/Components/Forms/CreateSpecta
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { adminSpecColumns } from '@/utils/constant';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
+import { ROLES_DETAILS_TYPE } from '@/types/roomsTypes';
 
 function Page() {
   const [spectatorData, setSpectatorData] = useState<SpectatorDataType[] | []>([]);
@@ -46,6 +48,7 @@ function Page() {
   const [isDisabled, setDisabled] = useState<boolean>(false);
   const [idToDelete, setIdToDelete] = useState<string>('');
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const [rolesDetails, setRolesDetails] = useState<[] | ROLES_DETAILS_TYPE[]>([]);
 
   const getAllUsers = async () => {
     setIsLoading(true);
@@ -66,8 +69,25 @@ function Page() {
     }
   };
 
+  const getRoles = async () => {
+    setIsLoading(true);
+    try {
+      const response = await getAllRoles();
+      if (response.status === 200) {
+        setRolesDetails(response.data.data);
+      } else {
+        toast.error(response.response.data.error);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
   useEffect(() => {
     getAllUsers();
+    getRoles();
   }, []);
 
   useEffect(() => {
@@ -149,10 +169,14 @@ function Page() {
 
     const token: string = localStorage.getItem('jwtToken') || '';
 
-    if (spectatorData?.length) {
+    if (rolesDetails?.length) {
       try {
         if (modal?.buttonVal === 'Create') {
-          await registerSpectatorService({ token, formData, spectatorData });
+          await registerSpectatorService({
+            token,
+            formData,
+            id: rolesDetails.find((role: ROLES_DETAILS_TYPE) => role.role === 'spectator')?._id,
+          });
           toast.success('Spectator Created Successfully');
         } else if (modal?.buttonVal === 'Assign') {
           await updateRoleService({ token, formData });

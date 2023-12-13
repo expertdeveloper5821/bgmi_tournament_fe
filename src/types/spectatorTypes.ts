@@ -45,7 +45,7 @@ export interface SpectatorEditDataType {
 export interface RegisterSpectatorValuesType {
   token: string;
   formData: FormDataType;
-  spectatorData: SpectatorDataType[] | [];
+  id: string | undefined;
 }
 
 export interface updateRoleValuesType {

@@ -140,7 +140,7 @@ export const registerSpectatorService = async (data: RegisterSpectatorValuesType
   const res = await sendRequest(`${serviceUrls.registerSpectator}`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${data.token}` },
-    data: { ...data.formData, role: data.spectatorData[0]?.role?._id },
+    data: { ...data.formData, role: data.id },
   });
   if (res.status === 200) {
     return res;
