@@ -32,9 +32,9 @@ function page() {
   const [rolesDetails, setRolesDetails] = useState<[] | ROLES_DETAILS_TYPE[]>([]);
 
   const getAllTournaments = async () => {
+    setIsLoading(true);
     try {
       const response = await getAllRoomsService();
-      setIsLoading(true);
       setWholeRoomData(response?.data);
       setRoomData(response?.data);
       setIsLoading(false);
@@ -77,6 +77,7 @@ function page() {
   };
 
   const onAssignHandler = async (data: SpectatorsDataType, roomId: string) => {
+    setIsLoading(true);
     try {
       const res = await assignRoleService({
         roomid: roomId,
@@ -93,6 +94,7 @@ function page() {
         toast.error(res.response.data.error);
       }
     } catch (err) {
+      setIsLoading(false);
       toast.error('Assigning Role Failed');
     }
   };
@@ -125,15 +127,17 @@ function page() {
   };
 
   const fetchTournaments = async (searchVal: string) => {
+    setIsLoading(true);
     try {
       const token = localStorage.getItem('jwtToken')!;
       const response = await getAllFilteredRoomsListService({ token, searchVal });
+      toast.success('Rooms Found Successfully');
       setWholeRoomData(response?.data);
       setRoomData(response?.data);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.data?.message);
     }
   };
 

@@ -21,6 +21,7 @@ function page() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const fetchTournaments = async (searchVal: string) => {
+    setIsLoading(true);
     try {
       const token = localStorage.getItem('jwtToken') || '';
       const response = await getAllFilteredUsersListService({ searchVal, token });

@@ -122,7 +122,6 @@ function Page() {
       const response = await deleteRoleService({ userUuid: idToDelete, token });
       setIdToDelete('');
       setIsDeleteModalOpen(false);
-      setIsLoading(false);
       getAllUsers();
       toast.success(response?.data?.message);
     } catch (error) {
@@ -181,7 +180,6 @@ function Page() {
         } else if (modal?.buttonVal === 'Assign') {
           await updateRoleService({ token, formData });
         }
-        setIsLoading(false);
         getAllUsers();
       } catch (error) {
         setIsLoading(false);
