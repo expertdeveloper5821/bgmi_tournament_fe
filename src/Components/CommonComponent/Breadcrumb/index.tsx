@@ -19,7 +19,7 @@ const Breadcrumb: React.FC = () => {
       case 'tournament':
         return 'Tournament';
       default:
-        return name;
+        return name.charAt(0).toUpperCase() + name.slice(1);
     }
   };
 
