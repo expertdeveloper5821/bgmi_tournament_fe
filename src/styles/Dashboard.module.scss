@@ -1212,7 +1212,7 @@ body.activemodal {
 .btnmodal {
   border: transparent;
   font-size: 18px;
-
+  margin-left: 1rem;
   @media (max-width: $breakpointregister-sm) {
     padding: 5px 8px;
     font-size: 10px;
