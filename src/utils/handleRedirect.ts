@@ -12,7 +12,7 @@ export const handleRedirect = (token: string, router) => {
     } else if (decodedToken && decodedToken?.role?.role === 'admin') {
       router.push('/adminDashboard/room');
     } else if (decodedToken && decodedToken?.role?.role === 'spectator') {
-      router.push('/spectatorDashboard');
+      router.push('/spectatorDashboard/Rooms');
     }
   }
 };
