@@ -140,7 +140,7 @@ export const registerSpectatorService = async (data: RegisterSpectatorValuesType
   const res = await sendRequest(`${serviceUrls.registerSpectator}`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${data.token}` },
-    data: { ...data.formData, role: data.spectatorData[0]?.role?._id },
+    data: { ...data.formData, role: data.id },
   });
   if (res.status === 200) {
     return res;
@@ -311,6 +311,19 @@ export const assignRoleService = async (data: assignRoleType) => {
 export const getAllSpectators = async (id: string) => {
   try {
     const res = await sendRequest(`${serviceUrls.spectators}/${id}`, {
+      method: 'GET',
+    });
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (err) {
+    return err;
+  }
+};
+
+export const getAllRoles = async () => {
+  try {
+    const res = await sendRequest(`${serviceUrls.allRoles}`, {
       method: 'GET',
     });
     if (res.status === 200) {

@@ -6,12 +6,12 @@ import Sidebar from '@/Components/CommonComponent/SideBar/Sidebar';
 const dynamicMenuItems = [
   {
     path: '/adminDashboard/room',
-    name: 'Room',
+    name: 'Rooms',
     icon: <FaTh />,
   },
   {
     path: '/adminDashboard/spectator',
-    name: 'Specatator',
+    name: 'Specatators',
     icon: <FaUserAlt />,
   },
   {
@@ -26,7 +26,7 @@ const dynamicMenuItems = [
   },
   {
     path: '/adminDashboard/video',
-    name: 'video',
+    name: 'Videos',
     icon: <FaVideo />,
   },
 ];

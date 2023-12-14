@@ -129,7 +129,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
               {!spec.winnerUuid ? (
                 <Link href={'/spectatorDashboard/Postwinners'}>
                   <div onClick={() => handleRoomID(spec._id, spec.roomUuid)}>
-                    <Image src="assests/add.svg" alt="Image" width={22} height={22} />
+                    <Image src="/assests/add.svg" alt="Image" width={22} height={22} />
                   </div>
                 </Link>
               ) : (
@@ -179,7 +179,7 @@ const RoomTable = ({ Spect, showModal, setShowModal, setRoomIdToUpdate, getAllRo
                   setRoomIdToUpdate(spec);
                 }}
               >
-                <Image src="assests/update.svg" alt="Image" width={22} height={14} />
+                <Image src="/assests/update.svg" alt="Image" width={22} height={14} />
               </div>
             </TableCell>
           </TableRow>
