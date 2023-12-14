@@ -1,6 +1,7 @@
 // components/Breadcrumb.tsx
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import style from '@/styles/breadCrumb.module.scss';
 
 const Breadcrumb: React.FC = () => {
   const asPath = usePathname();
@@ -27,7 +28,7 @@ const Breadcrumb: React.FC = () => {
     const breadcrumbPath = `/${pathSegments.slice(0, index + 1).join('/')}`;
 
     return (
-      <span key={breadcrumbPath}>
+      <span className={style.title} key={breadcrumbPath}>
         <Link href={breadcrumbPath} passHref>
           {getNames(segment)}
         </Link>

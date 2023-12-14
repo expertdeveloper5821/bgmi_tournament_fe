@@ -50,13 +50,15 @@
 .heading {
   font-weight: 700;
   font-size: 30px;
-  margin: 1.5rem 1rem;
+  margin: 0.7rem 1rem;
 
   @media (max-width: $breakpoint-md) {
+    margin: 0.4rem 1rem;
     font-size: 24px;
   }
 
   @media (max-width: $breakpoint-xs) {
+    margin: 0.5rem 1rem 0rem 1rem;
     font-size: 15px;
   }
 }
@@ -1332,11 +1334,13 @@ body.activemodal {
 
   @media (max-width: $breakpoint-xs) {
     justify-content: flex-start;
-    margin-left: 15px;
+    margin: 20px 0px 0px 15px;
   }
 
   @media (max-width: $breakpoint-xSmall) {
     margin: 0px 15px;
+    margin: 20px 15px 0px 15px;
+
   }
 }
 
@@ -1803,5 +1807,9 @@ body.activemodal {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.admin_spectator_breadcrumbs_container{
+  margin: 0px 0px 16px 18px
 }
 

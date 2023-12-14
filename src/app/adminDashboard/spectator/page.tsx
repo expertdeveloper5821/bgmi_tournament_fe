@@ -242,7 +242,12 @@ function Page() {
         <div className={styles.sidebar_wrapper}>
           <Navbar />
           <div className={styles.popupbutton}>
-            <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+              <div className={styles.admin_spectator_breadcrumbs_container}>
+                <Breadcrumb />
+              </div>
+            </div>
             <button
               onClick={() => {
                 setModal({ isOpen: true, buttonVal: 'Create' });
@@ -253,9 +258,9 @@ function Page() {
               Create Spectator
             </button>
           </div>
-          <div className={styles.breadcrumbs_container} style={{ margin: '10px 0px 10px 34px' }}>
+          {/* <div className={styles.breadcrumbs_container} style={{ margin: '10px 0px 10px 34px' }}>
             <Breadcrumb />
-          </div>
+          </div> */}
           {isDeleteModalOpen && (
             <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
           )}
