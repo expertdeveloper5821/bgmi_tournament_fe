@@ -36,7 +36,12 @@ function spectatorDashboard() {
             <Navbar />
             <div>
               <div className={styles.inner_specter_cls}>
-                <h1 className={styles.r_main_title}>Welcome to Spectator Dashboard</h1>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <h1 className={styles.r_main_title}>Welcome to Spectator Dashboard</h1>
+                  <div className={styles.breadcrumbs_container}>
+                    <Breadcrumb />
+                  </div>
+                </div>
                 <CreateRoomForm
                   showModal={showModal}
                   setShowModal={setShowModal}
@@ -45,9 +50,7 @@ function spectatorDashboard() {
                   getAllRooms={getAllRooms}
                 />
               </div>
-              <div className={styles.breadcrumbs_container}>
-                <Breadcrumb />
-              </div>
+
               <div>
                 {!spect ? (
                   <Loader />
