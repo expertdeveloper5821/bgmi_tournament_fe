@@ -82,7 +82,7 @@ function page() {
     try {
       const res = await assignRoleService({
         roomid: roomId,
-        assignTo: data?.fullName,
+        assignTo: data?.email,
       });
       if (res.status === 200) {
         toast.success('Room Assigned Successfully');
