@@ -320,3 +320,16 @@ export const getAllSpectators = async (id: string) => {
     return err;
   }
 };
+
+export const getAllRoles = async () => {
+  try {
+    const res = await sendRequest(`${serviceUrls.allRoles}`, {
+      method: 'GET',
+    });
+    if (res.status === 200) {
+      return res;
+    } else throw Error();
+  } catch (err) {
+    return err;
+  }
+};

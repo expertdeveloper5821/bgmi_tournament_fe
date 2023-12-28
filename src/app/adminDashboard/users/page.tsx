@@ -12,6 +12,7 @@ import { SpectatorDataType } from '@/types/spectatorTypes';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { adminUserColumns } from '@/utils/constant';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 function page() {
   const [wholeUserData, setWholeUserData] = useState<SpectatorDataType[] | []>([]);
@@ -21,6 +22,7 @@ function page() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const fetchTournaments = async (searchVal: string) => {
+    setIsLoading(true);
     try {
       const token = localStorage.getItem('jwtToken') || '';
       const response = await getAllFilteredUsersListService({ searchVal, token });
@@ -86,6 +88,9 @@ function page() {
           <Navbar />
           <div>
             <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+            <div className={styles.breadcrumbs_container}>
+              <Breadcrumb />
+            </div>
             <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
           </div>
           {isDeleteModalOpen && (

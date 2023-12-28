@@ -12,14 +12,16 @@ import {
   assignRoleService,
   deleteRoomService,
   getAllFilteredRoomsListService,
+  getAllRoles,
   getAllRoomsService,
   getAllSpectators,
 } from '@/services/authServices';
-import { RoomsDataType } from '@/types/roomsTypes';
+import { ROLES_DETAILS_TYPE, RoomsDataType } from '@/types/roomsTypes';
 import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { adminRoomColumns } from '@/utils/constant';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
 import { SpectatorsDataType } from '@/types/spectatorTypes';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 function page() {
   const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
@@ -28,11 +30,12 @@ function page() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [idToDelete, setIdToDelete] = useState<string>('');
   const [spectatorData, setSpectatorData] = useState<SpectatorsDataType[] | []>([]);
+  const [rolesDetails, setRolesDetails] = useState<[] | ROLES_DETAILS_TYPE[]>([]);
 
   const getAllTournaments = async () => {
+    setIsLoading(true);
     try {
       const response = await getAllRoomsService();
-      setIsLoading(true);
       setWholeRoomData(response?.data);
       setRoomData(response?.data);
       setIsLoading(false);
@@ -42,10 +45,26 @@ function page() {
     }
   };
 
-  const getSpectators = async () => {
+  const getRoles = async () => {
     setIsLoading(true);
     try {
-      const response = await getAllSpectators('64d7239c8a677a5d2e21b00d');
+      const response = await getAllRoles();
+      if (response.status === 200) {
+        setRolesDetails(response.data.data);
+      } else {
+        toast.error(response.response.data.error);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  const getSpectators = async (id) => {
+    setIsLoading(true);
+    try {
+      const response = await getAllSpectators(id);
       if (response.status === 200) {
         setSpectatorData(response.data.findSpacatator);
       } else {
@@ -59,27 +78,40 @@ function page() {
   };
 
   const onAssignHandler = async (data: SpectatorsDataType, roomId: string) => {
+    setIsLoading(true);
     try {
       const res = await assignRoleService({
         roomid: roomId,
-        assignTo: data?.fullName,
+        assignTo: data?.email,
       });
       if (res.status === 200) {
         toast.success('Room Assigned Successfully');
         getAllTournaments();
-        getSpectators();
+        rolesDetails.length &&
+          getSpectators(
+            rolesDetails.find((role: ROLES_DETAILS_TYPE) => role.role === 'spectator')?._id,
+          );
       } else {
         toast.error(res.response.data.error);
       }
     } catch (err) {
+      setIsLoading(false);
       toast.error('Assigning Role Failed');
     }
   };
 
   useEffect(() => {
+    getRoles();
     getAllTournaments();
-    getSpectators();
   }, []);
+
+  useEffect(() => {
+    rolesDetails.length &&
+      !spectatorData.length &&
+      getSpectators(
+        rolesDetails.find((role: ROLES_DETAILS_TYPE) => role.role === 'spectator')?._id,
+      );
+  }, [rolesDetails]);
 
   const deleteroom = async () => {
     setIsLoading(true);
@@ -96,15 +128,17 @@ function page() {
   };
 
   const fetchTournaments = async (searchVal: string) => {
+    setIsLoading(true);
     try {
       const token = localStorage.getItem('jwtToken')!;
       const response = await getAllFilteredRoomsListService({ token, searchVal });
+      toast.success('Rooms Found Successfully');
       setWholeRoomData(response?.data);
       setRoomData(response?.data);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.data?.message);
     }
   };
 
@@ -137,6 +171,9 @@ function page() {
         <Navbar />
         <div>
           <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+          <div className={styles.breadcrumbs_container}>
+            <Breadcrumb />
+          </div>
           <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
         </div>
         {isDeleteModalOpen && (

@@ -11,6 +11,7 @@ import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 import { adminVidoColumns } from '@/utils/constant';
 import { getVideos } from '@/services/authServices';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 function page() {
   const [userData, setUserData] = useState<adminGetVideo[] | []>([]);
@@ -66,7 +67,10 @@ function page() {
         <div className={styles.sidebar_wrapper}>
           <Navbar />
           <div>
-            <h1 className={styles.heading}>Video</h1>
+            <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+            <div className={styles.breadcrumbs_container}>
+              <Breadcrumb />
+            </div>
           </div>
           {isDeleteModalOpen && (
             <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteVideo} />

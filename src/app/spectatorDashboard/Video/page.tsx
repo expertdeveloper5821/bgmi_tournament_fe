@@ -11,6 +11,7 @@ import Loader from '@/Components/CommonComponent/Loader/Loader';
 import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
 import TableData from '@/Components/CommonComponent/Table/Table';
 import { VidoColumns } from '@/utils/constant';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 const Video = () => {
   const [data, setData] = useState<getVideo[]>([]);
@@ -81,7 +82,12 @@ const Video = () => {
         <div className={styles.sidebar_wrapper}>
           <Navbar />
           <div className={styles.inner_specter_cls}>
-            <h1 className={styles.title_video}>Your Videos</h1>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <h1 className={styles.title_video}>Welcome to Spectator Dashboard</h1>
+              <div className={styles.breadcrumbs_container}>
+                <Breadcrumb />
+              </div>
+            </div>
             <div style={{ display: 'flex', gap: '20px' }}>
               <Select
                 onChange={function noRefCheck() {}}
@@ -92,6 +98,7 @@ const Video = () => {
               />
             </div>
           </div>
+
           <div>
             {isDeleteModalOpen && (
               <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteVideo} />

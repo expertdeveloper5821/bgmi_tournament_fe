@@ -8,6 +8,7 @@ import TableData from '@/Components/CommonComponent/Table/Table';
 import { toast } from 'react-toastify';
 import {
   deleteRoleService,
+  getAllRoles,
   getAllUsersDataService,
   registerSpectatorService,
 } from '@/services/authServices';
@@ -29,6 +30,8 @@ const initialFormValues = {
   email: '',
   password: '',
 };
+import { ROLES_DETAILS_TYPE } from '@/types/roomsTypes';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 function Page() {
   const [spectatorData, setSpectatorData] = useState<SpectatorDataType[] | []>([]);
@@ -40,6 +43,7 @@ function Page() {
   const [isDisabled, setDisabled] = useState<boolean>(false);
   const [idToDelete, setIdToDelete] = useState<string>('');
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const [rolesDetails, setRolesDetails] = useState<[] | ROLES_DETAILS_TYPE[]>([]);
 
   const getAllUsers = async () => {
     setIsLoading(true);
@@ -60,8 +64,25 @@ function Page() {
     }
   };
 
+  const getRoles = async () => {
+    setIsLoading(true);
+    try {
+      const response = await getAllRoles();
+      if (response.status === 200) {
+        setRolesDetails(response.data.data);
+      } else {
+        toast.error(response.response.data.error);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
   useEffect(() => {
     getAllUsers();
+    getRoles();
   }, []);
 
   useEffect(() => {
@@ -96,7 +117,6 @@ function Page() {
       const response = await deleteRoleService({ userUuid: idToDelete, token });
       setIdToDelete('');
       setIsDeleteModalOpen(false);
-      setIsLoading(false);
       getAllUsers();
       toast.success(response?.data?.message);
     } catch (error) {
@@ -120,7 +140,7 @@ function Page() {
     setFormErrors(initialFormValues);
     setFormData(initialFormValues);
 
-    if (spectatorData?.length) {
+    if (rolesDetails?.length) {
       try {
         const { buttonVal } = modal;
         await registerSpectatorService({ buttonVal, formData, spectatorData });
@@ -169,7 +189,12 @@ function Page() {
         <div className={styles.sidebar_wrapper}>
           <Navbar />
           <div className={styles.popupbutton}>
-            <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+              <div className={styles.admin_spectator_breadcrumbs_container}>
+                <Breadcrumb />
+              </div>
+            </div>
             <button
               onClick={() => {
                 setModal({ isOpen: true, buttonVal: 'Create' });
@@ -180,6 +205,9 @@ function Page() {
               Create Spectator
             </button>
           </div>
+          {/* <div className={styles.breadcrumbs_container} style={{ margin: '10px 0px 10px 34px' }}>
+            <Breadcrumb />
+          </div> */}
           {isDeleteModalOpen && (
             <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
           )}
