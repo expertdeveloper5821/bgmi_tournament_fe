@@ -11,7 +11,7 @@
 //       0,
 //       {
 //         "allowString": false,
-// /Error: Parsing error: ESLint was configured to run on `<tsconfigRootDir>/src/utils/axiosInstanse.tsx` using `parserOptions.project`: <tsconfigRootDir>/tsconfig.json/         "allowNumber": false
+//         "allowNumber": false
 //       }
 //     ]
 //   },
@@ -24,7 +24,7 @@
 
 {
   "root": true,
-  // Error: Parsing error: ESLint was configured to run on `<tsconfigRootDir>/src/utils/axiosInstanse.tsx` using `parserOptions.project`: <tsconfigRootDir>/tsconfig.json
+
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
 
   "parser": "@typescript-eslint/parser",
