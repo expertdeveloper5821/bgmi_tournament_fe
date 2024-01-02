@@ -1,14 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/landingpage.module.scss';
-import useWindowSize from '@/hooks/useWindowSize';
 import NavBar from './navBar/page';
 import Image from 'next/image';
 import { sendRequest } from '@/utils/axiosInstanse';
-import { toast } from 'react-toastify';
-import CustomCursor from './customCursor/page';
 import Link from 'next/link';
 import { formatTime } from '@/Components/CommonComponent/moment';
+import useWindowSize from '@/hooks/useWindowSize';
 interface GameDetails {
   createdAt: string;
   createdBy: string;
@@ -35,14 +33,79 @@ const page = () => {
   const [data, setData] = useState<GameDetails[]>();
   const [poolModal, setPoolModal] = useState<boolean>(false);
   const [id, setId] = useState<number>(0);
-  const [content, setContent] = useState<string>(
-    'Create your free account in just a few simple steps and join our ever-growing gaming community',
-  );
+  const [activeGun, setActiveGun] = useState<number>(0);
+  const [activeMaptext, setActiveMaptext] = useState<number>(0);
+  const [content, setContent] = useState<string>('');
+  const [supportText, setSupportText] = useState<string>('');
+  const [heading, setHeading] = useState<string>('');
   const handleData = (id: number) => {
     setId(id);
   };
+  useEffect(() => {
+    if (activeGun === 0) {
+      setSupportText(
+        'Participate in thrilling tournaments and compete against the best in the community for massive cash prizes and recognition.',
+      );
+    } else if (activeGun === 1) {
+      setSupportText(
+        'Play your favorite BGMI battles and win real cash rewards. The more you play, the more you earn!',
+      );
+    } else if (activeGun === 2) {
+      setSupportText(
+        'Our dedicated support team is here to assist you around the clock, ensuring a smooth and enjoyable gaming experience.',
+      );
+    } else if (activeGun === 3) {
+      setSupportText(
+        'Our secure payment system ensures hassle-free withdrawals so you can enjoy your rewards without any worries.',
+      );
+    }
+  }, [activeGun]);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setContectcount((prevCount) => (prevCount + 1) % 4);
+  //   }, 4000);
 
-  const [width] = useWindowSize();
+  //   return () => clearInterval(interval);
+  // }, []);
+
+  // useEffect(() => {
+  //   if (contentcount === 0) {
+  //     setContent(
+  //       'Create your free account in just a few simple steps and join our ever-growing gaming community',
+  //     );
+  //     setHeading('Sign Up')
+  //   } else if (contentcount === 1) {
+  //     setContent(
+  //       'Dive into intense BGMI battles, showcase your skills, and climb the leaderboard to win cash rewards.',
+  //     );
+  //     setHeading('Play & Win')
+  //   } else if (contentcount === 2) {
+  //     setContent(
+  //       'Cash out your earnings with ease and enjoy the real benefits of your gaming talent.',
+  //     );
+  //     setHeading('Redeem Rewards')
+  //   }
+  // }, [contentcount]);
+  useEffect(() => {
+    if (activeMaptext === 0) {
+      setContent(
+        'Create your free account in just a few simple steps and join our ever-growing gaming community',
+      );
+      setHeading('Sign Up');
+    } else if (activeMaptext === 1) {
+      setContent(
+        'Dive into intense BGMI battles, showcase your skills, and climb the leaderboard to win cash rewards.',
+      );
+      setHeading('Play & Win');
+    } else if (activeMaptext === 2) {
+      setContent(
+        'Cash out your earnings with ease and enjoy the real benefits of your gaming talent.',
+      );
+      setHeading('Redeem Rewards');
+    }
+  }, [activeMaptext]);
+
+  const width = useWindowSize();
   useEffect(() => {
     const fetchData = async () => {
       const response = await sendRequest(`room/rooms`, {
@@ -69,30 +132,36 @@ const page = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth', // This creates a smooth scrolling effect
+      behavior: 'smooth',
     });
   };
-  const handleButtonHover1 = () => {
-    setContent(
-      'Cash out your earnings with ease and enjoy the real benefits of your gaming talent',
-    );
-  };
-  const handleButtonHover2 = () => {
-    setContent(
-      'Dive into intense BGMI battles, showcase your skills, and climb the leaderboard to win cash rewards',
-    );
-  };
-  const handleButtonHover3 = () => {
-    setContent(
-      'Create your free account in just a few simple steps and join our ever-growing gaming community',
-    );
-  };
+  // const handleButtonHover1 = () => {
+  //   setContent(
+  //     'Cash out your earnings with ease and enjoy the real benefits of your gaming talent',
+  //   );
+  // };
+  // const handleButtonHover2 = () => {
+  //   setContent(
+  //     'Dive into intense BGMI battles, showcase your skills, and climb the leaderboard to win cash rewards',
+  //   );
+  // };
+  // const handleButtonHover3 = () => {
+  //   setContent(
+  //     'Create your free account in just a few simple steps and join our ever-growing gaming community',
+  //   );
+  // };
 
+  const handleDotClick = (index: number) => {
+    setActiveGun(index);
+  };
+  const handleMapDotClick = (index: number) => {
+    setActiveMaptext(index);
+  };
   return (
     <div className={styles.bodycolor}>
-      <CustomCursor />
+      {/* <CustomCursor /> */}
       {/* <GlassCrack /> */}
-      <div className={styles.main_container}>
+      <div className={styles.main_container} id="bannerSection">
         <div>
           <NavBar />
         </div>
@@ -138,7 +207,10 @@ const page = () => {
         </div>
 
         <div className={styles.social_Icons_header}>
-          <Link href="">
+          <Link
+            href="https://www.facebook.com/profile.php?id=100095239340085&is_tour_dismissed=true"
+            target="_blank"
+          >
             <Image
               className={styles.footerSocialIcon}
               src="../assests/facebookiconblack.svg"
@@ -148,7 +220,7 @@ const page = () => {
             />
           </Link>
 
-          <Link href="">
+          <Link href="https://www.instagram.com/pattseheadshotsj/" target="_blank">
             <Image
               className={styles.footerSocialIcon}
               src="../assests/instaiconblack.svg"
@@ -157,7 +229,7 @@ const page = () => {
               alt="insta"
             />
           </Link>
-          <Link href="">
+          <Link href="https://twitter.com/headshot_p4491" target="_blank">
             <Image
               className={styles.footerSocialIcon}
               src="../assests/twittericonblack.svg"
@@ -167,7 +239,7 @@ const page = () => {
             />
           </Link>
 
-          <Link href="">
+          <Link href="https://www.youtube.com/channel/UC8GDIEtwWV_67Fxpxfa298Q" target="_blank">
             <Image
               className={styles.footerSocialIcon}
               src="../assests/youtubeiconblack.svg"
@@ -178,11 +250,11 @@ const page = () => {
           </Link>
         </div>
         <div className={styles.rn_text}>
-          <h2>EARN CASH REWARDS FOR CONQUERING</h2>
+          <h2 className={styles.rn_text_header}>EARN CASH REWARDS FOR CONQUERING</h2>
         </div>
       </div>
 
-      <div className={styles.upcoming_mathces_container}>
+      <div className={styles.upcoming_mathces_container} id="UpcomingMatches">
         <div className={styles.upcoming_mathces}>
           <h3 className={styles.upComingHeading}>Upcoming Matches</h3>
           <p className={styles.upComingPara}>
@@ -196,13 +268,18 @@ const page = () => {
         <div className={styles.upcoming_mathces_sub_container}>
           {data && data.length > 0 && (
             <div className={styles.banner_bgmi_img}>
+              <div className={styles.gradientupcomingbannertop}></div>
               <img
                 src={
-                  data && data[id].mapImg ? data[id].mapImg : `${'./assests/eranglemapimage.svg'}`
+                  data && data[id].mapImg && data[id].mapImg !== (null || 'null')
+                    ? data[id].mapImg
+                    : `${'./assests/Eranglemapnewone.png'}`
                 }
                 alt="bg"
                 className={styles.banner_image}
+                id={styles.banner_image}
               />
+              <div className={styles.gradientUpcomingbannerBottom}></div>
             </div>
           )}
 
@@ -215,23 +292,48 @@ const page = () => {
                   <p className={styles.pool_para}>BGMI Squad match</p>
                 </div>
                 <div className={styles.pool_cancel_p}>
-                  <p className={styles.pool_text_p}>
+                  {/* <p className={styles.pool_text_p}>
                     Last Survival: {data[id].lastSurvival}
                     <span className={styles.rs_pool_logo}>₹</span>
-                  </p>
-                  <p className={styles.pool_text_p}>
+                  </p> */}
+                  {data && data[id] ? (
+                    <p className={styles.pool_text_p}>
+                      Last Survival: {data[id]?.lastSurvival}
+                      <span className={styles.rs_pool_logo}>₹</span>
+                    </p>
+                  ) : null}
+                  {/* <p className={styles.pool_text_p}>
                     Highest kill: {data[id].highestKill}
                     <span className={styles.rs_pool_logo}>₹</span>
-                  </p>
-                  <p className={styles.pool_text_p}>
+                  </p> */}
+                  {data && data[id] ? (
+                    <p className={styles.pool_text_p}>
+                      Highest kill: {data[id]?.highestKill}
+                      <span className={styles.rs_pool_logo}>₹</span>
+                    </p>
+                  ) : null}
+                  {data && data[id] ? (
+                    <p className={styles.pool_text_p}>
+                      2nd Winner: {data[id]?.secondWin}
+                      <span className={styles.rs_pool_logo}>₹</span>
+                    </p>
+                  ) : null}
+                  {/* <p className={styles.pool_text_p}>
                     2nd Winner: {data[id].secondWin}
                     <span className={styles.rs_pool_logo}>₹</span>
-                  </p>
+                  </p> */}
 
-                  <p className={styles.pool_text_p}>
+                  {data && data[id] ? (
+                    <p className={styles.pool_text_p}>
+                      3rd Winner: {data[id]?.thirdWin}
+                      <span className={styles.rs_pool_logo}>₹</span>
+                    </p>
+                  ) : null}
+
+                  {/* <p className={styles.pool_text_p}>
                     3rd Winner: {data[id].thirdWin}
                     <span className={styles.rs_pool_logo}>₹</span>
-                  </p>
+                  </p> */}
                 </div>
                 <p className={styles.pool_cancel_p} onClick={() => setPoolModal(false)}>
                   <button className={styles.cancel_btn}>Cancel</button>
@@ -265,14 +367,14 @@ const page = () => {
                         onClick={() => setPoolModal(true)}
                       />
                     </span>
-                    <h2>
+                    <h2 className={styles.prize_container_heading}>
                       Last Survival: 200
                       <span className={styles.rsSign}>₹</span>
                     </h2>
                   </div>
                   <div className={styles.fee_container}>
                     <span className={styles.commonspanprizesection}>ENTRY FEES</span>
-                    <h2>
+                    <h2 className={styles.prize_container_heading}>
                       0<span className={styles.rsSign}>₹</span>
                     </h2>
                   </div>
@@ -294,11 +396,24 @@ const page = () => {
                 <div className={styles.range_container}>
                   <div className={styles.range}>
                     <input type="range" value={50} />
-                    <span className={styles.commonspanprizesection}>Only 30 spots left 20/50</span>
+                    <div className={styles.headimgdiv}>
+                      <span className={styles.commonspanprizesection}>
+                        Only 30 spots left 20/50
+                      </span>
+                      <Image
+                        src="../assests/downhead.svg"
+                        height={10}
+                        width={12}
+                        className={styles.downheadimgrange}
+                        alt="downhead"
+                      />
+                    </div>
                   </div>
-                  <Link href="/auth/login">
-                    <button className={styles.joinbtn}>JOIN</button>
-                  </Link>
+                  <div className={styles.joinbtn}>
+                    <Link href="/auth/login">
+                      <button className={styles.joinbtn}>JOIN</button>
+                    </Link>
+                  </div>
                 </div>
               </>
             ) : (
@@ -308,9 +423,7 @@ const page = () => {
             )}
           </div>
         </div>
-        {/* <Slider {...settings}> */}
-
-        <div className={styles.rn_images_container}>
+        {/* <div className={styles.rn_images_container}>
           {data?.length > 0 &&
             data?.map((gameDetails: GameDetails, index: number) => {
               return (
@@ -322,7 +435,10 @@ const page = () => {
                     </div>
                     <img
                       src={
-                        gameDetails.mapImg ? gameDetails.mapImg : `./assests/eranglemapimage.svg`
+                        gameDetails.mapImg &&
+                        gameDetails.mapImg !== (null || undefined || 'null' || 'undefined')
+                          ? gameDetails.mapImg
+                          : `./assests/Eranglemapnewone.png`
                       }
                       className={styles.rn_images}
                       height={100}
@@ -330,14 +446,37 @@ const page = () => {
                       alt={gameDetails.mapType}
                       onClick={() => handleData(index)}
                     />
+                    <div className={styles.gradientscrollimages}></div>
                   </div>
                 </>
+              );
+            })}
+        </div>  */}
+        <div className={styles.rn_images_container}>
+          {data?.length &&
+            data.length > 0 &&
+            data.map((gameDetails: GameDetails, index: number) => {
+              return (
+                <div key={gameDetails._id} className={styles.cardimg}>
+                  <div className={styles.carddetails}>
+                    <h2>{gameDetails.mapType}</h2>
+                    <span>{`${gameDetails.gameName} ${gameDetails.gameType} Match`}</span>
+                  </div>
+                  <img
+                    src={gameDetails.mapImg ? gameDetails.mapImg : './assests/eranglemapimage.svg'}
+                    className={styles.rn_images}
+                    height={100}
+                    width={100}
+                    alt={gameDetails.mapType}
+                    onClick={() => handleData(index)}
+                  />
+                </div>
               );
             })}
         </div>
 
         {/* </Slider> */}
-        <div className={styles.welcome_Container}>
+        <div className={styles.welcome_Container} id="WelcomeSection">
           <div className={styles.stone}>
             <img src="../assests/stone.svg" />
           </div>
@@ -345,16 +484,26 @@ const page = () => {
           <div className={styles.welcome_subcontainer}>
             <div className={styles.welcome_RightImg_container}>
               <div className={styles.radialGradient}></div>
+              <div className={styles.radialGradient2}></div>
               <Image
                 className={styles.welcome_RightImg}
-                src="../assests/Group20.svg"
-                height={700}
-                width={700}
+                src={`${width[0] <= 600 ? '../assests/stonegunmix.svg' : '../assests/Group20.svg'}`}
+                height={width[0] <= 600 ? 600 : 700}
+                width={800}
                 alt="zoom in image"
               />
             </div>
             <div className={styles.welcome_alingnment}>
-              <h2>Welcome to Patt Se Headshot</h2>
+              <div className={styles.headerContainer}>
+                <Image
+                  className={styles.welcome_star}
+                  src="../assests/newshootingstar.svg"
+                  height={100}
+                  width={100}
+                  alt="zoom in image"
+                />
+                <h2>Welcome to Patt Se Headshot</h2>
+              </div>
               <p>
                 Are you ready to take your BGMI gaming to the next level? Look no further! BGMI
                 Rewards brings you an exhilarating platform where your gaming skills translate into
@@ -366,7 +515,21 @@ const page = () => {
         </div>
         <div>
           <div className={styles.choseSection}>
-            <h2>Why Choose PATT SE HEADSHOT</h2>
+            {width[0] <= 430 ? (
+              <Image
+                className={styles.choose_section_star}
+                src="../assests/newshootingstar.svg"
+                height={50}
+                width={50}
+                alt="zoom in image"
+              />
+            ) : (
+              ''
+            )}
+
+            <div className={styles.choseSectionheader} id={styles.choseSectionheader}>
+              Why Choose PATT SE HEADSHOT
+            </div>
             <p>
               Join the ranks of those who have chosen us as their preferred esports platform for
               BGMI. Experience the future of gaming excellence and be part of our ever-growing
@@ -431,10 +594,18 @@ const page = () => {
                 <div className={styles.scope_line_red_dot}></div>
               </div>
             </div>
-            <div className={styles.seam_main_container}>
-              <div className={styles.seamlesstxn}>
+            <div
+              className={` ${
+                activeGun === 3 ? styles.seam_main_container : `${styles.seam_main_container_not}`
+              }`}
+            >
+              <div
+                className={` ${width[0] <= 450 ? styles.seamlesstxn_mob : `${styles.seamlesstxn}`}`}
+              >
                 <Image
-                  src="../assests/seamless2.svg"
+                  src={` ${
+                    width[0] <= 450 ? '../assests/withdraw.svg' : `../assests/seamless2.svg`
+                  }`}
                   alt="bullter"
                   height={100}
                   width={100}
@@ -443,11 +614,14 @@ const page = () => {
               </div>
               <p className={styles.seam}>Seamless Transactions</p>
             </div>
-
-            <div className={styles.clock_maincontainer}>
-              <div className={styles.clock}>
+            <div
+              className={` ${
+                activeGun === 2 ? styles.clock_maincontainer : `${styles.clock_maincontainer_not}`
+              }`}
+            >
+              <div className={` ${width[0] <= 450 ? styles.clock_mob : `${styles.clock}`}`}>
                 <Image
-                  src="../assests/clock2.svg"
+                  src={` ${width[0] <= 450 ? '../assests/clockmob.svg' : `../assests/clock2.svg`}`}
                   alt="clock"
                   height={100}
                   width={100}
@@ -456,10 +630,18 @@ const page = () => {
               </div>
               <p className={styles.short_heading}>24/7 Support</p>
             </div>
-            <div className={styles.tournament_maincontainer}>
-              <div className={styles.trophy_container}>
+            <div
+              className={` ${
+                activeGun === 0 ? styles.tournament_maincontainer : `${styles.tournament_not}`
+              }`}
+            >
+              <div
+                className={` ${
+                  width[0] <= 450 ? styles.trophy_container_mob : `${styles.trophy_container}`
+                }`}
+              >
                 <Image
-                  src="../assests/stamp.svg"
+                  src={` ${width[0] <= 450 ? './assests/tournament.svg' : `../assests/stamp.svg`}`}
                   alt="trophy"
                   height={100}
                   width={100}
@@ -468,10 +650,20 @@ const page = () => {
               </div>
               <p className={styles.short_heading}>Exciting Tournaments</p>
             </div>
-            <div className={styles.prize_maincontainer}>
-              <div className={styles.money_container}>
+            <div
+              className={` ${
+                activeGun === 1 && width[0] <= 450
+                  ? styles.activeprizemainconatiner
+                  : `${styles.prize_maincontainer}`
+              }`}
+            >
+              <div
+                className={` ${
+                  width[0] <= 450 ? styles.money_container_mob : `${styles.money_container}`
+                }`}
+              >
                 <Image
-                  src="../assests/moneycashback.svg"
+                  src={` ${width[0] <= 450 ? './assests/cash.svg' : `./assests/moneycashback.svg`}`}
                   alt="trophy"
                   height={100}
                   width={100}
@@ -481,27 +673,62 @@ const page = () => {
               <p className={styles.short_heading}>Cash Prizes</p>
             </div>
           </div>
-          <div>
-            <p className={styles.scope_text} id="changing-text">
-              Our dedicated support team is here to assist you around the clock, ensuring a smooth
-              and enjoyable gaming experience.
+          <div key={supportText} className={styles.supportText}>
+            <p className={styles.scope_text} id="changing-text" key={supportText}>
+              {supportText}
             </p>
           </div>
-          <div className={styles.guns}>
-            <Image
-              className={styles.gun}
-              src="../assests/newgun.svg"
-              height={100}
-              width={100}
-              alt="akm"
-            />
-            <Image
-              className={styles.gun1}
-              src="../assests/ak471.svg"
-              height={100}
-              width={100}
-              alt="akm"
-            />
+          <div className={`${width[0] <= 450 ? styles.gunsmob : styles.guns}`}>
+            <div>
+              {width[0] <= 450 ? (
+                <Image
+                  className={styles.gun}
+                  src={activeGun === 0 ? '../assests/finalsniper.svg' : '../assests/ak471.svg'}
+                  height={100}
+                  width={100}
+                  alt="akm"
+                />
+              ) : (
+                <div className={styles.Dgun}>
+                  <div>
+                    <Image
+                      className={styles.gun2}
+                      src="../assests/ak471.svg"
+                      height={100}
+                      width={100}
+                      alt="akm"
+                    />
+                  </div>
+                  <div>
+                    <Image
+                      className={styles.gun1}
+                      src="../assests/finalsniper.svg"
+                      height={100}
+                      width={100}
+                      alt="akm"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className={styles.dotContainer}>
+              <div
+                className={` ${activeGun === 0 ? styles.activedot : `${styles.dot}`}`}
+                onClick={() => handleDotClick(0)}
+              ></div>
+              <div
+                className={`${styles.dot} ${activeGun === 1 ? styles.activedot : `${styles.dot}`}`}
+                onClick={() => handleDotClick(1)}
+              ></div>
+              <div
+                className={`${styles.dot} ${activeGun === 2 ? styles.activedot : `${styles.dot}`}`}
+                onClick={() => handleDotClick(2)}
+              ></div>
+              <div
+                className={`${styles.dot} ${activeGun === 3 ? styles.activedot : `${styles.dot}`}`}
+                onClick={() => handleDotClick(3)}
+              ></div>
+            </div>
           </div>
         </div>
       </div>
@@ -517,7 +744,7 @@ const page = () => {
       </section>
 
       <section className={styles.mapBg}>
-        <div className={styles.signUpDiv}>
+        {/* <div className={styles.signUpDiv} onMouseOver={handleButtonHover3}>
           <div className={styles.singUp}>
             <Image src="../assests/redLoction.svg" height={20} width={20} alt="red_loction" />
           </div>
@@ -588,11 +815,50 @@ const page = () => {
         </div>
 
         <div className={styles.redBlurCircle}>
-          <Image src="../assests/redcircle.svg" height={45} width={45} alt="resBlur" />
-        </div>
+          <Image
+            src="../assests/redcircle.svg"
+            height={45}
+            width={45}
+            alt="resBlur"
+          />
+        </div> */}
 
-        <div className={styles.mapBgPara}>
-          <p className={styles.mapP}>{content}</p>
+        <div className={styles.mapBgPara} key={content}>
+          <div className={styles.mapContent}>
+            {width[0] <= 450 ? (
+              <div className={styles.locationimg}>
+                <Image
+                  src="../assests/whiteLocationIcon.svg"
+                  height={15}
+                  width={15}
+                  alt="location"
+                />
+              </div>
+            ) : (
+              ''
+            )}
+
+            <h2 className={styles.mapContentHeader}>{heading} </h2>
+            <p className={styles.mapP}>{content}</p>
+          </div>
+        </div>
+        <div className={styles.dotContainerMap}>
+          <div
+            className={` ${activeMaptext === 0 ? styles.mapactivedot : `${styles.dot}`}`}
+            onClick={() => handleMapDotClick(0)}
+          ></div>
+          <div
+            className={`${styles.dot} ${
+              activeMaptext === 1 ? styles.mapactivedot : `${styles.dot}`
+            }`}
+            onClick={() => handleMapDotClick(1)}
+          ></div>
+          <div
+            className={`${styles.dot} ${
+              activeMaptext === 2 ? styles.mapactivedot : `${styles.dot}`
+            }`}
+            onClick={() => handleMapDotClick(2)}
+          ></div>
         </div>
       </section>
 
@@ -619,7 +885,7 @@ const page = () => {
         </div>
       </section>
 
-      <footer className={styles.footer} id="contact">
+      <footer className={styles.footer} id="Footer">
         <div className={styles.footerDiv}>
           <div className={styles.gradientoverlaytotopfooter}></div>
           <Image
@@ -644,10 +910,10 @@ const page = () => {
             alt="shootingStar"
           />
           <div className={styles.anchorTags}>
-            <Link className={styles.ancor} href="policy.html" target="_blank">
+            <Link className={styles.ancor} href="/landingPage/privacy" target="_blank">
               Privacy Policy
             </Link>
-            <Link className={styles.ancor} href="terms.html" target="_blank">
+            <Link className={styles.ancor} href="/landingPage/termsCondition" target="_blank">
               Terms & conditions
             </Link>
             <Link className={styles.ancor} href="">
@@ -658,7 +924,11 @@ const page = () => {
           <p className={styles.footer_para}>Let's connect for more information</p>
 
           <div className={styles.social_I}>
-            <Link href="" className={styles.sociallink}>
+            <Link
+              href="https://www.facebook.com/profile.php?id=100095239340085&is_tour_dismissed=true"
+              className={styles.sociallink}
+              target="_blank"
+            >
               <Image
                 className={styles.footerSocialIconfb}
                 src="../assests/fbiconfooterwhite.svg"
@@ -668,7 +938,11 @@ const page = () => {
               />
             </Link>
 
-            <Link href="" className={styles.sociallink}>
+            <Link
+              href="https://www.instagram.com/pattseheadshotsj/"
+              className={styles.sociallink}
+              target="_blank"
+            >
               <Image
                 className={styles.footerSocialIconinsta}
                 src="../assests/instaiconfooterwhite.svg"
@@ -677,16 +951,24 @@ const page = () => {
                 alt="insta"
               />
             </Link>
-            <Link href="" className={styles.sociallink}>
+            <Link
+              href="https://twitter.com/headshot_p4491"
+              className={styles.sociallink}
+              target="_blank"
+            >
               <Image
                 className={styles.footerSocialIcontwitter}
                 src="../assests/twittericonfooterwhite.svg"
                 width={19}
                 height={18}
-                alt="telegram"
+                alt="twitter"
               />
             </Link>
-            <Link href="" className={styles.sociallink}>
+            <Link
+              href="https://www.youtube.com/channel/UC8GDIEtwWV_67Fxpxfa298Q"
+              className={styles.sociallink}
+              target="_blank"
+            >
               <Image
                 className={styles.footerSocialIconyt}
                 src="../assests/youtubeiconfooterwhite.svg"
@@ -695,7 +977,11 @@ const page = () => {
                 alt="youtube"
               />
             </Link>
-            <Link href="" className={styles.sociallink}>
+            <Link
+              href="https://t.me/pattseheadshotsj"
+              className={styles.sociallink}
+              target="_blank"
+            >
               <Image
                 className={styles.footerSocialIcontelegram}
                 src="../assests/telegramfootericonwhite.svg"
@@ -707,7 +993,12 @@ const page = () => {
           </div>
 
           <Link href="mailto:support@pattseheadshot.com" className={styles.support}>
-            Mail us: support@pattseheadshot.com
+            Mail us:{' '}
+            <span className={styles.supporttext_span}>
+              <Link href="support@pattseheadshot.com" target="_blank">
+                support@pattseheadshot.com
+              </Link>{' '}
+            </span>
           </Link>
 
           <p className={styles.footer_text}>

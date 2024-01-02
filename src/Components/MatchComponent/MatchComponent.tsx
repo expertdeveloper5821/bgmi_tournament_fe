@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import styles from '@/styles/Dashboard.module.scss';
-import { AiOutlineDown, AiOutlineClose } from 'react-icons/ai';
-import { BsChevronDown } from 'react-icons/bs';
 import { useState } from 'react';
-import { formatDateAndTime } from '@/app/userDashboard/constants';
+import Image from 'next/image';
+import { AiOutlineClose } from 'react-icons/ai';
+import { BsChevronDown } from 'react-icons/bs';
+// import { formatDateAndTime } from '../CommonComponent/moment';
+import styles from '@/styles/Dashboard.module.scss';
 
 const MatchComponent = ({
   gameName,

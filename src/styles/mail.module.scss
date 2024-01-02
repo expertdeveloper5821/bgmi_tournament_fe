@@ -58,7 +58,7 @@
 }
 
 .input_box {
-  @include input_box;
+  @include reg_input_box;
 }
 
 .forgetbutton {
@@ -70,7 +70,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0.5rem;
 }
 
 .mail_heading {

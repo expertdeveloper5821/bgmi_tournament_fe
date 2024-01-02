@@ -1,15 +1,16 @@
 'use client';
 import React, { useState, ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
-import { useFormik, FormikHelpers } from 'formik';
+import { useFormik } from 'formik';
 //@ts-ignore
-import { Button, Input, Select } from 'technogetic-iron-smart-ui';
+import { Button, Input } from 'technogetic-iron-smart-ui';
 
 import { validationSchema } from '@/utils/schema';
 import { sendRequest } from '@/utils/axiosInstanse';
 import styles from '@/styles/Spectator.module.scss';
 
 interface FormCreate {
+  dateAndTime: string | Date;
   roomId: string;
   gameName: string;
   gameType: string;
@@ -23,14 +24,15 @@ interface FormCreate {
   highestKill: string;
   secondWin: string;
   entryFee: string;
-  mapImg: any | null;
+  mapImg: string | null;
 }
 
-const RoomFormModal = ({ getAllSpectator }: any) => {
+const RoomFormModal = ({ getAllSpectator }) => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [image, setImage] = useState<File | null>(null);
+  console.log('image', image);
 
   const initialValues: FormCreate = {
     roomId: '',
@@ -47,18 +49,20 @@ const RoomFormModal = ({ getAllSpectator }: any) => {
     secondWin: '',
     mapImg: '',
     entryFee: '',
+    dateAndTime: '',
   };
 
-  const { values, touched, errors, handleSubmit, handleChange, handleBlur, setFieldValue } =
-    useFormik<FormCreate>({
+  const { values, touched, errors, handleSubmit, handleChange, handleBlur } = useFormik<FormCreate>(
+    {
       initialValues,
       validationSchema,
-      onSubmit: async (values: any, { resetForm }) => {
+      onSubmit: async (values, { resetForm }) => {
         const dateTimeString = new Date(`${values.date} ${values.time}`);
         values.dateAndTime = dateTimeString;
 
         const form = new FormData();
-        form.append('mapImg', image);
+        // form.append('mapImg', image);
+
         for (const key in values) {
           form.append(key, values[key]);
         }
@@ -82,19 +86,20 @@ const RoomFormModal = ({ getAllSpectator }: any) => {
             setError('Failed to Add room. Please try again.');
             toast.error('Failed to Add room. Please try again.');
           }
-        } catch (error: any) {
+        } catch (error) {
           setIsLoading(false);
           setError('Failed to Add room. Please try again.');
           toast.error('Failed to Add room. Please try again.');
         }
       },
-    });
+    },
+  );
 
   return (
     <>
       <div>
         <button className={styles.main_form_btn} onClick={() => setShowModal(true)}>
-          CREATE ROOM ID
+          CREATE ROOM
         </button>
         {showModal ? (
           <div className={styles.main_pop_cls}>

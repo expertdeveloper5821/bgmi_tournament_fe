@@ -1,10 +1,17 @@
 'use client';
 import React from 'react';
-
-import Room from './Room/page';
+import styles from '@/styles/Spectator.module.scss';
+import dashStyles from '@/styles/Dashboard.module.scss';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
 
 function spectatorDashboard() {
-  return <Room />;
+  return (
+    <IsAuthenticatedHoc>
+      <div className={styles.main_container} id="mainLayoutContainerInner">
+        <div className={dashStyles.temperarly_added}>Welcome to Spectator Dashboard</div>
+      </div>
+    </IsAuthenticatedHoc>
+  );
 }
 
 export default spectatorDashboard;

@@ -1,46 +1,49 @@
 'use client';
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import styles from '@/styles/Navabar.module.scss';
-import { useRouter } from 'next/navigation';
-// @ts-ignore
-import { Avatar, Popover } from 'technogetic-iron-smart-ui';
+import React, { useEffect, useState } from 'react';
+import styles from '@/styles/Navbar.module.scss';
+import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { sendRequest } from '@/utils/axiosInstanse';
 
-interface INavbar {
-  setUserName?: Dispatch<SetStateAction<string>>;
-}
+// @ts-ignore
+import { Popover } from 'technogetic-iron-smart-ui';
+import { decodeJWt } from '@/utils/globalfunctions';
+import { useUserContext } from '@/utils/contextProvider';
+import { toast } from 'react-toastify';
+import { NavbarProps } from '@/types/navbarType';
 
-export function Navbar(props: INavbar) {
-  const [isOpen, setIsOpen] = useState(false);
+let actualPathname;
+
+export function Navbar({ notificationModalHandler }: NavbarProps) {
   const [isPopOpen, setIsPopOpen] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
-  const [userData, setUserData] = useState<string>('');
-  const [nameData, setNameData] = useState<string>('');
+  const [userData, setUserData] = useState<string | undefined>('');
+  const [nameData, setNameData] = useState<string | undefined>('');
   const [initialsName, setInitialsName] = useState<string>('');
-  const [pofile, setPofile] = useState<string>('');
+  const [, setProfile] = useState<string | undefined>('');
+  const { triggerHandleLogout } = useUserContext();
+  const pathname = usePathname();
 
-  function handleClosePopover() {
-    setIsOpen(false);
-  }
   const router = useRouter();
+
+  useEffect(() => {
+    actualPathname = pathname.split('/')[1];
+  }, [pathname]);
 
   const handleLogout = async () => {
     try {
-      localStorage.clear();
-      router.push('/');
+      localStorage.removeItem('jwtToken');
+      localStorage.removeItem('expirationTime');
+      triggerHandleLogout();
+      router.push('/auth/login');
     } catch (error) {
-      setIsLoading(false);
-      setError('Logout failed');
+      toast.error(error.message);
     }
   };
 
   const getAlldata = async () => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userData = decodeJWt(localStorage.getItem('jwtToken')!);
 
-    setUserData(userData.email);
-    setNameData(userData.fullName);
+    setUserData(userData?.email);
+    setNameData(userData?.fullName);
     let initials = '';
     userData?.fullName?.split(' ')?.forEach((initial) => {
       if (initials.length > 0) {
@@ -50,24 +53,27 @@ export function Navbar(props: INavbar) {
       }
     });
     setInitialsName(initials);
-    setPofile(userData.profilePic);
+    setProfile(userData?.profilePic);
   };
 
   useEffect(() => {
     getAlldata();
   }, []);
+
   return (
-    <header>
-      <nav className={styles.container}>
-        <div className={styles.navbarbrand}>
-          {/* {nameData && (
+    <nav className={styles.container}>
+      <div className={styles.navbarbrand}>
+        {/* {nameData && (
             <h1 className={styles.page_title}>
               Welcome <span className={styles.fullname_title}>{nameData}</span>
             </h1>
           )} */}
-        </div>
-        <ul className={styles.navbarnav}>
-          {/* <li className={styles.navitem}>
+      </div>
+      <ul
+        className={styles.listItems}
+        style={{ justifyContent: actualPathname === 'userDashboard' ? 'space-around' : 'flex-end' }}
+      >
+        {/* <li className={styles.navitem}>
               <Popover
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
@@ -136,23 +142,31 @@ export function Navbar(props: INavbar) {
                 />
               </Popover>
             </li> */}
-          <li className={styles.navitem}>
-            {nameData && (
-              <Popover
-                className={styles.popover_show}
-                isOpen={isPopOpen}
-                setIsOpen={setIsPopOpen}
-                content={
-                  <div>
-                    <div className={styles.profileContainer}>
-                      <h4 className={styles.profilename}>{nameData}</h4>
-                      <p className={styles.profileEmail}>{userData}</p>
-                      <button className={styles.logoutBtn} onClick={handleLogout}>
-                        Logout
-                      </button>
-                    </div>
 
-                    {/* <div className={styles.profilesection}>
+        {actualPathname === 'userDashboard' && (
+          <li className={styles.notificationIcon} onClick={notificationModalHandler}>
+            <Image src={'/assests/bellIcon.svg'} alt="notification" width={28} height={28} />
+            <span className={styles.notificationCount}>2</span>
+          </li>
+        )}
+
+        <li className={styles.logoutModalToggleBtn}>
+          {nameData && (
+            <Popover
+              className={styles.popover_show}
+              isOpen={isPopOpen}
+              setIsOpen={setIsPopOpen}
+              content={
+                <>
+                  <div className={styles.profileContainer}>
+                    <h4 className={styles.profilename}>{nameData}</h4>
+                    <p className={styles.profileEmail}>{userData}</p>
+                    <button className={styles.logoutBtn} onClick={handleLogout}>
+                      Logout
+                    </button>
+                  </div>
+
+                  {/* <div className={styles.profilesection}>
                       <div className={styles.flexcol}>
                         <Image
                           className={styles.profileicon}
@@ -184,7 +198,7 @@ export function Navbar(props: INavbar) {
                         <div className={styles.myprofile}>Notification</div>
                       </div>
                     </div> */}
-                    {/* <div>
+                  {/* <div>
                       <div onClick={handleLogout}>
                         <Image
                           className={styles.logoutbuttonicon}
@@ -197,29 +211,29 @@ export function Navbar(props: INavbar) {
                         Logout
                       </div>
                     </div> */}
-                  </div>
-                }
-                height="238px"
-                placement="bottom"
-                width="224px"
-              >
-                {pofile ? (
-                  <Avatar src={pofile} onClick={() => setIsPopOpen(!isPopOpen)} />
-                ) : (
-                  <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>
-                    {initialsName}
-                  </p>
-                )}
-              </Popover>
-            )}
-          </li>
-          {/* <li className={styles.navitem}>
+                </>
+              }
+              // height="238px"
+              // placement="bottom"
+              // width="224px"
+            >
+              {/* {profile ? (
+                  <></>
+                  // <Avatar src={profile} onClick={() => setIsPopOpen(!isPopOpen)} />
+                ) : ( */}
+              <p className={styles.navprofile} onClick={() => setIsPopOpen(!isPopOpen)}>
+                {initialsName}
+              </p>
+              {/* )} */}
+            </Popover>
+          )}
+        </li>
+        {/* <li className={styles.navitem}>
               <div className={styles.username_details}>
                 <h1 className={styles.user_name_title}>{nameData}</h1>
               </div>
             </li> */}
-        </ul>
-      </nav>
-    </header>
+      </ul>
+    </nav>
   );
 }

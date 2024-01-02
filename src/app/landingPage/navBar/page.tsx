@@ -25,30 +25,47 @@ const page = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
+  // const scrollToSection = (id) => {
+  //   const element = document.getElementById(id);
+  //   const offsetTop = element.offsetTop -100;
+  //   window.scrollTo({
+  //     top: offsetTop,
+  //     behavior: 'smooth'
+  //   });
+  // };
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offsetTop = element.offsetTop - 100;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth',
+      });
+    }
+  };
   return (
     <div className={styles.main_container}>
       <nav className={scrolling ? `${styles.scrollnav}` : `${styles.navbar}`}>
         <Link href="/">
           <div>
             <span className={styles.logo}>
-              <img src={'../assests/logo.svg'} />
+              <img src={scrolling ? `../assests/logo.svg` : './assests/logolightmode.svg'} />
             </span>
           </div>
         </Link>
         {width >= 969 ? (
           <ul className={scrolling ? `${styles.scrollmenu}` : `${styles.menu}`}>
             <li>
-              <Link href="/">Home</Link>
+              <a onClick={() => scrollToSection('bannerSection')}>Home</a>
             </li>
             <li>
-              <Link href="/about">About Us</Link>
+              <a onClick={() => scrollToSection('WelcomeSection')}>About Us</a>
             </li>
             <li>
-              <Link href="/about">Upcoming Matches</Link>
+              <a onClick={() => scrollToSection('UpcomingMatches')}>Upcoming Matches</a>
             </li>
             <li>
-              <Link href="/contact">Contact Us</Link>
+              <a onClick={() => scrollToSection('Footer')}>Contact Us</a>
             </li>
             <Link href="/auth/login">
               <button className={scrolling ? `${styles.scrollloginBtn}` : `${styles.loginBtn}`}>
@@ -68,16 +85,16 @@ const page = () => {
                 </div>
                 <ul className={scrolling ? `${styles.scrollmenumob}` : `${styles.menumob}`}>
                   <li>
-                    <Link href="/">Home</Link>
+                    <a onClick={() => scrollToSection('bannerSection')}>Home</a>
                   </li>
                   <li>
-                    <Link href="/about">About Us</Link>
+                    <a onClick={() => scrollToSection('WelcomeSection')}>About Us</a>
                   </li>
                   <li>
-                    <Link href="/about">Upcoming Matches</Link>
+                    <a onClick={() => scrollToSection('UpcomingMatches')}>Upcoming Matches</a>
                   </li>
                   <li>
-                    <Link href="/contact">Contact Us</Link>
+                    <a onClick={() => scrollToSection('Footer')}>Contact Us</a>
                   </li>
                   <Link href="/auth/login">
                     <button

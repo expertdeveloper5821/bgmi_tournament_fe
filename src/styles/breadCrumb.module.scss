@@ -1,0 +1,7 @@
+@import './variable.scss';
+
+.title a{
+    @media (max-width: $breakpoint-xs) {
+        font-size: 11px;
+      }
+}

@@ -1,105 +1,199 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 //@ts-ignore
-// import apiServices from '@/services/api/apiServices';
-import { sendRequest } from '@/utils/axiosInstanse';
 import { toast } from 'react-toastify';
 import Loader from '@/Components/CommonComponent/Loader/Loader';
-import router from 'next/router';
 import styles from '@/styles/Dashboard.module.scss';
-import assignmentData from '../../../utils/CreateAssignmment.json';
 //@ts-ignore
-import TableData, { StudentProfile } from '@/Components/CommonComponent/Table/Table';
+import TableData from '@/Components/CommonComponent/Table/Table';
 import { Navbar } from '@/Components/CommonComponent/Navbar/Navbar';
-import withAuth from '@/Components/HOC/WithAuthHoc';
-
-export interface IAppProps {}
+import { SearchFilter } from '@/Components/CommonComponent/SearchFilter';
+import {
+  assignRoleService,
+  deleteRoomService,
+  getAllFilteredRoomsListService,
+  getAllRoles,
+  getAllRoomsService,
+  getAllSpectators,
+} from '@/services/authServices';
+import { ROLES_DETAILS_TYPE, RoomsDataType } from '@/types/roomsTypes';
+import IsAuthenticatedHoc from '@/Components/HOC/IsAuthenticatedHoc';
+import { adminRoomColumns } from '@/utils/constant';
+import DeleteModal from '@/Components/CommonComponent/DeleteModal/DeleteModal';
+import { SpectatorsDataType } from '@/types/spectatorTypes';
+import Breadcrumb from '@/Components/CommonComponent/Breadcrumb';
 
 function page() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [paginatedData, setPaginatedData] = useState<StudentProfile[]>([]);
-  const rowPerPage = 8;
-  const [roomData, setRoomData] = useState<StudentProfile[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const imageIcon: string = 'room';
-
-  const transformedStudentData = assignmentData.studentData.map((item: StudentProfile) => ({
-    StudentName: item.StudentName,
-    Student: item.Student,
-    studentID: item.studentID,
-    Mobile: item.Mobile,
-    Course: item.Course,
-  }));
-
-  useEffect(() => {
-    // Simulate data loading or any async operation
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
+  const [wholeRoomData, setWholeRoomData] = useState<RoomsDataType[] | []>([]);
+  const [roomData, setRoomData] = useState<RoomsDataType[] | []>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const [idToDelete, setIdToDelete] = useState<string>('');
+  const [spectatorData, setSpectatorData] = useState<SpectatorsDataType[] | []>([]);
+  const [rolesDetails, setRolesDetails] = useState<[] | ROLES_DETAILS_TYPE[]>([]);
 
   const getAllTournaments = async () => {
-    const tokens = localStorage.getItem('jwtToken');
-    const tournamentResponse = await sendRequest('/room/rooms', {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${tokens}` },
-    });
-    setRoomData(tournamentResponse.data);
-  };
-
-  useEffect(() => {
-    getAllTournaments();
-  }, []);
-
-  const deleteroomId = async (_id: any) => {
     setIsLoading(true);
     try {
-      const tokens = localStorage.getItem('jwtToken');
-      const response = await sendRequest(`/room/rooms/${_id}`, {
-        method: 'delete',
-        headers: { Authorization: `Bearer ${tokens}` },
-      });
-      getAllTournaments();
-      if (response) {
-        const success = response.data.message;
-        toast.success(success);
-      }
+      const response = await getAllRoomsService();
+      setWholeRoomData(response?.data);
+      setRoomData(response?.data);
+      setIsLoading(false);
     } catch (error) {
-    } finally {
+      setIsLoading(false);
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  const getRoles = async () => {
+    setIsLoading(true);
+    try {
+      const response = await getAllRoles();
+      if (response.status === 200) {
+        setRolesDetails(response.data.data);
+      } else {
+        toast.error(response.response.data.error);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  const getSpectators = async (id) => {
+    setIsLoading(true);
+    try {
+      const response = await getAllSpectators(id);
+      if (response.status === 200) {
+        setSpectatorData(response.data.findSpacatator);
+      } else {
+        toast.error(response.response.data.error);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error?.response?.data?.error);
       setIsLoading(false);
     }
   };
 
-  const columns: string[] = [
-    'Created By',
-    'Room Id',
-    'Password',
-    'Game Name',
-    'Game Type',
-    'Map Type',
-    'Version',
-    'Time',
-    'Date',
-  ];
+  const onAssignHandler = async (data: SpectatorsDataType, roomId: string) => {
+    setIsLoading(true);
+    try {
+      const res = await assignRoleService({
+        roomid: roomId,
+        assignTo: data?.email,
+      });
+      if (res.status === 200) {
+        toast.success('Room Assigned Successfully');
+        getAllTournaments();
+        rolesDetails.length &&
+          getSpectators(
+            rolesDetails.find((role: ROLES_DETAILS_TYPE) => role.role === 'spectator')?._id,
+          );
+      } else {
+        toast.error(res.response.data.error);
+      }
+    } catch (err) {
+      setIsLoading(false);
+      toast.error('Assigning Role Failed');
+    }
+  };
+
+  useEffect(() => {
+    getRoles();
+    getAllTournaments();
+  }, []);
+
+  useEffect(() => {
+    rolesDetails.length &&
+      !spectatorData.length &&
+      getSpectators(
+        rolesDetails.find((role: ROLES_DETAILS_TYPE) => role.role === 'spectator')?._id,
+      );
+  }, [rolesDetails]);
+
+  const deleteroom = async () => {
+    setIsLoading(true);
+    try {
+      const response = await deleteRoomService({ _id: idToDelete });
+      setIdToDelete('');
+      setIsDeleteModalOpen(false);
+      getAllTournaments();
+      toast.success(response?.data?.message);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  const fetchTournaments = async (searchVal: string) => {
+    setIsLoading(true);
+    try {
+      const token = localStorage.getItem('jwtToken')!;
+      const response = await getAllFilteredRoomsListService({ token, searchVal });
+      toast.success('Rooms Found Successfully');
+      setWholeRoomData(response?.data);
+      setRoomData(response?.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error?.data?.message);
+    }
+  };
+
+  const handleSearch = (e) => {
+    const { value } = e.target;
+    const filteredResults = wholeRoomData.filter(
+      (data: RoomsDataType) =>
+        data?.createdBy?.fullName?.toLowerCase().includes(value.toLowerCase()) ||
+        data?.gameName?.toLowerCase().includes(value.toLowerCase()) ||
+        data?.gameType?.toLowerCase().includes(value.toLowerCase()) ||
+        data?.mapType?.toLowerCase().includes(value.toLowerCase()) ||
+        data?.version?.toLowerCase().includes(value.toLowerCase()),
+    );
+    setRoomData(filteredResults);
+  };
+
+  const handleDeleteUser = (_id: string) => {
+    setIdToDelete(_id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIdToDelete('');
+    setIsDeleteModalOpen(false);
+  };
 
   return (
-    <>
-        <div className={styles.main_container} id="mainLayoutContainerInner">
-          <div className={styles.abcd}>
-            <div className={styles.sidebar_wrapper}>
-              <Navbar />
-              <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
-              {/* <SearchFilter /> */}
-              {isLoading ? (
-                <Loader />
-              ) : (
-                <TableData studentData={roomData} columns={columns} showAdditionalButton={true} />
-              )}
-            </div>
+    <IsAuthenticatedHoc>
+      <div className={styles.sidebar_wrapper}>
+        <Navbar />
+        <div>
+          <h1 className={styles.heading}>Welcome to Admin Dashboard</h1>
+          <div className={styles.breadcrumbs_container}>
+            <Breadcrumb />
           </div>
+          <SearchFilter handleSearch={fetchTournaments} onChange={handleSearch} />
         </div>
-    </>
+        {isDeleteModalOpen && (
+          <DeleteModal handleCloseModal={handleCloseModal} handleDeleteUser={deleteroom} />
+        )}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <TableData
+            data={roomData}
+            assignModalData={spectatorData}
+            columns={adminRoomColumns}
+            deleteroom={handleDeleteUser}
+            type={'ROOMS'}
+            onAssignHandler={onAssignHandler}
+          />
+        )}
+      </div>
+    </IsAuthenticatedHoc>
   );
 }
 
-export default withAuth(page);
+export default page;

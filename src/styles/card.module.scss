@@ -1,64 +1,278 @@
+@import './mixins.scss';
+@import './variable.scss';
+
 .reviewsContainer {
-  margin-top: 30px;
+  box-sizing: border-box;
+  position: relative;
   padding-left: 2%;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: auto auto;
+  grid-template-rows: 120px;
+  min-width: 65vw;
+  width: 100%;
+
+  @media screen and (max-width: $breakpoint-md) {
+    width: 100%;
+    padding: 0;
+    grid-template-rows: auto;
+  }
+
+  @media screen and (max-width: $breakpoint-tab) {
+    grid-template-columns: auto;
+    width: 96%;
+  }
 }
+
+.addFriendContainer {
+  grid-template-columns: 1fr;
+}
+
 .reviewCard {
-  margin-top: 40px;
+  box-sizing: border-box;
   color: white;
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 14px;
+  min-width: 200px;
+  height: 112px;
+  display: flex;
+  align-items: center;
+  flex: 0 1 45%;
+  position: relative;
+  gap: 1rem;
+  overflow: hidden;
+
+  @media screen and (max-width: $breakpoint-tab) {
+    width: 100%;
+    overflow: none;
+  }
+
+  @media screen and (max-width: $breakpointregister-sm) {
+    width: auto;
+  }
+}
+
+.reviewCard:hover {
   border: 1px solid #ff7a00;
-  border-radius: 5px;
-  padding: 10px;
-  width: 330px;
 }
-.profile {
-  margin-left: 5px;
-  border-radius: 10px;
-  height: 70%;
+
+.sendMailBtn {
+  text-align: center;
+  max-width: 244px;
+  width: 244px;
+  height: 44px;
+  border-radius: 4px;
+  border: none;
+  font-size: 16px;
+  background-color: #ff7a00;
+  color: white;
+  font-weight: 700;
+  margin: 1rem auto;
+
+  @media screen and (max-width: $breakpointregister-sm) {
+    padding: 5px 8px;
+    height: 35px;
+    width: max-content;
+    font-size: 14px;
+  }
+
+  padding: 5px 8px;
+  height: 35px;
+  width: max-content;
+  font-size: 14px;
 }
+
+.addFriendCard {
+  border: none;
+  justify-content: space-between;
+  width: 90%;
+
+  @media screen and (max-width: $breakpoint-md) {
+    width: 100%;
+  }
+
+  @media screen and (max-width: $breakpointregister-sm) {
+    height: auto;
+    flex-wrap: wrap;
+    padding: 5px;
+  }
+}
+
+.addFriendCard:hover {
+  border: none;
+}
+
 .reviews {
   display: flex;
+  gap: 1rem;
+
+  img {
+    margin-left: 5px;
+    border-radius: 10px;
+    height: 70%;
+    width: 82px;
+    height: 74px;
+  }
+
+  @media screen and (max-width: $breakpointregister-sm) {
+    gap: 0.5rem;
+    margin: 0;
+
+    img {
+      width: 50px;
+      height: 45px;
+    }
+  }
 }
+
 .reviewer {
-  padding-left: 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
-.name h2 {
-  color: #ff7a00;
-  font-size: 20px;
-  font-weight: bold;
-}
+
 .name {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
+
+  h2 {
+    color: #ff7a00;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+
+    @media screen and (max-width: $breakpointregister-sm) {
+      font-size: 1rem;
+    }
+  }
 }
-.reviewer p {
-  font-weight: 300;
-  font-size: 15px;
-  margin-top: 5px;
+
+.reviewer {
+  p {
+    font-weight: 300;
+    font-size: 15px;
+    margin-top: 5px;
+    text-overflow: ellipsis;
+
+    @media screen and (max-width: $breakpointregister-sm) {
+      font-size: 14px;
+    }
+  }
+
+  span {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+  }
 }
-.reviewer span {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 10px;
-}
-.sendinvite {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
+
 .sendinvite span {
   color: #ffc700;
   font-weight: 600;
 }
-.sendinvite img {
-  height: 10px;
-  width: 10px;
-  margin-right: 5px;
-}
+
 .greenCircle {
-  height: 10px;
-  width: 10px;
+  height: 6px;
+  width: 6px;
   border-radius: 50%;
   background: green;
 }
-// delete modal
+
+.addFriendBtn {
+  background-color: transparent;
+  color: #ff7a00;
+  border: 1px solid #ff7a00;
+  min-width: 136px;
+
+  @media screen and (max-width: $breakpointregister-sm) {
+    font-size: 14px;
+    min-width: 100px;
+    height: 38px;
+    padding: 0;
+  }
+}
+
+.deleteBtn {
+  color: #ffc700;
+  position: absolute;
+  font-weight: 500;
+  right: 13px;
+  top: 13px;
+  width: 22px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.cardContainer {
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: $breakpoint-md) {
+    justify-content: center;
+    flex-direction: column-reverse;
+  }
+}
+
+.bannerContainer {
+  width: 30vw;
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: $breakpoint-md) {
+    width: 100%;
+  }
+}
+
+.cardbannerimg {
+  width: 40vw;
+  height: 70vh;
+  margin-top: -64px;
+
+  @media screen and (max-width: $breakpoint-md) {
+    height: auto;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  @media screen and (max-width: $breakpointregister-sm) {
+    width: 60vw;
+  }
+}
+
+.noDataCard {
+  text-align: center;
+  font-family: Century Gothic;
+  line-height: 4;
+
+  img {
+    width: 20vh;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 1rem;
+  }
+
+  .sorryTag {
+    height: 55px;
+  }
+  strong {
+    font-size: 3rem;
+    font-weight: 700;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 2rem;
+    }
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 1.3rem;
+      width: auto;
+    }
+  }
+}
