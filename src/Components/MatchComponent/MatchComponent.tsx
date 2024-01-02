@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { AiOutlineClose } from 'react-icons/ai';
 import { BsChevronDown } from 'react-icons/bs';
-import { formatDateAndTime } from '../CommonComponent/moment';
+// import { formatDateAndTime } from '../CommonComponent/moment';
 import styles from '@/styles/Dashboard.module.scss';
 
 const MatchComponent = ({
@@ -22,7 +22,7 @@ const MatchComponent = ({
     <>
       <span className={styles.register_match_gamename}>{gameName}</span>
       <span className={styles.winning_prize}>
-        Date & Time: {formatDateAndTime(dateAndTime, dateAndTime, 'LT')}
+        Date & Time: {dateAndTime}
       </span>
       <div className={styles.winnings}>
         <div>
