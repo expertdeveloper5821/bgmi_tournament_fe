@@ -1785,7 +1785,7 @@ body.activemodal {
   z-index: 10;
   border-color: #ff7a00;
   border-radius: 50%;
-  color: #ff7a00 ;
+  color: $bs-orange ;
 }
 
 @media (min-width: $breakpoint-tab) and (max-width: $breakpoint-ms) {
