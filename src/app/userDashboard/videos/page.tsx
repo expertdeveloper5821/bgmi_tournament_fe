@@ -117,7 +117,11 @@ const Page: React.FC = () => {
                       <div className={styles.col}>
                         <h1 className={styles.head}>{data[currentCardIndex]?.title}</h1>
                         <div className={styles.flex}>
-                          <span> {formatDateTime(data[currentCardIndex]?.dateAndTime)}</span>
+                          <span>
+                            {data[currentCardIndex]?.dateAndTime
+                              ? formatDateTime(data[currentCardIndex]?.dateAndTime)
+                              : 'Not Data'}
+                          </span>
                           <img
                             src="../assests/copylink.svg"
                             alt="videoimage"
