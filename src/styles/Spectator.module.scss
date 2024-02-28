@@ -1030,6 +1030,17 @@ button#btn_cls_st {
 
 .card .container_image .image img {
   border-radius: 5px;
+ 
+
+  @media (max-width: $breakpoint-md) {
+    width: 108px;
+    height: 108px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    width: 108px;
+    height: 108px;
+  }
 }
 
 .image {

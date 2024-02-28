@@ -148,7 +148,7 @@ const Friend = () => {
         }
       }
     } catch (error) {
-      toast.error('Something went worng');
+      // toast.error('Something went worng');
       setLoading(false);
     }
   }
