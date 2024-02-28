@@ -79,7 +79,7 @@
 
 .inputContainer {
   height: 44px;
-   border: none !important; 
+   border: none; 
   border-radius: 8px;
   position: relative;
 
@@ -108,7 +108,7 @@
   padding: 5px 1rem;
   font-size: 1rem;
   outline: none;
-  background-color:  white;
+  background-color: $bs-white;
   color: black;
 }
 
@@ -464,7 +464,7 @@
   }
 
   .teamName {
-    color: black;
+    color: $bs-black;
     background-color:  white;
     border: 1px solid #ff7a00;
     width: 80%;
