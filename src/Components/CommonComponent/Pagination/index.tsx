@@ -70,7 +70,12 @@ const Pagination: React.FC<PaginationProps> = ({
           </button>
           {currentPage > Math.floor(maxVisiblePages / 2) + 1 && (
             <React.Fragment>
-              <button onClick={() => handlePageChange(1)}>1</button>
+              <button
+                onClick={() => handlePageChange(1)}
+                className={currentPage === 1 ? styles.Active : styles.InActive}
+              >
+                1
+              </button>
               <span>...</span>
             </React.Fragment>
           )}
@@ -86,7 +91,12 @@ const Pagination: React.FC<PaginationProps> = ({
           {currentPage + Math.floor(maxVisiblePages / 2) < totalPages && (
             <React.Fragment>
               <span>...</span>
-              <button onClick={() => handlePageChange(totalPages)}>{totalPages}</button>
+              <button
+                onClick={() => handlePageChange(totalPages)}
+                className={currentPage === totalPages ? styles.Active : styles.InActive}
+              >
+                {totalPages}
+              </button>
             </React.Fragment>
           )}
           <button onClick={handleNextPage}>
