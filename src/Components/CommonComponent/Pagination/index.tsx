@@ -2,22 +2,24 @@ import React from 'react';
 import styles from '@/styles/pagination.module.scss';
 import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
 
-const Pagination = ({ totalItems, itemsPerPage, currentPage, setCurrentPage }) => {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const pageNumbers: { page: number; isActive: boolean }[] = [];
+interface PaginationProps {
+  totalItems: number;
+  itemsPerPage: number;
+  currentPage: number;
+  setCurrentPage: (page: number) => void;
+}
 
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push({
-      page: i,
-      isActive: i === currentPage,
-    });
-  }
+const Pagination: React.FC<PaginationProps> = ({
+  totalItems,
+  itemsPerPage,
+  currentPage,
+  setCurrentPage,
+}) => {
+  const totalPages: number = Math.ceil(totalItems / itemsPerPage);
+  const maxVisiblePages: number = 3;
 
-  const handlePageChange = (p) => {
-    const newPage = parseInt(p);
-    if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   const handlePrevPage = () => {
@@ -32,22 +34,71 @@ const Pagination = ({ totalItems, itemsPerPage, currentPage, setCurrentPage }) =
     }
   };
 
+  const getPageNumbers = (): number[] => {
+    const pageNumbers: number[] = [];
+    let startPage: number, endPage: number;
+
+    if (totalPages <= maxVisiblePages) {
+      startPage = 1;
+      endPage = totalPages;
+    } else {
+      if (currentPage <= Math.floor(maxVisiblePages / 2) + 1) {
+        startPage = 1;
+        endPage = maxVisiblePages;
+      } else if (currentPage + Math.floor(maxVisiblePages / 2) >= totalPages) {
+        startPage = totalPages - maxVisiblePages + 1;
+        endPage = totalPages;
+      } else {
+        startPage = currentPage - Math.floor(maxVisiblePages / 2);
+        endPage = currentPage + Math.floor(maxVisiblePages / 2);
+      }
+    }
+
+    for (let i: number = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+
+    return pageNumbers;
+  };
+
   return (
     <div className={styles.main_container}>
-      {pageNumbers.length > 1 && (
+      {totalPages > 1 && (
         <ul className={styles.un_list}>
           <button onClick={handlePrevPage}>
             <FaCaretLeft color={'#FF7A00'} />
           </button>
-          {pageNumbers.map((p) => (
+          {currentPage > Math.floor(maxVisiblePages / 2) + 1 && (
+            <React.Fragment>
+              <button
+                onClick={() => handlePageChange(1)}
+                className={currentPage === 1 ? styles.Active : styles.InActive}
+              >
+                1
+              </button>
+              <span>...</span>
+            </React.Fragment>
+          )}
+          {getPageNumbers().map((page) => (
             <button
-              key={p.page}
-              onClick={() => handlePageChange(p.page)}
-              className={`${p.isActive ? styles['Active'] : styles['InActive']}`}
+              key={page}
+              onClick={() => handlePageChange(page)}
+              className={`${page === currentPage ? styles.Active : styles.InActive}`}
             >
-              {p.page}
+              {page}
             </button>
           ))}
+          {currentPage + Math.floor(maxVisiblePages / 2) < totalPages && (
+            <React.Fragment>
+              <span>...</span>
+              <button
+                onClick={() => handlePageChange(totalPages)}
+                className={currentPage === totalPages ? styles.Active : styles.InActive}
+              >
+                {totalPages}
+              </button>
+            </React.Fragment>
+          )}
           <button onClick={handleNextPage}>
             <FaCaretRight color={'#FF7A00'} />
           </button>
