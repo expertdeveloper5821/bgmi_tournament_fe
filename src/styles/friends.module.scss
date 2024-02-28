@@ -79,8 +79,10 @@
 
 .inputContainer {
   height: 44px;
+   border: none; 
   border-radius: 8px;
   position: relative;
+
 
   @media (max-width: $breakpoint-md) {
     margin-bottom: 10px;
@@ -100,11 +102,14 @@
 
 .inputContainer input {
   width: 285px;
+  border: none;
   height: 44px;
   border-radius: 4px;
   padding: 5px 1rem;
   font-size: 1rem;
   outline: none;
+  background-color: $bs-white;
+  color: black;
 }
 
 .mainContainer {
@@ -459,6 +464,8 @@
   }
 
   .teamName {
+    color: $bs-black;
+    background-color: $bs-white;
     border: 1px solid #ff7a00;
     width: 80%;
   }

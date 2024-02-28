@@ -48,6 +48,7 @@ const InviteModal = ({
             <input
               type="search"
               id="search"
+              className={styles.teamName}
               name="search"
               value={inputValue || userMail}
               placeholder="Enter email press enter and send invitation"
